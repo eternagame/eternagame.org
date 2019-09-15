@@ -1,0 +1,149 @@
+// Eterna theme
+// Bootswatch
+
+//
+// Color system
+//
+
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #ecf0f1 !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #b4bcc2 !default;
+$gray-600: #95a5a6 !default;
+$gray-700: #7b8a8b !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$blue: #21508c !default;
+$dark-blue: #05224b !default;
+$light-blue: #50b2dc !default;
+$med-blue: #2f94d1 !default;
+$med-dark-blue: #043468 !default;
+$green: #53b64e !default;
+$dark-green: #3d8e39 !default;
+$light-green: #97cc93 !default;
+$red: #d73832 !default;
+$orange: #fd7e14 !default;
+$yellow: #fac244 !default;
+$white: #fff !default;
+$gray: #95a5a6 !default;
+$gray-dark: #343a40 !default;
+$primary: $blue !default;
+$secondary: $light-blue !default;
+$success: $green !default;
+$info: $med-blue !default;
+$warning: #f39c12 !default;
+$danger: #e74c3c !default;
+$light: #ecf0f1 !default;
+$dark: #7b8a8b !default;
+
+$colors: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$colors: map-merge(
+  (
+    "blue":       $blue,
+    "dark-blue":     $dark-blue,
+    "light-blue":     $light-blue,
+    "med-blue":       $med-blue,
+    "med-dark-blue":       $med-dark-blue,
+    "red":        $red,
+    "orange":     $orange,
+    "yellow":     $yellow,
+    "green":      $green,
+    "dark-green":       $dark-green,
+    "light-green":       $light-green,
+    "white":      $white,
+    "gray":       $gray-600,
+    "gray-dark":  $gray-800
+  ),
+  $colors
+);
+
+
+$yiq-contrasted-threshold:  175 !default;
+
+// Links
+
+$link-color:                $yellow !default;
+
+// Body 
+
+$body-bg:                   $dark-blue !default;
+$body-color:                $white !default;
+
+// Fonts
+
+$font-family-sans-serif:      "Open Sans", sans-serif !default;
+
+$font-size-base:              0.9375rem !default;
+
+$h1-font-size:                3rem !default;
+$h2-font-size:                2.5rem !default;
+$h3-font-size:                2rem !default;
+
+// Tables
+
+$table-accent-bg:             $gray-200 !default;
+
+// Dropdowns
+
+$dropdown-link-color:               $gray-700 !default;
+$dropdown-link-hover-color:         $white !default;
+$dropdown-link-hover-bg:            $primary !default;
+
+// Navs
+
+$nav-link-padding-y:                .5rem !default !default;
+$nav-link-padding-x:                2rem !default;
+$nav-link-disabled-color:           $gray-600 !default !default;
+
+$nav-tabs-border-color:             $gray-200 !default;
+$nav-tabs-link-active-bg:           $white !default;
+
+// Navbar
+
+$navbar-padding-y:                  1rem !default;
+$navbar-dark-color:                 $white !default;
+$navbar-dark-hover-color:           $yellow !default;
+
+// Pagination
+
+$pagination-color:                  $white !default;
+$pagination-bg:                     $success !default;
+$pagination-border-width:           0 !default;
+$pagination-border-color:           transparent !default;
+
+$pagination-hover-color:            $white !default;
+$pagination-hover-bg:               darken($success, 15%) !default;
+$pagination-hover-border-color:     transparent !default;
+
+$pagination-active-bg:              $pagination-hover-bg !default;
+$pagination-active-border-color:    transparent !default;
+
+$pagination-disabled-color:         $gray-200 !default;
+$pagination-disabled-bg:            lighten($success, 15%) !default;
+$pagination-disabled-border-color:  transparent !default;
+
+// Progress bars
+
+$progress-height:                   0.825rem !default;
+$progress-font-size:                0.625rem !default;
+
+// List group
+
+$list-group-hover-bg:               $blue !default;
+$list-group-disabled-bg:            $gray-900 !default;
+$list-group-active-bg:              $med-blue !default;
+$list-group-action-active-bg:       $med-dark-blue !default;
+$list-group-action-hover-color:     $white !default;
+
+// Close
+
+$close-color:                       $white !default;
+$close-text-shadow:                 none !default;
+
+$popover-bg:                        $dark !default;
+$popover-header-color:              $light !default;

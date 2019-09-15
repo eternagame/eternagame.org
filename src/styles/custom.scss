@@ -1,0 +1,20 @@
+.page-container {
+  width: 100%;
+  max-width: 100%;
+}
+
+@include media-breakpoint-up(xl) {
+  .page-container, .navbar-container {
+    max-width: map-get($grid-breakpoints, "xl");
+    width: 100%;
+  }
+}
+
+.gray-header {
+  font-weight: bold;
+  color: $gray;
+}
+
+.card {
+  border-radius: 0.5rem;
+}

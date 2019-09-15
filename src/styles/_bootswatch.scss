@@ -1,0 +1,358 @@
+// Eterna theme
+// Bootswatch
+
+
+// Variables ===================================================================
+
+$web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic" !default;
+@import url($web-font-path);
+
+// Navbar =======================================================================
+
+.bg-primary {
+  .navbar-nav {
+    .nav-link:focus,
+    .nav-link:hover,
+    .active > .nav-link {
+      color: $yellow !important;
+    }
+  }
+}
+
+.bg-dark {
+  background-color: $med-dark-blue !important;
+  &.navbar-dark .navbar-nav {
+    .nav-link:focus,
+    .nav-link:hover,
+    .active > .nav-link {
+      color: $yellow !important;
+    }
+  }
+}
+
+.bg-light {
+  input {
+    background-color: $white;
+  }
+  color: $dark;
+}
+
+
+
+
+// Buttons =====================================================================
+
+.btn {
+  &-secondary,
+  &-secondary:hover,
+  &-warning,
+  &-warning:hover {
+    color: #fff;
+  }
+}
+
+.btn {
+  &-primary {
+    background-color: $green;
+    border-color: $green;
+  }
+  &-primary:hover {
+    background-color: $dark-green;
+    border-color: $dark-green;
+  }
+  &-outline-primary {
+    border-color: $green;
+    color: $green
+  }
+  &-outline-primary:hover {
+    background-color: $dark-green;
+    border-color: $dark-green;
+  }
+}
+
+.btn-primary.disabled, .btn-primary:disabled, .btn-primary.disabled:hover {
+  background-color: $green;
+  border-color: $green;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
+  background-color: $dark-green;
+  border-color: $dark-green;
+}
+
+// Typography ==================================================================
+
+.title {
+  font-weight: 700;
+  margin-top: 1rem;
+}
+
+.nav-link, .btn {
+  font-weight: 600;
+}
+
+// Tables ======================================================================
+
+.table {
+  &,
+  &-primary,
+  &-secondary,
+  &-success,
+  &-info,
+  &-warning,
+  &-danger {
+    color: $white;
+  }
+
+  &-primary {
+    &, > th, > td {
+      background-color: $primary;
+    }
+  }
+
+  &-secondary {
+    &, > th, > td {
+      background-color: $secondary;
+    }
+  }
+
+  &-light {
+    &, > th, > td {
+      background-color: $light;
+      color: $dark;
+    }
+  }
+
+  &-dark {
+    &, > th, > td {
+      background-color: $dark;
+    }
+  }
+
+  &-success {
+    &, > th, > td {
+      background-color: $success;
+    }
+  }
+
+  &-info {
+    &, > th, > td {
+      background-color: $info;
+    }
+  }
+
+  &-danger {
+    &, > th, > td {
+      background-color: $danger;
+    }
+  }
+
+  &-warning {
+    &, > th, > td {
+      background-color: $warning;
+    }
+  }
+
+  &-active {
+    &, > th, > td {
+      background-color: $table-active-bg;
+    }
+  }
+
+  &-hover {
+    :hover {
+      &, > th, > td {
+        color: $light;
+      }
+    }
+
+    .table-primary:hover {
+      &, > th, > td {
+        background-color: darken($primary, 5%);
+        color: $light;
+      }
+    }
+
+    .table-secondary:hover {
+      &, > th, > td {
+        background-color: darken($secondary, 5%);
+        color: $light;
+      }
+    }
+
+    .table-light:hover {
+      &, > th, > td {
+        background-color: darken($light, 5%);
+        color: $black;
+      }
+    }
+
+    .table-dark:hover {
+      &, > th, > td {
+        background-color: darken($dark, 5%);
+        color: $light;
+      }
+    }
+
+    .table-success:hover {
+      &, > th, > td {
+        background-color: darken($success, 5%);
+        color: $light;
+      }
+    }
+
+    .table-info:hover {
+      &, > th, > td {
+        background-color: darken($info, 5%);
+        color: $light;
+      }
+    }
+
+    .table-danger:hover {
+      &, > th, > td {
+        background-color: darken($danger, 5%);
+        color: $light;
+      }
+    }
+
+    .table-warning:hover {
+      &, > th, > td {
+        background-color: darken($warning, 5%);
+        color: $light;
+      }
+    }
+
+    .table-active:hover {
+      &, > th, > td {
+        background-color: $table-active-bg;
+        color: $light;
+      }
+    }
+
+  }
+}
+
+// Forms =======================================================================
+
+.form-control {
+  background-color: $dark-blue;
+}
+
+// Navs ========================================================================
+
+.nav-tabs {
+  .nav-link.active,
+  .nav-link.active:focus,
+  .nav-link.active:hover,
+  .nav-item.open .nav-link,
+  .nav-item.open .nav-link:focus,
+  .nav-item.open .nav-link:hover {
+    color: $primary;
+  }
+  .nav-item {
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+}
+
+.pagination {
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+.breadcrumb {
+  background-color: $dark-blue;
+  border: 1px solid $med-blue;
+}
+
+.dropdown-menu {
+  background-color: $med-dark-blue;
+}
+
+.dropdown-item {
+  color: $white;
+}
+
+
+// Indicators ==================================================================
+
+.close {
+  text-decoration: none;
+  opacity: 0.4;
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+}
+
+.badge {
+  &-secondary,
+  &-warning {
+    color: #fff;
+  }
+}
+
+.alert {
+  border: none;
+  color: $white;
+
+  a,
+  .alert-link {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  @each $color, $value in $theme-colors {
+    &-#{$color} {
+      @if $enable-gradients {
+        background: $value linear-gradient(180deg, mix($body-bg, $value, 15%), $value) repeat-x;
+      } @else {
+        background-color: $value;
+      }
+    }
+  }
+
+  &-light {
+    &,
+    & a,
+    & .alert-link {
+      color: $body-color;
+    }
+  }
+}
+
+// Progress bars ===============================================================
+
+// Containers ==================================================================
+.modal .close{
+  color: $black;
+
+  &:not(:disabled):not(.disabled):hover,
+  &:not(:disabled):not(.disabled):focus {
+    color: $black;
+  }
+}
+
+.modal-content {
+  background-color: $primary;
+}
+
+.modal-header, .modal-footer {
+  border-color: $dark-blue;
+}
+
+.jumbotron, .list-group-item, .card {
+  background-color: $med-dark-blue;
+}
+
+.card-header {
+  font-weight: 700;
+}
+
+
+.alert-light, .alert-light a, .alert-light .alert-link {
+  color: $dark;
+}

@@ -1,0 +1,32 @@
+<template>
+  <div>
+    <div class="d-flex justify-content-between">
+      <h4><b>Round {{round.round}}</b></h4>
+      <span>
+        <b><span class="gray-header">Status:</span>&nbsp;Accepting Submissions</b>
+      </span>
+    </div>
+    <Gallery>
+      <LabPuzzleCard v-for="puzzle in round.puzzles" :key="puzzle.nid" :puzzle="puzzle"/>
+    </Gallery>
+  </div>
+</template>
+
+<script lang="ts">
+  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { RoundData } from '../types';
+  import LabPuzzleCard from './LabPuzzleCard.vue';
+
+@Component({
+    components: {
+      LabPuzzleCard,
+    },
+  })
+  export default class LabRound extends Vue {
+    @Prop() round!: RoundData;
+  }
+</script>
+
+<style scoped lang="scss">
+
+</style>

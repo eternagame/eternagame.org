@@ -269,10 +269,19 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400,700,400it
 
 .dropdown-menu {
   background-color: $med-dark-blue;
+  border-color: darken($med-dark-blue, 5%);
 }
 
 .dropdown-item {
   color: $white;
+}
+
+.dropdown-divider {
+  border-color: darken($med-dark-blue, 5%);
+}
+
+.nav-pills .nav-link:active {
+  // border-color: darken($med-dark-blue, 5%);
 }
 
 

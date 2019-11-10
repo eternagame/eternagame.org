@@ -1,8 +1,8 @@
 <template>
   <div class="panel">
-    <AsidePanelHeader>
+    <SidebarPanelHeader>
       <slot name="header"></slot>
-    </AsidePanelHeader>
+    </SidebarPanelHeader>
     <div class="body">
       <slot></slot>
     </div>
@@ -11,14 +11,14 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import AsidePanelHeader from './AsidePanelHeader.vue';
+  import SidebarPanelHeader from './SidebarPanelHeader.vue';
 
   @Component({
     components: {
-      AsidePanelHeader,
+      SidebarPanelHeader,
     },
   })
-  export default class AsidePanel extends Vue {}
+  export default class SidebarPanel extends Vue {}
 </script>
 
 <style lang="scss" scoped>

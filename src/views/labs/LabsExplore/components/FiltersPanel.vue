@@ -1,20 +1,20 @@
 <template>
-  <AsidePanel>
+  <SidebarPanel>
     <template #header>
       <img src="@/assets/Filter.svg"/>
       Filters
     </template>
     <b-checkbox-group v-model="selected" :options="options" stacked/>
-  </AsidePanel>
+  </SidebarPanel>
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import AsidePanel from '@/components/Aside/AsidePanel.vue';
+  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
 
   @Component({
     components: {
-      AsidePanel,
+      SidebarPanel,
     },
   })
   export default class LabInfoPanel extends Vue {

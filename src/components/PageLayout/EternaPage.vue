@@ -5,8 +5,8 @@
         <b-col cols="12" lg="9" class="body">
           <slot></slot>
         </b-col>
-        <b-col class="aside">
-          <slot name="aside"></slot>
+        <b-col class="sidebar">
+          <slot name="sidebar"></slot>
         </b-col>
       </b-row>
     </b-container>
@@ -56,7 +56,7 @@
   //   flex-wrap: nowrap;
   // }
 
-  .body, .aside {
+  .body, .sidebar {
     margin-top: 15px;
   }
 </style>

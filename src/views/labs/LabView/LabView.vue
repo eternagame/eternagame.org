@@ -2,7 +2,7 @@
   <EternaPage v-if="data">
     <LabDescription :lab="lab" style="margin-bottom: 3.5rem;"/>
     <LabRound v-for="round in lab.puzzles" :key="round.round" :round="round"/>
-    <template #aside>
+    <template #sidebar>
       <LabInfoPanel :lab="lab"/>
       <TagsPanel :tags="['#Switch', '#Ribosome']"/>
     </template>
@@ -14,7 +14,7 @@
   import axios from 'axios';
   import { RouteCallback, Route } from 'vue-router';
   import LabDescription from './components/LabDescription.vue';
-  import AsidePanel from '@/components/Aside/AsidePanel.vue';
+  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import LabViewData, { LabData } from './types';
   import LabInfoPanel from './components/LabInfoPanel.vue';
@@ -23,7 +23,7 @@
 
   @Component({
     components: {
-      AsidePanel,
+      SidebarPanel,
       EternaPage,
       LabDescription,
       LabInfoPanel,

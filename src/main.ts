@@ -5,9 +5,6 @@ import router from './router';
 import store from './store/store';
 import InitGlobalComponents from '@/components/global';
 
-// import 'bootstrap/dist/css/bootstrap.css';
-// import 'bootstrap-vue/dist/bootstrap-vue.css';
-
 Vue.use(BootstrapVue);
 
 InitGlobalComponents();

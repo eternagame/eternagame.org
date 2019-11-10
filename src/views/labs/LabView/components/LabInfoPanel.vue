@@ -1,5 +1,5 @@
 <template>
-  <AsidePanel>
+  <SidebarPanel>
     <template #header>
       <img src="@/assets/info.svg" />
       Lab Info
@@ -12,17 +12,17 @@
     <br/>
     <span class="gray-header">Currently active:</span><br/>
     <b>Round 4</b>
-  </AsidePanel>
+  </SidebarPanel>
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import AsidePanel from '@/components/Aside/AsidePanel.vue';
+  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import { LabData } from '../types';
 
   @Component({
     components: {
-      AsidePanel,
+      SidebarPanel,
     },
   })
   export default class LabInfoPanel extends Vue {

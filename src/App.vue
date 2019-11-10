@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <Navbar/>
+    <VueBootstrapBreakpointIndicator style="z-index: 1070"/>
     <router-view :key="$route.fullPath"/>
   </div>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import Navbar from '@/components/PageLayout/Navbar.vue';
+  import VueBootstrapBreakpointIndicator from 'vue-bootstrap-breakpoint-indicator';
+  import Navbar from '@/components/PageLayout/Navbar/Navbar.vue';
 
   @Component({
     components: {
       Navbar,
+      VueBootstrapBreakpointIndicator,
     },
   })
   export default class App extends Vue {

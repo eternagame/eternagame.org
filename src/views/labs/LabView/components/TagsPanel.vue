@@ -1,22 +1,22 @@
 <template>
-  <AsidePanel>
-    <template #header>
+  <SidebarPanel>
+    <template #sidebar>
       <img src="@/assets/hashtag.svg"/>
       Tags
     </template>
     <ul style="padding: 0; list-style-type:none">
       <li class="gray-header" v-for="tag in tags" :key="tag">{{tag}}</li>
     </ul>
-</AsidePanel>
+</SidebarPanel>
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import AsidePanel from '@/components/Aside/AsidePanel.vue';
+  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
 
   @Component({
     components: {
-      AsidePanel,
+      SidebarPanel,
     },
   })
   export default class TagsPanel extends Vue {

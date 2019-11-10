@@ -9,7 +9,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
 
   @Component
-  export default class AsidePanelHeader extends Vue {
+  export default class SidebarPanelHeader extends Vue {
     @Prop() private imageUrl!: string;
 
     @Prop() private text!: string;

@@ -6,7 +6,7 @@
     <Gallery>
       <LabCard v-for="lab in data.labs" :key="lab.nid" :lab="lab"/>
     </Gallery>
-    <template #aside>
+    <template #sidebar>
       <FiltersPanel :filters="filters"/>
     </template>
   </EternaPage>
@@ -17,7 +17,7 @@
   import axios from 'axios';
   import { RouteCallback, Route } from 'vue-router';
   import LabCard from './components/LabCard.vue';
-  import AsidePanel from '@/components/Aside/AsidePanel.vue';
+  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import LabsExploreData, { LabCardData } from './types';
   import FiltersPanel from './components/FiltersPanel.vue';
@@ -25,7 +25,7 @@
   @Component({
     components: {
       LabCard,
-      AsidePanel,
+      SidebarPanel,
       EternaPage,
       FiltersPanel,
     },

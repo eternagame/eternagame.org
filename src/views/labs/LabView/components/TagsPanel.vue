@@ -1,8 +1,7 @@
 <template>
-  <SidebarPanel>
-    <template #sidebar>
-      <img src="@/assets/hashtag.svg"/>
-      Tags
+  <SidebarPanel header="Tags" :headerIcon="require('@/assets/sidebar/hashtag.svg')">
+    <template #header-icon>
+      <img src="@/assets/sidebar/hashtag.svg"/>
     </template>
     <ul style="padding: 0; list-style-type:none">
       <li class="gray-header" v-for="tag in tags" :key="tag">{{tag}}</li>

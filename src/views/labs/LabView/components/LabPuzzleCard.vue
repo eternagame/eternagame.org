@@ -41,7 +41,6 @@
     @Prop({ default: '275px' }) private width!: string;
 
     get imageURL() {
-      console.log(this.puzzle);
       return Utils.getPuzzleMiddleThumbnail(this.puzzle.nid);
     }
 

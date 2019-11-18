@@ -1,9 +1,6 @@
 <template>
-  <SidebarPanel>
-    <template #header>
-      <img src="@/assets/Filter.svg"/>
-      Filters
-    </template>
+  <SidebarPanel :isInSidebar="isInSidebar" header="Filters">
+    <template #header-icon><img src="@/assets/Filter.svg"/></template>
     <b-checkbox-group v-model="selected" :options="options" stacked/>
   </SidebarPanel>
 </template>
@@ -20,6 +17,9 @@
   export default class LabInfoPanel extends Vue {
     @Prop({ required: true })
     private filters!: string[];
+
+    @Prop({ default: false })
+    private isInSidebar!: boolean;
 
     private selected: boolean[] = [];
 

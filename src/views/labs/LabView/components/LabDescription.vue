@@ -1,8 +1,11 @@
 <template>
   <div>
-    <h3>
-      <b>Lab Details</b>
-    </h3>
+      <h3 class="d-flex justify-content-between">
+        <b>Lab Details</b>
+        <SidebarIconsSection>
+          <slot name="sidebar-icons"></slot>
+        </SidebarIconsSection>
+      </h3>
     <div class="card" style="width:100; border: none;">
         <div :style="{'position': 'relative', 'background-image': `url(${defaultImage})`,
                        height: '250px'}" class="p-2">
@@ -23,11 +26,13 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { LabData } from '../types';
+  import SidebarIconsSection from '@/components/Sidebar/SidebarIconsSection.vue';
 
   const defaultImage = require('@/assets/ribosome_challenge_bg.png');
 
   @Component({
     components: {
+      SidebarIconsSection,
     },
   })
   export default class LabDescription extends Vue {

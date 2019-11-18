@@ -1,6 +1,11 @@
 <template>
   <EternaPage v-if="data">
-    <LabDescription :lab="lab" style="margin-bottom: 3.5rem;"/>
+    <LabDescription :lab="lab" style="margin-bottom: 3.5rem;">
+      <template #sidebar-icons>
+        <LabInfoPanel :lab="lab"/>
+        <TagsPanel :tags="['#Switch', '#Ribosome']"/>
+      </template>
+    </LabDescription>
     <LabRound v-for="round in lab.puzzles" :key="round.round" :round="round"/>
     <template #sidebar>
       <LabInfoPanel :lab="lab"/>

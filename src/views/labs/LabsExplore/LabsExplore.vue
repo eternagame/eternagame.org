@@ -1,8 +1,13 @@
 <template>
   <EternaPage v-if="data">
-    <h3>
-      <b>Labs</b>
-    </h3>
+    <div class="d-flex justify-content-between">
+      <h3>
+        <b>Labs</b>
+      </h3>
+      <SidebarIconsSection>
+        <FiltersPanel :filters="filters"/>
+      </SidebarIconsSection>
+    </div>
     <Gallery>
       <LabCard v-for="lab in data.labs" :key="lab.nid" :lab="lab"/>
     </Gallery>
@@ -21,6 +26,7 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import LabsExploreData, { LabCardData } from './types';
   import FiltersPanel from './components/FiltersPanel.vue';
+  import SidebarIconsSection from '@/components/Sidebar/SidebarIconsSection.vue';
 
   @Component({
     components: {
@@ -28,6 +34,7 @@
       SidebarPanel,
       EternaPage,
       FiltersPanel,
+      SidebarIconsSection,
     },
   })
   export default class LabsExploreView extends Vue {

@@ -1,6 +1,12 @@
 <template>
   <div style="overflow:hidden; margin-top: 120px;">
-    <b-container class="page-container p-4">
+    <b-container class="page-container">
+      <h2 class="page-title">
+        <b>{{title}}</b>
+        <div class="d-lg-none">
+          <slot name="sidebar"></slot>
+        </div>
+      </h2>
       <b-row>
         <b-col cols="12" lg="9" class="body">
           <slot></slot>
@@ -26,6 +32,9 @@
     },
   })
   export default class EternaPage extends Vue {
+    @Prop({ required: true })
+    title!: string;
+
     $refs!: {
       mobileSidebar: MobileSidebar;
     };
@@ -50,6 +59,7 @@
   .page-container {
     position: relative;
     min-height: Calc(100vh - 120px);
+    padding: 3rem 1.5rem;
   }
   .page-container:before {
     box-shadow: -45px 0 45px -45px inset black;
@@ -73,13 +83,10 @@
   .page-container:after {
     display: flex;
   }
-  // .page-container {
-  //   display: flex;
-  //   flex-direction: row;
-  //   flex-wrap: nowrap;
-  // }
-
-  .body, .sidebar {
-    margin-top: 15px;
+  .page-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 2.25rem;
   }
 </style>

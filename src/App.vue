@@ -2,7 +2,7 @@
   <div id="app">
     <Navbar/>
     <VueBootstrapBreakpointIndicator style="z-index: 1070"/>
-    <router-view :key="$route.fullPath"/>
+    <router-view/>
   </div>
 </template>
 <script lang="ts">

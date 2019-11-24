@@ -90,9 +90,27 @@ $table-accent-bg:             $gray-200 !default;
 
 // Dropdowns
 
-$dropdown-link-color:               $gray-700 !default;
+$dropdown-padding-y:                0 !default;
+$dropdown-spacer:                   0 !default;
+$dropdown-font-size:                0.875rem !default;
+$dropdown-bg:                       #121212 !default;
+$dropdown-border-color:             #121212 !default;
+$dropdown-divider-bg:               $gray-900 !default;
+$dropdown-divider-margin-y:         0 !default;
+
+$dropdown-link-color:               $white !default;
 $dropdown-link-hover-color:         $white !default;
-$dropdown-link-hover-bg:            $primary !default;
+$dropdown-link-hover-bg:            $gray-900 !default;
+
+$dropdown-link-active-color:        $link-color !default;
+$dropdown-link-active-bg:           $dropdown-link-hover-bg !default;
+
+$dropdown-item-padding-y:           1.25rem !default;
+$dropdown-item-padding-x:           1.25rem !default;
+
+// Dropdown - custom variables
+$dropdown-toggle-active-color:      $link-color !default;
+$dropdown-toggle-active-bg:         #101010 !default;
 
 // Navs
 

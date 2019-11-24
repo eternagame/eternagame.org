@@ -89,4 +89,7 @@
     align-items: center;
     font-size: 2.25rem;
   }
+  .sidebar {
+    font-size: 0.875rem;
+  }
 </style>

@@ -56,7 +56,8 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400,700,400it
     background-color: $green;
     border-color: $green;
   }
-  &-primary:hover {
+  &-primary:hover,
+  &-primary:focus {
     background-color: $dark-green;
     border-color: $dark-green;
   }
@@ -64,7 +65,8 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400,700,400it
     border-color: $green;
     color: $green
   }
-  &-outline-primary:hover {
+  &-outline-primary:hover,
+  &-primary:focus {
     background-color: $dark-green;
     border-color: $dark-green;
   }
@@ -270,6 +272,7 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400,700,400it
 .dropdown-menu {
   background-color: $med-dark-blue;
   border-color: darken($med-dark-blue, 5%);
+  outline: none;
 }
 
 .dropdown-item {

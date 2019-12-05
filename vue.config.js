@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   lintOnSave: true,
   devServer: {
@@ -18,5 +16,9 @@ module.exports = {
     const svgRule = config.module.rule('svg');
     svgRule.uses.clear();
     svgRule.use('url-loader').loader('url-loader');
+  },
+  css: {
+    sourceMap: true,
+    extract: false,
   },
 };

@@ -27,16 +27,6 @@
       return this.filters.map(filter => ({ text: filter, value: filter }));
     }
   }
-
-  class Filter {
-    state: boolean = false;
-
-    name: string;
-
-    constructor(name: string) {
-      this.name = name;
-    }
-  }
 </script>
 
 <style scoped lang="scss">

@@ -19,7 +19,8 @@ module.exports = {
     'no-param-reassign': ['error', { props: false }],
     semi: 'off',
     '@typescript-eslint/semi': ['error'],
-    'no-use-before-define': ['error', { classes: false }],
+    'no-unused-vars': 'off',
+    'arrow-parens': 'off',
   },
   parserOptions: {
     parser: '@typescript-eslint/parser',

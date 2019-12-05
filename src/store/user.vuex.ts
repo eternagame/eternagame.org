@@ -6,7 +6,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 const VuexModule = createModule({
-  namespaced: true,
+  namespaced: 'userStore',
   strict: false,
 });
 

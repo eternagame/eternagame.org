@@ -7,6 +7,7 @@ The rewrite is based on the design present [here](https://github.com/eternagame/
 ```
 npm install
 ```
+Also, copy the `.env.example` file to `.env`, and fill in your credentials.
 
 ### Run locally
 ```

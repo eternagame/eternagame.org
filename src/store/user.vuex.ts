@@ -6,7 +6,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 const VuexModule = createModule({
-  namespaced: 'userStore',
+  // namespaced: 'userStore',
   strict: false,
 });
 
@@ -15,23 +15,44 @@ export default class UserStore extends VuexModule {
 
   private uid!: number;
 
-  constructor() {
-    super();
-    this.login();
+  public loggedIn = false;
+
+  // constructor() {
+  //   if(document.cookie)
+  // }
+
+  @mutation showLoginFailedModal() {
+
   }
 
-  @action async login() {
+  @mutation showResetCompleteModal() {
+
+  }
+
+  @mutation test() {
+    console.log('test123');
+  }
+
+  @action() async login({ username, password }: { username: string, password: string }) {
     const loginParams = {
-      name: process.env.VUE_APP_USERNAME, pass: process.env.VUE_APP_PASS, type: 'login', workbranch: 'localhost:8080',
+      name: username, pass: password, type: 'login', workbranch: 'localhost:8080',
     };
-    const res = await axios.post('/login/', new URLSearchParams(loginParams));
-    this.authenticate();
+    const { data } = (await axios.post('/login/', new URLSearchParams(loginParams))).data;
+    if (data.success) {
+      this.loggedIn = true;
+    } else {
+      console.log('login failed');
+    }
+    return data;
+
+    // this.authenticate();
   }
 
   /** Authenticates the logged-in player. */
-  @action async authenticate(): Promise<any> {
+  @action() async authenticate(): Promise<any> {
     const response = await axios.get('/eterna_authenticate.php');
     const { data } = response;
+    console.log({ data });
     if (data === 'NOT LOGGED IN') {
       this.username = 'Anonymous';
       this.uid = 0;
@@ -42,6 +63,7 @@ export default class UserStore extends VuexModule {
       const [match, username, uid] = matches;
       this.username = username;
       this.uid = Number(uid);
+      this.loggedIn = true;
     } else {
       throw new Error(`Authentication response malformed: ${data}`);
       // TODO: is throw the right action?

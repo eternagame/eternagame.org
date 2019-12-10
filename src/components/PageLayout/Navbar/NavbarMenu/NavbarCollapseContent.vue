@@ -1,24 +1,32 @@
 <template>
-  <b-container fluid>
-    <div class="w-100 d-flex justify-content-end">
-      <NavbarIcons class="d-inline d-md-none d-lg-block icons-group"/>
+  <div>
+    <div><!--return the padding from b-container-->
+      <NavbarIcons v-if="loggedIn" class="d-inline d-md-none d-lg-block icons-group"/>
+      <LoginRow v-else/>
     </div>
-    <div class="w-100 d-flex justify-content-end">
+    <div class="w-100 d-flex justify-content-between">
+      <LoginSub v-if="!loggedIn"/>
       <b-navbar-nav class="nav-pills">
         <NavbarMenuItem v-for="(value, text) in menu" :key="text" :value="value" :text="text"/>
       </b-navbar-nav>
     </div>
-  </b-container>
+  </div>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import {
+    Component, Prop, Vue, Watch,
+  } from 'vue-property-decorator';
   import NavbarIcons from '../Icons/NavbarIcons.vue';
   import NavbarMenuItem from './NavbarMenuItem.vue';
+  import LoginRow from './Login/LoginRow.vue';
+  import LoginSub from './Login/LoginSub.vue';
 
   @Component({
     components: {
+      LoginRow,
       NavbarIcons,
       NavbarMenuItem,
+      LoginSub,
     },
   })
   export default class NavbarCollapseContent extends Vue {
@@ -26,11 +34,16 @@
     menu!: {
       [text: string]: {[text: string]: string} | string;
     };
+
+    loggedIn = false;
+
+    @Watch('$route')
+    checkLoginStatus() {
+      this.loggedIn = this.$store.state.userStore.loggedIn;
+    }
   }
 </script>
 
 <style lang="scss" scoped>
-  hr.side-bar-separator {
-    border-color: var(--gray-dark);
-  }
+
 </style>

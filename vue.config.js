@@ -1,3 +1,13 @@
+const path = require('path');
+
+const loader = {
+  loader: 'sass-resources-loader',
+  options: {
+    resources: path.resolve(__dirname, './src/styles/global.scss'),
+  },
+};
+console.log(loader.options.resources);
+
 module.exports = {
   lintOnSave: true,
   devServer: {
@@ -7,7 +17,7 @@ module.exports = {
         target: 'http://refresh.eternadev.org',
         secure: false,
         changeOrigin: true,
-        cookieDomainRewrite: 'refresh.localhost',
+        cookieDomainRewrite: 'localhost',
         // pathRewrite: { '^/api': '' },
       },
     },
@@ -21,4 +31,17 @@ module.exports = {
     sourceMap: true,
     extract: false,
   },
+  // configureWebpack: {
+  //   module: {
+  //     rules: [
+  //       {
+  //         test: /\.scss$/,
+  //         use: [
+  //           loader,
+  //           'sass-loader',
+  //         ],
+  //       },
+  //     ],
+  //   },
+  // },
 };

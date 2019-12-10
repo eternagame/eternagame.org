@@ -2,6 +2,7 @@
   <div id="app">
     <Navbar/>
     <VueBootstrapBreakpointIndicator style="z-index: 1070"/>
+    <Modals/>
     <router-view/>
   </div>
 </template>
@@ -9,11 +10,13 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import VueBootstrapBreakpointIndicator from 'vue-bootstrap-breakpoint-indicator';
   import Navbar from '@/components/PageLayout/Navbar/Navbar.vue';
+  import Modals from '@/components/Modals/Modals.vue';
 
   @Component({
     components: {
       Navbar,
       VueBootstrapBreakpointIndicator,
+      Modals,
     },
   })
   export default class App extends Vue {
@@ -21,7 +24,7 @@
 </script>
 
 <style lang="scss">
-  @import '@/styles/_variables.scss';
+  @import '@/styles/global.scss';
 
   // Import Bootstrap and BootstrapVue source SCSS files
   @import '~bootstrap/scss/bootstrap.scss';

@@ -18,6 +18,7 @@
       <MobileSidebar ref="mobileSidebar">
         <slot name="sidebar"></slot>
       </MobileSidebar>
+      <PageFooter/>
     </b-container>
   </div>
 </template>
@@ -25,10 +26,12 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import MobileSidebar from './MobileSidebar.vue';
+  import PageFooter from './PageFooter.vue';
 
   @Component({
     components: {
       MobileSidebar,
+      PageFooter,
     },
   })
   export default class EternaPage extends Vue {
@@ -59,7 +62,7 @@
   .page-container {
     position: relative;
     min-height: Calc(100vh - 120px);
-    padding: 3rem 1.5rem;
+    padding: 3rem 1.5rem 1.5rem;
   }
   .page-container:before {
     box-shadow: -45px 0 45px -45px inset black;

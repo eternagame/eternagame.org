@@ -13,7 +13,7 @@ export default class Gallery extends Vue {
   public render(h: CreateElement) {
     return (
       <b-form-row class="row-eq-height">
-        {(this.$slots.default || []).map(vnode => <GalleryColumn>{[vnode]}</GalleryColumn>)}
+        {(this.$slots.default || []).map((vnode) => <GalleryColumn>{[vnode]}</GalleryColumn>)}
       </b-form-row>
     );
   }

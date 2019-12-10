@@ -1,0 +1,108 @@
+<template>
+  <b-modal
+    id="modal-register"
+    ref="modal"
+    body-class="py-0"
+    header-border-variant="primary"
+    hide-footer
+  >
+    <template #modal-title>
+      <b>Create a New Account</b>
+    </template>
+    Register now to save your progress and collect rewards.
+    <transition name="fade">
+      <b-alert class="mt-3" show variant="danger" v-if="errorMessage">
+        {{errorMessage}}
+      </b-alert>
+    </transition>
+    <b-form @submit.prevent="tryRegister" class="pb-3">
+      <b-input                 placeholder="username"          v-model="form.username"   required/>
+      <b-input type="email"    placeholder="email"             v-model="form.email"      required/>
+      <b-input type="password" placeholder="password"          v-model="form.password"   required/>
+      <b-input type="password" placeholder="re-enter password" v-model="form.rePassword" required
+              ref="rePassword"/>
+      <vue-recaptcha sitekey="6LcFwUsUAAAAAOQ9szhauSNv2bJuBOUtw_pGrRnd"
+        :loadRecaptchaScript="true" @verify="captchaResponse = $event"/>
+      <b-button type="submit" variant="primary" class="submit-button">Create Account</b-button>
+      <div>
+        <b-link size="sm" to="/news/15121/">Terms & conditions</b-link>
+      </div>
+    </b-form>
+  </b-modal>
+</template>
+
+<script lang="ts">
+  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { BModal, BFormInput } from 'bootstrap-vue';
+  import VueRecaptcha from 'vue-recaptcha';
+
+  @Component({
+    components: {
+      VueRecaptcha,
+    },
+  })
+  export default class RegisterModal extends Vue {
+  form = {
+    username: '',
+    email: '',
+    password: '',
+    rePassword: '',
+
+  };
+
+  captchaResponse = '';
+
+  errorMessage = '';
+
+  $refs!: {
+    modal: BModal;
+    rePassword: BFormInput;
+  };
+
+  async tryRegister(event: Event) {
+    this.errorMessage = '';
+    if (this.form.password !== this.form.rePassword) {
+      (this.$refs.rePassword.$el as HTMLInputElement).setCustomValidity('Password Must Match.');
+      return;
+    }
+    await this.register();
+  }
+
+  async register() {
+    // $('#loader').modal('show');
+    const response = await this.axios.post(
+      '/login/',
+      new URLSearchParams({
+        name: this.form.username,
+        pass: this.form.password,
+        mail: this.form.email,
+        type: 'create',
+        captcha_response: this.captchaResponse,
+      }),
+      {
+        headers: { 'Content-type': 'application/x-www-form-urlencoded' },
+      },
+    );
+    // $('#loader').modal('hide');
+    const { data } = response;
+    if (data.data.success) {
+      this.$router.push('/home');
+    } else {
+      this.errorMessage = data.data.error;
+    }
+  }
+  }
+</script>
+
+<style scoped lang="scss">
+  .submit-button {
+    margin-top: 1.5rem;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .15s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+</style>

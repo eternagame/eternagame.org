@@ -112,6 +112,15 @@ $dropdown-item-padding-x:           1.25rem !default;
 $dropdown-toggle-active-color:      $link-color !default;
 $dropdown-toggle-active-bg:         #101010 !default;
 
+// Forms
+$input-bg: #043468;
+$input-border-color: #597ea2;
+
+$input-focus-color: #eee;
+$input-focus-bg: $dark-blue;
+$input-focus-border-color: #868e95;
+$input-focus-box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.25);
+
 // Navs
 
 $nav-link-padding-y:                 .5rem !default !default;

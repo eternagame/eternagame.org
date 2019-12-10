@@ -34,7 +34,7 @@ describe('MobileSidebar.vue', () => {
 
   it('Should close when clicking the cross', () => {
     (wrapper.vm as any).openMenu();
-    wrapper.find('.cross').trigger('click');
+    wrapper.find('.cross-icon').trigger('click');
     expect(wrapper.element.style.display).toBe('none');
   });
 });

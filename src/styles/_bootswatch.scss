@@ -56,7 +56,8 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400,700,400it
     background-color: $green;
     border-color: $green;
   }
-  &-primary:hover {
+  &-primary:hover,
+  &-primary:focus {
     background-color: $dark-green;
     border-color: $dark-green;
   }
@@ -64,7 +65,8 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400,700,400it
     border-color: $green;
     color: $green
   }
-  &-outline-primary:hover {
+  &-outline-primary:hover,
+  &-primary:focus {
     background-color: $dark-green;
     border-color: $dark-green;
   }
@@ -286,9 +288,10 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400,700,400it
     border-color: darken($med-dark-blue, 5%);
   }
 
-  .nav-pills .nav-link:focus,
+  &.nav-pills .nav-link:focus,
   .dropdown-toggle:focus {
     background-color: $nav-pills-link-active-bg;
+    outline: none;
   }
 }
 
@@ -392,6 +395,7 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400,700,400it
     }
   }
   &-menu {
+    outline: none;
     border-top-left-radius: 0 !important;
     li:first-child {
       .dropdown-item {
@@ -416,6 +420,7 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400,700,400it
     }  
   }
   &-item {
+    outline: none;
     font-weight: bold;
     padding: 1.25rem;
   }

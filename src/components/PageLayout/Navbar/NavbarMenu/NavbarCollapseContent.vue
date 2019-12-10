@@ -3,8 +3,7 @@
     <div class="w-100 d-flex justify-content-end">
       <NavbarIcons class="d-inline d-md-none d-lg-block icons-group"/>
     </div>
-    <hr class="d-lg-none side-bar-separator">
-    <div class="w-100">
+    <div class="w-100 d-flex justify-content-end">
       <b-navbar-nav class="nav-pills">
         <NavbarMenuItem v-for="(value, text) in menu" :key="text" :value="value" :text="text"/>
       </b-navbar-nav>

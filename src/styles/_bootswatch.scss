@@ -269,24 +269,31 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400,700,400it
   border: 1px solid $med-blue;
 }
 
-.dropdown-menu {
-  background-color: $med-dark-blue;
-  border-color: darken($med-dark-blue, 5%);
-  outline: none;
-}
+.navbar-nav {
+  .dropdown-menu {
+    background-color: $med-dark-blue;
+    border-color: darken($med-dark-blue, 5%);
+    outline: none;
+  }
 
-.dropdown-item {
-  color: $white;
-}
+  .dropdown-item {
+    color: $white;
+    padding: 0.812rem 1.25rem;
+    &:hover,
+    &:focus {
+      background-color: var(--primary);
+    }
+  }
 
-.dropdown-divider {
-  border-color: darken($med-dark-blue, 5%);
-}
+  .dropdown-divider {
+    border-color: darken($med-dark-blue, 5%);
+  }
 
-.nav-pills .nav-link:active {
-  // border-color: darken($med-dark-blue, 5%);
+  .nav-pills .nav-link:focus,
+  .dropdown-toggle:focus {
+    background-color: $nav-pills-link-active-bg;
+  }
 }
-
 
 // Indicators ==================================================================
 
@@ -367,4 +374,52 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400,700,400it
 
 .alert-light, .alert-light a, .alert-light .alert-link {
   color: $dark;
+}
+
+// Dropdowns ==================================================================
+.dropdown {
+  &-toggle {
+    &,
+    &:hover {
+      color: $white;
+    }
+    .show > & {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .show > &,
+    &:active,
+    &:focus {
+      background-color: $dropdown-toggle-active-bg;
+      color: $dropdown-toggle-active-color;
+    }
+  }
+  &-menu {
+    border-top-left-radius: 0 !important;
+    li:first-child {
+      .dropdown-item {
+        border-top-right-radius: $dropdown-border-radius !important;
+      }
+    }
+    &-right {
+      border-top-right-radius: 0 !important;
+      border-top-left-radius: $dropdown-border-radius !important;
+      li:first-child {
+        .dropdown-item {
+          border-top-right-radius: 0 !important;
+          border-top-left-radius: $dropdown-border-radius !important;
+        }
+      }
+    }
+    li:last-child {
+      .dropdown-item {
+        border-bottom-right-radius: $dropdown-border-radius !important;
+        border-bottom-left-radius: $dropdown-border-radius !important;
+      }
+    }  
+  }
+  &-item {
+    font-weight: bold;
+    padding: 1.25rem;
+  }
 }

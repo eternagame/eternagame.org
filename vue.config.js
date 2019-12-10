@@ -1,13 +1,13 @@
 module.exports = {
   lintOnSave: true,
   devServer: {
-    public: 'http://eternadev.org',
+    public: 'http://refresh.eternadev.org',
     proxy: {
       '': {
-        target: 'http://eternadev.org',
+        target: 'http://refresh.eternadev.org',
         secure: false,
         changeOrigin: true,
-        cookieDomainRewrite: 'localhost',
+        cookieDomainRewrite: 'refresh.localhost',
         // pathRewrite: { '^/api': '' },
       },
     },

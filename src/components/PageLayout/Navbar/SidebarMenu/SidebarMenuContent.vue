@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid>
+  <div>
     <b-navbar-nav>
     <div class="w-100">
       <NavbarIcons class="d-inline d-md-none"/>
@@ -11,7 +11,7 @@
              :key="text" :value="value" :text="text"
              :index="index" accordion="navbar-sidebar-accordion"/>
     </b-navbar-nav>
-  </b-container>
+  </div>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';

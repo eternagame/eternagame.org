@@ -1,5 +1,5 @@
 <template>
-  <EternaPage v-if="data">
+  <EternaPage v-if="data" title="Lab Details">
     <LabDescription :lab="lab" style="margin-bottom: 3.5rem;"/>
     <LabRound v-for="round in lab.puzzles" :key="round.round" :round="round"/>
     <template #sidebar>

@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h3>
-      <b>Lab Details</b>
-    </h3>
     <div class="card" style="width:100; border: none;">
         <div :style="{'position': 'relative', 'background-image': `url(${defaultImage})`,
                        height: '250px'}" class="p-2">
@@ -27,8 +24,7 @@
   const defaultImage = require('@/assets/ribosome_challenge_bg.png');
 
   @Component({
-    components: {
-    },
+    components: {},
   })
   export default class LabDescription extends Vue {
     @Prop()

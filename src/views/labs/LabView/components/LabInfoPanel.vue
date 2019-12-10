@@ -1,11 +1,7 @@
 <template>
-  <SidebarPanel>
-    <template #header>
-      <img src="@/assets/info.svg" />
-      Lab Info
-    </template>
+  <SidebarPanel header="Lab Info" :headerIcon="require('@/assets/info.svg')">
     <span class="gray-header">Admin:</span><br/>
-    <b>Username</b><br/>
+    <b style="color: var(--yellow);">Username</b><br/>
     <br/>
     <span class="gray-header">Research affiliation:</span><br/>
     <b>{{lab.affiliation}}</b><br/>

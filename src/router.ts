@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Component from 'vue-class-component';
-import Home from './views/Home.vue';
+import Home from './views/home/main-page/Home.vue';
 import FrontPage from './views/home/front-page/FrontPage.vue';
 
 Vue.use(Router);
@@ -14,8 +14,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'front-page',
       component: FrontPage,
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: Home,
     },
     {
       path: '/labs/explore',

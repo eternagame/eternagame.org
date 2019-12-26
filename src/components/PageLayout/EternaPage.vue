@@ -1,21 +1,21 @@
 <template>
   <div style="overflow:hidden; margin-top: 120px;">
     <b-container class="page-container">
-      <h2 class="page-title">
+      <h2 v-if="title" class="page-title">
         <b>{{title}}</b>
-        <div class="d-lg-none">
+        <div v-if="sidebar" class="d-lg-none">
           <slot name="sidebar"></slot>
         </div>
       </h2>
       <b-row>
-        <b-col cols="12" lg="9" class="body">
+        <b-col cols="12" :lg="sidebar ? 9 : 12" class="body">
           <slot></slot>
         </b-col>
-        <b-col class="sidebar d-none d-lg-block">
+        <b-col v-if="sidebar" class="sidebar d-none d-lg-block">
           <slot name="sidebar"></slot>
         </b-col>
       </b-row>
-      <MobileSidebar ref="mobileSidebar">
+      <MobileSidebar v-if="sidebar" ref="mobileSidebar">
         <slot name="sidebar"></slot>
       </MobileSidebar>
       <PageFooter/>
@@ -35,12 +35,16 @@
     },
   })
   export default class EternaPage extends Vue {
-    @Prop({ required: true })
+    @Prop({ default: '' })
     title!: string;
 
     $refs!: {
       mobileSidebar: MobileSidebar;
     };
+
+    get sidebar() {
+      return !!this.$slots.sidebar;
+    }
 
     unsubscribe!: () => void;
 

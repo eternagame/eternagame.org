@@ -1,7 +1,7 @@
 <template>
-  <b-col class="mb-2" cols="12" sm="6" md="4">
-    <slot></slot>
-  </b-col>
+  <HorizontalGallery>
+
+  </HorizontalGallery>
 </template>
 
 <script lang="ts">
@@ -9,14 +9,13 @@
 
   @Component({
     components: {
-
     },
   })
-  export default class GalleryColumn extends Vue {
+  export default class PuzzlesGallery extends Vue {
 
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

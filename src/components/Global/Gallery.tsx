@@ -1,10 +1,9 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { CreateElement, VNode } from 'vue';
-import GalleryColumn from './GalleryColumn.vue';
+import { CreateElement } from 'vue';
 
 @Component({
   components: {
-    GalleryColumn,
+
   },
 })
 export default class Gallery extends Vue {
@@ -13,7 +12,7 @@ export default class Gallery extends Vue {
   public render(h: CreateElement) {
     return (
       <b-form-row class="row-eq-height">
-        {(this.$slots.default || []).map((vnode) => <GalleryColumn>{[vnode]}</GalleryColumn>)}
+        {(this.$slots.default || []).map((vnode) => <b-col class="mb-2" cols="12" sm="6" md="4">{[vnode]}</b-col>)}
       </b-form-row>
     );
   }

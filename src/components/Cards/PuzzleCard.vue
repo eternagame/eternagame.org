@@ -1,8 +1,8 @@
 <template>
   <b-card>
     <div class="puzzle-card-title"><b>{{puzzle.title}}</b></div>
-    <div class="text-center image-container">
-      <img :src="imageURL" class="image"/>
+    <div class="text-center">
+      <img :src="imageURL" style="width: 80%; margin: auto;"/>
     </div>
     <b-row class="mb-2">
       <b-col cols="4" class="slots">
@@ -58,12 +58,7 @@
   }
 
   ::v-deep .card-body{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 400px;
-  height: 400px;
-  max-height: 200px;
+    padding: 0.75rem !important;
   }
 
   .puzzle-card-title {
@@ -99,16 +94,5 @@
 
   .submissions {
     justify-content: flex-end;
-  }
-
-  .image-container, image {
-    display: flex;
-    flex: 1; /* formerly flex: 1 0 auto; */
-    background: green;
-    min-height: 0; /* new */
-    min-width: 0;
-    max-width: auto;
-    margin-left: auto;
-    margin-right: auto;
   }
 </style>

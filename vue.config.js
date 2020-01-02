@@ -26,6 +26,15 @@ module.exports = {
     const svgRule = config.module.rule('svg');
     svgRule.uses.clear();
     svgRule.use('url-loader').loader('url-loader');
+
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .tap(options => {
+        options.transformAssetUrls = { SidebarPanel: ['headerIcon'] };
+        return options;
+      });
   },
   css: {
     sourceMap: true,

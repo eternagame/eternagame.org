@@ -1,5 +1,5 @@
 <template>
-  <SidebarPanel header="Tags" :headerIcon="require('@/assets/sidebar/hashtag.svg')">
+  <SidebarPanel header="Tags" headerIcon="@/assets/sidebar/hashtag.svg">
     <template #header-icon>
       <img src="@/assets/sidebar/hashtag.svg"/>
     </template>

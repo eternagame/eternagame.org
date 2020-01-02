@@ -8,7 +8,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
 
-  const icon = require('@/assets/Filter.svg');
+  import icon from '@/assets/Filter.svg';
 
   @Component({
     components: {

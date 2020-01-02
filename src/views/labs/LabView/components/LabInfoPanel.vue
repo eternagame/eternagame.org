@@ -1,5 +1,5 @@
 <template>
-  <SidebarPanel header="Lab Info" :headerIcon="require('@/assets/info.svg')">
+  <SidebarPanel header="Lab Info" headerIcon="@/assets/info.svg">
     <span class="gray-header">Admin:</span><br/>
     <b style="color: var(--yellow);">Username</b><br/>
     <br/>

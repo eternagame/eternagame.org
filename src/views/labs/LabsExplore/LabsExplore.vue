@@ -56,8 +56,8 @@
       next();
     }
 
-    private filters = [new Filter('active', 'Active'), new Filter('inactive', 'Inactive')];
+    private filters: Filter[] = [{ value: 'active', text: 'Active' }, { value: 'inactive', text: 'Inactive' }];
 
-    private options = [new Option('desc', 'Newest First'), new Option('asc', 'Oldest First')];
+    private options: Option[] = [{ value: 'desc', text: 'Newest First' }, { value: 'asc', text: 'Oldest First' }];
   }
 </script>

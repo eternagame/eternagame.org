@@ -1,38 +1,24 @@
 <template>
-  <b-card>
-    <div class="puzzle-card-title"><b>{{puzzle.title}}</b></div>
+  <PuzzleCard :title="puzzle.title" :nid="puzzle.nid" :aspectRatio="1.18"
+              :leftNumber="puzzle.num_slots" :states="states" :rightNumber="puzzle.submitted">
     <div class="text-center image-container">
       <img :src="imageURL" class="image"/>
     </div>
-    <b-row class="mb-2">
-      <b-col cols="4" class="slots">
-        <img src="@/assets/test-tube.svg" alt="lab slots" class="icon">
-        &nbsp;{{puzzle.num_slots}}
-      </b-col>
-      <b-col cols="4" class="text-center">
-        <div style="position: relative;">
-          <img src="@/assets/square-45.svg" alt="round" class="icon">
-          <div class="state-num">{{states}}</div>
-        </div>
-      </b-col>
-      <b-col cols="4" class="submissions">
-        <img src="@/assets/people.svg" alt="submissions" class="icon">
-        &nbsp;{{puzzle.submitted}}
-      </b-col>
-    </b-row>
-    <div style="width: 100%;" class="d-flex justify-content-between">
+    <template #buttons>
       <b-button href="" variant="primary"   size="sm">Design</b-button>
       <b-button href="" variant="secondary" size="sm">Review</b-button>
-    </div>
-  </b-card>
+    </template>
+  </PuzzleCard>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { PuzzleData } from '../types';
+  import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import Utils from '@/utils/utils';
 
   @Component({
     components: {
+      PuzzleCard,
     },
   })
   export default class LabPuzzleCard extends Vue {
@@ -55,60 +41,5 @@
     display: inline-block;
     width: 48%;
     margin-bottom: 0px;
-  }
-
-  ::v-deep .card-body{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 400px;
-  height: 400px;
-  max-height: 200px;
-  }
-
-  .puzzle-card-title {
-    height: 50px;
-    text-align: center;
-  }
-
-  .state-num {
-    position: absolute;
-    top: Calc(50%);
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #21508c;
-    font-size: 8px;
-    font-weight: 900;
-  }
-
-  .icon {
-    width: 19px;
-  }
-
-  .slots, .submissions {
-    font-size: 11px;
-    display: flex;
-    align-items : center;
-    // height: 100%;
-    font-weight: bold;
-
-    & > .icon {
-      width: 12.57px;
-    }
-  }
-
-  .submissions {
-    justify-content: flex-end;
-  }
-
-  .image-container, image {
-    display: flex;
-    flex: 1; /* formerly flex: 1 0 auto; */
-    background: green;
-    min-height: 0; /* new */
-    min-width: 0;
-    max-width: auto;
-    margin-left: auto;
-    margin-right: auto;
   }
 </style>

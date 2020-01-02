@@ -1,51 +1,62 @@
 <template>
-  <b-card>
-    <div class="puzzle-card-title"><b>{{puzzle.title}}</b></div>
-    <div class="text-center">
-      <img :src="imageURL" style="width: 80%; margin: auto;"/>
-    </div>
-    <b-row class="mb-2">
-      <b-col cols="4" class="slots">
-        <img src="@/assets/test-tube.svg" alt="lab slots" class="icon">
-        &nbsp;{{puzzle.num_slots}}
-      </b-col>
-      <b-col cols="4" class="text-center">
-        <div style="position: relative;">
-          <img src="@/assets/square-45.svg" alt="round" class="icon">
-          <div class="state-num">{{states}}</div>
-        </div>
-      </b-col>
-      <b-col cols="4" class="submissions">
-        <img src="@/assets/people.svg" alt="submissions" class="icon">
-        &nbsp;{{puzzle.submitted}}
-      </b-col>
-    </b-row>
-    <div style="width: 100%;" class="d-flex justify-content-between">
-      <b-button href="" variant="primary"   size="sm">Design</b-button>
-      <b-button href="" variant="secondary" size="sm">Review</b-button>
-    </div>
-  </b-card>
+  <AspectRatioCard :aspectRatio="aspectRatio">
+    <template #header>
+      <div class="puzzle-card-title">
+        <b>{{title}}</b>
+      </div>
+    </template>
+    <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable"/>
+    <template #footer>
+      <b-row class="mb-2">
+        <b-col cols="4" class="left-col">
+          <slot name="left-icon">
+            <img src="@/assets/test-tube.svg" alt="lab slots" class="icon">
+          </slot>
+          &nbsp;{{leftNumber}}
+        </b-col>
+        <b-col cols="4" class="text-center">
+          <StateCounter :value="states"/>
+        </b-col>
+        <b-col cols="4" class="right-col">
+          <slot name="right-icon">
+            <img src="@/assets/people.svg" alt="submissions" class="icon">
+          </slot>
+          &nbsp;{{rightNumber}}
+        </b-col>
+      </b-row>
+      <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
+        <slot name="buttons"/>
+      </div>
+    </template>
+  </AspectRatioCard>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { PuzzleData } from '../types';
   import Utils from '@/utils/utils';
+  import AspectRatioCard from './AspectRatioCard.vue';
+  import StateCounter from './StateCounter.vue';
 
   @Component({
     components: {
+      StateCounter,
+      AspectRatioCard,
     },
   })
   export default class LabPuzzleCard extends Vue {
-    @Prop() private puzzle!: PuzzleData;
+    @Prop({ required: true }) private title!: string;
 
-    @Prop({ default: '275px' }) private width!: string;
+    @Prop({ required: true }) private nid!: string;
+
+    @Prop({ required: true }) private leftNumber!: number;
+
+    @Prop({ required: true }) private states!: number;
+
+    @Prop({ required: true }) private rightNumber!: number;
+
+    @Prop({ default: 1 }) private aspectRatio!: number;
 
     get imageURL() {
-      return Utils.getPuzzleMiddleThumbnail(this.puzzle.nid);
-    }
-
-    get states() {
-      return this.puzzle.switch_struct ? this.puzzle.switch_struct.length : 1;
+      return Utils.getPuzzleMiddleThumbnail(this.nid);
     }
   }
 </script>
@@ -66,7 +77,7 @@
     text-align: center;
   }
 
-  .state-num {
+  .middle-num {
     position: absolute;
     top: Calc(50%);
     left: 50%;
@@ -80,11 +91,10 @@
     width: 19px;
   }
 
-  .slots, .submissions {
+  .left-col, .right-col {
     font-size: 11px;
     display: flex;
     align-items : center;
-    // height: 100%;
     font-weight: bold;
 
     & > .icon {
@@ -92,7 +102,7 @@
     }
   }
 
-  .submissions {
+  .right-col {
     justify-content: flex-end;
   }
 </style>

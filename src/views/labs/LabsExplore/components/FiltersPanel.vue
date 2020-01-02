@@ -17,7 +17,7 @@
       SidebarPanel,
     },
   })
-  export default class LabInfoPanel extends Vue {
+  export default class LabsFiltersPanel extends Vue {
     @Prop({ required: true })
     private filters!: string[];
 

@@ -15,7 +15,7 @@
       SidebarPanel,
     },
   })
-  export default class LabInfoPanel extends Vue {
+  export default class FiltersPanel extends Vue {
     @Prop({ default: 'filters' })
     private header!: string;
 

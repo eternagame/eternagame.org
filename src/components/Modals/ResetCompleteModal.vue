@@ -31,10 +31,8 @@
     };
 
     created() {
-      this.$store.subscribe((mutation, state) => {
-        if (mutation.type === 'showResetCompleteModal') {
-          this.$refs.modal.show();
-        }
+      this.$vxm.user.$subscribe('showResetCompleteModal', (payload) => {
+        this.$refs.modal.show();
       });
     }
 

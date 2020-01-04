@@ -35,11 +35,8 @@
       [text: string]: {[text: string]: string} | string;
     };
 
-    loggedIn = false;
-
-    @Watch('$route')
-    checkLoginStatus() {
-      this.loggedIn = this.$store.state.userStore.loggedIn;
+    get loggedIn() {
+      return this.$vxm.user.loggedIn;
     }
   }
 </script>

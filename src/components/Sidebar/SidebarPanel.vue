@@ -39,7 +39,7 @@
 
     clickedHeader() {
       if (!this.isInSidebar) {
-        this.$store.commit('mobileStore/showPageSidebar');
+        this.$vxm.mobile.showPageSidebar();
       }
     }
 

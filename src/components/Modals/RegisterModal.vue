@@ -70,7 +70,7 @@
 
   async register() {
     // $('#loader').modal('show');
-    const response = await this.axios.post(
+    const response = await this.$http.post(
       '/login/',
       new URLSearchParams({
         name: this.form.username,

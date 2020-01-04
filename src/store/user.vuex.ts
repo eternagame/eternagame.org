@@ -1,9 +1,7 @@
 import {
   createModule, mutation, action, extractVuexModule,
 } from 'vuex-class-component';
-import axios from 'axios';
-
-axios.defaults.withCredentials = true;
+import Vue from 'vue';
 
 const VuexModule = createModule({
   // namespaced: 'userStore',
@@ -11,17 +9,13 @@ const VuexModule = createModule({
 });
 
 export default class UserStore extends VuexModule {
-  private username!: string;
+  public username: string|null = null;
 
-  private uid!: number;
+  public uid: number|null = null;
 
   public loggedIn = false;
 
-  // constructor() {
-  //   if(document.cookie)
-  // }
-
-  @mutation showLoginFailedModal() {
+  @mutation showLoginFailedModal({ errorMessage }: { errorMessage: String }) {
 
   }
 
@@ -29,15 +23,11 @@ export default class UserStore extends VuexModule {
 
   }
 
-  @mutation test() {
-    console.log('test123');
-  }
-
   @action() async login({ username, password }: { username: string, password: string }) {
     const loginParams = {
       name: username, pass: password, type: 'login', workbranch: 'localhost:8080',
     };
-    const { data } = (await axios.post('/login/', new URLSearchParams(loginParams))).data;
+    const { data } = (await Vue.$http.post('/login/', new URLSearchParams(loginParams))).data;
     if (data.success) {
       this.loggedIn = true;
     } else {
@@ -50,10 +40,11 @@ export default class UserStore extends VuexModule {
 
   /** Authenticates the logged-in player. */
   @action() async authenticate(): Promise<any> {
-    const response = await axios.get('/eterna_authenticate.php');
+    const response = await Vue.$http.get('/eterna_authenticate.php');
     const { data } = response;
     console.log({ data });
     if (data === 'NOT LOGGED IN') {
+      // this.loggedIn = false;
       this.username = 'Anonymous';
       this.uid = 0;
       return;

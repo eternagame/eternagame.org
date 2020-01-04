@@ -30,11 +30,9 @@
     };
 
     created() {
-      this.$store.subscribe((mutation, state) => {
-        if (mutation.type === 'showLoginFailedModal') {
-          this.errorMessage = mutation.payload.errorMessage;
-          this.$refs.modal.show();
-        }
+      this.$vxm.user.$subscribe('showLoginFailedModal', (payload) => {
+        this.errorMessage = payload.errorMessage;
+        this.$refs.modal.show();
       });
     }
 

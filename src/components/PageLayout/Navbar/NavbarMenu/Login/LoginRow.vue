@@ -28,12 +28,14 @@
 
     async login() {
       if (this.username && this.password) {
-        const data = await this.$store.dispatch('login', { username: this.username, password: this.password });
-        console.log(data);
+        const data = await this.$vxm.user.login({
+          username: this.username,
+          password: this.password,
+        });
         if (data.success) {
           this.$router.push('/labs/explore');
         } else {
-          this.$store.commit('showLoginFailedModal', { errorMessage: data.error });
+          this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });
         }
       }
     }

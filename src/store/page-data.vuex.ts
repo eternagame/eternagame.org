@@ -3,11 +3,12 @@ import {
 } from 'vuex-class-component';
 
 const VuexModule = createModule({
-  // namespaced: 'mobileStore',
+  // namespaced: 'pageData',
   strict: false,
 });
 
-export default class MobileStore extends VuexModule {
-  // Subscribed to
-  @mutation showPageSidebar() {}
+export default class PageData extends VuexModule {
+  data: any = null;
+
+  refetch: boolean = false;
 }

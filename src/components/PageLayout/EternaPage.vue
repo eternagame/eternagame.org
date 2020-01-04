@@ -45,10 +45,8 @@
     unsubscribe!: () => void;
 
     created() {
-      this.unsubscribe = this.$store.subscribe((mutation, state) => {
-        if (mutation.type === 'mobileStore/showPageSidebar') {
-          this.$refs.mobileSidebar.openMenu();
-        }
+      this.unsubscribe = this.$vxm.mobile.$subscribe('showPageSidebar', (payload) => {
+        this.$refs.mobileSidebar.openMenu();
       });
     }
 

@@ -15,23 +15,6 @@
     },
   })
   export default class LoginSub extends Vue {
-    private username: string = '';
-
-    private password: string = '';
-
-    async login() {
-      if (this.username && this.password) {
-        const data = await this.$vxm.user.login({
-          username: this.username,
-          password: this.password,
-        });
-        if (data.success) {
-          this.$router.push('/labs/explore');
-        } else {
-          this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });
-        }
-      }
-    }
   }
 </script>
 

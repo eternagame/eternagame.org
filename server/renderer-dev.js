@@ -52,7 +52,7 @@ module.exports = async function initDevRenderer(templatePath) {
     }
   }
 
-  compiler.client.plugin('done', stats => {
+  compiler.client.hooks.done.tap('ClientManifestWatcher', stats => {
     const { errors } = stats.toJson();
     errors.forEach(error => console.error(error));
     if (errors.length) return;

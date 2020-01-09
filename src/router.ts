@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Router from 'vue-router';
+import Router, { Route, RouteCallback } from 'vue-router';
 import Component from 'vue-class-component';
 
 Vue.use(Router);
@@ -7,7 +7,7 @@ Vue.use(Router);
 Component.registerHooks(['beforeRouteEnter', 'beforeRouteLeave', 'beforeRouteUpdate']);
 
 export default function createRouter() {
-  return new Router({
+  const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
@@ -28,4 +28,12 @@ export default function createRouter() {
       },
     ],
   });
+
+  router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {
+    const userStore = router.app.$vxm.user;
+    if (!userStore.triedAuthenticating) await userStore.authenticate();
+    next();
+  });
+
+  return router;
 }

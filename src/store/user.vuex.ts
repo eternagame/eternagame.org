@@ -15,6 +15,8 @@ export default class UserStore extends VuexModule {
 
   public loggedIn = false;
 
+  public triedAuthenticating = false;
+
   @mutation showLoginFailedModal({ errorMessage }: { errorMessage: String }) {
 
   }
@@ -30,21 +32,17 @@ export default class UserStore extends VuexModule {
     const { data } = (await Vue.$http.post('/login/', new URLSearchParams(loginParams))).data;
     if (data.success) {
       this.loggedIn = true;
-    } else {
-      console.log('login failed');
     }
     return data;
-
-    // this.authenticate();
   }
 
   /** Authenticates the logged-in player. */
   @action() async authenticate(): Promise<any> {
+    this.triedAuthenticating = true;
     const response = await Vue.$http.get('/eterna_authenticate.php');
     const { data } = response;
-    console.log({ data });
     if (data === 'NOT LOGGED IN') {
-      // this.loggedIn = false;
+      this.loggedIn = false;
       this.username = 'Anonymous';
       this.uid = 0;
       return;

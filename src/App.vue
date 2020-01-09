@@ -20,9 +20,6 @@
     },
   })
   export default class App extends Vue {
-    async fetchPageData() {
-      this.$vxm.user.authenticate();
-    }
   }
 </script>
 

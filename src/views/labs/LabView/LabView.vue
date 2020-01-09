@@ -21,6 +21,10 @@
   import LabViewData, { LabData } from './types';
   import PageDataMixin from '../../../mixins/PageData';
 
+  async function fetchPageData(route: Route) {
+    return (await Vue.$http.get(`/get/?type=project&nid=${route.params.nid}`)).data.data as LabViewData;
+  }
+
   @Component({
     components: {
       SidebarPanel,
@@ -31,13 +35,9 @@
       TagsPanel,
     },
   })
-  export default class LabView extends Mixins(PageDataMixin) {
+  export default class LabsExploreView extends Mixins(PageDataMixin(fetchPageData)) {
     get lab() {
       return (this.pageData as LabViewData)?.lab;
-    }
-
-    async fetchPageData(): Promise<any> {
-      return (await this.$http.get(`/get/?type=project&nid=${this.$route.params.nid}`)).data.data as LabViewData;
     }
   }
 </script>

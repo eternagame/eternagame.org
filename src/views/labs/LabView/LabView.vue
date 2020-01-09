@@ -37,7 +37,7 @@
   })
   export default class LabsExploreView extends Mixins(PageDataMixin(fetchPageData)) {
     get lab() {
-      return (this.pageData as LabViewData)?.lab;
+      return this.pageData?.lab;
     }
   }
 </script>

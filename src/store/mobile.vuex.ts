@@ -3,7 +3,6 @@ import {
 } from 'vuex-class-component';
 
 const VuexModule = createModule({
-  // namespaced: 'mobileStore',
   strict: false,
 });
 

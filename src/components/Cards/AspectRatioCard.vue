@@ -1,15 +1,18 @@
 <template>
-  <b-card :style="{'--aspect-ratio': aspectRatio}">
-    <div class="no-flex">
-      <slot name="header"/>
+  <div class="card" :style="{'--aspect-ratio': aspectRatio}">
+    <div class="before" :style="{'padding-top': `calc(${aspectRatio} * 100%)`}"></div>
+    <div class="card-body">
+      <div class="no-flex">
+        <slot name="header"/>
+      </div>
+      <div class="scalable-container">
+        <slot/>
+      </div>
+      <div class="no-flex">
+        <slot name="footer"/>
+      </div>
     </div>
-    <div class="scalable-container">
-      <slot/>
-    </div>
-    <div class="no-flex">
-      <slot name="footer"/>
-    </div>
-  </b-card>
+  </div>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -29,13 +32,12 @@
 <style lang="scss" scoped>
   .card {
     display: block;
-    &::before{
-      content: "";
+    .before {
       width: 1px;
       margin-left: -1px;
       float: left;
       height: 0;
-      padding-top: calc(var(--aspect-ratio) * 100%);
+
     }
     &::after {
       content: "";

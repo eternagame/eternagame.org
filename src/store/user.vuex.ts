@@ -4,7 +4,6 @@ import {
 import Vue from 'vue';
 
 const VuexModule = createModule({
-  // namespaced: 'userStore',
   strict: false,
 });
 
@@ -17,13 +16,9 @@ export default class UserStore extends VuexModule {
 
   public triedAuthenticating = false;
 
-  @mutation showLoginFailedModal({ errorMessage }: { errorMessage: String }) {
+  @mutation showLoginFailedModal({ errorMessage }: { errorMessage: String }) { }
 
-  }
-
-  @mutation showResetCompleteModal() {
-
-  }
+  @mutation showResetCompleteModal() { }
 
   @action() async login({ username, password }: { username: string, password: string }) {
     const loginParams = {

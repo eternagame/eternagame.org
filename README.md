@@ -19,4 +19,5 @@ npm start
 ```
 
 ## Contributing
-Because of the structure of the project, we currently don't work with Github's issues. If you want to contribute, contact me (Guy Geva, guygeva2311@gmail.com, [MasterStormer](https://eternagame.org/web/player/228064/) on Eterna) for an invitation to the Player Development Slack, where we can coordinate on the project.
+Because of the structure of the project, we currently don't work with Github's issues, but rather [trello](https://trello.com/b/T3nDTm0B/eterna-refresh-site-rewrite).
+If you want to contribute, please join the [Eterna player-development slack](https://join.slack.com/t/eternaplayerdev/shared_invite/enQtODk1Njk0MTQxMDQ2LWFmZjFhNDMwM2NlNjkyMzYxZDNjOTNiNzhhNTY0MDcxNWNlOWE4YjkyZmQzZWY1YmEzZmFlMmU5NWM0MWFjZjM), where we can coordinate working on the project.

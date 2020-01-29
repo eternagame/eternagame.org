@@ -4,7 +4,7 @@
       <h2 class="page-title">
         <b>{{title}}</b>
         <div class="d-lg-none">
-          <slot name="sidebar"></slot>
+          <slot name="sidebar" :isInSidebar="false"></slot>
         </div>
       </h2>
       <b-row>
@@ -12,11 +12,11 @@
           <slot></slot>
         </b-col>
         <b-col class="sidebar d-none d-lg-block">
-          <slot name="sidebar"></slot>
+          <slot name="sidebar" :isInSidebar="true"></slot>
         </b-col>
       </b-row>
       <MobileSidebar ref="mobileSidebar">
-        <slot name="sidebar"></slot>
+        <slot name="sidebar" :isInSidebar="true"></slot>
       </MobileSidebar>
       <PageFooter/>
     </b-container>

@@ -2,9 +2,9 @@
   <EternaPage v-if="lab" title="Lab Details">
     <LabDescription :lab="lab" style="margin-bottom: 3.5rem;"/>
     <LabRound v-for="round in lab.puzzles" :key="round.round" :round="round"/>
-    <template #sidebar>
-      <LabInfoPanel :lab="lab"/>
-      <TagsPanel :tags="['#Switch', '#Ribosome']"/>
+    <template #sidebar="{ isInSidebar }">
+      <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar"/>
+      <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar"/>
     </template>
   </EternaPage>
 </template>
@@ -19,7 +19,7 @@
   import LabRound from './components/LabRound.vue';
   import TagsPanel from './components/TagsPanel.vue';
   import LabViewData, { LabData } from './types';
-  import PageDataMixin from '../../../mixins/PageData';
+  import PageDataMixin from '@/mixins/PageData';
 
   async function fetchPageData(route: Route) {
     return (await Vue.$http.get(`/get/?type=project&nid=${route.params.nid}`)).data.data as LabViewData;
@@ -35,7 +35,7 @@
       TagsPanel,
     },
   })
-  export default class LabsExploreView extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class LabsView extends Mixins(PageDataMixin(fetchPageData)) {
     get lab() {
       return this.pageData?.lab;
     }

@@ -1,12 +1,14 @@
 <template>
-  <SidebarPanel :header="header" :headerIcon="headerIcon">
+  <SidebarPanel :isInSidebar="isInSidebar" :header="header" :headerIcon="headerIcon">
     <b-checkbox-group v-model="selected" :options="filters" @input="onCheck" stacked/>
   </SidebarPanel>
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { mixins } from 'vue-class-component';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
+  import SidebarPanelMixin from '@/mixins/SidebarPanel';
 
   import icon from '@/assets/Filter.svg';
 
@@ -15,7 +17,7 @@
       SidebarPanel,
     },
   })
-  export default class FiltersPanel extends Vue {
+  export default class FiltersPanel extends mixins(SidebarPanelMixin) {
     @Prop({ default: 'filters' })
     private header!: string;
 

@@ -27,12 +27,14 @@
   import {
     Component, Prop, Watch, Vue,
   } from 'vue-property-decorator';
+  import { mixins } from 'vue-class-component';
+  import SidebarPanelMixin from '@/mixins/SidebarPanel';
 
   @Component({
     components: {
     },
   })
-  export default class DropdownSidebarPanel extends Vue {
+  class DropdownSidebarPanel extends mixins(SidebarPanelMixin) {
     @Prop({ required: true })
     options!: {text: string, value: string}[];
 
@@ -44,8 +46,6 @@
 
     selectedIndex = 0;
 
-    isInSidebar = false;
-
     @Watch('$route')
     readFromQuery() {
       const data = this.$route.query[this.paramName];
@@ -56,10 +56,6 @@
 
     created() {
       this.readFromQuery();
-    }
-
-    mounted() {
-      this.isInSidebar = !!(this.$el && this.$el.closest('.sidebar,.mobile-sidebar'));
     }
 
     onClick(index: number) {
@@ -77,6 +73,7 @@
     value: string;
     text: string;
   }
+  export default DropdownSidebarPanel;
 </script>
 
 <style lang="scss" scoped>

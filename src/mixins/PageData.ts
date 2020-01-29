@@ -20,7 +20,6 @@ export default function createPageDataMixin<T>(fetchPageData: (route: Route) => 
           vm.$vxm.pageData.data = data;
         });
       } else {
-        debugger;
         next();
       }
     }

@@ -4,9 +4,15 @@ import {
 import BootstrapVue, { EmbedPlugin } from 'bootstrap-vue';
 import Vuex, { Store, ActionTree, MutationTree } from 'vuex';
 import Vue from 'vue';
+import {
+  createProxy, mutation, extractVuexModule, createModule,
+} from 'vuex-class-component';
+import { ProxyWatchers } from 'vuex-class-component/dist/interfaces';
 import EternaPage from '@/components/PageLayout/EternaPage.vue';
 import MobileSidebar from '@/components/PageLayout/MobileSidebar.vue';
 import { localVue } from '../../localVue';
+import MobileStore from '@/store/mobile.vuex';
+
 
 describe('EternaPage.vue', () => {
   const sidebarContentClass = 'test-sidebar-content';
@@ -15,14 +21,29 @@ describe('EternaPage.vue', () => {
   let store: Store<any>;
   let mutations: MutationTree<any>;
   let wrapper: Wrapper<Vue>;
-
+  let showPageSidebar: jest.Mock;
+  let $vxm: {
+    mobile: ProxyWatchers & MobileStore
+  };
   beforeEach(() => {
-    mutations = {
-      'mobileStore/showPageSidebar': jest.fn(),
-    };
-    store = new Vuex.Store({
-      mutations,
+    const VuexModule = createModule({
+      strict: false,
     });
+    showPageSidebar = jest.fn();
+    class MockMobileStore extends VuexModule {
+      @mutation showPageSidebar() {
+        showPageSidebar();
+      }
+    }
+
+    store = new Vuex.Store({
+      modules: {
+        ...extractVuexModule(MockMobileStore),
+      },
+    });
+    $vxm = {
+      mobile: createProxy(store, MobileStore),
+    };
     wrapper = shallowMount(EternaPage, {
       slots: {
         default: `<div class="${bodyContentClass}"></div>`,
@@ -33,6 +54,9 @@ describe('EternaPage.vue', () => {
       },
       localVue,
       store,
+      mocks: {
+        $vxm,
+      },
     });
   });
 
@@ -50,9 +74,10 @@ describe('EternaPage.vue', () => {
 
   it('Should fire `MobileSidebar.openMenu` when the `mobileStore/showPageSidebar` mutation is called', async () => {
     const mockFn = jest.fn();
-    (wrapper.find(MobileSidebar).vm as any).openMenu = mockFn;
+    const sidebar = (wrapper.find(MobileSidebar).vm as any);
+    sidebar.openMenu = mockFn;
     expect(mockFn).not.toBeCalled();
-    store.commit('mobileStore/showPageSidebar');
+    $vxm.mobile.showPageSidebar();
     await Vue.nextTick();
     expect(mockFn).toBeCalledTimes(1);
   });

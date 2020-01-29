@@ -3,9 +3,9 @@
     <Gallery>
       <LabCard v-for="lab in pageData.labs" :key="lab.nid" :lab="lab"/>
     </Gallery>
-    <template #sidebar>
-      <FiltersPanel :filters="filters" paramName="filters"/>
-      <DropdownSidebarPanel :options="options" paramName="sort" replace/>
+    <template #sidebar="{ isInSidebar }">
+      <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar"/>
+      <DropdownSidebarPanel :options="options" paramName="sort" replace :isInSidebar="isInSidebar"/>
     </template>
   </EternaPage>
 </template>

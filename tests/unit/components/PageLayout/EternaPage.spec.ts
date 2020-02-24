@@ -42,7 +42,7 @@ describe('EternaPage.vue', () => {
       },
     });
     $vxm = {
-      mobile: createProxy(store, MobileStore),
+      mobile: createProxy(store, MockMobileStore),
     };
     wrapper = shallowMount(EternaPage, {
       slots: {

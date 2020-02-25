@@ -8,12 +8,12 @@ import VueRouter, {
 } from 'vue-router';
 import { AxiosInstance } from 'axios';
 import { ProxyWatchers } from 'vuex-class-component/dist/interfaces';
-import UserStore from '../store/user.vuex';
+import createUserStore from '../store/user.vuex';
 import MobileStore from '../store/mobile.vuex';
 import PageData from '../store/page-data.vuex';
 
 interface VXM {
-  user: ProxyWatchers & InstanceType<ReturnType<typeof UserStore>>,
+  user: ProxyWatchers & InstanceType<ReturnType<typeof createUserStore>>,
   mobile: ProxyWatchers & MobileStore,
   pageData: ProxyWatchers & PageData,
 }

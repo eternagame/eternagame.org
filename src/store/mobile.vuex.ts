@@ -7,19 +7,6 @@ const VuexModule = createModule({
 });
 
 export default class MobileStore extends VuexModule {
-  constructor(public $http: AxiosInstance) {
-    super();
-  }
-
-  static bound(axios: AxiosInstance) {
-    class BoundMobileStore extends MobileStore {
-      constructor() { super(axios); }
-    }
-
-    BoundMobileStore.prototype = MobileStore.prototype;
-    return BoundMobileStore;
-  }
-
   // Subscribed to
   @mutation showPageSidebar() {}
 }

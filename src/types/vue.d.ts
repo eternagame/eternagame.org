@@ -2,7 +2,7 @@
  * Augment the typings of Vue.js
  */
 
-import Vue from 'vue';
+import { ComponentOptions } from 'vue';
 import VueRouter, {
   Route, RawLocation, NavigationGuard, RouteCallback,
 } from 'vue-router';
@@ -12,6 +12,19 @@ import UserStore from '../store/user.vuex';
 import MobileStore from '../store/mobile.vuex';
 import PageData from '../store/page-data.vuex';
 
+interface VXM {
+  user: ProxyWatchers & InstanceType<ReturnType<typeof UserStore>>,
+  mobile: ProxyWatchers & MobileStore,
+  pageData: ProxyWatchers & PageData,
+}
+
+declare module 'vue/types/options' {
+  interface ComponentOptions<V extends Vue> {
+    vxm?: VXM;
+    http?: AxiosInstance;
+  }
+}
+
 declare module 'vue/types/vue' {
   interface Vue {
     $router: VueRouter;
@@ -20,20 +33,7 @@ declare module 'vue/types/vue' {
     beforeRouteLeave(to: Route, from: Route, next: RouteCallback<any>): any;
     beforeRouteUpdate(to: Route, from: Route, next: RouteCallback<any>): any;
     $http: AxiosInstance,
-    $vxm: {
-      user: ProxyWatchers & UserStore,
-      mobile: ProxyWatchers & MobileStore,
-      pageData: ProxyWatchers & PageData,
-    }
-  }
-
-  interface VueConstructor {
-    $http: AxiosInstance,
-    $vxm: {
-      user: ProxyWatchers & UserStore,
-      mobile: ProxyWatchers & MobileStore,
-      pageData: ProxyWatchers & PageData,
-    }
+    $vxm: VXM
   }
 }
 

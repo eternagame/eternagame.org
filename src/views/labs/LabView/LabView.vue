@@ -12,6 +12,7 @@
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
+  import { AxiosInstance } from 'axios';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import LabDescription from './components/LabDescription.vue';
@@ -21,8 +22,8 @@
   import LabViewData, { LabData } from './types';
   import PageDataMixin from '@/mixins/PageData';
 
-  async function fetchPageData(route: Route) {
-    return (await Vue.$http.get(`/get/?type=project&nid=${route.params.nid}`)).data.data as LabViewData;
+  async function fetchPageData(route: Route, http: AxiosInstance) {
+    return (await http.get(`/get/?type=project&nid=${route.params.nid}`)).data.data as LabViewData;
   }
 
   @Component({

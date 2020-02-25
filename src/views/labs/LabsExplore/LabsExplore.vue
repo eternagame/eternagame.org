@@ -15,6 +15,7 @@
     Component, Prop, Vue, Mixins,
   } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
+  import { AxiosInstance } from 'axios';
   import LabCard from './components/LabCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
@@ -23,9 +24,9 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
 
-  async function fetchPageData(route: Route) {
+  async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
-    const res = (await Vue.$http.get('/get/?type=get_labs_for_lab_cards&size=18&skip=0', {
+    const res = (await http.get('/get/?type=get_labs_for_lab_cards&size=18&skip=0', {
       params: {
         order: route.query.sort,
         filters: route.query.filters && (route.query.filters as string).split(','),

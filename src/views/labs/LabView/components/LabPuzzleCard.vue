@@ -37,7 +37,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .btn {
+  ::v-deep .btn {
     display: inline-block;
     width: 48%;
     margin-bottom: 0px;

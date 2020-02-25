@@ -14,24 +14,22 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import {
+    Component, Prop, Vue, Watch,
+  } from 'vue-property-decorator';
+  import { mixins } from 'vue-class-component';
+  import SidebarPanelMixin from '@/mixins/SidebarPanel';
 
   @Component({
     components: {
     },
   })
-  export default class SidebarPanel extends Vue {
+  export default class SidebarPanel extends mixins(SidebarPanelMixin) {
     @Prop({ required: true })
     private header!: string;
 
     @Prop({ required: true })
     private headerIcon!: string;
-
-    isInSidebar = false;
-
-    mounted() {
-      this.isInSidebar = !!(this.$el && this.$el.closest('.sidebar,.mobile-sidebar'));
-    }
 
     get headerTextClasses() {
       return this.isInSidebar ? [] : ['d-none', 'd-md-inline-block'];
@@ -39,7 +37,7 @@
 
     clickedHeader() {
       if (!this.isInSidebar) {
-        this.$store.commit('mobileStore/showPageSidebar');
+        this.$vxm.mobile.showPageSidebar();
       }
     }
 

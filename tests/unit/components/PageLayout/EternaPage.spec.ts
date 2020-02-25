@@ -1,12 +1,23 @@
 import {
   shallowMount, mount, Wrapper,
 } from '@vue/test-utils';
-import BootstrapVue, { EmbedPlugin } from 'bootstrap-vue';
 import Vuex, { Store, ActionTree, MutationTree } from 'vuex';
 import Vue from 'vue';
+import {
+  createProxy, mutation, extractVuexModule, createModule,
+} from 'vuex-class-component';
+import { ProxyWatchers } from 'vuex-class-component/dist/interfaces';
+import axios from 'axios';
 import EternaPage from '@/components/PageLayout/EternaPage.vue';
 import MobileSidebar from '@/components/PageLayout/MobileSidebar.vue';
 import { localVue } from '../../localVue';
+import MobileStore from '@/store/mobile.vuex';
+
+jest.mock('axios');
+
+type Interface<T> = {
+  [P in keyof T]: T[P]
+};
 
 describe('EternaPage.vue', () => {
   const sidebarContentClass = 'test-sidebar-content';
@@ -15,14 +26,29 @@ describe('EternaPage.vue', () => {
   let store: Store<any>;
   let mutations: MutationTree<any>;
   let wrapper: Wrapper<Vue>;
-
+  let showPageSidebar: jest.Mock;
+  let $vxm: {
+    mobile: ProxyWatchers & Interface<MobileStore>
+  };
   beforeEach(() => {
-    mutations = {
-      'mobileStore/showPageSidebar': jest.fn(),
-    };
+    const VuexModule = createModule({ strict: false });
+    showPageSidebar = jest.fn();
+    class MockMobileStore extends VuexModule {
+      $http = axios;
+
+      @mutation showPageSidebar() {
+        showPageSidebar();
+      }
+    }
+
     store = new Vuex.Store({
-      mutations,
+      modules: {
+        ...extractVuexModule(MockMobileStore),
+      },
     });
+    $vxm = {
+      mobile: createProxy(store, MockMobileStore),
+    };
     wrapper = shallowMount(EternaPage, {
       slots: {
         default: `<div class="${bodyContentClass}"></div>`,
@@ -33,6 +59,9 @@ describe('EternaPage.vue', () => {
       },
       localVue,
       store,
+      mocks: {
+        $vxm,
+      },
     });
   });
 
@@ -50,9 +79,10 @@ describe('EternaPage.vue', () => {
 
   it('Should fire `MobileSidebar.openMenu` when the `mobileStore/showPageSidebar` mutation is called', async () => {
     const mockFn = jest.fn();
-    (wrapper.find(MobileSidebar).vm as any).openMenu = mockFn;
+    const sidebar = (wrapper.find(MobileSidebar).vm as any);
+    sidebar.openMenu = mockFn;
     expect(mockFn).not.toBeCalled();
-    store.commit('mobileStore/showPageSidebar');
+    $vxm.mobile.showPageSidebar();
     await Vue.nextTick();
     expect(mockFn).toBeCalledTimes(1);
   });

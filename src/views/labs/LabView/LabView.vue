@@ -1,25 +1,30 @@
 <template>
-  <EternaPage v-if="data" title="Lab Details">
+  <EternaPage v-if="lab" title="Lab Details">
     <LabDescription :lab="lab" style="margin-bottom: 3.5rem;"/>
     <LabRound v-for="round in lab.puzzles" :key="round.round" :round="round"/>
-    <template #sidebar>
-      <LabInfoPanel :lab="lab"/>
-      <TagsPanel :tags="['#Switch', '#Ribosome']"/>
+    <template #sidebar="{ isInSidebar }">
+      <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar"/>
+      <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar"/>
     </template>
   </EternaPage>
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
-  import axios from 'axios';
+  import { Component, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
-  import LabDescription from './components/LabDescription.vue';
+  import { AxiosInstance } from 'axios';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import LabViewData, { LabData } from './types';
+  import LabDescription from './components/LabDescription.vue';
   import LabInfoPanel from './components/LabInfoPanel.vue';
   import LabRound from './components/LabRound.vue';
   import TagsPanel from './components/TagsPanel.vue';
+  import LabViewData, { LabData } from './types';
+  import PageDataMixin from '@/mixins/PageData';
+
+  async function fetchPageData(route: Route, http: AxiosInstance) {
+    return (await http.get(`/get/?type=project&nid=${route.params.nid}`)).data.data as LabViewData;
+  }
 
   @Component({
     components: {
@@ -31,18 +36,9 @@
       TagsPanel,
     },
   })
-  export default class LabView extends Vue {
-    data: LabViewData | null = null;
-
+  export default class LabsView extends Mixins(PageDataMixin(fetchPageData)) {
     get lab() {
-      return this.data!.lab;
-    }
-
-    async beforeRouteEnter(to: Route, from: Route, next: RouteCallback<LabView>) {
-      const data = (await axios.get(`/get/?type=project&nid=${to.params.nid}`)).data.data as LabViewData;
-      next((vm) => {
-        vm.data = data;
-      });
+      return this.pageData?.lab;
     }
   }
 </script>

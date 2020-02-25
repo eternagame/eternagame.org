@@ -21,7 +21,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { LabData } from '../types';
 
-  const defaultImage = require('@/assets/ribosome_challenge_bg.png');
+  import defaultImage from '@/assets/ribosome_challenge_bg.png';
 
   @Component({
     components: {},

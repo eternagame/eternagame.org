@@ -44,7 +44,7 @@
     async resetPassword() {
       // $('#loader').modal('show');
       this.errorMessage = '';
-      const response = await this.axios.post(
+      const response = await this.$http.post(
         '/login/',
         new URLSearchParams({
           resetId: this.usernameOrEmail,
@@ -58,7 +58,7 @@
       const { data } = response;
       if (data.data.success) {
         this.$refs.modal.hide();
-        this.$store.commit('showResetCompleteModal');
+        this.$vxm.user.showResetCompleteModal();
       } else {
         this.errorMessage = data.data.error;
       }

@@ -1,5 +1,5 @@
 <template>
-  <SidebarPanel header="Lab Info" :headerIcon="require('@/assets/info.svg')">
+  <SidebarPanel :isInSidebar="isInSidebar" header="Lab Info" headerIcon="@/assets/info.svg">
     <span class="gray-header">Admin:</span><br/>
     <b style="color: var(--yellow);">Username</b><br/>
     <br/>
@@ -13,15 +13,17 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { mixins } from 'vue-class-component';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import { LabData } from '../types';
+  import SidebarPanelMixin from '@/mixins/SidebarPanel';
 
   @Component({
     components: {
       SidebarPanel,
     },
   })
-  export default class LabInfoPanel extends Vue {
+  export default class LabInfoPanel extends mixins(SidebarPanelMixin) {
     @Prop()
     private lab!: LabData;
 

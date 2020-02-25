@@ -8,7 +8,7 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import VueBootstrapBreakpointIndicator from 'vue-bootstrap-breakpoint-indicator';
+  import VueBootstrapBreakpointIndicator from 'vue-bootstrap-breakpoint-indicator/src/BootstrapBreakpointIndicator.vue';
   import Navbar from '@/components/PageLayout/Navbar/Navbar.vue';
   import Modals from '@/components/Modals/Modals.vue';
 

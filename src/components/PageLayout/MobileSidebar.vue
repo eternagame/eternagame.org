@@ -27,7 +27,7 @@
       mobileSidebar: HTMLDivElement;
     };
 
-    created() {
+    mounted() {
       document.addEventListener('click', this.onDocumentClick);
     }
 

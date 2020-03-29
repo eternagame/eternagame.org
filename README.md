@@ -11,10 +11,6 @@ If you want to modify any of the parameters in `.env`, create a file named `.env
 
 ### Run locally
 ```
-npm run serve
-```
-Or:
-```
 npm start
 ```
 

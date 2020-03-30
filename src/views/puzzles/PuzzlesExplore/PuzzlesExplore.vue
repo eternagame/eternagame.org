@@ -13,7 +13,6 @@
     </Gallery>
     <template #sidebar="{ isInSidebar }">
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
-       // eslint-disable-next-line max-len
        <TagsPanel :tags="tags" :isInSidebar="isInSidebar"/>
     </template>
   </EternaPage>

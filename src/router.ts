@@ -18,13 +18,18 @@ export default function createRouter() {
       },
       {
         path: '/labs/explore',
-        name: 'explore',
+        name: 'labs-explore',
         component: () => import('./views/labs/LabsExplore/LabsExplore.vue'),
       },
       {
         path: '/lab/:nid',
         name: 'lab',
         component: () => import('./views/labs/LabView/LabView.vue'),
+      },
+      {
+        path: '/puzzles/explore',
+        name: 'puzzles-explore',
+        component: () => import('./views/puzzles/PuzzlesExplore/PuzzlesExplore.vue'),
       },
     ],
   });

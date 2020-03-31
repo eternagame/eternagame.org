@@ -5,6 +5,9 @@ node_modules
 /tests/e2e/reports/
 selenium-debug.log
 
+# prettier files
+.prettierrc.json
+
 # env files
 .env.local
 .env.*.local

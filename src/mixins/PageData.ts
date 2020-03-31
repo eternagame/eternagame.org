@@ -17,7 +17,7 @@ export default function createPageDataMixin<T>(
     }
 
     async beforeRouteEnter(to: Route, from: Route, next: RouteCallback<any>) {
-      if (process.env.VUE_APP_ENV === 'client' && from.name) {
+      if (process.env.VUE_APP_ENV === 'client') {
         next(async (vm) => {
           vm.$vxm.pageData.data = await fetchPageData(to, vm.$http);
         });

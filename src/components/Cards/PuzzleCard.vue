@@ -10,7 +10,7 @@
       <b-row class="mb-2">
         <b-col cols="4" class="left-col">
           <slot name="left-icon">
-            <img src="@/assets/test-tube.svg" alt="lab slots" class="icon">
+            <img src="@/assets/dollar.svg" alt="reward slots" class="icon">
           </slot>
           {{leftNumber}}
         </b-col>

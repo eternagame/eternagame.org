@@ -26,6 +26,11 @@ export default function createRouter() {
         name: 'lab',
         component: () => import('./views/labs/LabView/LabView.vue'),
       },
+      {
+        path: '/player/:uid',
+        name: 'player',
+        component: () => import('./views/players/PlayerView/PlayerView.vue'),
+      },
     ],
   });
 

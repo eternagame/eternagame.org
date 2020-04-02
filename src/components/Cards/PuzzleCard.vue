@@ -10,9 +10,9 @@
       <b-row class="mb-2">
         <b-col cols="4" class="left-col">
           <slot name="left-icon">
-            <img src="@/assets/test-tube.svg" alt="lab slots" class="icon">
+            <img src="@/assets/dollar.svg" alt="reward slots" class="icon">
           </slot>
-          &nbsp;{{leftNumber}}
+          {{leftNumber}}
         </b-col>
         <b-col cols="4" class="text-center">
           <StateCounter :value="states"/>
@@ -21,7 +21,7 @@
           <slot name="right-icon">
             <img src="@/assets/people.svg" alt="submissions" class="icon">
           </slot>
-          &nbsp;{{rightNumber}}
+          {{rightNumber}}
         </b-col>
       </b-row>
       <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
@@ -89,6 +89,7 @@
 
   .icon {
     width: 19px;
+    margin-right: 5px;
   }
 
   .left-col, .right-col {

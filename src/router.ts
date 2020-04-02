@@ -18,7 +18,7 @@ export default function createRouter() {
       },
       {
         path: '/labs/explore',
-        name: 'explore',
+        name: 'labs-explore',
         component: () => import('./views/labs/LabsExplore/LabsExplore.vue'),
       },
       {
@@ -30,6 +30,11 @@ export default function createRouter() {
         path: '/player/:uid',
         name: 'player',
         component: () => import('./views/players/PlayerView/PlayerView.vue'),
+      },
+      {
+        path: '/puzzles/explore',
+        name: 'puzzles-explore',
+        component: () => import('./views/puzzles/PuzzlesExplore/PuzzlesExplore.vue'),
       },
     ],
   });

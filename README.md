@@ -12,6 +12,9 @@ npm install
 
 If you want to modify any of the parameters in `.env`, create a file named `.env.local` and include any overrides there
 
+### Workflow Recommendations
+[This article](https://alligator.io/vuejs/eslint-vue-vetur/) on setting up linting for VSCode is very helpful
+
 ### Run locally
 
 ```

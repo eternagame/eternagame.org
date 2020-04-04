@@ -1,21 +1,24 @@
 <template>
   <div style="overflow:hidden; margin-top: 120px;">
     <b-container class="page-container">
-      <h2 class="page-title">
+      <h2 class="page-title" v-if="title">
         <b>{{title}}</b>
         <div class="d-lg-none">
           <slot name="sidebar" :isInSidebar="false"></slot>
         </div>
       </h2>
       <b-row>
-        <b-col cols="12" lg="9" class="body">
+        <b-col cols="12" lg="9" class="body" v-if="hasSidebarSlot">
           <slot></slot>
         </b-col>
-        <b-col class="sidebar d-none d-lg-block">
+        <b-col class="body" v-if="!hasSidebarSlot">
+          <slot></slot>
+        </b-col>
+        <b-col class="sidebar d-none d-lg-block" v-if="hasSidebarSlot">
           <slot name="sidebar" :isInSidebar="true"></slot>
         </b-col>
       </b-row>
-      <MobileSidebar ref="mobileSidebar">
+      <MobileSidebar ref="mobileSidebar" v-if="hasSidebarSlot">
         <slot name="sidebar" :isInSidebar="true"></slot>
       </MobileSidebar>
       <PageFooter/>
@@ -28,6 +31,7 @@
   import MobileSidebar from './MobileSidebar.vue';
   import PageFooter from './PageFooter.vue';
 
+
   @Component({
     components: {
       MobileSidebar,
@@ -35,7 +39,7 @@
     },
   })
   export default class EternaPage extends Vue {
-    @Prop({ required: true })
+    @Prop()
     title!: string;
 
     $refs!: {
@@ -53,7 +57,12 @@
     beforeDestroy() {
       this.unsubscribe();
     }
+
+    get hasSidebarSlot() {
+      return !!this.$scopedSlots.sidebar;
+    }
   }
+
 </script>
 
 <style lang="scss" scoped>

@@ -3,17 +3,21 @@ import { CreateElement, VNode } from 'vue';
 import GalleryColumn from './GalleryColumn.vue';
 
 @Component({
-  components: {
-    GalleryColumn,
-  },
+  components: {},
 })
 export default class Gallery extends Vue {
   functional = true;
+  @Prop({ default: 3 }) private md!: string;
+
+  @Prop({ default: 3 }) private sm!: string;
 
   public render(h: CreateElement) {
+    const { md, sm } = this;
     return (
       <b-form-row class="row-eq-height">
-        {(this.$slots.default || []).map((vnode) => <GalleryColumn>{[vnode]}</GalleryColumn>)}
+        {(this.$slots.default || []).map(vnode => (
+          <GalleryColumn props={{ md, sm }}>{[vnode]}</GalleryColumn>
+        ))}
       </b-form-row>
     );
   }

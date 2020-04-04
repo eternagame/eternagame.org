@@ -32,6 +32,11 @@ export default function createRouter() {
         component: () => import('./views/players/PlayerView/PlayerView.vue'),
       },
       {
+        path: '/new-player/',
+        name: 'new-player',
+        component: () => import('./views/players/NewPlayerView/NewPlayerView.vue'),
+      },
+      {
         path: '/puzzles/explore',
         name: 'puzzles-explore',
         component: () => import('./views/puzzles/PuzzlesExplore/PuzzlesExplore.vue'),

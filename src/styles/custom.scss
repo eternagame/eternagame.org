@@ -4,8 +4,9 @@
 }
 
 @include media-breakpoint-up(xl) {
-  .page-container, .navbar-container {
-    max-width: map-get($grid-breakpoints, "xl");
+  .page-container,
+  .navbar-container {
+    max-width: map-get($grid-breakpoints, 'xl');
     width: 100%;
   }
 }
@@ -17,4 +18,12 @@
 
 .card {
   border-radius: 0.5rem;
+}
+
+.arrow_right {
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 5px solid white;
+  display: inline-block;
+  margin-right: 10px;
 }

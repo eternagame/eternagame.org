@@ -12,13 +12,15 @@
         life-saving therapies.
       </p>
       <b-button variant="primary" size="lg" to="/game/puzzle/6502927/">Next Puzzle</b-button>
-      <div class="d-flex">
-        <p>Video Library</p>
-        <p>Learn more about RNA</p>
+      <div class="d-flex" style="margin-top:22px;">
+        <p style="margin-right:20px;"><i class="arrow_right"></i>Video Library</p>
+        <p><i class="arrow_right"></i>Learn more about RNA</p>
       </div>
     </b-container>
 
-    <h1>Complete these puzzles to unlock lab access!</h1>
+    <p style="{  margin:34px 0px; font-size: 2rem; text-align: center; line-height: 1.37}">
+      Complete these puzzles to unlock lab access!
+    </p>
     <Gallery sm="3" md="3">
       <VideoCard title="The basics" />
       <VideoCard title="Protein Synthesis" />
@@ -81,25 +83,6 @@
     private playerName: string = 'Iroppy';
 
     private playerRank: string = '1';
-
-    private aboutMeText: string = `Live in sometimes hot/often very cold land of 10,000 lakes (Minnesota).
-      Univ of Chicago BA/MBA <br/>
-      —now on 2nd career as software product manager at IBM.<br/>
-      —first career was public & non-profit financial management<br/>
-      Passions: racquetball, science, great software, sci-fi, Go, social justice, eteRNA.<br/>
-      <br/>
-      <b>ete-RNA-L eteRNA wisDOM:</b>
-      • When in doubt (or bored) strengthen.<br/>
-      • When in doubt on Switch Puzzles: Reset!<br/>
-      • When an designer titles a puzzle “ugly”, take their word for it.<br/>
-      • When an designer titles a puzzle something and “easy”, run away.<br/>
-      • Credit your mods.<br/>
-      • Lab results are in the mail.<br/>
-      • Going on a diet to reduce a few GCs.<br/>
-      • These aren’t the GUs you are looking for. Move along…<br/>
-      <br/><br/>
-
-      <b>ETERNACON 2015!</b>`;
   }
 </script>
 
@@ -120,13 +103,5 @@
     background-color: $dark;
     padding-top: 10px;
     border-radius: 5px;
-  }
-
-  .Triangle {
-    width: 5px;
-    height: 8px;
-    -webkit-filter: blur(4.8px);
-    filter: blur(4.8px);
-    background-color: #ffffff;
   }
 </style>

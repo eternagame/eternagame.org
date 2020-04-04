@@ -1,20 +1,26 @@
 <template>
-  <PuzzleCard :title="puzzle.title" :nid="puzzle.nid" :aspectRatio="1.18"
-              :leftNumber="puzzle.num_slots" :states="states" :rightNumber="puzzle.submitted">
+  <PuzzleCard
+    :title="puzzle.title"
+    :nid="puzzle.nid"
+    :aspectRatio="1.18"
+    :leftNumber="puzzle.num_slots"
+    :states="states"
+    :rightNumber="puzzle.submitted"
+  >
     <div class="text-center image-container">
-      <img :src="imageURL" class="image"/>
+      <img :src="imageURL" class="image" />
     </div>
     <template #buttons>
-      <b-button href="" variant="primary"   size="sm">Design</b-button>
+      <b-button href="" variant="primary" size="sm">Design</b-button>
       <b-button href="" variant="secondary" size="sm">Review</b-button>
     </template>
   </PuzzleCard>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { PuzzleData } from '../types';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import Utils from '@/utils/utils';
+  import { PuzzleData } from '../types';
 
   @Component({
     components: {

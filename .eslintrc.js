@@ -3,20 +3,15 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: [
-    'plugin:vue/essential',
-    '@vue/airbnb',
-    '@vue/typescript',
-  ],
-  ignorePatterns: ['vue.config.js', 'server/'],
+  extends: ['plugin:vue/essential', '@vue/airbnb', '@vue/typescript'],
   rules: {
+    'vue/max-attributes-per-line': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'class-methods-use-this': 'off',
     camelcase: 'off',
-    'vue/script-indent': ['error', 2, {
-      baseIndent: 1,
-    }],
+    indent: 'off',
+    'vue/script-indent': ['error', 2, { baseIndent: 1 }],
     'no-param-reassign': ['error', { props: false }],
     semi: 'off',
     '@typescript-eslint/semi': ['error'],
@@ -29,15 +24,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.vue'],
-      rules: {
-        indent: 'off',
-      },
-    },
-    {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-      ],
+      files: ['**/__tests__/*.{j,t}s?(x)'],
       env: {
         jest: true,
       },

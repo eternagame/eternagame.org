@@ -1,5 +1,5 @@
 <template>
-  <EternaPage v-if="pageData" title="Labs">
+  <EternaPage v-if="pageData" title="Puzzles">
     <Gallery>
       <PuzzleCard
         v-for="puzzle in pageData.puzzles"
@@ -24,14 +24,14 @@
   } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
-  import PuzzleCard from '../../../components/Cards/PuzzleCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import PuzzleExploreData, { PuzzleCardData } from './types';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
-  import TagsPanel from '../../labs/LabView/components/TagsPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
+  import TagsPanel from '../../labs/LabView/components/TagsPanel.vue';
+  import PuzzleExploreData, { PuzzleCardData } from './types';
+  import PuzzleCard from '../../../components/Cards/PuzzleCard.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;

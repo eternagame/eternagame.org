@@ -1,32 +1,22 @@
 <template>
   <EternaPage v-if="player" title="">
-    <div class="video-wrapper">
-      <div class="video">
-        <b-container>
-          <b-row class="row">
-            <b-col lg="3" />
-            <b-col lg="6" sm="12">
-              <div>
-                <h2 class="text-block">
-                  RNA Virtual Lab
-                </h2>
-                <h4 class="text-block">
-                  Nature’s best kept secret is a wonder molecule called RNA. It is central to the
-                  origin of life, evolution, and the cellular machinery that keeps us alive. In this
-                  Virtual Lab you’ll play the role of a molecular engineer by solving RNA folding
-                  puzzles. Then take your skills to the Eterna Lab, where you can design RNAs that
-                  could be at the heart of future life-saving therapies.
-                </h4>
-                <b-button variant="primary" size="lg" to="/game/puzzle/6502927/"
-                  >Next Puzzle</b-button
-                >
-              </div>
-            </b-col>
-            <b-col lg="3" />
-          </b-row>
-        </b-container>
+    <b-container class="video">
+      <p style="font-size: 2.8rem; font-weight: bold">
+        RNA Virtual Lab
+      </p>
+      <p style="width: 482px;height: 151px;">
+        Nature’s best kept secret is a wonder molecule called RNA. It is central to the origin of
+        life, evolution, and the cellular machinery that keeps us alive. In this Virtual Lab you’ll
+        play the role of a molecular engineer by solving RNA folding puzzles. Then take your skills
+        to the Eterna Lab, where you can design RNAs that could be at the heart of future
+        life-saving therapies.
+      </p>
+      <b-button variant="primary" size="lg" to="/game/puzzle/6502927/">Next Puzzle</b-button>
+      <div class="d-flex">
+        <p>Video Library</p>
+        <p>Learn more about RNA</p>
       </div>
-    </div>
+    </b-container>
 
     <h1>Complete these puzzles to unlock lab access!</h1>
     <Gallery sm="3" md="3">
@@ -36,20 +26,22 @@
       <VideoCard title="Virus Attack" />
     </Gallery>
     <Gallery sm="2" md="2" class="video-wrapper">
-      <GameCard title="G1" />
-      <GameCard title="G2" />
-      <GameCard title="G3" />
-      <GameCard title="G4" />
-      <GameCard title="G4" />
-      <GameCard title="G4" />
+      <PuzzleCard nid="G1" />
+      <PuzzleCard nid="G2" />
+      <PuzzleCard nid="G3" />
+      <PuzzleCard nid="G4" />
+      <PuzzleCard nid="G5" />
+      <PuzzleCard nid="G6" />
     </Gallery>
     <p>Advanced Training</p>
     <h1>Lab Skills 101</h1>
-    <Gallery>
-      <GameCard title="G1" />
-      <GameCard title="G2" />
-      <GameCard title="G3" />
-      <GameCard title="G4" />
+    <Gallery sm="2" md="2">
+      <PuzzleCard nid="G1" />
+      <PuzzleCard nid="G2" />
+      <PuzzleCard nid="G3" />
+      <PuzzleCard nid="G4" />
+      <PuzzleCard nid="G5" />
+      <PuzzleCard nid="G6" />
     </Gallery>
   </EternaPage>
 </template>
@@ -59,11 +51,11 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
+  import PageDataMixin from '@/mixins/PageData';
   import VideoCard from './VideoCard.vue';
-  import GameCard from './GameCard.vue';
+  import PuzzleCard from '../../../components/Cards/PuzzleCard.vue';
 
   //   import LabViewData, { LabData } from './types';
-  import PageDataMixin from '@/mixins/PageData';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     console.log((await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data);
@@ -74,7 +66,7 @@
     components: {
       EternaPage,
       VideoCard,
-      GameCard,
+      PuzzleCard,
     },
   })
   export default class NewPlayerView extends Mixins(PageDataMixin(fetchPageData)) {
@@ -114,8 +106,27 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
+  .video {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)),
+      url('../../../assets/rna_lab.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    object-fit: contain;
+    height: 441px;
+    padding: 31px;
+  }
+
   .video-wrapper {
-    background-color: black;
+    background-color: $dark;
     padding-top: 10px;
+    border-radius: 5px;
+  }
+
+  .Triangle {
+    width: 5px;
+    height: 8px;
+    -webkit-filter: blur(4.8px);
+    filter: blur(4.8px);
+    background-color: #ffffff;
   }
 </style>

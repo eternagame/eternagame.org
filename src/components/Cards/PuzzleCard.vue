@@ -1,23 +1,23 @@
 <template>
   <AspectRatioCard :aspectRatio="aspectRatio">
     <template #header>
-      <div class="puzzle-card-title">
+      <div class="puzzle-card-title" v-if="title">
         <b>{{title}}</b>
       </div>
     </template>
     <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable"/>
     <template #footer>
       <b-row class="mb-2">
-        <b-col cols="4" class="left-col">
+        <b-col cols="4" class="left-col" v-if="leftNumber">
           <slot name="left-icon">
             <img src="@/assets/dollar.svg" alt="reward slots" class="icon">
           </slot>
           {{leftNumber}}
         </b-col>
-        <b-col cols="4" class="text-center">
+        <b-col cols="4" class="text-center" v-if="states">
           <StateCounter :value="states"/>
         </b-col>
-        <b-col cols="4" class="right-col">
+        <b-col cols="4" class="right-col"  v-if="rightNumber">
           <slot name="right-icon">
             <img src="@/assets/people.svg" alt="submissions" class="icon">
           </slot>
@@ -43,15 +43,15 @@
     },
   })
   export default class LabPuzzleCard extends Vue {
-    @Prop({ required: true }) private title!: string;
+    @Prop() private title!: string;
 
     @Prop({ required: true }) private nid!: string;
 
-    @Prop({ required: true }) private leftNumber!: number;
+    @Prop() private leftNumber!: number;
 
-    @Prop({ required: true }) private states!: number;
+    @Prop() private states!: number;
 
-    @Prop({ required: true }) private rightNumber!: number;
+    @Prop() private rightNumber!: number;
 
     @Prop({ default: 1 }) private aspectRatio!: number;
 

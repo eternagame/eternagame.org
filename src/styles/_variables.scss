@@ -16,7 +16,6 @@ $gray-700: #7b8a8b !default;
 $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black: #000 !default;
-$dark: #0a2854 !default;
 
 $blue: #21508c !default;
 $dark-blue: #05224b !default;
@@ -176,5 +175,6 @@ $list-group-action-hover-color: $white !default;
 $close-color: $white !default;
 $close-text-shadow: none !default;
 
-$popover-bg: $dark !default;
+// Popover - custom variables
+$popover-bg: black !default;
 $popover-header-color: $light !default;

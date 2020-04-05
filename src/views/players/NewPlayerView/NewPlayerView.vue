@@ -1,5 +1,10 @@
 <template>
   <EternaPage v-if="player" title="">
+    <button v-popover="{ name: `foo'}` }">Toggle popover</button>
+
+    <popover :name="`${'foo'}`">
+      Hello 🎉
+    </popover>
     <b-container class="video">
       <p style="font-size: 2.8rem; font-weight: bold">
         RNA Virtual Lab
@@ -28,22 +33,24 @@
       <VideoCard title="Virus Attack" />
     </Gallery>
     <Gallery sm="2" md="2" class="video-wrapper">
-      <PuzzleCard nid="G1" />
+      <PuzzleCard nid="G1" locked="true" />
       <PuzzleCard nid="G2" />
-      <PuzzleCard nid="G3" />
-      <PuzzleCard nid="G4" />
-      <PuzzleCard nid="G5" />
-      <PuzzleCard nid="G6" />
+      <PuzzleCard nid="G3" locked="true" />
+      <PuzzleCard nid="G4" locked="true" />
+      <PuzzleCard nid="G5" locked="true" />
+      <PuzzleCard nid="G6" locked="true" />
     </Gallery>
-    <p>Advanced Training</p>
-    <h1>Lab Skills 101</h1>
+    <p style="margin-top:56px;font-size:0.9333333333333333rem; font-weight:bold">
+      {{ `Advanced Training`.toUpperCase() }}
+    </p>
+    <h1 style="font-size:2.4rem; font-weight:bold; margin-bottom:9px">Lab Skills 101</h1>
     <Gallery sm="2" md="2">
-      <PuzzleCard nid="G1" />
-      <PuzzleCard nid="G2" />
-      <PuzzleCard nid="G3" />
-      <PuzzleCard nid="G4" />
-      <PuzzleCard nid="G5" />
-      <PuzzleCard nid="G6" />
+      <PuzzleCard nid="G7" locked="true" />
+      <PuzzleCard nid="G8" locked="true" />
+      <PuzzleCard nid="G9" mlocked="true" />
+      <PuzzleCard nid="G10" locked="true" />
+      <PuzzleCard nid="G11" locked="true" />
+      <PuzzleCard nid="G12" locked="true" />
     </Gallery>
   </EternaPage>
 </template>
@@ -51,11 +58,14 @@
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
+  import Popover from 'vue-js-popover';
   import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import VideoCard from './VideoCard.vue';
   import PuzzleCard from '../../../components/Cards/PuzzleCard.vue';
+
+  Vue.use(Popover);
 
   //   import LabViewData, { LabData } from './types';
 

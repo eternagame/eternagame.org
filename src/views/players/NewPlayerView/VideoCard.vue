@@ -27,11 +27,8 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import VTooltip from 'v-tooltip';
   import Utils from '@/utils/utils';
-  import AspectRatioCard from '../../../components/Cards/AspectRatioCard.vue';
-
-  Vue.use(VTooltip);
+  import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
 
   @Component({
     components: {

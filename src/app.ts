@@ -2,10 +2,10 @@ import Vue from 'vue';
 import { sync } from 'vuex-router-sync';
 import BootstrapVue from 'bootstrap-vue';
 import axios from 'axios';
+import InitGlobalComponents from '@/components/global';
 import App from './App.vue';
 import createRouter from './router';
 import createStore from './store/store';
-import InitGlobalComponents from '@/components/global';
 
 Vue.use(BootstrapVue);
 

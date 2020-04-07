@@ -8,32 +8,27 @@
       <b-button variant="primary" size="lg" to="/game/puzzle/6502927/">Enter Lab</b-button>
     </b-container>
 
-    <h1>Puzzles</h1>
+    <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
+      Puzzles
+    </h1>
     <Swiper class="swiper" :options="swiperOption">
-      <swiper-slide> <PuzzleCard nid="G7" locked="true"/></swiper-slide>
-      <swiper-slide> <PuzzleCard nid="G7" locked="true"/></swiper-slide>
-      <swiper-slide> <PuzzleCard nid="G7" locked="true"/></swiper-slide>
-      <swiper-slide> <PuzzleCard nid="G7" locked="true"/></swiper-slide>
-      <swiper-slide> <PuzzleCard nid="G7" locked="true"/></swiper-slide>
-      <swiper-slide> <PuzzleCard nid="G7" locked="true"/></swiper-slide>
-      <swiper-slide> <PuzzleCard nid="G7" locked="true"/></swiper-slide>
-      <swiper-slide> <PuzzleCard nid="G7" locked="true"/></swiper-slide>
-      <swiper-slide> <PuzzleCard nid="G7" locked="true"/></swiper-slide>
-      <swiper-slide> <PuzzleCard nid="G7" locked="true"/></swiper-slide>
+      <swiper-slide v-for="(item, index) in puzzles" :key="index">
+        <PuzzleCard :nid="index" title="test" leftNumber="1" rightNumber="2" states="0" />
+      </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
     </Swiper>
 
-    <h1>Quests</h1>
-    <Carousel sm="2" md="2">
-      <PuzzleCard nid="G7" locked="true" />
-      <PuzzleCard nid="G8" locked="true" />
-      <PuzzleCard nid="G9" mlocked="true" />
-      <PuzzleCard nid="G10" locked="true" />
-      <PuzzleCard nid="G11" locked="true" />
-      <PuzzleCard nid="G12" locked="true" />
-    </Carousel>
+    <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">Quests</h1>
+    <Swiper class="swiper" :options="swiperOption">
+      <swiper-slide v-for="(item, index) in quests" :key="index">
+        <QuestCard :nid="index" :progress="item" />
+      </swiper-slide>
+      <div class="swiper-pagination" slot="pagination"></div>
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
+    </Swiper>
   </EternaPage>
 </template>
 
@@ -45,6 +40,7 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
+  import QuestCard from '@/components/Cards/QuestCard.vue';
   import 'swiper/css/swiper.css';
 
   //   import LabViewData, { LabData } from './types';
@@ -58,6 +54,7 @@
     components: {
       EternaPage,
       PuzzleCard,
+      QuestCard,
       Swiper,
       SwiperSlide,
     },
@@ -78,7 +75,7 @@
     private swiperOption = {
       slidesPerView: 4,
       spaceBetween: 30,
-      loop: true,
+      loop: false,
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
@@ -89,6 +86,10 @@
         prevEl: '.swiper-button-prev',
       },
     };
+
+    private puzzles: number[] = [1, 2, 3, 4, 5, 6, 7];
+
+    private quests: number[] = [40, 20, 30];
   }
 </script>
 

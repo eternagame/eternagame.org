@@ -1,6 +1,6 @@
 <template>
   <SidebarPanel :isInSidebar="isInSidebar" :header="header" :headerIcon="headerIcon">
-    <b-checkbox-group v-model="selected" :options="filters" @input="onCheck" stacked/>
+    <b-checkbox-group v-model="selected" :options="filters" @input="onCheck" stacked />
   </SidebarPanel>
 </template>
 
@@ -40,7 +40,7 @@
     }
 
     async onCheck() {
-      await this.$router.replace({ name: this.$route.name, query: this.getQuery() });
+      await this.$router.replace({ name: this.$route.name!, query: this.getQuery() });
     }
 
     getQuery() {
@@ -60,6 +60,4 @@
   }
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

@@ -17,6 +17,7 @@ module.exports = {
     '@typescript-eslint/semi': ['error'],
     'no-unused-vars': 'off',
     'arrow-parens': 'off',
+    'object-curly-newline': 'off',
     'no-underscore-dangle': ['error', { allow: ['__INITIAL_STATE__'] }],
   },
   parserOptions: {

@@ -62,7 +62,7 @@
       AspectRatioCard,
     },
   })
-  export default class LabPuzzleCard extends Vue {
+  export default class PuzzleCard extends Vue {
     @Prop() private title!: string;
 
     @Prop({ required: true }) private nid!: string;

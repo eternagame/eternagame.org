@@ -1,6 +1,16 @@
 <template>
   <EternaPage title="News">
-    <NewsCard />
+    <Gallery :sm="12" :md="12">
+      <NewsCard />
+      <NewsCard />
+      <NewsCard />
+      <NewsCard />
+      <NewsCard />
+      <NewsCard />
+      <NewsCard />
+      <NewsCard />
+      <NewsCard />
+    </Gallery>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"

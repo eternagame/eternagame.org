@@ -1,12 +1,16 @@
 <template>
-  <AspectRatioCard
-    :style="{
-      background: `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(${imageUrl})`,
-      backgroundSize: 'contain',
-    }"
-  >
+  <AspectRatioCard :aspectRatio="163 / 700">
     <template>
-      <h1>News Card</h1>
+      <div style="text-align:left">
+        <p>{{ `${category.toUpperCase()}` }}</p>
+        <div class="d-flex">
+          <img :src="img" style="width:236px;height:134px;marginRight:13px" />
+          <div>
+            <p style="font-size:20px;font-weight:bold;marginBottom:0px">{{ heading }}</p>
+            <p>{{ text }}</p>
+          </div>
+        </div>
+      </div>
     </template>
   </AspectRatioCard>
 </template>
@@ -21,17 +25,19 @@
     },
   })
   export default class NewsCard extends Vue {
-    @Prop({ required: true }) private title!: string;
-
-    @Prop({ default: true }) private completed!: boolean;
-
-    @Prop({ default: false }) private locked!: boolean;
-
     @Prop({
-      default:
-        'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/8A2F6295-67E8-407F-9A70-910D8262D0EF.png',
+      default: `Help us make better citizen science games in only 15 minutes
+Several citizen science games from Foldit to Eyewire to Eterna to Phylo are celebrating years of productive science — now we’re getting together to try to get even better. Here’s the next step. Northeastern University researchers are conducting a…`,
     })
-    private imageUrl!: string;
+    private text!: string;
+
+    @Prop({ default: 'blogs' }) private category!: string;
+
+    @Prop() private img: string =
+      'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/A629FBC0-9F20-4067-AE83-13160670F883.png';
+
+    @Prop({ default: 'Help us make better citizen science games in only 15 minutes' })
+    private heading!: string;
   }
 </script>
 

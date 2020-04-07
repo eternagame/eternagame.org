@@ -16,10 +16,10 @@
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
+  import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import LabDescription from './components/LabDescription.vue';
   import LabInfoPanel from './components/LabInfoPanel.vue';
   import LabRound from './components/LabRound.vue';
-  import TagsPanel from './components/TagsPanel.vue';
   import LabViewData, { LabData } from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {

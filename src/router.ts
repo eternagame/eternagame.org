@@ -46,6 +46,11 @@ export default function createRouter() {
         name: 'puzzles',
         component: () => import('./views/puzzles/PuzzlesExplore/PuzzlesExplore.vue'),
       },
+      {
+        path: '/blog',
+        name: 'blog',
+        component: () => import('./views/news/News.vue'),
+      },
     ],
   });
 

@@ -1,10 +1,10 @@
 <template>
   <SidebarPanel :isInSidebar="isInSidebar" header="Tags" headerIcon="@/assets/sidebar/hashtag.svg">
     <template #header-icon>
-      <img src="@/assets/sidebar/hashtag.svg"/>
+      <img src="@/assets/sidebar/hashtag.svg" />
     </template>
     <ul style="padding: 0; list-style-type:none">
-      <li class="gray-header" v-for="tag in tags" :key="tag">{{tag}}</li>
+      <li class="gray-header" v-for="tag in tags" :key="tag">{{ tag }}</li>
     </ul>
   </SidebarPanel>
 </template>
@@ -25,6 +25,4 @@
   }
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

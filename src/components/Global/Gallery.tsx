@@ -15,7 +15,7 @@ export default class Gallery extends Vue {
     const { md, sm } = this;
     return (
       <b-form-row class="row-eq-height">
-        {(this.$slots.default || []).map(vnode => (
+        {(this.$slots.default || []).map((vnode) => (
           <GalleryColumn props={{ md, sm }}>{[vnode]}</GalleryColumn>
         ))}
       </b-form-row>

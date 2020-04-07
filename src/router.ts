@@ -13,8 +13,13 @@ export default function createRouter() {
     routes: [
       {
         path: '/',
+        name: 'front',
+        component: () => import('./views/front-page/FrontPage.vue'),
+      },
+      {
+        path: '/home',
         name: 'home',
-        component: () => import('./views/home/front-page/FrontPage.vue'),
+        component: () => import('./views/home/Home.vue'),
       },
       {
         path: '/labs',

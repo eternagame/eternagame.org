@@ -1,7 +1,7 @@
 <template>
-  <b-col class="mb-2" cols="12" :sm="sm" :md="md">
+  <b-carousel-slide class="mb-2" cols="12" :sm="sm" :md="md">
     <slot></slot>
-  </b-col>
+  </b-carousel-slide>
 </template>
 
 <script lang="ts">
@@ -10,7 +10,7 @@
   @Component({
     components: {},
   })
-  export default class GalleryColumn extends Vue {
+  export default class CarouselSlide extends Vue {
     @Prop({ required: true, default: '4' }) sm!: string;
 
     @Prop({ required: true, default: '4' }) md!: string;

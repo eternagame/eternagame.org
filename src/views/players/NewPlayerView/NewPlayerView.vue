@@ -1,15 +1,10 @@
 <template>
   <EternaPage v-if="player" title="">
-    <button v-popover="{ name: `foo'}` }">Toggle popover</button>
-
-    <popover :name="`${'foo'}`">
-      Hello 🎉
-    </popover>
     <b-container class="video">
-      <p style="font-size: 2.8rem; font-weight: bold">
+      <p style="font-size: 2.8rem; font-weight: bold;">
         RNA Virtual Lab
       </p>
-      <p style="width: 482px;height: 151px;">
+      <p style="width: 482px; height: 151px;">
         Nature’s best kept secret is a wonder molecule called RNA. It is central to the origin of
         life, evolution, and the cellular machinery that keeps us alive. In this Virtual Lab you’ll
         play the role of a molecular engineer by solving RNA folding puzzles. Then take your skills
@@ -17,13 +12,22 @@
         life-saving therapies.
       </p>
       <b-button variant="primary" size="lg" to="/game/puzzle/6502927/">Next Puzzle</b-button>
-      <div class="d-flex" style="margin-top:22px;">
-        <p style="margin-right:20px;"><i class="arrow_right"></i>Video Library</p>
+      <div class="d-flex" style="margin-top: 22px;">
+        <p style="margin-right: 20px;"><i class="arrow_right"></i>Video Library</p>
         <p><i class="arrow_right"></i>Learn more about RNA</p>
       </div>
     </b-container>
 
-    <p style="{  margin:34px 0px; font-size: 2rem; text-align: center; line-height: 1.37}">
+    <p
+      style="
+         {
+          margin: 34px 0px;
+          font-size: 2rem;
+          text-align: center;
+          line-height: 1.37;
+        }
+      "
+    >
       Complete these puzzles to unlock lab access!
     </p>
     <Gallery sm="3" md="3">
@@ -40,10 +44,10 @@
       <PuzzleCard nid="G5" locked="true" />
       <PuzzleCard nid="G6" locked="true" />
     </Gallery>
-    <p style="margin-top:56px;font-size:0.9333333333333333rem; font-weight:bold">
+    <p style="margin-top: 56px; font-size: 0.9333333333333333rem; font-weight: bold;">
       {{ `Advanced Training`.toUpperCase() }}
     </p>
-    <h1 style="font-size:2.4rem; font-weight:bold; margin-bottom:9px">Lab Skills 101</h1>
+    <h1 style="font-size: 2.4rem; font-weight: bold; margin-bottom: 9px;">Lab Skills 101</h1>
     <Gallery sm="2" md="2">
       <PuzzleCard nid="G7" locked="true" />
       <PuzzleCard nid="G8" locked="true" />
@@ -58,14 +62,11 @@
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
-  import Popover from 'vue-js-popover';
   import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
+  import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import VideoCard from './VideoCard.vue';
-  import PuzzleCard from '../../../components/Cards/PuzzleCard.vue';
-
-  Vue.use(Popover);
 
   //   import LabViewData, { LabData } from './types';
 
@@ -101,7 +102,7 @@
 
   .video {
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)),
-      url('../../../assets/rna_lab.png');
+      url('https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/30A7BAEF-4A98-47AC-8B29-5150806B518E.png');
     background-position: right;
     background-repeat: no-repeat;
     object-fit: contain;

@@ -33,19 +33,18 @@
           <slot name="buttons" />
         </div>
       </template>
-      <b-popover title="Popover!" content="`Placement"></b-popover>
     </AspectRatioCard>
     <b-popover
       v-if="!title"
       :target="`popover-target-${nid}`"
       placement="bottom"
-      style="width: 214.2px;height: 110.2px;"
+      style="width: 214.2px; height: 110.2px;"
     >
-      <p style="font-size:1.3333333333333333rem">RNA Slicer</p>
+      <p style="font-size: 1.3333333333333333rem;">RNA Slicer</p>
       <b-button
         type="button"
         class="btn-success"
-        style="width: 152px; height: 40px; margin: 8px 0px"
+        style="width: 152px; height: 40px; margin: 8px 0px;"
         >Play</b-button
       >
     </b-popover>
@@ -53,13 +52,9 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import Popover from 'vue-js-popover';
-
   import Utils from '@/utils/utils';
   import AspectRatioCard from './AspectRatioCard.vue';
   import StateCounter from './StateCounter.vue';
-
-  Vue.use(Popover);
 
   @Component({
     components: {

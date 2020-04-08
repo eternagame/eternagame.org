@@ -28,7 +28,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
-  import AspectRatioCard from '../../../components/Cards/AspectRatioCard.vue';
+  import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
 
   @Component({
     components: {

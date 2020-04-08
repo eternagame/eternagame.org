@@ -8,9 +8,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
 
   @Component({
-    components: {
-
-    },
+    components: {},
   })
   export default class GalleryColumn extends Vue {
     @Prop({ required: true, default: '4' }) sm!: string;
@@ -19,6 +17,4 @@
   }
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

@@ -2,19 +2,23 @@
   <AspectRatioCard>
     <template #header>
       <div class="lab-card-title">
-        <b>{{lab.title}}</b>
+        <b>{{ lab.title }}</b>
       </div>
     </template>
     <router-link :to="labUrl">
-      <b-img :src="lab.cover_image || '/puzzle-progression/badges/default-eterna-badge.png'"
-        small fluid-grow class="mb-3 image scalable"/>
+      <b-img
+        :src="lab.cover_image || '/puzzle-progression/badges/default-eterna-badge.png'"
+        small
+        fluid-grow
+        class="mb-3 image scalable"
+      />
     </router-link>
   </AspectRatioCard>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { LabCardData } from '../types';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
+  import { LabCardData } from '../types';
 
   @Component({
     components: {

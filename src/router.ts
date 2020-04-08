@@ -12,11 +12,6 @@ export default function createRouter() {
     base: process.env.BASE_URL,
     routes: [
       {
-        path: '/',
-        name: 'home',
-        component: () => import('./views/home/front-page/FrontPage.vue'),
-      },
-      {
         path: '/labs',
         name: 'labs',
         component: () => import('./views/labs/LabsExplore/LabsExplore.vue'),
@@ -27,9 +22,19 @@ export default function createRouter() {
         component: () => import('./views/labs/LabView/LabView.vue'),
       },
       {
-        path: '/player/:uid',
-        name: 'player',
-        component: () => import('./views/players/PlayerView/PlayerView.vue'),
+        path: '/puzzles',
+        name: 'puzzles',
+        component: () => import('./views/puzzles/PuzzlesExplore/PuzzlesExplore.vue'),
+      },
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('./views/home/Home.vue'),
+      },
+      {
+        path: '/',
+        name: 'front',
+        component: () => import('./views/front-page/FrontPage.vue'),
       },
       {
         path: '/new-player/',
@@ -37,9 +42,14 @@ export default function createRouter() {
         component: () => import('./views/players/NewPlayerView/NewPlayerView.vue'),
       },
       {
-        path: '/puzzles',
-        name: 'puzzles',
-        component: () => import('./views/puzzles/PuzzlesExplore/PuzzlesExplore.vue'),
+        path: '/blog',
+        name: 'blog',
+        component: () => import('./views/news/News.vue'),
+      },
+      {
+        path: '/player/:uid',
+        name: 'player',
+        component: () => import('./views/players/PlayerView/PlayerView.vue'),
       },
     ],
   });

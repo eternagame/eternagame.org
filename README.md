@@ -12,13 +12,10 @@ npm install
 
 If you want to modify any of the parameters in `.env`, create a file named `.env.local` and include any overrides there
 
-### Workflow Recommendations
-[This article](https://alligator.io/vuejs/eslint-vue-vetur/) on setting up linting for VSCode is very helpful
-
 ### Run locally
 
 ```
-npm start
+npm run serve
 ```
 
 ## Contributing
@@ -30,8 +27,12 @@ If you want to contribute, please join the [Eterna player-development slack](htt
 
 Use [prettier](https://prettier.io/) with this configuration:
 Add a `.prettierrc.json` file in the root of the directory with these contents
-{
+`{
 "singleQuote": true,
 "trailingComma": "all",
 "vueIndentScriptAndStyle": true
-}
+"prettier.printWidth": 100
+
+}`
+
+[This article](https://alligator.io/vuejs/eslint-vue-vetur/) on setting up linting for VSCode is very helpful

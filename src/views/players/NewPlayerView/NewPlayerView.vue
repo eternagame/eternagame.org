@@ -58,14 +58,11 @@
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
-  import Popover from 'vue-js-popover';
   import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import VideoCard from './VideoCard.vue';
   import PuzzleCard from '../../../components/Cards/PuzzleCard.vue';
-
-  Vue.use(Popover);
 
   //   import LabViewData, { LabData } from './types';
 

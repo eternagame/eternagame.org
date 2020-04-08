@@ -53,13 +53,10 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import Popover from 'vue-js-popover';
 
   import Utils from '@/utils/utils';
   import AspectRatioCard from './AspectRatioCard.vue';
   import StateCounter from './StateCounter.vue';
-
-  Vue.use(Popover);
 
   @Component({
     components: {

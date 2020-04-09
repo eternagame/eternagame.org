@@ -17,28 +17,21 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import LabDescription from './components/LabDescription.vue';
-  import LabInfoPanel from './components/LabInfoPanel.vue';
-  import LabRound from './components/LabRound.vue';
-  import LabViewData, { LabData } from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    return (await http.get(`/get/?type=project&nid=${route.params.id}`)).data.data as LabViewData;
+    return null;
   }
 
   @Component({
     components: {
       SidebarPanel,
       EternaPage,
-      LabDescription,
-      LabInfoPanel,
-      LabRound,
       TagsPanel,
     },
   })
-  export default class LabView extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class PuzzleView extends Mixins(PageDataMixin(fetchPageData)) {
     get lab() {
-      return this.pageData?.lab;
+      return this.pageData;
     }
   }
 </script>

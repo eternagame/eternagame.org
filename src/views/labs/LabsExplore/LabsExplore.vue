@@ -49,7 +49,7 @@
       DropdownSidebarPanel,
     },
   })
-  export default class LabsExploreView extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class LabsExplore extends Mixins(PageDataMixin(fetchPageData)) {
     private filters: Filter[] = [
       { value: 'active', text: 'Active' },
       { value: 'inactive', text: 'Inactive' },

@@ -1,18 +1,13 @@
 <template>
-  <EternaPage v-if="pageData" title="Puzzles">
-    <Gallery>
-      <PuzzleCard
-        v-for="puzzle in pageData.puzzles"
-        :key="puzzle.id"
-        :nid="puzzle.id"
-        :title="puzzle.title"
-        :leftNumber="puzzle.reward"
-        :rightNumber="puzzle['num-cleared']"
-        :states="0"
-      />
-    </Gallery>
+  <EternaPage title="LeaderBoard">
+    <Gallery :sm="12" :md="12"> </Gallery>
     <template #sidebar="{ isInSidebar }">
-      <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
+      <DropdownSidebarPanel
+        :options="options"
+        paramName="sort"
+        replace
+        :isInSidebar="isInSidebar"
+      />
       <TagsPanel :tags="tags" :isInSidebar="isInSidebar" />
     </template>
   </EternaPage>
@@ -28,26 +23,17 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  import PuzzleExploreData, { PuzzleCardData } from './types';
+  import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
 
-    const res = (
-      await http.get('/get/?type=puzzles&size=18&skip=0', {
-        params: {
-          order: route.query.sort,
-          filters: route.query.filters && (route.query.filters as string).split(','),
-        },
-      })
-    ).data.data as PuzzleExploreData;
+    const res = null;
     return res;
   }
 
   @Component({
     components: {
-      PuzzleCard,
       SidebarPanel,
       EternaPage,
       FiltersPanel,
@@ -55,7 +41,7 @@
       TagsPanel,
     },
   })
-  export default class PuzzlesExplore extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class LeaderBoard extends Mixins(PageDataMixin(fetchPageData)) {
     private filters: Filter[] = [
       { value: 'single', text: 'Single State' },
       { value: '2-state', text: '2-state switch' },
@@ -67,6 +53,13 @@
       { value: 'notcleared', text: 'Uncleared' },
     ];
 
-    private tags: String[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
+    private tags: String[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
+
+    private options: Option[] = [
+      { value: 'all', text: 'All Categories' },
+      { value: 'announcements', text: 'Announcements' },
+      { value: 'blogs', text: 'Blogs' },
+      { value: 'labs', text: 'Labs' },
+    ];
   }
 </script>

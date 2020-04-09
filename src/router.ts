@@ -13,18 +13,23 @@ export default function createRouter() {
     routes: [
       {
         path: '/labs',
-        name: 'labs',
+        name: 'labs-list',
         component: () => import('./views/labs/LabsExplore/LabsExplore.vue'),
       },
       {
-        path: '/lab/:nid',
-        name: 'lab',
+        path: '/lab/:id',
+        name: 'lab-view',
         component: () => import('./views/labs/LabView/LabView.vue'),
       },
       {
         path: '/puzzles',
-        name: 'puzzles',
+        name: 'puzzle-list',
         component: () => import('./views/puzzles/PuzzlesExplore/PuzzlesExplore.vue'),
+      },
+      {
+        path: '/puzzle/:id',
+        name: 'puzzle-view',
+        component: () => import('./views/puzzles/PuzzleView/PuzzleView.vue'),
       },
       {
         path: '/home',
@@ -42,14 +47,24 @@ export default function createRouter() {
         component: () => import('./views/players/NewPlayerView/NewPlayerView.vue'),
       },
       {
-        path: '/blog',
-        name: 'blog',
-        component: () => import('./views/news/News.vue'),
+        path: '/news',
+        name: 'news-view',
+        component: () => import('./views/news/NewsExplore.vue'),
+      },
+      {
+        path: '/feed',
+        name: 'activity-feed',
+        component: () => import('./views/feed/ActivityFeed.vue'),
       },
       {
         path: '/player/:uid',
         name: 'player',
         component: () => import('./views/players/PlayerView/PlayerView.vue'),
+      },
+      {
+        path: '/players',
+        name: 'leaderboards',
+        component: () => import('./views/players/LeaderBoard/LeaderBoard.vue'),
       },
     ],
   });

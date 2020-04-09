@@ -1,16 +1,6 @@
 <template>
-  <EternaPage title="News">
-    <Gallery :sm="12" :md="12">
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
-    </Gallery>
+  <EternaPage title="Activity Feed">
+    <Gallery :sm="12" :md="12"> </Gallery>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"
@@ -18,7 +8,6 @@
         replace
         :isInSidebar="isInSidebar"
       />
-      <CalendarPanel :isInSidebar="isInSidebar" />
       <TagsPanel :tags="tags" :isInSidebar="isInSidebar" />
     </template>
   </EternaPage>
@@ -35,7 +24,6 @@
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
-  import NewsCard from './components/NewsCard.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
@@ -49,13 +37,11 @@
       SidebarPanel,
       EternaPage,
       FiltersPanel,
-      CalendarPanel,
       DropdownSidebarPanel,
       TagsPanel,
-      NewsCard,
     },
   })
-  export default class BlogExploreView extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class ActivityFeed extends Mixins(PageDataMixin(fetchPageData)) {
     private filters: Filter[] = [
       { value: 'single', text: 'Single State' },
       { value: '2-state', text: '2-state switch' },

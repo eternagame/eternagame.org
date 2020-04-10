@@ -57,6 +57,11 @@ export default function createRouter() {
         component: () => import('./views/terms/TermsAndConditions.vue'),
       },
       {
+        path: '/conduct',
+        name: 'code-of-conduct',
+        component: () => import('./views/conduct/CodeOfConduct.vue'),
+      },
+      {
         path: '/news',
         name: 'news-list',
         component: () => import('./views/news/NewsExplore/NewsExplore.vue'),

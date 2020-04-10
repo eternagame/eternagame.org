@@ -17,6 +17,21 @@ export default function createRouter() {
         component: () => import('./views/labs/LabsExplore/LabsExplore.vue'),
       },
       {
+        path: '/quests',
+        name: 'quests-list',
+        component: () => import('./views/quests/QuestsExplore/QuestsExplore.vue'),
+      },
+      {
+        path: '/quest/:id',
+        name: 'quests-view',
+        component: () => import('./views/quests/QuestView/QuestView.vue'),
+      },
+      {
+        path: '/quests/create',
+        name: 'create-quest',
+        component: () => import('./views/quests/CreateQuest/CreateQuest.vue'),
+      },
+      {
         path: '/lab/:id',
         name: 'lab-view',
         component: () => import('./views/labs/LabView/LabView.vue'),
@@ -35,6 +50,11 @@ export default function createRouter() {
         path: '/',
         name: 'landing',
         component: () => import('./views/landing/LandingPage.vue'),
+      },
+      {
+        path: '/terms',
+        name: 'terms-and-conditions',
+        component: () => import('./views/terms/TermsAndConditions.vue'),
       },
       {
         path: '/news',

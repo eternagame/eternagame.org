@@ -2,7 +2,7 @@
   <AspectRatioCard>
     <template #header>
       <div class="puzzle-card-title">
-        <b>{{title}}</b>
+        <b>{{ title }}</b>
       </div>
     </template>
   </AspectRatioCard>
@@ -10,7 +10,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
-  import AspectRatioCard from '../../../components/Cards/AspectRatioCard.vue';
+  import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
 
   @Component({
     components: {
@@ -29,7 +29,7 @@
     margin-bottom: 0px;
   }
 
-  ::v-deep .card-body{
+  ::v-deep .card-body {
     padding: 0.75rem !important;
   }
 
@@ -42,5 +42,4 @@
     width: 19px;
     margin-right: 5px;
   }
-
 </style>

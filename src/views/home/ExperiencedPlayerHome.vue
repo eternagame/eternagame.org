@@ -43,7 +43,6 @@
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import 'swiper/css/swiper.css';
 
-
   async function fetchPageData(route: Route, http: AxiosInstance) {
     console.log((await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data);
     return (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data;
@@ -58,7 +57,7 @@
       SwiperSlide,
     },
   })
-  export default class Home extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class ExperiencedPlayerView extends Mixins(PageDataMixin(fetchPageData)) {
     get player() {
       return {};
     }

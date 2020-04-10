@@ -1,8 +1,4 @@
-export default interface PuzzleViewData {
-  puzzles: PuzzleCardData[];
-}
-
-export interface PuzzleCardData {
+interface NewsData {
   id: string;
   title?: string;
   username: string;
@@ -13,4 +9,7 @@ export interface PuzzleCardData {
   'solved-by-bot'?: boolean;
   reward: string;
   'made-for-lab'?: boolean;
+}
+export default interface NewsDataPage {
+  news: NewsData;
 }

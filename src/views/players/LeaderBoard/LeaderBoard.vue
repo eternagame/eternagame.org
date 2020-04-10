@@ -1,13 +1,8 @@
 <template>
-  <EternaPage title="LeaderBoard">
-    <Gallery :sm="12" :md="12"> </Gallery>
+  <EternaPage v-if="pageData.users" title="Leaderboard">
+    {{ news }}
     <template #sidebar="{ isInSidebar }">
-      <DropdownSidebarPanel
-        :options="options"
-        paramName="sort"
-        replace
-        :isInSidebar="isInSidebar"
-      />
+      <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
       <TagsPanel :tags="tags" :isInSidebar="isInSidebar" />
     </template>
   </EternaPage>
@@ -23,17 +18,26 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
+  import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
+  import LeaderBoardData, { UserData } from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
 
-    const res = null;
+    const res = (
+      await http.get('/get/?type=users&sort=active&skip=0&size=50&rnd=0.3172634245696615', {
+        params: {
+          order: route.query.sort,
+          filters: route.query.filters && (route.query.filters as string).split(','),
+        },
+      })
+    ).data.data as LeaderBoardData;
     return res;
   }
 
   @Component({
     components: {
+      PuzzleCard,
       SidebarPanel,
       EternaPage,
       FiltersPanel,
@@ -53,13 +57,6 @@
       { value: 'notcleared', text: 'Uncleared' },
     ];
 
-    private tags: String[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
-
-    private options: Option[] = [
-      { value: 'all', text: 'All Categories' },
-      { value: 'announcements', text: 'Announcements' },
-      { value: 'blogs', text: 'Blogs' },
-      { value: 'labs', text: 'Labs' },
-    ];
+    private tags: String[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
   }
 </script>

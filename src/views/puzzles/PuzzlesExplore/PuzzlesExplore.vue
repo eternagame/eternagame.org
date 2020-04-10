@@ -29,7 +29,7 @@
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  import PuzzleExploreData, { PuzzleCardData } from './types';
+  import PuzzleViewData, { PuzzleCardData } from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
@@ -41,7 +41,7 @@
           filters: route.query.filters && (route.query.filters as string).split(','),
         },
       })
-    ).data.data as PuzzleExploreData;
+    ).data.data as PuzzleViewData;
     return res;
   }
 

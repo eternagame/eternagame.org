@@ -1,6 +1,6 @@
 <template>
-  <EternaPage v-if="puzzle" title="Puzzle Details">
-    {{ puzzle }}
+  <EternaPage v-if="news" title="News Detail">
+    {{ news }}
     <template #sidebar="{ isInSidebar }">
       <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />
       <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" />
@@ -16,17 +16,17 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import PuzzleData from './types';
+  import NewsData from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const res = (
-      await http.get(`/get/?type=puzzle&nid=${route.params.id}&script=-1`, {
+      await http.get(`/get/?type=news&nid=${route.params.id}&script=-1`, {
         params: {
           order: route.query.sort,
           filters: route.query.filters && (route.query.filters as string).split(','),
         },
       })
-    ).data.data as PuzzleData;
+    ).data.data as NewsData;
     return res;
   }
 
@@ -37,8 +37,8 @@
       TagsPanel,
     },
   })
-  export default class PuzzleView extends Mixins(PageDataMixin(fetchPageData)) {
-    get puzzle() {
+  export default class NewsView extends Mixins(PageDataMixin(fetchPageData)) {
+    get news() {
       return this.pageData;
     }
   }

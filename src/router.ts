@@ -32,24 +32,19 @@ export default function createRouter() {
         component: () => import('./views/puzzles/PuzzleView/PuzzleView.vue'),
       },
       {
-        path: '/home',
-        name: 'home',
-        component: () => import('./views/home/Home.vue'),
-      },
-      {
         path: '/',
-        name: 'front',
-        component: () => import('./views/front-page/FrontPage.vue'),
-      },
-      {
-        path: '/new-player/',
-        name: 'new-player',
-        component: () => import('./views/players/NewPlayerView/NewPlayerView.vue'),
+        name: 'landing',
+        component: () => import('./views/landing/LandingPage.vue'),
       },
       {
         path: '/news',
+        name: 'news-list',
+        component: () => import('./views/news/NewsExplore/NewsExplore.vue'),
+      },
+      {
+        path: '/news/:id',
         name: 'news-view',
-        component: () => import('./views/news/NewsExplore.vue'),
+        component: () => import('./views/news/NewsView/NewsView.vue'),
       },
       {
         path: '/feed',
@@ -62,7 +57,7 @@ export default function createRouter() {
         component: () => import('./views/players/PlayerView/PlayerView.vue'),
       },
       {
-        path: '/players',
+        path: '/leaderboards',
         name: 'leaderboards',
         component: () => import('./views/players/LeaderBoard/LeaderBoard.vue'),
       },

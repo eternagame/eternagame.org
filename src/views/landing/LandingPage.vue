@@ -1,12 +1,15 @@
 <template>
-  <div class="page">
-    <VideoSection/>
-    <DocsSection/>
+  <PlayerHome v-if="loggedIn" />
+  <div class="page" v-else>
+    <VideoSection />
+    <DocsSection />
+    {{ user }}
   </div>
 </template>
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
+  import PlayerHome from '@/views/home/PlayerHome.vue';
   import VideoSection from './components/VideoSection.vue';
   import DocsSection from './components/DocsSection.vue';
 
@@ -14,9 +17,13 @@
     components: {
       DocsSection,
       VideoSection,
+      PlayerHome,
     },
   })
-  export default class FrontPage extends Vue {
+  export default class LandingPage extends Vue {
+    get loggedIn() {
+      return this.$store.state.userStore.loggedIn;
+    }
   }
 </script>
 

@@ -66,7 +66,7 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  import VideoCard from './VideoCard.vue';
+  import VideoCard from './components/VideoCard.vue';
 
   //   import LabViewData, { LabData } from './types';
 

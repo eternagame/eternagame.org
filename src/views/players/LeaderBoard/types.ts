@@ -1,8 +1,8 @@
-export default interface PuzzleViewData {
-  puzzles: PuzzleCardData[];
+export default interface LeaderBoardData {
+  users: UserData[];
 }
 
-export interface PuzzleCardData {
+export interface UserData {
   id: string;
   title?: string;
   username: string;

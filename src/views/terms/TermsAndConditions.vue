@@ -10,7 +10,7 @@
   })
   export default class TermsAndConditions extends Vue {
     get loggedIn() {
-      return this.$store.state.userStore.loggedIn; // TODO change
+      return this.$vxm.user.loggedIn; // TODO change
     }
   }
 </script>

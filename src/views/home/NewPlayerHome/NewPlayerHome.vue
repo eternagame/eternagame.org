@@ -71,7 +71,6 @@
   //   import LabViewData, { LabData } from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    console.log((await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data);
     return (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data;
   }
 

@@ -22,7 +22,7 @@
   })
   export default class LandingPage extends Vue {
     get loggedIn() {
-      return this.$store.state.userStore.loggedIn;
+      return this.$vxm.user.loggedIn;
     }
   }
 </script>

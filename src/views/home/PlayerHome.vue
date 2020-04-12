@@ -16,7 +16,7 @@
   })
   export default class PlayerHome extends Vue {
     get hasLabAccess() {
-      return this.$store.state.userStore.loggedIn; // TODO changed
+      return this.$vxm.user.loggedIn; // TODO changed
     }
   }
 </script>

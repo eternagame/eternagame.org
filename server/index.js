@@ -7,23 +7,21 @@ const app = express();
 
 const PRODUCTION = process.env.NODE_ENV == 'production';
 
-if (!PRODUCTION) {
-  const dotenv = require('dotenv');
-  const loadEnv = envPath => {
-    try {
-      dotenv.config({ path: envPath });
-    } catch (err) {
-      // only ignore error if file is not found
-      if (err.toString().indexOf('ENOENT') < 0) {
-        throw err;
-      }
+const dotenv = require('dotenv');
+const loadEnv = envPath => {
+  try {
+    dotenv.config({ path: envPath });
+  } catch (err) {
+    // only ignore error if file is not found
+    if (err.toString().indexOf('ENOENT') < 0) {
+      throw err;
     }
   }
-
-  // Contrary to what you'd expect, the first env loaded is the one whose values are kept
-  loadEnv(resolve('../.env.local'));
-  loadEnv(resolve('../.env'));
 }
+
+// Contrary to what you'd expect, the first env loaded is the one whose values are kept
+loadEnv(resolve('../.env.local'));
+loadEnv(resolve('../.env'));
 
 const PORT = process.env.PORT;
 const HOST = process.env.HOST;

@@ -7,6 +7,7 @@ const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 const resolve = filepath => path.resolve(__dirname, filepath);
 
 const ENABLE_SSR = process.env.VUE_APP_MODE === 'ssr';
+const PRODUCTION = process.env.NODE_ENV == 'production';
 
 module.exports = {
   lintOnSave: true,
@@ -61,7 +62,7 @@ module.exports = {
         .end()
         .devtool('source-map');
 
-      if (!IS_SERVER_BUILD) {
+      if (!IS_SERVER_BUILD && !PRODUCTION) {
         config.plugin('hmr').use(webpack.HotModuleReplacementPlugin);
       }
 

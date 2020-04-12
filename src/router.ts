@@ -17,6 +17,11 @@ export default function createRouter() {
         component: () => import('./views/labs/LabsExplore/LabsExplore.vue'),
       },
       {
+        path: '/lab/:id',
+        name: 'lab-view',
+        component: () => import('./views/labs/LabView/LabView.vue'),
+      },
+      {
         path: '/quests',
         name: 'quests-list',
         component: () => import('./views/quests/QuestsExplore/QuestsExplore.vue'),
@@ -30,11 +35,6 @@ export default function createRouter() {
         path: '/quests/create',
         name: 'create-quest',
         component: () => import('./views/quests/CreateQuest/CreateQuest.vue'),
-      },
-      {
-        path: '/lab/:id',
-        name: 'lab-view',
-        component: () => import('./views/labs/LabView/LabView.vue'),
       },
       {
         path: '/puzzles',
@@ -86,12 +86,20 @@ export default function createRouter() {
         name: 'leaderboards',
         component: () => import('./views/players/LeaderBoard/LeaderBoard.vue'),
       },
+      {
+        path: '/lost',
+        name: 'not-found',
+        component: () => import('./views/lost/NotFound.vue'),
+      },
     ],
   });
 
   router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {
     const userStore = router.app.$vxm.user;
     if (!userStore.triedAuthenticating) await userStore.authenticate();
+    if (!to.matched.length) {
+      next('/lost');
+    }
     next();
   });
 

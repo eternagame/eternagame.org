@@ -133,12 +133,6 @@
     padding: 25px;
   }
 
-  .top-border {
-    border-top-color: $light-blue;
-    margin-top: 2.5em;
-    margin-bottom: 2.5em;
-  }
-
   .about-me {
     font-size: 1.375rem;
     font-weight: bold;

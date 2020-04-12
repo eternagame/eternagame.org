@@ -1,0 +1,12 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/app
+hooks:
+  ApplicationStart:
+    - location: ./scripts/start.sh
+      timeout: 3600
+  ApplicationStop:
+    - location: ./scripts/stop.sh
+      timeout: 3600

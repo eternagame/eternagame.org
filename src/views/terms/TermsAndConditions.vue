@@ -5,7 +5,7 @@
       header_title="TERMS & CONDITIONS"
       header_date="Last updated: Sept 9, 2018"
     >
-      <div class="content">
+      <div class="page-content">
         <h3>This is an agreement between you and Eterna.</h3>
         <p>
           Eterna is a place where professional scientists and non-professional scientists come
@@ -141,30 +141,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  .page {
-    margin-top: 120px;
-  }
-
-  .content {
-    border-radius: 5px;
-    background-color: #043468;
-    padding: 25px;
-
-    h3,
-    p {
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 1.36;
-    }
-
-    h3 {
-      font-weight: bold;
-    }
-    h2 {
-      font-size: 18px;
-      font-weight: bold;
-    }
-  }
-</style>

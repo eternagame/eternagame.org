@@ -1,6 +1,6 @@
 <template>
   <EternaPage v-if="player" title="Player Profile">
-    <div class="page">
+    <div class="page-content">
       <div class="d-flex">
         <img
           class="d-block d-sm-none rounded-circle player-image"
@@ -124,11 +124,6 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
-
-  .page {
-    background-color: $med-dark-blue;
-    padding: 25px;
-  }
 
   .about-me {
     font-size: 1.375rem;

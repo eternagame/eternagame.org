@@ -1,18 +1,21 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="dark" fixed="top">
     <b-container class="page-container px-4 d-flex justify-content-between">
-      <EternaLogo/>
+      <EternaLogo />
       <div class="d-flex justify-content-end">
         <div class="d-none d-lg-block">
-          <NavbarCollapseContent :menu="menu"/>
+          <NavbarCollapseContent :menu="menu" />
         </div>
         <div class="icons-group">
-          <NavbarIcons class="d-none d-md-inline-block d-lg-none icons-group"/>
-          <img src="@/assets/navbar/Toggler.svg" @click.stop="openSidebar"
-               class="toggler d-inline-block d-lg-none"/>
+          <NavbarIcons class="d-none d-md-inline-block d-lg-none icons-group" />
+          <img
+            src="@/assets/navbar/Toggler.svg"
+            @click.stop="openSidebar"
+            class="toggler d-inline-block d-lg-none"
+          />
         </div>
         <MobileSidebar ref="sidebar">
-          <SidebarMenuContent :menu="menu"/>
+          <SidebarMenuContent :menu="menu" />
         </MobileSidebar>
       </div>
     </b-container>
@@ -39,7 +42,7 @@
     burgerMenuOpen = false;
 
     $refs!: {
-      sidebar: MobileSidebar
+      sidebar: MobileSidebar;
     };
 
     openSidebar() {
@@ -49,7 +52,7 @@
     menu = {
       play: {
         puzzles: '/puzzles',
-        labs: '/labs/explore',
+        labs: '/labs',
         challenges: '/challenges',
         switches: '/switches',
       },

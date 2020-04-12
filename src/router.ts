@@ -27,7 +27,7 @@ export default function createRouter() {
         component: () => import('./views/quests/QuestsExplore/QuestsExplore.vue'),
       },
       {
-        path: '/quest/:id',
+        path: '/quests/:id',
         name: 'quests-view',
         component: () => import('./views/quests/QuestView/QuestView.vue'),
       },
@@ -42,7 +42,7 @@ export default function createRouter() {
         component: () => import('./views/puzzles/PuzzlesExplore/PuzzlesExplore.vue'),
       },
       {
-        path: '/puzzle/:id',
+        path: '/puzzles/:id',
         name: 'puzzle-view',
         component: () => import('./views/puzzles/PuzzleView/PuzzleView.vue'),
       },

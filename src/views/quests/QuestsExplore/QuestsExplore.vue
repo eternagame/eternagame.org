@@ -3,10 +3,8 @@
     <Gallery> </Gallery>
     <template #sidebar="{ isInSidebar }">
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
-      <DropdownSidebarPanel
-        :options="options"
-        paramName="sort"
-        replace
+      <TagsPanel
+        :tags="['#Switch', '#Ribozyme', '#XOR', '#MS2', '#FMN', '#Telomerase']"
         :isInSidebar="isInSidebar"
       />
     </template>
@@ -17,10 +15,9 @@
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
-  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
+  import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import LabsExploreData, { LabCardData } from './types';
 
@@ -39,21 +36,22 @@
 
   @Component({
     components: {
-      SidebarPanel,
       EternaPage,
+      TagsPanel,
       FiltersPanel,
-      DropdownSidebarPanel,
     },
   })
   export default class LabsExplore extends Mixins(PageDataMixin(fetchPageData)) {
     private filters: Filter[] = [
-      { value: 'active', text: 'Active' },
-      { value: 'inactive', text: 'Inactive' },
-    ];
-
-    private options: Option[] = [
-      { value: 'desc', text: 'Newest First' },
-      { value: 'asc', text: 'Oldest First' },
+      { value: 'single_state', text: 'Single state' },
+      { value: 'switches', text: 'Switches' },
+      { value: 'switches', text: 'Switches' },
+      { value: 'boosting', text: 'Boosting' },
+      { value: 'energy_traps', text: 'Energy Traps' },
+      { value: 'bulges', text: 'Bulges' },
+      { value: 'multiloops', text: 'Multiloops' },
+      { value: 'riboswitches', text: 'Riboswitches' },
+      { value: 'uncleared', text: 'Uncleared' },
     ];
   }
 </script>

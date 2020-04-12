@@ -33,6 +33,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
+  import i18n from '@/plugins/i18n';
 
   @Component({
     components: {},

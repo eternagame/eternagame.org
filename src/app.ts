@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import VueI18n from 'vue-i18n';
+import i18n from '@/plugins/i18n';
 import { sync } from 'vuex-router-sync';
 import BootstrapVue from 'bootstrap-vue';
 import axios from 'axios';
@@ -47,8 +49,8 @@ export default function createApp() {
   const app = new Vue({
     router,
     store,
+    i18n,
     render: h => h(App),
-
     // Custom properties
     http,
     vxm,

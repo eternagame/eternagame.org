@@ -1,6 +1,6 @@
 <template>
   <EternaPage v-if="player" title="Player Profile">
-    <div class="page">
+    <div class="page-content">
       <div class="d-flex">
         <img
           class="d-block d-sm-none rounded-circle player-image"
@@ -64,7 +64,6 @@
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
-  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
 
@@ -77,7 +76,6 @@
 
   @Component({
     components: {
-      SidebarPanel,
       EternaPage,
       DropdownSidebarPanel,
     },
@@ -93,7 +91,6 @@
       { value: 'synthesized', text: 'Synthesized RNAs' },
       { value: 'latest', text: 'Latest Activity' },
       { value: 'created', text: 'Created Puzzles' },
-      { value: 'resources', text: 'Resources' },
     ];
 
     private picture: string = `${process.env.VUE_APP_API_BASE_URL}/sites/default/files/pictures/picture-133043.png`;
@@ -127,17 +124,6 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
-
-  .page {
-    background-color: $med-dark-blue;
-    padding: 25px;
-  }
-
-  .top-border {
-    border-top-color: $light-blue;
-    margin-top: 2.5em;
-    margin-bottom: 2.5em;
-  }
 
   .about-me {
     font-size: 1.375rem;

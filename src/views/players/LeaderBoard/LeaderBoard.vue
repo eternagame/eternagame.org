@@ -1,5 +1,5 @@
 <template>
-  <EternaPage v-if="pageData.users" title="Leaderboard">
+  <EternaPage v-if="pageData.users" :title="$t('nav-bar:leaderboards')">
     {{ news }}
     <template #sidebar="{ isInSidebar }">
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
@@ -12,7 +12,6 @@
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
-  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
@@ -38,7 +37,6 @@
   @Component({
     components: {
       PuzzleCard,
-      SidebarPanel,
       EternaPage,
       FiltersPanel,
       DropdownSidebarPanel,

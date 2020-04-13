@@ -20,10 +20,37 @@
   border-radius: 0.5rem;
 }
 
+.top-border {
+  border-top-color: $light-blue;
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+}
+
 .arrow_right {
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   border-left: 5px solid white;
   display: inline-block;
   margin-right: 10px;
+}
+
+.page-content {
+  border-radius: 5px;
+  background-color: $med-dark-blue;
+  padding: 25px;
+
+  h3,
+  p {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.36;
+  }
+
+  h3 {
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+  }
 }

@@ -1,18 +1,13 @@
 <template>
   <b-navbar-brand to="/">
-    <img
-      src="@/assets/logo_eterna.svg"
-      class="d-inline-block align-top"
-      alt="etenra"
-    />
+    <img src="@/assets/logo_eterna.svg" class="d-inline-block align-top" alt="etenra" />
   </b-navbar-brand>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
 
   @Component({
-    components: {
-    },
+    components: {},
   })
   export default class EternaLogo extends Vue {}
 </script>

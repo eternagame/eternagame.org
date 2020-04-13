@@ -1,8 +1,10 @@
 <template>
-  <EternaPage v-if="lab" title="Quest Info">
+  <EternaPage title="Quest Info">
     <template #sidebar="{ isInSidebar }">
-      <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />
-      <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" />
+      <TagsPanel
+        :tags="['#Switch', '#Ribosome', '##XOR', '#MS2', '#FMN', '#Telomerase']"
+        :isInSidebar="isInSidebar"
+      />
     </template>
   </EternaPage>
 </template>
@@ -11,7 +13,6 @@
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
-  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
@@ -23,7 +24,6 @@
 
   @Component({
     components: {
-      SidebarPanel,
       EternaPage,
       TagsPanel,
     },

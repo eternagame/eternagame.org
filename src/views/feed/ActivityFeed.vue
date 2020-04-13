@@ -1,5 +1,5 @@
 <template>
-  <EternaPage title="Activity Feed">
+  <EternaPage title="Latest Activity">
     <Gallery :sm="12" :md="12"> </Gallery>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
@@ -17,7 +17,6 @@
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
-  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
@@ -34,7 +33,6 @@
 
   @Component({
     components: {
-      SidebarPanel,
       EternaPage,
       FiltersPanel,
       DropdownSidebarPanel,
@@ -56,10 +54,9 @@
     private tags: String[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
 
     private options: Option[] = [
-      { value: 'all', text: 'All Categories' },
-      { value: 'announcements', text: 'Announcements' },
-      { value: 'blogs', text: 'Blogs' },
-      { value: 'labs', text: 'Labs' },
+      { value: 'all', text: 'All Activity' },
+      { value: 'mygroup', text: 'My Groups (3)' },
+      { value: 'messages', text: 'My Messages (1)' },
     ];
   }
 </script>

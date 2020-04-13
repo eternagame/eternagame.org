@@ -17,12 +17,17 @@ export default function createRouter() {
         component: () => import('./views/labs/LabsExplore/LabsExplore.vue'),
       },
       {
+        path: '/lab/:id',
+        name: 'lab-view',
+        component: () => import('./views/labs/LabView/LabView.vue'),
+      },
+      {
         path: '/quests',
         name: 'quests-list',
         component: () => import('./views/quests/QuestsExplore/QuestsExplore.vue'),
       },
       {
-        path: '/quest/:id',
+        path: '/quests/:id',
         name: 'quests-view',
         component: () => import('./views/quests/QuestView/QuestView.vue'),
       },
@@ -32,17 +37,12 @@ export default function createRouter() {
         component: () => import('./views/quests/CreateQuest/CreateQuest.vue'),
       },
       {
-        path: '/lab/:id',
-        name: 'lab-view',
-        component: () => import('./views/labs/LabView/LabView.vue'),
-      },
-      {
         path: '/puzzles',
         name: 'puzzle-list',
         component: () => import('./views/puzzles/PuzzlesExplore/PuzzlesExplore.vue'),
       },
       {
-        path: '/puzzle/:id',
+        path: '/puzzles/:id',
         name: 'puzzle-view',
         component: () => import('./views/puzzles/PuzzleView/PuzzleView.vue'),
       },
@@ -52,9 +52,14 @@ export default function createRouter() {
         component: () => import('./views/landing/LandingPage.vue'),
       },
       {
-        path: '/terms',
+        path: '/about/terms',
         name: 'terms-and-conditions',
         component: () => import('./views/terms/TermsAndConditions.vue'),
+      },
+      {
+        path: '/about/conduct',
+        name: 'code-of-conduct',
+        component: () => import('./views/conduct/CodeOfConduct.vue'),
       },
       {
         path: '/news',
@@ -81,12 +86,20 @@ export default function createRouter() {
         name: 'leaderboards',
         component: () => import('./views/players/LeaderBoard/LeaderBoard.vue'),
       },
+      {
+        path: '/lost',
+        name: 'not-found',
+        component: () => import('./views/lost/NotFound.vue'),
+      },
     ],
   });
 
   router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {
     const userStore = router.app.$vxm.user;
     if (!userStore.triedAuthenticating) await userStore.authenticate();
+    if (!to.matched.length) {
+      next('/lost');
+    }
     next();
   });
 

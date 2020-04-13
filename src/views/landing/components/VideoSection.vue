@@ -12,16 +12,19 @@
           <b-col lg="6" sm="12">
             <div style="text-align: center;">
               <h2 class="text-block">
-                Eterna empowers citizen scientists to invent medicine through
-                <strong>molecular design</strong>.
+                {{ $t('video-section:heading') }}
+                <strong>{{ $t('video-section:heading-stress') }}</strong
+                >.
               </h2>
               <h4 class="text-block">
-                You play by solving puzzles using RNAs, tiny molecules at the heart of every cell.
+                {{ $t('video-section:sub-heading') }}
               </h4>
-              <b-button variant="primary" size="lg" to="/game/puzzle/6502927/">Play Now</b-button>
-              <b-button variant="secondary" size="lg" to="/about" class="ml-3"
-                >About Eterna</b-button
-              >
+              <b-button variant="primary" size="lg" to="/game/puzzle/6502927/">{{
+                $t('video-section:main-action')
+              }}</b-button>
+              <b-button variant="secondary" size="lg" to="/about" class="ml-3">
+                {{ $t('video-section:secondary-action') }}
+              </b-button>
             </div>
           </b-col>
           <b-col lg="3" />
@@ -33,6 +36,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
+  import i18n from '@/plugins/i18n';
 
   @Component({
     components: {},

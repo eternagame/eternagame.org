@@ -7,17 +7,19 @@
     hide-footer
   >
     <template #modal-title>
-      <b>Reset Password</b>
+      <b>{{ $t('reset-password:title') }}</b>
     </template>
-    We'll send you an email with a link to reset your password
+    {{ $t('reset-password:description') }}
     <transition name="fade">
       <b-alert class="mt-3" show variant="danger" v-if="errorMessage">
-        {{errorMessage}}
+        {{ errorMessage }}
       </b-alert>
     </transition>
     <b-form @submit.prevent="resetPassword" class="pb-3">
-      <b-input placeholder="username or email" v-model="usernameOrEmail" required/>
-      <b-button type="submit" variant="primary" class="submit-button">Send Reset Email</b-button>
+      <b-input placeholder="username or email" v-model="usernameOrEmail" required />
+      <b-button type="submit" variant="primary" class="submit-button">{{
+        $t('Send Reset Email')
+      }}</b-button>
     </b-form>
   </b-modal>
 </template>
@@ -71,10 +73,12 @@
     margin-top: 1.5rem;
   }
 
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .15s;
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.15s;
   }
-  .fade-enter, .fade-leave-to {
+  .fade-enter,
+  .fade-leave-to {
     opacity: 0;
   }
 </style>

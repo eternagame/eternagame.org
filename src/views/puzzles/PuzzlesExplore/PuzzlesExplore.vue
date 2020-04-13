@@ -1,5 +1,5 @@
 <template>
-  <EternaPage v-if="pageData" title="Puzzles">
+  <EternaPage v-if="pageData" :title="$t('nav-bar:puzzles')">
     <Gallery>
       <PuzzleCard
         v-for="puzzle in pageData.puzzles"
@@ -22,7 +22,6 @@
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
-  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
@@ -48,7 +47,6 @@
   @Component({
     components: {
       PuzzleCard,
-      SidebarPanel,
       EternaPage,
       FiltersPanel,
       DropdownSidebarPanel,

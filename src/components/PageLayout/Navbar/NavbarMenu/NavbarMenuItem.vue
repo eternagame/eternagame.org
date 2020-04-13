@@ -1,10 +1,13 @@
 <template>
-  <b-nav-item :to="value" v-if="typeof value ==='string'">{{text}}</b-nav-item>
+  <b-nav-item :to="value" v-if="typeof value === 'string'">{{ text }}</b-nav-item>
   <b-nav-item-dropdown v-else menu-class="shadow-sm" :text="text">
     <template v-for="([linkText, to], index) in dropdownEntries">
-      <b-dropdown-item :to="to" :key="linkText">{{linkText}}</b-dropdown-item>
-      <b-dropdown-divider v-if="index < dropdownEntries.length - 1"
-                          class="divider" :key="`${linkText} divider`"/>
+      <b-dropdown-item :to="to" :key="linkText"> {{ $t('nav-bar:' + linkText) }}</b-dropdown-item>
+      <b-dropdown-divider
+        v-if="index < dropdownEntries.length - 1"
+        class="divider"
+        :key="`${linkText} divider`"
+      />
     </template>
   </b-nav-item-dropdown>
 </template>
@@ -12,8 +15,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
 
   @Component({
-    components: {
-    },
+    components: {},
   })
   export default class NavbarIcons extends Vue {
     @Prop()
@@ -29,6 +31,4 @@
   }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

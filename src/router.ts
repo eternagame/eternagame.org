@@ -52,12 +52,12 @@ export default function createRouter() {
         component: () => import('./views/landing/LandingPage.vue'),
       },
       {
-        path: '/terms',
+        path: '/about/terms',
         name: 'terms-and-conditions',
         component: () => import('./views/terms/TermsAndConditions.vue'),
       },
       {
-        path: '/conduct',
+        path: '/about/conduct',
         name: 'code-of-conduct',
         component: () => import('./views/conduct/CodeOfConduct.vue'),
       },

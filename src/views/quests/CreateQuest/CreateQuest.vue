@@ -1,5 +1,5 @@
 <template>
-  <EternaPage title="Create Quest"> </EternaPage>
+  <EternaPage :title="$t('nav-bar:create-quest')"> </EternaPage>
 </template>
 
 <script lang="ts">

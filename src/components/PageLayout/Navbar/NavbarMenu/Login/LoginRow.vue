@@ -11,9 +11,11 @@
           v-model="password"
         />
         <b-btn type="submit" id="loginButton" value="Log In" class="btn btn-primary" @click="login">
-          Log In
+          {{ $t('login-row:main-action') }}
         </b-btn>
-        <b-btn variant="secondary" v-b-modal.modal-register>Register</b-btn>
+        <b-btn variant="secondary" v-b-modal.modal-register>{{
+          $t('login-row:secondary-action')
+        }}</b-btn>
       </b-form-group>
     </b-form>
   </div>

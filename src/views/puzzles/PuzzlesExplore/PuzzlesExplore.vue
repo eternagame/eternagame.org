@@ -1,5 +1,5 @@
 <template>
-  <EternaPage v-if="pageData" :title="$t('puzzles-explore:title')">
+  <EternaPage v-if="pageData" :title="$t('nav-bar:puzzles')">
     <Gallery>
       <PuzzleCard
         v-for="puzzle in pageData.puzzles"

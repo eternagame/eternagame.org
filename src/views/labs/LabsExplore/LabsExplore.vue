@@ -1,5 +1,5 @@
 <template>
-  <EternaPage v-if="pageData" title="Labs">
+  <EternaPage v-if="pageData" :title="$t('nav-bar:labs')">
     <Gallery>
       <LabCard v-for="lab in pageData.labs" :key="lab.nid" :lab="lab" />
     </Gallery>

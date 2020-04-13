@@ -1,10 +1,10 @@
 <template>
   <NavbarIcon>
     <template #icon>
-      <img src="@/assets/navbar/Bell.svg" alt="notifications"/>
+      <img src="@/assets/navbar/Bell.svg" :alt="$t('nav-bar:notifications')" />
     </template>
     <template #text>
-      Notifications
+      {{ $t('nav-bar:notifications') }}
     </template>
     <b-dropdown-item>To be implemented</b-dropdown-item>
     <b-dropdown-item>To be implemented</b-dropdown-item>
@@ -23,6 +23,4 @@
   export default class BellIcon extends Vue {}
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

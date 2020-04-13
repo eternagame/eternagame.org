@@ -1,8 +1,12 @@
 <template>
   <div class="login-sub">
-    <b-btn class="forgot-password mt-0" variant="secondary"
-            size="sm" v-b-modal.modal-reset-password>
-      Forgot password?
+    <b-btn
+      class="forgot-password mt-0"
+      variant="secondary"
+      size="sm"
+      v-b-modal.modal-reset-password
+    >
+      {{ $t('login-sub:main-action') }}
     </b-btn>
   </div>
 </template>
@@ -11,11 +15,9 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
 
   @Component({
-    components: {
-    },
+    components: {},
   })
-  export default class LoginSub extends Vue {
-  }
+  export default class LoginSub extends Vue {}
 </script>
 
 <style lang="scss" scoped>

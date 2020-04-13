@@ -1,16 +1,9 @@
 export default interface LeaderBoardData {
-  users: UserData[];
+  users: PlayerCardData[];
 }
 
-export interface UserData {
+export interface PlayerCardData {
   id: string;
-  title?: string;
-  username: string;
-  userpicture: string;
-  'made-by-player'?: string;
-  'num-cleared'?: string;
-  type: string;
-  'solved-by-bot'?: boolean;
-  reward: string;
-  'made-for-lab'?: boolean;
+  name?: string;
+  picture: string;
 }

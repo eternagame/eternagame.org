@@ -1,6 +1,14 @@
 <template>
-  <EternaPage v-if="pageData.users" :title="$t('nav-bar:leaderboards')">
-    {{ news }}
+  <EternaPage v-if="pageData" :title="$t('nav-bar:leaderboards')">
+    <div class="page-content">
+      <PlayerCard
+        v-for="(player, index) in pageData.users"
+        :key="player.uid"
+        :player="player"
+        :index="index"
+      />
+    </div>
+
     <template #sidebar="{ isInSidebar }">
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
       <TagsPanel :tags="tags" :isInSidebar="isInSidebar" />
@@ -17,8 +25,8 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  import LeaderBoardData, { UserData } from './types';
+  import PlayerCard from './PlayerCard.vue';
+  import LeaderBoardData, { PlayerCardData } from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
@@ -36,7 +44,7 @@
 
   @Component({
     components: {
-      PuzzleCard,
+      PlayerCard,
       EternaPage,
       FiltersPanel,
       DropdownSidebarPanel,

@@ -1,6 +1,7 @@
 <template>
-  <EternaPage v-if="puzzle" title="Puzzle Details">
-    {{ puzzle }}
+  <EternaPage v-if="pageData" :title="pageData.puzzle.title">
+    <div class="page-content" v-html="pageData.puzzle.body"></div>
+
     <template #sidebar="{ isInSidebar }">
       <!--      <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />-->
 

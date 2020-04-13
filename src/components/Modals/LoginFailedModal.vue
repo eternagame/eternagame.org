@@ -1,12 +1,15 @@
 <template>
-  <b-modal ref="modal" body-class="py-0"
-           header-border-variant="primary"
-           footer-border-variant="primary">
+  <b-modal
+    ref="modal"
+    body-class="py-0"
+    header-border-variant="primary"
+    footer-border-variant="primary"
+  >
     <template #modal-title>
-      <b>Something's wrong...</b>
+      <b>{{ $t('login-failed:failure-text') }}</b>
     </template>
-    Sorry, there was a problem loading you in.
-    <b-alert class="mt-3" show variant="danger">{{errorMessage}}</b-alert>
+    {{ $t('login-failed:failure-text-description') }}
+    <b-alert class="mt-3" show variant="danger">{{ errorMessage }}</b-alert>
     <template #modal-footer>
       <b-button variant="secondary" @click="hideModal">Close</b-button>
     </template>
@@ -18,19 +21,17 @@
   import { BModal } from 'bootstrap-vue';
 
   @Component({
-    components: {
-
-    },
+    components: {},
   })
   export default class LoginFailedModal extends Vue {
     errorMessage: string = '';
 
     $refs!: {
-      modal: BModal
+      modal: BModal;
     };
 
     created() {
-      this.$vxm.user.$subscribe('showLoginFailedModal', (payload) => {
+      this.$vxm.user.$subscribe('showLoginFailedModal', payload => {
         this.errorMessage = payload.errorMessage;
         this.$refs.modal.show();
       });
@@ -42,5 +43,4 @@
   }
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

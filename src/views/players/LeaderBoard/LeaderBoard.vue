@@ -1,5 +1,5 @@
 <template>
-  <EternaPage v-if="pageData.users" title="Leaderboard">
+  <EternaPage v-if="pageData.users" :title="$t('nav-bar:leaderboards')">
     {{ news }}
     <template #sidebar="{ isInSidebar }">
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />

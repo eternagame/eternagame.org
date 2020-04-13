@@ -1,11 +1,9 @@
 <template>
   <NavbarIcon>
     <template #icon>
-      <img icon src="@/assets/navbar/Chat.svg" alt="chat"/>
+      <img icon src="@/assets/navbar/Chat.svg" :alt="$t('nav-bar:chat')" />
     </template>
-    <template #text>
-      Chat <span class="online">(X online)</span>
-    </template>
+    <template #text> {{ $t('nav-bar:chat') }} <span class="online">(X online)</span> </template>
     <b-dropdown-item>To be implemented</b-dropdown-item>
     <b-dropdown-item>To be implemented</b-dropdown-item>
     <b-dropdown-item>To be implemented</b-dropdown-item>

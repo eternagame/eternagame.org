@@ -1,12 +1,13 @@
 <template>
-  <b-nav-item class="menu-item" :to="value" v-if="typeof value ==='string'">{{text}}</b-nav-item>
+  <b-nav-item class="menu-item" :to="value" v-if="typeof value === 'string'">{{ text }}</b-nav-item>
   <div class="menu-item" v-else>
-    <b-nav-item v-b-toggle="collapseId" :class="{active: contentVisible}">
-      {{text}} <span class="triangle" :class="{rotated: !contentVisible}"></span>
+    <b-nav-item v-b-toggle="collapseId" :class="{ active: contentVisible }">
+      {{ $t('nav-bar:' + text) }}
+      <span class="triangle" :class="{ rotated: !contentVisible }"></span>
     </b-nav-item>
     <b-collapse @input="onToggle" :accordion="accordion" :id="collapseId" class="sublist">
       <b-nav-item v-for="(to, linkText) in value" :to="to" :key="linkText">
-        {{linkText}}
+        {{ $t('nav-bar:' + linkText) }}
       </b-nav-item>
       <div class="mb-1"></div>
     </b-collapse>
@@ -16,8 +17,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
 
   @Component({
-    components: {
-    },
+    components: {},
   })
   export default class NavbarIcons extends Vue {
     @Prop()
@@ -64,7 +64,7 @@
     display: inline-block;
     margin-left: 0.255em;
     vertical-align: 0.255em;
-    content: "";
+    content: '';
     border-top: 0.3em solid;
     border-right: 0.3em solid transparent;
     border-bottom: 0;

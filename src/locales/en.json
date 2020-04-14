@@ -59,5 +59,8 @@
   "create-quest:puzzle-info:add-puzzle-description": "Start typing to search puzzles.",
   "create-quest:puzzle-info:secondary-action": "Add Puzzle",
   "create-quest:puzzle-info:puzzle-list": "Puzzle List",
-  "create-quest:puzzle-info:puzzle-list-tip": "(drag to reorder)"
+  "create-quest:puzzle-info:puzzle-list-tip": "(drag to reorder)",
+  "quest-view:banner-title": "About this quest",
+  "quests-explore:top-tip": "Featured Quests",
+  "quests-explore:feature-first": "Mastering Eterna"
 }

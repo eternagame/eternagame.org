@@ -3,8 +3,6 @@
     <div class="page-content" v-html="pageData.puzzle.body"></div>
 
     <template #sidebar="{ isInSidebar }">
-      <!--      <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />-->
-
       <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" />
     </template>
   </EternaPage>

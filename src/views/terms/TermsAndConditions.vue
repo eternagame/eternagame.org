@@ -141,3 +141,19 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+  h3,
+  p {
+    font-size: 0.56rem;
+    font-weight: normal;
+    line-height: 1.36;
+  }
+
+  h3 {
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 10.72rem;
+    font-weight: bold;
+  }
+</style>

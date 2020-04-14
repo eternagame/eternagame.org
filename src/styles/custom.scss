@@ -27,30 +27,15 @@
 }
 
 .arrow_right {
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  border-left: 5px solid white;
+  border-top: 0.26666666666666666rem solid transparent;
+  border-bottom: 0.26666666666666666rem solid transparent;
+  border-left: 0.3333333333333333rem solid white;
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 0.6666666666666666rem;
 }
 
 .page-content {
-  border-radius: 5px;
+  border-radius: 0.3333333333333333rem;
   background-color: $med-dark-blue;
-  padding: 25px;
-
-  h3,
-  p {
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 1.36;
-  }
-
-  h3 {
-    font-weight: bold;
-  }
-  h2 {
-    font-size: 18px;
-    font-weight: bold;
-  }
+  padding: 0.82rem;
 }

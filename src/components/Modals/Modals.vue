@@ -1,9 +1,10 @@
 <template>
   <div>
-    <LoginFailedModal/>
-    <RegisterModal/>
-    <ResetCompleteModal/>
-    <ResetPasswordModal/>
+    <LoginFailedModal />
+    <RegisterModal />
+    <ResetCompleteModal />
+    <ResetPasswordModal />
+    <LoginModal />
   </div>
 </template>
 
@@ -13,6 +14,7 @@
   import RegisterModal from './RegisterModal.vue';
   import ResetCompleteModal from './ResetCompleteModal.vue';
   import ResetPasswordModal from './ResetPasswordModal.vue';
+  import LoginModal from './LoginModal.vue';
 
   @Component({
     components: {
@@ -20,11 +22,10 @@
       RegisterModal,
       ResetCompleteModal,
       ResetPasswordModal,
+      LoginModal,
     },
   })
-  export default class Modals extends Vue {
-  }
+  export default class Modals extends Vue {}
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

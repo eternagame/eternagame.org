@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <Navbar/>
-    <VueBootstrapBreakpointIndicator style="z-index: 1070"/>
-    <Modals/>
-    <router-view/>
+    <Navbar />
+    <VueBootstrapBreakpointIndicator style="z-index: 1070" />
+    <Modals />
+    <router-view />
   </div>
 </template>
 <script lang="ts">
@@ -19,8 +19,7 @@
       Modals,
     },
   })
-  export default class App extends Vue {
-  }
+  export default class App extends Vue {}
 </script>
 
 <style lang="scss">

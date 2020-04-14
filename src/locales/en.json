@@ -23,6 +23,8 @@
   "register-modal:new-accont-explanation": "Register now to save your progress and collect rewards.",
   "register-modal:main-action": "Create Account",
   "register-modal:disclaimer": "Terms & conditions",
+  "login-modal:main-action": "Enter",
+  "login-modal:register-action": "Register Here",
   "reset-complete:title": "Password Reset Sent",
   "reset-complete:explanation": "We've sent an email to you with information to reset your password.",
   "reset-complete:secondary-action": "Close",

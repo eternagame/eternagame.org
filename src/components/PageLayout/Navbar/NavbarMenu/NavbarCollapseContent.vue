@@ -6,8 +6,7 @@
       <LoginRow v-else />
     </div>
     <div class="w-100 d-flex justify-content-between">
-      <LoginSub v-if="!loggedIn" />
-      <b-navbar-nav class="nav-pills">
+      <b-navbar-nav class="nav-pills" v-if="loggedIn">
         <NavbarMenuItem
           v-for="(value, text) in menu"
           :key="text"

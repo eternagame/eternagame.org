@@ -3,7 +3,6 @@
     <div>
       <!--return the padding from b-container-->
       <NavbarIcons v-if="loggedIn" class="d-inline d-md-none d-lg-block icons-group" />
-      <LoginRow v-else />
     </div>
     <div class="w-100 d-flex justify-content-between">
       <b-navbar-nav class="nav-pills" v-if="loggedIn">
@@ -21,12 +20,10 @@
   import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
   import NavbarIcons from '../Icons/NavbarIcons.vue';
   import NavbarMenuItem from './NavbarMenuItem.vue';
-  import LoginRow from './Login/LoginRow.vue';
   import LoginSub from './Login/LoginSub.vue';
 
   @Component({
     components: {
-      LoginRow,
       NavbarIcons,
       NavbarMenuItem,
       LoginSub,

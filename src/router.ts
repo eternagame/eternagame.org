@@ -52,6 +52,16 @@ export default function createRouter() {
         component: () => import('./views/landing/LandingPage.vue'),
       },
       {
+        path: '/experienced',
+        name: 'experienced-player-temp',
+        component: () => import('./views/home/ExperiencedPlayerHome/ExperiencedPlayerHome.vue'),
+      },
+      {
+        path: '/new',
+        name: 'new-player-temp',
+        component: () => import('./views/home/NewPlayerHome/NewPlayerHome.vue'),
+      },
+      {
         path: '/about/terms',
         name: 'terms-and-conditions',
         component: () => import('./views/terms/TermsAndConditions.vue'),

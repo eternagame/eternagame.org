@@ -67,5 +67,13 @@
   "create-quest:puzzle-info:puzzle-list-tip": "(drag to reorder)",
   "quest-view:banner-title": "About this quest",
   "quests-explore:top-tip": "Featured Quests",
-  "quests-explore:feature-first": "Mastering Eterna"
+  "puzzle-view:main-header": "About the Puzzle",
+  "puzzle-view:auxiliary-header-one": "the science",
+  "puzzle-view:auxiliary-header-two": "your mission",
+  "puzzle-view:auxiliary-header-three": "more information",
+  "puzzle-view:side-bar-header": "puzzle info",
+  "puzzle-view:quests-info": "This puzzle appears in the following quests:",
+  "puzzle-view:main-action": "Play Now",
+  "player-home:puzzles": "Mastering Eterna",
+  "player-home:quests": "Build Your Lab"
 }

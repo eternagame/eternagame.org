@@ -3,6 +3,9 @@
     :style="{
       background: `url(${imageUrl})`,
       backgroundSize: 'contain',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      height: '180px',
     }"
   >
     <template #footer>
@@ -23,7 +26,7 @@
   export default class VideoCard extends Vue {
     @Prop({
       default:
-        'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/8A2F6295-67E8-407F-9A70-910D8262D0EF.png',
+        'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/9FA562FE-9341-4261-8C3C-7E9679642CAE.png',
     })
     private imageUrl!: string;
 

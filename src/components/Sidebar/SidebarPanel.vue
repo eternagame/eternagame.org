@@ -65,14 +65,6 @@
     cursor: pointer;
   }
 
-  .header-icon {
-    margin-right: 0.25rem;
-    margin-left: 0.25rem;
-    height: 1.125em;
-    vertical-align: middle;
-    display: inline-block;
-  }
-
   .sidebar-panel-header {
     color: var(--med-blue);
     font-weight: bold;
@@ -80,6 +72,14 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+  }
+
+  .header-icon {
+    margin-right: 0.25rem;
+    margin-left: 0.25rem;
+    height: 1.125em;
+    vertical-align: middle;
+    display: inline-block;
   }
 
   hr {

@@ -5,7 +5,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import ExperiencedPlayerHome from './ExperiencedPlayerHome.vue';
+  import ExperiencedPlayerHome from './ExperiencedPlayerHome/ExperiencedPlayerHome.vue';
   import NewPlayerHome from './NewPlayerHome/NewPlayerHome.vue';
 
   @Component({

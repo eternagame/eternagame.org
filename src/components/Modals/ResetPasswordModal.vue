@@ -18,7 +18,7 @@
     <b-form @submit.prevent="resetPassword" class="pb-3">
       <b-input placeholder="username or email" v-model="usernameOrEmail" required />
       <b-button type="submit" variant="primary" class="submit-button">{{
-        $t('Send Reset Email')
+        $t('reset-password:main-action')
       }}</b-button>
     </b-form>
   </b-modal>

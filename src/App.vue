@@ -11,13 +11,12 @@
   import VueBootstrapBreakpointIndicator from 'vue-bootstrap-breakpoint-indicator/src/BootstrapBreakpointIndicator.vue';
   import Navbar from '@/components/PageLayout/Navbar/Navbar.vue';
   import Modals from '@/components/Modals/Modals.vue';
-  import i18n, { LANGUAGES, DEFAULT_LANGUAGE } from '@/plugins/i18n';
+  import i18n, { LANGUAGES, DEFAULT_LANGUAGE, LANGUAGE_COOKIE_NAME } from '@/plugins/i18n';
   // @ts-ignore
   import browserLanguage from 'in-browser-language';
   // @ts-ignore
   import Cookies from 'js-cookie';
 
-  const LANGUAGE_COOKIE_NAME = 'language';
   if (
     process.env.VUE_APP_ENV === 'client'
     && window.navigator.cookieEnabled

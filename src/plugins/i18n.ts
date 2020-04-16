@@ -4,6 +4,7 @@ import VueI18n from 'vue-i18n';
 Vue.use(VueI18n);
 
 export const DEFAULT_LANGUAGE = process.env.VUE_APP_I18N_LOCALE || 'en'; // english
+export const LANGUAGE_COOKIE_NAME = 'language';
 
 function loadLocaleMessages() {
   const locales = require.context('../locales', true, /[A-Za-z0-9-_,\s]+\.json$/i);

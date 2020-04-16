@@ -30,6 +30,7 @@
     "geckodriver": "^1.19.1",
     "in-browser-language": "^1.0.3",
     "jquery": "^3.4.1",
+    "js-cookie": "^2.2.1",
     "jsdom": "^16.2.2",
     "lodash": "^4.17.15",
     "memfs": "^3.1.2",

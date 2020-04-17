@@ -44,9 +44,6 @@
         <div>
           <h4 class="about-me"></h4>
         </div>
-        <button class="menubar__button" :class="{ 'is-active': true }" @click="commands">
-          <icon name="bold" />
-        </button>
 
         <p>Featured Achievement</p>
       </div>

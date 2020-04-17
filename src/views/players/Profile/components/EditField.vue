@@ -1,56 +1,92 @@
 <template>
-  <v-container>
-    <v-row>
-      <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-        <div>
-          <v-btn
-            text
-            icon
-            :class="{ 'is-active': isActive.heading({ level: 1 }) }"
-            @click="commands.heading({ level: 1 })"
-          >
-            <b> H1 </b>
-          </v-btn>
-          <v-btn text icon :class="{ 'is-active': isActive.bold() }" @click="commands.bold">
-            <v-icon>mdi-format-bold</v-icon>
-          </v-btn>
-
-          <v-btn
-            text
-            icon
-            :class="{ 'is-active': isActive.underline() }"
-            @click="commands.underline"
-          >
-            <v-icon>mdi-format-underline</v-icon>
-          </v-btn>
+  <div>
+    <editor-menu-bar :editor="editor" v-slot:default="editorParams">
+      <div class="border bg-light rounded-top">
+        <div class="btn-toolbar p-1" role="toolbar" aria-label="Editor Toolbar">
+          <div class="btn-group btn-group-sm mr-2" role="group">
+            <editor-menu-button command="undo" :editor-params="editorParams" />
+            <editor-menu-button command="redo" :editor-params="editorParams" />
+          </div>
+          <div class="btn-group btn-group-sm mr-2" role="group">
+            <editor-menu-button command="bold" :editor-params="editorParams" />
+            <editor-menu-button command="italic" :editor-params="editorParams" />
+            <editor-menu-button command="underline" :editor-params="editorParams" />
+            <editor-menu-button
+              command="strike"
+              icon="strikethrough"
+              :editor-params="editorParams"
+            />
+          </div>
+          <div class="btn-group btn-group-sm mr-2" role="group">
+            <editor-menu-button command="paragraph" :editor-params="editorParams" />
+            <editor-menu-button
+              command="heading"
+              :args="{ level: 2 }"
+              :editor-params="editorParams"
+            />
+            <editor-menu-button
+              command="bullet_list"
+              icon="list-ul"
+              :editor-params="editorParams"
+            />
+            <editor-menu-button
+              command="ordered_list"
+              icon="list-ol"
+              :editor-params="editorParams"
+            />
+          </div>
         </div>
-      </editor-menu-bar>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <editor-content class="editor-box" :editor="editor" />
-      </v-col>
-    </v-row>
-  </v-container>
+      </div>
+    </editor-menu-bar>
+    <editor-content class="editor-box" :editor="editor" />
+  </div>
 </template>
 
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
-  // @ts-ignore
   import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
-  // @ts-ignore
-  import { Heading, Bold, Underline, Image } from 'tiptap-extensions';
+  import {
+    Heading,
+    Bold,
+    Underline,
+    Image,
+    HardBreak,
+    OrderedList,
+    ListItem,
+    Code,
+    Italic,
+    Link,
+    Strike,
+    BulletList,
+    History,
+  } from 'tiptap-extensions';
+
+  import EditorMenuButton from './EditorMenuButton.vue';
 
   Component.registerHooks(['beforeDestroy']);
 
   @Component({
-    components: { Editor },
+    components: { Editor, EditorContent, EditorMenuButton, EditorMenuBar },
   })
   export default class EditField extends Vue {
     private editor = new Editor({
       content: `Type here...
          `,
-      extensions: [new Heading({ levels: [1, 2, 3] }), new Bold(), new Underline(), new Image()],
+      extensions: [
+        new HardBreak(),
+        new HardBreak(),
+        new Heading({ levels: [1, 2, 3] }),
+        new BulletList(),
+        new OrderedList(),
+        new ListItem(),
+        new Bold(),
+        new Code(),
+        new Italic(),
+        new Link(),
+        new Strike(),
+        new Underline(),
+        new History(),
+      ],
     });
 
     private beforeDestroy() {
@@ -59,6 +95,7 @@
   }
 </script>
 <style lang="scss" scoped>
+  @import '~@fortawesome/fontawesome-free/css/all.css';
   .editor-box > * {
     border-color: grey;
     border-style: solid;
@@ -73,4 +110,56 @@
   /* *:focus {
     outline: none;
 }  */
+  @import '~@fortawesome/fontawesome-free/css/all.css';
+  .ProseMirror {
+    text-align: initial;
+
+    &:focus {
+      /*outline: none;*/
+    }
+  }
+
+  .editor {
+    position: relative;
+    &__floating-menu {
+      position: absolute;
+      z-index: 1;
+      margin-top: -0.75rem;
+      margin-left: 1rem;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.2s, visibility 0.2s;
+      &.is-active {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    .menububble {
+      position: absolute;
+      display: flex;
+      z-index: 20;
+      margin-bottom: 0.5rem;
+      transform: translateX(-50%);
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.2s, visibility 0.2s;
+
+      &.is-active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      &__form {
+        display: flex;
+        align-items: center;
+      }
+
+      &__input {
+        font: inherit;
+        border: none;
+        background: transparent;
+      }
+    }
+  }
 </style>

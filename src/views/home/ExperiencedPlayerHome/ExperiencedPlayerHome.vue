@@ -20,21 +20,19 @@
       {{ $t('player-home:puzzles') }}
     </h1>
 
-    <Swiper class="swiper" :options="swiperOption">
+    <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="(item, index) in puzzles" :key="index">
         <QuestCard :nid="index" title="test" leftNumber="1" rightNumber="2" states="0" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button-prev" slot="button-prev">
+      <div class="swiper-arrow prev-elem" slot="button-prev">
         <b-icon-chevron-left></b-icon-chevron-left>
       </div>
-      <div class="arrow right" slot="button-next">
-        <div class="right-arrow-container">
-          <b-icon-chevron-right></b-icon-chevron-right>
-        </div>
+      <div class="swiper-arrow right next-elem" slot="button-next">
+        <b-icon-chevron-right></b-icon-chevron-right>
       </div>
-    </Swiper>
-    <!--
+    </swiper>
+
     <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
       {{ $t('player-home:quests') }}
     </h1>
@@ -43,9 +41,13 @@
         <QuestCard :nid="index" :progress="item" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button-prev" slot="button-prev"><div class="arrow"></div></div>
-      <div class="swiper-button-next" slot="button-next"><div class="arrow arrow_right"></div></div>
-    </Swiper> -->
+      <div class="swiper-arrow prev-elem" slot="button-prev">
+        <b-icon-chevron-left></b-icon-chevron-left>
+      </div>
+      <div class="swiper-arrow right next-elem" slot="button-next">
+        <b-icon-chevron-right></b-icon-chevron-right>
+      </div>
+    </Swiper>
   </EternaPage>
 </template>
 
@@ -53,7 +55,7 @@
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
-  import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+  import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
   import { BIcon, BIconArrowUp, BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
@@ -105,8 +107,8 @@
       },
 
       navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        nextEl: '.next-elem',
+        prevEl: '.prev-elem',
       },
     };
 
@@ -139,7 +141,7 @@
     border-radius: 5px;
   }
 
-  .arrow {
+  .swiper-arrow {
     background-color: black;
     color: teal;
     width: 38px;
@@ -149,16 +151,18 @@
     font-size: 20px;
     position: absolute;
     top: 30%;
+    z-index: 10;
     cursor: pointer;
-    .swipper-button-disabled {
-      opacity: 0.35;
-      cursor: auto;
-    }
-    .right {
-      right: 0px;
-    }
   }
-  .right-arrow-container {
+
+  .swiper-button-disabled {
+    display: none;
+  }
+  .right {
     right: 0px;
+  }
+
+  ::v-deep .swiper-pagination-bullet-active {
+    background-color: white;
   }
 </style>

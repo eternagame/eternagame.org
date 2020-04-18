@@ -39,6 +39,7 @@
     icon!: String;
 
     get activeClass() {
+      // @ts-ignore
       return this.editorParams.isActive[this.command]
         && this.editorParams.isActive[this.command](this.args)
         ? 'active'

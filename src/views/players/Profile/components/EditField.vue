@@ -44,7 +44,9 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
+  // @ts-ignore
   import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
+  // @ts-ignore
   import {
     Heading,
     Bold,

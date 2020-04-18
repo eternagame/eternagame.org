@@ -50,7 +50,8 @@
     <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
       {{ $t('player-home:section2') }}
     </h1>
-    <swiper class="swiper" :options="swiperOption">
+    {{ slidesPerView }}
+    <swiper class="swiper" :options="{ ...swiperOption }">
       <swiper-slide v-for="(item, index) in pageData.section2" :key="index">
         <QuestCard v-bind="item" />
       </swiper-slide>
@@ -76,6 +77,10 @@
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import Progress from '@/components/Progress.vue';
   import 'swiper/css/swiper.css';
+  // @ts-ignore
+  import Breakpoint from 'bootstrap-breakpoints';
+
+  Breakpoint.init();
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     return (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data;
@@ -85,11 +90,14 @@
     components: {
       EternaPage,
       QuestCard,
-      Swiper,
       Progress,
-      SwiperSlide,
       BIconChevronRight,
       BIconChevronLeft,
+      Swiper,
+      SwiperSlide,
+    },
+    directives: {
+      swiper: directive,
     },
   })
   export default class ExperiencedPlayerView extends Mixins(PageDataMixin(fetchPageData)) {
@@ -160,8 +168,26 @@
       };
     }
 
+    private windowWidth = window.innerWidth;
+
+    get slidesPerView() {
+      if (this.windowWidth <= 499) return 1;
+      if (this.windowWidth < 1000) return 3;
+      return 4;
+    }
+
+    swiper() {
+      return this.$refs.mySwiper.$swiper;
+    }
+
+    mounted() {
+      window.onresize = () => {
+        this.windowWidth = window.innerWidth;
+      };
+    }
+
     private swiperOption = {
-      slidesPerView: 4,
+      slidesPerView: this.slidesPerView,
       spaceBetween: 30,
       pagination: {
         el: '.swiper-pagination',

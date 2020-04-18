@@ -77,10 +77,6 @@
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import Progress from '@/components/Progress.vue';
   import 'swiper/css/swiper.css';
-  // @ts-ignore
-  import Breakpoint from 'bootstrap-breakpoints';
-
-  Breakpoint.init();
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     return (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data;
@@ -168,22 +164,8 @@
       };
     }
 
-    private windowWidth = window.innerWidth;
-
-    get slidesPerView() {
-      if (this.windowWidth <= 499) return 1;
-      if (this.windowWidth < 1000) return 3;
-      return 4;
-    }
-
-    mounted() {
-      window.onresize = () => {
-        this.windowWidth = window.innerWidth;
-      };
-    }
-
     private swiperOption = {
-      slidesPerView: this.slidesPerView,
+      slidesPerView: 4,
       spaceBetween: 30,
       pagination: {
         el: '.swiper-pagination',

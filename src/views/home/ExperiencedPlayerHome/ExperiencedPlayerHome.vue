@@ -9,6 +9,7 @@
       }"
     >
       <p style="font-size: 2.8rem; font-weight: bold;">{{ pageData[`banner-title`] }}</p>
+
       <p>
         {{ pageData[`banner-sub-title`].toUpperCase() }}
       </p>
@@ -18,15 +19,22 @@
     <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
       {{ $t('player-home:puzzles') }}
     </h1>
+
     <Swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="(item, index) in puzzles" :key="index">
         <QuestCard :nid="index" title="test" leftNumber="1" rightNumber="2" states="0" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
+      <div class="swiper-button-prev" slot="button-prev">
+        <b-icon-chevron-left></b-icon-chevron-left>
+      </div>
+      <div class="arrow right" slot="button-next">
+        <div class="right-arrow-container">
+          <b-icon-chevron-right></b-icon-chevron-right>
+        </div>
+      </div>
     </Swiper>
-
+    <!--
     <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
       {{ $t('player-home:quests') }}
     </h1>
@@ -35,9 +43,9 @@
         <QuestCard :nid="index" :progress="item" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
-    </Swiper>
+      <div class="swiper-button-prev" slot="button-prev"><div class="arrow"></div></div>
+      <div class="swiper-button-next" slot="button-next"><div class="arrow arrow_right"></div></div>
+    </Swiper> -->
   </EternaPage>
 </template>
 
@@ -46,6 +54,7 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+  import { BIcon, BIconArrowUp, BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
@@ -63,6 +72,9 @@
       QuestCard,
       Swiper,
       SwiperSlide,
+      BIcon,
+      BIconChevronRight,
+      BIconChevronLeft,
     },
   })
   export default class ExperiencedPlayerView extends Mixins(PageDataMixin(fetchPageData)) {
@@ -125,5 +137,28 @@
     background-color: $dark;
     padding-top: 10px;
     border-radius: 5px;
+  }
+
+  .arrow {
+    background-color: black;
+    color: teal;
+    width: 38px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+    position: absolute;
+    top: 30%;
+    cursor: pointer;
+    .swipper-button-disabled {
+      opacity: 0.35;
+      cursor: auto;
+    }
+    .right {
+      right: 0px;
+    }
+  }
+  .right-arrow-container {
+    right: 0px;
   }
 </style>

@@ -110,7 +110,6 @@
   /* *:focus {
     outline: none;
 }  */
-  @import '~@fortawesome/fontawesome-free/css/all.css';
   .ProseMirror {
     text-align: initial;
 

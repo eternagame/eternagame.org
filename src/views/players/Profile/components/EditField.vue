@@ -46,22 +46,10 @@
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   // @ts-ignore
   import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
+  // eslint-disable-next-line max-len
+  // prettier-ignore
   // @ts-ignore
-  import {
-    Heading,
-    Bold,
-    Underline,
-    Image,
-    HardBreak,
-    OrderedList,
-    ListItem,
-    Code,
-    Italic,
-    Link,
-    Strike,
-    BulletList,
-    History,
-  } from 'tiptap-extensions';
+  import { Heading, Bold, Underline, Image, HardBreak, OrderedList, ListItem, Code, Italic, Link, Strike, BulletList, History } from 'tiptap-extensions';
 
   import EditorMenuButton from './EditorMenuButton.vue';
 

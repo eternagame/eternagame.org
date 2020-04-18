@@ -21,13 +21,13 @@
     @Prop({
       required: true,
     })
-    command!: String;
+    command!: string;
 
     @Prop({
       required: true,
       default: () => {},
     })
-    editorParams!: Object;
+    editorParams!: { isActive: Object };
 
     @Prop({
       type: Object,
@@ -39,9 +39,10 @@
     icon!: String;
 
     get activeClass() {
+      // prettier-ignore
       // @ts-ignore
-      return this.editorParams.isActive[this.command]
-        && this.editorParams.isActive[this.command](this.args)
+      // eslint-disable-next-line max-len
+      return this.editorParams.isActive[this.command] && this.editorParams.isActive[this.command](this.args)
         ? 'active'
         : null;
     }

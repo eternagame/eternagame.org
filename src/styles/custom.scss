@@ -16,10 +16,6 @@
   color: $gray;
 }
 
-.card {
-  border-radius: 0.5rem;
-}
-
 .top-border {
   border-top-color: $light-blue;
   margin-top: 2.5em;
@@ -40,7 +36,38 @@
   padding: 0.82rem;
 }
 
-.swiper-pagination-bullet,
-.swiper-pagination-bullet-active {
-  background-color: white;
+.swiper-button {
+  background-color: black;
+  color: teal;
+  width: 38px;
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 20px;
+  position: absolute;
+  top: 30%;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.swiper-button-disabled {
+  display: none;
+}
+
+.swipper-button-right {
+  right: 0px;
+}
+
+.swiper-pagination {
+  .swiper-pagination-bullet {
+    background-color: white;
+
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+    }
+  }
+}
+
+.swiper-pagination {
+  position: static !important;
 }

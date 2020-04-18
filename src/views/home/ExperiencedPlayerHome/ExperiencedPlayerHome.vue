@@ -17,37 +17,37 @@
     </b-container>
 
     <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
-      {{ $t('player-home:puzzles') }}
+      {{ $t('player-home:section1') }}
     </h1>
 
     <swiper class="swiper" :options="swiperOption">
-      <swiper-slide v-for="(item, index) in puzzles" :key="index">
-        <QuestCard :nid="index" title="test" leftNumber="1" rightNumber="2" states="0" />
+      <swiper-slide v-for="(item, index) in pageData.section1" :key="index">
+        <QuestCard v-bind="item" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-arrow prev-elem" slot="button-prev">
+      <div class="swiper-button prev-elem" slot="button-prev">
         <b-icon-chevron-left></b-icon-chevron-left>
       </div>
-      <div class="swiper-arrow right next-elem" slot="button-next">
+      <div class="swiper-button swipper-button-right next-elem" slot="button-next">
         <b-icon-chevron-right></b-icon-chevron-right>
       </div>
     </swiper>
 
     <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
-      {{ $t('player-home:quests') }}
+      {{ $t('player-home:section2') }}
     </h1>
-    <Swiper class="swiper" :options="swiperOption">
-      <swiper-slide v-for="(item, index) in quests" :key="index">
-        <QuestCard :nid="index" :progress="item" />
+    <swiper class="swiper" :options="swiperOption">
+      <swiper-slide v-for="(item, index) in pageData.section2" :key="index">
+        <QuestCard v-bind="item" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-arrow prev-elem" slot="button-prev">
+      <div class="swiper-button prev-elem" slot="button-prev">
         <b-icon-chevron-left></b-icon-chevron-left>
       </div>
-      <div class="swiper-arrow right next-elem" slot="button-next">
+      <div class="swiper-button swipper-button-right next-elem" slot="button-next">
         <b-icon-chevron-right></b-icon-chevron-right>
       </div>
-    </Swiper>
+    </swiper>
   </EternaPage>
 </template>
 
@@ -56,10 +56,9 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
-  import { BIcon, BIconArrowUp, BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
+  import { BIconArrowUp, BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
-  import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import 'swiper/css/swiper.css';
 
@@ -70,11 +69,9 @@
   @Component({
     components: {
       EternaPage,
-      PuzzleCard,
       QuestCard,
       Swiper,
       SwiperSlide,
-      BIcon,
       BIconChevronRight,
       BIconChevronLeft,
     },
@@ -86,16 +83,66 @@
         'banner-sub-title': 'Ribosome Design Challenge',
         'banner-image':
           'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/11FA9E9F-89F8-4548-A93F-241E4D1D6362.png',
+        progressCircles: [
+          { name: 'Designs Submitted', number: 14276, total: 24000 },
+          { name: 'Designs Submitted', number: 526, total: 1200 },
+        ],
+        section1: [
+          {
+            progress: 'NOT_STARTED',
+            imageUrl:
+              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/653E5870-777B-4DC6-852E-41DDFBB2EFF4.png',
+          },
+          {
+            progress: '10',
+            imageUrl:
+              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/16AAD8FC-B5DF-4FB9-A864-72AB72F1A11B.png',
+          },
+          {
+            progress: '60',
+            imageUrl:
+              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/B810FFE7-B74B-40AF-8B0A-24ACD37B2E4B.png',
+          },
+          {
+            progress: '80',
+            imageUrl:
+              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/B7157DB3-77E3-4715-B14C-510F21A882DF.png',
+          },
+          {
+            imageUrl:
+              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/AD1E3A4A-352B-49BF-A95A-1F15015EE1C5.png',
+          },
+        ],
+
+        section2: [
+          {
+            completed: 'COMPLETED',
+            imageUrl:
+              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/AD1E3A4A-352B-49BF-A95A-1F15015EE1C5.png',
+          },
+          {
+            progress: '10',
+            imageUrl:
+              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/DD8C4AA4-03E0-4BA4-8D95-8BAE98DFB188.png',
+          },
+          {
+            progress: 'NOT_STARTED',
+            imageUrl:
+              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/8838E8FF-526E-43B2-9075-4393909F031A.png',
+          },
+          {
+            progress: 'NOT_STARTED',
+            imageUrl:
+              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/6E8256FC-2BC3-449B-A275-46FA347DA721.png',
+          },
+          {
+            progress: 'NOT_STARTED',
+            imageUrl:
+              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/AD1E3A4A-352B-49BF-A95A-1F15015EE1C5.png',
+          },
+        ],
       };
     }
-
-    private picture: string = `${process.env.VUE_APP_API_BASE_URL}/sites/default/files/pictures/picture-133043.png`;
-
-    // private picture: string = 'https://graph.facebook.com/10220887579400634/picture?type=normal';
-
-    private playerName: string = 'Iroppy';
-
-    private playerRank: string = '1';
 
     private swiperOption = {
       slidesPerView: 4,
@@ -111,10 +158,6 @@
         prevEl: '.prev-elem',
       },
     };
-
-    private puzzles: number[] = [1, 2, 3, 4, 5, 6, 7];
-
-    private quests: number[] = [40, 20, 30];
   }
 </script>
 
@@ -139,30 +182,5 @@
     background-color: $dark;
     padding-top: 10px;
     border-radius: 5px;
-  }
-
-  .swiper-arrow {
-    background-color: black;
-    color: teal;
-    width: 38px;
-    height: 30px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 20px;
-    position: absolute;
-    top: 30%;
-    z-index: 10;
-    cursor: pointer;
-  }
-
-  .swiper-button-disabled {
-    display: none;
-  }
-  .right {
-    right: 0px;
-  }
-
-  ::v-deep .swiper-pagination-bullet-active {
-    background-color: white;
   }
 </style>

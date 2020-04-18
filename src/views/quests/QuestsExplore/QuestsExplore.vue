@@ -1,27 +1,39 @@
 <template>
   <EternaPage v-if="pageData">
     <p>{{ $t('quests-explore:top-tip') }}</p>
+
     <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
-      {{ $t('quests-explore:feature-first') }}
+      {{ $t('quests-explore:section1') }}
     </h1>
-    <Swiper class="swiper" :options="swiperOption">
+
+    <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="(item, index) in puzzles" :key="index">
-        <PuzzleCard :nid="index" title="test" leftNumber="1" rightNumber="2" states="0" />
+        <QuestCard :nid="index" title="test" leftNumber="1" rightNumber="2" states="0" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
-    </Swiper>
+      <div class="swiper-button prev-elem" slot="button-prev">
+        <b-icon-chevron-left></b-icon-chevron-left>
+      </div>
+      <div class="swiper-button swipper-button-right next-elem" slot="button-next">
+        <b-icon-chevron-right></b-icon-chevron-right>
+      </div>
+    </swiper>
 
-    <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">Build Your Lab</h1>
-    <Swiper class="swiper" :options="swiperOption">
+    <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
+      {{ $t('quests-explore:section2') }}
+    </h1>
+    <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="(item, index) in quests" :key="index">
         <QuestCard :nid="index" :progress="item" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
-    </Swiper>
+      <div class="swiper-button prev-elem" slot="button-prev">
+        <b-icon-chevron-left></b-icon-chevron-left>
+      </div>
+      <div class="swiper-button swipper-button-right next-elem" slot="button-next">
+        <b-icon-chevron-right></b-icon-chevron-right>
+      </div>
+    </swiper>
     <template #sidebar="{ isInSidebar }">
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
       <TagsPanel
@@ -43,6 +55,8 @@
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
   import QuestCard from '@/components/Cards/QuestCard.vue';
+  import { BIconArrowUp, BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
+
   import LabsExploreData, { LabCardData } from './types';
   import 'swiper/css/swiper.css';
 
@@ -68,6 +82,8 @@
       QuestCard,
       Swiper,
       SwiperSlide,
+      BIconChevronRight,
+      BIconChevronLeft,
     },
   })
   export default class LabsExplore extends Mixins(PageDataMixin(fetchPageData)) {
@@ -93,8 +109,8 @@
       },
 
       navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        nextEl: '.next-elem',
+        prevEl: '.prev-elem',
       },
     };
 
@@ -103,3 +119,8 @@
     private quests: number[] = [40, 20, 30];
   }
 </script>
+<style lang="scss" scoped>
+  ::v-deep .swiper-pagination-bullet-active {
+    background-color: white;
+  }
+</style>

@@ -1,19 +1,8 @@
 <template>
   <EternaPage v-if="puzzle" :title="puzzle.title">
     <div class="page-content">
-      <div class="d-flex">
-        <div>
-          <h2>{{ $t('puzzle-view:main-header') }}</h2>
-          <p>{{ puzzle.about }}</p>
-          <h3>{{ $t('puzzle-view:auxiliary-header-one') }}</h3>
-          <p>{{ puzzle.science }}</p>
-          <h3>{{ $t('puzzle-view:auxiliary-header-two') }}</h3>
-          <p>{{ puzzle.mission }}</p>
-          <h3>{{ $t('puzzle-view:auxiliary-header-three') }}</h3>
-          <p>{{ puzzle.information }}</p>
-        </div>
-
-        <div style="text-align:center">
+      <div class="d-flex flex-wrap " xs="12" sm="8">
+        <div style="text-align:center" class="order-sm-2 col-sm-6">
           <div
             :style="{
               width: '22.2667rem',
@@ -25,6 +14,19 @@
           <b-button type="submit" variant="primary" class="submit-button">
             {{ $t('puzzle-view:main-action') }}
           </b-button>
+        </div>
+
+        <div class="order-sm-1 col-sm-6">
+          <hr class="top-border d-sm-none" />
+
+          <h2>{{ $t('puzzle-view:main-header') }}</h2>
+          <p>{{ puzzle.about }}</p>
+          <h3>{{ $t('puzzle-view:auxiliary-header-one') }}</h3>
+          <p>{{ puzzle.science }}</p>
+          <h3>{{ $t('puzzle-view:auxiliary-header-two') }}</h3>
+          <p>{{ puzzle.mission }}</p>
+          <h3>{{ $t('puzzle-view:auxiliary-header-three') }}</h3>
+          <p>{{ puzzle.information }}</p>
         </div>
       </div>
 

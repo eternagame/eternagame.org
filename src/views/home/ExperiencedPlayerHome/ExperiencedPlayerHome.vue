@@ -8,6 +8,20 @@
         }')`,
       }"
     >
+      <div style="float:right" class="d-flex">
+        <Progress
+          :progress="pageData.progressCircles[0].number"
+          :total="pageData.progressCircles[0].total"
+          :name="pageData.progressCircles[0].name"
+          color="#2f94d1"
+        />
+        <Progress
+          :progress="pageData.progressCircles[1].number"
+          :total="pageData.progressCircles[1].total"
+          :name="pageData.progressCircles[1].name"
+          color="#fac244"
+        />
+      </div>
       <p style="font-size: 2.8rem; font-weight: bold;">{{ pageData[`banner-title`] }}</p>
 
       <p>
@@ -60,6 +74,7 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import QuestCard from '@/components/Cards/QuestCard.vue';
+  import Progress from '@/components/Progress.vue';
   import 'swiper/css/swiper.css';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
@@ -71,6 +86,7 @@
       EternaPage,
       QuestCard,
       Swiper,
+      Progress,
       SwiperSlide,
       BIconChevronRight,
       BIconChevronLeft,
@@ -85,7 +101,7 @@
           'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/11FA9E9F-89F8-4548-A93F-241E4D1D6362.png',
         progressCircles: [
           { name: 'Designs Submitted', number: 14276, total: 24000 },
-          { name: 'Designs Submitted', number: 526, total: 1200 },
+          { name: 'My Submissions', number: 526, total: 1200 },
         ],
         section1: [
           {
@@ -147,7 +163,6 @@
     private swiperOption = {
       slidesPerView: 4,
       spaceBetween: 30,
-      loop: false,
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
@@ -167,7 +182,7 @@
   .video {
     background-position: right;
     background-repeat: no-repeat;
-    object-fit: contain;
+    object-fit: cover;
     @include media-breakpoint-up(sm) {
       height: 519px;
       padding: 31px;

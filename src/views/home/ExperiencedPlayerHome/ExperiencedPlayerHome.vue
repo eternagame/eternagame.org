@@ -34,7 +34,7 @@
       {{ $t('player-home:section1') }}
     </h1>
 
-    <swiper class="swiper" :options="swiperOption">
+    <swiper class="swiper" :options="swiperOption" :auto-update="true">
       <swiper-slide v-for="(item, index) in pageData.section1" :key="index">
         <QuestCard v-bind="item" />
       </swiper-slide>
@@ -174,10 +174,6 @@
       if (this.windowWidth <= 499) return 1;
       if (this.windowWidth < 1000) return 3;
       return 4;
-    }
-
-    swiper() {
-      return this.$refs.mySwiper.$swiper;
     }
 
     mounted() {

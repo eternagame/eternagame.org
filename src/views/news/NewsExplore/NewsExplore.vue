@@ -1,5 +1,5 @@
 <template>
-  <EternaPage title="News">
+  <EternaPage :title="$t('news-explore:title')">
     <Gallery :sm="12" :md="12">
       <NewsCard />
       <NewsCard />

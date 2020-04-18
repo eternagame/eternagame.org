@@ -42,7 +42,7 @@ export default function createRouter() {
         component: () => import('./views/puzzles/PuzzlesExplore/PuzzlesExplore.vue'),
       },
       {
-        path: '/puzzles/:id',
+        path: '/puzzle/:id',
         name: 'puzzle-view',
         component: () => import('./views/puzzles/PuzzleView/PuzzleView.vue'),
       },

@@ -75,5 +75,8 @@
   "puzzle-view:quests-info": "This puzzle appears in the following quests:",
   "puzzle-view:main-action": "Play Now",
   "player-home:puzzles": "Mastering Eterna",
-  "player-home:quests": "Build Your Lab"
+  "player-home:quests": "Build Your Lab",
+  "news-explore:title": "News",
+  "news-view:title": "Announcements",
+  "activity-feed:title": "Latest Activity"
 }

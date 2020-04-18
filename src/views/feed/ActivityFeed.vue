@@ -1,6 +1,16 @@
 <template>
-  <EternaPage title="Latest Activity">
-    <Gallery :sm="12" :md="12"> </Gallery>
+  <EternaPage :title="$t('activity-feed:title')">
+    <Gallery :sm="12" :md="12">
+      <NewActivity />
+      <ActivityCard />
+      <ActivityCard />
+      <ActivityCard />
+      <ActivityCard />
+      <ActivityCard />
+      <ActivityCard />
+      <ActivityCard />
+      <ActivityCard />
+    </Gallery>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"
@@ -22,7 +32,9 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
+  import ActivityCard from './components/ActivityCard.vue';
+  import NewActivity from './components/NewActivity.vue';
+
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
@@ -37,9 +49,11 @@
       FiltersPanel,
       DropdownSidebarPanel,
       TagsPanel,
+      ActivityCard,
+      NewActivity,
     },
   })
-  export default class ActivityFeed extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class NewsExplore extends Mixins(PageDataMixin(fetchPageData)) {
     private filters: Filter[] = [
       { value: 'single', text: 'Single State' },
       { value: '2-state', text: '2-state switch' },
@@ -54,9 +68,10 @@
     private tags: String[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
 
     private options: Option[] = [
-      { value: 'all', text: 'All Activity' },
-      { value: 'mygroup', text: 'My Groups (3)' },
-      { value: 'messages', text: 'My Messages (1)' },
+      { value: 'all', text: 'All Categories' },
+      { value: 'announcements', text: 'Announcements' },
+      { value: 'blogs', text: 'Blogs' },
+      { value: 'labs', text: 'Labs' },
     ];
   }
 </script>

@@ -161,10 +161,4 @@
     padding-top: 91px;
     width: 100%;
   }
-
-  .video-wrapper {
-    background-color: $dark;
-    padding-top: 10px;
-    border-radius: 5px;
-  }
 </style>

@@ -1,19 +1,20 @@
 <template>
-  <swiper
-    class="swiper"
-    :options="{ slidesPerView: slidesPerView, ...swiperOption }"
-    :key="slidesPerView"
-  >
-    <slot> </slot>
-
-    <div class="swiper-pagination" slot="pagination"></div>
-    <div class="swiper-button prev-elem" slot="button-prev">
-      <b-icon-chevron-left></b-icon-chevron-left>
-    </div>
-    <div class="swiper-button swipper-button-right next-elem" slot="button-next">
-      <b-icon-chevron-right></b-icon-chevron-right>
-    </div>
-  </swiper>
+  <div ref="comp">
+    <swiper
+      class="swiper"
+      :options="{ slidesPerView: slidesPerView, ...swiperOption }"
+      :key="slidesPerView"
+    >
+      <slot> </slot>
+      <div class="swiper-pagination" slot="pagination"></div>
+      <div class="swiper-button prev-elem" slot="button-prev">
+        <b-icon-chevron-left></b-icon-chevron-left>
+      </div>
+      <div class="swiper-button swipper-button-right next-elem" slot="button-next">
+        <b-icon-chevron-right></b-icon-chevron-right>
+      </div>
+    </swiper>
+  </div>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -27,9 +28,13 @@
     directives: { swiper: directive },
   })
   export default class Carousel extends Vue {
-    private windowWidth = window.innerWidth;
+    private windowWidth = 1000;
 
     @Prop() private name!: string;
+
+    get getWidth() {
+      return this.windowWidth;
+    }
 
     get slidesPerView() {
       if (this.windowWidth <= 576) return 1;
@@ -38,8 +43,12 @@
     }
 
     mounted() {
+      // @ts-ignore
+      this.windowWidth = this.$refs.comp.clientWidth;
+
       window.addEventListener('resize', () => {
-        this.windowWidth = window.innerWidth;
+        // @ts-ignore
+        this.windowWidth = this.$refs.comp.clientWidth;
       });
     }
 

@@ -9,7 +9,7 @@
           backgroundPosition: 'center',
         }"
       >
-        <img :src="imageUrl" />
+        <img :src="imageUrl" style="height: 100%; width: 100%;" />
       </div>
     </template>
     <template #footer>

@@ -5,35 +5,21 @@
     <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
       {{ $t('quests-explore:section1') }}
     </h1>
-
-    <swiper class="swiper" :options="swiperOption">
+    <Carousel>
       <swiper-slide v-for="(item, index) in puzzles" :key="index">
         <QuestCard :nid="index" title="test" leftNumber="1" rightNumber="2" states="0" />
       </swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button prev-elem" slot="button-prev">
-        <b-icon-chevron-left></b-icon-chevron-left>
-      </div>
-      <div class="swiper-button swipper-button-right next-elem" slot="button-next">
-        <b-icon-chevron-right></b-icon-chevron-right>
-      </div>
-    </swiper>
+    </Carousel>
 
     <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
       {{ $t('quests-explore:section2') }}
     </h1>
-    <swiper class="swiper" :options="swiperOption">
+    <Carousel>
       <swiper-slide v-for="(item, index) in quests" :key="index">
         <QuestCard :nid="index" :progress="item" />
       </swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button prev-elem" slot="button-prev">
-        <b-icon-chevron-left></b-icon-chevron-left>
-      </div>
-      <div class="swiper-button swipper-button-right next-elem" slot="button-next">
-        <b-icon-chevron-right></b-icon-chevron-right>
-      </div>
-    </swiper>
+    </Carousel>
+
     <template #sidebar="{ isInSidebar }">
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
       <TagsPanel
@@ -56,7 +42,7 @@
   import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import { BIconArrowUp, BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
-
+  import Carousel from '@/components/Common/Carousel.vue';
   import LabsExploreData, { LabCardData } from './types';
   import 'swiper/css/swiper.css';
 
@@ -84,6 +70,7 @@
       SwiperSlide,
       BIconChevronRight,
       BIconChevronLeft,
+      Carousel,
     },
   })
   export default class LabsExplore extends Mixins(PageDataMixin(fetchPageData)) {

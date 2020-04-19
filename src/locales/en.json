@@ -81,5 +81,11 @@
   "news-explore:title": "News",
   "news-view:title": "Announcements",
   "activity-feed:title": "Latest Activity",
-  "quest-card:play": "Play"
+  "quest-card:play": "Play",
+  "player-view:message": "Message",
+  "player-view:following": "Following",
+  "player-view:featured-achievement": "Featured Achievement",
+  "player-view:featured-achievement-update": "Update",
+  "player-view:global-rank": "Global Rank:",
+  "player-view:about-me": "About Me"
 }

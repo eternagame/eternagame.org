@@ -1,14 +1,12 @@
 <template>
   <div id="app">
     <Navbar />
-    <VueBootstrapBreakpointIndicator style="z-index: 1070" />
     <Modals />
     <router-view />
   </div>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import VueBootstrapBreakpointIndicator from 'vue-bootstrap-breakpoint-indicator/src/BootstrapBreakpointIndicator.vue';
   import Navbar from '@/components/PageLayout/Navbar/Navbar.vue';
   import Modals from '@/components/Modals/Modals.vue';
   import i18n, { LANGUAGES, DEFAULT_LANGUAGE, LANGUAGE_COOKIE_NAME } from '@/plugins/i18n';
@@ -29,7 +27,6 @@
   @Component({
     components: {
       Navbar,
-      VueBootstrapBreakpointIndicator,
       Modals,
     },
   })

@@ -33,36 +33,20 @@
     <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
       {{ $t('player-home:section1') }}
     </h1>
-
-    <swiper class="swiper" :options="swiperOption" :auto-update="true">
+    <Carousel>
       <swiper-slide v-for="(item, index) in pageData.section1" :key="index">
         <QuestCard v-bind="item" />
       </swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button prev-elem" slot="button-prev">
-        <b-icon-chevron-left></b-icon-chevron-left>
-      </div>
-      <div class="swiper-button swipper-button-right next-elem" slot="button-next">
-        <b-icon-chevron-right></b-icon-chevron-right>
-      </div>
-    </swiper>
+    </Carousel>
 
     <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
       {{ $t('player-home:section2') }}
     </h1>
-    {{ slidesPerView }}
-    <swiper class="swiper" :options="{ ...swiperOption }">
+    <Carousel>
       <swiper-slide v-for="(item, index) in pageData.section2" :key="index">
         <QuestCard v-bind="item" />
       </swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button prev-elem" slot="button-prev">
-        <b-icon-chevron-left></b-icon-chevron-left>
-      </div>
-      <div class="swiper-button swipper-button-right next-elem" slot="button-next">
-        <b-icon-chevron-right></b-icon-chevron-right>
-      </div>
-    </swiper>
+    </Carousel>
   </EternaPage>
 </template>
 
@@ -70,12 +54,12 @@
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
-  import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
-  import { BIconArrowUp, BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import QuestCard from '@/components/Cards/QuestCard.vue';
-  import Progress from '@/components/Progress.vue';
+  import Progress from '@/components/Common/Progress.vue';
+  import Carousel from '@/components/Common/Carousel.vue';
+  import { SwiperSlide } from 'vue-awesome-swiper';
   import 'swiper/css/swiper.css';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
@@ -87,13 +71,8 @@
       EternaPage,
       QuestCard,
       Progress,
-      BIconChevronRight,
-      BIconChevronLeft,
-      Swiper,
       SwiperSlide,
-    },
-    directives: {
-      swiper: directive,
+      Carousel,
     },
   })
   export default class ExperiencedPlayerView extends Mixins(PageDataMixin(fetchPageData)) {
@@ -163,20 +142,6 @@
         ],
       };
     }
-
-    private swiperOption = {
-      slidesPerView: 4,
-      spaceBetween: 30,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-
-      navigation: {
-        nextEl: '.next-elem',
-        prevEl: '.prev-elem',
-      },
-    };
   }
 </script>
 

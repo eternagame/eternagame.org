@@ -35,39 +35,3 @@
   background-color: $med-dark-blue;
   padding: 0.82rem;
 }
-
-.swiper-button {
-  background-color: black;
-  color: teal;
-  width: 38px;
-  height: 30px;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 20px;
-  position: absolute;
-  top: 30%;
-  z-index: 10;
-  cursor: pointer;
-}
-
-.swiper-button-disabled {
-  display: none;
-}
-
-.swipper-button-right {
-  right: 0px;
-}
-
-.swiper-pagination {
-  .swiper-pagination-bullet {
-    background-color: white;
-
-    .swiper-pagination-bullet-active {
-      opacity: 1;
-    }
-  }
-}
-
-.swiper-pagination {
-  position: static !important;
-}

@@ -19,7 +19,16 @@
             <h1 class="player-name">{{ playerName }}</h1>
             <div class="d-sm-flex">
               <div class="order-sm-2"><p>--Message---</p></div>
-              <div class="order-sm-1"><p>---Following---</p></div>
+              <div class="order-sm-1">
+                <b-form-checkbox
+                  id="checkbox-1"
+                  v-model="status"
+                  name="checkbox-1"
+                  value="accepted"
+                  unchecked-value="not_accepted"
+                  >Following
+                </b-form-checkbox>
+              </div>
             </div>
           </div>
           <div class="d-none d-sm-block">

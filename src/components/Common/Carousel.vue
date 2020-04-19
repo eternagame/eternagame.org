@@ -22,7 +22,7 @@
   import get from 'lodash.get';
   import { Swiper, directive } from 'vue-awesome-swiper';
   import { BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
-
+  import 'swiper/css/swiper.css';
   @Component({
     components: { Swiper, BIconChevronRight, BIconChevronLeft },
     directives: { swiper: directive },

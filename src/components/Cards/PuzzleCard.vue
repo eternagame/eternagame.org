@@ -5,12 +5,11 @@
         <div class="puzzle-card-title" v-if="title">
           <b>{{ title }}</b>
         </div>
-        <span class="ml-2 text-danger" v-if="isHovered">Hover this area</span>
       </template>
-
-      <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable" />
-      <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
-
+      <template #body>
+        <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable" />
+        <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
+      </template>
       <template #footer>
         <b-row class="mb-2">
           <b-col cols="4" class="left-col" v-if="leftNumber">
@@ -63,15 +62,15 @@
     },
   })
   export default class PuzzleCard extends Vue {
-    @Prop() private title!: string;
+    @Prop({ default: 'Theophylline ribozyme - in vivo (VAR 6-11) ' }) private title!: string;
 
-    @Prop({ required: true }) private nid!: string;
+    @Prop({ default: '2' }) private nid!: string;
 
-    @Prop() private leftNumber!: number;
+    @Prop({ default: 1 }) private leftNumber!: number;
 
-    @Prop() private states!: number;
+    @Prop({ default: 1 }) private states!: number;
 
-    @Prop() private rightNumber!: number;
+    @Prop({ default: 1 }) private rightNumber!: number;
 
     @Prop({ default: 1 }) private aspectRatio!: number;
 
@@ -79,7 +78,7 @@
 
     @Prop({
       default:
-        'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/8A2F6295-67E8-407F-9A70-910D8262D0EF.png',
+        'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/56EC0276-7BB5-4CFA-B10E-75597D357C2E.png',
     })
     private imageUrl!: string;
 

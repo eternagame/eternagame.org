@@ -94,5 +94,8 @@
   "player-view:featured-achievement": "Featured Achievement",
   "player-view:featured-achievement-update": "Update",
   "player-view:global-rank": "Global Rank:",
-  "player-view:about-me": "About Me"
+  "player-view:about-me": "About Me",
+  "filter:all-cateogries": "All Categories",
+  "news-view:comments": "Comments",
+  "news-view:enter-comments": "Enter your comments here."
 }

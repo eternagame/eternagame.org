@@ -35,14 +35,12 @@
   import ActivityCard from './components/ActivityCard.vue';
   import NewActivity from './components/NewActivity.vue';
 
-
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
 
     const res = null;
     return res;
   }
-
   @Component({
     components: {
       EternaPage,
@@ -53,7 +51,7 @@
       NewActivity,
     },
   })
-  export default class NewsExplore extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class ActivityFeed extends Mixins(PageDataMixin(fetchPageData)) {
     private filters: Filter[] = [
       { value: 'single', text: 'Single State' },
       { value: '2-state', text: '2-state switch' },

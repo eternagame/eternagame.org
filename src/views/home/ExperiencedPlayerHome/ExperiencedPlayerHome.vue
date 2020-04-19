@@ -60,7 +60,6 @@
   import Progress from '@/components/Common/Progress.vue';
   import Carousel from '@/components/Common/Carousel.vue';
   import { SwiperSlide } from 'vue-awesome-swiper';
-  import 'swiper/css/swiper.css';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     return (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data;

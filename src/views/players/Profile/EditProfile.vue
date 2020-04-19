@@ -76,8 +76,7 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
-  import EditField from './components/EditField.vue';
-  //   import LabViewData, { LabData } from './types';
+  import EditField from '@/components/Common/EditField.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     return (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data;

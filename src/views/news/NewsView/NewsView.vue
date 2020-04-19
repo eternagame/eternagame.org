@@ -7,6 +7,10 @@
   >
     <div class="page-content" v-dompurify-html="news.news.body"></div>
 
+    <h2 style=" font-size: 20px;font-weight: bold;">
+      {{ $t('news-view:comments') }}
+    </h2>
+    <EditField :content="$t('news-view:enter-comments')" />
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"
@@ -31,8 +35,8 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
+  import EditField from '@/components/Common/EditField.vue';
   import NewsData from './types';
-  import LabInfoPanel from '../../labs/LabView/components/LabInfoPanel.vue';
 
   Vue.use(VueDOMPurifyHTML);
 
@@ -50,8 +54,8 @@
 
   @Component({
     components: {
+      EditField,
       CalendarPanel,
-      LabInfoPanel,
       SidebarPanel,
       EternaPage,
       TagsPanel,

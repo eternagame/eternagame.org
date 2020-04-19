@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <editor-menu-bar :editor="editor" v-slot:default="editorParams">
       <div class="border bg-light rounded-top">
         <div class="btn-toolbar p-1" role="toolbar" aria-label="Editor Toolbar">
@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   // @ts-ignore
   import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
   // eslint-disable-next-line max-len
@@ -59,9 +59,10 @@
     components: { Editor, EditorContent, EditorMenuButton, EditorMenuBar },
   })
   export default class EditField extends Vue {
+    @Prop({ default: 'Type here...' }) private content!: string;
+
     private editor = new Editor({
-      content: `Type here...
-         `,
+      content: this.content,
       extensions: [
         new HardBreak(),
         new HardBreak(),
@@ -86,6 +87,15 @@
 </script>
 <style lang="scss" scoped>
   @import '~@fortawesome/fontawesome-free/css/all.css';
+
+  .main {
+    background-color: #0a223c;
+  }
+
+  .editor-box {
+    padding: 10px;
+  }
+
   .editor-box > * {
     border-color: grey;
     border-style: solid;

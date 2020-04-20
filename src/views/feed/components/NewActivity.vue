@@ -1,25 +1,19 @@
 <template>
-  <div class="page-content card">
-    <div style="text-align:left">
-      <p>{{ `${category.toUpperCase()}` }}</p>
-      <div class="d-flex">
-        <img :src="img" style="width:236px;height:134px;marginRight:13px" />
-        <div>
-          <p style="font-size:20px;font-weight:bold;marginBottom:0px">{{ heading }}</p>
-          <p>{{ text }}</p>
-        </div>
-      </div>
-    </div>
+  <div class="card">
+    To :
+    <EditField />
+    <b-button type="submit" style="width:300px" variant="primary">{{
+      $t('news-view:new-activity-main-action')
+    }}</b-button>
   </div>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import Utils from '@/utils/utils';
-  import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
+  import EditField from '@/components/Common/EditField.vue';
 
   @Component({
     components: {
-      AspectRatioCard,
+      EditField,
     },
   })
   export default class ActivityCard extends Vue {
@@ -43,17 +37,13 @@ Several citizen science games from Foldit to Eyewire to Eterna to Phylo are cele
 </script>
 
 <style lang="scss" scoped>
-  .btn {
-    display: inline-block;
-    width: 48%;
-    margin-bottom: 0px;
-  }
-
   ::v-deep .card-body {
     padding: 0.75rem !important;
   }
 
   .card {
     margin-bottom: 50px;
+    padding: 20px 10px;
+    background-color: #101010;
   }
 </style>

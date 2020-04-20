@@ -3,7 +3,7 @@
     <b-button type="secondary" style="margin-left:10px">{{
       $t('edit-profile:replace-image')
     }}</b-button>
-    <b-button type="submit" style="margin-left:10px" variant="primary">{{
+    <b-button type="submit" style="margin-left:10px" variant="primary" @click="submit">{{
       $t('edit-profile:save')
     }}</b-button>
   </div>
@@ -14,6 +14,10 @@
   @Component({})
   export default class PlayerHeaderTopRow extends Vue {
     @Prop({ required: true }) pageData!: object;
+
+    submit() {
+      this.$emit('submit-data');
+    }
   }
 </script>
 

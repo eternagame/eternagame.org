@@ -3,7 +3,7 @@
     <div class="d-flex">
       <PlayerHeaderImage :pageData="pageData" />
       <div class="player-details">
-        <PlayerHeaderTopRow :pageData="pageData" />
+        <PlayerHeaderTopRow :pageData="pageData" @submit-data="submit" />
         <div class="d-none d-sm-block">
           <div class="d-flex justify-content-between">
             <p>{{ $t('edit-profile:replace-image-details') }}</p>
@@ -30,6 +30,10 @@
   })
   export default class PlayerHeader extends Vue {
     @Prop({ required: true }) pageData!: object;
+
+    submit() {
+      this.$emit('submit-data');
+    }
   }
 </script>
 

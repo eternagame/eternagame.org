@@ -1,18 +1,22 @@
 <template>
   <EternaPage v-if="pageData" title="Player Profile">
     <div class="page-content">
-      <PlayerHeader :pageData="pageData" />
+      <PlayerHeader :pageData="pageData" @submit-data="submit" />
       <hr class="top-border" />
       <PlayerAboutMe :pageData="pageData" />
       <hr class="top-border" />
       <PlayerEditCredentials :pageData="pageData" />
       <div class="flex" style="margin-top:10px">
-        <b-button type="submit" style="margin-left:10px" variant="primary">{{
+        <b-button type="submit" style="margin-left:10px" variant="primary" @click="submit">{{
           $t('edit-profile:save')
         }}</b-button>
-        <b-button type="submit" style="margin-left:10px" variant="outline-secondary">{{
-          $t('edit-profile:cancel')
-        }}</b-button>
+        <b-button
+          type="submit"
+          style="margin-left:10px"
+          variant="outline-secondary"
+          @click="cancel"
+          >{{ $t('edit-profile:cancel') }}</b-button
+        >
       </div>
     </div>
 
@@ -52,6 +56,14 @@
     },
   })
   export default class EditProfile extends Mixins(PageDataMixin(fetchPageData)) {
+    submit() {
+      alert('submitting');
+    }
+
+    cancel() {
+      alert('canceling');
+    }
+
     get pageData() {
       return {
         playerRank: '1',

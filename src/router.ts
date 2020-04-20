@@ -94,7 +94,7 @@ export default function createRouter() {
       {
         path: '/account',
         name: 'edit-profile',
-        component: () => import('./views/players/Profile/EditProfile.vue'),
+        component: () => import('./views/players/EditProfile/EditProfile.vue'),
       },
       {
         path: '/leaderboards',

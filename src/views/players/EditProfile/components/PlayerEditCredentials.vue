@@ -1,26 +1,29 @@
 <template>
   <div>
     <p style="font-weight:bold">{{ $t('edit-profile:change-password') }}</p>
-    <input type="text" :placeholder="$t('edit-profile:new-password')" />
-    <input type="text" :placeholder="$t('edit-profile:confirm-password')" />
+    <input
+      type="text"
+      :placeholder="$t('edit-profile:new-password')"
+      v-model="password"
+      @change="sendPassword()"
+    />
+    <input
+      type="text"
+      :placeholder="$t('edit-profile:confirm-password')"
+      v-model="passwordConfirm"
+      @change="sendPassword()"
+    />
+    <p v-show="!passwordsMatch">Please make sure passwords match!</p>
 
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-address') }}</p>
     <input type="text" placeholder="me@here.com" />
     <p>{{ $t('edit-profile:email-details') }}</p>
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-notifications') }}</p>
-    <b-form-checkbox
-      id="checkbox-1"
-      name="checkbox-1"
-      value="accepted"
-      unchecked-value="not_accepted"
-      ><b>{{ $t('edit-profile:email-private-messages') }}</b>
+    <b-form-checkbox v-model="messagesNotify" @change="sendMessages()">
+      <b>{{ $t('edit-profile:email-private-messages') }}</b>
     </b-form-checkbox>
-    <b-form-checkbox
-      id="checkbox-1"
-      name="checkbox-1"
-      value="accepted"
-      unchecked-value="not_accepted"
-      ><b>{{ $t('edit-profile:email-news-posts') }}</b>
+    <b-form-checkbox v-model="newsNotify" @change="sendNews()">
+      <b>{{ $t('edit-profile:email-news-posts') }}</b>
     </b-form-checkbox>
   </div>
 </template>
@@ -28,6 +31,8 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
+  // @ts-ignore
+  import get from 'lodash.get';
 
   @Component({
     components: { EditField },
@@ -36,6 +41,30 @@
     @Prop({ required: true }) pageData!: object;
 
     private addingSection: boolean = false;
+
+    private password: string = '';
+
+    private passwordConfirm: string = '';
+
+    private newsNotify: boolean = get(this, 'pageData.newNewsPostsEmailNotifications');
+
+    private messagesNotify: boolean = get(this, 'pageData.privateMessageEmailNotifications');
+
+    get passwordsMatch() {
+      return this.passwordConfirm === this.password;
+    }
+
+    sendPassword() {
+      if (this.passwordsMatch) this.$emit('set-password', this.password);
+    }
+
+    sendNews() {
+      this.$emit('set-news', this.newsNotify);
+    }
+
+    sendMessages() {
+      this.$emit('set-messages', this.messagesNotify);
+    }
   }
 </script>
 

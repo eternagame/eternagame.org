@@ -5,7 +5,12 @@
       <hr class="top-border" />
       <PlayerAboutMe :pageData="pageData" />
       <hr class="top-border" />
-      <PlayerEditCredentials :pageData="pageData" />
+      <PlayerEditCredentials
+        :pageData="pageData"
+        @set-password="setPassword"
+        @set-news="setNews"
+        @set-messages="setMessages"
+      />
       <div class="flex" style="margin-top:10px">
         <b-button type="submit" style="margin-left:10px" variant="primary" @click="submit">{{
           $t('edit-profile:save')
@@ -38,6 +43,8 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
+  // @ts-ignore
+  import get from 'lodash.get';
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
   import PlayerEditCredentials from './components/PlayerEditCredentials.vue';
@@ -60,8 +67,23 @@
       alert('submitting');
     }
 
+    setPassword(password: string) {
+      this.newPassword = password;
+    }
+
+    setNews(notify: boolean) {
+      this.newNewsPostsNotify = notify;
+    }
+
+    setMessages(notify: boolean) {
+      this.privateMessagesNotify = notify;
+    }
+
     cancel() {
-      alert('canceling');
+      this.newAboutMeText = '';
+      this.newPassword = '';
+      this.privateMessagesNotify = get(this, 'pageData.privateMessageEmailNotifications');
+      this.newNewsPostsNotify = get(this, 'pageData.newNewsPostsEmailNotifications');
     }
 
     get pageData() {
@@ -72,6 +94,8 @@
         reward: '2,343,056',
         date: 'Jan 2011',
         testTube: '1187',
+        privateMessageEmailNotifications: true,
+        newNewsPostsEmailNotifications: false,
         picture:
           'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/B10C638C-EA96-425B-9F67-01491687BB87.png',
         featuredAchievement:
@@ -96,6 +120,14 @@
       <b>ETERNACON 2015!</b>`,
       };
     }
+
+    private newAboutMeText: string = '';
+
+    private newPassword: string = '';
+
+    private privateMessagesNotify: boolean = get(this, 'pageData.privateMessageEmailNotifications');
+
+    private newNewsPostsNotify: boolean = get(this, 'pageData.newNewsPostsEmailNotifications');
 
     private options: Option[] = [
       { value: 'about', text: 'About' },

@@ -95,13 +95,8 @@
           this agreement. If that happens, we will notify you next time you log in.
         </p>
         <hr class="top-border" />
-        <b-form-checkbox
-          id="checkbox-1"
-          v-model="status"
-          name="checkbox-1"
-          value="accepted"
-          unchecked-value="not_accepted"
-          >I accept the terms of this License Agreement.
+        <b-form-checkbox v-model="status" value="accepted" unchecked-value="not_accepted">
+          I accept the terms of this License Agreement.
         </b-form-checkbox>
       </div>
       <template #sidebar="{ isInSidebar }">
@@ -135,6 +130,8 @@
       { value: 'terms', text: 'Terms & Conditions' },
       { value: 'code_conduct', text: 'Code of Conduct' },
     ];
+
+    private status: boolean = false;
 
     get loggedIn() {
       return this.$vxm.user.loggedIn; // TODO change

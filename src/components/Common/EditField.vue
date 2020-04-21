@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <editor-menu-bar :editor="editor" v-slot:default="editorParams">
-      <div class="border bg-light rounded-top">
+      <div class="editor-toolbar">
         <div class="btn-toolbar p-1" role="toolbar" aria-label="Editor Toolbar">
           <div class="btn-group btn-group-sm mr-2" role="group">
             <editor-menu-button command="undo" :editor-params="editorParams" />
@@ -90,6 +90,15 @@
 
   .main {
     background-color: #0a223c;
+  }
+
+  .editor-toolbar {
+    background: #101010 !important;
+  }
+  .btn-light {
+    color: #fff;
+    border-color: #101010;
+    background: #101010;
   }
 
   .editor-box {

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex">
+  <div>
     <img
       class="d-block d-sm-none rounded-circle player-image"
       :src="pageData.profilePicture"

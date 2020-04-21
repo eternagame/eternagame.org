@@ -1,14 +1,12 @@
 <template>
-  <div class="d-none d-sm-block">
-    <b class="d-flex justify-content-center">{{ $t('player-view:featured-achievement') }}</b>
-    <div class="d-flex justify-content-center" style="margin-top:15px">
+  <div class="d-none d-sm-block ">
+    <b>{{ $t('player-view:featured-achievement') }}</b>
+    <div>
       <img :src="pageData.featuredAchievement" />
     </div>
-    <div class="d-flex justify-content-center" style="margin-top:23px">
-    <b-button type="submit" variant="secondary">{{
+    <b-button type="submit" style="margin-left:10px" variant="secondary">{{
       $t('player-view:featured-achievement-update')
     }}</b-button>
-    </div>
   </div>
 </template>
 

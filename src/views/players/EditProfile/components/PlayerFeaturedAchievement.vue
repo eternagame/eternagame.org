@@ -5,9 +5,9 @@
       <img :src="pageData.featuredAchievement" />
     </div>
     <div class="d-flex justify-content-center" style="margin-top:23px">
-    <b-button type="submit" variant="secondary">{{
-      $t('player-view:featured-achievement-update')
-    }}</b-button>
+      <b-button type="submit" variant="secondary">{{
+        $t('player-view:featured-achievement-update')
+      }}</b-button>
     </div>
   </div>
 </template>

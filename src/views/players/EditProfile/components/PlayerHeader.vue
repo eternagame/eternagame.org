@@ -1,14 +1,19 @@
-<template>
-  <div>
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-md-2 justify-content-center">
-          <PlayerHeaderImage :pageData="pageData" />
+<template
+  ><div>
+    <div class="d-flex">
+      <PlayerHeaderImage :pageData="pageData" />
+      <div class="player-details">
+        <PlayerHeaderTopRow :pageData="pageData" @submit-data="submit" />
+        <div class="d-none d-sm-block">
+          <div class="d-flex justify-content-between">
+            <p>{{ $t('edit-profile:replace-image-details') }}</p>
+          </div>
         </div>
-        <div class="col-md-8  justify-content-start">
-          <PlayerHeaderTopRow :pageData="pageData" @submit-data="submit" />
-          <p style="margin-top:10px">{{ $t('edit-profile:replace-image-details') }}</p>
-        </div>
+      </div>
+    </div>
+    <div class="d-block d-sm-none">
+      <div class="d-flex flex-wrap justify-content-between">
+        <p>{{ $t('edit-profile:replace-image-details') }}</p>
       </div>
     </div>
   </div>
@@ -34,4 +39,9 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  .player-details {
+    margin-top: 20px;
+    width: 100%;
+  }
 </style>

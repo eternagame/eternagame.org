@@ -89,11 +89,7 @@
   @import '~@fortawesome/fontawesome-free/css/all.css';
 
   .main {
-    background-color: #0a223c;
-  }
-
-  .editor-toolbar {
-    background: #101010 !important;
+    background-color: rgba(16, 16, 16, 0.5);
   }
   .btn-light {
     color: #fff;
@@ -117,8 +113,8 @@
     border-width: 1px;
   }
   /* *:focus {
-    outline: none;
-}  */
+      outline: none;
+  }  */
   .ProseMirror {
     text-align: initial;
 

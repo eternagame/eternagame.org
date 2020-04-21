@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-content-between">
-    <b-button type="secondary" style="margin-left:10px">{{
+    <b-button type="secondary">{{
       $t('edit-profile:replace-image')
     }}</b-button>
     <b-button type="submit" style="margin-left:10px" variant="primary" @click="submit">{{

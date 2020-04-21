@@ -11,7 +11,7 @@
         @set-news="setNews"
         @set-messages="setMessages"
       />
-      <div class="flex" style="margin-top:10px">
+      <div class="flex" style="margin-top:40px">
         <b-button type="submit" style="margin-left:10px" variant="primary" @click="submit">{{
           $t('edit-profile:save')
         }}</b-button>

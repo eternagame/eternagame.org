@@ -30,7 +30,8 @@
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    return (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data;
+    const res = (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data;
+    return res;
   }
 
   @Component({

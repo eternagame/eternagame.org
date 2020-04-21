@@ -1,5 +1,5 @@
 <template>
-  <EternaPage v-if="pageData" title="">
+  <EternaPage v-if="data" title="">
     <b-container class="video">
       <p style="font-size: 2.8rem; font-weight: bold;">
         {{ $t('player-home:banner-title') }}
@@ -34,22 +34,22 @@
       {{ $t('player-home:lab-access') }}
     </p>
     <Carousel>
-      <swiper-slide v-for="(item, index) in pageData.section1" :key="index">
-        <QuestCard v-bind="item" />
+      <swiper-slide v-for="(item, index) in data.achievement_roadmap" :key="index">
+        <PuzzleCard :nid="item.currentPuzzle" />
       </swiper-slide>
     </Carousel>
   </EternaPage>
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import Carousel from '@/components/Common/Carousel.vue';
   import { SwiperSlide } from 'vue-awesome-swiper';
-  import QuestCard from '@/components/Cards/QuestCard.vue';
+  import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     console.log('new');
@@ -63,10 +63,12 @@
       EternaPage,
       Carousel,
       SwiperSlide,
-      QuestCard,
+      PuzzleCard,
     },
   })
   export default class NewPlayerView extends Mixins(PageDataMixin(fetchPageData)) {
+    @Prop({}) data!: Object;
+
     get pageData() {
       return {
         'banner-image':

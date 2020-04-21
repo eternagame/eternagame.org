@@ -1,15 +1,12 @@
 <template>
-  <EternaPage :title="$t('news-explore:title')">
+  <EternaPage :title="$t('news-explore:title')" v-if="pageData">
     <Gallery :sm="12" :md="12">
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
-      <NewsCard />
+      <NewsCard
+        v-for="article in pageData.combinelist"
+        :key="article.nid"
+        :text="article.body"
+        :heading="article.title"
+      />
     </Gallery>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
@@ -34,12 +31,35 @@
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
+  import get from 'lodash.get';
   import NewsCard from './components/NewsCard.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
+    const news = (
+      await http.get('/get/?type=newslist&size=18&skip=0', {
+        params: {
+          order: route.query.sort,
+          filters: route.query.filters && (route.query.filters as string).split(','),
+        },
+      })
+    ).data.data;
 
-    const res = null;
+    const blogs = (
+      await http.get('/get/?type=blogslist&size=18&skip=0', {
+        params: {
+          order: route.query.sort,
+          filters: route.query.filters && (route.query.filters as string).split(','),
+        },
+      })
+    ).data.data;
+    const res = {
+      ...news,
+      ...blogs,
+      combinelist: [...get(news, 'newslist', []), ...get(blogs, 'blogslist', [])],
+    };
+    console.log(res);
+
     return res;
   }
 

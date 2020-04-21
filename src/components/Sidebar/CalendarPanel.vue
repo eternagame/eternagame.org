@@ -1,11 +1,6 @@
 <template>
   <SidebarPanel :isInSidebar="isInSidebar" header="Calendar" headerIcon="@/assets/calendar.svg">
-    <b-calendar
-      v-model="value"
-      @context="onContext"
-      locale="en-US"
-      style="width:200px"
-    ></b-calendar>
+    <b-calendar locale="en-US" style="width:200px"></b-calendar>
   </SidebarPanel>
 </template>
 

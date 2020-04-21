@@ -12,13 +12,13 @@ export default function createPageDataMixin<T>(
       this.$vxm.pageData.data = await fetchPageData(this.$route, this.$http);
     }
 
-    get pageData(): T | null{
+    get pageData(): T | null {
       return this.$vxm.pageData.data;
     }
 
     async beforeRouteEnter(to: Route, from: Route, next: RouteCallback<any>) {
       if (process.env.VUE_APP_ENV === 'client') {
-        next(async (vm) => {
+        next(async vm => {
           if (from.name || !vm.$vxm.pageData.data) {
             vm.$vxm.pageData.data = await fetchPageData(to, vm.$http);
           }

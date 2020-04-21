@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
@@ -60,14 +60,6 @@
   import Progress from '@/components/Common/Progress.vue';
   import Carousel from '@/components/Common/Carousel.vue';
   import { SwiperSlide } from 'vue-awesome-swiper';
-
-  async function fetchPageData(route: Route, http: AxiosInstance) {
-    console.log('experienced');
-
-    const res = (await http.get('/get/?type=me')).data.data;
-    console.log(res);
-    return res;
-  }
 
   @Component({
     components: {
@@ -78,7 +70,9 @@
       Carousel,
     },
   })
-  export default class ExperiencedPlayerView extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class ExperiencedPlayerView extends Vue {
+    @Prop({}) data!: Object;
+
     get pageData() {
       return {
         'banner-title': 'Optimizing the Ribosome',
@@ -115,7 +109,6 @@
               'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/AD1E3A4A-352B-49BF-A95A-1F15015EE1C5.png',
           },
         ],
-
         section2: [
           {
             completed: 'COMPLETED',

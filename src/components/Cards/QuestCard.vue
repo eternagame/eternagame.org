@@ -1,17 +1,15 @@
 <template>
   <AspectRatioCard>
-    <template #body>
-      <div
-        :style="{
-          background: `url(${imageUrl})`,
-          backgroundSize: 'contain',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-        }"
-      >
-        <img :src="imageUrl" style="height: 100%; width: 100%;" />
-      </div>
-    </template>
+    <div
+      :style="{
+        background: `url(${imageUrl})`,
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+      }"
+    >
+      <img :src="imageUrl" style="height: 100%; width: 100%;" />
+    </div>
     <template #footer>
       <div style="text-align:center; margin-bottom:0px">
         <img src="@/assets/noun_lock.svg" v-if="locked" />

@@ -6,10 +6,8 @@
           <b>{{ title }}</b>
         </div>
       </template>
-      <template #body>
-        <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable" />
-        <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
-      </template>
+      <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable" />
+      <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
       <template #footer>
         <b-row class="mb-2">
           <b-col cols="4" class="left-col" v-if="leftNumber">

@@ -6,7 +6,7 @@
         <slot name="header" />
       </div>
       <div class="scalable-container">
-        <slot name="body" />
+        <slot></slot>
       </div>
       <div class="no-flex">
         <slot name="footer" />

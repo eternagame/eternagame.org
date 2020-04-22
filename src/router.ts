@@ -62,6 +62,11 @@ export default function createRouter() {
         component: () => import('./views/home/NewPlayerHome/NewPlayerHome.vue'),
       },
       {
+        path: '/about',
+        name: 'about',
+        component: () => import('./views/about/About.vue'),
+      },
+      {
         path: '/about/terms',
         name: 'terms-and-conditions',
         component: () => import('./views/terms/TermsAndConditions.vue'),

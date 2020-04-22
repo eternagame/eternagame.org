@@ -18,15 +18,7 @@
 
         <div class="order-sm-1 col-sm-6">
           <hr class="top-border d-sm-none" />
-
-          <h2>{{ $t('puzzle-view:main-header') }}</h2>
-          <p>{{ puzzle.about }}</p>
-          <h3>{{ $t('puzzle-view:auxiliary-header-one') }}</h3>
-          <p>{{ puzzle.science }}</p>
-          <h3>{{ $t('puzzle-view:auxiliary-header-two') }}</h3>
-          <p>{{ puzzle.mission }}</p>
-          <h3>{{ $t('puzzle-view:auxiliary-header-three') }}</h3>
-          <p>{{ puzzle.information }}</p>
+          <div v-dompurify-html="puzzle.body" />
         </div>
       </div>
 
@@ -59,7 +51,7 @@
             <img src="@/assets/dollar.svg" class="icon" />{{ puzzle.reward }}
           </li>
           <li v-if="puzzle.audience">
-            <img src="@/assets/people.svg" class="icon" />{{ puzzle.audience }}
+            <img src="@/assets/people.svg" class="icon" />{{ puzzle.num_cleared }}
           </li>
           <li v-if="puzzle.created">
             <img src="@/assets/calendar.svg" class="icon" />{{ puzzle.created }}
@@ -78,8 +70,13 @@
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
+  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
+  // @ts-ignore
+  import get from 'lodash.get';
   import PuzzleData from './types';
+
+  Vue.use(VueDOMPurifyHTML);
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const res = (
@@ -102,18 +99,8 @@
   })
   export default class PuzzleView extends Mixins(PageDataMixin(fetchPageData)) {
     get puzzle() {
-      // return this.pageData;
       return {
-        title: 'SRP RNA - Difficulty Level 0',
-        reward: 140,
-        created: 'Sept 2010',
-        audience: 16411,
-        about: 'Welcome to the easiest puzzle of the SRP RNA series!',
-        science:
-          'The SRP RNA, also known as 7SL, 6S, or 4.5S RNA, is the RNA component of the signal recognition particle (SRP) ribonucleoprotein complex. SRP is a universally conserved ribonucleoprotein that directs the traffic of proteins within the cell and allows them to be secreted. ',
-        mission: 'Design the SRP RNA with following specifications: • Minimum 5 GU Pairs',
-        information:
-          'For more information please visit: Crystal structure Image and Protein Data Bank',
+        ...get(this.pageData, 'puzzle'),
         quests: [
           'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/5ED5D090-6F62-4DF8-8C54-CC71306A4B16.png',
           'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/6A70A1E1-9A81-4BA0-B765-A12B8F821300.png',

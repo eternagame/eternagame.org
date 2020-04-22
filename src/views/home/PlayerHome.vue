@@ -1,13 +1,14 @@
 <template>
-  <!-- <ExperiencedPlayerHome v-if="hasLabAccess" :data="data" /> -->
-  <!-- <NewPlayerHome v-else :data="data" /> -->
-  <NewPlayerHome :data="data" />
+  <ExperiencedPlayerHome v-if="hasLabAccess" :data="data" />
+  <NewPlayerHome v-else :data="data" />
 </template>
 
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
+  import get from 'lodash.get';
   import ExperiencedPlayerHome from './ExperiencedPlayerHome/ExperiencedPlayerHome.vue';
   import NewPlayerHome from './NewPlayerHome/NewPlayerHome.vue';
+  // @ts-ignore
 
   @Component({
     components: {
@@ -19,7 +20,10 @@
     @Prop({}) data!: Object;
 
     get hasLabAccess() {
-      return this.$vxm.user.loggedIn; // TODO changed
+      return (
+        Number(get(this.$vxm.user, 'ten_tools_level', '0')) > 8
+        || get(this.$vxm.user, 'is_lab_member_legacy')
+      );
     }
   }
 </script>

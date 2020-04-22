@@ -7,7 +7,7 @@
       <p style="width: 482px; height: 151px;">
         {{ $t('player-home:banner-explain') }}
       </p>
-      <b-button variant="primary" size="lg" to="/game/puzzle/6502927/">{{
+      <b-button variant="primary" size="lg" to="/game/puzzle/6502927/" style="margin-right:10px">{{
         $t('player-home:next-puzzle')
       }}</b-button>
       <b-button variant="secondary" size="lg" to="/game/puzzle/6502927/">{{
@@ -52,9 +52,7 @@
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    console.log('new');
     const res = (await http.get('/get/?type=me')).data.data;
-    console.log(res);
     return res;
   }
 

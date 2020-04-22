@@ -1,6 +1,16 @@
 <template>
   <div class="card">
-    To :
+    <p>To :</p>
+    <tags-input
+      element-id="tags"
+      v-model="selectedTags"
+      :existing-tags="[
+        { key: 'web-development', value: 'Web Development' },
+        { key: 'php', value: 'PHP' },
+        { key: 'javascript', value: 'JavaScript' },
+      ]"
+      :typeahead="true"
+    ></tags-input>
     <EditField />
     <b-button type="submit" style="width:300px" variant="primary">{{
       $t('news-view:new-activity-main-action')
@@ -10,10 +20,13 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
+  // @ts-ignore
+  import VoerroTagsInput from '@voerro/vue-tagsinput';
 
   @Component({
     components: {
       EditField,
+      'tags-input': VoerroTagsInput,
     },
   })
   export default class ActivityCard extends Vue {

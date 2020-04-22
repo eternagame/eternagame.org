@@ -1,39 +1,31 @@
 <template>
-  <EternaPage title="Code Of Conduct"
+  <EternaPage :title="$t('code-of-conduct:title')"
     ><div class="page">
       <div style="padding: 10px; text-align: justify;">
-        <h3 style="padding-bottom: 16px;">Respect the Eterna Community</h3>
-        Eterna players come from different countries, age groups, institutions, schools, companies,
-        teaching, online gaming, and scientific communities. As a part of the Eterna community, you
-        are invited to discuss research topics, game experiences, competitions status, lab results,
-        puzzle strategies, ideas, suggestions, and just to socialize! We trust you to be responsible
-        in the community. While playing Eterna, please follow the community guidelines highlighted
-        here. While using the Eterna site and chat:<br /><br />
+        <h3 style="padding-bottom: 16px;">{{ $t('code-of-conduct:section1-title') }}</h3>
+        <br /><br />
         <ul style="padding-left: 20px;">
           <li>
-            Please do not display any violent, nude, racial, unsuitable pictures or posts,
-            derogatory language, or links to adult content.
+            {{ $t('code-of-conduct:list-item-1') }}
           </li>
-          <li>Please do not abuse, harass, or threaten any person.</li>
-          <li>Please do not send spams (unwanted messages) or virus links</li>
+          <li>{{ $t('code-of-conduct:list-item-2') }}</li>
+          <li>{{ $t('code-of-conduct:list-item-3') }}/li></li>
           <li>
-            Please do not behave like a
-            <a href="http://en.wikipedia.org/wiki/Troll_(Internet)" target="_blank">troll</a>
+            {{ $t('code-of-conduct:list-item-4') }}
+            <a href="http://en.wikipedia.org/wiki/Troll_(Internet)" target="_blank">{{
+              $t('code-of-conduct:list-item-4-troll')
+            }}</a>
           </li>
         </ul>
         <p style="padding-top: 15px;">
-          While off topic conversation is frequent in chat, it is generally not tolerated when it
-          disrupts legitimate Eterna conversation.
+          {{ $t('code-of-conduct:text1') }}
         </p>
         <br /><br />
         <p>
-          These rules also apply to Username, About Me, Group Description, Player and Group profile
-          pictures. Anyone who fails to follow the guidelines may be suspended or banned from
-          Eterna. Remember that Eterna is your community! Each and every player helps Eterna get
-          better. To report abuses of the Code of Conduct, please send a private message to our
-          <a href="/web/player/48290/" target="_blank">development team</a>, who will keep your
-          identity confidential. <br /><br /><br /><br />Thanks for reading and understanding the
-          guidelines! <br /><br />The Eterna Team.
+          {{ $t('code-of-conduct:text2') }}
+          <a href="/web/player/48290/" target="_blank">{{ $t('code-of-conduct:text3') }}</a
+          >{{ $t('code-of-conduct:text4') }}<br /><br /><br /><br />{{ $t('code-of-conduct:text5')
+          }}<br /><br />{{ $t('code-of-conduct:text6') }}
         </p>
       </div>
     </div>

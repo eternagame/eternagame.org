@@ -31,6 +31,7 @@
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
+  // @ts-ignore
   import get from 'lodash.get';
   import NewsCard from './components/NewsCard.vue';
 

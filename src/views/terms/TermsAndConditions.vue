@@ -1,102 +1,73 @@
 <template>
   <div>
     <EternaPage
-      title="Eterna End User License Agreement (EULA)"
-      header_title="TERMS & CONDITIONS"
-      header_date="Last updated: Sept 9, 2018"
+      :title="$t('terms:title')"
+      :header_title="$t('terms:title-short')"
+      :header_date="$t('terms:header-date')"
     >
       <div class="page-content">
-        <h3>This is an agreement between you and Eterna.</h3>
+        <h3>{{ $t('terms:section-1-title') }}</h3>
         <p>
-          Eterna is a place where professional scientists and non-professional scientists come
-          together to play puzzles and research RNA. By joining the Eterna community, you’re helping
-          to study one of the building blocks of life and to create new RNA-based technologies.
+          {{ $t('terms:section-1-text') }}
         </p>
 
-        <h3>Designs you create</h3>
+        <h3>{{ $t('terms:section-2-title') }}</h3>
         <p>
-          To help create better RNA technology, Eterna developers and participants analyze the
-          designs you make and how you make them.
+          {{ $t('terms:section-2-text-paragraph1') }}
         </p>
 
         <p>
-          All designs that you create using Eterna, including experimental results of such designs,
-          will be made accessible to all, online, for as long as Eterna exists.
+          {{ $t('terms:section-2-text-paragraph2') }}
         </p>
 
         <p>
-          Eterna may record the steps you make to solve a puzzle to help the community develop
-          better solutions to RNA problems. These records may be made available to you, to community
-          members who have solved the puzzle, and to Eterna developers. These records are associated
-          with your Eterna account. You may opt-out of these records in your profile.
+          {{ $t('terms:section-2-text-paragraph3') }}
         </p>
 
-        <h3>Stuff you write</h3>
+        <h3>{{ $t('terms:section-3-title') }}</h3>
         <p>
-          You may contribute to the Eterna Wiki or create other content while you’re here at Eterna.
-          Unless you specify otherwise, copyright protection for this content will be covered by
-          Creative Commons license 4.0, which allows others to share and adapt your work so long as
-          they give appropriate credit, indicate whether changes were made, and add no further
-          restrictions. You have copyright over anything you write. This includes writing or images
-          you create in the forums, in comments, or in your profile.
+          {{ $t('terms:section-3-text-paragraph1') }}
         </p>
 
-        <h3>Programs you make</h3>
+        <h3>{{ $t('terms:section-4-title') }}</h3>
         <p>
-          If you contribute a script to the EternaScript library, you agree that any software you
-          create will be licensed under the BSD 3-Clause license, which ensures that others can use,
-          modify, and share your code. You may develop other software related to Eterna not using
-          EternaScript. Of course, how you license that software is up to you.
+          {{ $t('terms:section-4-text-paragraph1') }}
         </p>
 
-        <h3>Other Intellectual Property</h3>
+        <h3>{{ $t('terms:section-5-title') }}</h3>
         <p>
-          To support itself, Eterna licenses RNA-related software commercially, in part by using
-          design strategies and solutions contributed by the community.
+          {{ $t('terms:section-5-text-paragraph1') }}
         </p>
 
         <p>
-          Licensing profits support the development of Eterna software through an organization
-          called Eterna Commons. Eterna Commons is a collaboration between the institutions that
-          develop Eterna. It aims to advance RNA science for the public benefit through the Eterna
-          platform and to support participants’ scientific endeavors. You can read more about it
-          here.
+          {{ $t('terms:section-5-text-paragraph2') }}
         </p>
 
         <p>
-          Patents and any other intellectual property developed by Eterna will also be managed by
-          Eterna Commons.
+          {{ $t('terms:section-5-text-paragraph3') }}
         </p>
 
         <p>
-          Any use of Eterna content to produce new technology obligates you to respect human rights
-          in the maintenance, distribution, and development of such technology.
+          {{ $t('terms:section-5-text-paragraph4') }}
         </p>
 
-        <h3>Your age</h3>
+        <h3>{{ $t('terms:section-6-title') }}</h3>
         <p>
-          Due to applicable U.S. laws, Eterna is only for people 13 or older. If you are younger
-          than 13, please consider joining NOVA Labs and the many other great science projects
-          directed toward people under the age of 13.
+          {{ $t('terms:section-6-text-paragraph1') }}
         </p>
 
-        <h3>Behavior and Conduct</h3>
+        <h3>{{ $t('terms:section-7-title') }}</h3>
         <p>
-          Eterna is a game and a science lab, but it is also a community. Be respectful of others.
-          Since Eterna is open to people from many different age groups and many different
-          backgrounds, the Eterna community does not tolerate profanity or obscenity. The Eterna
-          community does not tolerate harassment or bullying. Eterna developers reserve the right to
-          end your participation if you violate Eterna’s code of conduct.
+          {{ $t('terms:section-7-text-paragraph1') }}
         </p>
 
-        <h3>Updates to this agreement</h3>
+        <h3>{{ $t('terms:section-8-title') }}</h3>
         <p>
-          Eterna is a big project with lots going on. Future developments may require alteration of
-          this agreement. If that happens, we will notify you next time you log in.
+          {{ $t('terms:section-8-text-paragraph1') }}
         </p>
         <hr class="top-border" />
         <b-form-checkbox v-model="status" value="accepted" unchecked-value="not_accepted">
-          I accept the terms of this License Agreement.
+          {{ $t('terms:checkbox-accept') }}
         </b-form-checkbox>
       </div>
       <template #sidebar="{ isInSidebar }">

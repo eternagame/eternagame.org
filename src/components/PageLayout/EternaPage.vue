@@ -80,6 +80,7 @@
     position: relative;
     min-height: Calc(100vh - 120px);
     padding: 3rem 1.5rem 1.5rem;
+    padding-bottom: 0px;
   }
   .page-container:before {
     box-shadow: -45px 0 45px -45px inset black;

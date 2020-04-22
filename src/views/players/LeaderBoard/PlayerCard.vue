@@ -1,23 +1,21 @@
 <template>
-  <AspectRatioCard>
-    <template #header>
-      <div class="player-card-title">
-        <p>#{{ index }}</p>
-        <p>{{ player.name }}</p>
-        <img :src="imageLink" :alt="player.name" />
-        <p>points: {{ player.points }}</p>
-        <p>created: {{ player.created }}</p>
-      </div>
-    </template>
-    <router-link :to="playerUrl">
-      <b-img
-        :src="player.cover_image || '/puzzle-progression/badges/default-eterna-badge.png'"
-        small
-        fluid-grow
-        class="mb-3 image scaplayerle"
-      />
-    </router-link>
-  </AspectRatioCard>
+  <div class="card">
+    <div class="player-card-title d-flex" style="width:100%">
+      <p>#{{ index }}</p>
+      <img class="rounded-circle" :src="imageLink" v-if="imageLink" alt="player-image" />
+      <p
+        class="player-name"
+        style="font-size: 17px;font-weight: bold;margin-top:20px;margin-left:5px"
+      >
+        {{ player.name }}
+      </p>
+    </div>
+    <div style="float:right;position:absolute;right:0px;margin-top:40px;margin-right:5px">
+      <img src="@/assets/dollar.svg" class="icon" /> {{ player.points }}
+    </div>
+
+    <hr class="bottom-border" />
+  </div>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -41,7 +39,15 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/styles/global.scss';
+
   .player-card-title {
-    height: 70px;
+    height: 80px;
+  }
+
+  .bottom-border {
+    border-top-color: $light-blue;
+    margin-top: 2.5em;
+    margin-bottom: 2.5em;
   }
 </style>

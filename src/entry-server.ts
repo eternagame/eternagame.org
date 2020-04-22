@@ -1,3 +1,8 @@
+// @ts-ignore
+import cookie from 'cookie';
+// @ts-ignore
+import get from 'lodash.get';
+import i18n, { LANGUAGE_COOKIE_NAME, DEFAULT_LANGUAGE } from '@/plugins/i18n';
 import createApp from './app';
 
 export default async function (context: any) {
@@ -5,7 +10,10 @@ export default async function (context: any) {
 
   const { app, router, store } = createApp();
   app.$http.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
-  if (context.cookies) app.$http.defaults.headers.common.Cookie = context.cookies;
+  if (context.cookies) {
+    app.$http.defaults.headers.common.Cookie = context.cookies;
+    i18n.locale = get(cookie.parse(context.cookies), LANGUAGE_COOKIE_NAME, DEFAULT_LANGUAGE);
+  }
 
   // Set server-side router's location
   router.push(context.url);
@@ -20,7 +28,9 @@ export default async function (context: any) {
     throw { code: 404 };
   }
 
-  context.rendered = () => { context.state = store.state; };
+  context.rendered = () => {
+    context.state = store.state;
+  };
 
   return app;
 }

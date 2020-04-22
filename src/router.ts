@@ -27,12 +27,12 @@ export default function createRouter() {
         component: () => import('./views/quests/QuestsExplore/QuestsExplore.vue'),
       },
       {
-        path: '/quests/:id',
+        path: '/quest/:id',
         name: 'quests-view',
         component: () => import('./views/quests/QuestView/QuestView.vue'),
       },
       {
-        path: '/quest/create',
+        path: '/quests/create',
         name: 'create-quest',
         component: () => import('./views/quests/CreateQuest/CreateQuest.vue'),
       },
@@ -42,7 +42,7 @@ export default function createRouter() {
         component: () => import('./views/puzzles/PuzzlesExplore/PuzzlesExplore.vue'),
       },
       {
-        path: '/puzzles/:id',
+        path: '/puzzle/:id',
         name: 'puzzle-view',
         component: () => import('./views/puzzles/PuzzleView/PuzzleView.vue'),
       },
@@ -50,6 +50,11 @@ export default function createRouter() {
         path: '/',
         name: 'landing',
         component: () => import('./views/landing/LandingPage.vue'),
+      },
+      {
+        path: '/about',
+        name: 'about',
+        component: () => import('./views/about/About.vue'),
       },
       {
         path: '/about/terms',
@@ -80,6 +85,11 @@ export default function createRouter() {
         path: '/player/:uid',
         name: 'player',
         component: () => import('./views/players/PlayerView/PlayerView.vue'),
+      },
+      {
+        path: '/account',
+        name: 'edit-profile',
+        component: () => import('./views/players/EditProfile/EditProfile.vue'),
       },
       {
         path: '/leaderboards',

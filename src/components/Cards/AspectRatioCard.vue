@@ -1,15 +1,15 @@
 <template>
-  <div class="card" :style="{'--aspect-ratio': aspectRatio}">
-    <div class="before" :style="{'padding-top': `calc(${aspectRatio} * 100%)`}"></div>
+  <div class="card" :style="{ '--aspect-ratio': aspectRatio }">
+    <div class="before" :style="{ 'padding-top': `calc(${aspectRatio} * 100%)` }"></div>
     <div class="card-body">
       <div class="no-flex">
-        <slot name="header"/>
+        <slot name="header" />
       </div>
       <div class="scalable-container">
-        <slot/>
+        <slot></slot>
       </div>
       <div class="no-flex">
-        <slot name="footer"/>
+        <slot name="footer" />
       </div>
     </div>
   </div>
@@ -37,10 +37,9 @@
       margin-left: -1px;
       float: left;
       height: 0;
-
     }
     &::after {
-      content: "";
+      content: '';
       display: table;
       clear: both;
     }

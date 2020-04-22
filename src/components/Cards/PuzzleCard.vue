@@ -5,28 +5,25 @@
         <div class="puzzle-card-title" v-if="title">
           <b>{{ title }}</b>
         </div>
-        <span class="ml-2 text-danger" v-if="isHovered">Hover this area</span>
       </template>
-
       <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable" />
       <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
-
       <template #footer>
         <b-row class="mb-2">
-          <b-col cols="4" class="left-col" v-if="leftNumber">
+          <b-col cols="4" class="left-col" v-if="reward">
             <slot name="left-icon">
               <img src="@/assets/dollar.svg" alt="reward slots" class="icon" />
             </slot>
-            {{ leftNumber }}
+            {{ reward }}
           </b-col>
           <b-col cols="4" class="text-center" v-if="states">
             <StateCounter :value="states" />
           </b-col>
-          <b-col cols="4" class="right-col" v-if="rightNumber">
+          <b-col cols="4" class="right-col" v-if="numCleared">
             <slot name="right-icon">
               <img src="@/assets/people.svg" alt="submissions" class="icon" />
             </slot>
-            {{ rightNumber }}
+            {{ numCleared }}
           </b-col>
         </b-row>
         <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
@@ -65,26 +62,26 @@
   export default class PuzzleCard extends Vue {
     @Prop() private title!: string;
 
-    @Prop({ required: true }) private nid!: string;
+    @Prop() private nid!: string;
 
-    @Prop() private leftNumber!: number;
+    @Prop() private reward!: number;
 
-    @Prop() private states!: number;
+    @Prop({ default: 0 }) private states!: number;
 
-    @Prop() private rightNumber!: number;
+    @Prop() private image!: string;
 
     @Prop({ default: 1 }) private aspectRatio!: number;
 
     @Prop({ default: false }) private locked!: boolean;
 
-    @Prop({
-      default:
-        'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/8A2F6295-67E8-407F-9A70-910D8262D0EF.png',
-    })
-    private imageUrl!: string;
+    get numCleared() {
+      return this.$attrs['num-cleared'];
+    }
 
     get imageURL() {
-      return this.imageUrl || Utils.getPuzzleMiddleThumbnail(this.nid);
+      return this.image
+        ? `${process.env.VUE_APP_API_BASE_URL}${this.image}`
+        : Utils.getPuzzleMiddleThumbnail(this.nid);
     }
   }
 </script>

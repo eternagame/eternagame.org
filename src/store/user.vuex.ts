@@ -1,6 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { createModule, mutation, action } from 'vuex-class-component';
 import { AxiosInstance } from 'axios';
+import { DEFAULT_LANGUAGE } from '@/plugins/i18n';
 
 const VuexModule = createModule({
   strict: false,
@@ -14,6 +15,8 @@ export default function createUserStore($http: AxiosInstance) {
     public uid: number | null = null;
 
     public loggedIn = false;
+
+    public locale = DEFAULT_LANGUAGE;
 
     public triedAuthenticating = false;
 

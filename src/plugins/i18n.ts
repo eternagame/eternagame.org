@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
-// @ts-ignore
-import browserLanguage from 'in-browser-language';
 
 Vue.use(VueI18n);
+
+export const DEFAULT_LANGUAGE = process.env.VUE_APP_I18N_LOCALE || 'en'; // english
+export const LANGUAGE_COOKIE_NAME = 'language';
 
 function loadLocaleMessages() {
   const locales = require.context('../locales', true, /[A-Za-z0-9-_,\s]+\.json$/i);
@@ -18,14 +19,14 @@ function loadLocaleMessages() {
   return messages;
 }
 
-export const selectedLocale = browserLanguage.pick(Object.getOwnPropertyNames(loadLocaleMessages()))
-  || process.env.VUE_APP_I18N_LOCALE
-  || 'en';
+const messages = loadLocaleMessages();
+
+export const LANGUAGES = Object.getOwnPropertyNames(messages);
 
 const i18n = new VueI18n({
-  locale: selectedLocale,
-  fallbackLocale: 'en',
-  messages: loadLocaleMessages(),
+  locale: DEFAULT_LANGUAGE,
+  fallbackLocale: DEFAULT_LANGUAGE,
+  messages,
 });
 
 export default i18n;

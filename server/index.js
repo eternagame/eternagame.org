@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 
 const PRODUCTION = process.env.NODE_ENV == 'production';
+console.log("production: " + PRODUCTION)
 
 const dotenv = require('dotenv');
 const loadEnv = envPath => {
@@ -24,7 +25,7 @@ loadEnv(resolve('../.env.local'));
 loadEnv(resolve('../.env'));
 
 const PORT = process.env.PORT;
-const HOST = process.env.HOST;
+const HOST = (PRODUCTION ? "0.0.0.0" : process.env.HOST);
 
 async function run() {
   const templatePath = resolve('../public/index.template.html');

@@ -35,7 +35,9 @@
         $t('register-modal:main-action')
       }}</b-button>
       <div>
-        <b-link size="sm" to="/news/15121/">{{ $t('register-modal:disclaimer') }}</b-link>
+        <b-link size="sm" to="/about/terms" @click="$bvModal.hide('modal-register')">{{
+          $t('register-modal:disclaimer')
+        }}</b-link>
       </div>
     </b-form>
   </b-modal>

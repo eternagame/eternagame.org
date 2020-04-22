@@ -2,7 +2,7 @@
   <EternaPage v-if="pageData" :title="$t('nav-bar:leaderboards')">
     <div class="page-content">
       <PlayerCard
-        v-for="(player, index) in pageData.users"
+        v-for="(player, index) in players"
         :key="player.uid"
         :player="player"
         :index="index"
@@ -18,7 +18,9 @@
 <script lang="ts">
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import axios, { AxiosInstance } from 'axios';
+  // @ts-ignore
+  import get from 'lodash.get';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
@@ -27,11 +29,17 @@
   import PlayerCard from './PlayerCard.vue';
   import LeaderBoardData, { PlayerCardData } from './types';
 
+  const INITIAL_NUMBER = 18;
+
+  const INCREMENT = 9;
+
+  const ROUTE = '/get/?type=users';
+
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
 
     const res = (
-      await http.get('/get/?type=users&sort=active&skip=0&size=50&rnd=0.3172634245696615', {
+      await http.get(`${ROUTE}&sort=active&skip=0&size=${INITIAL_NUMBER}&rnd=0.3172634245696615`, {
         params: {
           order: route.query.sort,
           filters: route.query.filters && (route.query.filters as string).split(','),
@@ -51,6 +59,28 @@
     },
   })
   export default class LeaderBoard extends Mixins(PageDataMixin(fetchPageData)) {
+    private numPlayers: number = INITIAL_NUMBER;
+
+    get players() {
+      return this.playersFetched.length ? this.playersFetched : get(this.pageData, 'users', []);
+    }
+
+    private playersFetched = [];
+
+    mounted() {
+      window.onscroll = () => {
+        const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight
+          === document.documentElement.offsetHeight;
+
+        if (bottomOfWindow) {
+          this.numPlayers += INCREMENT;
+          axios.get(`${ROUTE}&size=${this.numPlayers}`).then(response => {
+            this.playersFetched = response.data.data.users;
+          });
+        }
+      };
+    }
+
     private filters: Filter[] = [
       { value: 'single', text: 'Single State' },
       { value: '2-state', text: '2-state switch' },

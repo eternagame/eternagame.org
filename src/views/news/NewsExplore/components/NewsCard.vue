@@ -11,44 +11,28 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 col-sm-12 text-center">
-          <img :src="img" style="max-width:258px;height:258px" />
-        </div>
-        <div class="col-md-8 col-sm-12" style="min-width:268px; text-align: justify;">
-          <p style="font-size:20px;font-weight:bold;marginBottom:0px">{{ heading }}</p>
-          <p>{{ text }}</p>
-        </div>
+        <p style="font-size:20px;font-weight:bold;marginBottom:0px">{{ title }}</p>
+        <div v-dompurify-html="body" />
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
+  import VueDOMPurifyHTML from 'vue-dompurify-html';
 
+  Vue.use(VueDOMPurifyHTML);
   @Component({
     components: {},
   })
   export default class NewsCard extends Vue {
-    @Prop({
-      default: `Help us make better citizen science games in only 15 minutes
-Several citizen science games from Foldit to Eyewire to Eterna to Phylo are celebrating years of productive science — now we’re getting together to try to get even better. Here’s the next step. Northeastern University researchers are conducting a…`,
-    })
-    private text!: string;
+    @Prop() private timeStamp!: string;
 
-    @Prop({ default: 'labs' }) private category!: string;
+    @Prop() private title!: string;
 
-    @Prop({ default: '21 April 2020' }) private timeStamp!: string;
+    @Prop() private body!: string;
 
-    @Prop({
-      default:
-        'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/A629FBC0-9F20-4067-AE83-13160670F883.png',
-    })
-    private img!: string;
-
-    @Prop({
-      default: 'Help us make better citizen science games in only 15 minutes',
-    })
-    private heading!: string;
+    @Prop({ default: '' }) private category!: string;
 
     get categoryColor() {
       switch (this.category.toLowerCase()) {

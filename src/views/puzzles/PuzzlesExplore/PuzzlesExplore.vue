@@ -25,7 +25,7 @@
   import get from 'lodash.get';
   import PuzzleViewData, { PuzzleCardData } from './types';
 
-  const PUZZLES_NUMBER = 18;
+  const INITIAL_NUMBER = 18;
 
   const INCREMENT = 9;
 
@@ -35,7 +35,7 @@
     const { sort } = route.query;
 
     const res = (
-      await http.get(`${ROUTE}&size=${PUZZLES_NUMBER}`, {
+      await http.get(`${ROUTE}&size=${INITIAL_NUMBER}`, {
         params: {
           order: route.query.sort,
           filters: route.query.filters && (route.query.filters as string).split(','),
@@ -55,7 +55,7 @@
     },
   })
   export default class PuzzlesExplore extends Mixins(PageDataMixin(fetchPageData)) {
-    private numFetched: number = PUZZLES_NUMBER;
+    private numFetched: number = INITIAL_NUMBER;
 
     get puzzles() {
       return this.puzzlesFetched.length ? this.puzzlesFetched : get(this.pageData, 'puzzles', []);

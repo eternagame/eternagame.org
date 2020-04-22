@@ -1,12 +1,7 @@
 <template>
   <EternaPage :title="$t('news-explore:title')" v-if="pageData">
     <Gallery :sm="12" :md="12">
-      <NewsCard
-        v-for="article in pageData.combinelist"
-        :key="article.nid"
-        :text="article.body"
-        :heading="article.title"
-      />
+      <NewsCard v-for="article in pageData.combinelist" :key="article.nid" v-bind="article" />
     </Gallery>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
@@ -59,7 +54,6 @@
       ...blogs,
       combinelist: [...get(news, 'newslist', []), ...get(blogs, 'blogslist', [])],
     };
-    console.log(res);
 
     return res;
   }

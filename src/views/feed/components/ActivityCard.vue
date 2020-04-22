@@ -26,6 +26,8 @@
 
     @Prop() private body!: string;
 
+    @Prop() private timeStamp!: string;
+
     @Prop({ default: 'blogs' }) private category!: string;
   }
 </script>

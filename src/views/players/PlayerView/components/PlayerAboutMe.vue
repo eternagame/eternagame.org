@@ -4,17 +4,21 @@
       <h4 class="about-me">
         {{ $t('player-view:about-me') }}
       </h4>
-      <p v-html="pageData.aboutMeText" class="about-me-text"></p>
-      <img :src="pageData.picture" style="width:100%;height:100%;object-fit:cover" />
+      <p v-dompurify-html="pageData.Profile" class="about-me-text"></p>
     </div>
-    <PlayerFeaturedAchievement :pageData="pageData" />
+    <PlayerFeaturedAchievement
+      v-if="pageData.featuredAchievement"
+      :pageData="pageData.featuredAchievement"
+    />
   </div>
 </template>
 
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
+  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import PlayerFeaturedAchievement from './PlayerFeaturedAchievement.vue';
 
+  Vue.use(VueDOMPurifyHTML);
   @Component({
     components: { PlayerFeaturedAchievement },
   })

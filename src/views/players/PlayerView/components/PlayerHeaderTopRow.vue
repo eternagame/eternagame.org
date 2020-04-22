@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-content-between">
-    <h1 class="player-name">{{ pageData.playerName }}</h1>
+    <h1 class="player-name">{{ pageData.name }}</h1>
     <div class="d-sm-flex">
       <div class="order-sm-2">
         <b-button type="submit" style="margin-left:10px" variant="primary">{{

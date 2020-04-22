@@ -1,13 +1,9 @@
 <template>
   <div class="d-flex">
-    <img
-      class="d-block d-sm-none rounded-circle player-image"
-      :src="pageData.profilePicture"
-      alt="player-image"
-    />
+    <img class="d-block d-sm-none rounded-circle player-image" :src="picture" alt="player-image" />
     <img
       class="d-none d-sm-block rounded-circle player-image-large"
-      :src="pageData.profilePicture"
+      :src="picture"
       alt="player-image"
     />
   </div>
@@ -20,6 +16,11 @@
     components: {},
   })
   export default class PlayerHeaderImage extends Vue {
+    get picture() {
+      console.log(`${process.env.VUE_APP_API_BASE_URL}/${this.pageData.picture}`);
+      return `${process.env.VUE_APP_API_BASE_URL}/${this.pageData.picture}`;
+    }
+
     @Prop({ required: true }) pageData!: object;
   }
 </script>

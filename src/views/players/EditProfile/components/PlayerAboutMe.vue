@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-8">
         <h4 class="about-me">{{ $t('player-view:about-me') }}</h4>
-        <EditField :content="pageData.aboutMeText" />
+        <EditField :content="pageData.Profile" />
         <PlayerNewSection v-show="addingSection" :pageData="pageData" />
         <b-button
           style="margin-top:19px;"
@@ -23,8 +23,11 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
+  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import PlayerFeaturedAchievement from './PlayerFeaturedAchievement.vue';
   import PlayerNewSection from './PlayerNewSection.vue';
+
+  Vue.use(VueDOMPurifyHTML);
 
   @Component({
     components: { PlayerFeaturedAchievement, EditField, PlayerNewSection },

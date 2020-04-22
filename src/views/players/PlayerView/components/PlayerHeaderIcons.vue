@@ -1,8 +1,8 @@
 <template>
   <div>
-    <img src="@/assets/dollar.svg" class="icon" /> {{ pageData.reward }}
-    <img src="@/assets/test-tube.svg" class="icon" /> {{ pageData.testTube }}
-    <img src="@/assets/calendar.svg" class="icon" /> {{ pageData.date }}
+    <img src="@/assets/dollar.svg" class="icon" /> {{ pageData.points }}
+    <img src="@/assets/test-tube.svg" class="icon" /> {{ pageData.ten_tools_puzzle_count }}
+    <img src="@/assets/calendar.svg" class="icon" /> {{ pageData.created }}
   </div>
 </template>
 

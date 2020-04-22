@@ -1,15 +1,7 @@
 <template>
   <EternaPage v-if="pageData" :title="$t('nav-bar:puzzles')">
     <Gallery>
-      <PuzzleCard
-        v-for="puzzle in puzzles"
-        :key="puzzle.id"
-        :nid="puzzle.id"
-        :title="puzzle.title"
-        :leftNumber="puzzle.reward"
-        :rightNumber="puzzle['num-cleared']"
-        :states="0"
-      />
+      <PuzzleCard v-for="puzzle in puzzles" :key="puzzle.id" :nid="puzzle.id" v-bind="puzzle" />
     </Gallery>
     <template #sidebar="{ isInSidebar }">
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
@@ -33,11 +25,9 @@
   import get from 'lodash.get';
   import PuzzleViewData, { PuzzleCardData } from './types';
 
-  // Vue.use(VueAxios, axios);
+  const PUZZLES_NUMBER = 18;
 
-  const INITIAL_PUZZLES_NUMBER = 18;
-
-  const PUZZLES_INCREMENT = 9;
+  const INCREMENT = 9;
 
   const ROUTE = '/get/?type=puzzles';
 
@@ -45,7 +35,7 @@
     const { sort } = route.query;
 
     const res = (
-      await http.get(`${ROUTE}&size=${INITIAL_PUZZLES_NUMBER}`, {
+      await http.get(`${ROUTE}&size=${PUZZLES_NUMBER}`, {
         params: {
           order: route.query.sort,
           filters: route.query.filters && (route.query.filters as string).split(','),
@@ -65,10 +55,10 @@
     },
   })
   export default class PuzzlesExplore extends Mixins(PageDataMixin(fetchPageData)) {
-    private numPuzzles: number = INITIAL_PUZZLES_NUMBER;
+    private numFetched: number = PUZZLES_NUMBER;
 
     get puzzles() {
-      return this.puzzlesFetched.length ? this.puzzlesFetched : this.pageData.puzzles;
+      return this.puzzlesFetched.length ? this.puzzlesFetched : get(this.pageData, 'puzzles', []);
     }
 
     private puzzlesFetched = [];
@@ -79,8 +69,8 @@
           === document.documentElement.offsetHeight;
 
         if (bottomOfWindow) {
-          this.numPuzzles += PUZZLES_INCREMENT;
-          axios.get(`${ROUTE}&size=${this.numPuzzles}`).then(response => {
+          this.numFetched += INCREMENT;
+          axios.get(`${ROUTE}&size=${this.numFetched}`).then(response => {
             this.puzzlesFetched = response.data.data.puzzles;
           });
         }

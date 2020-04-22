@@ -1,5 +1,5 @@
 <template>
-  <EternaPage v-if="data" title="">
+  <EternaPage v-if="pageData" title="">
     <b-container class="video">
       <p style="font-size: 2.8rem; font-weight: bold;">
         {{ $t('player-home:banner-title') }}
@@ -34,8 +34,8 @@
       {{ $t('player-home:lab-access') }}
     </p>
     <Carousel>
-      <swiper-slide v-for="(item, index) in data.achievement_roadmap" :key="index">
-        <PuzzleCard :nid="item.currentPuzzle" />
+      <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
+        <PuzzleCard :key="item.current_puzzle" :nid="item.current_puzzle" v-bind="item" />
       </swiper-slide>
     </Carousel>
   </EternaPage>
@@ -67,37 +67,19 @@
   export default class NewPlayerView extends Mixins(PageDataMixin(fetchPageData)) {
     @Prop({}) data!: Object;
 
+    get newPlayerRoadMap() {
+      return (
+        this.pageData.achievement_roadmap
+        && this.pageData.achievement_roadmap.filter((p: Object) => (p.key as string) === 'ten_tools')
+      );
+    }
+
     get pageData() {
       return {
         'banner-image':
           'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/11FA9E9F-89F8-4548-A93F-241E4D1D6362.png',
         progress: 50,
-        section1: [
-          {
-            progress: 'NOT_STARTED',
-            imageUrl:
-              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/653E5870-777B-4DC6-852E-41DDFBB2EFF4.png',
-          },
-          {
-            progress: '10',
-            imageUrl:
-              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/16AAD8FC-B5DF-4FB9-A864-72AB72F1A11B.png',
-          },
-          {
-            progress: '60',
-            imageUrl:
-              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/B810FFE7-B74B-40AF-8B0A-24ACD37B2E4B.png',
-          },
-          {
-            progress: '80',
-            imageUrl:
-              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/B7157DB3-77E3-4715-B14C-510F21A882DF.png',
-          },
-          {
-            imageUrl:
-              'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/AD1E3A4A-352B-49BF-A95A-1F15015EE1C5.png',
-          },
-        ],
+        ...this.data,
       };
     }
   }

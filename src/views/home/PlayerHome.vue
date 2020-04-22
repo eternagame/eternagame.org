@@ -5,10 +5,10 @@
 
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
+  // @ts-ignore
   import get from 'lodash.get';
   import ExperiencedPlayerHome from './ExperiencedPlayerHome/ExperiencedPlayerHome.vue';
   import NewPlayerHome from './NewPlayerHome/NewPlayerHome.vue';
-  // @ts-ignore
 
   @Component({
     components: {

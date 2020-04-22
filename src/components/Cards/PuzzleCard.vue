@@ -10,20 +10,20 @@
       <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
       <template #footer>
         <b-row class="mb-2">
-          <b-col cols="4" class="left-col" v-if="leftNumber">
+          <b-col cols="4" class="left-col" v-if="reward">
             <slot name="left-icon">
               <img src="@/assets/dollar.svg" alt="reward slots" class="icon" />
             </slot>
-            {{ leftNumber }}
+            {{ reward }}
           </b-col>
           <b-col cols="4" class="text-center" v-if="states">
             <StateCounter :value="states" />
           </b-col>
-          <b-col cols="4" class="right-col" v-if="rightNumber">
+          <b-col cols="4" class="right-col" v-if="numCleared">
             <slot name="right-icon">
               <img src="@/assets/people.svg" alt="submissions" class="icon" />
             </slot>
-            {{ rightNumber }}
+            {{ numCleared }}
           </b-col>
         </b-row>
         <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
@@ -60,28 +60,28 @@
     },
   })
   export default class PuzzleCard extends Vue {
-    @Prop({ default: 'Theophylline ribozyme - in vivo (VAR 6-11) ' }) private title!: string;
+    @Prop() private title!: string;
 
-    @Prop({ default: '2' }) private nid!: string;
+    @Prop() private nid!: string;
 
-    @Prop({ default: 1 }) private leftNumber!: number;
+    @Prop() private reward!: number;
 
-    @Prop({ default: 1 }) private states!: number;
+    @Prop({ default: 0 }) private states!: number;
 
-    @Prop({ default: 1 }) private rightNumber!: number;
+    @Prop() private image!: string;
 
     @Prop({ default: 1 }) private aspectRatio!: number;
 
     @Prop({ default: false }) private locked!: boolean;
 
-    @Prop({
-      default:
-        'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/56EC0276-7BB5-4CFA-B10E-75597D357C2E.png',
-    })
-    private imageUrl!: string;
+    get numCleared() {
+      return this.$attrs['num-cleared'];
+    }
 
     get imageURL() {
-      return this.imageUrl || Utils.getPuzzleMiddleThumbnail(this.nid);
+      return this.image
+        ? `${process.env.VUE_APP_API_BASE_URL}${this.image}`
+        : Utils.getPuzzleMiddleThumbnail(this.nid);
     }
   }
 </script>

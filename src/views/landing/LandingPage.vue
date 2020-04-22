@@ -20,7 +20,6 @@
     const me = (await http.get('/get/?type=me')).data.data;
     const roadmap = (await http.get('/get/?type=side_project_roadmap')).data.data;
     const res = { ...me, ...roadmap };
-    console.log(me);
     return res;
   }
 

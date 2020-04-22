@@ -3,14 +3,11 @@
     <div style="text-align:left">
       <p>{{ `${category.toUpperCase()}` }}</p>
       <div class="d-flex  flex-column flex-sm-row">
-        <div>
-          <img :src="img" style="width:258px;height:258px;marginRight:13px" />
-        </div>
         <div style="min-width:268px">
-          <p style="font-size:20px;font-weight:bold;marginBottom:0px">
-            {{ heading }}
-          </p>
-          <p>{{ text }}</p>
+          <h3 style="font-size:20px;font-weight:bold;marginBottom:0px">
+            {{ title }}
+          </h3>
+          <div v-dompurify-html="body" />
         </div>
       </div>
     </div>
@@ -18,27 +15,18 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
+  import VueDOMPurifyHTML from 'vue-dompurify-html';
 
+  Vue.use(VueDOMPurifyHTML);
   @Component({
     components: {},
   })
   export default class ActivityCard extends Vue {
-    @Prop({
-      default: `Help us make better citizen science games in only 15 minutes
-Several citizen science games from Foldit to Eyewire to Eterna to Phylo are celebrating years of productive science — now we’re getting together to try to get even better. Here’s the next step. Northeastern University researchers are conducting a…`,
-    })
-    private text!: string;
+    @Prop() private title!: string;
+
+    @Prop() private body!: string;
 
     @Prop({ default: 'blogs' }) private category!: string;
-
-    @Prop({
-      default:
-        'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/A629FBC0-9F20-4067-AE83-13160670F883.png',
-    })
-    private img!: string;
-
-    @Prop({ default: 'Help us make better citizen science games in only 15 minutes' })
-    private heading!: string;
   }
 </script>
 

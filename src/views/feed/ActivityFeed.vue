@@ -1,7 +1,6 @@
 <template>
   <EternaPage :title="$t('activity-feed:title')">
     <Gallery :sm="12" :md="12">
-      <NewActivity />
       <ActivityCard v-for="article in news" :key="article.nid" v-bind="article" />
     </Gallery>
     <template #sidebar="{ isInSidebar }">

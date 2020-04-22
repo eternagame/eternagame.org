@@ -1,16 +1,7 @@
 <template>
   <div class="card">
     <p>To :</p>
-    <tags-input
-      element-id="tags"
-      v-model="selectedTags"
-      :existing-tags="[
-        { key: 'web-development', value: 'Web Development' },
-        { key: 'php', value: 'PHP' },
-        { key: 'javascript', value: 'JavaScript' },
-      ]"
-      :typeahead="true"
-    ></tags-input>
+    <tags-input v-model="tag" :tags="tags" @tags-changed="newTags => (tags = newTags)"></tags-input>
     <EditField />
     <b-button type="submit" style="width:300px" variant="primary">{{
       $t('news-view:new-activity-main-action')
@@ -21,18 +12,18 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
   // @ts-ignore
-  import VoerroTagsInput from '@voerro/vue-tagsinput';
+  import VueTagsInput from '@johmun/vue-tags-input';
 
   @Component({
     components: {
       EditField,
-      'tags-input': VoerroTagsInput,
+      'tags-input': VueTagsInput,
     },
   })
   export default class ActivityCard extends Vue {
     @Prop({
       default: `Help us make better citizen science games in only 15 minutes
-Several citizen science games from Foldit to Eyewire to Eterna to Phylo are celebrating years of productive science — now we’re getting together to try to get even better. Here’s the next step. Northeastern University researchers are conducting a…`,
+  Several citizen science games from Foldit to Eyewire to Eterna to Phylo are celebrating years of productive science — now we’re getting together to try to get even better. Here’s the next step. Northeastern University researchers are conducting a…`,
     })
     private text!: string;
 
@@ -46,6 +37,10 @@ Several citizen science games from Foldit to Eyewire to Eterna to Phylo are cele
 
     @Prop({ default: 'Help us make better citizen science games in only 15 minutes' })
     private heading!: string;
+
+    private tag = '';
+
+    private tags = [];
   }
 </script>
 

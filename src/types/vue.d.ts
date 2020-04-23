@@ -2,6 +2,8 @@
  * Augment the typings of Vue.js
  */
 
+// @ts-ignore
+
 import { ComponentOptions } from 'vue';
 import VueRouter, {
   Route, RawLocation, NavigationGuard, RouteCallback,

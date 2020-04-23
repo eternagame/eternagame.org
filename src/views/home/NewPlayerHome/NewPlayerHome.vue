@@ -2,7 +2,8 @@
   <EternaPage v-if="pageData" title="">
     <b-container class="video">
       <p style="font-size: 2.8rem; font-weight: bold;">
-        {{ $t('player-home:banner-title') }}
+        {{ $t('player-home:banner-title')
+        }}<span style="font-style: italic">{{ ` ${$t('player-home:banner-together')}` }}</span>
       </p>
       <p style="width: 482px; height: 151px;">
         {{ $t('player-home:banner-explain') }}

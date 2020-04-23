@@ -1,7 +1,11 @@
 <template>
   <SidebarPanel :isInSidebar="isInSidebar" header="Lab Info" headerIcon="@/assets/info.svg">
     <span class="gray-header">Admin:</span><br />
-    <b style="color: var(--yellow);">Username</b><br />
+    <img src="@/assets/navbar/DefaultIcon.svg" style="margin-right:5px" /><b
+      style="color: var(--yellow);"
+      >{{ lab.username }}</b
+    >
+    <br />
     <br />
     <span class="gray-header">Research affiliation:</span><br />
     <b>{{ lab.affiliation }}</b

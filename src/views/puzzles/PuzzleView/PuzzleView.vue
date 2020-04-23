@@ -10,7 +10,9 @@
               backgroundColor: '#041227',
               opacity: '0.8',
             }"
-          ></div>
+          >
+            <img v-if="imageURL" :src="imageURL" />
+          </div>
           <b-button type="submit" variant="primary" class="submit-button">
             {{ $t('puzzle-view:main-action') }}
           </b-button>
@@ -74,6 +76,7 @@
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   // @ts-ignore
   import get from 'lodash.get';
+  import Utils from '@/utils/utils';
   import PuzzleData from './types';
 
   Vue.use(VueDOMPurifyHTML);
@@ -107,6 +110,10 @@
           'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/E280848F-6347-4CC5-A215-F08B1F55ED1B.png',
         ],
       };
+    }
+
+    get imageURL() {
+      return Utils.getPuzzleMiddleThumbnail(this.pageData.nid);
     }
   }
 </script>

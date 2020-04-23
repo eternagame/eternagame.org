@@ -53,6 +53,7 @@
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
+  import { AxiosInstance } from 'axios';
   // @ts-ignore
   import get from 'lodash.get';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
@@ -62,7 +63,6 @@
   import Progress from '@/components/Common/Progress.vue';
   import Carousel from '@/components/Common/Carousel.vue';
   import { SwiperSlide } from 'vue-awesome-swiper';
-  import { PageData } from './types';
 
   @Component({
     components: {
@@ -78,7 +78,7 @@
     @Prop({}) data!: Object;
 
     get masteringEterna() {
-      const res = get(this.pageData, 'achievement_roadmap', []).filter((p: PageData) => p.key.includes('side_quest'));
+      const res = get(this.pageData, 'achievement_roadmap', []).filter((p: Object) => p.key.includes('side_quest'));
       return res;
     }
 

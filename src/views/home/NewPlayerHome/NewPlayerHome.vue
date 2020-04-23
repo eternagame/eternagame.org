@@ -50,8 +50,6 @@
   import Carousel from '@/components/Common/Carousel.vue';
   import { SwiperSlide } from 'vue-awesome-swiper';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  import { PageData, FilteredPageData } from './types';
-  import { Filter } from '../../../components/Sidebar/FiltersPanel.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const res = (await http.get('/get/?type=me')).data.data;
@@ -71,8 +69,8 @@
 
     get newPlayerRoadMap() {
       return (
-        this.pageData.progress
-        && this.pageData
+        this.pageData.achievement_roadmap
+        && this.pageData.achievement_roadmap.filter((p: Object) => (p.key as string) === 'ten_tools')
       );
     }
 

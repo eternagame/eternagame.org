@@ -54,8 +54,8 @@
     ];
 
     private options: Option[] = [
-      { value: 'desc', text: 'Newest First' },
-      { value: 'asc', text: 'Oldest First' },
+      { value: 'desc', text: 'side-panel-options:desc' },
+      { value: 'asc', text: 'side-panel-options:asc' },
     ];
   }
 </script>

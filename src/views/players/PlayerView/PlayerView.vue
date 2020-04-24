@@ -30,7 +30,8 @@
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    const res = (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data;
+    const res = (await http.get(`/get/?type=user&uid=${route.params.uid}&lab_type=synthesized`))
+      .data.data;
     return res;
   }
 
@@ -48,11 +49,11 @@
     }
 
     private options: Option[] = [
-      { value: 'about', text: 'About' },
-      { value: 'achievements', text: 'Achievements' },
-      { value: 'synthesized', text: 'Synthesized RNAs' },
-      { value: 'latest', text: 'Latest Activity' },
-      { value: 'created', text: 'Created Puzzles' },
+      { value: 'about', text: 'side-panel-options:about' },
+      { value: 'achievements', text: 'side-panel-options:achievements' },
+      { value: 'synthesized', text: 'side-panel-options:synthesized' },
+      { value: 'latest', text: 'side-panel-options:latest' },
+      { value: 'created', text: 'side-panel-options:created' },
     ];
   }
 </script>

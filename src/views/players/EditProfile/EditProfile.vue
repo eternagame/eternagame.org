@@ -99,11 +99,11 @@
     private newNewsPostsNotify: boolean = get(this, 'pageData.newNewsPostsEmailNotifications');
 
     private options: Option[] = [
-      { value: 'about', text: 'About' },
-      { value: 'achievements', text: 'Achievements' },
-      { value: 'synthesized', text: 'Synthesized RNAs' },
-      { value: 'latest', text: 'Latest Activity' },
-      { value: 'created', text: 'Created Puzzles' },
+      { value: 'about', text: 'side-panel-options:about' },
+      { value: 'achievements', text: 'side-panel-options:achievements' },
+      { value: 'synthesized', text: 'side-panel-options:synthesized' },
+      { value: 'latest', text: 'side-panel-options:latest' },
+      { value: 'created', text: 'side-panel-options:created' },
     ];
   }
 </script>

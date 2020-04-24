@@ -83,10 +83,10 @@
     private tags: String[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
 
     private options: Option[] = [
-      { value: 'all', text: 'All Categories' },
-      { value: 'announcements', text: 'Announcements' },
-      { value: 'blogs', text: 'Blogs' },
-      { value: 'labs', text: 'Labs' },
+      { value: 'all', text: 'side-panel-options:all' },
+      { value: 'announcements', text: 'side-panel-options:announcements' },
+      { value: 'blogs', text: 'side-panel-options:blogs' },
+      { value: 'labs', text: 'side-panel-options:labs' },
     ];
   }
 </script>

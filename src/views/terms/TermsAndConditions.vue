@@ -95,11 +95,11 @@
   })
   export default class TermsAndConditions extends Vue {
     private options: Option[] = [
-      { value: 'about', text: 'About Eterna' },
-      { value: 'publications', text: 'Publications' },
-      { value: 'software', text: 'Software' },
-      { value: 'terms', text: 'Terms & Conditions' },
-      { value: 'code_conduct', text: 'Code of Conduct' },
+      { value: 'about', text: 'side-panel-options:about' },
+      { value: 'publications', text: 'side-panel-options:publications' },
+      { value: 'software', text: 'side-panel-options:software' },
+      { value: 'terms', text: 'side-panel-options:terms' },
+      { value: 'code_conduct', text: 'side-panel-options:code_conduct' },
     ];
 
     private status: boolean = false;

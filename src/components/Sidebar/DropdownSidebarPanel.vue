@@ -9,7 +9,7 @@
         :class="{ selected: selectedIndex === index }"
         @click.native="onClick(index)"
       >
-        {{ text }}
+        {{ $t(text) }}
       </router-link>
       <hr v-if="index < options.length - 1" class="options-divider" :key="`${value} divider`" />
     </template>
@@ -23,7 +23,7 @@
         :disabled="selectedIndex === index"
         @click.native="onClick(index)"
       >
-        {{ text }}
+        {{ $t(text) }}
       </b-dropdown-item>
       <b-dropdown-divider v-if="index < options.length - 1" :key="`${value} divider`" />
     </template>

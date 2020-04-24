@@ -25,12 +25,12 @@
       <PuzzleCard />
       <PuzzleCard />
     </Gallery>
-    <template #sidebar="{ isInSidebar }">
+    <!-- <template #sidebar="{ isInSidebar }">
       <TagsPanel
         :tags="['#Switch', '#Ribosome', '##XOR', '#MS2', '#FMN', '#Telomerase']"
         :isInSidebar="isInSidebar"
       />
-    </template>
+    </template> -->
   </EternaPage>
 </template>
 

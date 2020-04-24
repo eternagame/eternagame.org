@@ -19,7 +19,7 @@
         :isInSidebar="isInSidebar"
       />
       <CalendarPanel :isInSidebar="isInSidebar" />
-      <TagsPanel :tags="['#Ribosome', '#Eternacon', '#Chat']" :isInSidebar="isInSidebar" />
+      <!-- <TagsPanel :tags="['#Ribosome', '#Eternacon', '#Chat']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
 </template>

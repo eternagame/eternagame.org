@@ -60,7 +60,7 @@
           </li>
         </ul>
       </SidebarPanel>
-      <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" />
+      <!-- <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
 </template>

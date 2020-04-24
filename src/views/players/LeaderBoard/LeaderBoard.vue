@@ -10,7 +10,7 @@
     </div>
     <template #sidebar="{ isInSidebar }">
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
-      <TagsPanel :tags="tags" :isInSidebar="isInSidebar" />
+      <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
 </template>

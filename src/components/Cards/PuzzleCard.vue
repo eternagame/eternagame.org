@@ -37,7 +37,7 @@
       placement="bottom"
       style="width: 214.2px; height: 110.2px;"
     >
-      <p style="font-size: 1.3333333333333333rem;">RNA Slicer</p>
+      <p style="font-size: 20px;">RNA Slicer</p>
       <b-button
         type="button"
         class="btn-success"
@@ -94,7 +94,7 @@
   }
 
   ::v-deep .card-body {
-    padding: 0.75rem !important;
+    padding: 11.25px !important;
   }
 
   .puzzle-card-title {

@@ -1,7 +1,7 @@
 <template>
   <EternaPage v-if="pageData" title="">
     <b-container class="video">
-      <p style="font-size: 2.8rem; font-weight: bold;">
+      <p style="font-size: 42px; font-weight: bold;">
         {{ $t('player-home:banner-title')
         }}<span style="font-style: italic">{{ ` ${$t('player-home:banner-together')}` }}</span>
       </p>
@@ -22,21 +22,13 @@
       </div>
     </b-container>
 
-    <p
-      style="
-         {
-          margin: 34px 0px;
-          font-size: 2rem;
-          text-align: center;
-          line-height: 1.37;
-        }
-      "
-    >
+    <p class="section-title">
       {{ $t('player-home:lab-access') }}
     </p>
+    <img src="@/assets/progress/progress3.svg" style="margin: 0 auto;display: block;" />
     <Carousel>
       <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
-        <PuzzleCard :key="item.current_puzzle" :nid="item.current_puzzle" v-bind="item" />
+        <PuzzleCard :key="item.nid" :nid="item.nid" v-bind="item" />
       </swiper-slide>
     </Carousel>
   </EternaPage>
@@ -71,14 +63,14 @@
     get newPlayerRoadMap() {
       return (
         this.pageData.achievement_roadmap
-        && this.pageData.achievement_roadmap.filter((p: Object) => (p.key as string) === 'ten_tools')
+        && this.pageData.achievement_roadmap.filter(
+          (p: { key: string }) => (p.key as string) === 'ten_tools',
+        )
       );
     }
 
     get pageData() {
       return {
-        'banner-image':
-          'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/11FA9E9F-89F8-4548-A93F-241E4D1D6362.png',
         progress: 50,
         ...this.data,
       };
@@ -94,7 +86,7 @@
       url('https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/30A7BAEF-4A98-47AC-8B29-5150806B518E.png');
     background-position: right;
     background-repeat: no-repeat;
-    object-fit: contain;
+    object-fit: fill;
     height: 441px;
     padding: 31px;
   }
@@ -103,5 +95,14 @@
     background-color: $dark;
     padding-top: 10px;
     border-radius: 5px;
+  }
+
+  .section-title {
+    margin: 34px 0px;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.37;
+    margin-top: 49px;
   }
 </style>

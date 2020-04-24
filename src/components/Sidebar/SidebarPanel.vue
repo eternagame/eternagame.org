@@ -60,8 +60,8 @@
 
   .toggler {
     display: inline-block;
-    margin: auto 0.5rem;
-    font-size: 1rem;
+    margin: auto 7.5px;
+    font-size: 15px;
     cursor: pointer;
   }
 
@@ -75,8 +75,8 @@
   }
 
   .header-icon {
-    margin-right: 0.25rem;
-    margin-left: 0.25rem;
+    margin-right: 3.75px;
+    margin-left: 3.75px;
     height: 1.125em;
     vertical-align: middle;
     display: inline-block;

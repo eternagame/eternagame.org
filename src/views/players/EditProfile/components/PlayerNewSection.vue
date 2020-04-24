@@ -27,7 +27,7 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
   .about-me {
-    font-size: 1.375rem;
+    font-size: 20.625px;
     font-weight: bold;
   }
 

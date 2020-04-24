@@ -89,22 +89,22 @@
   @import '@/styles/global.scss';
 
   h2 {
-    font-size: 1.6rem;
+    font-size: 24px;
     font-weight: bold;
-    margin-bottom: 0.52rem;
-    margin-top: 0.92rem;
+    margin-bottom: 7.8px;
+    margin-top: 13.8px;
   }
 
   h3 {
-    font-size: 1.0666666666666667rem;
+    font-size: 16px;
     font-weight: bold;
-    margin-top: 1.6rem;
+    margin-top: 24px;
   }
 
   input {
     background-color: rgba(16, 16, 16, 0.5);
-    border: solid 0.04rem $dark-blue;
-    padding: 0.8666666666666667rem;
+    border: solid 0.6px $dark-blue;
+    padding: 13px;
     width: 370px;
     height: 40px;
     vertical-align: top;
@@ -123,7 +123,7 @@
     height: 40px;
     border-radius: 5px;
     margin: 50px 0px;
-    font-size: 1.3333333333333333rem;
+    font-size: 20px;
     font-weight: bold;
   }
 </style>

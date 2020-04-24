@@ -51,7 +51,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    padding: 5rem 0;
+    padding: 75px 0;
     overflow: hidden;
     position: relative;
     max-width: 1800px;
@@ -73,11 +73,11 @@
   }
 
   .btn-lg {
-    font-size: 1.4rem;
+    font-size: 21px;
   }
 
   .text-block {
-    margin-top: 1.25rem;
-    margin-bottom: 1.75rem;
+    margin-top: 18.75px;
+    margin-bottom: 26.25px;
   }
 </style>

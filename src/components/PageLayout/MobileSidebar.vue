@@ -4,7 +4,7 @@
       <nav>
         <div class="d-flex justify-content-end">
           <button class="btn p-0" @click="closeMenu">
-            <img src="@/assets/sidebar/Cross.svg" class="cross-icon"/>
+            <img src="@/assets/sidebar/Cross.svg" class="cross-icon" />
           </button>
         </div>
         <slot></slot>
@@ -14,13 +14,10 @@
 </template>
 
 <script lang="ts">
-  import {
-    Component, Prop, Vue, Watch,
-  } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
   @Component({
-    components: {
-    },
+    components: {},
   })
   export default class MobileSidebar extends Vue {
     $refs!: {
@@ -37,7 +34,11 @@
 
     onDocumentClick(event: Event) {
       const element = event.srcElement as HTMLElement;
-      if (element && !element.classList.contains('sidebar') && !this.$refs.mobileSidebar.contains(element)) {
+      if (
+        element
+        && !element.classList.contains('sidebar')
+        && !this.$refs.mobileSidebar.contains(element)
+      ) {
         this.closeMenu();
       }
     }
@@ -69,15 +70,15 @@
     background-color: #101010;
     overflow-x: hidden;
     width: 250px;
-    padding: 1rem 1.5rem;
+    padding: 15px 22.5px;
     z-index: 2000;
   }
-  .slide-enter-active, .slide-leave-active {
-    transition: right .5s;
+  .slide-enter-active,
+  .slide-leave-active {
+    transition: right 0.5s;
   }
-  .slide-enter, .slide-leave-to {
+  .slide-enter,
+  .slide-leave-to {
     right: -250px;
   }
-
-
 </style>

@@ -5,8 +5,8 @@
         <div style="text-align:center" class="order-sm-2 col-sm-6">
           <div
             :style="{
-              width: '22.2667rem',
-              height: '24.3333rem',
+              width: '334.0005px',
+              height: '364.9995px',
               backgroundColor: '#041227',
               opacity: '0.8',
             }"

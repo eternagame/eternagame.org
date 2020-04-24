@@ -48,10 +48,10 @@
 
 <style lang="scss" scoped>
   .form-group > * > *:not(:first-child) {
-    margin-left: 0.5rem;
+    margin-left: 7.5px;
   }
   .button {
     width: 129px;
-    font-size: 1.2rem;
+    font-size: 18px;
   }
 </style>

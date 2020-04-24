@@ -70,7 +70,7 @@
 
 <style scoped lang="scss">
   .submit-button {
-    margin-top: 1.5rem;
+    margin-top: 22.5px;
   }
 
   .fade-enter-active,

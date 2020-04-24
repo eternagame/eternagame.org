@@ -32,7 +32,7 @@
   @import '@/styles/global.scss';
 
   .player-name {
-    font-size: 1.625rem;
+    font-size: 24.375px;
     font-weight: bold;
     margin-bottom: 0px;
     width: 100px;

@@ -22,7 +22,7 @@
 
 <style lang="scss" scoped>
   .forgot-password {
-    font-size: 0.7rem;
+    font-size: 10.5px;
     line-height: 1;
   }
 </style>

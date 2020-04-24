@@ -26,7 +26,7 @@
 <style lang="scss" scoped>
   h3,
   p {
-    font-size: 0.56rem;
+    font-size: 8.4px;
     font-weight: normal;
     line-height: 1.36;
   }
@@ -35,7 +35,7 @@
     font-weight: bold;
   }
   h2 {
-    font-size: 10.72rem;
+    font-size: 160.8px;
     font-weight: bold;
   }
 </style>

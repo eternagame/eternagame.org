@@ -22,7 +22,7 @@
           color="#fac244"
         />
       </div>
-      <p style="font-size: 2.8rem; font-weight: bold;">{{ pageData[`banner-title`] }}</p>
+      <p style="font-size: 42px; font-weight: bold;">{{ pageData[`banner-title`] }}</p>
 
       <p>
         {{ pageData[`banner-sub-title`].toUpperCase() }}
@@ -78,7 +78,7 @@
     @Prop({}) data!: Object;
 
     get masteringEterna() {
-      const res = get(this.pageData, 'achievement_roadmap', []).filter((p: Object) => p.key.includes('side_quest'));
+      const res = get(this.pageData, 'achievement_roadmap', []).filter((p: { key: string }) => p.key.includes('side_quest'));
       return res;
     }
 

@@ -1,6 +1,6 @@
 <template>
   <EternaPage v-if="lab" title="Lab Details">
-    <LabDescription :lab="lab" style="margin-bottom: 3.5rem;" />
+    <LabDescription :lab="lab" style="margin-bottom: 52.5px;" />
     <LabRound v-for="round in lab.puzzles" :key="round.round" :round="round" />
     <template #sidebar="{ isInSidebar }">
       <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />

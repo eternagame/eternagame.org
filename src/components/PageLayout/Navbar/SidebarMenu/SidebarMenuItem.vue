@@ -49,14 +49,14 @@
   .sublist {
     margin-left: 10px;
     .nav-link {
-      padding-top: 0.45rem;
-      padding-bottom: 0.45rem;
-      font-size: 0.75rem;
+      padding-top: 6.75px;
+      padding-bottom: 6.75px;
+      font-size: 11.25px;
     }
   }
 
   .menu-item {
-    margin-bottom: 0.5rem;
+    margin-bottom: 7.5px;
     white-space: nowrap;
   }
 

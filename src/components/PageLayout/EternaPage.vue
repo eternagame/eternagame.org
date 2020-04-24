@@ -79,7 +79,7 @@
   .page-container {
     position: relative;
     min-height: Calc(100vh - 120px);
-    padding: 3rem 1.5rem 1.5rem;
+    padding: 45px 22.5px 22.5px;
     padding-bottom: 0px;
   }
   .page-container:before {
@@ -108,10 +108,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 2.25rem;
+    font-size: 33.75px;
   }
   .sidebar {
-    font-size: 0.875rem;
+    font-size: 13.125px;
   }
 
   .sub-heading {

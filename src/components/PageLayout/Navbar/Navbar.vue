@@ -83,7 +83,7 @@
   }
 
   ::v-deep * {
-    font-size: 0.875rem;
+    font-size: 13.125px;
   }
 
   ::v-deep .navbar-nav {
@@ -91,7 +91,7 @@
   }
 
   ::v-deep .icons-group > * {
-    margin-left: 1.5rem;
+    margin-left: 22.5px;
   }
 
   .toggler {

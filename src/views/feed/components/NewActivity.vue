@@ -46,7 +46,7 @@
 
 <style lang="scss" scoped>
   ::v-deep .card-body {
-    padding: 0.75rem !important;
+    padding: 11.25px !important;
   }
 
   .card {

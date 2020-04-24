@@ -128,8 +128,8 @@
     &__floating-menu {
       position: absolute;
       z-index: 1;
-      margin-top: -0.75rem;
-      margin-left: 1rem;
+      margin-top: -11.25px;
+      margin-left: 15px;
       visibility: hidden;
       opacity: 0;
       transition: opacity 0.2s, visibility 0.2s;
@@ -143,7 +143,7 @@
       position: absolute;
       display: flex;
       z-index: 20;
-      margin-bottom: 0.5rem;
+      margin-bottom: 7.5px;
       transform: translateX(-50%);
       visibility: hidden;
       opacity: 0;

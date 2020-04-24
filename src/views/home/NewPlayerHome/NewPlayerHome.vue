@@ -1,24 +1,28 @@
 <template>
   <EternaPage v-if="pageData" title="">
     <b-container class="video">
-      <p style="font-size: 42px; font-weight: bold;">
+      <p style="font-size: 2.8rem; font-weight: bold;">
         {{ $t('player-home:banner-title')
         }}<span style="font-style: italic">{{ ` ${$t('player-home:banner-together')}` }}</span>
       </p>
       <p style="width: 482px; height: 151px;">
         {{ $t('player-home:banner-explain') }}
       </p>
-      <b-button variant="primary" size="lg" to="/game/puzzle/6502927/" style="margin-right:10px">{{
-        $t('player-home:next-puzzle')
-      }}</b-button>
-      <b-button variant="secondary" size="lg" to="/game/puzzle/6502927/">{{
-        $t('player-home:nova-labs')
-      }}</b-button>
+      <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
+        <b-button variant="primary" size="lg" style="margin-right:10px">{{
+          $t('player-home:next-puzzle')
+        }}</b-button>
+      </a>
+      <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
+        <b-button variant="secondary" size="lg">{{ $t('player-home:nova-labs') }}</b-button>
+      </a>
 
       <div class="d-flex" style="margin-top: 22px;">
-        <p style="margin-right: 20px;">
-          <i class="arrow_right"></i>{{ $t('player-home:video-library') }}
-        </p>
+        <router-link to="/news/9818657">
+          <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
+            <i class="arrow_right"></i>{{ $t('player-home:open-vaccine') }}
+          </p>
+        </router-link>
       </div>
     </b-container>
 
@@ -86,7 +90,7 @@
       url('https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/30A7BAEF-4A98-47AC-8B29-5150806B518E.png');
     background-position: right;
     background-repeat: no-repeat;
-    object-fit: fill;
+    background-size: cover;
     height: 441px;
     padding: 31px;
   }

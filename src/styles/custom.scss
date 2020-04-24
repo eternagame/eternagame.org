@@ -35,3 +35,12 @@
   background-color: $med-dark-blue;
   padding: 12.3px;
 }
+
+.unread {
+  width: 10px;
+  height: 10px;
+  background-color: #d73832;
+  border-radius: 10px;
+  position: absolute;
+  margin-left: 15px;
+}

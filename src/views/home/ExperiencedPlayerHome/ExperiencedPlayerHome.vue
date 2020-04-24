@@ -43,7 +43,7 @@
       {{ $t('player-home:section2') }}
     </h1>
     <Carousel>
-      <swiper-slide v-for="(item, index) in masteringEterna" :key="index">
+      <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
         <PuzzleCard :key="item.current_puzzle" :nid="item.current_puzzle" v-bind="item" />
       </swiper-slide>
     </Carousel>
@@ -80,6 +80,12 @@
     get masteringEterna() {
       const res = get(this.pageData, 'achievement_roadmap', []).filter((p: { key: string }) => p.key.includes('side_quest'));
       return res;
+    }
+
+    get newPlayerRoadMap() {
+      return get(this.pageData, 'achievement_roadmap', []).filter(
+        (p: { key: string }) => (p.key as string) === 'ten_tools',
+      );
     }
 
     get pageData() {

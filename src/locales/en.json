@@ -14,7 +14,7 @@
   "nav-bar:publications": "Publications",
   "nav-bar:notifications": "Notifications",
   "nav-bar:chat": "Chat",
-  "nav-bar:leaderboards": "LeaderBoards",
+  "nav-bar:leaderboards": "Leaderboards",
   "read-more:read-more": "read more",
   "read-more:read-less": "read less",
   "login-failed:failure-text": "Something's wrong...",
@@ -216,5 +216,6 @@
   "player-home-banner:title": "Optimizing the Ribosome",
   "player-home-banner:details": "Ribosome Design Challenge",
   "player-home-banner:progess1": "Designs Submitted'",
-  "player-home-banner:progress2": "My Submissions"
+  "player-home-banner:progress2": "My Submissions",
+  "player-home:open-vaccine": "Learn more about OpenVaccine"
 }

@@ -60,18 +60,33 @@
       play: {
         puzzles: '/puzzles',
         labs: '/labs',
-        challenges: '/challenges',
-        switches: '/switches',
+        data: 'https://eternagame.org/web/labs/data-browser/',
+        'puzzle-maker': 'https://eternagame.org/game/puzzlemaker/',
+        'puzzle-maker-2-states': 'https://eternagame.org/game/switchmaker/2/',
+        'puzzle-maker-3-states': 'https://eternagame.org/game/switchmaker/3/',
+        scripts: 'https://eternagame.org/web/script/',
       },
       learn: {
+        'quick-help': '/TBD',
         guides: 'http://eternawiki.org/wiki/index.php5/Player-Created_Guides',
-        practice: '/practice',
+        wiki: 'http://eternawiki.org',
+      },
+      community: {
+        leaderboards: '/leaderboards',
+        groups: 'https://eternagame.org/web/group/',
+        wiki: 'http://eternawiki.org',
+      },
+      news: {
+        news: '/news',
       },
       about: {
+        overview: '/about',
         publications: '/publications',
+        software: '[software.eternagame.org',
+        donate: 'https://www.gofundme.com/f/fight-covid19-with-eterna',
+        terms: '/about/terms',
+        'code-of-conduct': '/about/conduct',
       },
-      news: '/news',
-      leaderboards: '/leaderboards',
     };
   }
 </script>

@@ -218,5 +218,19 @@
   "player-home-banner:details": "Ribosome Design Challenge",
   "player-home-banner:progess1": "Designs Submitted'",
   "player-home-banner:progress2": "My Submissions",
-  "player-home:open-vaccine": "Learn more about OpenVaccine"
+  "player-home:open-vaccine": "Learn more about OpenVaccine",
+  "nav-bar:data": "Data",
+  "nav-bar:puzzle-maker": "puzzle maker",
+  "nav-bar:puzzle-maker-2-states": "puzzle maker 2 states",
+  "nav-bar:puzzle-maker-3-states": "puzzle maker 3 states",
+  "nav-bar:scripts": "scripts",
+  "nav-bar:quick-help": "quick help",
+  "nav-bar:wiki": "wiki",
+  "nav-bar:community": "community",
+  "nav-bar:groups": "groups",
+  "nav-bar:overview": "overview",
+  "nav-bar:software": "software",
+  "nav-bar:donate": "donate",
+  "nav-bar:terms": "terms",
+  "nav-bar:code-of-conduct": "code of conduct"
 }

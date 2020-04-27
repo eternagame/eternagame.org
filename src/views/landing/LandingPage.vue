@@ -15,12 +15,13 @@
   import { AxiosInstance } from 'axios';
   import DocsSection from './components/DocsSection.vue';
   import VideoSection from './components/VideoSection.vue';
+  import UserData from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const me = (await http.get('/get/?type=me')).data.data;
     const roadmap = (await http.get('/get/?type=side_project_roadmap')).data.data;
     const res = { ...me, ...roadmap };
-    return res;
+    return res as UserData;
   }
 
   @Component({

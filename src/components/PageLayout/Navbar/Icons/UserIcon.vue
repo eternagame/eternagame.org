@@ -4,9 +4,10 @@
       <div class="unread"></div>
       <img
         v-if="notificationsCount"
-        src="@/assets/navbar/Bell.svg"
+        src="@/assets/navbar/DefaultIcon.svg"
         :alt="$t('nav-bar:notifications')"
       />
+      {{ username }}
     </template>
     <template #text>
       {{ $t('nav-bar:notifications') }}
@@ -20,27 +21,16 @@
 <script lang="ts">
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
-  import axios, { AxiosInstance } from 'axios';
-  import PageDataMixin from '@/mixins/PageData';
   import NavbarIcon from './NavbarIcon.vue';
 
-  const NOTI_COUNT_ROUTE = '/get/?type=noti_count_for_user';
-
-  const NEWS_FEED_ROUTE = '/get/?type=newsfeed&filter=all';
-
   @Component({
-    components: {
-      NavbarIcon,
-    },
+    components: { NavbarIcon },
   })
-  export default class PlayerIcon extends Vue {
+  export default class UserIcon extends Vue {
     private notificationsCount = [];
 
-    mounted() {
-      axios.get(NOTI_COUNT_ROUTE).then(response => {
-        this.notificationsCount = response.data.data.noti_count;
-      });
-      axios.get(NEWS_FEED_ROUTE).then(response => {});
+    get username() {
+      return this.$vxm.user.username;
     }
   }
 </script>

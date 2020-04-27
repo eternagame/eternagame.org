@@ -5,5 +5,7 @@ export default interface LeaderBoardData {
 export interface PlayerCardData {
   id: string;
   name?: string;
-  picture: string;
+  picture?: string;
+  created?: string;
+  points?: string;
 }

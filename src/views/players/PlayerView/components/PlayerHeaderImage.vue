@@ -11,6 +11,7 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import PlayerData from '../types';
 
   @Component({
     components: {},
@@ -21,7 +22,7 @@
       return `${process.env.VUE_APP_API_BASE_URL}/${this.pageData.picture}`;
     }
 
-    @Prop({ required: true }) pageData!: object;
+    @Prop({ required: true }) pageData!: PlayerData;
   }
 </script>
 

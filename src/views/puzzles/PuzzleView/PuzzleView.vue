@@ -113,7 +113,7 @@
     }
 
     get imageURL() {
-      return Utils.getPuzzleMiddleThumbnail(this.pageData.nid);
+      return Utils.getPuzzleMiddleThumbnail(get(this.pageData, 'nid'));
     }
   }
 </script>

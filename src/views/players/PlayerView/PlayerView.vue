@@ -28,10 +28,11 @@
   import PageDataMixin from '@/mixins/PageData';
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
+  import PlayerData from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const res = (await http.get(`/get/?type=user&uid=${route.params.uid}&lab_type=synthesized`))
-      .data.data;
+      .data.data as PlayerData;
     return res;
   }
 

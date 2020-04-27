@@ -48,9 +48,10 @@
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
   import PlayerEditCredentials from './components/PlayerEditCredentials.vue';
+  import PlayerData from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    return (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data;
+    return (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data as PlayerData;
   }
 
   @Component({

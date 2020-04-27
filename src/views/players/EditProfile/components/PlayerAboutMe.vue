@@ -26,6 +26,7 @@
   import VueDOMPurifyHTML from 'vue-dompurify-html';
   import PlayerFeaturedAchievement from './PlayerFeaturedAchievement.vue';
   import PlayerNewSection from './PlayerNewSection.vue';
+  import PlayerData from '../types';
 
   Vue.use(VueDOMPurifyHTML);
 
@@ -33,7 +34,7 @@
     components: { PlayerFeaturedAchievement, EditField, PlayerNewSection },
   })
   export default class PlayerAboutMe extends Vue {
-    @Prop({ required: true }) pageData!: object;
+    @Prop({ required: true }) pageData!: PlayerData;
 
     private addingSection: boolean = false;
   }

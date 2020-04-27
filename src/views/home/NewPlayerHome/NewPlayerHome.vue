@@ -90,9 +90,9 @@
       url('https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/30A7BAEF-4A98-47AC-8B29-5150806B518E.png');
     background-position: right;
     background-repeat: no-repeat;
-    background-size: cover;
+    object-fit: contain;
     height: 441px;
-    padding: 31px;
+    // padding: 31px;
   }
 
   .video-wrapper {

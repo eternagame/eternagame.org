@@ -1,7 +1,6 @@
 <template>
   <NavbarIcon>
     <template #icon>
-      <div class="unread"></div>
       <img
         v-if="notificationsCount"
         src="@/assets/navbar/DefaultIcon.svg"

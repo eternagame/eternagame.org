@@ -32,7 +32,7 @@
     <img src="@/assets/progress/progress3.svg" style="margin: 0 auto;display: block;" />
     <Carousel>
       <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
-        <PuzzleCard :key="item.nid" :nid="item.nid" v-bind="item" />
+        <QuestCard :key="item.nid" :nid="item.nid" v-bind="item" :progress="item.to_next" />
       </swiper-slide>
     </Carousel>
   </EternaPage>
@@ -47,6 +47,7 @@
   import Carousel from '@/components/Common/Carousel.vue';
   import { SwiperSlide } from 'vue-awesome-swiper';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
+  import QuestCard from '@/components/Cards/QuestCard.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const res = (await http.get('/get/?type=me')).data.data;
@@ -59,6 +60,7 @@
       Carousel,
       SwiperSlide,
       PuzzleCard,
+      QuestCard,
     },
   })
   export default class NewPlayerView extends Mixins(PageDataMixin(fetchPageData)) {

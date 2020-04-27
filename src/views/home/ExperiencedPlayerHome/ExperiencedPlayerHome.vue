@@ -44,7 +44,12 @@
     </h1>
     <Carousel>
       <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
-        <PuzzleCard :key="item.current_puzzle" :nid="item.current_puzzle" v-bind="item" />
+        <QuestCard
+          :key="item.current_puzzle"
+          :nid="item.current_puzzle"
+          :progress="item.to_next"
+          v-bind="item"
+        />
       </swiper-slide>
     </Carousel>
   </EternaPage>

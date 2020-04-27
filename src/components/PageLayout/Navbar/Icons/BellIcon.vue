@@ -12,9 +12,9 @@
       {{ $t('nav-bar:notifications') }}
     </template>
 
-    <b-dropdown-item>To be implemented</b-dropdown-item>
-    <b-dropdown-item>To be implemented</b-dropdown-item>
-    <b-dropdown-item>To be implemented</b-dropdown-item>
+    <b-dropdown-item v-for="item in notifications.slice(0, 4)" :key="item.id">
+      <p>{{ item.title }}</p>
+    </b-dropdown-item>
   </NavbarIcon>
 </template>
 <script lang="ts">
@@ -28,6 +28,8 @@
 
   const NEWS_FEED_ROUTE = '/get/?type=newsfeed&filter=all';
 
+  const NUMBER_NOTIFICATIONS_TO_SHOW = 4;
+
   @Component({
     components: {
       NavbarIcon,
@@ -36,11 +38,27 @@
   export default class PlayerIcon extends Vue {
     private notificationsCount = [];
 
+    private notifications = [];
+
+    private notificationsToShow = NUMBER_NOTIFICATIONS_TO_SHOW;
+
     mounted() {
       axios.get(NOTI_COUNT_ROUTE).then(response => {
         this.notificationsCount = response.data.data.noti_count;
       });
-      axios.get(NEWS_FEED_ROUTE).then(response => {});
+      axios.get(NEWS_FEED_ROUTE).then(response => {
+        const { blogslist, newsfeeds, notifications } = response.data.data;
+        console.log([
+          blogslist && blogslist,
+          newsfeeds && newsfeeds,
+          notifications && notifications,
+        ]);
+        this.notifications = [
+          blogslist && blogslist,
+          newsfeeds && newsfeeds,
+          notifications && notifications,
+        ];
+      });
     }
   }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="goToPuzzle">
     <AspectRatioCard :aspectRatio="aspectRatio" :id="`popover-target-${nid}`" class="card">
       <template #header>
         <div class="puzzle-card-title" v-if="title">
@@ -50,6 +50,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
+  import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import AspectRatioCard from './AspectRatioCard.vue';
   import StateCounter from './StateCounter.vue';
 
@@ -73,6 +74,10 @@
     @Prop({ default: 1 }) private aspectRatio!: number;
 
     @Prop({ default: false }) private locked!: boolean;
+
+    goToPuzzle() {
+      window.location.href = PUZZLE_ROUTE_PREFIX + this.nid;
+    }
 
     get numCleared() {
       return this.$attrs['num-cleared'];

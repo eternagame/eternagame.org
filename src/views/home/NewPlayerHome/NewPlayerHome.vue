@@ -1,6 +1,12 @@
 <template>
   <EternaPage v-if="pageData" title="">
-    <b-container class="video">
+    <b-container
+      class="video"
+      :style="{
+        backgroundImage: `${bannerImageStyle}`,
+        backgroundPosition: 'right',
+      }"
+    >
       <p style="font-size: 2.8rem; font-weight: bold;">
         {{ $t('player-home:banner-title')
         }}<span style="font-style: italic">{{ ` ${$t('player-home:banner-together')}` }}</span>
@@ -29,7 +35,7 @@
     <p class="section-title">
       {{ $t('player-home:lab-access') }}
     </p>
-    <img src="@/assets/progress/progress3.svg" style="margin: 0 auto;display: block;" />
+    <img v-if="progress" :src="progress" style="margin: 0 auto;display: block;" />
     <Carousel>
       <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
         <QuestCard :key="item.nid" :nid="item.nid" v-bind="item" :progress="item.to_next" />
@@ -49,9 +55,29 @@
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import QuestCard from '@/components/Cards/QuestCard.vue';
 
+  import PROGRESS_IMAGE_0 from '@/assets/progress/progress0.svg';
+  import PROGRESS_IMAGE_1 from '@/assets/progress/progress1.svg';
+  import PROGRESS_IMAGE_2 from '@/assets/progress/progress2.svg';
+  import PROGRESS_IMAGE_3 from '@/assets/progress/progress3.svg';
+  import PROGRESS_IMAGE_4 from '@/assets/progress/progress4.svg';
+  import PROGRESS_IMAGE_5 from '@/assets/progress/progress5.svg';
+  import PROGRESS_IMAGE_6 from '@/assets/progress/progress6.svg';
+  import BANNER_IMAGE from '@/assets/home/new-player-hero.png';
+  import HomeData from '../types';
+
+  const PROGRESS_IMAGES = [
+    PROGRESS_IMAGE_0,
+    PROGRESS_IMAGE_1,
+    PROGRESS_IMAGE_2,
+    PROGRESS_IMAGE_3,
+    PROGRESS_IMAGE_4,
+    PROGRESS_IMAGE_5,
+    PROGRESS_IMAGE_6,
+  ];
+
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const res = (await http.get('/get/?type=me')).data.data;
-    return res;
+    return res as HomeData;
   }
 
   @Component({
@@ -66,6 +92,10 @@
   export default class NewPlayerView extends Mixins(PageDataMixin(fetchPageData)) {
     @Prop({}) data!: Object;
 
+    get bannerImageStyle() {
+      return `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)), url(${BANNER_IMAGE})`;
+    }
+
     get newPlayerRoadMap() {
       return (
         this.pageData.achievement_roadmap
@@ -75,9 +105,15 @@
       );
     }
 
-    get pageData() {
+    get progress() {
+      return (
+        this.pageData.achievement_roadmap
+        && PROGRESS_IMAGES[this.pageData.achievement_roadmap[0].current_level]
+      );
+    }
+
+    get pageData(): HomeData {
       return {
-        progress: 50,
         ...this.data,
       };
     }
@@ -88,9 +124,6 @@
   @import '@/styles/global.scss';
 
   .video {
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)),
-      url('https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/30A7BAEF-4A98-47AC-8B29-5150806B518E.png');
-    background-position: right;
     background-repeat: no-repeat;
     object-fit: contain;
     height: 441px;

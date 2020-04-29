@@ -3,6 +3,7 @@
     ><div class="page">
       <div style="padding: 10px; text-align: justify;">
         <h3 style="padding-bottom: 16px;">{{ $t('code-of-conduct:section1-title') }}</h3>
+        <p>{{ $t('code-of-conduct:section1-text') }}</p>
         <br /><br />
         <ul style="padding-left: 20px;">
           <li>

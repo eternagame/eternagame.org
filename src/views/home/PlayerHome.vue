@@ -7,6 +7,7 @@
   import { Component, Vue, Prop } from 'vue-property-decorator';
   // @ts-ignore
   import get from 'lodash.get';
+  import axios, { AxiosInstance } from 'axios';
   import ExperiencedPlayerHome from './ExperiencedPlayerHome/ExperiencedPlayerHome.vue';
   import NewPlayerHome from './NewPlayerHome/NewPlayerHome.vue';
 
@@ -20,10 +21,7 @@
     @Prop({}) data!: Object;
 
     get hasLabAccess() {
-      return (
-        Number(get(this.$vxm.user, 'ten_tools_level', '0')) > 8
-        || get(this.$vxm.user, 'is_lab_member_legacy')
-      );
+      return this.$vxm.user.hasLabAccess;
     }
   }
 </script>

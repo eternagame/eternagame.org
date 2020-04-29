@@ -1,7 +1,7 @@
 <template>
   <div class="card player-card">
     <div class="d-flex align-items-center" style="width:100%">
-      <p class="rank">#{{ index }}</p>
+      <p class="rank">#{{ rank }}</p>
       <img class="rounded-circle player-image" :src="imageLink" v-if="imageLink" />
       <p class="player-name">
         {{ player.name }}
@@ -24,6 +24,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
+  import axios, { AxiosInstance } from 'axios';
   import { PlayerCardData } from './types';
 
   @Component({
@@ -38,6 +39,14 @@
 
     get points() {
       return this.player.points && parseInt(this.player.points, 10).toLocaleString();
+    }
+
+    private rank: string = '';
+
+    created() {
+      axios.get(`/get/?type=user&uid=${this.player.uid}`).then(response => {
+        this.rank = response.data.data.user.rank;
+      });
     }
 
     get dateCreated() {

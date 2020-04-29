@@ -4,7 +4,7 @@
     <LabRound v-for="round in lab.puzzles" :key="round.round" :round="round" />
     <template #sidebar="{ isInSidebar }">
       <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />
-      <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" />
+      <!-- <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
 </template>

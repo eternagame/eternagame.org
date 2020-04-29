@@ -68,13 +68,13 @@
       },
       learn: {
         'quick-help': '/TBD',
-        guides: 'http://eternawiki.org/wiki/index.php5/Player-Created_Guides',
-        wiki: 'http://eternawiki.org',
+        guides: '/guides',
+        wiki: '/wiki',
       },
       community: {
         leaderboards: '/leaderboards',
-        groups: 'https://eternagame.org/web/group/',
-        wiki: 'http://eternawiki.org',
+        groups: 'community/groups',
+        wiki: '/wiki',
       },
       news: {
         news: '/news',
@@ -82,8 +82,8 @@
       about: {
         overview: '/about',
         publications: '/publications',
-        software: '[software.eternagame.org',
-        donate: 'https://www.gofundme.com/f/fight-covid19-with-eterna',
+        software: 'software.eternagame.org',
+        donate: '/donate',
         terms: '/about/terms',
         'code-of-conduct': '/about/conduct',
       },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <ChatIcon /> -->
+    <ChatIcon style="float:right" />
     <BellIcon style="float:right" />
     <UserIcon style="float:right" />
   </div>

@@ -1,17 +1,14 @@
 <template>
   <EternaPage v-if="pageData" :title="$t('nav-bar:leaderboards')">
     <div class="page-content">
-      <PlayerCard
-        v-for="(player, index) in players"
-        :key="player.uid"
-        :player="player"
-        :index="index"
-      />
+      <PlayerCard v-for="player in players" :key="player.uid" :player="player" />
     </div>
     <template #sidebar="{ isInSidebar }">
+      <SearchPannel :placeholder="$t('search:players')" :isInSidebar="isInSidebar" />
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
     </template>
+    <Pagination />
   </EternaPage>
 </template>
 
@@ -26,23 +23,24 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
+  import Pagination from '@/components/PageLayout/Pagination.vue';
+  import SearchPannel from '@/components/Sidebar/SearchPannel.vue';
   import PlayerCard from './PlayerCard.vue';
   import LeaderBoardData, { PlayerCardData } from './types';
 
   const INITIAL_NUMBER = 18;
 
-  const INCREMENT = 9;
-
-  const ROUTE = '/get/?type=users';
+  const ROUTE = '/get/?type=users&sort=active&skip=0';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
 
     const res = (
-      await http.get(`${ROUTE}&sort=active&skip=0&size=${INITIAL_NUMBER}&rnd=0.3172634245696615`, {
+      await http.get(`${ROUTE}&size=${INITIAL_NUMBER}`, {
         params: {
           order: route.query.sort,
           filters: route.query.filters && (route.query.filters as string).split(','),
+          size: route.query.size || INITIAL_NUMBER,
         },
       })
     ).data.data as LeaderBoardData;
@@ -53,32 +51,16 @@
     components: {
       PlayerCard,
       EternaPage,
+      SearchPannel,
       FiltersPanel,
+      Pagination,
       DropdownSidebarPanel,
       TagsPanel,
     },
   })
   export default class LeaderBoard extends Mixins(PageDataMixin(fetchPageData)) {
-    private numPlayers: number = INITIAL_NUMBER;
-
     get players() {
-      return this.playersFetched.length ? this.playersFetched : get(this.pageData, 'users', []);
-    }
-
-    private playersFetched = [];
-
-    mounted() {
-      window.onscroll = () => {
-        const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight
-          === document.documentElement.offsetHeight;
-
-        if (bottomOfWindow) {
-          this.numPlayers += INCREMENT;
-          axios.get(`${ROUTE}&size=${this.numPlayers}`).then(response => {
-            this.playersFetched = response.data.data.users;
-          });
-        }
-      };
+      return get(this.pageData, 'users', []);
     }
 
     private filters: Filter[] = [

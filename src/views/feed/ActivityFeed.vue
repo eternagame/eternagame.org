@@ -12,6 +12,7 @@
       />
       <TagsPanel :tags="tags" :isInSidebar="isInSidebar" />
     </template>
+    <Pagination />
   </EternaPage>
 </template>
 
@@ -26,12 +27,11 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
+  import Pagination from '@/components/PageLayout/Pagination.vue';
   import ActivityCard from './components/ActivityCard.vue';
   import NewActivity from './components/NewActivity.vue';
 
   const INITIAL_NUMBER = 18;
-
-  const NEWS_INCREMENT = 9;
 
   const ROUTE = '/get/?type=newslist';
 
@@ -42,6 +42,7 @@
         params: {
           order: route.query.sort,
           filters: route.query.filters && (route.query.filters as string).split(','),
+          size: route.query.size || INITIAL_NUMBER,
         },
       })
     ).data.data;
@@ -56,28 +57,12 @@
       TagsPanel,
       ActivityCard,
       NewActivity,
+      Pagination,
     },
   })
   export default class ActivityFeed extends Mixins(PageDataMixin(fetchPageData)) {
-    private numFetched: number = INITIAL_NUMBER;
-
-    private newsFetched = [];
-
     get news() {
-      return this.newsFetched.length ? this.newsFetched : get(this.pageData, 'newslist', []);
-    }
-
-    mounted() {
-      window.onscroll = () => {
-        const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight
-          === document.documentElement.offsetHeight;
-        if (bottomOfWindow) {
-          this.numFetched += NEWS_INCREMENT;
-          axios.get(`${ROUTE}&size=${this.numFetched}`).then(response => {
-            this.newsFetched = response.data.data.newslist;
-          });
-        }
-      };
+      return get(this.pageData, 'newslist', []);
     }
 
     private filters: Filter[] = [

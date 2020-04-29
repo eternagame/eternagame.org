@@ -1,10 +1,6 @@
 <template>
   <div ref="comp">
-    <swiper
-      class="swiper"
-      :options="{ slidesPerView: slidesPerView, ...swiperOption }"
-      :key="slidesPerView"
-    >
+    <swiper class="swiper" :options="swiperOption">
       <slot> </slot>
       <div class="swiper-pagination" slot="pagination"></div>
       <div class="swiper-button prev-elem" slot="button-prev">
@@ -28,29 +24,7 @@
     directives: { swiper: directive },
   })
   export default class Carousel extends Vue {
-    private windowWidth = 1000;
-
     @Prop() private name!: string;
-
-    get getWidth() {
-      return this.windowWidth;
-    }
-
-    get slidesPerView() {
-      if (this.windowWidth <= 576) return 1;
-      if (this.windowWidth < 992) return 3;
-      return 4;
-    }
-
-    mounted() {
-      // @ts-ignore
-      this.windowWidth = this.$refs.comp.clientWidth;
-
-      window.addEventListener('resize', () => {
-        // @ts-ignore
-        this.windowWidth = this.$refs.comp.clientWidth;
-      });
-    }
 
     private swiperOption = {
       spaceBetween: 30,
@@ -59,6 +33,20 @@
         clickable: true,
       },
 
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        576: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+        992: {
+          slidesPerView: 4,
+          spaceBetween: 40,
+        },
+      },
       navigation: {
         nextEl: '.next-elem',
         prevEl: '.prev-elem',

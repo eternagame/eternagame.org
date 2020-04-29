@@ -66,7 +66,12 @@
           {{ $t('terms:section-8-text-paragraph1') }}
         </p>
         <hr class="top-border" />
-        <b-form-checkbox v-model="status" value="accepted" unchecked-value="not_accepted">
+        <b-form-checkbox
+          v-model="status"
+          value="accepted"
+          unchecked-value="not_accepted"
+          @change="toggleAgreement"
+        >
           {{ $t('terms:checkbox-accept') }}
         </b-form-checkbox>
       </div>
@@ -85,6 +90,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
+  import axios from 'axios';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
 
   @Component({
@@ -103,6 +109,12 @@
     ];
 
     private status: boolean = false;
+
+    toggleAgreement(checked: boolean) {
+      axios.post('/post/?type=survey&action=update&value=EULA_Agree').then(response => {
+        console.log(response);
+      });
+    }
 
     get loggedIn() {
       return this.$vxm.user.loggedIn; // TODO change

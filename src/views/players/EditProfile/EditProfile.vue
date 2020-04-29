@@ -1,12 +1,11 @@
 <template>
   <EternaPage v-if="pageData" title="Player Profile">
     <div class="page-content">
-      <PlayerHeader :pageData="user" @submit-data="submit" />
+      <PlayerHeader @submit-data="submit" />
       <hr class="top-border" />
-      <PlayerAboutMe :pageData="user" />
+      <PlayerAboutMe />
       <hr class="top-border" />
       <PlayerEditCredentials
-        :pageData="pageData"
         @set-password="setPassword"
         @set-news="setNews"
         @set-messages="setMessages"
@@ -50,10 +49,6 @@
   import PlayerEditCredentials from './components/PlayerEditCredentials.vue';
   import PlayerData from './types';
 
-  async function fetchPageData(route: Route, http: AxiosInstance) {
-    return (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data as PlayerData;
-  }
-
   @Component({
     components: {
       EternaPage,
@@ -63,9 +58,9 @@
       PlayerEditCredentials,
     },
   })
-  export default class EditProfile extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class EditProfile extends Vue {
     get user() {
-      return this.pageData.user;
+      return this.$vxm.user.userDetails;
     }
 
     submit() {
@@ -87,17 +82,17 @@
     cancel() {
       this.newAboutMeText = '';
       this.newPassword = '';
-      this.privateMessagesNotify = get(this, 'pageData.privateMessageEmailNotifications');
-      this.newNewsPostsNotify = get(this, 'pageData.newNewsPostsEmailNotifications');
+      this.privateMessagesNotify = false;
+      this.newNewsPostsNotify = false;
     }
 
     private newAboutMeText: string = '';
 
     private newPassword: string = '';
 
-    private privateMessagesNotify: boolean = get(this, 'pageData.privateMessageEmailNotifications');
+    private privateMessagesNotify: boolean = false;
 
-    private newNewsPostsNotify: boolean = get(this, 'pageData.newNewsPostsEmailNotifications');
+    private newNewsPostsNotify: boolean = false;
 
     private options: Option[] = [
       { value: 'about', text: 'side-panel-options:about' },

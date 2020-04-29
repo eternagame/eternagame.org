@@ -116,7 +116,8 @@
   "edit-profile:email-news-posts": "New news posts",
   "edit-profile:cancel": "Cancel",
   "code-of-conduct:title": "Code Of Conduct",
-  "code-of-conduct:section1-text": "Respect the Eterna Community</h3> Eterna players come from different countries, age groups, institutions, schools, companies, teaching, online gaming, and scientific communities. As a part of the Eterna community, you are invited to discuss research topics, game experiences, competitions status, lab results, puzzle strategies, ideas, suggestions, and just to socialize! We trust you to be responsible in the community. While playing Eterna, please follow the community guidelines highlighted here. While using the Eterna site and chat:",
+  "code-of-conduct:section1-title": "Respect the Eterna Community",
+  "code-of-conduct:section1-text": "Eterna players come from different countries, age groups, institutions, schools, companies, teaching, online gaming, and scientific communities. As a part of the Eterna community, you are invited to discuss research topics, game experiences, competitions status, lab results, puzzle strategies, ideas, suggestions, and just to socialize! We trust you to be responsible in the community. While playing Eterna, please follow the community guidelines highlighted here. While using the Eterna site and chat:",
   "code-of-conduct:list-item-1": "Please do not display any violent, nude, racial, unsuitable pictures or posts, derogatory language, or links to adult content.",
   "code-of-conduct:list-item-2": "Please do not abuse, harass, or threaten any person",
   "code-of-conduct:list-item-3": "Please do not send spams (unwanted messages) or virus links",
@@ -200,7 +201,7 @@
   "side-panel-options:active": "Active",
   "side-panel-options:inactive": "Inactive",
   "side-panel-options:asc": "Oldest First",
-  "side-panel-options:desc": "Newest First",
+  "side-panel-options:desc": "Most Recent",
   "side-panel-options:all": "All Categories",
   "side-panel-options:announcements": "Announcements",
   "side-panel-options:achievements": "Achievements",
@@ -232,5 +233,13 @@
   "nav-bar:software": "software",
   "nav-bar:donate": "donate",
   "nav-bar:terms": "terms",
-  "nav-bar:code-of-conduct": "code of conduct"
+  "nav-bar:code-of-conduct": "code of conduct",
+  "nav-bar:notifications-title": "Latest Activity",
+  "search:puzzles": "Search Puzzles",
+  "search:players": "Search Players",
+  "search:labs": "Search Labs",
+  "user-dropdown:edit-profile": "Edit Profile",
+  "user-dropdown:logout": "Logout",
+  "lab-puzzle-card:design": "Design",
+  "lab-puzzle-card:review": "Review"
 }

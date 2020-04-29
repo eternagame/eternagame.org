@@ -11,8 +11,12 @@
       <img :src="imageURL" class="image" />
     </div>
     <template #buttons>
-      <b-button href="" variant="primary" size="sm">Design</b-button>
-      <b-button href="" variant="secondary" size="sm">Review</b-button>
+      <b-button :href="puzzleRoute + puzzle.nid" variant="primary" size="sm">{{
+        $t('lab-puzzle-card:design')
+      }}</b-button>
+      <b-button :href="puzzleBrowseRoute + puzzle.nid" variant="secondary" size="sm">{{
+        $t('lab-puzzle-card:review')
+      }}</b-button>
     </template>
   </PuzzleCard>
 </template>
@@ -20,6 +24,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import Utils from '@/utils/utils';
+  import { PUZZLE_ROUTE_PREFIX, PUZZLE_ROUTE_BROWSE_PREFIX } from '@/utils/constants';
   import { PuzzleData } from '../types';
 
   @Component({
@@ -31,6 +36,10 @@
     @Prop() private puzzle!: PuzzleData;
 
     @Prop({ default: '275px' }) private width!: string;
+
+    private puzzleBrowseRoute: string = PUZZLE_ROUTE_BROWSE_PREFIX;
+
+    private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
     get imageURL() {
       return Utils.getPuzzleMiddleThumbnail(this.puzzle.nid);

@@ -39,8 +39,19 @@
 .unread {
   width: 10px;
   height: 10px;
-  background-color: #d73832;
+  background-color: $red;
   border-radius: 10px;
   position: absolute;
   margin-left: 15px;
+}
+
+.local-search {
+  border: solid 1px $med-blue;
+  background-color: #021e46;
+  padding: 8px;
+  width: 254px;
+  font-size: 14px;
+  height: 36px;
+  border-radius: 5px;
+  color: white;
 }

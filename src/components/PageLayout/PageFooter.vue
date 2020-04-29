@@ -53,6 +53,7 @@
         English (US)
       </div>
       <div v-bind:class="{ active: isLanguage('es') }" @click="setLanguage('es')">Español</div>
+      <div v-bind:class="{ active: isLanguage('ar') }" @click="setLanguage('ar')">Arabic</div>
       <div v-bind:class="{ active: isLanguage('zh') }" @click="setLanguage('zh')">中文 (简体)</div>
       <div v-bind:class="{ active: isLanguage('pt') }" @click="setLanguage('pt')">Português</div>
       <div v-bind:class="{ active: isLanguage('hi') }" @click="setLanguage('hi')">हिन्दी</div>

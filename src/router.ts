@@ -97,6 +97,36 @@ export default function createRouter() {
         component: () => import('./views/players/LeaderBoard/LeaderBoard.vue'),
       },
       {
+        path: '/donate',
+        component: () => {
+          window.location.href = 'http://localhost:8080/https:/www.gofundme.com/f/fight-covid19-with-eterna';
+        },
+      },
+      {
+        path: '/community/groups',
+        component: () => {
+          window.location.href = 'https://eternagame.org/web/group/';
+        },
+      },
+      {
+        path: '/wiki',
+        component: () => {
+          window.location.href = 'http://eternawiki.org';
+        },
+      },
+      {
+        path: '/guides',
+        component: () => {
+          window.location.href = 'http://eternawiki.org/wiki/index.php5/Player-Created_Guides';
+        },
+      },
+      {
+        path: '/guides',
+        component: () => {
+          window.location.href = 'http://eternawiki.org';
+        },
+      },
+      {
         path: '/lost',
         name: 'not-found',
         component: () => import('./views/lost/NotFound.vue'),

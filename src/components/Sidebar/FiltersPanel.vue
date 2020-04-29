@@ -40,6 +40,7 @@
     }
 
     async onCheck() {
+      console.log('oncheck');
       await this.$router.replace({ name: this.$route.name!, query: this.getQuery() });
     }
 
@@ -50,6 +51,7 @@
       } else {
         delete query[this.paramName];
       }
+      console.log(query);
       return query;
     }
   }

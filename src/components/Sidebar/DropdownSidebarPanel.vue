@@ -14,7 +14,7 @@
       <hr v-if="index < options.length - 1" class="options-divider" :key="`${value} divider`" />
     </template>
   </div>
-  <b-dropdown :text="options[selectedIndex].text" variant="link" right v-else>
+  <b-dropdown :text="$t(options[selectedIndex].text)" variant="link" right v-else>
     <template v-for="({ text, value }, index) in options">
       <b-dropdown-item
         :to="{ name: $route.name, query: generateQuery(value) }"

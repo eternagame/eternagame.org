@@ -1,20 +1,20 @@
 <template>
   <NavbarIcon>
     <template #icon>
-      <img
-        v-if="notificationsCount"
-        src="@/assets/navbar/DefaultIcon.svg"
-        :alt="$t('nav-bar:notifications')"
-      />
+      <img src="@/assets/navbar/DefaultIcon.svg" :alt="$t('nav-bar:notifications')" />
       {{ username }}
     </template>
     <template #text>
       {{ $t('nav-bar:notifications') }}
     </template>
 
-    <b-dropdown-item>To be implemented</b-dropdown-item>
-    <b-dropdown-item>To be implemented</b-dropdown-item>
-    <b-dropdown-item>To be implemented</b-dropdown-item>
+    <b-dropdown-item>
+      <router-link class="d-flex" to="/account">{{ $t('user-dropdown:edit-profile') }}</router-link>
+    </b-dropdown-item>
+
+    <b-dropdown-item @click="logout">
+      {{ $t('user-dropdown:logout') }}
+    </b-dropdown-item>
   </NavbarIcon>
 </template>
 <script lang="ts">
@@ -26,7 +26,9 @@
     components: { NavbarIcon },
   })
   export default class UserIcon extends Vue {
-    private notificationsCount = [];
+    logout() {
+      this.$vxm.user.logout();
+    }
 
     get username() {
       return this.$vxm.user.username;

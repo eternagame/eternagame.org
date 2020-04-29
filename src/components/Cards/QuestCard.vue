@@ -1,5 +1,10 @@
 <template>
   <AspectRatioCard>
+    <template #header>
+      <div class="quest-card-title" v-if="title">
+        <b>{{ title }}</b>
+      </div>
+    </template>
     <div>
       <img :src="image" style="height: 100%; width: 100%;" />
     </div>
@@ -28,9 +33,12 @@
       AspectRatioCard,
     },
   })
-  export default class VideoCard extends Vue {
+  export default class QuestCard extends Vue {
     @Prop({})
     private image!: string;
+
+    @Prop({})
+    private title!: string;
 
     @Prop({ default: false }) private locked!: false;
 
@@ -56,5 +64,10 @@
 
   .card {
     background-color: $input-bg;
+  }
+
+  .quest-card-title {
+    height: 30px;
+    text-align: center;
   }
 </style>

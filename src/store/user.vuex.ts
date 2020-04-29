@@ -1,7 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { createModule, mutation, action } from 'vuex-class-component';
-import { AxiosInstance } from 'axios';
-import { DEFAULT_LANGUAGE } from '@/plugins/i18n';
+import axios, { AxiosInstance } from 'axios';
 
 const VuexModule = createModule({
   strict: false,
@@ -16,13 +15,19 @@ export default function createUserStore($http: AxiosInstance) {
 
     public loggedIn = false;
 
-    public locale = DEFAULT_LANGUAGE;
+    public hasLabAccess: boolean = false;
+
+    public userDetails: Object = {};
 
     public triedAuthenticating = false;
 
     @mutation showLoginFailedModal({ errorMessage }: { errorMessage: String }) {}
 
     @mutation showResetCompleteModal() {}
+
+    @action() async logout() {
+      this.loggedIn = false;
+    }
 
     @action() async login({ username, password }: { username: string; password: string }) {
       const loginParams = {
@@ -56,6 +61,11 @@ export default function createUserStore($http: AxiosInstance) {
         this.username = username;
         this.uid = Number(uid);
         this.loggedIn = true;
+        const userDataResponse = (await axios.get(`/get/?type=user&uid=${uid}`)).data.data.user;
+        this.hasLabAccess = Boolean(
+          userDataResponse.ten_tools_level >= 8 || userDataResponse.is_lab_member_legacy,
+        );
+        this.userDetails = userDataResponse;
       } else {
         throw new Error(`Authentication response malformed: ${data}`);
         // TODO: is throw the right action?

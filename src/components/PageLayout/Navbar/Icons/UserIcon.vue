@@ -8,8 +8,12 @@
       {{ $t('nav-bar:notifications') }}
     </template>
 
-    <b-dropdown-item>
-      <router-link class="d-flex" to="/account">{{ $t('user-dropdown:edit-profile') }}</router-link>
+    <b-dropdown-item @click="redirect(profile)">
+      {{ $t('user-dropdown:profile') }}
+    </b-dropdown-item>
+
+    <b-dropdown-item @click="redirect('/account')">
+      {{ $t('user-dropdown:edit-profile') }}
     </b-dropdown-item>
 
     <b-dropdown-item @click="logout">
@@ -30,6 +34,12 @@
       this.$vxm.user.logout();
     }
 
+    private profile: string = `/player/${this.$vxm.user.uid}`;
+
+    redirect(path: string) {
+      this.$router.push(path);
+    }
+
     get username() {
       return this.$vxm.user.username;
     }
@@ -38,4 +48,8 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  li a {
+    text-decoration: none;
+  }
 </style>

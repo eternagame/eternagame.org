@@ -6,7 +6,7 @@
       <span class="triangle" :class="{ rotated: !contentVisible }"></span>
     </b-nav-item>
     <b-collapse @input="onToggle" :accordion="accordion" :id="collapseId" class="sublist">
-      <b-nav-item v-for="(to, linkText) in value" :to="to" :key="linkText">
+      <b-nav-item v-for="(to, linkText) in value" @click="redirect(to)" :key="linkText">
         {{ $t('nav-bar:' + linkText) }}
       </b-nav-item>
       <div class="mb-1"></div>
@@ -33,6 +33,10 @@
     private index!: number;
 
     contentVisible = false;
+
+    redirect(path: string) {
+      this.$router.push(path);
+    }
 
     get collapseId() {
       return `${this.accordion}-${this.index}`;

@@ -1,5 +1,5 @@
 <template>
-  <EternaPage v-if="pageData" title="Player Profile">
+  <EternaPage title="Player Profile">
     <div class="page-content">
       <PlayerHeader @submit-data="submit" />
       <hr class="top-border" />

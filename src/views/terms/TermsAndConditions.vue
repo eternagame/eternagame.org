@@ -66,14 +66,6 @@
           {{ $t('terms:section-8-text-paragraph1') }}
         </p>
         <hr class="top-border" />
-        <b-form-checkbox
-          v-model="status"
-          value="accepted"
-          unchecked-value="not_accepted"
-          @change="toggleAgreement"
-        >
-          {{ $t('terms:checkbox-accept') }}
-        </b-form-checkbox>
       </div>
       <template #sidebar="{ isInSidebar }">
         <DropdownSidebarPanel
@@ -109,12 +101,6 @@
     ];
 
     private status: boolean = false;
-
-    toggleAgreement(checked: boolean) {
-      axios.post('/post/?type=survey&action=update&value=EULA_Agree').then(response => {
-        console.log(response);
-      });
-    }
 
     get loggedIn() {
       return this.$vxm.user.loggedIn; // TODO change

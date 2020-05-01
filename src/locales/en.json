@@ -238,8 +238,11 @@
   "search:puzzles": "Search Puzzles",
   "search:players": "Search Players",
   "search:labs": "Search Labs",
-  "user-dropdown:edit-profile": "Edit Profile",
+  "search:news": "Search News",
+  "user-dropdown:profile": "Profile",
+  "user-dropdown:edit-profile": "Account Settings",
   "user-dropdown:logout": "Logout",
   "lab-puzzle-card:design": "Design",
-  "lab-puzzle-card:review": "Review"
+  "lab-puzzle-card:review": "Review",
+  "lab-round:accepting-submissions": "Accepting Submissions"
 }

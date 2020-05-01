@@ -30,7 +30,7 @@
 
   const INITIAL_NUMBER = 18;
 
-  const ROUTE = '/get/?type=users&sort=active&skip=0';
+  const ROUTE = 'https://eternagame.org/get/?type=users&sort=active';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
@@ -41,6 +41,7 @@
           order: route.query.sort,
           filters: route.query.filters && (route.query.filters as string).split(','),
           size: route.query.size || INITIAL_NUMBER,
+          search: route.query.search,
         },
       })
     ).data.data as LeaderBoardData;

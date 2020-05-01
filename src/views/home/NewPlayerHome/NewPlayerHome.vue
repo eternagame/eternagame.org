@@ -38,7 +38,7 @@
     <img v-if="progress" :src="progress" style="margin: 0 auto;display: block;" />
     <Carousel>
       <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
-        <QuestCard :key="item.nid" :nid="item.nid" v-bind="item" :progress="item.to_next" />
+        <QuestCard :key="item.title" v-bind="item" :progress="item.to_next" />
       </swiper-slide>
     </Carousel>
   </EternaPage>

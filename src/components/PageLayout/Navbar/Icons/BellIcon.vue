@@ -46,7 +46,7 @@
 
   Vue.use(VueDOMPurifyHTML);
 
-  const NM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user';
+  const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user';
 
   const NEWS_FEED_ROUTE = '/get/?type=newsfeed&filter=all';
 
@@ -73,7 +73,7 @@
     }
 
     mounted() {
-      axios.get(NM_NOTIFICATIONS_ROUTE).then(response => {
+      axios.get(NUM_NOTIFICATIONS_ROUTE).then(response => {
         this.notificationsCount = response.data.data.noti_count;
       });
       const fetchData = async () => {

@@ -1,51 +1,40 @@
 <template>
-  <div @click="goToPuzzle">
-    <AspectRatioCard :aspectRatio="aspectRatio" :id="`popover-target-${nid}`" class="card">
-      <template #header>
-        <div class="puzzle-card-title" v-if="title">
-          <b>{{ title }}</b>
-        </div>
-      </template>
-      <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable" />
-      <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
-      <template #footer>
-        <b-row class="mb-2">
-          <b-col cols="4" class="left-col" v-if="reward">
-            <slot name="left-icon">
-              <img src="@/assets/dollar.svg" alt="reward slots" class="icon" />
-            </slot>
-            {{ reward }}
-          </b-col>
-          <b-col cols="4" class="text-center" v-if="states">
-            <StateCounter :value="states" />
-          </b-col>
-          <b-col cols="4" class="right-col" v-if="numCleared">
-            <slot name="right-icon">
-              <img src="@/assets/people.svg" alt="submissions" class="icon" />
-            </slot>
-            {{ numCleared }}
-          </b-col>
-        </b-row>
-        <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
-          <slot name="buttons" />
-        </div>
-      </template>
-    </AspectRatioCard>
-    <b-popover
-      v-if="!title"
-      :target="`popover-target-${nid}`"
-      placement="bottom"
-      style="width: 214.2px; height: 110.2px;"
-    >
-      <p style="font-size: 20px;">RNA Slicer</p>
-      <b-button
-        type="button"
-        class="btn-success"
-        style="width: 152px; height: 40px; margin: 8px 0px;"
-        >Play</b-button
-      >
-    </b-popover>
-  </div>
+  <AspectRatioCard
+    :aspectRatio="aspectRatio"
+    @click="goToPuzzle"
+    :id="`popover-target-${nid}`"
+    class="card"
+  >
+    <template #header>
+      <div class="puzzle-card-title" v-if="title">
+        <b>{{ title }}</b>
+      </div>
+    </template>
+    <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable" />
+    <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
+    <template #footer>
+      <b-row class="mb-2">
+        <b-col cols="4" class="left-col" v-if="reward">
+          <slot name="left-icon">
+            <img src="@/assets/dollar.svg" alt="reward slots" class="icon" />
+          </slot>
+          {{ reward }}
+        </b-col>
+        <b-col cols="4" class="text-center" v-if="states">
+          <StateCounter :value="states" />
+        </b-col>
+        <b-col cols="4" class="right-col" v-if="numCleared">
+          <slot name="right-icon">
+            <img src="@/assets/people.svg" alt="submissions" class="icon" />
+          </slot>
+          {{ numCleared }}
+        </b-col>
+      </b-row>
+      <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
+        <slot name="buttons" />
+      </div>
+    </template>
+  </AspectRatioCard>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';

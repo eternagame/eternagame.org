@@ -38,7 +38,7 @@
     <img v-if="progress" :src="progress" style="margin: 0 auto;display: block;" />
     <Carousel>
       <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
-        <QuestCard :key="item.title" v-bind="item" :progress="item.to_next" />
+        <QuestCard :key="item.title" v-bind="item" />
       </swiper-slide>
     </Carousel>
   </EternaPage>
@@ -75,11 +75,6 @@
     PROGRESS_IMAGE_6,
   ];
 
-  async function fetchPageData(route: Route, http: AxiosInstance) {
-    const res = (await http.get('/get/?type=me')).data.data;
-    return res as HomeData;
-  }
-
   @Component({
     components: {
       EternaPage,
@@ -89,8 +84,8 @@
       QuestCard,
     },
   })
-  export default class NewPlayerView extends Mixins(PageDataMixin(fetchPageData)) {
-    @Prop({}) data!: Object;
+  export default class NewPlayerView extends Vue {
+    @Prop({}) pageData!: HomeData;
 
     get bannerImageStyle() {
       return `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)), url(${BANNER_IMAGE})`;
@@ -110,12 +105,6 @@
         this.pageData.achievement_roadmap
         && PROGRESS_IMAGES[this.pageData.achievement_roadmap[0].current_level]
       );
-    }
-
-    get pageData(): HomeData {
-      return {
-        ...this.data,
-      };
     }
   }
 </script>

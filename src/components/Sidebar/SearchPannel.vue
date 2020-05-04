@@ -13,6 +13,8 @@
   import { mixins } from 'vue-class-component';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
+  // @ts-ignore
+  import get from 'lodash.get';
 
   import icon from '@/assets/Filter.svg';
 
@@ -31,10 +33,10 @@
       return this.search || this.$route.query.search;
     }
 
-    onSearch(event) {
+    onSearch(event: KeyboardEvent) {
       this.$router.replace({
         name: this.$route.name!,
-        query: { ...this.$route.query, search: event.target.value },
+        query: { ...this.$route.query, search: get(event, 'target.value') },
       });
     }
   }

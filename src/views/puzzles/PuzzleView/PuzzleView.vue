@@ -23,20 +23,6 @@
           <div v-dompurify-html="puzzle.body" />
         </div>
       </div>
-
-      <hr class="top-border" />
-
-      <h2>{{ $t('nav-bar:quests') }}</h2>
-      <p>{{ $t('puzzle-view:quests-info') }}</p>
-      <div>
-        <img
-          v-for="questImage in puzzle.quests"
-          :key="questImage"
-          :src="questImage"
-          alt="quest"
-          class="quest-image"
-        />
-      </div>
     </div>
 
     <template #sidebar="{ isInSidebar }">
@@ -113,7 +99,7 @@
     }
 
     get imageURL() {
-      return Utils.getPuzzleMiddleThumbnail(get(this.pageData, 'nid'));
+      return Utils.getPuzzleMiddleThumbnail(get(this.pageData, 'nid', ''));
     }
   }
 </script>

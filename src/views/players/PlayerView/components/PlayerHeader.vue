@@ -1,21 +1,21 @@
 <template
-  ><div>
+  ><div v-if="user">
     <div class="d-flex">
-      <PlayerHeaderImage :pageData="pageData" />
+      <PlayerHeaderImage :user="user" />
       <div class="player-details">
-        <PlayerHeaderTopRow :pageData="pageData" />
+        <PlayerHeaderTopRow :user="user" :follows="follows" />
         <div class="d-none d-sm-block">
           <div class="d-flex justify-content-between">
-            <PlayerHeaderRank :pageData="pageData" />
-            <PlayerHeaderIcons :pageData="pageData" />
+            <PlayerHeaderRank :user="user" />
+            <PlayerHeaderIcons :user="user" />
           </div>
         </div>
       </div>
     </div>
     <div class="d-block d-sm-none">
       <div class="d-flex flex-wrap justify-content-between">
-        <PlayerHeaderRank :pageData="pageData" />
-        <PlayerHeaderIcons :pageData="pageData" />
+        <PlayerHeaderRank :user="user" />
+        <PlayerHeaderIcons :user="user" />
       </div>
     </div>
   </div>
@@ -32,7 +32,9 @@
     components: { PlayerHeaderImage, PlayerHeaderRank, PlayerHeaderIcons, PlayerHeaderTopRow },
   })
   export default class PlayerHeader extends Vue {
-    @Prop({ required: true }) pageData!: object;
+    @Prop() user!: object;
+
+    @Prop() follows!: object;
   }
 </script>
 

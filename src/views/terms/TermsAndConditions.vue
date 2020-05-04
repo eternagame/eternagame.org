@@ -2,7 +2,7 @@
   <div>
     <EternaPage
       :title="$t('terms:title')"
-      :header_title="$t('terms:title-short')"
+      :header_title="$t('terms:title-short').toUpperCase()"
       :header_date="$t('terms:header-date')"
     >
       <div class="page-content">
@@ -84,11 +84,12 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import axios from 'axios';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
-
+  import TermsAndConditionsText from './TermsAndConditionsText.vue';
   @Component({
     components: {
       EternaPage,
       DropdownSidebarPanel,
+      TermsAndConditionsText,
     },
   })
   export default class TermsAndConditions extends Vue {
@@ -99,12 +100,6 @@
       { value: 'terms', text: 'side-panel-options:terms' },
       { value: 'code_conduct', text: 'side-panel-options:code_conduct' },
     ];
-
-    private status: boolean = false;
-
-    get loggedIn() {
-      return this.$vxm.user.loggedIn; // TODO change
-    }
   }
 </script>
 <style lang="scss" scoped>

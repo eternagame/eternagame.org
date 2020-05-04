@@ -1,11 +1,11 @@
 <template>
-  <EternaPage title="Player Profile">
+  <EternaPage :title="`${$t('Edit Profile')} ${user.name}`">
     <div class="page-content">
-      <PlayerHeader @submit-data="submit" />
+      <EditPlayerHeader @submit-data="submit" />
       <hr class="top-border" />
-      <PlayerAboutMe />
+      <EditPlayerAboutMe @set-profile="setProfile" @set-section="setSection" />
       <hr class="top-border" />
-      <PlayerEditCredentials
+      <EditPlayerCredentials
         @set-password="setPassword"
         @set-news="setNews"
         @set-messages="setMessages"
@@ -38,24 +38,29 @@
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import axios, { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
+  import Notifications from 'vue-notification';
   // @ts-ignore
   import get from 'lodash.get';
-  import PlayerHeader from './components/PlayerHeader.vue';
-  import PlayerAboutMe from './components/PlayerAboutMe.vue';
-  import PlayerEditCredentials from './components/PlayerEditCredentials.vue';
-  import PlayerData from './types';
+  import EditPlayerHeader from './components/EditPlayerHeader.vue';
+  import EditPlayerAboutMe from './components/EditPlayerAboutMe.vue';
+  import EditPlayerCredentials from './components/EditPlayerCredentials.vue';
+  import { Section } from './types';
+
+  const EDIT_PROFILE = '/login/?type=edit';
+
+  Vue.use(Notifications);
 
   @Component({
     components: {
       EternaPage,
       DropdownSidebarPanel,
-      PlayerHeader,
-      PlayerAboutMe,
-      PlayerEditCredentials,
+      EditPlayerHeader,
+      EditPlayerAboutMe,
+      EditPlayerCredentials,
     },
   })
   export default class EditProfile extends Vue {
@@ -64,11 +69,28 @@
     }
 
     submit() {
-      alert('submitting');
+      const data: object = {};
+      if (this.newPassword) data.pass = this.newPassword as string;
+      if (this.privateMessagesNotify) data.profile_mail_notification = this.privateMessagesNotify;
+      if (this.newNewsPostsNotify) data.profile_blog_mail_notification = this.newNewsPostsNotify;
+      if (this.profile) data.profile_profile = this.profile;
+
+      axios
+        .post(EDIT_PROFILE, data)
+        .then(() => window.location.reload())
+        .catch(error => this.$notify({
+          title: 'Error',
+          text: get(error, 'message'),
+        }));
     }
 
     setPassword(password: string) {
       this.newPassword = password;
+    }
+
+    setSection(section: Section) {
+      this.sectionTitle = section.title;
+      this.sectionText = section.text;
     }
 
     setNews(notify: boolean) {
@@ -79,6 +101,10 @@
       this.privateMessagesNotify = notify;
     }
 
+    setProfile(text: string) {
+      this.profile = text;
+    }
+
     cancel() {
       this.newAboutMeText = '';
       this.newPassword = '';
@@ -87,6 +113,12 @@
     }
 
     private newAboutMeText: string = '';
+
+    private profile: string = '';
+
+    private sectionTitle: string = '';
+
+    private sectionText: string = '';
 
     private newPassword: string = '';
 

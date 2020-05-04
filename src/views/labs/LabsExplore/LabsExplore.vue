@@ -35,7 +35,7 @@
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
     const res = (
-      await http.get('/get/?type=get_labs_for_lab_cards&size=18&skip=0', {
+      await http.get('/get/?type=get_labs_for_lab_cards', {
         params: {
           order: route.query.sort,
           filters: route.query.filters && (route.query.filters as string).split(','),

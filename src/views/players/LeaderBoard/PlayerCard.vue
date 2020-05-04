@@ -25,7 +25,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
   import axios, { AxiosInstance } from 'axios';
-  import { PlayerCardData } from './types';
+  import { UserData } from '@/types/common-types';
 
   @Component({
     components: {
@@ -33,7 +33,7 @@
     },
   })
   export default class PlayerCard extends Vue {
-    @Prop() private player!: PlayerCardData;
+    @Prop() private player!: UserData;
 
     @Prop() private index!: number;
 

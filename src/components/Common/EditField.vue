@@ -61,24 +61,31 @@
   export default class EditField extends Vue {
     @Prop({ default: 'Type here...' }) private content!: string;
 
-    private editor = new Editor({
-      content: this.content,
-      extensions: [
-        new HardBreak(),
-        new HardBreak(),
-        new Heading({ levels: [1, 2, 3] }),
-        new BulletList(),
-        new OrderedList(),
-        new ListItem(),
-        new Bold(),
-        new Code(),
-        new Italic(),
-        new Link(),
-        new Strike(),
-        new Underline(),
-        new History(),
-      ],
-    });
+    get editor() {
+      const parent = this;
+      return new Editor({
+        content: this.content,
+        onUpdate: ({ getHTML }) => {
+          console.log(parent);
+          parent.$emit('input', getHTML());
+        },
+        extensions: [
+          new HardBreak(),
+          new HardBreak(),
+          new Heading({ levels: [1, 2, 3] }),
+          new BulletList(),
+          new OrderedList(),
+          new ListItem(),
+          new Bold(),
+          new Code(),
+          new Italic(),
+          new Link(),
+          new Strike(),
+          new Underline(),
+          new History(),
+        ],
+      });
+    }
 
     private beforeDestroy() {
       this.editor.destroy();
@@ -112,15 +119,9 @@
     border-style: solid;
     border-width: 1px;
   }
-  /* *:focus {
-      outline: none;
-  }  */
+
   .ProseMirror {
     text-align: initial;
-
-    &:focus {
-      /*outline: none;*/
-    }
   }
 
   .editor {

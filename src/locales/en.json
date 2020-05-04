@@ -130,7 +130,7 @@
   "code-of-conduct:text5": "Thanks for reading and understanding the guidelines!",
   "code-of-conduct:text6": "The Eterna Team.",
   "terms:title": "Eterna End User License Agreement (EULA)",
-  "terms:title-short": "TERMS & CONDITIONS",
+  "terms:title-short": "Terms and Conditions",
   "terms:header-date": "Last updated: Sept 9, 2018",
   "terms:section-1-title": "This is an agreement between you and Eterna.",
   "terms:section-1-text": "Eterna is a place where professional scientists and non-professional scientists come together to play puzzles and research RNA. By joining the Eterna community, you’re helping to study one of the building blocks of life and to create new RNA-based technologies.",
@@ -244,5 +244,10 @@
   "user-dropdown:logout": "Logout",
   "lab-puzzle-card:design": "Design",
   "lab-puzzle-card:review": "Review",
-  "lab-round:accepting-submissions": "Accepting Submissions"
+  "lab-round:accepting-submissions": "Accepting Submissions",
+  "edit-profile:custom-section-title": "Custom Section",
+  "edit-profile:title": "Edit Profile",
+  "terms-modal:submit": "Submit",
+  "terms-modal:accept": "I accept the terms of this License Agreement.",
+  "terms-modal:eula": "Eterna End User License Agreement (EULA)"
 }

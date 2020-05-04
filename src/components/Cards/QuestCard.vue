@@ -13,13 +13,13 @@
         <div style="text-align:center; margin-bottom:0px">
           <img src="@/assets/noun_lock.svg" v-if="locked" />
 
-          <p v-if="progress === 'COMPLETED'">
+          <p v-if="completed">
             <img src="@/assets/noun_check.svg" /><b>{{ `completed!`.toUpperCase() }}</b>
           </p>
-          <b-button type="submit" variant="primary" v-else-if="progress === 'NOT_STARTED'">{{
+          <b-button type="submit" variant="primary" v-else-if="notStarted">{{
             $t('quest-card:play')
           }}</b-button>
-          <b-progress v-else :value="progress"></b-progress>
+          <b-progress v-else :value="to_next"></b-progress>
         </div>
       </template>
     </AspectRatioCard>
@@ -43,7 +43,7 @@
     private image!: string;
 
     @Prop({})
-    private current_puzzle!: string;
+    private to_next!: number;
 
     @Prop({})
     private title!: string;
@@ -51,12 +51,17 @@
     @Prop({})
     private desc!: string;
 
-    @Prop({ default: false }) private locked!: false;
+    @Prop({})
+    private level!: string;
 
-    @Prop({
-      default: 50,
-    })
-    private progress!: number | string;
+    @Prop({})
+    private current_level!: string;
+
+    private locked = Number(this.level) - 1 > Number(this.current_level);
+
+    private notStarted = this.to_next === 0 && !this.locked;
+
+    private completed = this.to_next >= 1 && !this.locked;
 
     private popoverId: string = `popover-target-${this.title}`;
   }

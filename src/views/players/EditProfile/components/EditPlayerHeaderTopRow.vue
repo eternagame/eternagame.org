@@ -13,8 +13,6 @@
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   @Component({})
   export default class PlayerHeaderTopRow extends Vue {
-    @Prop({ required: true }) pageData!: object;
-
     submit() {
       this.$emit('submit-data');
     }

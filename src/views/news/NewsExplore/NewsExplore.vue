@@ -83,7 +83,7 @@
       { value: 'notcleared', text: 'Uncleared' },
     ];
 
-    // private tags: String[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
+    private tags: string[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
 
     private options: Option[] = [
       { value: 'all', text: 'side-panel-options:all' },

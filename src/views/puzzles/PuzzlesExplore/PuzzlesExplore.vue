@@ -87,6 +87,6 @@
       { value: 'notcleared', text: 'Uncleared' },
     ];
 
-    private tags: String[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
+    // private tags: string[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
   }
 </script>

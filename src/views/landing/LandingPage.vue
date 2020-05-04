@@ -1,5 +1,5 @@
 <template>
-  <PlayerHome :data="pageData" v-if="loggedIn" />
+  <PlayerHome :pageData="pageData" v-if="loggedIn" />
   <div class="page" v-else>
     <VideoSection />
     <DocsSection />
@@ -9,19 +9,18 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
-  import PlayerHome from '@/views/home/PlayerHome.vue';
   import PageDataMixin from '@/mixins/PageData';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
+  import PlayerHome from './PlayerHome.vue';
   import DocsSection from './components/DocsSection.vue';
   import VideoSection from './components/VideoSection.vue';
-  import UserData from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const me = (await http.get('/get/?type=me')).data.data;
     const roadmap = (await http.get('/get/?type=side_project_roadmap')).data.data;
     const res = { ...me, ...roadmap };
-    return res as UserData;
+    return res;
   }
 
   @Component({

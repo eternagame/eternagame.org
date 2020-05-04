@@ -11,18 +11,19 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
-  import PlayerData from '../types';
+  import { UserData } from '@/types/common-types';
 
   @Component({
     components: {},
   })
   export default class PlayerHeaderImage extends Vue {
-    get picture() {
-      console.log(`${process.env.VUE_APP_API_BASE_URL}/${this.pageData.picture}`);
-      return `${process.env.VUE_APP_API_BASE_URL}/${this.pageData.picture}`;
+    get user() {
+      return this.$vxm.user.userDetails;
     }
 
-    @Prop({ required: true }) pageData!: PlayerData;
+    get picture() {
+      return `${process.env.VUE_APP_API_BASE_URL}/${this.user.picture}`;
+    }
   }
 </script>
 

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <img src="@/assets/dollar.svg" class="icon" /> {{ pageData.points }}
-    <img src="@/assets/test-tube.svg" class="icon" /> {{ pageData.ten_tools_puzzle_count }}
-    <img src="@/assets/calendar.svg" class="icon" /> {{ pageData.created }}
+    <img src="@/assets/dollar.svg" class="icon" /> {{ user.points }}
+    <img src="@/assets/test-tube.svg" class="icon" /> {{ user.ten_tools_puzzle_count }}
+    <img src="@/assets/calendar.svg" class="icon" /> {{ user.created }}
   </div>
 </template>
 
@@ -10,7 +10,7 @@
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   @Component({})
   export default class PlayerHeaderIcons extends Vue {
-    @Prop({ required: true }) pageData!: object;
+    @Prop() user!: object;
   }
 </script>
 

@@ -3,8 +3,8 @@
     <div class="row">
       <div class="col-md-8">
         <h4 class="about-me">{{ $t('player-view:about-me') }}</h4>
-        <EditField :content="pageData.Profile" />
-        <PlayerNewSection v-show="addingSection" :pageData="pageData" />
+        <EditField :content="user.Profile" @input="setProfile" />
+        <EditPlayerNewSection v-show="addingSection" @set-section="setSection" />
         <b-button
           style="margin-top:19px;"
           @click="addingSection = !addingSection"
@@ -14,7 +14,7 @@
         >
       </div>
       <div class="col-md-4">
-        <PlayerFeaturedAchievement :pageData="pageData" />
+        <EditPlayerFeaturedAchievement />
       </div>
     </div>
   </div>
@@ -24,17 +24,27 @@
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
-  import PlayerFeaturedAchievement from './PlayerFeaturedAchievement.vue';
-  import PlayerNewSection from './PlayerNewSection.vue';
-  import PlayerData from '../types';
+  import { UserData } from '@/types/common-types';
+  import EditPlayerFeaturedAchievement from './EditPlayerFeaturedAchievement.vue';
+  import EditPlayerNewSection from './EditPlayerNewSection.vue';
 
   Vue.use(VueDOMPurifyHTML);
 
   @Component({
-    components: { PlayerFeaturedAchievement, EditField, PlayerNewSection },
+    components: { EditPlayerFeaturedAchievement, EditField, EditPlayerNewSection },
   })
   export default class PlayerAboutMe extends Vue {
-    @Prop({ required: true }) pageData!: PlayerData;
+    get user() {
+      return this.$vxm.user.userDetails;
+    }
+
+    setProfile(text: string) {
+      this.$emit('set-profile', text);
+    }
+
+    setSection(section: object) {
+      this.$emit('set-section', section);
+    }
 
     private addingSection: boolean = false;
   }

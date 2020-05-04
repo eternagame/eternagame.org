@@ -1,8 +1,8 @@
 <template>
-  <div class="d-none d-sm-block">
+  <div class="d-none d-sm-block" v-if="user.featuredAchievement">
     <b class="d-flex justify-content-center">{{ $t('player-view:featured-achievement') }}</b>
     <div class="d-flex justify-content-center" style="margin-top:15px">
-      <img :src="pageData.featuredAchievement" />
+      <img :src="user.featuredAchievement" />
     </div>
     <div class="d-flex justify-content-center" style="margin-top:23px">
       <b-button type="submit" variant="secondary">{{
@@ -19,7 +19,9 @@
     components: {},
   })
   export default class PlayerFeaturedAchievement extends Vue {
-    @Prop({ required: true }) pageData!: object;
+    get user() {
+      return this.$vxm.user.userDetails;
+    }
   }
 </script>
 

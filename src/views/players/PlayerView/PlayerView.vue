@@ -1,11 +1,11 @@
 <template>
   <EternaPage v-if="pageData" :title="$t('player-view:title')">
     <div class="page-content">
-      <PlayerHeader :pageData="user" />
+      <PlayerHeader :user="pageData.user" :follows="pageData.follows" />
 
       <hr class="top-border" />
 
-      <PlayerAboutMe :pageData="user" />
+      <PlayerAboutMe :user="pageData.user" />
     </div>
 
     <template #sidebar="{ isInSidebar }">
@@ -26,13 +26,12 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
+  import { UsersData } from '../types';
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
-  import PlayerData from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    const res = (await http.get(`/get/?type=user&uid=${route.params.uid}&lab_type=synthesized`))
-      .data.data as PlayerData;
+    const res = (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data as UsersData;
     return res;
   }
 
@@ -45,10 +44,6 @@
     },
   })
   export default class PlayerView extends Mixins(PageDataMixin(fetchPageData)) {
-    get user() {
-      return this.pageData.user;
-    }
-
     private options: Option[] = [
       { value: 'about', text: 'side-panel-options:about' },
       { value: 'achievements', text: 'side-panel-options:achievements' },

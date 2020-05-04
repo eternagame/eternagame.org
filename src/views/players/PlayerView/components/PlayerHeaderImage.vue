@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex">
+  <div class="d-flex" v-if="user">
     <img class="d-block d-sm-none rounded-circle player-image" :src="picture" alt="player-image" />
     <img
       class="d-none d-sm-block rounded-circle player-image-large"
@@ -11,18 +11,17 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
-  import PlayerData from '../types';
+  import { UserData } from '@/types/common-types';
 
   @Component({
     components: {},
   })
   export default class PlayerHeaderImage extends Vue {
     get picture() {
-      console.log(`${process.env.VUE_APP_API_BASE_URL}/${this.pageData.picture}`);
-      return `${process.env.VUE_APP_API_BASE_URL}/${this.pageData.picture}`;
+      return `${process.env.VUE_APP_API_BASE_URL}/${this.user.picture}`;
     }
 
-    @Prop({ required: true }) pageData!: PlayerData;
+    @Prop() user!: UserData;
   }
 </script>
 

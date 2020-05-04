@@ -1,6 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { createModule, mutation, action } from 'vuex-class-component';
 import axios, { AxiosInstance } from 'axios';
+// @ts-ignore
+import get from 'lodash.get';
 
 const VuexModule = createModule({
   strict: false,
@@ -20,6 +22,8 @@ export default function createUserStore($http: AxiosInstance) {
     public userDetails: Object = {};
 
     public triedAuthenticating = false;
+
+    public promptSignAgreement = false;
 
     @mutation showLoginFailedModal({ errorMessage }: { errorMessage: String }) {}
 
@@ -63,7 +67,8 @@ export default function createUserStore($http: AxiosInstance) {
         this.loggedIn = true;
         const userDataResponse = (await axios.get(`/get/?type=user&uid=${uid}`)).data.data.user;
         this.hasLabAccess = Boolean(
-          userDataResponse.ten_tools_level >= 8 || userDataResponse.is_lab_member_legacy,
+          Number(userDataResponse.ten_tools_level) >= 8
+            || Number(userDataResponse.is_lab_member_legacy),
         );
         this.userDetails = userDataResponse;
       } else {

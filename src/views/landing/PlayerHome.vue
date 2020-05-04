@@ -1,6 +1,6 @@
 <template>
-  <ExperiencedPlayerHome v-if="hasLabAccess" :data="data" />
-  <NewPlayerHome v-else :data="data" />
+  <ExperiencedPlayerHome v-if="hasLabAccess" :pageData="pageData" />
+  <NewPlayerHome v-else :pageData="pageData" />
 </template>
 
 <script lang="ts">
@@ -18,7 +18,7 @@
     },
   })
   export default class PlayerHome extends Vue {
-    @Prop({}) data!: Object;
+    @Prop({}) pageData!: Object;
 
     get hasLabAccess() {
       return this.$vxm.user.hasLabAccess;

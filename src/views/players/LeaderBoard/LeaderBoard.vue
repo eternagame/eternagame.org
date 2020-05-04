@@ -26,7 +26,6 @@
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import SearchPannel from '@/components/Sidebar/SearchPannel.vue';
   import PlayerCard from './PlayerCard.vue';
-  import LeaderBoardData, { PlayerCardData } from './types';
 
   const INITIAL_NUMBER = 18;
 
@@ -44,7 +43,7 @@
           search: route.query.search,
         },
       })
-    ).data.data as LeaderBoardData;
+    ).data.data;
     return res;
   }
 
@@ -75,6 +74,6 @@
       { value: 'notcleared', text: 'Uncleared' },
     ];
 
-    private tags: String[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
+    private tags: string[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
   }
 </script>

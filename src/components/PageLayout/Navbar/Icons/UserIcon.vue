@@ -9,15 +9,15 @@
     </template>
 
     <b-dropdown-item @click="redirect(profile)">
-      {{ $t('user-dropdown:profile') }}
+      {{ $t('user-dropdown:profile').toUpperCase() }}
     </b-dropdown-item>
 
     <b-dropdown-item @click="redirect('/account')">
-      {{ $t('user-dropdown:edit-profile') }}
+      {{ $t('user-dropdown:edit-profile').toUpperCase() }}
     </b-dropdown-item>
 
     <b-dropdown-item @click="logout">
-      {{ $t('user-dropdown:logout') }}
+      {{ $t('user-dropdown:logout').toUpperCase() }}
     </b-dropdown-item>
   </NavbarIcon>
 </template>
@@ -49,7 +49,7 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  li a {
-    text-decoration: none;
+  ::v-deep .dropdown .nav-link {
+    background-color: $dark-blue;
   }
 </style>

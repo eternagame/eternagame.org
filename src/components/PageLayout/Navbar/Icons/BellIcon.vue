@@ -37,11 +37,14 @@
   </NavbarIcon>
 </template>
 <script lang="ts">
+  // @ts-ignore
+  import get from 'lodash.get';
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import axios, { AxiosInstance } from 'axios';
   import PageDataMixin from '@/mixins/PageData';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
+  import { NewsItem } from '@/types/common-types';
   import NavbarIcon from './NavbarIcon.vue';
 
   Vue.use(VueDOMPurifyHTML);
@@ -64,12 +67,12 @@
   export default class PlayerIcon extends Vue {
     private notificationsCount = [];
 
-    private notifications = [];
+    private notifications: Array<NewsItem> = [];
 
     private notificationsToShow = NUMBER_NOTIFICATIONS_TO_SHOW;
 
     shown() {
-      axios.get(NOTIFICATIONS_READ);
+      axios.post(NOTIFICATIONS_READ);
     }
 
     mounted() {
@@ -86,20 +89,25 @@
           notifications && notifications,
         ]
           .flat()
-          .filter(article => !!article);
-        this.notifications = await Promise.all(
-          articles.map(async article => {
-            if (!article.uid) return article;
+          .filter(article => !!article) as Array<NewsItem>;
+
+        const articlesWithUserInfo = (await Promise.all(
+          articles.slice(0, NUMBER_NOTIFICATIONS_TO_SHOW).map(async article => {
             const { user } = (await axios.get(USER_ROUTE + article.uid)).data.data;
-            if (!user) return article;
-            return {
-              ...article,
-              name: user.name,
-              img: user.picture,
-              display: `${user.name} published a news post: <b>${article.title}</b>`,
-            };
+            return user
+              ? {
+                  ...article,
+                  name: user.name,
+                  img: user.picture,
+                }
+              : article;
           }),
-        );
+        )) as Array<NewsItem>;
+
+        this.notifications = articlesWithUserInfo.map(article => ({
+          ...article,
+          display: `${get(article, 'user.name')} published a news post: <b>${article.title}</b>`,
+        }));
       };
       fetchData();
     }

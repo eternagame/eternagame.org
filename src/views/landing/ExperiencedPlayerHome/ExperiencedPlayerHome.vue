@@ -4,28 +4,28 @@
       class="video"
       :style="{
         backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)),url('${
-          pageData[`banner-image`]
+          progressData[`banner-image`]
         }')`,
       }"
     >
       <div style="float:right" class="d-flex">
         <Progress
-          :progress="pageData.progressCircles[0].number"
-          :total="pageData.progressCircles[0].total"
-          :name="pageData.progressCircles[0].name"
+          :progress="progressData.progressCircles[0].number"
+          :total="progressData.progressCircles[0].total"
+          :name="progressData.progressCircles[0].name"
           color="#2f94d1"
         />
         <Progress
-          :progress="pageData.progressCircles[1].number"
-          :total="pageData.progressCircles[1].total"
-          :name="pageData.progressCircles[1].name"
+          :progress="progressData.progressCircles[1].number"
+          :total="progressData.progressCircles[1].total"
+          :name="progressData.progressCircles[1].name"
           color="#fac244"
         />
       </div>
-      <p style="font-size: 42px; font-weight: bold;">{{ pageData[`banner-title`] }}</p>
+      <p style="font-size: 42px; font-weight: bold;">{{ progressData[`banner-title`] }}</p>
 
       <p>
-        {{ pageData[`banner-sub-title`].toUpperCase() }}
+        {{ progressData[`banner-sub-title`].toUpperCase() }}
       </p>
       <b-button variant="primary" size="lg" to="/game/puzzle/6502927/">Enter Lab</b-button>
     </b-container>
@@ -35,7 +35,7 @@
     </h1>
     <Carousel>
       <swiper-slide v-for="(item, index) in masteringEterna" :key="index">
-        <PuzzleCard :key="item.current_puzzle" :nid="item.current_puzzle" v-bind="item" />
+        <QuestCard :key="item.title" v-bind="item" />
       </swiper-slide>
     </Carousel>
 
@@ -44,12 +44,7 @@
     </h1>
     <Carousel>
       <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
-        <QuestCard
-          :key="item.current_puzzle"
-          :nid="item.current_puzzle"
-          :progress="item.to_next"
-          v-bind="item"
-        />
+        <QuestCard :key="item.title" v-bind="item" />
       </swiper-slide>
     </Carousel>
   </EternaPage>
@@ -64,7 +59,6 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import QuestCard from '@/components/Cards/QuestCard.vue';
-  import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import Progress from '@/components/Common/Progress.vue';
   import Carousel from '@/components/Common/Carousel.vue';
   import { SwiperSlide } from 'vue-awesome-swiper';
@@ -73,14 +67,13 @@
     components: {
       EternaPage,
       QuestCard,
-      PuzzleCard,
       Progress,
       SwiperSlide,
       Carousel,
     },
   })
   export default class ExperiencedPlayerView extends Vue {
-    @Prop({}) data!: Object;
+    @Prop({}) pageData!: Object;
 
     get masteringEterna() {
       const res = get(this.pageData, 'achievement_roadmap', []).filter((p: { key: string }) => p.key.includes('side_quest'));
@@ -93,7 +86,7 @@
       );
     }
 
-    get pageData() {
+    get progressData() {
       return {
         'banner-title': 'Optimizing the Ribosome',
         'banner-sub-title': 'Ribosome Design Challenge',
@@ -103,7 +96,6 @@
           { name: 'Designs Submitted', number: 14276, total: 24000 },
           { name: 'My Submissions', number: 526, total: 1200 },
         ],
-        ...this.data,
       };
     }
   }

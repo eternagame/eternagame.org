@@ -1,3 +1,4 @@
-export default interface PlayerData {
-  picture?: string;
+export interface Section {
+  title: string;
+  text: string;
 }

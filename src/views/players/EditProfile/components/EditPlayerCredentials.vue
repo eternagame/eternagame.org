@@ -40,7 +40,13 @@
     components: { EditField },
   })
   export default class PlayerEditCredentials extends Vue {
-    @Prop({ required: true }) pageData!: object;
+    get user() {
+      return {
+        ...this.$vxm.user.userDetails,
+        'News mail notification': '',
+        'Mail notification': '',
+      };
+    }
 
     private addingSection: boolean = false;
 
@@ -48,9 +54,9 @@
 
     private passwordConfirm: string = '';
 
-    private newsNotify: boolean = get(this, 'pageData.newNewsPostsEmailNotifications');
+    private newsNotify: boolean = Boolean(this.user['News mail notification']);
 
-    private messagesNotify: boolean = get(this, 'pageData.privateMessageEmailNotifications');
+    private messagesNotify: boolean = Boolean(this.user['Mail notification']);
 
     get passwordsMatch() {
       return this.passwordConfirm === this.password;

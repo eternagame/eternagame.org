@@ -1,8 +1,15 @@
 <template>
   <EternaPage :title="$t('news-explore:title')" v-if="pageData">
-    <Gallery :sm="12" :md="12">
-      <NewsCard v-for="article in pageData.entries" :key="article.nid" v-bind="article" />
-    </Gallery>
+    <div v-if="pageData">
+      <Gallery :sm="12" :md="12">
+        <NewsCard v-for="article in pageData.entries" :key="article.nid" v-bind="article" />
+      </Gallery>
+      <Pagination />
+    </div>
+    <div v-else>
+      <h1>{{ $t('loading-text') }}</h1>
+    </div>
+
     <template #sidebar="{ isInSidebar }">
       <SearchPannel :placeholder="$t('search:news')" :isInSidebar="isInSidebar" />
 
@@ -15,7 +22,6 @@
       <CalendarPanel :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
     </template>
-    <Pagination />
   </EternaPage>
 </template>
 

@@ -1,14 +1,19 @@
 <template>
-  <EternaPage v-if="pageData" :title="$t('nav-bar:leaderboards')">
-    <div class="page-content">
-      <PlayerCard v-for="player in players" :key="player.uid" :player="player" />
+  <EternaPage :title="$t('nav-bar:leaderboards')">
+    <div v-if="pageData">
+      <div class="page-content">
+        <PlayerCard v-for="player in players" :key="player.uid" :player="player" />
+      </div>
+      <Pagination />
+    </div>
+    <div v-else>
+      <h1>{{ $t('loading-text') }}</h1>
     </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPannel :placeholder="$t('search:players')" :isInSidebar="isInSidebar" />
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
     </template>
-    <Pagination />
   </EternaPage>
 </template>
 

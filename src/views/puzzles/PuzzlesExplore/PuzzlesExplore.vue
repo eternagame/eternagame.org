@@ -1,8 +1,14 @@
 <template>
-  <EternaPage v-if="pageData" :title="$t('nav-bar:puzzles')">
-    <Gallery>
-      <PuzzleCard v-for="puzzle in puzzles" :key="puzzle.id" :nid="puzzle.id" v-bind="puzzle" />
-    </Gallery>
+  <EternaPage :title="$t('nav-bar:puzzles')">
+    <div v-if="pageData">
+      <Gallery>
+        <PuzzleCard v-for="puzzle in puzzles" :key="puzzle.id" :nid="puzzle.id" v-bind="puzzle" />
+      </Gallery>
+      <Pagination />
+    </div>
+    <div v-else>
+      <h1>{{$t('loading-text')}}</h1>
+    </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPannel :placeholder="$t('search:puzzles')" :isInSidebar="isInSidebar" />
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
@@ -14,7 +20,6 @@
         :isInSidebar="isInSidebar"
       />
     </template>
-    <Pagination />
   </EternaPage>
 </template>
 
@@ -40,8 +45,6 @@
   const ROUTE = '/get/?type=puzzles';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    const { sort } = route.query;
-
     const res = (
       await http.get(ROUTE, {
         params: {
@@ -72,7 +75,7 @@
     }
 
     private options: Option[] = [
-      { value: 'desc', text: 'side-panel-options:desc' },
+      { value: 'date_asc', text: 'side-panel-options:desc' },
       { value: 'asc', text: 'side-panel-options:asc' },
     ];
 

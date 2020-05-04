@@ -1,52 +1,56 @@
 <template>
-  <EternaPage v-if="pageData">
-    <b-container
-      class="video"
-      :style="{
-        backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)),url('${
-          progressData[`banner-image`]
-        }')`,
-      }"
-    >
-      <div style="float:right" class="d-flex">
-        <Progress
-          :progress="progressData.progressCircles[0].number"
-          :total="progressData.progressCircles[0].total"
-          :name="progressData.progressCircles[0].name"
-          color="#2f94d1"
-        />
-        <Progress
-          :progress="progressData.progressCircles[1].number"
-          :total="progressData.progressCircles[1].total"
-          :name="progressData.progressCircles[1].name"
-          color="#fac244"
-        />
-      </div>
-      <p style="font-size: 42px; font-weight: bold;">{{ progressData[`banner-title`] }}</p>
+  <EternaPage>
+    <div v-if="pageData">
+      <b-container
+        class="video"
+        :style="{
+          backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0),
+          rgba(0, 0, 0, 0.75)),url('${progressData[`banner-image`]}')`,
+        }"
+      >
+        <div style="float:right" class="d-flex">
+          <Progress
+            :progress="progressData.progressCircles[0].number"
+            :total="progressData.progressCircles[0].total"
+            :name="progressData.progressCircles[0].name"
+            color="#2f94d1"
+          />
+          <Progress
+            :progress="progressData.progressCircles[1].number"
+            :total="progressData.progressCircles[1].total"
+            :name="progressData.progressCircles[1].name"
+            color="#fac244"
+          />
+        </div>
+        <p style="font-size: 42px; font-weight: bold;">{{ progressData[`banner-title`] }}</p>
 
-      <p>
-        {{ progressData[`banner-sub-title`].toUpperCase() }}
-      </p>
-      <b-button variant="primary" size="lg" to="/game/puzzle/6502927/">Enter Lab</b-button>
-    </b-container>
+        <p>
+          {{ progressData[`banner-sub-title`].toUpperCase() }}
+        </p>
+        <b-button variant="primary" size="lg" to="/game/puzzle/6502927/">Enter Lab</b-button>
+      </b-container>
 
-    <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
-      {{ $t('player-home:section1') }}
-    </h1>
-    <Carousel>
-      <swiper-slide v-for="(item, index) in masteringEterna" :key="index">
-        <QuestCard :key="item.title" v-bind="item" />
-      </swiper-slide>
-    </Carousel>
+      <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
+        {{ $t('player-home:section1') }}
+      </h1>
+      <Carousel>
+        <swiper-slide v-for="(item, index) in masteringEterna" :key="index">
+          <QuestCard :key="item.title" v-bind="item" />
+        </swiper-slide>
+      </Carousel>
 
-    <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
-      {{ $t('player-home:section2') }}
-    </h1>
-    <Carousel>
-      <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
-        <QuestCard :key="item.title" v-bind="item" />
-      </swiper-slide>
-    </Carousel>
+      <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
+        {{ $t('player-home:section2') }}
+      </h1>
+      <Carousel>
+        <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
+          <QuestCard :key="item.title" v-bind="item" />
+        </swiper-slide>
+      </Carousel>
+    </div>
+    <div v-else>
+      <h1>{{ $t('loading-text') }}</h1>
+    </div>
   </EternaPage>
 </template>
 

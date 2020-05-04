@@ -20,8 +20,8 @@
 
     mounted() {
       window.onscroll = () => {
-        const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight
-          === document.documentElement.offsetHeight;
+        const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight + 1
+          >= document.documentElement.offsetHeight;
 
         if (bottomOfWindow) {
           const oldSize = Number(this.$route.query.size || this.initial);

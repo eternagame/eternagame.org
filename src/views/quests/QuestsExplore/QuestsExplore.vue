@@ -1,34 +1,40 @@
 <template>
-  <EternaPage v-if="pageData">
-    <h3 :style="{ fontSize: '16px', fontWeight: 'bold' }">
-      {{ $t('quests-view:top-tip') }}
-    </h3>
+  <EternaPage>
+    <div v-if="pageData">
+      <h3 :style="{ fontSize: '16px', fontWeight: 'bold' }">
+        {{ $t('quests-view:top-tip') }}
+      </h3>
 
-    <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
-      {{ $t('quests-view:section1') }}
-    </h1>
-    <Carousel>
-      <swiper-slide v-for="(item, index) in pageData.section1" :key="index">
-        <QuestCard v-bind="item" />
-      </swiper-slide>
-    </Carousel>
+      <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
+        {{ $t('quests-view:section1') }}
+      </h1>
+      <Carousel>
+        <swiper-slide v-for="(item, index) in pageData.section1" :key="index">
+          <QuestCard v-bind="item" />
+        </swiper-slide>
+      </Carousel>
 
-    <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
-      {{ $t('quests-view:section2') }}
-    </h1>
-    <Carousel>
-      <swiper-slide v-for="(item, index) in pageData.section2" :key="index">
-        <QuestCard v-bind="item" />
-      </swiper-slide>
-    </Carousel>
+      <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
+        {{ $t('quests-view:section2') }}
+      </h1>
+      <Carousel>
+        <swiper-slide v-for="(item, index) in pageData.section2" :key="index">
+          <QuestCard v-bind="item" />
+        </swiper-slide>
+      </Carousel>
 
-    <h4 :style="{ fontSize: '16px', fontWeight: 'bold', textTransform: 'uppercase' }">
-      {{ $t('quests-view:section3') }}
-    </h4>
+      <h4 :style="{ fontSize: '16px', fontWeight: 'bold', textTransform: 'uppercase' }">
+        {{ $t('quests-view:section3') }}
+      </h4>
 
-    <Gallery>
-      <QuestCard v-for="(item, index) in pageData.section3" :key="index" v-bind="item" />
-    </Gallery>
+      <Gallery>
+        <QuestCard v-for="(item, index) in pageData.section3" :key="index" v-bind="item" />
+      </Gallery>
+      <Pagination />
+    </div>
+    <div v-else>
+      <h1>{{ $t('loading-text') }}</h1>
+    </div>
 
     <template #sidebar="{ isInSidebar }">
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
@@ -53,15 +59,19 @@
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import { BIconArrowUp, BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
   import Carousel from '@/components/Common/Carousel.vue';
+  import Pagination from '@/components/PageLayout/Pagination.vue';
   import 'swiper/css/swiper.css';
 
+  const INITIAL_NUMBER = 18;
+
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    const { sort } = route.query;
     const res = (
       await http.get('/get/?type=get_labs_for_lab_cards&size=18&skip=0', {
         params: {
           order: route.query.sort,
           filters: route.query.filters && (route.query.filters as string).split(','),
+          search: route.query.search,
+          size: route.query.size || INITIAL_NUMBER,
         },
       })
     ).data.data;
@@ -80,6 +90,7 @@
       BIconChevronRight,
       BIconChevronLeft,
       Carousel,
+      Pagination,
     },
   })
   export default class QuestsExplore extends Mixins(PageDataMixin(fetchPageData)) {

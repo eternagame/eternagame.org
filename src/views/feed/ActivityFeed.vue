@@ -1,8 +1,16 @@
 <template>
   <EternaPage :title="$t('activity-feed:title')">
-    <Gallery :sm="12" :md="12">
-      <ActivityCard v-for="article in news" :key="article.nid" v-bind="article" />
-    </Gallery>
+    <div v-if="pageData">
+      <Gallery>
+        <Gallery :sm="12" :md="12">
+          <ActivityCard v-for="article in news" :key="article.nid" v-bind="article" />
+        </Gallery>
+        <Pagination />
+      </Gallery>
+    </div>
+    <div v-else>
+      <h1>{{ $t('loading-text') }}</h1>
+    </div>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"
@@ -12,7 +20,6 @@
       />
       <TagsPanel :tags="tags" :isInSidebar="isInSidebar" />
     </template>
-    <Pagination />
   </EternaPage>
 </template>
 

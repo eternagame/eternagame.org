@@ -1,46 +1,51 @@
 <template>
-  <EternaPage v-if="pageData" title="">
-    <b-container
-      class="video"
-      :style="{
-        backgroundImage: `${bannerImageStyle}`,
-        backgroundPosition: 'right',
-      }"
-    >
-      <p style="font-size: 2.8rem; font-weight: bold;">
-        {{ $t('player-home:banner-title')
-        }}<span style="font-style: italic">{{ ` ${$t('player-home:banner-together')}` }}</span>
-      </p>
-      <p style="width: 482px; height: 151px;">
-        {{ $t('player-home:banner-explain') }}
-      </p>
-      <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
-        <b-button variant="primary" size="lg" style="margin-right:10px">{{
-          $t('player-home:next-puzzle')
-        }}</b-button>
-      </a>
-      <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
-        <b-button variant="secondary" size="lg">{{ $t('player-home:nova-labs') }}</b-button>
-      </a>
+  <EternaPage title="">
+    <div v-if="pageData">
+      <b-container
+        class="video"
+        :style="{
+          backgroundImage: `${bannerImageStyle}`,
+          backgroundPosition: 'right',
+        }"
+      >
+        <p style="font-size: 2.8rem; font-weight: bold;">
+          {{ $t('player-home:banner-title')
+          }}<span style="font-style: italic">{{ ` ${$t('player-home:banner-together')}` }}</span>
+        </p>
+        <p style="width: 482px; height: 151px;">
+          {{ $t('player-home:banner-explain') }}
+        </p>
+        <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
+          <b-button variant="primary" size="lg" style="margin-right:10px">{{
+            $t('player-home:next-puzzle')
+          }}</b-button>
+        </a>
+        <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
+          <b-button variant="secondary" size="lg">{{ $t('player-home:nova-labs') }}</b-button>
+        </a>
 
-      <div class="d-flex" style="margin-top: 22px;">
-        <router-link to="/news/9818657">
-          <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
-            <i class="arrow_right"></i>{{ $t('player-home:open-vaccine') }}
-          </p>
-        </router-link>
-      </div>
-    </b-container>
+        <div class="d-flex" style="margin-top: 22px;">
+          <router-link to="/news/9818657">
+            <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
+              <i class="arrow_right"></i>{{ $t('player-home:open-vaccine') }}
+            </p>
+          </router-link>
+        </div>
+      </b-container>
 
-    <p class="section-title">
-      {{ $t('player-home:lab-access') }}
-    </p>
-    <img v-if="progress" :src="progress" style="margin: 0 auto;display: block;" />
-    <Carousel>
-      <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
-        <QuestCard :key="item.title" v-bind="item" />
-      </swiper-slide>
-    </Carousel>
+      <p class="section-title">
+        {{ $t('player-home:lab-access') }}
+      </p>
+      <img v-if="progress" :src="progress" style="margin: 0 auto;display: block;" />
+      <Carousel>
+        <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
+          <QuestCard :key="item.title" v-bind="item" />
+        </swiper-slide>
+      </Carousel>
+    </div>
+    <div v-else>
+      <h1>{{ $t('loading-text') }}</h1>
+    </div>
   </EternaPage>
 </template>
 

@@ -1,8 +1,14 @@
 <template>
-  <EternaPage v-if="pageData" :title="$t('nav-bar:labs')">
-    <Gallery>
-      <LabCard v-for="lab in pageData.labs" :key="lab.nid" :lab="lab" />
-    </Gallery>
+  <EternaPage :title="$t('nav-bar:labs')">
+    <div v-if="pageData">
+      <Gallery>
+        <LabCard v-for="lab in pageData.labs" :key="lab.nid" :lab="lab" />
+      </Gallery>
+      <Pagination />
+    </div>
+    <div v-else>
+      <h1>{{ $t('loading-text') }}</h1>
+    </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPannel :placeholder="$t('search:labs')" :isInSidebar="isInSidebar" />
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
@@ -13,7 +19,6 @@
         :isInSidebar="isInSidebar"
       />
     </template>
-    <Pagination />
   </EternaPage>
 </template>
 

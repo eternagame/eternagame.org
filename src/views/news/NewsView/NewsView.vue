@@ -1,16 +1,20 @@
 <template>
   <EternaPage
-    v-if="pageData"
-    title="OpenVaccine Round 3 Launch, Eterna Town Hall, Lightning Round + Round 2 Update"
-    :header_date="news.news.created"
+    :title="pageData ? news.news.title : ''"
+    :header_date="pageData ? news.news.created : ''"
     :header_title="'announcements'.toUpperCase()"
   >
-    <div class="page-content" v-dompurify-html="news.news.body"></div>
+    <div v-if="pageData">
+      <div class="page-content" v-dompurify-html="news.news.body"></div>
 
-    <h2 style=" font-size: 20px;font-weight: bold;">
-      {{ $t('news-view:comments') }}
-    </h2>
-    <EditField :content="$t('news-view:enter-comments')" />
+      <h2 style=" font-size: 20px;font-weight: bold;">
+        {{ $t('news-view:comments') }}
+      </h2>
+      <EditField :content="$t('news-view:enter-comments')" />
+    </div>
+    <div v-else>
+      <h1>{{ $t('loading-text') }}</h1>
+    </div>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"

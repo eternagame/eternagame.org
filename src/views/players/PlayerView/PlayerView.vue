@@ -1,13 +1,17 @@
 <template>
-  <EternaPage v-if="pageData" :title="$t('player-view:title')">
-    <div class="page-content">
-      <PlayerHeader :user="pageData.user" :follows="pageData.follows" />
+  <EternaPage :title="$t('player-view:title')">
+    <div v-if="pageData">
+      <div class="page-content">
+        <PlayerHeader :user="pageData.user" :follows="pageData.follows" />
 
-      <hr class="top-border" />
+        <hr class="top-border" />
 
-      <PlayerAboutMe :user="pageData.user" />
+        <PlayerAboutMe :user="pageData.user" />
+      </div>
     </div>
-
+    <div v-else>
+      <h1>{{ $t('loading-text') }}</h1>
+    </div>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"

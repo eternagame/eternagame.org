@@ -38,5 +38,19 @@
     get lab() {
       return this.pageData?.lab;
     }
+
+    roundClosed(round) {
+      return (
+        round.round < this.lab.puzzles.length || round.exp_phase === null || round.exp_phase >= 1
+      );
+    }
+
+    get closedRounds() {
+      return this.lab.puzzles.filter(round => this.roundClosed(round));
+    }
+
+    get openRounds() {
+      return this.lab.puzzles.filter(round => !this.roundClosed(round));
+    }
   }
 </script>

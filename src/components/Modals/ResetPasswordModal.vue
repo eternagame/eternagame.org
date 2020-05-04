@@ -49,7 +49,7 @@
       const response = await this.$http.post(
         '/login/',
         new URLSearchParams({
-          resetId: this.usernameOrEmail,
+          resetID: this.usernameOrEmail,
           type: 'sendreset',
         }),
         {

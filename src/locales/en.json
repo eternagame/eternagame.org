@@ -250,5 +250,6 @@
   "terms-modal:submit": "Submit",
   "terms-modal:accept": "I accept the terms of this License Agreement.",
   "terms-modal:eula": "Eterna End User License Agreement (EULA)",
-  "loading-text": "Loading..."
+  "loading-text": "Loading...",
+  "lab-view:round": "Round"
 }

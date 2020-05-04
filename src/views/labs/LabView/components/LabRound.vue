@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex justify-content-between">
       <h4>
-        <b>Round {{ round.round }}</b>
+        <b>{{ $t('lab-view:round') }} {{ round.round }}</b>
       </h4>
       <span>
         <b

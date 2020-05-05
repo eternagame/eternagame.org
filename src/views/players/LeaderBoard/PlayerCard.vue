@@ -3,9 +3,9 @@
     <div class="d-flex align-items-center" style="width:100%">
       <p class="rank">#{{ rank }}</p>
       <img class="rounded-circle player-image" :src="imageLink" v-if="imageLink" />
-      <p class="player-name">
+      <router-link class="player-name" :to="'/player/' + player.uid">
         {{ player.name }}
-      </p>
+      </router-link>
     </div>
     <div class="icons">
       <div v-if="points">
@@ -105,5 +105,7 @@
     font-weight: bold;
     margin-top: 20px;
     margin-left: 5px;
+    color: white;
+    text-decoration: none;
   }
 </style>

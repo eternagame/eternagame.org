@@ -8,7 +8,7 @@
           rgba(0, 0, 0, 0.75)),url('${progressData[`banner-image`]}')`,
         }"
       >
-        <div style="float:right" class="d-flex">
+        <!-- <div style="float:right" class="d-flex">
           <Progress
             :progress="progressData.progressCircles[0].number"
             :total="progressData.progressCircles[0].total"
@@ -21,7 +21,7 @@
             :name="progressData.progressCircles[1].name"
             color="#fac244"
           />
-        </div>
+        </div> -->
         <p style="font-size: 42px; font-weight: bold;">{{ progressData[`banner-title`] }}</p>
 
         <p>

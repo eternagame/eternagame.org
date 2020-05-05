@@ -8,20 +8,22 @@
           backgroundPosition: 'right',
         }"
       >
-        <p style="font-size: 2.8rem; font-weight: bold;">
-          {{ $t('player-home:banner-title')
-          }}<span style="font-style: italic">{{ ` ${$t('player-home:banner-together')}` }}</span>
+        <p class="page-title">
+          {{ $t('player-home:banner-title') }}{{ ` ${$t('player-home:banner-together')}` }}
         </p>
-        <p style="width: 482px; height: 151px;">
+
+        <p class="explain">
           {{ $t('player-home:banner-explain') }}
         </p>
         <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
-          <b-button variant="primary" size="lg" style="margin-right:10px">{{
+          <b-button class="button" variant="primary" size="lg" style="margin-right:10px">{{
             $t('player-home:next-puzzle')
           }}</b-button>
         </a>
         <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
-          <b-button variant="secondary" size="lg">{{ $t('player-home:nova-labs') }}</b-button>
+          <b-button class="button" variant="secondary" size="lg">{{
+            $t('player-home:nova-labs')
+          }}</b-button>
         </a>
 
         <div class="d-flex" style="margin-top: 22px;">
@@ -36,7 +38,7 @@
       <p class="section-title">
         {{ $t('player-home:lab-access') }}
       </p>
-      <img v-if="progress" :src="progress" style="margin: 0 auto;display: block;" />
+      <img v-if="progress" :src="progress" class="player-progress-bar" />
       <Carousel>
         <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
           <QuestCard :key="item.title" v-bind="item" />
@@ -117,6 +119,14 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
+  .page-title {
+    font-size: 2.8rem;
+    font-weight: bold;
+    @include media-breakpoint-only(xs) {
+      font-size: 1.5rem;
+    }
+  }
+
   .video {
     background-repeat: no-repeat;
     object-fit: contain;
@@ -137,5 +147,22 @@
     text-align: center;
     line-height: 1.37;
     margin-top: 49px;
+  }
+
+  .player-progress-bar {
+    margin: 0 auto;
+    display: block;
+    @include media-breakpoint-only(xs) {
+      width: 100%;
+      height: 100px;
+    }
+  }
+
+  .explain {
+    max-width: 482px;
+  }
+
+  .button {
+    margin-top: 10px;
   }
 </style>

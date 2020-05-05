@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="lg" type="dark" variant="dark" fixed="top">
+  <b-navbar toggleable="lg" type="dark" variant="dark" fixed="top" class="navbar">
     <b-container class="page-container px-4 d-flex justify-content-between">
       <EternaLogo />
       <div class="d-flex justify-content-end">
@@ -8,11 +8,12 @@
           <NavbarCollapseContent :menu="menu" />
         </div>
         <div class="icons-group">
-          <NavbarIcons class="d-none d-md-inline-block d-lg-none icons-group" />
+          <NavbarIcons v-if="loggedIn" class="d-none d-md-inline-block d-lg-none icons-group" />
           <img
+            v-if="loggedIn"
             src="@/assets/navbar/Toggler.svg"
             @click.stop="openSidebar"
-            class="toggler d-inline-block d-lg-none"
+            class="toggler d-inline-block d-lg-none "
           />
         </div>
         <MobileSidebar ref="sidebar">
@@ -67,7 +68,7 @@
         scripts: 'https://eternagame.org/web/script/',
       },
       learn: {
-        'quick-help': '/TBD',
+        'quick-help': '/help',
         guides: '/guides',
         wiki: '/wiki',
       },
@@ -92,6 +93,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/styles/global.scss';
+
   nav {
     border: 0px;
     height: 120px;
@@ -112,5 +115,11 @@
   .toggler {
     cursor: pointer;
     width: 28px;
+  }
+
+  .navbar {
+    @include media-breakpoint-up(xs) {
+      padding: 0px;
+    }
   }
 </style>

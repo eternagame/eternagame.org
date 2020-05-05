@@ -1,7 +1,7 @@
 <template>
   <div class="login-row">
     <b-form inline class="my-2 my-lg-0" name="loginform" id="loginform" onsubmit="return false">
-      <b-form-group>
+      <b-form-group class="d-flex flex-wrap">
         <b-btn
           type="submit"
           id="loginButton"
@@ -47,11 +47,16 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/styles/global.scss';
   .form-group > * > *:not(:first-child) {
     margin-left: 7.5px;
   }
   .button {
     width: 129px;
     font-size: 18px;
+    @include media-breakpoint-up(xs) {
+      width: 90px;
+      font-size: 12px;
+    }
   }
 </style>

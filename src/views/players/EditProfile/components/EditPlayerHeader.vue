@@ -3,7 +3,7 @@
     <div class="d-flex">
       <EditPlayerHeaderImage />
       <div class="player-details">
-        <EditPlayerHeaderTopRow @submit-data="submit" />
+        <EditPlayerHeaderTopRow @submit-data="submit" @set-picture="setPicture" />
         <div class="d-none d-sm-block">
           <div class="d-flex justify-content-between">
             <p>{{ $t('edit-profile:replace-image-details') }}</p>
@@ -30,6 +30,10 @@
   export default class PlayerHeader extends Vue {
     submit() {
       this.$emit('submit-data');
+    }
+
+    setPicture(file) {
+      this.$emit('set-picture', file);
     }
   }
 </script>

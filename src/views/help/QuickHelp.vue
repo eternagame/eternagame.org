@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EternaPage> </EternaPage>
+    <EternaPage> TBD</EternaPage>
   </div>
 </template>
 

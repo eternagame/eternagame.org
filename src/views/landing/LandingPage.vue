@@ -3,7 +3,6 @@
   <div class="page" v-else>
     <VideoSection />
     <DocsSection />
-    {{ user }}
   </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <ChatIcon style="float:right" />
-    <BellIcon style="float:right" />
-    <UserIcon style="float:right" />
+    <UserIcon class="float-lg-right" />
+    <BellIcon class="float-lg-right" />
+    <ChatIcon class="float-lg-right" />
   </div>
 </template>
 <script lang="ts">

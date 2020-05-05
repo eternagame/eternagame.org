@@ -1,15 +1,20 @@
 <template>
   <div>
-    <b-navbar-nav>
-    <div class="w-100">
-      <NavbarIcons class="d-inline d-md-none"/>
-    </div>
+    <b-navbar-nav v-if="loggedIn">
+      <div class="w-100">
+        <NavbarIcons class="d-inline d-md-none" />
+      </div>
     </b-navbar-nav>
-    <hr class="d-lg-none sidebar-separator">
+    <hr class="d-lg-none sidebar-separator" />
     <b-navbar-nav>
-      <SidebarMenuItem v-for="([text, value], index) in menuEntries"
-             :key="text" :value="value" :text="text"
-             :index="index" accordion="navbar-sidebar-accordion"/>
+      <SidebarMenuItem
+        v-for="([text, value], index) in menuEntries"
+        :key="text"
+        :value="value"
+        :text="text"
+        :index="index"
+        accordion="navbar-sidebar-accordion"
+      />
     </b-navbar-nav>
   </div>
 </template>
@@ -27,11 +32,15 @@
   export default class SidebarMenuContent extends Vue {
     @Prop({ required: true })
     menu!: {
-      [text: string]: {[text: string]: string} | string;
+      [text: string]: { [text: string]: string } | string;
     };
 
     get menuEntries() {
       return Object.entries(this.menu);
+    }
+
+    get loggedIn() {
+      return this.$vxm.user.loggedIn;
     }
   }
 </script>

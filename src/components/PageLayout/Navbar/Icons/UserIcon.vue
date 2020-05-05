@@ -4,9 +4,7 @@
       <img src="@/assets/navbar/DefaultIcon.svg" :alt="$t('nav-bar:notifications')" />
       {{ username }}
     </template>
-    <template #text>
-      {{ $t('nav-bar:notifications') }}
-    </template>
+    <template #text> </template>
 
     <b-dropdown-item @click="redirect(profile)">
       {{ $t('user-dropdown:profile').toUpperCase() }}

@@ -19,7 +19,7 @@
         <b-dropdown-item
           v-for="item in notifications.slice(0, 4)"
           :key="item.nid || item.id"
-          class="dropdown-item"
+          style="padding-left:0px;margin-left:0px"
           @click="redirect(`news/${item.nid || item.id}`)"
         >
           <div class="d-flex">
@@ -119,8 +119,10 @@
   @import '@/styles/global.scss';
 
   .container {
-    margin-left: 14.5px;
+    margin-left: 2%;
     width: 299px;
+    padding-left: 0px;
+    max-width: 100%;
     height: 470.2px;
   }
 
@@ -135,10 +137,6 @@
     width: 100%;
   }
 
-  .dropdown-item {
-    padding: 0px;
-  }
-
   .description {
     margin-top: 5px;
     font-weight: normal;
@@ -148,5 +146,6 @@
     display: -webkit-box;
     -webkit-line-clamp: 2; /* number of lines to show */
     -webkit-box-orient: vertical;
+    text-transform: none;
   }
 </style>

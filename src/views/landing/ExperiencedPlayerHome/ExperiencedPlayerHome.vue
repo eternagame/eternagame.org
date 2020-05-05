@@ -80,8 +80,9 @@
     @Prop({}) pageData!: Object;
 
     get masteringEterna() {
-      const res = get(this.pageData, 'achievement_roadmap', []).filter((p: { key: string }) => p.key.includes('side_quest'));
-      return res;
+      return get(this.pageData, 'achievement_roadmap', [])
+        .filter((p: { key: string }) => (p.key as string).includes('side_quest'))
+        .filter(p => p.level === p.current_level + 1);
     }
 
     get newPlayerRoadMap() {

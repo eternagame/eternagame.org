@@ -2,7 +2,7 @@
   <div class="card player-card">
     <div class="d-flex align-items-center" style="width:100%">
       <p class="rank">#{{ rank }}</p>
-      <img class="rounded-circle player-image" :src="imageLink" v-if="imageLink" />
+      <img class="rounded-circle player-image" :src="imageLink" />
       <router-link class="player-name" :to="'/player/' + player.uid">
         {{ player.name }}
       </router-link>
@@ -26,6 +26,7 @@
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
   import axios, { AxiosInstance } from 'axios';
   import { UserData } from '@/types/common-types';
+  import { DEFAULT_PLAYER_PICTURE } from '@/utils/constants';
 
   @Component({
     components: {
@@ -57,7 +58,9 @@
     }
 
     get imageLink() {
-      return `${process.env.VUE_APP_API_BASE_URL}/${this.player.picture}`;
+      return this.player.picture
+        ? `${process.env.VUE_APP_API_BASE_URL}/${this.player.picture}`
+        : DEFAULT_PLAYER_PICTURE;
     }
   }
 </script>

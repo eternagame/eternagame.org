@@ -45,6 +45,7 @@ export default function createUserStore($http: AxiosInstance) {
       if (data.success) {
         this.loggedIn = true;
       }
+      await this.authenticate();
       return data;
     }
 

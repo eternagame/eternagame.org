@@ -141,7 +141,7 @@ export default function createRouter() {
 
   router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {
     const userStore = router.app.$vxm.user;
-    if (!userStore.triedAuthenticating) await userStore.authenticate();
+    if (userStore.loggedIn && !userStore.triedAuthenticating) await userStore.authenticate();
     if (!to.matched.length) {
       next('/lost');
     }

@@ -42,7 +42,7 @@
     private status: boolean = false;
 
     mounted() {
-      if (!this.$vxm.user.userDetails.Survey.includes('EULA_Agree')) this.$refs.modal.show();
+      if (this.$vxm.user.loggedIn && !this.$vxm.user.userDetails.Survey.includes('EULA_Agree')) this.$refs.modal.show();
     }
 
     acceptTerms() {

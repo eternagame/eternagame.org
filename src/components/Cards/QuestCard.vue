@@ -2,9 +2,9 @@
   <div :id="popoverId">
     <AspectRatioCard>
       <template #header>
-        <div class="quest-card-title" v-if="title">
+        <!-- <div class="quest-card-title" v-if="title">
           <b>{{ title }}</b>
-        </div>
+        </div> -->
       </template>
       <div>
         <img :src="image" style="height: 100%; width: 100%;" />

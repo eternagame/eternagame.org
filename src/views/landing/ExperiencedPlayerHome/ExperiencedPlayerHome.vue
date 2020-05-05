@@ -27,7 +27,7 @@
         <p>
           {{ progressData[`banner-sub-title`].toUpperCase() }}
         </p>
-        <b-button variant="primary" size="lg" to="/game/puzzle/6502927/">Enter Lab</b-button>
+        <b-button variant="primary" size="lg" :href="puzzleRoute + '6502927'">Enter Lab</b-button>
       </b-container>
 
       <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
@@ -66,6 +66,7 @@
   import Progress from '@/components/Common/Progress.vue';
   import Carousel from '@/components/Common/Carousel.vue';
   import { SwiperSlide } from 'vue-awesome-swiper';
+  import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
 
   @Component({
     components: {
@@ -78,6 +79,12 @@
   })
   export default class ExperiencedPlayerView extends Vue {
     @Prop({}) pageData!: Object;
+
+    private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
+
+    redirect(path: string) {
+      this.$router.push(path);
+    }
 
     get masteringEterna() {
       return get(this.pageData, 'achievement_roadmap', [])

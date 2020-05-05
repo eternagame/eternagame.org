@@ -4,7 +4,7 @@
       <div
         :style="{
           position: 'relative',
-          'background-image': `url(${defaultImage})`,
+          'background-image': `url(${labImage})`,
           height: '250px',
         }"
         class="p-2"
@@ -50,8 +50,8 @@
       return this.readMore ? this.lab.body : this.lab.body.substr(0, 1000);
     }
 
-    get defaultImage() {
-      return defaultImage;
+    get labImage() {
+      return this.lab.cover_image || defaultImage;
     }
   }
 </script>

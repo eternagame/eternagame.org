@@ -84,7 +84,7 @@
         overview: '/about',
         publications: '/publications',
         software: 'https://software.eternagame.org/',
-        donate: '/donate',
+        donate: 'https://www.gofundme.com/f/fight-covid19-with-eterna',
         terms: '/about/terms',
         'code-of-conduct': '/about/conduct',
       },

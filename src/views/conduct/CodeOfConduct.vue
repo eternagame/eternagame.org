@@ -35,9 +35,10 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
+  import EternaPage from '@/components/PageLayout/EternaPage.vue';
 
   @Component({
-    components: {},
+    components: { EternaPage },
   })
   export default class CodeOfConduct extends Vue {}
 </script>

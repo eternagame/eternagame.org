@@ -12,6 +12,7 @@
       <template #sidebar="{ isInSidebar }">
         <DropdownSidebarPanel
           :options="options"
+          :defaultIndex="-1"
           paramName="sort"
           replace
           :isInSidebar="isInSidebar"
@@ -36,11 +37,15 @@
   })
   export default class TermsAndConditions extends Vue {
     private options: Option[] = [
-      { value: 'about', text: 'side-panel-options:about' },
-      { value: 'publications', text: 'side-panel-options:publications' },
-      { value: 'software', text: 'side-panel-options:software' },
-      { value: 'terms', text: 'side-panel-options:terms' },
-      { value: 'code_conduct', text: 'side-panel-options:code_conduct' },
+      { value: 'about', text: 'side-panel-options:about', link: '/about' },
+      { value: 'publications', text: 'side-panel-options:publications', link: '/publications' },
+      {
+        value: 'software',
+        text: 'side-panel-options:software',
+        link: 'https://software.eternagame.org/',
+      },
+      { value: 'terms', text: 'side-panel-options:terms', link: '/about/terms' },
+      { value: 'code_conduct', text: 'side-panel-options:code_conduct', link: '/about/conduct' },
     ];
   }
 </script>

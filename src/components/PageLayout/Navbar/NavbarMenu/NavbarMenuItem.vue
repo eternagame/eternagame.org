@@ -27,7 +27,7 @@
     private value!: string | object;
 
     redirect(path: string) {
-      this.$router.push(path);
+      window.location.replace(path);
     }
 
     // only called if typeof this.value === object

@@ -35,7 +35,7 @@
     contentVisible = false;
 
     redirect(path: string) {
-      this.$router.push(path);
+      window.location.replace(path);
     }
 
     get collapseId() {

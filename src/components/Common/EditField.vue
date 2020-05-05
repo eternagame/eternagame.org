@@ -66,7 +66,6 @@
       return new Editor({
         content: this.content,
         onUpdate: ({ getHTML }) => {
-          console.log(parent);
           parent.$emit('input', getHTML());
         },
         extensions: [

@@ -13,7 +13,12 @@
           >
             <img v-if="imageURL" :src="imageURL" />
           </div>
-          <b-button type="submit" variant="primary" class="submit-button">
+          <b-button
+            type="submit"
+            variant="primary"
+            class="submit-button"
+            :href="puzzleRoute + pageData.nid"
+          >
             {{ $t('puzzle-view:main-action') }}
           </b-button>
         </div>
@@ -63,6 +68,7 @@
   // @ts-ignore
   import get from 'lodash.get';
   import Utils from '@/utils/utils';
+  import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import PuzzleData from './types';
 
   Vue.use(VueDOMPurifyHTML);
@@ -87,6 +93,12 @@
     },
   })
   export default class PuzzleView extends Mixins(PageDataMixin(fetchPageData)) {
+    redirect(path: string) {
+      this.$router.push(path);
+    }
+
+    private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
+
     get puzzle() {
       return {
         ...get(this.pageData, 'puzzle'),

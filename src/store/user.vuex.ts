@@ -65,12 +65,12 @@ export default function createUserStore($http: AxiosInstance) {
         this.username = username;
         this.uid = Number(uid);
         this.loggedIn = true;
-        const userDataResponse = (await axios.get(`/get/?type=user&uid=${uid}`)).data.data.user;
+        const userDataResponse = (await axios.get(`/get/?type=user&uid=${uid}`)).data.data;
+        this.userDetails = userDataResponse.user;
         this.hasLabAccess = Boolean(
-          Number(userDataResponse.ten_tools_level) >= 8
-            || Number(userDataResponse.is_lab_member_legacy),
+          Number(this.userDetails.ten_tools_level) >= 8
+            || Number(this.userDetails.is_lab_member_legacy),
         );
-        this.userDetails = userDataResponse;
       } else {
         throw new Error(`Authentication response malformed: ${data}`);
         // TODO: is throw the right action?

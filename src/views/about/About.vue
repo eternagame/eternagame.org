@@ -263,7 +263,7 @@
       EternaPage,
     },
   })
-  export default class TermsAndConditions extends Vue {}
+  export default class About extends Vue {}
 </script>
 <style lang="scss" scoped>
   .about-page {

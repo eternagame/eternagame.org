@@ -20,17 +20,17 @@
           v-for="item in notifications.slice(0, 4)"
           :key="item.nid || item.id"
           class="dropdown-item"
+          @click="redirect(`news/${item.nid || item.id}`)"
         >
-          <router-link class="d-flex" :to="`news/${item.nid}`">
+          <div class="d-flex">
             <img
               class="d-none d-sm-block rounded-circle player-image-large"
-              :src="item.img"
-              alt="player-image"
+              :src="'/' + item.img"
               v-if="item.img"
               style="margin-right:10px"
             />
-            <div v-dompurify-html="item.display || item.title" class="text"></div>
-          </router-link>
+            <div v-dompurify-html="item.display || item.title" class="description"></div>
+          </div>
         </b-dropdown-item>
       </div>
     </template>
@@ -71,6 +71,10 @@
 
     private notificationsToShow = NUMBER_NOTIFICATIONS_TO_SHOW;
 
+    redirect(path: string) {
+      this.$router.push(path);
+    }
+
     shown() {
       axios.post(NOTIFICATIONS_READ);
     }
@@ -91,23 +95,20 @@
           .flat()
           .filter(article => !!article) as Array<NewsItem>;
 
-        const articlesWithUserInfo = (await Promise.all(
+        this.notifications = (await Promise.all(
           articles.slice(0, NUMBER_NOTIFICATIONS_TO_SHOW).map(async article => {
             const { user } = (await axios.get(USER_ROUTE + article.uid)).data.data;
+
             return user
               ? {
                   ...article,
                   name: user.name,
                   img: user.picture,
+                  display: `${get(user, 'name')} published a news post: <b>${article.title}</b>`,
                 }
               : article;
           }),
         )) as Array<NewsItem>;
-
-        this.notifications = articlesWithUserInfo.map(article => ({
-          ...article,
-          display: `${get(article, 'user.name')} published a news post: <b>${article.title}</b>`,
-        }));
       };
       fetchData();
     }
@@ -138,11 +139,14 @@
     padding: 0px;
   }
 
-  .text {
+  .description {
     margin-top: 5px;
-    max-width: 300px;
-    overflow: auto;
-    max-lines: 2;
-    overflow-wrap: break-word;
+    font-weight: normal;
+    white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
   }
 </style>

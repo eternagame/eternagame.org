@@ -1,7 +1,7 @@
 <template>
   <EternaPage :title="`${$t('Edit Profile')} ${user.name}`">
     <div class="page-content">
-      <EditPlayerHeader @submit-data="submit" />
+      <EditPlayerHeader @submit-data="submit" @set-picture="setPicture" />
       <hr class="top-border" />
       <EditPlayerAboutMe @set-profile="setProfile" @set-section="setSection" />
       <hr class="top-border" />
@@ -68,12 +68,17 @@
       return this.$vxm.user.userDetails;
     }
 
+    get follows() {
+      return this.$vxm.user.userDetails;
+    }
+
     submit() {
       const data: object = {};
       if (this.newPassword) data.pass = this.newPassword as string;
       if (this.privateMessagesNotify) data.profile_mail_notification = this.privateMessagesNotify;
       if (this.newNewsPostsNotify) data.profile_blog_mail_notification = this.newNewsPostsNotify;
       if (this.profile) data.profile_profile = this.profile;
+      if (this.picture) data.picture_upload = this.picture;
 
       axios
         .post(EDIT_PROFILE, data)
@@ -82,6 +87,10 @@
           title: 'Error',
           text: get(error, 'message'),
         }));
+    }
+
+    setPicture(picture: string) {
+      this.picture = picture;
     }
 
     setPassword(password: string) {
@@ -115,6 +124,8 @@
     private newAboutMeText: string = '';
 
     private profile: string = '';
+
+    private picture: string = '';
 
     private sectionTitle: string = '';
 

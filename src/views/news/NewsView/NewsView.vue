@@ -6,15 +6,12 @@
   >
     <div v-if="pageData">
       <div class="page-content" v-dompurify-html="news.news.body"></div>
-
-      <h2 style=" font-size: 20px;font-weight: bold;">
-        {{ $t('news-view:comments') }}
-      </h2>
-      <EditField :content="$t('news-view:enter-comments')" />
+      <Comments :comments="pageData.comments" :pathname="addCommentPath" />
     </div>
     <div v-else>
       <h1>{{ $t('loading-text') }}</h1>
     </div>
+
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"
@@ -38,6 +35,7 @@
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
+  import Comments from '@/components/PageLayout/Comments.vue';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
   import EditField from '@/components/Common/EditField.vue';
   import NewsData from './types';
@@ -64,11 +62,16 @@
       EternaPage,
       TagsPanel,
       DropdownSidebarPanel,
+      Comments,
     },
   })
   export default class NewsView extends Mixins(PageDataMixin(fetchPageData)) {
     get news() {
       return this.pageData;
+    }
+
+    get addCommentPath() {
+      return `/web/blog/${this.pageData.news.nid}`;
     }
 
     private options: Option[] = [

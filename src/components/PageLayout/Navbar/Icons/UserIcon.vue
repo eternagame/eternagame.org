@@ -1,7 +1,7 @@
 <template>
   <NavbarIcon>
     <template #icon>
-      <img src="@/assets/navbar/DefaultIcon.svg" :alt="$t('nav-bar:notifications')" />
+      <img src="@/assets/navbar/DefaultIcon.svg" />
       {{ username }}
     </template>
     <template #text> </template>

@@ -254,5 +254,8 @@
   "terms-modal:eula": "Eterna End User License Agreement (EULA)",
   "loading-text": "Loading...",
   "lab-view:round": "Round",
-  "lab-view:conclusion": "Conclusion"
+  "lab-view:conclusion": "Conclusion",
+  "page:comments-title": "Comments",
+  "page:comments-action": "Comment",
+  "page:comments-enter": "Enter your commments here."
 }

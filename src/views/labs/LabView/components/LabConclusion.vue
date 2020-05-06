@@ -2,8 +2,8 @@
   <div v-if="lab.conclusion">
     <div style="width:100; border: none;">
       <span class="header-content">
-        <h3>
-          <b>{{ $t('lab-view:conclusion') }}</b>
+        <h3 style="font-size: 23px;font-weight: bold;margin-top:15px">
+          {{ $t('lab-view:conclusion') }}
         </h3>
       </span>
     </div>

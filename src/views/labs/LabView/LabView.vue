@@ -16,6 +16,7 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
+  import Comments from '@/components/PageLayout/Comments.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import LabDescription from './components/LabDescription.vue';
@@ -36,12 +37,15 @@
       LabInfoPanel,
       LabRound,
       TagsPanel,
+      Comments,
     },
   })
   export default class LabView extends Mixins(PageDataMixin(fetchPageData)) {
     get lab() {
       return this.pageData?.lab;
     }
+
+    private addCommentPath = `/web/${window.location.pathname}`;
 
     roundClosed(round) {
       return (

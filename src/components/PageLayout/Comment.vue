@@ -5,6 +5,7 @@
       <p style="font-weight:bold">{{ name }}</p>
       <p>{{ created }}</p>
       <p>{{ comment }}</p>
+      <p @click="deleteComment()" style="cursor:pointer">{{ $t('page:comments-delete') }}</p>
     </div>
   </div>
 </template>
@@ -12,6 +13,9 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
+  import axios from 'axios';
+
+  const ADD_COMMENT_ROUTE = '/post/?type=delete_comment';
 
   Vue.use(VueDOMPurifyHTML);
 
@@ -27,6 +31,12 @@
 
     @Prop()
     private comment!: string;
+
+    deleteComment() {
+      axios
+        .post(ADD_COMMENT_ROUTE, { cid: this.comment.cid })
+        .then(res => window.location.reload());
+    }
   }
 </script>
 

@@ -1,8 +1,6 @@
 // @ts-ignore
-import cookie from 'cookie';
-// @ts-ignore
 import get from 'lodash.get';
-import i18n, { LANGUAGE_COOKIE_NAME, DEFAULT_LANGUAGE } from '@/plugins/i18n';
+import i18n, { LANGUAGE_KEY_NAME, DEFAULT_LANGUAGE } from '@/plugins/i18n';
 import createApp from './app';
 
 export default async function (context: any) {
@@ -12,7 +10,7 @@ export default async function (context: any) {
   app.$http.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
   if (context.cookies) {
     app.$http.defaults.headers.common.Cookie = context.cookies;
-    i18n.locale = get(cookie.parse(context.cookies), LANGUAGE_COOKIE_NAME, DEFAULT_LANGUAGE);
+    i18n.locale = window.localStorage.getItem(LANGUAGE_KEY_NAME) || DEFAULT_LANGUAGE;
   }
 
   // Set server-side router's location

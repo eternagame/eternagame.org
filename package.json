@@ -27,7 +27,6 @@
     "bootstrap-vue": "^2.10.1",
     "canvas": "^2.6.1",
     "chromedriver": "^78.0.1",
-    "cookie": "^0.4.0",
     "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
     "eterna-chat": "github:aminere/eterna-chat",

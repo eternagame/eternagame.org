@@ -31,6 +31,8 @@ export default function createUserStore($http: AxiosInstance) {
 
     @action() async logout() {
       this.loggedIn = false;
+      window.localStorage.setItem('loggedIn', 'false');
+      this.triedAuthenticating = false;
     }
 
     @action() async login({ username, password }: { username: string; password: string }) {
@@ -44,6 +46,7 @@ export default function createUserStore($http: AxiosInstance) {
       const { data } = (await $http.post('/login/', new URLSearchParams(loginParams))).data;
       if (data.success) {
         this.loggedIn = true;
+        window.localStorage.setItem('loggedIn', 'true');
       }
       await this.authenticate();
       return data;

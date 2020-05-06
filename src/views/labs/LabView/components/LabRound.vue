@@ -13,7 +13,12 @@
       </span>
     </div>
     <Gallery>
-      <LabPuzzleCard v-for="puzzle in round.puzzles" :key="puzzle.nid" :puzzle="puzzle" />
+      <LabPuzzleCard
+        v-for="puzzle in round.puzzles"
+        :key="puzzle.nid"
+        :puzzle="puzzle"
+        :closed="closed"
+      />
     </Gallery>
   </div>
 </template>
@@ -30,6 +35,8 @@
   })
   export default class LabRound extends Vue {
     @Prop() round!: RoundData;
+
+    @Prop({ default: false }) closed!: boolean;
   }
 </script>
 

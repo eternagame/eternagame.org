@@ -242,8 +242,10 @@
   "user-dropdown:profile": "Profile",
   "user-dropdown:edit-profile": "Account Settings",
   "user-dropdown:logout": "Logout",
-  "lab-puzzle-card:design": "Design",
-  "lab-puzzle-card:review": "Review",
+  "lab-puzzle-card:main": "Design",
+  "lab-puzzle-card:secondary": "Review",
+  "lab-puzzle-card:closed-main": "Puzzle",
+  "lab-puzzle-card:closed-secondary": "Solutions",
   "lab-round:accepting-submissions": "Accepting Submissions",
   "edit-profile:custom-section-title": "Custom Section",
   "edit-profile:title": "Edit Profile",
@@ -251,5 +253,6 @@
   "terms-modal:accept": "I accept the terms of this License Agreement.",
   "terms-modal:eula": "Eterna End User License Agreement (EULA)",
   "loading-text": "Loading...",
-  "lab-view:round": "Round"
+  "lab-view:round": "Round",
+  "lab-view:conclusion": "Conclusion"
 }

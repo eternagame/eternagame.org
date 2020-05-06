@@ -4,8 +4,6 @@
       <div class="page-content">
         <PlayerHeader :user="pageData.user" :follows="pageData.follows" />
 
-        <hr class="top-border" />
-
         <PlayerAboutMe :user="pageData.user" />
       </div>
     </div>

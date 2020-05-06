@@ -68,22 +68,20 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import i18n, { LANGUAGES, DEFAULT_LANGUAGE, LANGUAGE_COOKIE_NAME } from '@/plugins/i18n';
-  // @ts-ignore
-  import Cookies from 'js-cookie';
+  import i18n, { LANGUAGES, DEFAULT_LANGUAGE, LANGUAGE_KEY_NAME } from '@/plugins/i18n';
 
   @Component({
     components: {},
   })
   export default class PageFooter extends Vue {
-    private languageSet = i18n.locale || Cookies.get(LANGUAGE_COOKIE_NAME) || DEFAULT_LANGUAGE;
+    private languageSet = window.localStorage.getItem(LANGUAGE_KEY_NAME) || DEFAULT_LANGUAGE;
 
     isLanguage(language: string) {
       return this.languageSet.substring(0, 2) === language;
     }
 
     setLanguage(language: string) {
-      if (window.navigator.cookieEnabled) Cookies.set(LANGUAGE_COOKIE_NAME, language);
+      window.localStorage.setItem(LANGUAGE_KEY_NAME, language);
       this.languageSet = language;
       i18n.locale = language;
     }

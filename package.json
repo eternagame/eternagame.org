@@ -30,7 +30,7 @@
     "cookie": "^0.4.0",
     "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
-    "eterna-chat": "eternagame/html-chat#vue-rewrite",
+    "eterna-chat": "github:aminere/eterna-chat",
     "express": "^4.17.1",
     "fibers": "^4.0.2",
     "geckodriver": "^1.19.1",

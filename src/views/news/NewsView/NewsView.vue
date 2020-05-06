@@ -75,10 +75,10 @@
     }
 
     private options: Option[] = [
-      { value: 'categories', text: 'All Categories' },
-      { value: 'announcements', text: 'Announcements' },
-      { value: 'blog', text: 'Blog' },
-      { value: 'labs', text: 'Labs' },
+      { value: 'categories', text: 'news-view:option-categories' },
+      { value: 'announcements', text: 'news-view:option-announcements' },
+      { value: 'blog', text: 'news-view:option-blog' },
+      { value: 'labs', text: 'news-view:option-labs' },
     ];
   }
 </script>

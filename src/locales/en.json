@@ -257,5 +257,9 @@
   "lab-view:conclusion": "Conclusion",
   "page:comments-title": "Comments",
   "page:comments-action": "Comment",
-  "page:comments-enter": "Enter your commments here."
+  "page:comments-enter": "Enter your commments here.",
+  "news-view:option-categories": "All Categories",
+  "news-view:option-announcements": "Announcements",
+  "news-view:option-blog": "Blogs",
+  "news-view:option-labs": "Labs"
 }

@@ -49,19 +49,19 @@
       </b-col>
     </b-row>
     <div class="mt-3 language-bar">
-      <div @click="setLanguage('en')" v-bind:class="{ active: isLanguage('en') }">
+      <div @click="setLanguage('en')" :class="{ active: isLanguage('en') }">
         English (US)
       </div>
-      <div v-bind:class="{ active: isLanguage('es') }" @click="setLanguage('es')">Español</div>
-      <div v-bind:class="{ active: isLanguage('ar') }" @click="setLanguage('ar')">Arabic</div>
-      <div v-bind:class="{ active: isLanguage('zh') }" @click="setLanguage('zh')">中文 (简体)</div>
-      <div v-bind:class="{ active: isLanguage('pt') }" @click="setLanguage('pt')">Português</div>
-      <div v-bind:class="{ active: isLanguage('hi') }" @click="setLanguage('hi')">हिन्दी</div>
-      <div v-bind:class="{ active: isLanguage('fr') }" @click="setLanguage('fr')">Français</div>
-      <div v-bind:class="{ active: isLanguage('ko') }" @click="setLanguage('ko')">한국어</div>
-      <div v-bind:class="{ active: isLanguage('de') }" @click="setLanguage('de')">Deutsch</div>
-      <div v-bind:class="{ active: isLanguage('ja') }" @click="setLanguage('ja')">日本語</div>
-      <div v-bind:class="{ active: isLanguage('it') }" @click="setLanguage('it')">Italiano</div>
+      <div :class="{ active: isLanguage('es') }" @click="setLanguage('es')">Español</div>
+      <div :class="{ active: isLanguage('ar') }" @click="setLanguage('ar')">Arabic</div>
+      <div :class="{ active: isLanguage('zh') }" @click="setLanguage('zh')">中文 (简体)</div>
+      <div :class="{ active: isLanguage('pt') }" @click="setLanguage('pt')">Português</div>
+      <div :class="{ active: isLanguage('hi') }" @click="setLanguage('hi')">हिन्दी</div>
+      <div :class="{ active: isLanguage('fr') }" @click="setLanguage('fr')">Français</div>
+      <div :class="{ active: isLanguage('ko') }" @click="setLanguage('ko')">한국어</div>
+      <div :class="{ active: isLanguage('de') }" @click="setLanguage('de')">Deutsch</div>
+      <div :class="{ active: isLanguage('ja') }" @click="setLanguage('ja')">日本語</div>
+      <div :class="{ active: isLanguage('it') }" @click="setLanguage('it')">Italiano</div>
     </div>
   </div>
 </template>

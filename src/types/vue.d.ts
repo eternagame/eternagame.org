@@ -5,19 +5,17 @@
 // @ts-ignore
 
 import { ComponentOptions } from 'vue';
-import VueRouter, {
-  Route, RawLocation, NavigationGuard, RouteCallback,
-} from 'vue-router';
-import { AxiosInstance } from 'axios';
+import VueRouter, { Route, RawLocation, NavigationGuard, RouteCallback } from 'vue-router';
+import { AxiosInstance, AxiosStatic } from 'axios';
 import { ProxyWatchers } from 'vuex-class-component/dist/interfaces';
 import createUserStore from '../store/user.vuex';
 import MobileStore from '../store/mobile.vuex';
 import PageData from '../store/page-data.vuex';
 
 interface VXM {
-  user: ProxyWatchers & InstanceType<ReturnType<typeof createUserStore>>,
-  mobile: ProxyWatchers & MobileStore,
-  pageData: ProxyWatchers & PageData,
+  user: ProxyWatchers & InstanceType<ReturnType<typeof createUserStore>>;
+  mobile: ProxyWatchers & MobileStore;
+  pageData: ProxyWatchers & PageData;
 }
 
 declare module 'vue/types/options' {
@@ -34,13 +32,13 @@ declare module 'vue/types/vue' {
     beforeRouteEnter(to: Route, from: Route, next: RouteCallback<any>): any;
     beforeRouteLeave(to: Route, from: Route, next: RouteCallback<any>): any;
     beforeRouteUpdate(to: Route, from: Route, next: RouteCallback<any>): any;
-    $http: AxiosInstance,
-    $vxm: VXM
+    $http: AxiosStatic;
+    $vxm: VXM;
   }
 }
 
 declare module 'vue-router' {
   export type RouteCallback<V extends Vue> = (
-    to?: RawLocation | false | ((vm: V) => any) | void
+    to?: RawLocation | false | ((vm: V) => any) | void,
   ) => void;
 }

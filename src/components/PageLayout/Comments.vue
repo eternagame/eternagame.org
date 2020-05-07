@@ -26,11 +26,8 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import axios from 'axios';
   import Comment from './Comment.vue';
-
-  Vue.use(VueDOMPurifyHTML);
 
   const ADD_COMMENT_ROUTE = '/post/?type=post_comment';
 

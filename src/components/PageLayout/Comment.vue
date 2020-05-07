@@ -1,9 +1,9 @@
 <template>
-  <div class="d-flex">
+  <div class="d-flex align-items-start">
     <img src="@/assets/navbar/DefaultIcon.svg" />
-    <div>
-      <p style="font-weight:bold">{{ name }}</p>
-      <p>{{ created }}</p>
+    <div class="ml-2 mb-4">
+      <p class="font-weight-bold mb-0">{{ name }}</p>
+      <p style="font-size: 0.6rem">{{ created }}</p>
       <p v-dompurify-html="comment">{{ comment }}</p>
       <p @click="deleteComment()" v-if="canDelete" style="cursor:pointer">
         {{ $t('page:comments-delete') }}

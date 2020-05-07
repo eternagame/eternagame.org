@@ -4,7 +4,7 @@
     <div class="container" style="padding:10px">
       <div class="row justify-content-between">
         <div class="col">
-          <div v-bind:style="{ color: categoryColor }">{{ `${category.toUpperCase()}` }}</div>
+          <div :style="{ color: categoryColor }">{{ `${category.toUpperCase()}` }}</div>
         </div>
         <div class="col" style="text-align:right">
           <div style="opacity: 0.5;">{{ timeStamp }}</div>

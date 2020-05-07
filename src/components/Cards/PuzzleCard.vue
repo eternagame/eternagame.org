@@ -10,20 +10,26 @@
       <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
       <template #footer>
         <b-row class="mb-2">
-          <b-col cols="4" class="left-col" v-if="reward">
-            <slot name="left-icon">
-              <img src="@/assets/dollar.svg" alt="reward slots" class="icon" />
-            </slot>
-            {{ reward }}
+          <b-col cols="4">
+            <div class="left-col" v-if="reward">
+              <slot name="left-icon">
+                <img src="@/assets/dollar.svg" alt="reward slots" class="icon" />
+              </slot>
+              {{ reward }}
+            </div>
           </b-col>
-          <b-col cols="4" class="text-center" v-if="states">
-            <StateCounter :value="states" />
+          <b-col cols="4">
+            <div class="text-center" v-if="states">
+              <StateCounter :value="states" />
+            </div>
           </b-col>
-          <b-col cols="4" class="right-col" v-if="numCleared">
-            <slot name="right-icon">
-              <img src="@/assets/people.svg" alt="submissions" class="icon" />
-            </slot>
-            {{ numCleared }}
+          <b-col cols="4">
+            <div class="right-col" v-if="numCleared">
+              <slot name="right-icon">
+                <img src="@/assets/people.svg" alt="submissions" class="icon" />
+              </slot>
+              {{ numCleared }}
+            </div>
           </b-col>
         </b-row>
         <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">

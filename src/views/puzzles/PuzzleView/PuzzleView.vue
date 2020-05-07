@@ -9,6 +9,7 @@
               height: '364.9995px',
               backgroundColor: '#041227',
               opacity: '0.8',
+              margin: '0 auto',
             }"
           >
             <img v-if="imageURL" :src="imageURL" />

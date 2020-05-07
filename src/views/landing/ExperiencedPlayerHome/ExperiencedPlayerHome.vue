@@ -1,7 +1,7 @@
 <template>
   <EternaPage>
     <div v-if="pageData">
-      <b-container
+      <b-jumbotron fluid container-fluid
         class="video"
         :style="{
           backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0),
@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      </b-container>
+      </b-jumbotron>
 
       <h2 class="section-header">
         {{ $t('player-home:section1') }}
@@ -130,7 +130,8 @@
     }
     height: 400px;
     padding-top: 61px;
-    width: 100%;
+    margin-left: -22.5px;
+    margin-right: -22.5px;
   }
 
   .banner-progress {

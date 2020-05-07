@@ -4,7 +4,7 @@
 
 import { ComponentOptions } from 'vue';
 import VueRouter, { Route, RawLocation, NavigationGuard, RouteCallback } from 'vue-router';
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, AxiosStatic } from 'axios';
 import { ProxyWatchers } from 'vuex-class-component/dist/interfaces';
 import createUserStore from '../store/user.vuex';
 import MobileStore from '../store/mobile.vuex';
@@ -30,7 +30,7 @@ declare module 'vue/types/vue' {
     beforeRouteEnter(to: Route, from: Route, next: RouteCallback<any>): any;
     beforeRouteLeave(to: Route, from: Route, next: RouteCallback<any>): any;
     beforeRouteUpdate(to: Route, from: Route, next: RouteCallback<any>): any;
-    $http: AxiosInstance;
+    $http: AxiosStatic;
     $vxm: VXM;
   }
 }

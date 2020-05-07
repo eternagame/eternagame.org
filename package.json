@@ -55,6 +55,7 @@
     "vue-client-only": "^2.0.0",
     "vue-content-loader": "^0.2.3",
     "vue-dompurify-html": "^2.1.1",
+    "vue-facebook-login-component": "^2.2.2",
     "vue-i18n": "^8.17.0",
     "vue-infinite-loading": "^2.4.5",
     "vue-instant-loading-spinner": "^1.0.0",

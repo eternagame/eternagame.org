@@ -56,6 +56,7 @@
           {{ $t('login-modal:register-action') }}
         </span>
       </p>
+      <v-facebook-login :app-id="fbID" @login="fbLogIn()"></v-facebook-login>
     </b-form>
   </b-modal>
 </template>
@@ -64,10 +65,16 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
+  import axios from 'axios';
+  // @ts-ignore
+  import VFacebookLogin from 'vue-facebook-login-component';
+
+  const FB_LOGIN_ROUTE = '/login/?type=login&method=facebook';
 
   @Component({
     components: {
       VueRecaptcha,
+      VFacebookLogin,
     },
   })
   export default class RegisterModal extends Vue {
@@ -77,6 +84,15 @@
     };
 
     errorMessage = '';
+
+    private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
+
+    fbLogIn() {
+      axios.post(FB_LOGIN_ROUTE).then(res => {
+        this.$bvModal.hide('modal-login');
+        this.$router.push('/');
+      });
+    }
 
     $refs!: {
       modal: BModal;

@@ -1,9 +1,22 @@
 <template>
   <EternaPage v-if="lab" title="Lab Details">
     <LabDescription :lab="lab" style="margin-bottom: 52.5px;" />
-    <LabRound v-for="round in openRounds" :key="round.round" :round="round" />
-    <LabRound v-for="round in closedRounds" :key="round.round" :round="round" closed="true" />
+    <b-tabs v-if="openRounds.length">
+      <b-tab :title="$t('lab-view:open')" v-if="openRounds.length">
+        <LabRound v-for="round in openRounds" :key="round.round" :round="round" />
+      </b-tab>
+      <b-tab :title="$t('lab-view:closed')" v-if="closedRounds.length">
+        <LabRound v-for="round in closedRounds" :key="round.round" :round="round" closed="true" />
+      </b-tab>
+    </b-tabs>
+    <LabRound v-else v-for="round in closedRounds" :key="round.round" :round="round" />
     <LabConclusion :lab="lab" style="margin-bottom: 52.5px;" />
+    <Comments
+      :comments="pageData.supercomments"
+      v-if="pageData.supercomments.length"
+      :pathname="addCommentPath"
+    />
+    <Comments :comments="pageData.comments" :name="$t('lab-view:admin-comments')" />
     <template #sidebar="{ isInSidebar }">
       <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" /> -->
@@ -45,11 +58,13 @@
       return this.pageData?.lab;
     }
 
-    private addCommentPath = `/web/${window.location.pathname}`;
+    private addCommentPath = `/web${window.location.pathname}`;
 
     roundClosed(round) {
       return (
-        round.round < this.lab.puzzles.length || round.exp_phase == null || round.exp_phase >= 1
+        round.round < this.lab.puzzles.length
+        || this.lab.exp_phase == null
+        || this.lab.exp_phase >= 1
       );
     }
 

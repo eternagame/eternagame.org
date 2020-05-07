@@ -4,7 +4,7 @@
     <div>
       <p style="font-weight:bold">{{ name }}</p>
       <p>{{ created }}</p>
-      <p>{{ comment }}</p>
+      <p v-dompurify-html="comment">{{ comment }}</p>
       <p @click="deleteComment()" v-if="canDelete" style="cursor:pointer">
         {{ $t('page:comments-delete') }}
       </p>

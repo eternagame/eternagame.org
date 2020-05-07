@@ -3,7 +3,7 @@
     <div style="width:100; border: none;">
       <span class="header-content">
         <h3 style="font-size: 23px;font-weight: bold;margin-top:15px">
-          {{ $t('page:comments-title') }}
+          {{ name || $t('page:comments-title') }}
         </h3>
       </span>
     </div>
@@ -43,6 +43,9 @@
 
     @Prop()
     private pathname!: string;
+
+    @Prop()
+    private name!: string;
 
     private commentText: string = '';
 

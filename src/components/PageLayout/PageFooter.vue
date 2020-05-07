@@ -96,6 +96,8 @@
   }
 
   .language-bar {
+    margin-left: -22.5px;
+    margin-right: -22.5px;
     background-color: black;
     display: flex;
     justify-content: center;

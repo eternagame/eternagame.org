@@ -22,26 +22,27 @@
             color="#fac244"
           />
         </div> -->
-        <p style="font-size: 42px; font-weight: bold;">{{ progressData[`banner-title`] }}</p>
-
-        <p>
-          {{ progressData[`banner-sub-title`].toUpperCase() }}
-        </p>
-        <b-button variant="primary" size="lg" :href="puzzleRoute + '6502927'">Enter Lab</b-button>
+        <div class="banner-text">
+          <h1>{{ progressData[`banner-title`] }}</h1>
+          <h3>
+            {{ progressData[`banner-sub-title`].toUpperCase() }}
+          </h3>
+          <b-button variant="primary" size="lg" :href="puzzleRoute + '6502927'">Enter Lab</b-button>
+        </div>
       </b-container>
 
-      <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
+      <h2 class="section-header">
         {{ $t('player-home:section1') }}
-      </h1>
+      </h2>
       <Carousel>
         <swiper-slide v-for="(item, index) in masteringEterna" :key="index">
           <QuestCard :key="item.title" v-bind="item" />
         </swiper-slide>
       </Carousel>
 
-      <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
+      <h2 class="section-header">
         {{ $t('player-home:section2') }}
-      </h1>
+      </h2>
       <Carousel>
         <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
           <QuestCard :key="item.title" v-bind="item" />
@@ -128,5 +129,44 @@
     height: 400px;
     padding-top: 91px;
     width: 100%;
+  }
+
+  .section-header {
+    margin-top: 61px;
+  }
+
+  h1, h2, h3 {
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  h1 {
+    font-size: 42px;
+  }
+
+  h2 {
+    font-size: 36px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    h1, h2, h3, .banner-text {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 32px;
+    }
+
+    h2 {
+      font-size: 26px;
+    }
+
+    h3 {
+      font-size: 18px;
+    }
   }
 </style>

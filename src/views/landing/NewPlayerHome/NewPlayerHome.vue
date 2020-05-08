@@ -1,39 +1,44 @@
 <template>
   <EternaPage title="">
     <div v-if="pageData">
-      <b-container
+      <b-jumbotron
+        fluid
+        container-fluid
         class="video"
         :style="{
           backgroundImage: `${bannerImageStyle}`,
-          backgroundPosition: 'right',
+          backgroundPosition: 'top',
+          backgroundSize: 'cover',
         }"
       >
-        <p class="page-title">
-          {{ $t('player-home:banner-title') }}{{ ` ${$t('player-home:banner-together')}` }}
-        </p>
+        <div style="padding: 5rem 2rem;">
+          <p class="video-title">
+            {{ $t('player-home:banner-title') }}<br /><i>{{ $t('player-home:banner-together') }}</i>
+          </p>
 
-        <p class="explain">
-          {{ $t('player-home:banner-explain') }}
-        </p>
-        <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
-          <b-button class="button" variant="primary" size="lg" style="margin-right:10px">{{
-            $t('player-home:next-puzzle')
-          }}</b-button>
-        </a>
-        <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
-          <b-button class="button" variant="secondary" size="lg">{{
-            $t('player-home:nova-labs')
-          }}</b-button>
-        </a>
+          <p class="explain">
+            {{ $t('player-home:banner-explain') }}
+          </p>
+          <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
+            <b-button class="button" variant="primary" size="lg" style="margin-right:10px">{{
+              $t('player-home:next-puzzle')
+            }}</b-button>
+          </a>
+          <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
+            <b-button class="button" variant="secondary" size="lg">{{
+              $t('player-home:nova-labs')
+            }}</b-button>
+          </a>
 
-        <div class="d-flex" style="margin-top: 22px;">
-          <router-link to="/news/9818657">
-            <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
-              <i class="arrow_right"></i>{{ $t('player-home:open-vaccine') }}
-            </p>
-          </router-link>
+          <div class="d-flex" style="margin-top: 22px;">
+            <router-link to="/news/9818657">
+              <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
+                <i class="arrow_right"></i>{{ $t('player-home:open-vaccine') }}
+              </p>
+            </router-link>
+          </div>
         </div>
-      </b-container>
+      </b-jumbotron>
 
       <p class="section-title">
         {{ $t('player-home:lab-access') }}
@@ -119,19 +124,22 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  .page-title {
+  .video-title {
+    line-height: 3rem;
     font-size: 2.8rem;
     font-weight: bold;
     @include media-breakpoint-only(xs) {
+      line-height: 1.6rem;
       font-size: 1.5rem;
     }
   }
 
   .video {
     background-repeat: no-repeat;
-    object-fit: contain;
-    height: 441px;
-    // padding: 31px;
+    min-height: 441px;
+    height: 100%;
+    margin-left: -22.5px;
+    margin-right: -22.5px;
   }
 
   .video-wrapper {

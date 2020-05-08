@@ -1,7 +1,7 @@
 <template>
   <div v-if="user.Profile">
     <hr class="top-border" />
-    <div class="d-flex">
+    <div>
       <div>
         <h4 class="about-me">
           {{ $t('player-view:about-me') }}
@@ -37,5 +37,7 @@
 
   .about-me-text {
     max-width: 710px;
+    white-space: pre-wrap;
+    overflow: hidden;
   }
 </style>

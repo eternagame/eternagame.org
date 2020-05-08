@@ -138,7 +138,16 @@
     z-index: 1;
   }
 
+  .card {
+    transition: 0.3s ease;
+  }
+
   .card:hover {
+    cursor: pointer;
     border: 1px solid gold;
+  }
+
+  .card:active {
+    background-color: #01010188;
   }
 </style>

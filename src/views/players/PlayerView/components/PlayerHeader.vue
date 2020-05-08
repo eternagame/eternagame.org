@@ -1,24 +1,21 @@
-<template
-  ><div v-if="user">
-    <div class="d-flex">
-      <PlayerHeaderImage :user="user" />
-      <div class="player-details">
-        <PlayerHeaderTopRow :user="user" :follows="follows" />
-        <div class="d-none d-sm-block">
-          <div class="d-flex justify-content-between">
-            <PlayerHeaderRank :user="user" />
-            <PlayerHeaderIcons :user="user" />
+<template>
+  <b-container v-if="user">
+    <b-row>
+      <b-col md="6">
+        <div class="player-profile d-flex mt-4">
+          <PlayerHeaderImage :user="user" />
+          <div class="hi">
+            <h1 class="player-name mt-4">{{ user.name }}</h1>
+            <PlayerHeaderRank :user="user" class="mt-3" />
           </div>
         </div>
-      </div>
-    </div>
-    <div class="d-block d-sm-none">
-      <div class="d-flex flex-wrap justify-content-between">
-        <PlayerHeaderRank :user="user" />
-        <PlayerHeaderIcons :user="user" />
-      </div>
-    </div>
-  </div>
+      </b-col>
+      <b-col md="6" class="player-details">
+        <PlayerHeaderTopRow class="header-top-row" :user="user" :follows="follows" />
+        <PlayerHeaderIcons class="header-icons" :user="user" />
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script lang="ts">
@@ -44,5 +41,46 @@
   .player-details {
     margin-top: 20px;
     width: 100%;
+  }
+
+  ::v-deep {
+    font-weight: bold;
+  }
+
+  .player-profile,
+  .header-top-row,
+  .header-icons {
+    justify-content: center;
+  }
+
+  .header-icons {
+    margin: 0 auto;
+    margin-top: 1rem;
+  }
+
+  .header-top-row {
+    margin: 0 auto;
+  }
+
+  @include media-breakpoint-up(md) {
+    .player-profile {
+      float: left;
+    }
+
+    .header-icons {
+      margin-top: 2.8rem;
+      float: right;
+    }
+
+    .header-top-row {
+      float: right;
+    }
+  }
+
+  .player-name {
+    font-size: 24.375px;
+    font-weight: bold;
+    margin-bottom: 0px;
+    width: 100px;
   }
 </style>

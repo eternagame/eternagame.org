@@ -82,3 +82,10 @@
     ];
   }
 </script>
+
+<style lang="scss" scoped>
+.page-content {
+  white-space: pre-wrap;
+  padding: 1.5rem;
+}
+</style>

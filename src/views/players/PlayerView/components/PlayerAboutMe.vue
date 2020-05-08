@@ -1,7 +1,7 @@
 <template>
-  <div v-if="user.Profile">
+  <div v-if="user.Profile" class="content">
     <hr class="top-border" />
-    <div class="d-flex">
+    <div>
       <div>
         <h4 class="about-me">
           {{ $t('player-view:about-me') }}
@@ -30,6 +30,10 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
+  .content {
+    margin: 1rem;
+  }
+
   .about-me {
     font-size: 20.625px;
     font-weight: bold;
@@ -37,5 +41,7 @@
 
   .about-me-text {
     max-width: 710px;
+    white-space: pre-wrap;
+    overflow: hidden;
   }
 </style>

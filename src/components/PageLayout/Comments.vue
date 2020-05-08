@@ -9,10 +9,15 @@
     </div>
     <div class="card body">
       <div v-if="pathname && loggedIn">
-        <input v-model="commentText" :placeholder="$t('page:comments-enter')" />
+        <textarea
+          rows="4"
+          class="form-control"
+          v-model="commentText"
+          :placeholder="$t('page:comments-enter')"
+        />
         <b-button
           type="submit"
-          style="margin-left:10px"
+          style="float: right"
           variant="primary"
           @click="submit"
           :disabled="!commentText"
@@ -65,6 +70,12 @@
   }
 
   .body {
-    padding: 40px 30px 5px;
+    padding: 1.5rem;
+  }
+
+  .form-control {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    background-color: #01010188;
   }
 </style>

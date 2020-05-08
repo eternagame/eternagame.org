@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="d-flex">
     <img src="@/assets/dollar.svg" class="icon" /> {{ user.points }}
-    <img src="@/assets/test-tube.svg" class="icon" /> {{ user.ten_tools_puzzle_count }}
-    <img src="@/assets/calendar.svg" class="icon" /> {{ user.created }}
+    <img src="@/assets/test-tube.svg" class="icon ml-4" /> {{ user.ten_tools_puzzle_count }}
+    <img src="@/assets/calendar.svg" class="icon ml-4" /> {{ formattedCreated }}
   </div>
 </template>
 
@@ -11,12 +11,17 @@
   @Component({})
   export default class PlayerHeaderIcons extends Vue {
     @Prop() user!: object;
+
+    get formattedCreated(): string {
+      const start = this.user.created.indexOf(' ');
+      return this.user.created.substring(start);
+    }
   }
 </script>
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
   img {
-    margin-left: 20px;
+    margin-right: 6px;
   }
 </style>

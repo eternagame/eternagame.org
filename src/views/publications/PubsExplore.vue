@@ -1,19 +1,17 @@
 <template>
-  <EternaPage title="Eterna Publications%" v-if="pageData">
+  <EternaPage :title="$t('pubs:title')" v-if="pageData">
     <div v-if="pageData">
       <p class="overview-text">
-        Over 60,000 Eterna players have contributed to scientific publications, including several
-        players as lead authors. Have a new paper idea? Want to help us edit upcoming player papers?
-        Please contact Omei. The Eterna project has lead to the publication of 25 papers.%
+        {{ $t('pubs:overview') }}
       </p>
 
-      <h2>Player Publications%</h2>
+      <h2>{{ $t('pubs:player-title') }}</h2>
       <Gallery :sm="12" :md="12">
         <PubsCard v-for="pub in pageData.playerpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
       <Pagination />
 
-      <h2>Researcher Publications%</h2>
+      <h2>{{ $t('pubs:researcher-title') }}</h2>
       <Gallery :sm="12" :md="12">
         <PubsCard v-for="pub in pageData.researcherpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>

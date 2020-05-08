@@ -3,15 +3,7 @@
     <div class="page-content">
       <div class="d-flex flex-wrap " xs="12" sm="8">
         <div style="text-align:center" class="order-sm-2 col-sm-6">
-          <div
-            :style="{
-              width: '334.0005px',
-              height: '364.9995px',
-              backgroundColor: '#041227',
-              opacity: '0.8',
-              margin: '0 auto',
-            }"
-          >
+          <div class="puzzle-image">
             <img v-if="imageURL" :src="imageURL" />
           </div>
           <b-button
@@ -121,6 +113,16 @@
   .quest-image {
     margin: 15px;
   }
+
+  .puzzle-image {
+    width: auto;
+    max-width: 334px;
+    height: 365px;
+    background-color: #041227;
+    opacity: 0.8;
+    margin: 0 auto;
+  }
+
   .submit-button {
     margin-top: 15px;
   }

@@ -44,7 +44,7 @@
         {{ $t('player-home:lab-access') }}
       </p>
       <img v-if="progress" :src="progress" class="player-progress-bar" />
-      <Carousel>
+      <Carousel :slideTo="progressNumber">
         <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
           <QuestCard :key="item.title" v-bind="item" />
         </swiper-slide>
@@ -112,11 +112,14 @@
       );
     }
 
-    get progress() {
+    get progressNumber() {
       return (
-        this.pageData.achievement_roadmap
-        && PROGRESS_IMAGES[this.pageData.achievement_roadmap[0].current_level]
+        this.pageData.achievement_roadmap && this.pageData.achievement_roadmap[0].current_level
       );
+    }
+
+    get progress() {
+      return PROGRESS_IMAGES[this.progressNumber || 0];
     }
   }
 </script>

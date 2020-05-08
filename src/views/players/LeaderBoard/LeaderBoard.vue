@@ -2,7 +2,12 @@
   <EternaPage :title="$t('nav-bar:leaderboards')">
     <div v-if="pageData">
       <div class="page-content">
-        <PlayerCard v-for="player in players" :key="player.uid" :player="player" />
+        <PlayerCard
+          v-for="(player, index) in players"
+          :key="player.uid"
+          :player="player"
+          :index="index"
+        />
       </div>
       <Pagination />
     </div>
@@ -11,8 +16,12 @@
     </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPannel :placeholder="$t('search:players')" :isInSidebar="isInSidebar" />
-      <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
-      <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
+      <DropdownSidebarPanel
+        :options="options"
+        paramName="sort"
+        replace
+        :isInSidebar="isInSidebar"
+      />
     </template>
   </EternaPage>
 </template>
@@ -34,7 +43,7 @@
 
   const INITIAL_NUMBER = 18;
 
-  const ROUTE = 'https://eternagame.org/get/?type=users&sort=active';
+  const ROUTE = 'https://eternagame.org/get/?type=users';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
@@ -42,7 +51,7 @@
     const res = (
       await http.get(`${ROUTE}&size=${INITIAL_NUMBER}`, {
         params: {
-          order: route.query.sort,
+          sort: route.query.sort,
           filters: route.query.filters && (route.query.filters as string).split(','),
           size: route.query.size || INITIAL_NUMBER,
           search: route.query.search,
@@ -68,17 +77,11 @@
       return get(this.pageData, 'users', []);
     }
 
-    private filters: Filter[] = [
-      { value: 'single', text: 'Single State' },
-      { value: '2-state', text: '2-state switch' },
-      { value: '3-state', text: '3-state switch' },
-      { value: '4-state', text: '4-state switch' },
-      { value: 'vienna', text: 'Vienna' },
-      { value: 'rnassd', text: 'RNAssd' },
-      { value: 'inforna', text: 'Inforna' },
-      { value: 'notcleared', text: 'Uncleared' },
+    private options: Option[] = [
+      { value: 'point', text: 'side-panel-options:total-points' },
+      { value: 'active', text: 'side-panel-options:points-last-30-days' },
+      { value: 'synthesizes', text: 'side-panel-options:total-synthesized' },
+      { value: 'update', text: 'side-panel-options:synthesized-latest' },
     ];
-
-    private tags: string[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
   }
 </script>

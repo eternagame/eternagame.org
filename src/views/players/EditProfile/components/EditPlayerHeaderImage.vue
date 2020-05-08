@@ -1,10 +1,21 @@
 <template>
   <div>
-    <img class="d-block d-sm-none rounded-circle player-image" :src="picture" alt="player-image" />
+    <div v-if="picture">
+      <img
+        class="d-block d-sm-none rounded-circle player-image"
+        :src="picture"
+        alt="player-image"
+      />
+      <img
+        class="d-none d-sm-block rounded-circle player-image-large"
+        :src="picture"
+        alt="player-image"
+      />
+    </div>
     <img
+      v-else
       class="d-none d-sm-block rounded-circle player-image-large"
-      :src="picture"
-      alt="player-image"
+      src="@/assets/front-page/img/icon_user.png"
     />
   </div>
 </template>
@@ -23,9 +34,7 @@
     }
 
     get picture() {
-      return this.user.picture
-        ? `${process.env.VUE_APP_API_BASE_URL}/${this.user.picture}`
-        : DEFAULT_PLAYER_PICTURE;
+      return this.user.picture && `${process.env.VUE_APP_API_BASE_URL}/${this.user.picture}`;
     }
   }
 </script>

@@ -11,10 +11,10 @@
       <img :src="imageURL" class="image" />
     </div>
     <template #buttons>
-      <b-button :href="mainRoute + puzzle.nid" variant="primary" size="sm">{{
+      <b-button :href="`${mainRoute}${puzzle.nid}/`" variant="primary" size="sm">{{
         closed ? $t('lab-puzzle-card:closed-main') : $t('lab-puzzle-card:main')
       }}</b-button>
-      <b-button :href="secondaryRoute + puzzle.nid" variant="secondary" size="sm">{{
+      <b-button :href="`${secondaryRoute}${puzzle.nid}/`" variant="secondary" size="sm">{{
         closed ? $t('lab-puzzle-card:closed-secondary') : $t('lab-puzzle-card:secondary')
       }}</b-button>
     </template>

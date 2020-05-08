@@ -19,7 +19,7 @@
           <b-button type="submit" variant="primary" v-else-if="notStarted">{{
             $t('quest-card:play')
           }}</b-button>
-          <b-progress v-else :value="to_next"></b-progress>
+          <b-progress v-else-if="!locked" :value="to_next" max="1"></b-progress>
         </div>
       </template>
     </AspectRatioCard>

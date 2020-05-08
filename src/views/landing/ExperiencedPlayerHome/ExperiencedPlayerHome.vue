@@ -1,42 +1,45 @@
 <template>
   <EternaPage>
     <div v-if="pageData">
-      <b-jumbotron fluid container-fluid
+      <b-jumbotron
+        fluid
+        container-fluid
         class="video"
         :style="{
           backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0),
           rgba(0, 0, 0, 0.75)),url('${progressData[`banner-image`]}')`,
         }"
       >
-      <div class="banner-text">
-        <h1>{{ progressData[`banner-title`] }}</h1>
-        <h3>
-          {{ progressData[`banner-sub-title`].toUpperCase() }}
-        </h3>
-        <b-button variant="primary" size="lg" :href="puzzleRoute + '6502927'">Enter Lab</b-button>
+        <div class="banner-text">
+          <h1>{{ progressData[`banner-title`] }}</h1>
+          <h3>
+            {{ progressData[`banner-sub-title`].toUpperCase() }}
+          </h3>
+          <b-button variant="primary" size="lg" :href="`${puzzleRoute}6502927/`"
+            >Enter Lab</b-button
+          >
 
-        <div class="banner-progress">
-          <Progress
-            :progress="progressData.progressCircles[0].number"
-            :total="progressData.progressCircles[0].total"
-            :name="progressData.progressCircles[0].name"
-            color="#2f94d1"
-          />
-          <Progress
-            :progress="progressData.progressCircles[1].number"
-            :total="progressData.progressCircles[1].total"
-            :name="progressData.progressCircles[1].name"
-            color="#fac244"
-          />
+          <div class="banner-progress">
+            <Progress
+              :progress="progressData.progressCircles[0].number"
+              :total="progressData.progressCircles[0].total"
+              :name="progressData.progressCircles[0].name"
+              color="#2f94d1"
+            />
+            <Progress
+              :progress="progressData.progressCircles[1].number"
+              :total="progressData.progressCircles[1].total"
+              :name="progressData.progressCircles[1].name"
+              color="#fac244"
+            />
+          </div>
         </div>
-      </div>
-
       </b-jumbotron>
 
       <h2 class="section-header">
         {{ $t('player-home:section1') }}
       </h2>
-      <Carousel>
+      <Carousel :slideTo="masteringEternaProgressNumber">
         <swiper-slide v-for="(item, index) in masteringEterna" :key="index">
           <QuestCard :key="item.title" v-bind="item" />
         </swiper-slide>
@@ -45,7 +48,7 @@
       <h2 class="section-header">
         {{ $t('player-home:section2') }}
       </h2>
-      <Carousel>
+      <Carousel :slideTo="newPlayerProgressNumber">
         <swiper-slide v-for="(item, index) in newPlayerRoadMap" :key="index">
           <QuestCard :key="item.title" v-bind="item" />
         </swiper-slide>
@@ -101,6 +104,14 @@
       );
     }
 
+    get newPlayerProgressNumber() {
+      return this.newPlayerRoadMap && this.newPlayerRoadMap[0].current_level;
+    }
+
+    get masteringEternaProgressNumber() {
+      return this.masteringEterna && this.masteringEterna[0].current_level;
+    }
+
     get progressData() {
       return {
         'banner-title': 'Optimizing the Ribosome',
@@ -148,8 +159,10 @@
     margin-top: 61px;
   }
 
-
-  h1, h2, h3, .banner-text {
+  h1,
+  h2,
+  h3,
+  .banner-text {
     text-align: center;
     margin-bottom: 1rem;
     font-weight: bold;
@@ -168,20 +181,23 @@
   }
 
   @include media-breakpoint-up(sm) {
-  h1, h2, h3, .banner-text {
-    text-align: left;
-  }
+    h1,
+    h2,
+    h3,
+    .banner-text {
+      text-align: left;
+    }
 
-  h1 {
-    font-size: 42px;
-  }
+    h1 {
+      font-size: 42px;
+    }
 
-  h2 {
-    font-size: 36px;
-  }
+    h2 {
+      font-size: 36px;
+    }
 
-  h3 {
-    font-size: 24px;
-  }
+    h3 {
+      font-size: 24px;
+    }
   }
 </style>

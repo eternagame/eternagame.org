@@ -42,7 +42,6 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
-  import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import AspectRatioCard from './AspectRatioCard.vue';
   import StateCounter from './StateCounter.vue';
 

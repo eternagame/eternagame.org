@@ -1,8 +1,11 @@
 <template>
   <div class="card player-card">
     <div class="d-flex align-items-center" style="width:100%">
-      <p class="rank">#{{ rank }}</p>
-      <img class="rounded-circle player-image" :src="imageLink" />
+      <div style="width:100px">
+        <p class="rank">#{{ index + 1 }}</p>
+      </div>
+      <img v-if="imageLink" class="rounded-circle player-image" :src="imageLink" />
+      <img v-else class="rounded-circle player-image" src="@/assets/front-page/img/icon_user.png" />
       <router-link class="player-name" :to="'/player/' + player.uid">
         {{ player.name }}
       </router-link>
@@ -58,9 +61,7 @@
     }
 
     get imageLink() {
-      return this.player.picture
-        ? `${process.env.VUE_APP_API_BASE_URL}/${this.player.picture}`
-        : DEFAULT_PLAYER_PICTURE;
+      return this.player.picture && `${process.env.VUE_APP_API_BASE_URL}/${this.player.picture}`;
     }
   }
 </script>

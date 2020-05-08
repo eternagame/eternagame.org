@@ -1,6 +1,6 @@
 <template>
   <div ref="comp">
-    <swiper class="swiper" :options="swiperOption">
+    <swiper class="swiper" ref="slider" :options="swiperOption">
       <slot> </slot>
       <div class="swiper-pagination" slot="pagination"></div>
       <div class="swiper-button prev-elem" slot="button-prev">
@@ -24,7 +24,11 @@
     directives: { swiper: directive },
   })
   export default class Carousel extends Vue {
-    @Prop() private name!: string;
+    @Prop() private slideTo!: number;
+
+    mounted() {
+      if (this.slideTo) this.$refs.slider.$swiper.slideTo(this.slideTo);
+    }
 
     private swiperOption = {
       spaceBetween: 20,

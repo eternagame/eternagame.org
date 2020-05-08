@@ -10,7 +10,7 @@
             type="submit"
             variant="primary"
             class="submit-button"
-            :href="puzzleRoute + pageData.nid"
+            :href="`${puzzleRoute}${pageData.nid}/`"
           >
             {{ $t('puzzle-view:main-action') }}
           </b-button>

@@ -10,6 +10,7 @@
     <div class="card body">
       <div v-if="pathname && loggedIn">
         <textarea
+          rows="4"
           class="form-control"
           v-model="commentText"
           :placeholder="$t('page:comments-enter')"

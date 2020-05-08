@@ -81,7 +81,7 @@
           <b-button
             class="how-it-works__btn"
             variant="primary"
-            @click="redirect(`${puzzleRoute}/6502927/`)"
+            @click="redirect(`${puzzleRoute}6502927/`)"
             >{{ $t('video-section:main-action') }}</b-button
           >
         </section>

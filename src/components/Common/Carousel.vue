@@ -27,7 +27,7 @@
     @Prop() private name!: string;
 
     private swiperOption = {
-      spaceBetween: 30,
+      spaceBetween: 20,
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
@@ -40,11 +40,11 @@
         },
         576: {
           slidesPerView: 3,
-          spaceBetween: 30,
+          spaceBetween: 20,
         },
         992: {
           slidesPerView: 4,
-          spaceBetween: 40,
+          spaceBetween: 30,
         },
       },
       navigation: {
@@ -57,18 +57,29 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
+  .swiper {
+    margin-left: -22.5px;
+    margin-right: -22.5px;
+    padding-left: 22.5px;
+    padding-right: 22.5px;
+  }
+
   ::v-deep .swiper-button {
     background-color: black;
     color: teal;
     width: 38px;
     height: 30px;
     text-align: center;
-    vertical-align: middle;
     font-size: 20px;
     position: absolute;
-    top: 30%;
+    top: 40%;
     z-index: 10;
     cursor: pointer;
+  }
+
+  ::v-deep .swiper-button.prev-elem {
+    border-radius: 0 10px 10px 0;
+    left: 0px;
   }
 
   ::v-deep .swiper-button-disabled {
@@ -76,6 +87,7 @@
   }
 
   ::v-deep .swipper-button-right {
+    border-radius: 10px 0 0 10px;
     right: 0px;
   }
 

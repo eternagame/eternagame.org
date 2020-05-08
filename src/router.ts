@@ -82,6 +82,11 @@ export default function createRouter() {
         component: () => import('./views/news/NewsView/NewsView.vue'),
       },
       {
+        path: '/publications',
+        name: 'publications-list',
+        component: () => import('./views/publications/PubsExplore.vue'),
+      },
+      {
         path: '/feed',
         name: 'activity-feed',
         component: () => import('./views/feed/ActivityFeed.vue'),

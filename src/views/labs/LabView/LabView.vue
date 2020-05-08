@@ -2,21 +2,22 @@
   <EternaPage v-if="lab" title="Lab Details">
     <LabDescription :lab="lab" style="margin-bottom: 52.5px;" />
     <b-tabs v-if="openRounds.length">
-      <b-tab :title="$t('lab-view:open')" v-if="openRounds.length">
+      <b-tab :title="$t('lab-view:open')" v-if="openRounds.length" class="tab">
         <LabRound v-for="round in openRounds" :key="round.round" :round="round" />
       </b-tab>
-      <b-tab :title="$t('lab-view:closed')" v-if="closedRounds.length">
+      <b-tab :title="$t('lab-view:closed')" v-if="closedRounds.length" class="tab">
         <LabRound v-for="round in closedRounds" :key="round.round" :round="round" closed="true" />
       </b-tab>
     </b-tabs>
     <LabRound v-else v-for="round in closedRounds" :key="round.round" :round="round" />
     <LabConclusion :lab="lab" style="margin-bottom: 52.5px;" />
     <Comments
+      :name="$t('lab-view:admin-comments')"
       :comments="pageData.supercomments"
       v-if="pageData.supercomments.length"
       :pathname="addCommentPath"
     />
-    <Comments :comments="pageData.comments" :name="$t('lab-view:admin-comments')" />
+    <Comments :comments="pageData.comments" v-if="pageData.comments.length" />
     <template #sidebar="{ isInSidebar }">
       <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" /> -->
@@ -77,3 +78,32 @@
     }
   }
 </script>
+
+<style scoped lang="scss">
+  ::v-deep .nav-link {
+    background-color: #50b2dc;
+    color: white;
+  }
+  ::v-deep .nav-link.active {
+    background-color: #041227 !important;
+    border: 0px;
+    color: white;
+  }
+
+  .tab {
+    background-color: #041227 !important;
+    padding: 10px;
+    border: 0px;
+    margin-top: -1px;
+  }
+
+  ::v-deep .nav-tabs {
+    color: white;
+
+    border: 0px;
+  }
+
+  ::v-deep a {
+    color: white;
+  }
+</style>

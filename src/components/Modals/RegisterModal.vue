@@ -28,7 +28,7 @@
       />
       <vue-recaptcha
         sitekey="6LcFwUsUAAAAAOQ9szhauSNv2bJuBOUtw_pGrRnd"
-        :loadRecaptchaScript="true"
+        loadRecaptchaScript="true"
         @verify="captchaResponse = $event"
       />
       <b-button type="submit" variant="primary" class="submit-button">{{

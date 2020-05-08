@@ -139,6 +139,7 @@
   }
 
   .card:hover {
+    cursor: pointer;
     border: 1px solid gold;
   }
 </style>

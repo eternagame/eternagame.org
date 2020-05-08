@@ -1,7 +1,7 @@
 <template>
   <b-nav-dropdown
     right
-    class="d-block d-md-inline-block"
+    class="d-block d-md-inline-block dropdown"
     size="lg"
     variant="link"
     toggle-class="px-0 text-decoration-none"
@@ -34,6 +34,13 @@
 
 <style lang="scss" scoped>
   ::v-deep img {
-    width: 28px;
+    width: 35px;
+    height: 35px;
+  }
+
+  ::v-deep a {
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+    border-radius: 3px;
   }
 </style>

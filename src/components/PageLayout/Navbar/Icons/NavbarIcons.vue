@@ -1,8 +1,8 @@
 <template>
   <div>
-    <UserIcon class="float-lg-right" />
-    <BellIcon class="float-lg-right" />
-    <ChatIcon class="float-lg-right" />
+    <UserIcon class="float-lg-right icon" />
+    <BellIcon class="float-lg-right icon" />
+    <ChatIcon class="float-lg-right icon" />
   </div>
 </template>
 <script lang="ts">
@@ -21,4 +21,6 @@
   export default class NavbarIcons extends Vue {}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  @import '@/styles/global.scss';
+</style>

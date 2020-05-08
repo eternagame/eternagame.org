@@ -27,7 +27,7 @@
     private value!: string | object;
 
     redirect(path: string) {
-      window.location.replace(path);
+      window.location.href = path;
     }
 
     // only called if typeof this.value === object

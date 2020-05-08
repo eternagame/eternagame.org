@@ -35,7 +35,7 @@
     contentVisible = false;
 
     redirect(path: string) {
-      window.location.replace(path);
+      window.location.href = path;
     }
 
     get collapseId() {

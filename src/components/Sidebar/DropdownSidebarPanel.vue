@@ -70,7 +70,7 @@
     }
 
     onClick(index: number, link?: string) {
-      if (link) window.location.replace(link);
+      if (link) window.location.href = link;
       this.selectedIndex = index;
     }
 

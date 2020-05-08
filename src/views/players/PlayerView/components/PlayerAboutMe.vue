@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user.Profile">
+  <div v-if="user.Profile" class="content">
     <hr class="top-border" />
     <div>
       <div>
@@ -29,6 +29,10 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  .content {
+    margin: 1rem;
+  }
 
   .about-me {
     font-size: 20.625px;

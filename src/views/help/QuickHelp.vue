@@ -1,28 +1,27 @@
 <template>
-  <EternaPage>
-    <h1>{{ $t('help:title') }}</h1>
-    <h2>{{ $t('help:topics') }}</h2>
-    <div class="card flex">
-      <p v-for="key in Object.keys(data)" :key="key">
-        <a :href="'#' + key">{{ $t(key) }}</a>
-      </p>
+  <EternaPage :title="$t('help:title')">
+    <h3 class="mt-4">{{ $t('help:topics') }}</h3>
+    <div class="card flex p-3">
+      <template v-for="key in Object.keys(data)">
+        <a class="section-link" :href="'#' + key" :key="key">{{ $t(key) }}</a>
+        <hr class="options-divider m-0" :key="key" />
+      </template>
     </div>
     <div v-for="[key, section] in Object.entries(data)" :key="key">
-      <a @click="scrollToTop()">{{ $t('help:top') }}</a>
+      <a href="#" @click="scrollToTop()" class="top-link">
+        {{ $t('help:top') }} <b-icon-arrow-up></b-icon-arrow-up>
+      </a>
       <h3>{{ $t(key) }}</h3>
-      <div class="card">
-        <a :name="key"> <p v-dompurify-html="$t(section)"></p></a>
+      <div class="card p-3">
+        <a :name="key"> <p class="section-text" v-dompurify-html="$t(section)"></p></a>
       </div>
     </div>
     <template #sidebar="{  }">
-      <h1>{{ $t('help:key-commands') }}</h1>
-      <div
-        v-for="[key, command] in Object.entries(keycommands)"
-        :key="key"
-        class="d-flex space-between"
-      >
-        <div>{{ $t(key) }}</div>
-        <div>{{ $t(command) }}</div>
+      <h3><b-icon-command></b-icon-command> {{ $t('help:key-commands') }}</h3>
+      <div v-for="[key, command] in Object.entries(keycommands)" :key="key">
+        <div class="section-link" style="float: right">{{ $t(command) }}</div>
+        <div class="section-link">{{ $t(key) }}</div>
+        <hr class="options-divider m-0" />
       </div>
     </template>
   </EternaPage>
@@ -33,12 +32,15 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
+  import { BIconArrowUp, BIconCommand } from 'bootstrap-vue';
 
   Vue.use(VueDOMPurifyHTML);
   @Component({
     components: {
       EternaPage,
       AspectRatioCard,
+      BIconArrowUp,
+      BIconCommand,
     },
   })
   export default class QuickHelp extends Vue {
@@ -89,4 +91,37 @@
     }
   }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  @import '@/styles/_variables.scss';
+
+  h3 {
+    font-weight: bold;
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .top-link {
+    float: right;
+    font-weight: bold;
+    color: $gray-200;
+  }
+
+  .section-link {
+    color: $gray-200;
+    font-weight: bold;
+    line-height: 2rem;
+  }
+
+  .section-text {
+    white-space: pre-wrap;
+  }
+
+  // TODO: Dedupe from DropdownSidebarPanel
+  .options-divider {
+    border-color: $gray-200;
+    opacity: 0.15;
+    margin: 9.375px 0;
+  }
+</style>

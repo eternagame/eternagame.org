@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-2">
     <h3>{{ $t('terms:section-1-title') }}</h3>
     <p>
       {{ $t('terms:section-1-text') }}
@@ -68,4 +68,11 @@
   @Component({})
   export default class Text extends Vue {}
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  h3 {
+    font-size: 1rem;
+    font-weight: bold;
+    padding-top: 1rem;
+    margin-bottom: 0.2rem;
+  }
+</style>

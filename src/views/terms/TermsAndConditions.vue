@@ -5,7 +5,7 @@
       :header_title="$t('terms:title-short').toUpperCase()"
       :header_date="$t('terms:header-date')"
     >
-      <div class="page-content">
+      <div class="page-content mt-2">
         <TermsAndConditionsText />
         <hr class="top-border" />
       </div>
@@ -28,6 +28,19 @@
   import axios from 'axios';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import TermsAndConditionsText from './TermsAndConditionsText.vue';
+
+  export const options: Option[] = [
+    { value: 'about', text: 'side-panel-options:about', link: '/about' },
+    { value: 'publications', text: 'side-panel-options:publications', link: '/publications' },
+    {
+      value: 'software',
+      text: 'side-panel-options:software',
+      link: 'https://software.eternagame.org/',
+    },
+    { value: 'terms', text: 'side-panel-options:terms', link: '/about/terms' },
+    { value: 'code_conduct', text: 'side-panel-options:code_conduct', link: '/about/conduct' },
+  ];
+
   @Component({
     components: {
       EternaPage,
@@ -36,17 +49,7 @@
     },
   })
   export default class TermsAndConditions extends Vue {
-    private options: Option[] = [
-      { value: 'about', text: 'side-panel-options:about', link: '/about' },
-      { value: 'publications', text: 'side-panel-options:publications', link: '/publications' },
-      {
-        value: 'software',
-        text: 'side-panel-options:software',
-        link: 'https://software.eternagame.org/',
-      },
-      { value: 'terms', text: 'side-panel-options:terms', link: '/about/terms' },
-      { value: 'code_conduct', text: 'side-panel-options:code_conduct', link: '/about/conduct' },
-    ];
+    private options: Option[] = options;
   }
 </script>
 <style lang="scss" scoped>

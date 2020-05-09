@@ -97,9 +97,9 @@
           headers: { 'Content-type': 'application/x-www-form-urlencoded' },
         },
       );
-      // $('#loader').modal('hide');
       const { data } = response;
       if (data.data.success) {
+        this.$refs.modal.hide();
         this.$router.push('/');
       } else {
         this.errorMessage = data.data.error;

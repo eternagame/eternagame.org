@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import browserLanguage from 'in-browser-language';
 
 Vue.use(VueI18n);
 
@@ -24,7 +25,7 @@ const messages = loadLocaleMessages();
 export const LANGUAGES = Object.getOwnPropertyNames(messages);
 
 const i18n = new VueI18n({
-  locale: window.localStorage.getItem(LANGUAGE_KEY_NAME),
+  locale: window.localStorage.getItem(LANGUAGE_KEY_NAME) || browserLanguage.pick(LANGUAGES),
   fallbackLocale: DEFAULT_LANGUAGE,
   messages,
 });

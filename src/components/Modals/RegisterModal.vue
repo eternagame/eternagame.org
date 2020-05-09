@@ -39,6 +39,7 @@
           $t('register-modal:disclaimer')
         }}</b-link>
       </div>
+      <v-facebook-login :app-id="fbID" @login="fbLogIn()"></v-facebook-login>
     </b-form>
   </b-modal>
 </template>
@@ -46,11 +47,17 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
+  import axios from 'axios';
   import VueRecaptcha from 'vue-recaptcha';
+  // @ts-ignore
+  import VFacebookLogin from 'vue-facebook-login-component';
+
+  const FB_LOGIN_ROUTE = '/login/?type=login&method=facebook';
 
   @Component({
     components: {
       VueRecaptcha,
+      VFacebookLogin,
     },
   })
   export default class RegisterModal extends Vue {
@@ -60,6 +67,8 @@
       password: '',
       rePassword: '',
     };
+
+    private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
     private submitted = false;
 
@@ -82,6 +91,13 @@
       await this.register();
     }
 
+    fbLogIn() {
+      axios.post(FB_LOGIN_ROUTE).then(res => {
+        this.$bvModal.hide('modal-login');
+        this.$router.push('/');
+      });
+    }
+
     async register() {
       // $('#loader').modal('show');
       const response = await this.$http.post(
@@ -99,9 +115,14 @@
       );
       const { data } = response;
       if (data.data.success) {
-        this.$refs.modal.hide();
-        this.$router.push('/');
-        window.location.reload();
+        const loginData = await this.$vxm.user.login({
+          username: this.form.username,
+          password: this.form.password,
+        });
+        if (loginData.success) {
+          this.$refs.modal.hide();
+          this.$router.push('/');
+        }
       } else {
         this.errorMessage = data.data.error;
         this.submitted = false;

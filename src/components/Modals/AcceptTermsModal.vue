@@ -47,7 +47,8 @@
 
     mounted() {
       console.log(this.$vxm.user.userDetails);
-      if (this.$vxm.user.loggedIn && !this.$vxm.user.userDetails.Survey.includes('EULA_Agree')) {
+      const surveyValue = this.$vxm.user.loggedIn && this.$vxm.user.userDetails.Survey;
+      if (!surveyValue.includes('EULA_Agree') && surveyValue !== 'Yes') {
         this.$refs.modal.show();
       }
     }

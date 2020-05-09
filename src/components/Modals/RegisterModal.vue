@@ -82,6 +82,13 @@
       rePassword: BFormInput;
     };
 
+    fbLogIn() {
+      axios.post(FB_LOGIN_ROUTE).then(res => {
+        this.$bvModal.hide('modal-login');
+        this.$router.push('/');
+      });
+    }
+
     async tryRegister(event: Event) {
       this.errorMessage = '';
       if (this.form.password !== this.form.rePassword) {
@@ -91,13 +98,6 @@
       }
       this.submitted = true;
       await this.register();
-    }
-
-    fbLogIn() {
-      axios.post(FB_LOGIN_ROUTE).then(res => {
-        this.$bvModal.hide('modal-login');
-        this.$router.push('/');
-      });
     }
 
     async register() {
@@ -117,17 +117,25 @@
       );
       const { data } = response;
       if (data.data.success) {
-        const loginData = await this.$vxm.user.login({
-          username: this.form.username,
-          password: this.form.password,
-        });
-        if (loginData.success) {
-          this.$refs.modal.hide();
-          this.$router.push('/');
-        }
+        await this.login();
       } else {
         this.errorMessage = data.data.error;
         this.submitted = false;
+      }
+    }
+
+    async login() {
+      if (this.form.username && this.form.password) {
+        const data = await this.$vxm.user.login({
+          username: this.form.username,
+          password: this.form.password,
+        });
+        if (data.success) {
+          this.$refs.modal.hide();
+          this.$router.push('/');
+        } else {
+          this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });
+        }
       }
     }
   }

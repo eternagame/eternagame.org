@@ -101,6 +101,7 @@
       if (data.data.success) {
         this.$refs.modal.hide();
         this.$router.push('/');
+        window.location.reload();
       } else {
         this.errorMessage = data.data.error;
         this.submitted = false;

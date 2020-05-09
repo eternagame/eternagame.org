@@ -31,7 +31,7 @@
         loadRecaptchaScript="true"
         @verify="captchaResponse = $event"
       />
-      <b-button type="submit" variant="primary" class="submit-button">{{
+      <b-button type="submit" variant="primary" class="submit-button" :disabled="!submitted">{{
         $t('register-modal:main-action')
       }}</b-button>
       <div>
@@ -61,6 +61,8 @@
       rePassword: '',
     };
 
+    private submitted = false;
+
     captchaResponse = '';
 
     errorMessage = '';
@@ -76,6 +78,7 @@
         (this.$refs.rePassword.$el as HTMLInputElement).setCustomValidity('Password Must Match.');
         return;
       }
+      this.submitted = true;
       await this.register();
     }
 
@@ -100,6 +103,7 @@
         this.$router.push('/');
       } else {
         this.errorMessage = data.data.error;
+        this.submitted = false;
       }
     }
   }

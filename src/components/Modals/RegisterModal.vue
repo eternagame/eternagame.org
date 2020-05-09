@@ -27,6 +27,7 @@
         ref="rePassword"
       />
       <vue-recaptcha
+        ref="recaptcha"
         sitekey="6LcFwUsUAAAAAOQ9szhauSNv2bJuBOUtw_pGrRnd"
         loadRecaptchaScript="true"
         @verify="captchaResponse = $event"
@@ -85,6 +86,7 @@
       this.errorMessage = '';
       if (this.form.password !== this.form.rePassword) {
         (this.$refs.rePassword.$el as HTMLInputElement).setCustomValidity('Password Must Match.');
+        this.$refs.recaptcha.reset();
         return;
       }
       this.submitted = true;

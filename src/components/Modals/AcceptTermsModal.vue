@@ -6,17 +6,21 @@
     footer-border-variant="primary"
   >
     <template #modal-title>
-      <b>{{ $t('terms:title-short') }}</b>
+      <b>{{ $t('terms:title-short').toUpperCase() }}</b>
     </template>
     <div class="content">
-      <h3>{{ $t('terms-modal:eula') }}</h3>
+      <h3 class="p-2 mt-3 mb-0">{{ $t('terms-modal:eula') }}</h3>
       <TermsAndConditionsText />
     </div>
     <template #modal-footer>
-      <b-checkbox v-model="status">
-        {{ $t('terms-modal:accept') }}
-      </b-checkbox>
-      <b-button variant="primary" @click="acceptTerms">{{ $t('terms-modal:submit') }}</b-button>
+      <div>
+        <b-checkbox class="font-weight-bold" v-model="status">
+          {{ $t('terms-modal:accept') }}
+        </b-checkbox>
+        <b-button class="accept-button" variant="primary" @click="acceptTerms">
+          {{ $t('terms-modal:submit') }}
+        </b-button>
+      </div>
     </template>
   </b-modal>
 </template>
@@ -42,7 +46,9 @@
     private status: boolean = false;
 
     mounted() {
-      if (this.$vxm.user.loggedIn && !this.$vxm.user.userDetails.Survey.includes('EULA_Agree')) this.$refs.modal.show();
+      if (this.$vxm.user.loggedIn && !this.$vxm.user.userDetails.Survey.includes('EULA_Agree')) {
+        this.$refs.modal.show();
+      }
     }
 
     acceptTerms() {
@@ -53,8 +59,70 @@
 </script>
 
 <style scoped lang="scss">
+  h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  ::v-deep .modal-dialog {
+    max-width: 675px;
+    width: 100%;
+  }
+
   .content {
     height: 500px;
-    overflow: scroll;
+    overflow: auto;
+  }
+
+  ::v-deep .modal-footer {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .accept-button {
+    margin-top: 1rem;
+    font-size: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    text-transform: uppercase;
+  }
+
+  /* Following styles are copied from LoginModal */
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.15s;
+  }
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
+  ::v-deep .modal-header {
+    -webkit-backdrop-filter: blur(28.125px);
+    backdrop-filter: blur(28.125px);
+    background-color: #4a90e2;
+    padding: 8.4375px;
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 1.38;
+      margin: 0 auto;
+      padding-left: 28.125px;
+    }
+
+    .close {
+      opacity: 0.5;
+      color: var(--white);
+      margin-left: 0;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
   }
 </style>

@@ -31,7 +31,7 @@
   import axios from 'axios';
   import TermsAndConditionsText from '@/views/terms/TermsAndConditionsText.vue';
 
-  const ROUTE = '/post/?type=survey&value=true&uid=';
+  const ROUTE = '/post/?type=survey&action=update&value=EULA_Agree&uid=';
 
   @Component({
     components: { TermsAndConditionsText },

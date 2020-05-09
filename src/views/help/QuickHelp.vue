@@ -2,10 +2,20 @@
   <EternaPage :title="$t('help:title')">
     <h3 class="mt-4">{{ $t('help:topics') }}</h3>
     <div class="card flex p-3">
-      <template v-for="key in Object.keys(data)">
-        <a class="section-link" :href="'#' + key" :key="key">{{ $t(key) }}</a>
-        <hr class="options-divider m-0" :key="key" />
-      </template>
+      <div class="row">
+        <div class="col-md-6">
+          <template v-for="key in column1Keys">
+            <a class="section-link" :href="'#' + key" :key="key">{{ $t(key) }}</a>
+            <hr class="options-divider m-0" :key="key" />
+          </template>
+        </div>
+        <div class="col-md-6">
+          <template v-for="key in column2Keys">
+            <a class="section-link" :href="'#' + key" :key="key">{{ $t(key) }}</a>
+            <hr class="options-divider m-0" :key="key" />
+          </template>
+        </div>
+      </div>
     </div>
     <div v-for="[key, section] in Object.entries(data)" :key="key">
       <a href="#" @click="scrollToTop()" class="top-link">
@@ -16,12 +26,18 @@
         <a :name="key"> <p class="section-text" v-dompurify-html="$t(section)"></p></a>
       </div>
     </div>
-    <template #sidebar="{  }">
-      <h3><b-icon-command></b-icon-command> {{ $t('help:key-commands') }}</h3>
-      <div v-for="[key, command] in Object.entries(keycommands)" :key="key">
-        <div class="section-link" style="float: right">{{ $t(command) }}</div>
-        <div class="section-link">{{ $t(key) }}</div>
-        <hr class="options-divider m-0" />
+    <template #sidebar="{ isInSidebar }">
+      <div v-if="isInSidebar">
+        <div class="commands-title">
+          <h3><b-icon-command></b-icon-command> {{ $t('help:key-commands') }}</h3>
+          <hr class="options-divider m-0" />
+        </div>
+
+        <div v-for="[key, command] in Object.entries(keycommands)" :key="key">
+          <div class="section-link commands-text" style="float: right">{{ $t(command) }}</div>
+          <div class="section-link commands-text">{{ $t(key) }}</div>
+          <hr class="options-divider m-0" />
+        </div>
       </div>
     </template>
   </EternaPage>
@@ -70,6 +86,16 @@
       'help:highlighting-bases': 'help:highlighting-bases-text',
     };
 
+    get column1Keys(): string[] {
+      const keys = Object.keys(this.data);
+      return keys.slice(0, keys.length / 2);
+    }
+
+    get column2Keys(): string[] {
+      const keys = Object.keys(this.data);
+      return keys.slice(keys.length / 2);
+    }
+
     private keycommands = {
       'help:mode': 'Space',
       'help:zoom-in': '+',
@@ -116,6 +142,14 @@
 
   .section-text {
     white-space: pre-wrap;
+  }
+
+  .commands-title {
+    color: $med-blue;
+  }
+
+  .commands-text {
+    color: $gray-500;
   }
 
   // TODO: Dedupe from DropdownSidebarPanel

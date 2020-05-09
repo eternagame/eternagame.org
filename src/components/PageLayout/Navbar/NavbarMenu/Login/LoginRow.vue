@@ -48,7 +48,7 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
-  .form-group > * > *:not(:first-child) {
+  .button + .button {
     margin-left: 7.5px;
   }
   .button {

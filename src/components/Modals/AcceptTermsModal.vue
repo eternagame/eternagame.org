@@ -46,6 +46,7 @@
     private status: boolean = false;
 
     mounted() {
+      console.log(this.$vxm.user.userDetails);
       if (this.$vxm.user.loggedIn && !this.$vxm.user.userDetails.Survey.includes('EULA_Agree')) {
         this.$refs.modal.show();
       }

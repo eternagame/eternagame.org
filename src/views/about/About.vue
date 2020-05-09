@@ -229,7 +229,7 @@
           <b-button
             class="featured-publications__btn"
             variant="secondary"
-            @click="redirect('https://eternagame.org/web/pubs/')"
+            @click="redirect('/publications')"
             >{{ $t('about:section3-call-to-action') }}</b-button
           >
         </section>

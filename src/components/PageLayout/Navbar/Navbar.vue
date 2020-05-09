@@ -82,7 +82,7 @@
       },
       about: {
         overview: '/about',
-        publications: 'https://eternagame.org/web/pubs/',
+        publications: '/publications',
         software: 'https://software.eternagame.org/',
         donate: 'https://www.gofundme.com/f/fight-covid19-with-eterna',
         terms: '/about/terms',

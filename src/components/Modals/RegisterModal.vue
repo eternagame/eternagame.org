@@ -31,7 +31,7 @@
         loadRecaptchaScript="true"
         @verify="captchaResponse = $event"
       />
-      <b-button type="submit" variant="primary" class="submit-button" :disabled="!submitted">{{
+      <b-button type="submit" variant="primary" class="submit-button" :disabled="submitted">{{
         $t('register-modal:main-action')
       }}</b-button>
       <div>

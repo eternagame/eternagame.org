@@ -14,10 +14,15 @@
     </div>
     <template #modal-footer>
       <div>
-        <b-checkbox class="font-weight-bold" v-model="status">
+        <b-checkbox class="font-weight-bold" v-model="accepted">
           {{ $t('terms-modal:accept') }}
         </b-checkbox>
-        <b-button class="accept-button" variant="primary" @click="acceptTerms">
+        <b-button
+          class="accept-button"
+          variant="primary"
+          @click="acceptTerms"
+          :disabled="!accepted"
+        >
           {{ $t('terms-modal:submit') }}
         </b-button>
       </div>
@@ -43,7 +48,7 @@
       modal: BModal;
     };
 
-    private status: boolean = false;
+    private accepted: boolean = false;
 
     mounted() {
       console.log(this.$vxm.user);

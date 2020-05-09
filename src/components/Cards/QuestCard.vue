@@ -1,29 +1,32 @@
 <template>
-  <AspectRatioCard>
-    <div
-      :style="{
-        background: `url(${imageUrl})`,
-        backgroundSize: 'contain',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-      }"
-    >
-      <img :src="imageUrl" style="height: 100%; width: 100%;" />
-    </div>
-    <template #footer>
-      <div style="text-align:center; margin-bottom:0px">
-        <img src="@/assets/noun_lock.svg" v-if="locked" />
-
-        <p v-if="progress === 'COMPLETED'">
-          <img src="@/assets/noun_check.svg" /><b>{{ `completed!`.toUpperCase() }}</b>
-        </p>
-        <b-button type="submit" variant="primary" v-else-if="progress === 'NOT_STARTED'">{{
-          $t('quest-card:play')
-        }}</b-button>
-        <b-progress v-else :value="progress"></b-progress>
+  <div :id="popoverId">
+    <AspectRatioCard>
+      <template #header>
+        <!-- <div class="quest-card-title" v-if="title">
+          <b>{{ title }}</b>
+        </div> -->
+      </template>
+      <div>
+        <img :src="image" style="height: 100%; width: 100%;" />
       </div>
-    </template>
-  </AspectRatioCard>
+      <template #footer>
+        <div style="text-align:center; margin-bottom:0px">
+          <img src="@/assets/noun_lock.svg" v-if="locked" />
+
+          <p v-if="completed">
+            <img src="@/assets/noun_check.svg" /><b>{{ `completed!`.toUpperCase() }}</b>
+          </p>
+          <b-button type="submit" variant="primary" v-else-if="notStarted">{{
+            $t('quest-card:play')
+          }}</b-button>
+          <b-progress v-else-if="!locked" :value="to_next" max="1"></b-progress>
+        </div>
+      </template>
+    </AspectRatioCard>
+    <b-popover :target="popoverId" triggers="hover">
+      <div v-dompurify-html="desc"></div>
+    </b-popover>
+  </div>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -35,19 +38,32 @@
       AspectRatioCard,
     },
   })
-  export default class VideoCard extends Vue {
-    @Prop({
-      default:
-        'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/9FA562FE-9341-4261-8C3C-7E9679642CAE.png',
-    })
-    private imageUrl!: string;
+  export default class QuestCard extends Vue {
+    @Prop({})
+    private image!: string;
 
-    @Prop({ default: false }) private locked!: false;
+    @Prop({})
+    private to_next!: number;
 
-    @Prop({
-      default: 50,
-    })
-    private progress!: number | string;
+    @Prop({})
+    private title!: string;
+
+    @Prop({})
+    private desc!: string;
+
+    @Prop({})
+    private level!: string;
+
+    @Prop({})
+    private current_level!: string;
+
+    private locked = Number(this.level) - 1 > Number(this.current_level);
+
+    private notStarted = this.to_next === 0 && !this.locked;
+
+    private completed = this.to_next >= 1 && !this.locked;
+
+    private popoverId: string = `popover-target-${this.title}`;
   }
 </script>
 
@@ -61,10 +77,15 @@
   }
 
   ::v-deep .card-body {
-    padding: 0.75rem !important;
+    padding: 11.25px !important;
   }
 
   .card {
     background-color: $input-bg;
+  }
+
+  .quest-card-title {
+    height: 30px;
+    text-align: center;
   }
 </style>

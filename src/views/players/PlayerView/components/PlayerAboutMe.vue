@@ -1,15 +1,15 @@
 <template>
-  <div class="d-flex">
+  <div v-if="user.Profile" class="content">
+    <hr class="top-border" />
     <div>
-      <h4 class="about-me">
-        {{ $t('player-view:about-me') }}
-      </h4>
-      <p v-dompurify-html="pageData.Profile" class="about-me-text"></p>
+      <div>
+        <h4 class="about-me">
+          {{ $t('player-view:about-me') }}
+        </h4>
+        <p v-dompurify-html="user.Profile" class="about-me-text"></p>
+      </div>
+      <PlayerFeaturedAchievement v-if="user.featuredAchievement" :user="user" />
     </div>
-    <PlayerFeaturedAchievement
-      v-if="pageData.featuredAchievement"
-      :pageData="pageData.featuredAchievement"
-    />
   </div>
 </template>
 
@@ -23,18 +23,25 @@
     components: { PlayerFeaturedAchievement },
   })
   export default class PlayerAboutMe extends Vue {
-    @Prop({ required: true }) pageData!: object;
+    @Prop() user!: object;
   }
 </script>
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  .content {
+    margin: 1rem;
+  }
+
   .about-me {
-    font-size: 1.375rem;
+    font-size: 20.625px;
     font-weight: bold;
   }
 
   .about-me-text {
     max-width: 710px;
+    white-space: pre-wrap;
+    overflow: hidden;
   }
 </style>

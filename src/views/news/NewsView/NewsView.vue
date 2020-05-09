@@ -1,16 +1,17 @@
 <template>
   <EternaPage
-    v-if="pageData"
-    title="OpenVaccine Round 3 Launch, Eterna Town Hall, Lightning Round + Round 2 Update"
-    :header_date="news.news.created"
+    :title="pageData ? news.news.title : ''"
+    :header_date="pageData ? news.news.created : ''"
     :header_title="'announcements'.toUpperCase()"
   >
-    <div class="page-content" v-dompurify-html="news.news.body"></div>
+    <div v-if="pageData">
+      <div class="page-content" v-dompurify-html="news.news.body"></div>
+      <Comments :comments="pageData.comments" :pathname="addCommentPath" />
+    </div>
+    <div v-else>
+      <h1>{{ $t('loading-text') }}</h1>
+    </div>
 
-    <h2 style=" font-size: 20px;font-weight: bold;">
-      {{ $t('news-view:comments') }}
-    </h2>
-    <EditField :content="$t('news-view:enter-comments')" />
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"
@@ -19,7 +20,7 @@
         :isInSidebar="isInSidebar"
       />
       <CalendarPanel :isInSidebar="isInSidebar" />
-      <TagsPanel :tags="['#Ribosome', '#Eternacon', '#Chat']" :isInSidebar="isInSidebar" />
+      <!-- <TagsPanel :tags="['#Ribosome', '#Eternacon', '#Chat']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
 </template>
@@ -34,6 +35,7 @@
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
+  import Comments from '@/components/PageLayout/Comments.vue';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
   import EditField from '@/components/Common/EditField.vue';
   import NewsData from './types';
@@ -60,6 +62,7 @@
       EternaPage,
       TagsPanel,
       DropdownSidebarPanel,
+      Comments,
     },
   })
   export default class NewsView extends Mixins(PageDataMixin(fetchPageData)) {
@@ -67,11 +70,22 @@
       return this.pageData;
     }
 
+    get addCommentPath() {
+      return `/web/blog/${this.pageData.news.nid}`;
+    }
+
     private options: Option[] = [
-      { value: 'categories', text: 'All Categories' },
-      { value: 'announcements', text: 'Announcements' },
-      { value: 'blog', text: 'Blog' },
-      { value: 'labs', text: 'Labs' },
+      { value: 'categories', text: 'news-view:option-categories' },
+      { value: 'announcements', text: 'news-view:option-announcements' },
+      { value: 'blog', text: 'news-view:option-blog' },
+      { value: 'labs', text: 'news-view:option-labs' },
     ];
   }
 </script>
+
+<style lang="scss" scoped>
+.page-content {
+  white-space: pre-wrap;
+  padding: 1.5rem;
+}
+</style>

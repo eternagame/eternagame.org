@@ -61,24 +61,30 @@
   export default class EditField extends Vue {
     @Prop({ default: 'Type here...' }) private content!: string;
 
-    private editor = new Editor({
-      content: this.content,
-      extensions: [
-        new HardBreak(),
-        new HardBreak(),
-        new Heading({ levels: [1, 2, 3] }),
-        new BulletList(),
-        new OrderedList(),
-        new ListItem(),
-        new Bold(),
-        new Code(),
-        new Italic(),
-        new Link(),
-        new Strike(),
-        new Underline(),
-        new History(),
-      ],
-    });
+    get editor() {
+      const parent = this;
+      return new Editor({
+        content: this.content,
+        onUpdate: ({ getHTML }) => {
+          parent.$emit('input', getHTML());
+        },
+        extensions: [
+          new HardBreak(),
+          new HardBreak(),
+          new Heading({ levels: [1, 2, 3] }),
+          new BulletList(),
+          new OrderedList(),
+          new ListItem(),
+          new Bold(),
+          new Code(),
+          new Italic(),
+          new Link(),
+          new Strike(),
+          new Underline(),
+          new History(),
+        ],
+      });
+    }
 
     private beforeDestroy() {
       this.editor.destroy();
@@ -112,15 +118,9 @@
     border-style: solid;
     border-width: 1px;
   }
-  /* *:focus {
-      outline: none;
-  }  */
+
   .ProseMirror {
     text-align: initial;
-
-    &:focus {
-      /*outline: none;*/
-    }
   }
 
   .editor {
@@ -128,8 +128,8 @@
     &__floating-menu {
       position: absolute;
       z-index: 1;
-      margin-top: -0.75rem;
-      margin-left: 1rem;
+      margin-top: -11.25px;
+      margin-left: 15px;
       visibility: hidden;
       opacity: 0;
       transition: opacity 0.2s, visibility 0.2s;
@@ -143,7 +143,7 @@
       position: absolute;
       display: flex;
       z-index: 20;
-      margin-bottom: 0.5rem;
+      margin-bottom: 7.5px;
       transform: translateX(-50%);
       visibility: hidden;
       opacity: 0;

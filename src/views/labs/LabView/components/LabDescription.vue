@@ -16,9 +16,7 @@
         </span>
       </div>
       <div class="body">
-        <div ref="content" style="margin-bottom: 10px;">
-          {{ descriptionToShow }}
-        </div>
+        <div ref="content" style="margin-bottom: 10px;" v-dompurify-html="descriptionToShow"></div>
         <ReadMore v-model="readMore"></ReadMore>
       </div>
     </div>
@@ -28,7 +26,10 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import defaultImage from '@/assets/ribosome_challenge_bg.png';
+  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import { LabData } from '../types';
+
+  Vue.use(VueDOMPurifyHTML);
 
   @Component({
     components: {},

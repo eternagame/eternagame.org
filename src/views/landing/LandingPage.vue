@@ -1,18 +1,17 @@
 <template>
-  <PlayerHome :data="pageData" v-if="loggedIn" />
+  <PlayerHome :pageData="pageData" v-if="loggedIn" />
   <div class="page" v-else>
     <VideoSection />
     <DocsSection />
-    {{ user }}
   </div>
 </template>
 
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
-  import PlayerHome from '@/views/home/PlayerHome.vue';
   import PageDataMixin from '@/mixins/PageData';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
+  import PlayerHome from './PlayerHome.vue';
   import DocsSection from './components/DocsSection.vue';
   import VideoSection from './components/VideoSection.vue';
 

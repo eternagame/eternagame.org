@@ -1,8 +1,8 @@
 <template>
   <div style="margin:10px;">
     <vue-circle
-      :progress="50"
-      :size="100"
+      :progress="100 * progress / total"
+      :size="isMobile ? 65 : 100"
       :reverse="false"
       :fill="{ color: `${color}` }"
       line-cap="round"
@@ -10,14 +10,16 @@
       :animation-start-value="0.0"
       :start-angle="4.7"
       insert-mode="append"
-      :thickness="10"
+      :thickness="isMobile ? 6 : 10"
       :show-percent="false"
     >
-      <p style="font-size: 14px;font-weight: bold;margin:0">{{ progress }}</p>
-      <p style="font-size: 14px">/{{ total }}</p>
+      <p class="larger-text" style="font-weight: bold; margin: 0; padding-top: 0.3rem">
+        {{ progress }}
+      </p>
+      <p class="smaller-text">/{{ total }}</p>
     </vue-circle>
 
-    <p style="font-size: 12px;font-weight: bold;">{{ name }}</p>
+    <p class="smaller-text" style="font-weight: bold;">{{ name }}</p>
   </div>
 </template>
 <script lang="ts">
@@ -38,8 +40,29 @@
 
     @Prop({ required: true })
     private total!: number;
+
+    get isMobile() {
+      // Possibly should use a library like vue-mq instead
+      return window.matchMedia('(max-width: 567px)').matches;
+    }
   }
 </script>
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  .larger-text {
+    font-size: 20px;
+  }
+  .smaller-text {
+    font-size: 12px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    .larger-text {
+      font-size: 12px;
+    }
+    .smaller-text {
+      font-size: 8px;
+    }
+  }
 </style>

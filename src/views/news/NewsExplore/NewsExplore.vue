@@ -1,9 +1,18 @@
 <template>
   <EternaPage :title="$t('news-explore:title')" v-if="pageData">
-    <Gallery :sm="12" :md="12">
-      <NewsCard v-for="article in pageData.combinelist" :key="article.nid" v-bind="article" />
-    </Gallery>
+    <div v-if="pageData">
+      <Gallery :sm="12" :md="12">
+        <NewsCard v-for="article in pageData.entries" :key="article.nid" v-bind="article" />
+      </Gallery>
+      <Pagination />
+    </div>
+    <div v-else>
+      <h1>{{ $t('loading-text') }}</h1>
+    </div>
+
     <template #sidebar="{ isInSidebar }">
+      <SearchPannel :placeholder="$t('search:news')" :isInSidebar="isInSidebar" />
+
       <DropdownSidebarPanel
         :options="options"
         paramName="sort"
@@ -11,7 +20,7 @@
         :isInSidebar="isInSidebar"
       />
       <CalendarPanel :isInSidebar="isInSidebar" />
-      <TagsPanel :tags="tags" :isInSidebar="isInSidebar" />
+      <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
 </template>
@@ -23,37 +32,31 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import SearchPannel from '@/components/Sidebar/SearchPannel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
+  import Pagination from '@/components/PageLayout/Pagination.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
   // @ts-ignore
   import get from 'lodash.get';
   import NewsCard from './components/NewsCard.vue';
 
+  const INITIAL_NUMBER = 18;
+
+  const ROUTE = '/get/?type=newsandblogslist';
+
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
-    const news = (
-      await http.get('/get/?type=newslist&size=18&skip=0', {
+    const res = (
+      await http.get(ROUTE, {
         params: {
           order: route.query.sort,
           filters: route.query.filters && (route.query.filters as string).split(','),
+          search: route.query.search,
+          size: route.query.size || INITIAL_NUMBER,
         },
       })
     ).data.data;
-
-    const blogs = (
-      await http.get('/get/?type=blogslist&size=18&skip=0', {
-        params: {
-          order: route.query.sort,
-          filters: route.query.filters && (route.query.filters as string).split(','),
-        },
-      })
-    ).data.data;
-    const res = {
-      ...news,
-      ...blogs,
-      combinelist: [...get(news, 'newslist', []), ...get(blogs, 'blogslist', [])],
-    };
 
     return res;
   }
@@ -64,11 +67,17 @@
       FiltersPanel,
       CalendarPanel,
       DropdownSidebarPanel,
+      SearchPannel,
       TagsPanel,
       NewsCard,
+      Pagination,
     },
   })
   export default class NewsExplore extends Mixins(PageDataMixin(fetchPageData)) {
+    redirect(path: string) {
+      this.$router.push(path);
+    }
+
     private filters: Filter[] = [
       { value: 'single', text: 'Single State' },
       { value: '2-state', text: '2-state switch' },
@@ -80,13 +89,13 @@
       { value: 'notcleared', text: 'Uncleared' },
     ];
 
-    private tags: String[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
+    private tags: string[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
 
     private options: Option[] = [
-      { value: 'all', text: 'All Categories' },
-      { value: 'announcements', text: 'Announcements' },
-      { value: 'blogs', text: 'Blogs' },
-      { value: 'labs', text: 'Labs' },
+      { value: 'all', text: 'side-panel-options:all' },
+      { value: 'announcements', text: 'side-panel-options:announcements' },
+      { value: 'blogs', text: 'side-panel-options:blogs' },
+      { value: 'labs', text: 'side-panel-options:labs' },
     ];
   }
 </script>

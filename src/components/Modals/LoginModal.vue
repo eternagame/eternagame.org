@@ -56,6 +56,7 @@
           {{ $t('login-modal:register-action') }}
         </span>
       </p>
+      <v-facebook-login :app-id="fbID" @login="fbLogIn()"></v-facebook-login>
     </b-form>
   </b-modal>
 </template>
@@ -64,10 +65,16 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
+  import axios from 'axios';
+  // @ts-ignore
+  import VFacebookLogin from 'vue-facebook-login-component';
+
+  const FB_LOGIN_ROUTE = '/login/?type=login&method=facebook';
 
   @Component({
     components: {
       VueRecaptcha,
+      VFacebookLogin,
     },
   })
   export default class RegisterModal extends Vue {
@@ -77,6 +84,15 @@
     };
 
     errorMessage = '';
+
+    private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
+
+    fbLogIn() {
+      axios.post(FB_LOGIN_ROUTE).then(res => {
+        this.$bvModal.hide('modal-login');
+        this.$router.push('/');
+      });
+    }
 
     $refs!: {
       modal: BModal;
@@ -102,7 +118,7 @@
 
 <style scoped lang="scss">
   .submit-button {
-    margin-top: 1.5rem;
+    margin-top: 22.5px;
   }
 
   .fade-enter-active,
@@ -115,7 +131,7 @@
   }
 
   p {
-    font-size: 0.75rem;
+    font-size: 11.25px;
     cursor: pointer;
 
     &:focus {
@@ -124,17 +140,17 @@
   }
 
   ::v-deep .modal-header {
-    -webkit-backdrop-filter: blur(1.875rem);
-    backdrop-filter: blur(1.875rem);
+    -webkit-backdrop-filter: blur(28.125px);
+    backdrop-filter: blur(28.125px);
     background-color: #4a90e2;
-    padding: 0.5625rem;
+    padding: 8.4375px;
 
     .modal-title {
-      font-size: 1rem;
+      font-size: 15px;
       font-weight: bold;
       line-height: 1.38;
       margin: 0 auto;
-      padding-left: 1.875rem;
+      padding-left: 28.125px;
     }
 
     .close {
@@ -153,6 +169,7 @@
   }
 
   ::v-deep .modal-dialog {
+    max-width: 375px;
     width: 100%;
     height: 100%;
     margin: 0 auto;
@@ -160,21 +177,21 @@
     align-items: center;
 
     .modal-body {
-      padding: 0 2.1875rem;
-      margin-top: 1.5rem;
+      padding: 0 32.8125px;
+      margin-top: 22.5px;
 
       .login_modal_content {
         display: flex;
         flex-direction: column;
-        margin-bottom: 0.8125rem;
+        margin-bottom: 12.1875px;
 
         .form-control {
           width: 100%;
-          height: 2.6875rem;
-          margin: 0 auto 0.875rem;
-          border-radius: 0.3125rem;
+          height: 40.3125px;
+          margin: 0 auto 13.125px;
+          border-radius: 4.6875px;
           opacity: 0.5;
-          border: solid 1px var(--white);
+          border: solid 1.0005px var(--white);
           background-color: #000000;
         }
 
@@ -185,26 +202,26 @@
         .custom-input-group {
           span {
             position: absolute;
-            top: 0.625rem;
-            right: 0.75rem;
+            top: 9.375px;
+            right: 11.25px;
           }
 
           .lock {
-            right: 1.0625rem;
+            right: 15.9375px;
           }
         }
 
         .submit-button {
-          width: 11.5625rem;
-          height: 2.6875rem;
-          margin: 0 auto 1.0625rem;
-          font-size: 1.125rem;
+          width: 173.4375px;
+          height: 40.3125px;
+          margin: 0 auto 15.9375px;
+          font-size: 16.875px;
           font-weight: bold;
           line-height: 1.33;
         }
 
         p {
-          font-size: 0.75rem;
+          font-size: 11.25px;
           cursor: pointer;
 
           &:focus {

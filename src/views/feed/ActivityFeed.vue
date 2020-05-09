@@ -1,8 +1,16 @@
 <template>
   <EternaPage :title="$t('activity-feed:title')">
-    <Gallery :sm="12" :md="12">
-      <ActivityCard v-for="article in news" :key="article.nid" v-bind="article" />
-    </Gallery>
+    <div v-if="pageData">
+      <Gallery>
+        <Gallery :sm="12" :md="12">
+          <ActivityCard v-for="article in news" :key="article.nid" v-bind="article" />
+        </Gallery>
+        <Pagination />
+      </Gallery>
+    </div>
+    <div v-else>
+      <h1>{{ $t('loading-text') }}</h1>
+    </div>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"
@@ -26,12 +34,11 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
+  import Pagination from '@/components/PageLayout/Pagination.vue';
   import ActivityCard from './components/ActivityCard.vue';
   import NewActivity from './components/NewActivity.vue';
 
   const INITIAL_NUMBER = 18;
-
-  const NEWS_INCREMENT = 9;
 
   const ROUTE = '/get/?type=newslist';
 
@@ -42,10 +49,10 @@
         params: {
           order: route.query.sort,
           filters: route.query.filters && (route.query.filters as string).split(','),
+          size: route.query.size || INITIAL_NUMBER,
         },
       })
     ).data.data;
-    console.log(res.newslist);
     return res;
   }
   @Component({
@@ -56,28 +63,12 @@
       TagsPanel,
       ActivityCard,
       NewActivity,
+      Pagination,
     },
   })
   export default class ActivityFeed extends Mixins(PageDataMixin(fetchPageData)) {
-    private numFetched: number = INITIAL_NUMBER;
-
-    private newsFetched = [];
-
     get news() {
-      return this.newsFetched.length ? this.newsFetched : get(this.pageData, 'newslist', []);
-    }
-
-    mounted() {
-      window.onscroll = () => {
-        const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight
-          === document.documentElement.offsetHeight;
-        if (bottomOfWindow) {
-          this.numFetched += NEWS_INCREMENT;
-          axios.get(`${ROUTE}&size=${this.numFetched}`).then(response => {
-            this.newsFetched = response.data.data.newslist;
-          });
-        }
-      };
+      return get(this.pageData, 'newslist', []);
     }
 
     private filters: Filter[] = [
@@ -91,13 +82,13 @@
       { value: 'notcleared', text: 'Uncleared' },
     ];
 
-    private tags: String[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
+    private tags: string[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
 
     private options: Option[] = [
-      { value: 'all', text: 'All Categories' },
-      { value: 'announcements', text: 'Announcements' },
-      { value: 'blogs', text: 'Blogs' },
-      { value: 'labs', text: 'Labs' },
+      { value: 'all', text: 'side-panel-options:all' },
+      { value: 'announcements', text: 'side-panel-options:announcements' },
+      { value: 'blogs', text: 'side-panel-options:blogs' },
+      { value: 'labs', text: 'side-panel-options:labs' },
     ];
   }
 </script>

@@ -4,6 +4,7 @@
     <RegisterModal />
     <ResetCompleteModal />
     <ResetPasswordModal />
+    <AcceptTermsModal />
     <LoginModal />
   </div>
 </template>
@@ -11,6 +12,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import LoginFailedModal from './LoginFailedModal.vue';
+  import AcceptTermsModal from './AcceptTermsModal.vue';
   import RegisterModal from './RegisterModal.vue';
   import ResetCompleteModal from './ResetCompleteModal.vue';
   import ResetPasswordModal from './ResetPasswordModal.vue';
@@ -23,6 +25,7 @@
       ResetCompleteModal,
       ResetPasswordModal,
       LoginModal,
+      AcceptTermsModal,
     },
   })
   export default class Modals extends Vue {}

@@ -97,7 +97,7 @@
       // $('#loader').modal('hide');
       const { data } = response;
       if (data.data.success) {
-        this.$router.push('/home');
+        this.$router.push('/');
       } else {
         this.errorMessage = data.data.error;
       }
@@ -107,7 +107,7 @@
 
 <style scoped lang="scss">
   .submit-button {
-    margin-top: 1.5rem;
+    margin-top: 22.5px;
   }
 
   .fade-enter-active,

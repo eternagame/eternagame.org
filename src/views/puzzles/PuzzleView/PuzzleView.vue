@@ -3,15 +3,15 @@
     <div class="page-content">
       <div class="d-flex flex-wrap " xs="12" sm="8">
         <div style="text-align:center" class="order-sm-2 col-sm-6">
-          <div
-            :style="{
-              width: '22.2667rem',
-              height: '24.3333rem',
-              backgroundColor: '#041227',
-              opacity: '0.8',
-            }"
-          ></div>
-          <b-button type="submit" variant="primary" class="submit-button">
+          <div class="puzzle-image">
+            <img v-if="imageURL" :src="imageURL" />
+          </div>
+          <b-button
+            type="submit"
+            variant="primary"
+            class="submit-button"
+            :href="`${puzzleRoute}${pageData.nid}/`"
+          >
             {{ $t('puzzle-view:main-action') }}
           </b-button>
         </div>
@@ -20,20 +20,6 @@
           <hr class="top-border d-sm-none" />
           <div v-dompurify-html="puzzle.body" />
         </div>
-      </div>
-
-      <hr class="top-border" />
-
-      <h2>{{ $t('nav-bar:quests') }}</h2>
-      <p>{{ $t('puzzle-view:quests-info') }}</p>
-      <div>
-        <img
-          v-for="questImage in puzzle.quests"
-          :key="questImage"
-          :src="questImage"
-          alt="quest"
-          class="quest-image"
-        />
       </div>
     </div>
 
@@ -58,7 +44,7 @@
           </li>
         </ul>
       </SidebarPanel>
-      <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" />
+      <!-- <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
 </template>
@@ -74,6 +60,8 @@
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   // @ts-ignore
   import get from 'lodash.get';
+  import Utils from '@/utils/utils';
+  import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import PuzzleData from './types';
 
   Vue.use(VueDOMPurifyHTML);
@@ -98,6 +86,12 @@
     },
   })
   export default class PuzzleView extends Mixins(PageDataMixin(fetchPageData)) {
+    redirect(path: string) {
+      this.$router.push(path);
+    }
+
+    private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
+
     get puzzle() {
       return {
         ...get(this.pageData, 'puzzle'),
@@ -108,6 +102,10 @@
         ],
       };
     }
+
+    get imageURL() {
+      return Utils.getPuzzleMiddleThumbnail(get(this.pageData, 'nid', ''));
+    }
   }
 </script>
 
@@ -115,6 +113,16 @@
   .quest-image {
     margin: 15px;
   }
+
+  .puzzle-image {
+    width: auto;
+    max-width: 334px;
+    height: 365px;
+    background-color: #041227;
+    opacity: 0.8;
+    margin: 0 auto;
+  }
+
   .submit-button {
     margin-top: 15px;
   }

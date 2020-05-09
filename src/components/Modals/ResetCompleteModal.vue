@@ -24,7 +24,7 @@
   @Component({
     components: {},
   })
-  export default class LoginFailedModal extends Vue {
+  export default class ResetCompleteModal extends Vue {
     errorMessage: string = '';
 
     $refs!: {

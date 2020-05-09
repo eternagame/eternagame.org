@@ -1,16 +1,27 @@
 <template>
-  <EternaPage v-if="pageData" :title="$t('nav-bar:leaderboards')">
-    <div class="page-content">
-      <PlayerCard
-        v-for="(player, index) in players"
-        :key="player.uid"
-        :player="player"
-        :index="index"
-      />
+  <EternaPage :title="$t('nav-bar:leaderboards')">
+    <div v-if="pageData">
+      <div class="page-content">
+        <PlayerCard
+          v-for="(player, index) in players"
+          :key="player.uid"
+          :player="player"
+          :index="index"
+        />
+      </div>
+      <Pagination />
+    </div>
+    <div v-else>
+      <h1>{{ $t('loading-text') }}</h1>
     </div>
     <template #sidebar="{ isInSidebar }">
-      <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
-      <TagsPanel :tags="tags" :isInSidebar="isInSidebar" />
+      <SearchPannel :placeholder="$t('search:players')" :isInSidebar="isInSidebar" />
+      <DropdownSidebarPanel
+        :options="options"
+        paramName="sort"
+        replace
+        :isInSidebar="isInSidebar"
+      />
     </template>
   </EternaPage>
 </template>
@@ -26,26 +37,27 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
+  import Pagination from '@/components/PageLayout/Pagination.vue';
+  import SearchPannel from '@/components/Sidebar/SearchPannel.vue';
   import PlayerCard from './PlayerCard.vue';
-  import LeaderBoardData, { PlayerCardData } from './types';
 
   const INITIAL_NUMBER = 18;
 
-  const INCREMENT = 9;
-
-  const ROUTE = '/get/?type=users';
+  const ROUTE = 'https://eternagame.org/get/?type=users';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
 
     const res = (
-      await http.get(`${ROUTE}&sort=active&skip=0&size=${INITIAL_NUMBER}&rnd=0.3172634245696615`, {
+      await http.get(`${ROUTE}&size=${INITIAL_NUMBER}`, {
         params: {
-          order: route.query.sort,
+          sort: route.query.sort,
           filters: route.query.filters && (route.query.filters as string).split(','),
+          size: route.query.size || INITIAL_NUMBER,
+          search: route.query.search,
         },
       })
-    ).data.data as LeaderBoardData;
+    ).data.data;
     return res;
   }
 
@@ -53,45 +65,23 @@
     components: {
       PlayerCard,
       EternaPage,
+      SearchPannel,
       FiltersPanel,
+      Pagination,
       DropdownSidebarPanel,
       TagsPanel,
     },
   })
   export default class LeaderBoard extends Mixins(PageDataMixin(fetchPageData)) {
-    private numPlayers: number = INITIAL_NUMBER;
-
     get players() {
-      return this.playersFetched.length ? this.playersFetched : get(this.pageData, 'users', []);
+      return get(this.pageData, 'users', []);
     }
 
-    private playersFetched = [];
-
-    mounted() {
-      window.onscroll = () => {
-        const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight
-          === document.documentElement.offsetHeight;
-
-        if (bottomOfWindow) {
-          this.numPlayers += INCREMENT;
-          axios.get(`${ROUTE}&size=${this.numPlayers}`).then(response => {
-            this.playersFetched = response.data.data.users;
-          });
-        }
-      };
-    }
-
-    private filters: Filter[] = [
-      { value: 'single', text: 'Single State' },
-      { value: '2-state', text: '2-state switch' },
-      { value: '3-state', text: '3-state switch' },
-      { value: '4-state', text: '4-state switch' },
-      { value: 'vienna', text: 'Vienna' },
-      { value: 'rnassd', text: 'RNAssd' },
-      { value: 'inforna', text: 'Inforna' },
-      { value: 'notcleared', text: 'Uncleared' },
+    private options: Option[] = [
+      { value: 'point', text: 'side-panel-options:total-points' },
+      { value: 'active', text: 'side-panel-options:points-last-30-days' },
+      { value: 'synthesizes', text: 'side-panel-options:total-synthesized' },
+      { value: 'update', text: 'side-panel-options:synthesized-latest' },
     ];
-
-    private tags: String[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
   }
 </script>

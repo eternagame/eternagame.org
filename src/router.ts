@@ -57,6 +57,11 @@ export default function createRouter() {
         component: () => import('./views/about/About.vue'),
       },
       {
+        path: '/help',
+        name: 'quick-help',
+        component: () => import('./views/help/QuickHelp.vue'),
+      },
+      {
         path: '/about/terms',
         name: 'terms-and-conditions',
         component: () => import('./views/terms/TermsAndConditions.vue'),
@@ -75,6 +80,11 @@ export default function createRouter() {
         path: '/news/:id',
         name: 'news-view',
         component: () => import('./views/news/NewsView/NewsView.vue'),
+      },
+      {
+        path: '/publications',
+        name: 'publications-list',
+        component: () => import('./views/publications/PubsExplore.vue'),
       },
       {
         path: '/feed',
@@ -97,6 +107,36 @@ export default function createRouter() {
         component: () => import('./views/players/LeaderBoard/LeaderBoard.vue'),
       },
       {
+        path: '/donate',
+        component: () => {
+          window.location.href = 'http://localhost:8080/https:/www.gofundme.com/f/fight-covid19-with-eterna';
+        },
+      },
+      {
+        path: '/community/groups',
+        component: () => {
+          window.location.href = 'https://eternagame.org/web/group/';
+        },
+      },
+      {
+        path: '/wiki',
+        component: () => {
+          window.location.href = 'http://eternawiki.org';
+        },
+      },
+      {
+        path: '/guides',
+        component: () => {
+          window.location.href = 'http://eternawiki.org/wiki/index.php5/Player-Created_Guides';
+        },
+      },
+      {
+        path: '/guides',
+        component: () => {
+          window.location.href = 'http://eternawiki.org';
+        },
+      },
+      {
         path: '/lost',
         name: 'not-found',
         component: () => import('./views/lost/NotFound.vue'),
@@ -106,7 +146,7 @@ export default function createRouter() {
 
   router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {
     const userStore = router.app.$vxm.user;
-    if (!userStore.triedAuthenticating) await userStore.authenticate();
+    if (window.localStorage.getItem('loggedIn') === 'true') await userStore.authenticate();
     if (!to.matched.length) {
       next('/lost');
     }

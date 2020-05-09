@@ -19,10 +19,10 @@
               <h4 class="text-block">
                 {{ $t('video-section:sub-heading') }}
               </h4>
-              <b-button variant="primary" size="lg" to="/game/puzzle/6502927/">{{
+              <b-button variant="primary" size="lg" to="/game/puzzle/6502927/" class="button">{{
                 $t('video-section:main-action')
               }}</b-button>
-              <b-button variant="secondary" size="lg" to="/about" class="ml-3">
+              <b-button variant="secondary" size="lg" to="/about" class="ml-3 button">
                 {{ $t('video-section:secondary-action') }}
               </b-button>
             </div>
@@ -45,13 +45,14 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/styles/global.scss';
   .video {
     background: url(../../../assets/front-page/img/bg_video.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    padding: 5rem 0;
+    padding: 75px 0;
     overflow: hidden;
     position: relative;
     max-width: 1800px;
@@ -73,11 +74,17 @@
   }
 
   .btn-lg {
-    font-size: 1.4rem;
+    font-size: 21px;
   }
 
   .text-block {
-    margin-top: 1.25rem;
-    margin-bottom: 1.75rem;
+    margin-top: 18.75px;
+    margin-bottom: 26.25px;
+  }
+
+  .button {
+    @include media-breakpoint-up(xs) {
+      margin-top: 10px;
+    }
   }
 </style>

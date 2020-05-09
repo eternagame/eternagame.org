@@ -6,7 +6,7 @@
       <span class="triangle" :class="{ rotated: !contentVisible }"></span>
     </b-nav-item>
     <b-collapse @input="onToggle" :accordion="accordion" :id="collapseId" class="sublist">
-      <b-nav-item v-for="(to, linkText) in value" :to="to" :key="linkText">
+      <b-nav-item v-for="(to, linkText) in value" @click="redirect(to)" :key="linkText">
         {{ $t('nav-bar:' + linkText) }}
       </b-nav-item>
       <div class="mb-1"></div>
@@ -34,6 +34,10 @@
 
     contentVisible = false;
 
+    redirect(path: string) {
+      window.location.href = path;
+    }
+
     get collapseId() {
       return `${this.accordion}-${this.index}`;
     }
@@ -49,14 +53,14 @@
   .sublist {
     margin-left: 10px;
     .nav-link {
-      padding-top: 0.45rem;
-      padding-bottom: 0.45rem;
-      font-size: 0.75rem;
+      padding-top: 6.75px;
+      padding-bottom: 6.75px;
+      font-size: 11.25px;
     }
   }
 
   .menu-item {
-    margin-bottom: 0.5rem;
+    margin-bottom: 7.5px;
     white-space: nowrap;
   }
 

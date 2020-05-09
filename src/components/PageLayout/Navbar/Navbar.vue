@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="lg" type="dark" variant="dark" fixed="top">
+  <b-navbar toggleable="lg" type="dark" variant="dark" fixed="top" class="navbar">
     <b-container class="page-container px-4 d-flex justify-content-between">
       <EternaLogo />
       <div class="d-flex justify-content-end">
@@ -8,11 +8,12 @@
           <NavbarCollapseContent :menu="menu" />
         </div>
         <div class="icons-group">
-          <NavbarIcons class="d-none d-md-inline-block d-lg-none icons-group" />
+          <NavbarIcons v-if="loggedIn" class="d-none d-md-inline-block d-lg-none icons-group" />
           <img
+            v-if="loggedIn"
             src="@/assets/navbar/Toggler.svg"
             @click.stop="openSidebar"
-            class="toggler d-inline-block d-lg-none"
+            class="toggler d-inline-block d-lg-none "
           />
         </div>
         <MobileSidebar ref="sidebar">
@@ -60,30 +61,47 @@
       play: {
         puzzles: '/puzzles',
         labs: '/labs',
-        challenges: '/challenges',
-        switches: '/switches',
+        data: 'https://eternagame.org/web/labs/data-browser/',
+        'puzzle-maker': 'https://eternagame.org/game/puzzlemaker/',
+        'puzzle-maker-2-states': 'https://eternagame.org/game/switchmaker/2/',
+        'puzzle-maker-3-states': 'https://eternagame.org/game/switchmaker/3/',
+        scripts: 'https://eternagame.org/web/script/',
       },
       learn: {
-        guides: 'http://eternawiki.org/wiki/index.php5/Player-Created_Guides',
-        practice: '/practice',
+        'quick-help': '/help',
+        guides: '/guides',
+        wiki: '/wiki',
+      },
+      community: {
+        leaderboards: '/leaderboards',
+        groups: 'community/groups',
+        wiki: '/wiki',
+      },
+      news: {
+        news: '/news',
       },
       about: {
-        publications: '/publications',
+        overview: '/about',
+        publications: 'https://eternagame.org/web/pubs/',
+        software: 'https://software.eternagame.org/',
+        donate: 'https://www.gofundme.com/f/fight-covid19-with-eterna',
+        terms: '/about/terms',
+        'code-of-conduct': '/about/conduct',
       },
-      news: '/news',
-      leaderboards: '/leaderboards',
     };
   }
 </script>
 
 <style lang="scss" scoped>
+  @import '@/styles/global.scss';
+
   nav {
     border: 0px;
     height: 120px;
   }
 
   ::v-deep * {
-    font-size: 0.875rem;
+    font-size: 13.125px;
   }
 
   ::v-deep .navbar-nav {
@@ -91,11 +109,17 @@
   }
 
   ::v-deep .icons-group > * {
-    margin-left: 1.5rem;
+    margin-left: 22.5px;
   }
 
   .toggler {
     cursor: pointer;
     width: 28px;
+  }
+
+  .navbar {
+    @include media-breakpoint-up(xs) {
+      padding: 0px;
+    }
   }
 </style>

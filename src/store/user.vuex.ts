@@ -1,7 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { createModule, mutation, action } from 'vuex-class-component';
-import { AxiosInstance } from 'axios';
-import { DEFAULT_LANGUAGE } from '@/plugins/i18n';
+import axios, { AxiosInstance } from 'axios';
+// @ts-ignore
+import get from 'lodash.get';
 
 const VuexModule = createModule({
   strict: false,
@@ -16,13 +17,23 @@ export default function createUserStore($http: AxiosInstance) {
 
     public loggedIn = false;
 
-    public locale = DEFAULT_LANGUAGE;
+    public hasLabAccess: boolean = false;
+
+    public userDetails: Object = {};
 
     public triedAuthenticating = false;
+
+    public promptSignAgreement = false;
 
     @mutation showLoginFailedModal({ errorMessage }: { errorMessage: String }) {}
 
     @mutation showResetCompleteModal() {}
+
+    @action() async logout() {
+      this.loggedIn = false;
+      window.localStorage.setItem('loggedIn', 'false');
+      this.triedAuthenticating = false;
+    }
 
     @action() async login({ username, password }: { username: string; password: string }) {
       const loginParams = {
@@ -35,7 +46,9 @@ export default function createUserStore($http: AxiosInstance) {
       const { data } = (await $http.post('/login/', new URLSearchParams(loginParams))).data;
       if (data.success) {
         this.loggedIn = true;
+        window.localStorage.setItem('loggedIn', 'true');
       }
+      await this.authenticate();
       return data;
     }
 
@@ -56,6 +69,12 @@ export default function createUserStore($http: AxiosInstance) {
         this.username = username;
         this.uid = Number(uid);
         this.loggedIn = true;
+        const userDataResponse = (await axios.get(`/get/?type=user&uid=${uid}`)).data.data;
+        this.userDetails = userDataResponse.user;
+        this.hasLabAccess = Boolean(
+          Number(this.userDetails.ten_tools_level) >= 8
+            || Number(this.userDetails.is_lab_member_legacy),
+        );
       } else {
         throw new Error(`Authentication response malformed: ${data}`);
         // TODO: is throw the right action?

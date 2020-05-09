@@ -11,8 +11,12 @@
       <img :src="imageURL" class="image" />
     </div>
     <template #buttons>
-      <b-button href="" variant="primary" size="sm">Design</b-button>
-      <b-button href="" variant="secondary" size="sm">Review</b-button>
+      <b-button :href="`${mainRoute}${puzzle.nid}/`" variant="primary" size="sm">{{
+        closed ? $t('lab-puzzle-card:closed-main') : $t('lab-puzzle-card:main')
+      }}</b-button>
+      <b-button :href="`${secondaryRoute}${puzzle.nid}/`" variant="secondary" size="sm">{{
+        closed ? $t('lab-puzzle-card:closed-secondary') : $t('lab-puzzle-card:secondary')
+      }}</b-button>
     </template>
   </PuzzleCard>
 </template>
@@ -20,6 +24,11 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import Utils from '@/utils/utils';
+  import {
+    PUZZLE_ROUTE_PREFIX,
+    PUZZLE_ROUTE_BROWSE_PREFIX,
+    PUZZLE_ROUTE_SOLUTIONS_PREFIX,
+  } from '@/utils/constants';
   import { PuzzleData } from '../types';
 
   @Component({
@@ -31,6 +40,14 @@
     @Prop() private puzzle!: PuzzleData;
 
     @Prop({ default: '275px' }) private width!: string;
+
+    @Prop({ default: true }) private closed!: boolean;
+
+    private secondaryRoute: string = this.closed
+      ? PUZZLE_ROUTE_SOLUTIONS_PREFIX
+      : PUZZLE_ROUTE_BROWSE_PREFIX;
+
+    private mainRoute: string = PUZZLE_ROUTE_PREFIX;
 
     get imageURL() {
       return Utils.getPuzzleMiddleThumbnail(this.puzzle.nid);

@@ -1,5 +1,5 @@
 <template>
-  <div class="page-content card" @click="redirect()">
+  <div class="page-content card" @click="goToDetailPage()">
     <div class="container">
       <div class="row justify-content-between">
         <div class="col p-0">
@@ -36,7 +36,7 @@
 
     @Prop({ default: 'blogs' }) private type!: string;
 
-    redirect() {
+    goToDetailPage() {
       this.$router.push(`/news/${this.nid}`);
     }
 

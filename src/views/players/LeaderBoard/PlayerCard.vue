@@ -1,5 +1,5 @@
 <template>
-  <div class="card player-card">
+  <div class="card player-card" style="cursor:pointer" @click="goToDetailPage()">
     <div class="d-flex align-items-center" style="width:100%">
       <div style="width:100px">
         <p class="rank">#{{ index + 1 }}</p>
@@ -43,6 +43,10 @@
 
     get points() {
       return this.player.points && parseInt(this.player.points, 10).toLocaleString();
+    }
+
+    goToDetailPage() {
+      this.$router.push(`/player/${this.player.uid}`);
     }
 
     private rank: string = '';

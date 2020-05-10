@@ -41,7 +41,6 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import Utils from '@/utils/utils';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
 
@@ -67,6 +66,12 @@
     private level!: string;
 
     @Prop({})
+    private questLink!: string;
+
+    @Prop({})
+    private puzzleLink!: string;
+
+    @Prop({})
     private current_level!: string;
 
     @Prop({})
@@ -77,11 +82,13 @@
     }
 
     goToGame() {
-      this.redirect(`${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`);
+      const link = this.puzzleLink || (this.current_puzzle && `${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`);
+      if (link) this.redirect(link);
     }
 
     goToQuest() {
-      if (!this.locked) this.redirect(`/quest/${this.current_puzzle}`);
+      const link = this.questLink || (this.current_puzzle && `/quest/${this.current_puzzle}`);
+      if (!this.locked && link) this.redirect(link);
     }
 
     private locked = Number(this.level) - 1 > Number(this.current_level);

@@ -19,7 +19,7 @@
             >Enter Lab</b-button
           >
 
-          <div class="banner-progress">
+          <!-- <div class="banner-progress">
             <Progress
               :progress="progressData.progressCircles[0].number"
               :total="progressData.progressCircles[0].total"
@@ -32,7 +32,7 @@
               :name="progressData.progressCircles[1].name"
               color="#fac244"
             />
-          </div>
+          </div> -->
         </div>
       </b-jumbotron>
 
@@ -41,7 +41,12 @@
       </h2>
       <Carousel :slideTo="masteringEternaProgressNumber">
         <swiper-slide v-for="(item, index) in masteringEterna" :key="index">
-          <QuestCard :key="item.title" v-bind="item" />
+          <QuestCard
+            :key="item.title"
+            v-bind="item"
+            :imageLink="item.questLink"
+            :buttonLink="item.puzzleLink"
+          />
         </swiper-slide>
       </Carousel>
 
@@ -73,6 +78,7 @@
   import Carousel from '@/components/Common/Carousel.vue';
   import { SwiperSlide } from 'vue-awesome-swiper';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
+  import Utils from '@/utils/utils';
 
   @Component({
     components: {
@@ -95,7 +101,12 @@
     get masteringEterna() {
       return get(this.pageData, 'achievement_roadmap', [])
         .filter((p: { key: string }) => (p.key as string).includes('side_quest'))
-        .filter(p => p.level === p.current_level + 1);
+        .filter(p => p.level === p.current_level + 1)
+        .map(p => ({
+          ...p,
+          questLink: Utils.getQuestLink(p.key as string),
+          puzzleLink: Utils.getPuzzleLink(p.key as string),
+        }));
     }
 
     get newPlayerRoadMap() {
@@ -111,6 +122,10 @@
     get masteringEternaProgressNumber() {
       return this.masteringEterna && this.masteringEterna[0].current_level;
     }
+
+    getQuestLink(p) {}
+
+    getPuzzleLink(p) {}
 
     get progressData() {
       return {

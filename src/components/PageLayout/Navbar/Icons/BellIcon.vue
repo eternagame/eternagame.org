@@ -14,7 +14,7 @@
     <template>
       <div class="container">
         <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
-        <img src="@/assets/navbar/popOut.svg" />
+        <img src="@/assets/navbar/popOut.svg" style="cursor:pointer" @click="goToChat()" />
         <div class="border"></div>
         <b-dropdown-item
           v-for="item in notifications.slice(0, 4)"
@@ -75,6 +75,11 @@
       this.$router.push(path);
     }
 
+    goToChat() {
+      // TODO close dropdown
+      this.redirect('/chat');
+    }
+
     shown() {
       axios.post(NOTIFICATIONS_READ);
     }
@@ -118,8 +123,19 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
+  ::v-deep img {
+    width: 35px;
+    height: 35px;
+  }
+
+  ::v-deep a {
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+    border-radius: 3px;
+  }
+
   .container {
-    margin-left: 2%;
+    margin-left: 4%;
     width: 299px;
     padding-left: 0px;
     max-width: 100%;

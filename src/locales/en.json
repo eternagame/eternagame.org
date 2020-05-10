@@ -347,5 +347,6 @@
   "lab-info:currently-active": "Currently active:",
   "lab-info:round-number": "Currently active:",
   "quest-info-sidebar:title": "Collection Info",
-  "quest-info-sidebar:created": "Created By:"
+  "quest-info-sidebar:created": "Created By:",
+  "chat:title": "Chat"
 }

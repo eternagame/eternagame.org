@@ -141,6 +141,11 @@ export default function createRouter() {
         name: 'not-found',
         component: () => import('./views/lost/NotFound.vue'),
       },
+      {
+        path: '/chat',
+        name: 'chat',
+        component: () => import('./views/chat/FullPageChat.vue'),
+      },
     ],
   });
 

@@ -109,7 +109,7 @@
   }
 
   ::v-deep .icons-group > * {
-    margin-left: 22.5px;
+    margin-left: 10px;
   }
 
   .toggler {

@@ -17,17 +17,15 @@ export default function createPageDataMixin<T>(
     }
 
     async beforeRouteEnter(to: Route, from: Route, next: RouteCallback<any>) {
-      if (process.env.VUE_APP_ENV === 'client') {
-        next(async vm => {
-          if (from.name || !vm.$vxm.pageData.data) {
-            vm.$vxm.pageData.data = await fetchPageData(to, vm.$http);
-          }
-        });
-      } else next();
+      next(async vm => {
+        if (from.name || !vm.$vxm.pageData.data) {
+          vm.$vxm.pageData.data = await fetchPageData(to, vm.$http);
+        }
+      });
     }
 
     async beforeRouteUpdate(to: Route, from: Route, next: RouteCallback<any>) {
-      if (process.env.VUE_APP_ENV === 'client' && from.name) {
+      if (from.name) {
         this.$vxm.pageData.data = await fetchPageData(to, this.$http);
       }
       next();

@@ -19,17 +19,21 @@
           <p class="explain">
             {{ $t('player-home:banner-explain') }}
           </p>
-          <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
-            <b-button class="button" variant="primary" size="lg" style="margin-right:10px">{{
-              $t('player-home:next-puzzle')
-            }}</b-button>
-          </a>
-          <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/">
-            <b-button class="button" variant="secondary" size="lg">{{
-              $t('player-home:nova-labs')
-            }}</b-button>
-          </a>
-
+          <b-button
+            class="button"
+            variant="primary"
+            size="lg"
+            style="margin-right:10px"
+            :href="`${puzzleRoute}${nextPuzzleId}`"
+            >{{ $t('player-home:next-puzzle') }}</b-button
+          >
+          <b-button
+            class="button"
+            variant="secondary"
+            size="lg"
+            href="https://www.pbs.org/wgbh/nova/labs/lab/rna/"
+            >{{ $t('player-home:nova-labs') }}</b-button
+          >
           <div class="d-flex" style="margin-top: 22px;">
             <router-link to="/news/9818657">
               <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
@@ -75,6 +79,9 @@
   import PROGRESS_IMAGE_5 from '@/assets/progress/progress5.svg';
   import PROGRESS_IMAGE_6 from '@/assets/progress/progress6.svg';
   import BANNER_IMAGE from '@/assets/home/new-player-hero.png';
+  import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
+  // @ts-ignore
+  import get from 'lodash.get';
   import HomeData from '../types';
 
   const PROGRESS_IMAGES = [
@@ -99,6 +106,8 @@
   export default class NewPlayerView extends Vue {
     @Prop({}) pageData!: HomeData;
 
+    private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
+
     get bannerImageStyle() {
       return `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)), url(${BANNER_IMAGE})`;
     }
@@ -116,6 +125,14 @@
       return (
         this.pageData.achievement_roadmap && this.pageData.achievement_roadmap[0].current_level
       );
+    }
+
+    get nextPuzzle() {
+      return this.newPlayerRoadMap.find(p => Number(p.level) === Number(this.progressNumber) + 1);
+    }
+
+    get nextPuzzleId() {
+      return this.nextPuzzle && this.nextPuzzle.current_puzzle;
     }
 
     get progress() {

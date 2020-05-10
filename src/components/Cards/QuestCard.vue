@@ -6,20 +6,31 @@
           <b>{{ title }}</b>
         </div> -->
       </template>
-      <div>
+      <div :style="{ cursor: !locked && 'pointer' }" @click="goToQuest()">
         <img :src="image" style="height: 100%; width: 100%;" />
       </div>
       <template #footer>
         <div style="text-align:center; margin-bottom:0px">
           <img src="@/assets/noun_lock.svg" v-if="locked" />
-
-          <p v-if="completed">
-            <img src="@/assets/noun_check.svg" /><b>{{ `completed!`.toUpperCase() }}</b>
-          </p>
-          <b-button type="submit" variant="primary" v-else-if="notStarted">{{
-            $t('quest-card:play')
-          }}</b-button>
-          <b-progress v-else-if="!locked" :value="to_next" max="1"></b-progress>
+          <div v-else>
+            <p v-if="completed">
+              <img src="@/assets/noun_check.svg" @click="goToGame()" /><b>{{
+                `completed!`.toUpperCase()
+              }}</b>
+            </p>
+            <div v-else>
+              <b-button
+                type="submit"
+                variant="primary"
+                style="margin-bottom:10px"
+                @click="goToGame()"
+                >{{ $t('quest-card:play') }}</b-button
+              >
+              <div @click="goToGame()" style="cursor:pointer" v-if="started">
+                <b-progress :value="to_next" max="1"></b-progress>
+              </div>
+            </div>
+          </div>
         </div>
       </template>
     </AspectRatioCard>
@@ -32,6 +43,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
+  import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
 
   @Component({
     components: {
@@ -57,9 +69,24 @@
     @Prop({})
     private current_level!: string;
 
+    @Prop({})
+    private current_puzzle!: string;
+
+    redirect(path: string) {
+      window.location.href = path;
+    }
+
+    goToGame() {
+      this.redirect(`${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`);
+    }
+
+    goToQuest() {
+      if (!this.locked) this.redirect(`/quest/${this.current_puzzle}`);
+    }
+
     private locked = Number(this.level) - 1 > Number(this.current_level);
 
-    private notStarted = this.to_next === 0 && !this.locked;
+    private started = this.to_next > 0 && !this.locked;
 
     private completed = this.to_next >= 1 && !this.locked;
 

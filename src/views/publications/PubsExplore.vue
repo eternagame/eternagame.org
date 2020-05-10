@@ -9,19 +9,18 @@
       <Gallery :sm="12" :md="12">
         <PubsCard v-for="pub in pageData.playerpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
-      <Pagination :key="pageData.playerpubslist.length" />
 
       <h2>{{ $t('pubs:researcher-title') }}</h2>
       <Gallery :sm="12" :md="12">
         <PubsCard v-for="pub in pageData.researcherpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
-      <Pagination :key="pageData.researcherpubslist.length" />
     </div>
     <div v-else>
       <h1>{{ $t('loading-text') }}</h1>
     </div>
 
     <template #sidebar="{ isInSidebar }">
+      <SearchPannel :placeholder="$t('search:publications')" :isInSidebar="isInSidebar" />
       <DropdownSidebarPanel
         :options="options"
         paramName="sort"
@@ -40,6 +39,7 @@
   import PageDataMixin from '@/mixins/PageData';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
+  import SearchPannel from '@/components/Sidebar/SearchPannel.vue';
   // @ts-ignore
   import get from 'lodash.get';
   import PubsCard from './PubsCard.vue';
@@ -47,7 +47,13 @@
   const ROUTE = '/get/?type=pubslist';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    const res = (await http.get(ROUTE)).data.data;
+    const res = (
+      await http.get(ROUTE, {
+        params: {
+          search: route.query.search,
+        },
+      })
+    ).data.data;
     return res;
   }
 
@@ -57,6 +63,7 @@
       EternaPage,
       PubsCard,
       DropdownSidebarPanel,
+      SearchPannel,
     },
   })
   export default class NewsExplore extends Mixins(PageDataMixin(fetchPageData)) {

@@ -27,6 +27,7 @@
         ref="rePassword"
       />
       <vue-recaptcha
+        :key="attemptNumber"
         ref="recaptcha"
         sitekey="6LcFwUsUAAAAAOQ9szhauSNv2bJuBOUtw_pGrRnd"
         :loadRecaptchaScript="true"
@@ -84,6 +85,8 @@
 
     errorMessage = '';
 
+    attemptNumber: number = 0;
+
     $refs!: {
       modal: BModal;
       rePassword: BFormInput;
@@ -96,21 +99,15 @@
       });
     }
 
-    mounted() {
-      console.log(this.$refs);
-    }
-
     async tryRegister(event: Event) {
       this.errorMessage = '';
       if (!this.accepted) {
         this.errorMessage = 'register-modal:error-accept-terms';
-        this.$refs.recaptcha.reset();
         return;
       }
       if (this.form.password !== this.form.rePassword) {
         (this.$refs.rePassword.$el as HTMLInputElement).setCustomValidity('Password Must Match.');
         this.errorMessage = 'register-modal:error-password-match';
-        this.$refs.recaptcha.reset();
         return;
       }
       this.submitted = true;
@@ -138,6 +135,7 @@
         await this.login();
       } else {
         this.errorMessage = data.data.error;
+        this.attemptNumber += 1;
         this.submitted = false;
       }
     }

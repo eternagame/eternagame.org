@@ -15,9 +15,12 @@
       :name="$t('lab-view:admin-comments')"
       :comments="pageData.supercomments"
       v-if="pageData.supercomments.length"
+    />
+    <Comments
+      :comments="pageData.comments"
+      v-if="pageData.comments.length"
       :pathname="addCommentPath"
     />
-    <Comments :comments="pageData.comments" v-if="pageData.comments.length" />
     <template #sidebar="{ isInSidebar }">
       <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" /> -->

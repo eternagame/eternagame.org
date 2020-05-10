@@ -15,8 +15,13 @@
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
   // @ts-ignore
   import get from 'lodash.get';
+  import vueDebounce from 'vue-debounce';
 
   import icon from '@/assets/Filter.svg';
+
+  Vue.use(vueDebounce, {
+    listenTo: 'input',
+  });
 
   @Component({
     components: {

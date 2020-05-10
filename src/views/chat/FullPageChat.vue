@@ -1,6 +1,6 @@
 <template>
   <EternaPage :title="$t('chat:title')">
-    <div id="chat-container" style="width:100%;height:100%"></div>
+    <div id="full-page-chat-container" style="width:100%;height:505px"></div>
   </EternaPage>
 </template>
 
@@ -14,8 +14,9 @@
   })
   export default class FullPageChat extends Vue {
     mounted() {
+      console.log(this.$vxm.user.username);
       const chat = new Chat({
-        container: document.getElementById('chat-container'),
+        container: document.getElementById('full-page-chat-container'),
         username: this.$vxm.user.username,
         uid: this.$vxm.user.uid,
         onHidden: () => {

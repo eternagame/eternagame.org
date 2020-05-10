@@ -88,8 +88,12 @@
     async fbLogIn() {
       const data = await this.$vxm.user.fbLogin();
       console.log(data);
-      this.$bvModal.hide('modal-login');
-      this.$router.push('/');
+      if (data.success) {
+        this.$bvModal.hide('modal-login');
+        this.$router.push('/');
+      } else {
+        this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });
+      }
     }
 
     $refs!: {

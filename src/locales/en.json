@@ -339,5 +339,13 @@
   "side-panel-options:synthesized-latest": "Synthesized in latest lab",
   "register-modal:disclaimer-accept": "I accept the ",
   "register-modal:error-password-match": "Password Must Match.",
-  "register-modal:error-accept-terms": "Please accept the terms and conditions"
+  "register-modal:error-accept-terms": "Please accept the terms and conditions",
+  "quest-info:title": "Best Lab Practices",
+  "lab-info:title": "Lab Info",
+  "lab-info:admin": "Admin:",
+  "lab-info:research-affiliation": "Research affiliation:",
+  "lab-info:currently-active": "Currently active:",
+  "lab-info:round-number": "Currently active:",
+  "quest-info-sidebar:title": "Collection Info",
+  "quest-info-sidebar:created": "Created By:"
 }

@@ -87,7 +87,7 @@
     }
 
     goToQuest() {
-      const link = this.questLink || (this.current_puzzle && `/quest/${this.current_puzzle}`);
+      const link = this.questLink || (this.title && `/quest/${this.title}`);
       if (!this.locked && link) this.redirect(link);
     }
 

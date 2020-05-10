@@ -27,6 +27,7 @@
         ref="rePassword"
       />
       <vue-recaptcha
+        :key="captchaResponse"
         ref="recaptcha"
         sitekey="6LcFwUsUAAAAAOQ9szhauSNv2bJuBOUtw_pGrRnd"
         :loadRecaptchaScript="true"

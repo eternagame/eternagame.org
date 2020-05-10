@@ -4,7 +4,7 @@
       <Gallery :sm="12" :md="12">
         <NewsCard v-for="article in pageData.entries" :key="article.nid" v-bind="article" />
       </Gallery>
-      <Pagination />
+      <Pagination :key="pageData.entries.length" />
     </div>
     <div v-else>
       <h1>{{ $t('loading-text') }}</h1>
@@ -57,7 +57,6 @@
         },
       })
     ).data.data;
-
     return res;
   }
 

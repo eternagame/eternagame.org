@@ -9,7 +9,7 @@
           :index="index"
         />
       </div>
-      <Pagination />
+      <Pagination :key="players.length" />
     </div>
     <div v-else>
       <h1>{{ $t('loading-text') }}</h1>

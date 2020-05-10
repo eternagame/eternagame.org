@@ -4,10 +4,10 @@
       <Gallery>
         <PuzzleCard v-for="puzzle in puzzles" :key="puzzle.id" :nid="puzzle.id" v-bind="puzzle" />
       </Gallery>
-      <Pagination />
+      <Pagination :key="puzzles.length" />
     </div>
     <div v-else>
-      <h1>{{$t('loading-text')}}</h1>
+      <h1>{{ $t('loading-text') }}</h1>
     </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPannel :placeholder="$t('search:puzzles')" :isInSidebar="isInSidebar" />

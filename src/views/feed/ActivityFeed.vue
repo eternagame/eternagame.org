@@ -5,7 +5,7 @@
         <Gallery :sm="12" :md="12">
           <ActivityCard v-for="article in news" :key="article.nid" v-bind="article" />
         </Gallery>
-        <Pagination />
+        <Pagination :key="news.length" />
       </Gallery>
     </div>
     <div v-else>

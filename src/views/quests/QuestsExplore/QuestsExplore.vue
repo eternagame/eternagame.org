@@ -30,7 +30,7 @@
       <Gallery>
         <QuestCard v-for="(item, index) in pageData.section3" :key="index" v-bind="item" />
       </Gallery>
-      <Pagination />
+      <Pagination :key="pageData.section3.length" />
     </div>
     <div v-else>
       <h1>{{ $t('loading-text') }}</h1>

@@ -9,13 +9,13 @@
       <Gallery :sm="12" :md="12">
         <PubsCard v-for="pub in pageData.playerpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
-      <Pagination />
+      <Pagination :key="pageData.playerpubslist.length" />
 
       <h2>{{ $t('pubs:researcher-title') }}</h2>
       <Gallery :sm="12" :md="12">
         <PubsCard v-for="pub in pageData.researcherpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
-      <Pagination />
+      <Pagination :key="pageData.researcherpubslist.length" />
     </div>
     <div v-else>
       <h1>{{ $t('loading-text') }}</h1>

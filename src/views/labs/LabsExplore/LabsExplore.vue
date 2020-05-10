@@ -4,7 +4,7 @@
       <Gallery>
         <LabCard v-for="lab in pageData.labs" :key="lab.nid" :lab="lab" />
       </Gallery>
-      <Pagination />
+      <Pagination :key="pageData.labs.length" />
     </div>
     <div v-else>
       <h1>{{ $t('loading-text') }}</h1>

@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <h1 v-if="loading">{{ $t('loading-text') }}</h1>
 </template>
 
 <script lang="ts">
@@ -18,12 +18,15 @@
 
     private search: string = '';
 
+    private loading: boolean = false;
+
     mounted() {
       window.onscroll = () => {
         const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight + 1
           >= document.documentElement.offsetHeight;
 
         if (bottomOfWindow) {
+          this.loading = true;
           const oldSize = Number(this.$route.query.size || this.initial);
           const newSize = String(oldSize + this.increment);
 

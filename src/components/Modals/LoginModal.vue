@@ -69,8 +69,6 @@
   // @ts-ignore
   import VFacebookLogin from 'vue-facebook-login-component';
 
-  const FB_LOGIN_ROUTE = '/login/?type=login&method=facebook';
-
   @Component({
     components: {
       VueRecaptcha,
@@ -87,15 +85,11 @@
 
     private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
-    fbLogIn() {
-      axios
-        .post(FB_LOGIN_ROUTE)
-        .then(res => {
-          console.log(res);
-          this.$bvModal.hide('modal-login');
-          this.$router.push('/');
-        })
-        .catch(err => console.error(err));
+    async fbLogIn() {
+      const data = await this.$vxm.user.fbLogin();
+      console.log(data);
+      this.$bvModal.hide('modal-login');
+      this.$router.push('/');
     }
 
     $refs!: {

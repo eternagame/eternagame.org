@@ -36,6 +36,16 @@ export default function createUserStore($http: AxiosInstance) {
       this.triedAuthenticating = false;
     }
 
+    @action() async fbLogin() {
+      const { data } = (await $http.post('/login/?type=login&method=facebook')).data;
+      if (data.success) {
+        this.loggedIn = true;
+        window.localStorage.setItem('loggedIn', 'true');
+      }
+      await this.authenticate();
+      return data;
+    }
+
     @action() async login({ username, password }: { username: string; password: string }) {
       const loginParams = {
         name: username,

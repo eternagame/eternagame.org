@@ -88,10 +88,14 @@
     private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
     fbLogIn() {
-      axios.post(FB_LOGIN_ROUTE).then(res => {
-        this.$bvModal.hide('modal-login');
-        this.$router.push('/');
-      });
+      axios
+        .post(FB_LOGIN_ROUTE)
+        .then(res => {
+          console.log(res);
+          this.$bvModal.hide('modal-login');
+          this.$router.push('/');
+        })
+        .catch(err => console.error(err));
     }
 
     $refs!: {

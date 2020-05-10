@@ -94,6 +94,10 @@
       });
     }
 
+    mounted() {
+      console.log(this.$refs.recaptcha);
+    }
+
     async tryRegister(event: Event) {
       this.errorMessage = '';
       if (!this.accepted) {

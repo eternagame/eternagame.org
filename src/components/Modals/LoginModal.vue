@@ -86,10 +86,11 @@
     private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
     async fbLogIn() {
+      this.$bvModal.hide('modal-login');
       const data = await this.$vxm.user.fbLogin();
-      console.log(data);
       if (data.success) {
-        this.$bvModal.hide('modal-login');
+        this.form.username = '';
+        this.form.password = '';
         this.$router.push('/');
       } else {
         this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });
@@ -102,13 +103,13 @@
     };
 
     async login() {
+      this.$bvModal.hide('modal-login');
       if (this.form.username && this.form.password) {
         const data = await this.$vxm.user.login({
           username: this.form.username,
           password: this.form.password,
         });
         if (data.success) {
-          this.$bvModal.hide('modal-login');
           this.$router.push('/');
         } else {
           this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });

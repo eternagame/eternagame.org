@@ -6,12 +6,12 @@
           <h2>
             {{ $t('quest-view:banner-title') }}
           </h2>
-          <p style="width: 482px; ">
-            {{ questInfo }}
-          </p>
+          <p style="width: 482px" v-dompurify-html="quest.desc"></p>
         </div>
-        <img :src="image" style="height: 250px; width: 250px;" />
-        <b-progress value=".2" max="1"></b-progress>
+        <div>
+          <img :src="quest.image" style="max-height: 250px; max-width: 270px;margin-bottom:20px" />
+          <b-progress :value="quest.to_next" max="1"></b-progress>
+        </div>
       </div>
     </div>
 
@@ -32,9 +32,9 @@
         :header="$t('quest-info-sidebar:title')"
         headerIcon="@/assets/info.svg"
       >
-        <span class="gray-header">{{ $t('quest-info-sidebar:created') }}</span
-        ><br />
-        <ul style="padding: 0; list-style-type:none">
+        <br />
+        <!-- <span class="gray-header">{{ $t('quest-info-sidebar:created') }}</span>
+        <ul style="padding: 0; list-style-type:none;margin-top:10px">
           <li>
             <img src="@/assets/navbar/DefaultIcon.svg" style="margin-right:5px" /><b
               style="color: var(--yellow);"
@@ -43,8 +43,8 @@
           </li>
           <li><img src="@/assets/group.svg" class="icon" />{{ audience }}</li>
           <li><img src="@/assets/calendar.svg" class="icon" />{{ 'Sept 2019' }}</li>
-        </ul></SidebarPanel
-      >
+        </ul> -->
+      </SidebarPanel>
     </template>
   </EternaPage>
 </template>
@@ -59,12 +59,16 @@
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
+  import VueDOMPurifyHTML from 'vue-dompurify-html';
+
+  Vue.use(VueDOMPurifyHTML);
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    const res = (
+    const me = (await http.get('/get/?type=me')).data.data;
+    const puzzles = (
       await http.get(`/get/?type=puzzles&puzzle_type=Progression&search=${route.params.id}`)
     ).data.data;
-    return res;
+    return { ...me, ...puzzles };
   }
 
   @Component({
@@ -77,16 +81,8 @@
     },
   })
   export default class QuestView extends Mixins(PageDataMixin(fetchPageData)) {
-    get image() {
-      return 'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/9FA562FE-9341-4261-8C3C-7E9679642CAE.png';
-    }
-
-    get questInfo() {
-      return `Nature’s best kept secret is a wonder molecule called RNA. It is central to the origin of
-        life, evolution, and the cellular machinery that keeps us alive. In this Virtual Lab you’ll
-        play the role of a molecular engineer by solving RNA folding puzzles. Then take your skills
-        to the Eterna Lab, where you can design RNAs that could be at the heart of future
-        life-saving therapies.`;
+    get quest() {
+      return this.pageData.achievement_roadmap.find(p => p.title === this.$route.params.id);
     }
 
     get audience() {

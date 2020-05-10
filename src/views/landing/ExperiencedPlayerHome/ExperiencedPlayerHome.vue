@@ -123,10 +123,6 @@
       return this.masteringEterna && this.masteringEterna[0].current_level;
     }
 
-    getQuestLink(p) {}
-
-    getPuzzleLink(p) {}
-
     get progressData() {
       return {
         'banner-title': 'Optimizing the Ribosome',

@@ -30,7 +30,7 @@
   import TermsAndConditionsText from './TermsAndConditionsText.vue';
 
   export const options: Option[] = [
-    { value: 'about', text: 'side-panel-options:about', link: '/about' },
+    { value: 'about', text: 'side-panel-options:about-eterna', link: '/about' },
     { value: 'publications', text: 'side-panel-options:publications', link: '/publications' },
     {
       value: 'software',

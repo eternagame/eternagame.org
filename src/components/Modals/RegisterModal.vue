@@ -59,6 +59,13 @@
 
   const FB_LOGIN_ROUTE = '/login/?type=login&method=facebook';
 
+  const INITIAL_FORM = {
+    username: '',
+    email: '',
+    password: '',
+    rePassword: '',
+  };
+
   @Component({
     components: {
       VueRecaptcha,
@@ -66,12 +73,7 @@
     },
   })
   export default class RegisterModal extends Vue {
-    form = {
-      username: '',
-      email: '',
-      password: '',
-      rePassword: '',
-    };
+    form = INITIAL_FORM;
 
     private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
@@ -96,7 +98,7 @@
     }
 
     mounted() {
-      console.log(this.$refs.recaptcha);
+      console.log(this.$refs);
     }
 
     async tryRegister(event: Event) {
@@ -133,6 +135,7 @@
       );
       const { data } = response;
       if (data.data.success) {
+        this.form = INITIAL_FORM;
         await this.login();
       } else {
         this.errorMessage = data.data.error;

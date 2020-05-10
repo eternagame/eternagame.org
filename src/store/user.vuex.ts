@@ -32,7 +32,6 @@ export default function createUserStore($http: AxiosInstance) {
     @action() async logout() {
       this.loggedIn = false;
       const response = await $http.get('/eterna_logout.php');
-      console.log(response);
       window.localStorage.setItem('loggedIn', 'false');
       this.triedAuthenticating = false;
     }

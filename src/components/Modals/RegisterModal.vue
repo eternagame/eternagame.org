@@ -12,7 +12,7 @@
     {{ $t('register-modal:new-accont-explanation') }}
     <transition name="fade">
       <b-alert class="mt-3" show variant="danger" v-if="errorMessage">
-        {{ errorMessage }}
+        {{ $t(errorMessage) }}
       </b-alert>
     </transition>
     <b-form @submit.prevent="tryRegister" class="pb-3">
@@ -29,13 +29,16 @@
       <vue-recaptcha
         ref="recaptcha"
         sitekey="6LcFwUsUAAAAAOQ9szhauSNv2bJuBOUtw_pGrRnd"
-        loadRecaptchaScript="true"
+        :loadRecaptchaScript="true"
         @verify="captchaResponse = $event"
       />
       <b-button type="submit" variant="primary" class="submit-button" :disabled="submitted">{{
         $t('register-modal:main-action')
       }}</b-button>
-      <div>
+      <div class="d-flex">
+        <b-checkbox v-model="accepted">
+          {{ $t('register-modal:disclaimer-accept') }}
+        </b-checkbox>
         <b-link size="sm" to="/about/terms" @click="$bvModal.hide('modal-register')">{{
           $t('register-modal:disclaimer')
         }}</b-link>
@@ -73,6 +76,8 @@
 
     private submitted = false;
 
+    private accepted: boolean = false;
+
     captchaResponse = '';
 
     errorMessage = '';
@@ -91,8 +96,14 @@
 
     async tryRegister(event: Event) {
       this.errorMessage = '';
+      if (!this.accepted) {
+        this.errorMessage = 'register-modal:error-accept-terms';
+        this.$refs.recaptcha.reset();
+        return;
+      }
       if (this.form.password !== this.form.rePassword) {
         (this.$refs.rePassword.$el as HTMLInputElement).setCustomValidity('Password Must Match.');
+        this.errorMessage = 'register-modal:error-password-match';
         this.$refs.recaptcha.reset();
         return;
       }

@@ -32,11 +32,16 @@
 
     private selected: string[] = [];
 
+    private queries: Map<string, string> = new Map();
+
     created() {
       const data = this.$route.query[this.paramName];
       if (data && typeof data === 'string') {
         this.selected = data.split(',');
       }
+      this.filters.forEach(filter => {
+        if (filter.query) this.queries.set(filter.value, filter.query);
+      });
     }
 
     async onCheck() {
@@ -50,6 +55,10 @@
       } else {
         delete query[this.paramName];
       }
+
+      this.selected.forEach(selected => {
+        if (this.queries.has(selected)) query[selected] = this.queries.get(selected) as string;
+      });
       return query;
     }
   }
@@ -57,6 +66,7 @@
   export interface Filter {
     value: string;
     text: string;
+    query?: string;
   }
 </script>
 

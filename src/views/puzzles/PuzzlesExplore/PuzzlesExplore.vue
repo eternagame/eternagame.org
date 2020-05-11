@@ -10,7 +10,7 @@
       <h1>{{ $t('loading-text') }}</h1>
     </div>
     <template #sidebar="{ isInSidebar }">
-      <SearchPannel :placeholder="$t('search:puzzles')" :isInSidebar="isInSidebar" />
+      <SearchPanel :placeholder="$t('search:puzzles')" :isInSidebar="isInSidebar" />
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
       <DropdownSidebarPanel
@@ -29,7 +29,7 @@
   import axios, { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
-  import SearchPannel from '@/components/Sidebar/SearchPannel.vue';
+  import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
@@ -48,8 +48,9 @@
     const res = (
       await http.get(ROUTE, {
         params: {
+          vienna: route.query.vienna,
           order: route.query.sort,
-          filters: route.query.filters && (route.query.filters as string).split(','),
+          // filters: route.query.filters && (route.query.filters as string).split(','),
           search: route.query.search,
           size: route.query.size || INITIAL_NUMBER,
         },
@@ -64,7 +65,7 @@
       EternaPage,
       Pagination,
       FiltersPanel,
-      SearchPannel,
+      SearchPanel,
       DropdownSidebarPanel,
       TagsPanel,
     },
@@ -80,14 +81,14 @@
     ];
 
     private filters: Filter[] = [
-      { value: 'single', text: 'Single State' },
-      { value: '2-state', text: '2-state switch' },
-      { value: '3-state', text: '3-state switch' },
-      { value: '4-state', text: '4-state switch' },
-      { value: 'vienna', text: 'Vienna' },
-      { value: 'rnassd', text: 'RNAssd' },
-      { value: 'inforna', text: 'Inforna' },
-      { value: 'notcleared', text: 'Uncleared' },
+      { value: 'single', text: 'Single State', query: 'checked' },
+      // { value: '2-state', text: '2-state switch' },
+      // { value: '3-state', text: '3-state switch' },
+      // { value: '4-state', text: '4-state switch' },
+      { value: 'vienna', text: 'Vienna', query: 'fail' },
+      { value: 'rnassd', text: 'RNAssd', query: 'fail' },
+      { value: 'inforna', text: 'Inforna', query: 'fail' },
+      { value: 'notcleared', text: 'Uncleared', query: 'true' },
     ];
 
     // private tags: string[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];

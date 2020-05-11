@@ -9,6 +9,7 @@
       placement="top"
       @shown="addChat"
       v-if="isInSideBar"
+      style="height:500px"
     >
       <div></div>
     </b-popover>
@@ -45,6 +46,7 @@
         container: document.getElementById('chat-container'),
         username: this.$vxm.user.username,
         uid: this.$vxm.user.uid,
+        collapsible: true,
         onHidden: () => this.$root.$emit('bv::hide::popover', this.popoverId),
       });
     }

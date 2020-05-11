@@ -32,7 +32,7 @@
       this.$vxm.user.logout();
     }
 
-    private profile: string = `/players/${this.$vxm.user.uid}`;
+    private get profile(): string { return `/players/${this.$vxm.user.uid}`; }
 
     redirect(path: string) {
       this.$router.push(path);

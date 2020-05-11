@@ -109,7 +109,7 @@ export default function createRouter() {
       {
         path: '/donate',
         component: () => {
-          window.location.href = 'http://localhost:8080/https:/www.gofundme.com/f/fight-covid19-with-eterna';
+          window.location.href = 'https:/www.gofundme.com/f/fight-covid19-with-eterna';
         },
       },
       {

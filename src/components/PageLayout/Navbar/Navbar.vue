@@ -74,8 +74,9 @@
       },
       community: {
         leaderboards: '/players',
-        groups: 'https://eternagame.org/web/group/',
+        forum: 'https://getsatisfaction.com/eternagame',
         wiki: 'http://eternawiki.org',
+        groups: 'https://eternagame.org/web/group/',
       },
       news: {
         news: '/news',

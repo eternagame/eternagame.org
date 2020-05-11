@@ -2,7 +2,7 @@
   <div>
     <UserIcon class="float-lg-right icon" />
     <BellIcon class="float-lg-right icon" />
-    <ChatIcon class="float-lg-right icon" />
+    <ChatIcon class="float-lg-right icon" :isInSideBar="isInSideBar" />
   </div>
 </template>
 <script lang="ts">
@@ -18,7 +18,9 @@
       UserIcon,
     },
   })
-  export default class NavbarIcons extends Vue {}
+  export default class NavbarIcons extends Vue {
+    @Prop({ default: false }) private isInSideBar;
+  }
 </script>
 
 <style lang="scss" scoped>

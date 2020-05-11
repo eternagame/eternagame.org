@@ -1,17 +1,18 @@
 <template>
-  <NavbarIcon>
-    <template #icon>
-      <img icon src="@/assets/navbar/Chat.svg" />
-    </template>
-    <template #text>
-      {{ $t('nav-bar:chat') }}
-    </template>
-    <template>
-      <b-dropdown-item>
-        <div id="chat-container" style="height:500px"></div>
-      </b-dropdown-item>
-    </template>
-  </NavbarIcon>
+  <div :id="popoverId">
+    <img icon src="@/assets/navbar/Chat.svg" @click="goToChat()" />
+
+    <b-popover
+      id="chat-container"
+      :target="popoverId"
+      triggers="click"
+      placement="top"
+      @shown="addChat"
+      v-if="isInSideBar"
+    >
+      <div></div>
+    </b-popover>
+  </div>
 </template>
 <script lang="ts">
   // @ts-ignore
@@ -27,14 +28,24 @@
     },
   })
   export default class PlayerIcon extends Vue {
-    mounted() {
+    private popoverId: string = 'chat-popover';
+
+    @Prop({ default: false }) private isInSideBar;
+
+    goToChat() {
+      if (this.isInSideBar) this.redirect('/chat');
+    }
+
+    redirect(path: string) {
+      this.$router.push(path);
+    }
+
+    addChat() {
       const chat = new Chat({
         container: document.getElementById('chat-container'),
         username: this.$vxm.user.username,
         uid: this.$vxm.user.uid,
-        onHidden: () => {
-          console.log('Chat.onHidden()');
-        },
+        onHidden: () => this.$root.$emit('bv::hide::popover', this.popoverId),
       });
     }
   }

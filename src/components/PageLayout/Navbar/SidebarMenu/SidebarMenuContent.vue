@@ -2,7 +2,7 @@
   <div>
     <b-navbar-nav v-if="loggedIn">
       <div class="w-100">
-        <NavbarIcons class="d-inline d-md-none" />
+        <NavbarIcons class="d-inline d-md-none" :isInSideBar="true" />
       </div>
     </b-navbar-nav>
     <hr class="d-lg-none sidebar-separator" />

@@ -69,13 +69,13 @@
       },
       learn: {
         'quick-help': '/help',
-        guides: '/guides',
-        wiki: '/wiki',
+        guides: 'http://eternawiki.org/wiki/index.php5/Player-Created_Guides',
+        wiki: 'http://eternawiki.org',
       },
       community: {
         leaderboards: '/leaderboards',
-        groups: 'community/groups',
-        wiki: '/wiki',
+        groups: 'https://eternagame.org/web/group/',
+        wiki: 'http://eternawiki.org',
       },
       news: {
         news: '/news',

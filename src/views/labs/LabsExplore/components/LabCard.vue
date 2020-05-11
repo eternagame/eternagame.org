@@ -29,7 +29,7 @@
     @Prop() private lab!: LabCardData;
 
     get labUrl() {
-      return `/lab/${this.lab.nid}`;
+      return `/labs/${this.lab.nid}`;
     }
   }
 </script>

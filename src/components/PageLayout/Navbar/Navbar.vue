@@ -73,16 +73,17 @@
         wiki: 'http://eternawiki.org',
       },
       community: {
-        leaderboards: '/leaderboards',
-        groups: 'https://eternagame.org/web/group/',
+        leaderboards: '/players',
+        forum: 'https://getsatisfaction.com/eternagame',
         wiki: 'http://eternawiki.org',
+        groups: 'https://eternagame.org/web/group/',
       },
       news: {
         news: '/news',
       },
       about: {
         overview: '/about',
-        publications: '/publications',
+        publications: '/about/publications',
         software: 'https://software.eternagame.org/',
         donate: 'https://challenges.eternagame.org/',
         terms: '/about/terms',

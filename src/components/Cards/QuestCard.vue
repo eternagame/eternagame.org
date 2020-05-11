@@ -87,7 +87,7 @@
     }
 
     goToQuest() {
-      const link = this.questLink || (this.title && `/quest/${this.title}`);
+      const link = this.questLink || (this.title && `/quests/${this.title}`);
       if (!this.locked && link) this.redirect(link);
     }
 

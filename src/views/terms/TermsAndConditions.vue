@@ -31,7 +31,7 @@
 
   export const options: Option[] = [
     { value: 'about', text: 'side-panel-options:about-eterna', link: '/about' },
-    { value: 'publications', text: 'side-panel-options:publications', link: '/publications' },
+    { value: 'publications', text: 'side-panel-options:publications', link: '/about/publications' },
     {
       value: 'software',
       text: 'side-panel-options:software',

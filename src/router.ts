@@ -17,7 +17,7 @@ export default function createRouter() {
         component: () => import('./views/labs/LabsExplore/LabsExplore.vue'),
       },
       {
-        path: '/lab/:id',
+        path: '/labs/:id',
         name: 'lab-view',
         component: () => import('./views/labs/LabView/LabView.vue'),
       },
@@ -27,12 +27,12 @@ export default function createRouter() {
         component: () => import('./views/quests/QuestsExplore/QuestsExplore.vue'),
       },
       {
-        path: '/quest/:id',
+        path: '/quests/:id',
         name: 'quests-view',
         component: () => import('./views/quests/QuestView/QuestView.vue'),
       },
       {
-        path: '/quests/create',
+        path: '/create/quest',
         name: 'create-quest',
         component: () => import('./views/quests/CreateQuest/CreateQuest.vue'),
       },
@@ -42,7 +42,7 @@ export default function createRouter() {
         component: () => import('./views/puzzles/PuzzlesExplore/PuzzlesExplore.vue'),
       },
       {
-        path: '/puzzle/:id',
+        path: '/puzzles/:id',
         name: 'puzzle-view',
         component: () => import('./views/puzzles/PuzzleView/PuzzleView.vue'),
       },
@@ -82,7 +82,7 @@ export default function createRouter() {
         component: () => import('./views/news/NewsView/NewsView.vue'),
       },
       {
-        path: '/publications',
+        path: '/about/publications',
         name: 'publications-list',
         component: () => import('./views/publications/PubsExplore.vue'),
       },
@@ -92,7 +92,7 @@ export default function createRouter() {
         component: () => import('./views/feed/ActivityFeed.vue'),
       },
       {
-        path: '/player/:uid',
+        path: '/players/:uid',
         name: 'player',
         component: () => import('./views/players/PlayerView/PlayerView.vue'),
       },
@@ -102,7 +102,7 @@ export default function createRouter() {
         component: () => import('./views/players/EditProfile/EditProfile.vue'),
       },
       {
-        path: '/leaderboards',
+        path: '/players',
         name: 'leaderboards',
         component: () => import('./views/players/LeaderBoard/LeaderBoard.vue'),
       },

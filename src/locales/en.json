@@ -15,6 +15,7 @@
   "nav-bar:notifications": "Notifications",
   "nav-bar:chat": "Chat",
   "nav-bar:leaderboards": "Leaderboards",
+  "nav-bar:forum": "Forum",
   "read-more:read-more": "read more",
   "read-more:read-less": "read less",
   "login-failed:failure-text": "Something's wrong...",

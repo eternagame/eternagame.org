@@ -16,7 +16,7 @@
       <h1>{{ $t('loading-text') }}</h1>
     </div>
     <template #sidebar="{ isInSidebar }">
-      <SearchPannel :placeholder="$t('search:puzzles')" :isInSidebar="isInSidebar" />
+      <SearchPanel :placeholder="$t('search:puzzles')" :isInSidebar="isInSidebar" />
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
       <DropdownSidebarPanel
@@ -35,7 +35,7 @@
   import axios, { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
-  import SearchPannel from '@/components/Sidebar/SearchPannel.vue';
+  import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
@@ -70,7 +70,7 @@
       EternaPage,
       Pagination,
       FiltersPanel,
-      SearchPannel,
+      SearchPanel,
       DropdownSidebarPanel,
       TagsPanel,
     },

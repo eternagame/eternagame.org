@@ -15,7 +15,7 @@
       <h1>{{ $t('loading-text') }}</h1>
     </div>
     <template #sidebar="{ isInSidebar }">
-      <SearchPannel :placeholder="$t('search:players')" :isInSidebar="isInSidebar" />
+      <SearchPanel :placeholder="$t('search:players')" :isInSidebar="isInSidebar" />
       <DropdownSidebarPanel
         :options="options"
         paramName="sort"
@@ -38,7 +38,7 @@
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
-  import SearchPannel from '@/components/Sidebar/SearchPannel.vue';
+  import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import PlayerCard from './PlayerCard.vue';
 
   const INITIAL_NUMBER = 18;
@@ -65,7 +65,7 @@
     components: {
       PlayerCard,
       EternaPage,
-      SearchPannel,
+      SearchPanel,
       FiltersPanel,
       Pagination,
       DropdownSidebarPanel,

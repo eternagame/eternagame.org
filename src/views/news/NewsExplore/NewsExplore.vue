@@ -11,7 +11,7 @@
     </div>
 
     <template #sidebar="{ isInSidebar }">
-      <SearchPannel :placeholder="$t('search:news')" :isInSidebar="isInSidebar" />
+      <SearchPanel :placeholder="$t('search:news')" :isInSidebar="isInSidebar" />
 
       <DropdownSidebarPanel
         :options="options"
@@ -32,7 +32,7 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
-  import SearchPannel from '@/components/Sidebar/SearchPannel.vue';
+  import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
@@ -66,7 +66,7 @@
       FiltersPanel,
       CalendarPanel,
       DropdownSidebarPanel,
-      SearchPannel,
+      SearchPanel,
       TagsPanel,
       NewsCard,
       Pagination,

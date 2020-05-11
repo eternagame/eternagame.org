@@ -20,7 +20,7 @@
     </div>
 
     <template #sidebar="{ isInSidebar }">
-      <SearchPannel :placeholder="$t('search:publications')" :isInSidebar="isInSidebar" />
+      <SearchPanel :placeholder="$t('search:publications')" :isInSidebar="isInSidebar" />
       <DropdownSidebarPanel
         :options="options"
         paramName="sort"
@@ -39,7 +39,7 @@
   import PageDataMixin from '@/mixins/PageData';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import SearchPannel from '@/components/Sidebar/SearchPannel.vue';
+  import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   // @ts-ignore
   import get from 'lodash.get';
   import PubsCard from './PubsCard.vue';
@@ -63,7 +63,7 @@
       EternaPage,
       PubsCard,
       DropdownSidebarPanel,
-      SearchPannel,
+      SearchPanel,
     },
   })
   export default class NewsExplore extends Mixins(PageDataMixin(fetchPageData)) {

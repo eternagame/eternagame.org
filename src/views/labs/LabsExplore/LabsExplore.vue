@@ -10,7 +10,7 @@
       <h1>{{ $t('loading-text') }}</h1>
     </div>
     <template #sidebar="{ isInSidebar }">
-      <SearchPannel :placeholder="$t('search:labs')" :isInSidebar="isInSidebar" />
+      <SearchPanel :placeholder="$t('search:labs')" :isInSidebar="isInSidebar" />
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
       <DropdownSidebarPanel
         :options="options"
@@ -27,7 +27,7 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import SearchPannel from '@/components/Sidebar/SearchPannel.vue';
+  import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
@@ -55,7 +55,7 @@
   @Component({
     components: {
       LabCard,
-      SearchPannel,
+      SearchPanel,
       EternaPage,
       FiltersPanel,
       Pagination,

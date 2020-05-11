@@ -51,6 +51,45 @@
             </tr>
           </template>
         </PlayerTable>
+
+        <PlayerTable
+          v-if="$route.query.tab_type == 'created'"
+          :title="$t('player-view:created-puzzles')"
+          :entries="pageData.created_puzzles"
+        >
+          <template v-slot:theader>
+            <tr class="table-primary">
+              <th scope="col">{{ $t('player-view:created-puzzles') }}</th>
+            </tr>
+          </template>
+          <template v-slot:trow="slotProps">
+            <tr>
+              <td class="puzzle-link">
+                <a :href="`/puzzle/${slotProps.item.id}/`">{{ slotProps.item.title }}</a>
+              </td>
+            </tr>
+          </template>
+        </PlayerTable>
+
+        <!-- TODO: Implement pagination so large tables don't take forever. -->
+        <PlayerTable
+          v-if="$route.query.tab_type == 'cleared'"
+          :title="$t('player-view:cleared-puzzles')"
+          :entries="pageData.cleared_puzzles.slice(0, 200)"
+        >
+          <template v-slot:theader>
+            <tr class="table-primary">
+              <th scope="col">{{ $t('player-view:cleared-puzzles') }}</th>
+            </tr>
+          </template>
+          <template v-slot:trow="slotProps">
+            <tr>
+              <td class="puzzle-link">
+                <a :href="`/puzzle/${slotProps.item.id}/`">{{ slotProps.item.title }}</a>
+              </td>
+            </tr>
+          </template>
+        </PlayerTable>
       </div>
     </div>
     <div v-else>
@@ -106,8 +145,9 @@
       { value: 'about', text: 'side-panel-options:about' },
       { value: 'achievements', text: 'side-panel-options:achievements' },
       { value: 'synthesized', text: 'side-panel-options:synthesized' },
-      { value: 'latest', text: 'side-panel-options:latest' },
       { value: 'created', text: 'side-panel-options:created' },
+      { value: 'latest', text: 'side-panel-options:latest' },
+      { value: 'cleared', text: 'side-panel-options:cleared' },
     ];
   }
 </script>

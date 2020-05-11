@@ -1,5 +1,5 @@
 <template>
-  <div v-if="latest" class="content">
+  <div v-if="entries" class="content">
     <hr class="top-border" />
     <h4 class="title">{{ title }}</h4>
     <table class="table">
@@ -7,7 +7,7 @@
         <slot name="theader"></slot>
       </thead>
       <tbody>
-        <template v-for="item in latest">
+        <template v-for="item in entries">
           <slot :item="item" name="trow"></slot>
         </template>
       </tbody>
@@ -21,10 +21,10 @@
   @Component({
     components: {},
   })
-  export default class PlayerLatest extends Vue {
+  export default class PlayerTable extends Vue {
     @Prop() title!: String;
 
-    @Prop() latest!: object[];
+    @Prop() entries!: object[];
   }
 </script>
 

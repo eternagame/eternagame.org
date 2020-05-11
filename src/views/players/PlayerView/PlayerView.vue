@@ -9,10 +9,10 @@
           :user="pageData.user"
         />
 
-        <PlayerLatest
+        <PlayerTable
           v-if="$route.query.tab_type == 'synthesized'"
           :title="$t('player-view:synthesized-rnas')"
-          :latest="pageData.synthesized"
+          :entries="pageData.synthesized"
         >
           <template v-slot:theader>
             <tr class="table-primary">
@@ -31,12 +31,12 @@
               <td class="font-weight-bold">{{ slotProps.item.score || 'Waiting' }}</td>
             </tr>
           </template>
-        </PlayerLatest>
+        </PlayerTable>
 
-        <PlayerLatest
+        <PlayerTable
           v-if="$route.query.tab_type == 'latest'"
           :title="$t('player-view:latest-activity')"
-          :latest="pageData.latest_puzzles"
+          :entries="pageData.latest_puzzles"
         >
           <template v-slot:theader>
             <tr class="table-primary">
@@ -50,7 +50,7 @@
               </td>
             </tr>
           </template>
-        </PlayerLatest>
+        </PlayerTable>
       </div>
     </div>
     <div v-else>
@@ -78,7 +78,7 @@
   import { UsersData } from '../types';
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
-  import PlayerLatest from './components/PlayerLatest.vue';
+  import PlayerTable from './components/PlayerTable.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const ROUTE = `/get/?type=user&uid=${route.params.uid}`;
@@ -98,7 +98,7 @@
       DropdownSidebarPanel,
       PlayerHeader,
       PlayerAboutMe,
-      PlayerLatest,
+      PlayerTable,
     },
   })
   export default class PlayerView extends Mixins(PageDataMixin(fetchPageData)) {

@@ -29,6 +29,7 @@
     "chromedriver": "^81.0.0",
     "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
+    "eslint-config-prettier": "^6.11.0",
     "eterna-chat": "github:aminere/eterna-chat",
     "eterna-chat-wrapper": "github:eternagame/eterna-chat-wrapper",
     "express": "^4.17.1",

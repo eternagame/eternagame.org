@@ -3,8 +3,9 @@
   <b-nav-item-dropdown v-else menu-class="shadow-sm" :text="text">
     <template v-for="([linkText, to], index) in dropdownEntries">
       <b-dropdown-item @click="redirect(to)" :key="linkText">
-        {{ $t('nav-bar:' + linkText) }}</b-dropdown-item
-      >
+        {{ $t('nav-bar:' + linkText) }}
+      </b-dropdown-item>
+
       <b-dropdown-divider
         v-if="index < dropdownEntries.length - 1"
         class="divider"
@@ -26,8 +27,13 @@
     @Prop()
     private value!: string | object;
 
-    redirect(path: string) {
-      window.location.href = path;
+    redirect(link: string) {
+      if (link.startsWith('/')) {
+        // Use vue-router for local links, instead of reloading page.
+        this.$router.push(link);
+      } else {
+        window.location.href = link;
+      }
     }
 
     // only called if typeof this.value === object

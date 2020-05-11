@@ -3,7 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ['plugin:vue/essential', '@vue/airbnb', '@vue/typescript'],
+  extends: ['plugin:vue/essential', '@vue/airbnb', '@vue/typescript', 'prettier'],
   rules: {
     'vue/max-attributes-per-line': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',

@@ -109,7 +109,7 @@ export default function createRouter() {
       {
         path: '/donate',
         component: () => {
-          window.location.href = 'http://localhost:8080/https:/www.gofundme.com/f/fight-covid19-with-eterna';
+          window.location.href = 'https:/www.gofundme.com/f/fight-covid19-with-eterna';
         },
       },
       {
@@ -151,7 +151,9 @@ export default function createRouter() {
 
   router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {
     const userStore = router.app.$vxm.user;
-    if (window.localStorage.getItem('loggedIn') === 'true') await userStore.authenticate();
+    if (window.localStorage.getItem('loggedIn') === 'true' && !userStore.triedAuthenticating) {
+      await userStore.authenticate();
+    }
     if (!to.matched.length) {
       next('/lost');
     }

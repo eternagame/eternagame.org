@@ -6,7 +6,7 @@
       </div>
       <img v-if="imageLink" class="rounded-circle player-image" :src="imageLink" />
       <img v-else class="rounded-circle player-image" src="@/assets/front-page/img/icon_user.png" />
-      <router-link class="player-name" :to="'/player/' + player.uid">
+      <router-link class="player-name" :to="'/players/' + player.uid">
         {{ player.name }}
       </router-link>
     </div>
@@ -46,7 +46,7 @@
     }
 
     goToDetailPage() {
-      this.$router.push(`/player/${this.player.uid}`);
+      this.$router.push(`/players/${this.player.uid}`);
     }
 
     private rank: string = '';

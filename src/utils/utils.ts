@@ -22,9 +22,9 @@ export default {
       case 'profile_desc':
         return '/account';
       case 'follower':
-        return '/leaderboards/?sort=synthesizes';
+        return '/players/?sort=synthesizes';
       case 'leader':
-        return '/leaderboards';
+        return '/players';
       case 'vote':
       case 'synthesizer':
       case 'lab_winner':

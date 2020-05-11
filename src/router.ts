@@ -92,7 +92,7 @@ export default function createRouter() {
         component: () => import('./views/feed/ActivityFeed.vue'),
       },
       {
-        path: '/player/:uid',
+        path: '/players/:uid',
         name: 'player',
         component: () => import('./views/players/PlayerView/PlayerView.vue'),
       },
@@ -102,7 +102,7 @@ export default function createRouter() {
         component: () => import('./views/players/EditProfile/EditProfile.vue'),
       },
       {
-        path: '/leaderboards',
+        path: '/players',
         name: 'leaderboards',
         component: () => import('./views/players/LeaderBoard/LeaderBoard.vue'),
       },

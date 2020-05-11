@@ -73,7 +73,7 @@
         wiki: 'http://eternawiki.org',
       },
       community: {
-        leaderboards: '/leaderboards',
+        leaderboards: '/players',
         groups: 'https://eternagame.org/web/group/',
         wiki: 'http://eternawiki.org',
       },

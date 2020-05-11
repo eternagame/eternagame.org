@@ -18,12 +18,13 @@
       </div>
     </div>
     <div v-for="[key, section] in Object.entries(data)" :key="key">
+      <a :name="key" class="anchor-link"></a>
       <a href="#" @click="scrollToTop()" class="top-link">
         {{ $t('help:top') }} <b-icon-arrow-up></b-icon-arrow-up>
       </a>
       <h3>{{ $t(key) }}</h3>
       <div class="card p-3">
-        <a :name="key"> <p class="section-text" v-dompurify-html="$t(section)"></p></a>
+        <p class="section-text" v-dompurify-html="$t(section)"></p>
       </div>
     </div>
     <template #sidebar="{ isInSidebar }">
@@ -132,6 +133,13 @@
     float: right;
     font-weight: bold;
     color: $gray-200;
+  }
+
+  .anchor-link {
+    display: block;
+    position: relative;
+    top: -150px;
+    visibility: hidden;
   }
 
   .section-link {

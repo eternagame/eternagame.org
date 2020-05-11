@@ -7,7 +7,7 @@
         </div> -->
       </template>
       <div :style="{ cursor: !locked && 'pointer' }" @click="goToQuest()">
-        <img :src="image" style="height: 100%; width: 100%;" />
+        <img :src="image" class="image" />
       </div>
       <template #footer>
         <div style="text-align:center; margin-bottom:0px">
@@ -103,6 +103,11 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  .image {
+    max-width: 242px;
+    max-height: 175px;
+  }
 
   .btn {
     display: inline-block;

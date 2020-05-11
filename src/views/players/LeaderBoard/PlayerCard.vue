@@ -1,7 +1,7 @@
 <template>
   <div class="card player-card" style="cursor:pointer" @click="goToDetailPage()">
     <div class="d-flex align-items-center" style="width:100%">
-      <div style="width:100px">
+      <div>
         <p class="rank">#{{ index + 1 }}</p>
       </div>
       <img v-if="imageLink" class="rounded-circle player-image" :src="imageLink" />
@@ -15,7 +15,7 @@
         <img src="@/assets/dollar.svg" class="icon" style="margin-bottom:5px" />
         {{ points }}
       </div>
-      <div v-if="dateCreated">
+      <div v-if="dateCreated" class="d-none d-sm-block">
         <img src="@/assets/calendar.svg" class="icon" style="margin-bottom:5px" />
         {{ dateCreated }}
       </div>
@@ -86,6 +86,10 @@
     margin-right: 20px;
     width: 61.58px;
     height: 61.58px;
+    @include media-breakpoint-down(xs) {
+      width: 52px;
+      height: 52px;
+    }
   }
 
   .icons {
@@ -110,6 +114,14 @@
 
   .player-name {
     font-size: 22px;
+    @include media-breakpoint-down(xs) {
+      font-size: 17px;
+      margin: 0px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100px;
+    }
     font-weight: bold;
     margin-top: 20px;
     margin-left: 5px;

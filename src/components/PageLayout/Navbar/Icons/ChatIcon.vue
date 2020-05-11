@@ -13,7 +13,7 @@
       placement="topleft"
       @shown="addChat"
     >
-      <div></div>
+      <div ref="chatContainer"></div>
     </b-popover>
   </div>
 </template>
@@ -31,9 +31,14 @@
     },
   })
   export default class PlayerIcon extends Vue {
-    @Prop({ default: false }) private isInSideBar;
+    @Prop({ default: false })
+    private isInSideBar: boolean = false;
 
     private show: Boolean = false;
+
+    $refs!: {
+      chatContainer: HTMLElement
+    };
 
     goToChat() {
       if (this.isInSideBar) {
@@ -49,10 +54,11 @@
 
     addChat() {
       const chat = new Chat({
-        container: document.getElementById('chat-container'),
-        username: this.$vxm.user.username,
-        uid: this.$vxm.user.uid,
+        container: this.$refs.chatContainer,
+        username: this.$vxm.user.username ? this.$vxm.user.username : '',
+        uid: this.$vxm.user.uid ? this.$vxm.user.uid.toString() : '0',
         onHidden: () => this.$root.$emit('bv::hide::popover', 'chat-container'),
+        backgroundColor: 'rgb(0, 22, 55)',
       });
     }
   }
@@ -78,7 +84,48 @@
   }
 
   #chat-container {
+    border-radius: 5px;
+    border: 2px solid rgba(47, 148, 209, 0.4);
     width: 400px;
-    height: 600px;
+    height: 500px;
+    background-color: rgb(0, 22, 55);
+  }
+
+  @media only screen and (max-height: 600px) {
+    #chat-container {
+      left: unset !important;
+      transform: unset !important;
+      right: 0 !important;
+      height: 100%;
+      margin: 0;
+    }
+  }
+</style>
+
+<style>
+  #chat-container > .popover-body {
+    height: 100%;
+  }
+
+  #chat-container > .popover-body > .chat-container {
+    height: 100%;
+  }
+
+  #chat-container .chat-selectors {
+    height: unset;
+  }
+
+  #chat-container .chat-frame {
+    width: 100%;
+    height: 100%;
+  }
+
+  #chat-container .chat-close {
+    right: -15px;
+    top: 5px;
+  }
+
+  #chat-container .arrow {
+    display: none;
   }
 </style>

@@ -3,6 +3,8 @@
     <AspectRatioCard :aspectRatio="aspectRatio" :id="`popover-target-${nid}`" class="card">
       <template #header>
         <div class="puzzle-card-title" v-if="title">
+          <img src="@/assets/noun_check.svg" v-if="cleared" style="float:right" />
+
           <b>{{ title }}</b>
         </div>
       </template>
@@ -65,6 +67,8 @@
     @Prop({ default: 1 }) private aspectRatio!: number;
 
     @Prop({ default: false }) private locked!: boolean;
+
+    @Prop({ default: false }) private cleared!: boolean;
 
     get numCleared() {
       return this.$attrs['num-cleared'];

@@ -2,7 +2,13 @@
   <EternaPage :title="$t('nav-bar:puzzles')">
     <div v-if="pageData">
       <Gallery>
-        <PuzzleCard v-for="puzzle in puzzles" :key="puzzle.id" :nid="puzzle.id" v-bind="puzzle" />
+        <PuzzleCard
+          v-for="puzzle in puzzles"
+          :key="puzzle.id"
+          :nid="puzzle.id"
+          v-bind="puzzle"
+          :cleared="puzzleCleared(puzzle.id)"
+        />
       </Gallery>
       <Pagination :key="puzzles.length" />
     </div>
@@ -72,6 +78,10 @@
   export default class PuzzlesExplore extends Mixins(PageDataMixin(fetchPageData)) {
     get puzzles() {
       return get(this.pageData, 'puzzles', []);
+    }
+
+    puzzleCleared(id: number) {
+      return this.pageData.cleared.map(puzzle => puzzle.id).includes(id);
     }
 
     private options: Option[] = [

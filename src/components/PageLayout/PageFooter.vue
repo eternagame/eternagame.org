@@ -6,7 +6,7 @@
           <hr class="top-border" />
           <h4>
             {{ $t('page-footer:main-action') }}
-            <a href="https://eternagame.org/web/donate/"
+            <a href="https://challenges.eternagame.org/"
               ><strong>{{ $t('page-footer:main-action-stress') }}</strong></a
             >
           </h4>

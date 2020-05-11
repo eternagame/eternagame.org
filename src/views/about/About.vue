@@ -114,7 +114,7 @@
                     {{ $t('about:section2-header1-status') }}
                   </p>
                   <b-button
-                    @click="redirect(`/lab/8489876`)"
+                    @click="redirect(`/labs/8489876`)"
                     class="biomedicine-challenges__btn"
                     variant="secondary"
                     >{{ $t('about:section2-learn-more') }}</b-button
@@ -147,7 +147,7 @@
                     {{ $t('about:section2-header2-status') }}
                   </p>
                   <b-button
-                    @click="redirect(`/lab/8037883`)"
+                    @click="redirect(`/labs/8037883`)"
                     class="biomedicine-challenges__btn"
                     variant="secondary"
                     >{{ $t('about:section2-learn-more') }}</b-button

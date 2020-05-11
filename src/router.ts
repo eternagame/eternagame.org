@@ -17,7 +17,7 @@ export default function createRouter() {
         component: () => import('./views/labs/LabsExplore/LabsExplore.vue'),
       },
       {
-        path: '/lab/:id',
+        path: '/labs/:id',
         name: 'lab-view',
         component: () => import('./views/labs/LabView/LabView.vue'),
       },

@@ -50,7 +50,7 @@
         params: {
           vienna: route.query.vienna,
           order: route.query.sort,
-          // filters: route.query.filters && (route.query.filters as string).split(','),
+          filters: route.query.filters && (route.query.filters as string).split(','),
           search: route.query.search,
           size: route.query.size || INITIAL_NUMBER,
         },

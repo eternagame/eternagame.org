@@ -5,15 +5,17 @@
         <PlayerHeader :user="pageData.user" :follows="pageData.follows" />
 
         <PlayerAboutMe :user="pageData.user" />
+
+        <PlayerSynthesized :synthesized="pageData.synthesized" />
       </div>
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <h1>{{ $t('loading-text') }}</h1> 
     </div>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"
-        paramName="sort"
+        paramName="tab_type"
         replace
         :isInSidebar="isInSidebar"
       />
@@ -31,9 +33,19 @@
   import { UsersData } from '../types';
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
+  import PlayerSynthesized from './components/PlayerSynthesized.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    const res = (await http.get(`/get/?type=user&uid=${route.params.uid}`)).data.data as UsersData;
+    const ROUTE = `/get/?type=user&uid=${route.params.uid}`;
+    const res = (
+      await http.get(ROUTE, {
+        params: {
+          tab_type: route.query.tab_type,
+        },
+      })
+    ).data.data as UsersData;
+    console.log('HI');
+    console.log(res);
     return res;
   }
 
@@ -43,6 +55,7 @@
       DropdownSidebarPanel,
       PlayerHeader,
       PlayerAboutMe,
+      PlayerSynthesized,
     },
   })
   export default class PlayerView extends Mixins(PageDataMixin(fetchPageData)) {

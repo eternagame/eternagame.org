@@ -30,9 +30,9 @@
       NavbarIcon,
     },
   })
-  export default class PlayerIcon extends Vue {
+  export default class ChatIcon extends Vue {
     @Prop({ default: false })
-    private isInSideBar: boolean = false;
+    private isInSideBar;
 
     private show: Boolean = false;
 
@@ -41,15 +41,12 @@
     };
 
     goToChat() {
+      console.log(`Called ${this.isInSideBar}`);
       if (this.isInSideBar) {
-        this.redirect('/chat');
+        this.$router.push('/chat');
       } else {
         this.show = !this.show;
       }
-    }
-
-    redirect(path: string) {
-      this.$router.push(path);
     }
 
     addChat() {

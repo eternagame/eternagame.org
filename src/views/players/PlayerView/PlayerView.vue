@@ -9,6 +9,18 @@
           :user="pageData.user"
         />
 
+        <div class="m-3" v-if="$route.query.tab_type == 'achievements'">
+          <hr class="top-border" />
+          <h4 class="title mb-4">{{ $t('side-panel-options:achievements') }}</h4>
+          <Gallery :xs="6" :sm="4" :md="2">
+            <AchievementCard
+              v-for="(achievement, key) in pageData.achievements"
+              :key="key"
+              v-bind="achievement"
+            />
+          </Gallery>
+        </div>
+
         <PlayerTable
           v-if="$route.query.tab_type == 'synthesized'"
           :title="$t('player-view:synthesized-rnas')"
@@ -96,7 +108,6 @@
       <h1>{{ $t('loading-text') }}</h1>
     </div>
     <template #sidebar="{ isInSidebar }">
-      <!-- TODO: replace=true does what? -->
       <DropdownSidebarPanel
         :options="options"
         paramName="tab_type"
@@ -118,16 +129,13 @@
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
   import PlayerTable from './components/PlayerTable.vue';
+  import AchievementCard from './components/AchievementCard.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const ROUTE = `/get/?type=user&uid=${route.params.uid}`;
-    const res = (
-      await http.get(ROUTE, {
-        params: {
-          tab_type: route.query.tab_type,
-        },
-      })
-    ).data.data as UsersData;
+    // Achievements are provided when no tab_type is specified.
+    const tab_type = route.query.tab_type === 'achievements' ? 'about' : route.query.tab_type;
+    const res = (await http.get(ROUTE, { params: { tab_type } })).data.data as UsersData;
     return res;
   }
 
@@ -138,6 +146,7 @@
       PlayerHeader,
       PlayerAboutMe,
       PlayerTable,
+      AchievementCard,
     },
   })
   export default class PlayerView extends Mixins(PageDataMixin(fetchPageData)) {

@@ -4,6 +4,12 @@
     <template v-for="([linkText, to], index) in dropdownEntries">
       <b-dropdown-item @click="redirect(to)" :key="linkText">
         {{ $t('nav-bar:' + linkText) }}
+        <img
+          class="ml-2"
+          v-if="isExternal(to)"
+          src="@/assets/navbar/ExternalLink.svg"
+          :alt="$t('nav-bar:external-link')"
+        />
       </b-dropdown-item>
 
       <b-dropdown-divider
@@ -34,6 +40,10 @@
       } else {
         window.location.href = link;
       }
+    }
+
+    isExternal(link: string) {
+      return !(link.startsWith('/') || link.startsWith('https://eternagame.org/'));
     }
 
     // only called if typeof this.value === object

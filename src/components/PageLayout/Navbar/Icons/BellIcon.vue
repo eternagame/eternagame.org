@@ -2,11 +2,7 @@
   <NavbarIcon @shown="shown">
     <template #icon>
       <div class="unread" v-if="notificationsCount > 1"></div>
-      <img
-        v-if="notificationsCount"
-        src="@/assets/navbar/Bell.svg"
-        :alt="$t('nav-bar:notifications')"
-      />
+      <img v-if="notificationsCount" src="@/assets/navbar/Bell.svg" />
     </template>
     <template #text>
       {{ $t('nav-bar:notifications') }}

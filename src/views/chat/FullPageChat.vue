@@ -1,6 +1,6 @@
 <template>
   <EternaPage :title="$t('chat:title')">
-    <div id="full-page-chat-container" style="width:100%;height:505px"></div>
+    <div id="full-page-chat-container" ref="chatContainer" style="width:100%;height:505px"></div>
   </EternaPage>
 </template>
 
@@ -13,16 +13,41 @@
     components: { EternaPage },
   })
   export default class FullPageChat extends Vue {
+    $refs!: {
+      chatContainer: HTMLElement
+    };
+
     mounted() {
-      console.log(this.$vxm.user.username);
       const chat = new Chat({
-        container: document.getElementById('full-page-chat-container'),
-        username: this.$vxm.user.username,
-        uid: this.$vxm.user.uid,
-        onHidden: () => {
-          console.log('Chat.onHidden()');
-        },
+        container: this.$refs.chatContainer,
+        username: this.$vxm.user.username ? this.$vxm.user.username : '',
+        uid: this.$vxm.user.uid ? this.$vxm.user.uid.toString() : '0',
+        onHidden: () => {},
+        backgroundColor: 'rgb(0, 22, 55)',
       });
     }
   }
 </script>
+
+<style>
+  #full-page-chat-container .chat-container {
+    height: 100%;
+  }
+
+  #full-page-chat-container .chat-selectors {
+    height: unset;
+  }
+
+  #full-page-chat-container .chat-frame {
+    width: 100%;
+    height: 100%;
+  }
+
+  #full-page-chat-container .chat-close {
+    display: none;
+  }
+
+  #full-page-chat-container .arrow {
+    display: none;
+  }
+</style>

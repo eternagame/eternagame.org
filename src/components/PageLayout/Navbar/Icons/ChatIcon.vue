@@ -41,7 +41,6 @@
     };
 
     goToChat() {
-      console.log(`Called ${this.isInSideBar}`);
       if (this.isInSideBar) {
         this.$router.push('/chat');
       } else {

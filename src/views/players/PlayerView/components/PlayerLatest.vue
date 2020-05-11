@@ -1,21 +1,15 @@
 <template>
   <div v-if="latest" class="content">
     <hr class="top-border" />
-    <h4 class="title">
-      {{ $t('player-view:latest-activity') }}
-    </h4>
+    <h4 class="title">{{ title }}</h4>
     <table class="table">
       <thead>
-        <tr class="table-primary">
-          <th scope="col">{{ $t('player-view:latest-played-puzzles') }}</th>
-        </tr>
+        <slot name="theader"></slot>
       </thead>
       <tbody>
-        <tr v-for="item in latest" :key="item.id">
-          <td>
-            <a :href="`/puzzle/${item.puznid}/`">{{ item.title }}</a>
-          </td>
-        </tr>
+        <template v-for="item in latest">
+          <slot :item="item" name="trow"></slot>
+        </template>
       </tbody>
     </table>
   </div>
@@ -28,6 +22,8 @@
     components: {},
   })
   export default class PlayerLatest extends Vue {
+    @Prop() title!: String;
+
     @Prop() latest!: object[];
   }
 </script>

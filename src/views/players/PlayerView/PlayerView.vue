@@ -9,12 +9,48 @@
           :user="pageData.user"
         />
 
-        <PlayerSynthesized
+        <PlayerLatest
           v-if="$route.query.tab_type == 'synthesized'"
-          :synthesized="pageData.synthesized"
-        />
+          :title="$t('player-view:synthesized-rnas')"
+          :latest="pageData.synthesized"
+        >
+          <template v-slot:theader>
+            <tr class="table-primary">
+              <th scope="col">{{ $t('player-view:rna-title') }}</th>
+              <th scope="col">{{ $t('player-view:score') }}</th>
+            </tr>
+          </template>
+          <template v-slot:trow="slotProps">
+            <tr>
+              <td>
+                <!-- TODO: need to include filters e.g. https://eternagame.org/game/browse/6296743/?filter1=Id&filter1_arg1=6348941&filter1_arg2=6348941 -->
+                <a :href="`https://eternagame.org/game/browse/${slotProps.item.puznid}/`">
+                  {{ slotProps.item.title }}
+                </a>
+              </td>
+              <td class="font-weight-bold">{{ slotProps.item.score || 'Waiting' }}</td>
+            </tr>
+          </template>
+        </PlayerLatest>
 
-        <PlayerLatest v-if="$route.query.tab_type == 'latest'" :latest="pageData.latest_puzzles" />
+        <PlayerLatest
+          v-if="$route.query.tab_type == 'latest'"
+          :title="$t('player-view:latest-activity')"
+          :latest="pageData.latest_puzzles"
+        >
+          <template v-slot:theader>
+            <tr class="table-primary">
+              <th scope="col">{{ $t('player-view:latest-played-puzzles') }}</th>
+            </tr>
+          </template>
+          <template v-slot:trow="slotProps">
+            <tr>
+              <td class="puzzle-link">
+                <a :href="`/puzzle/${slotProps.item.puznid}/`">{{ slotProps.item.title }}</a>
+              </td>
+            </tr>
+          </template>
+        </PlayerLatest>
       </div>
     </div>
     <div v-else>
@@ -42,7 +78,6 @@
   import { UsersData } from '../types';
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
-  import PlayerSynthesized from './components/PlayerSynthesized.vue';
   import PlayerLatest from './components/PlayerLatest.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
@@ -63,7 +98,6 @@
       DropdownSidebarPanel,
       PlayerHeader,
       PlayerAboutMe,
-      PlayerSynthesized,
       PlayerLatest,
     },
   })

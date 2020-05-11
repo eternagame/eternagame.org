@@ -229,7 +229,7 @@
           <b-button
             class="featured-publications__btn"
             variant="secondary"
-            @click="redirect('/publications')"
+            @click="redirect('/about/publications')"
             >{{ $t('about:section3-call-to-action') }}</b-button
           >
         </section>

@@ -83,7 +83,7 @@
       },
       about: {
         overview: '/about',
-        publications: '/publications',
+        publications: '/about/publications',
         software: 'https://software.eternagame.org/',
         donate: 'https://challenges.eternagame.org/',
         terms: '/about/terms',

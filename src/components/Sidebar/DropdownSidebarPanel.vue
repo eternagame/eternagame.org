@@ -1,8 +1,19 @@
 <template>
   <div v-if="isInSidebar">
     <template v-for="({ text, value, link }, index) in options">
+      <!-- Use regular a link for external links -->
+      <a v-if="link && !link.startsWith('/')" class="option" :key="value" :href="link">
+        {{ $t(text) }}
+        <img
+          class="ml-2"
+          src="@/assets/navbar/ExternalLink.svg"
+          :alt="$t('nav-bar:external-link')"
+        />
+      </a>
+      <!-- Otherwise, use a router-link -->
       <router-link
-        :to="{ name: $route.name, query: generateQuery(value) }"
+        v-else
+        :to="navTarget(link, value)"
         :key="value"
         class="option"
         :replace="replace"
@@ -70,14 +81,6 @@
     }
 
     onClick(index: number, link?: string) {
-      if (link) {
-        if (link.startsWith('/')) {
-          // Use vue-router for local links, instead of reloading page.
-          this.$router.push(link);
-        } else {
-          window.location.href = link;
-        }
-      }
       this.selectedIndex = index;
     }
 
@@ -85,6 +88,11 @@
       const query = { ...this.$route.query };
       query[this.paramName] = value;
       return query;
+    }
+
+    // If a link is provided, navigate to that; otherwise, update the query params.
+    navTarget(link: string, value: string) {
+      return link || { name: this.$route.name, query: this.generateQuery(value) };
     }
   }
 
@@ -98,6 +106,11 @@
 
 <style lang="scss" scoped>
   @import '@/styles/_variables.scss';
+
+  img {
+    margin-top: -0.2rem;
+    width: 0.9rem;
+  }
 
   .options-divider {
     border-color: $white;

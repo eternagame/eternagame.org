@@ -24,6 +24,7 @@
         :key="puzzle.id"
         :nid="puzzle.id"
         v-bind="puzzle"
+        :cleared="puzzleCleared(puzzle.id)"
       />
     </Gallery>
     <template #sidebar="{ isInSidebar }">
@@ -83,6 +84,10 @@
   export default class QuestView extends Mixins(PageDataMixin(fetchPageData)) {
     get quest() {
       return this.pageData.achievement_roadmap.find(p => p.title === this.$route.params.id);
+    }
+
+    puzzleCleared(id: number) {
+      return this.pageData.cleared.map(puzzle => puzzle.id).includes(id);
     }
 
     get audience() {

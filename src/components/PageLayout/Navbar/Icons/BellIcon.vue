@@ -10,7 +10,7 @@
     <template>
       <div class="container">
         <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
-        <img src="@/assets/navbar/popOut.svg" style="cursor:pointer" @click="goToChat()" />
+        <img src="@/assets/navbar/popOut.svg" style="cursor:pointer" @click="goToNews()" />
         <div class="border"></div>
         <b-dropdown-item
           v-for="item in notifications.slice(0, 4)"
@@ -71,9 +71,9 @@
       this.$router.push(path);
     }
 
-    goToChat() {
+    goToNews() {
       // TODO close dropdown
-      this.redirect('/chat');
+      this.redirect('/news');
     }
 
     shown() {

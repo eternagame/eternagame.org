@@ -1,14 +1,17 @@
 <template>
-  <div :id="popoverId">
+  <!-- TODO: Consider making this a NavIcon instead for consistent styling and behavior. -->
+  <div>
     <img icon src="@/assets/navbar/Chat.svg" @click="goToChat()" />
 
+    <p id="chat-popover-anchor" class="anchor">.</p>
+
     <b-popover
+      :show.sync="show"
       id="chat-container"
-      :target="popoverId"
+      target="chat-popover-anchor"
       triggers="click"
-      placement="top"
+      placement="topleft"
       @shown="addChat"
-      v-if="isInSideBar"
     >
       <div></div>
     </b-popover>
@@ -28,12 +31,16 @@
     },
   })
   export default class PlayerIcon extends Vue {
-    private popoverId: string = 'chat-popover';
-
     @Prop({ default: false }) private isInSideBar;
 
+    private show: Boolean = false;
+
     goToChat() {
-      if (this.isInSideBar) this.redirect('/chat');
+      if (this.isInSideBar) {
+        this.redirect('/chat');
+      } else {
+        this.show = !this.show;
+      }
     }
 
     redirect(path: string) {
@@ -45,7 +52,7 @@
         container: document.getElementById('chat-container'),
         username: this.$vxm.user.username,
         uid: this.$vxm.user.uid,
-        onHidden: () => this.$root.$emit('bv::hide::popover', this.popoverId),
+        onHidden: () => this.$root.$emit('bv::hide::popover', 'chat-container'),
       });
     }
   }
@@ -53,4 +60,25 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  img {
+    margin-top: 0.3rem;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+
+  // Hidden element on screen bottom right, to anchor the chat popover.
+  .anchor {
+    bottom: 0;
+    right: 3rem;
+    position: fixed;
+    z-index: -3000;
+    opacity: 0;
+  }
+
+  #chat-container {
+    width: 400px;
+    height: 600px;
+  }
 </style>

@@ -120,8 +120,8 @@
   @import '@/styles/global.scss';
 
   ::v-deep img {
-    width: 35px;
-    height: 35px;
+    width: 20px;
+    height: 20px;
   }
 
   ::v-deep a {

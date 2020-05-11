@@ -70,7 +70,14 @@
     }
 
     onClick(index: number, link?: string) {
-      if (link) window.location.href = link;
+      if (link) {
+        if (link.startsWith('/')) {
+          // Use vue-router for local links, instead of reloading page.
+          this.$router.push(link);
+        } else {
+          window.location.href = link;
+        }
+      }
       this.selectedIndex = index;
     }
 

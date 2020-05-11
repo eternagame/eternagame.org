@@ -28,7 +28,7 @@
   <b-dropdown variant="link" right v-else>
     <template v-for="({ text, value, link }, index) in options">
       <b-dropdown-item
-        :to="{ name: $route.name, query: generateQuery(value) }"
+        :[nav(link)]="navTarget(link, value)"
         :key="value"
         :replace="replace"
         :disabled="routeSelected(index, link)"
@@ -88,6 +88,11 @@
       const query = { ...this.$route.query };
       query[this.paramName] = value;
       return query;
+    }
+
+    nav(link: string): string {
+      // Use vue-router for local links, instead of reloading page.
+      return link && !link.startsWith('/') ? 'href' : 'to';
     }
 
     // If a link is provided, navigate to that; otherwise, update the query params.

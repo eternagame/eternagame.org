@@ -2,7 +2,7 @@
   <b-nav-item :to="value" v-if="typeof value === 'string'">{{ text }}</b-nav-item>
   <b-nav-item-dropdown v-else menu-class="shadow-sm" :text="text">
     <template v-for="([linkText, to], index) in dropdownEntries">
-      <b-dropdown-item @click="redirect(to)" :key="linkText">
+      <b-dropdown-item :[nav(to)]="to" :key="linkText">
         {{ $t('nav-bar:' + linkText) }}
         <img
           class="ml-2"
@@ -33,13 +33,9 @@
     @Prop()
     private value!: string | object;
 
-    redirect(link: string) {
-      if (link.startsWith('/')) {
-        // Use vue-router for local links, instead of reloading page.
-        this.$router.push(link);
-      } else {
-        window.location.href = link;
-      }
+    nav(link: string): string {
+      // Use vue-router for local links, instead of reloading page.
+      return link.startsWith('/') ? 'to' : 'href';
     }
 
     isExternal(link: string) {
@@ -53,4 +49,9 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  img {
+    margin-top: -0.2rem;
+    width: 0.9rem;
+  }
+</style>

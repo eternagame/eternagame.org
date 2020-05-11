@@ -77,7 +77,7 @@
     }
 
     goToPuzzle() {
-      this.$router.push(`/puzzle/${this.nid}`);
+      this.$router.push(`/puzzles/${this.nid}`);
     }
   }
 </script>

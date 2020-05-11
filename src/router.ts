@@ -32,7 +32,7 @@ export default function createRouter() {
         component: () => import('./views/quests/QuestView/QuestView.vue'),
       },
       {
-        path: '/quests/create',
+        path: '/create/quest',
         name: 'create-quest',
         component: () => import('./views/quests/CreateQuest/CreateQuest.vue'),
       },

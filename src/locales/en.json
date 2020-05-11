@@ -100,6 +100,8 @@
   "player-view:synthesized-rnas": "Synthesized RNAs",
   "player-view:rna-title": "RNA Title",
   "player-view:score": "Score",
+  "player-view:latest-activity": "Latest Activity",
+  "player-view:latest-played-puzzles": "Latest Played Puzzles",
   "news-view:comments": "Comments",
   "news-view:enter-comments": "Enter your comments here.",
   "edit-profile:custom-section-remove": "Remove",

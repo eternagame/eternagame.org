@@ -4,19 +4,28 @@
       <div class="page-content">
         <PlayerHeader :user="pageData.user" :follows="pageData.follows" />
 
-        <PlayerAboutMe :user="pageData.user" />
+        <PlayerAboutMe
+          v-if="!$route.query.tab_type || $route.query.tab_type == 'about'"
+          :user="pageData.user"
+        />
 
-        <PlayerSynthesized :synthesized="pageData.synthesized" />
+        <PlayerSynthesized
+          v-if="$route.query.tab_type == 'synthesized'"
+          :synthesized="pageData.synthesized"
+        />
+
+        <PlayerLatest v-if="$route.query.tab_type == 'latest'" :latest="pageData.latest_puzzles" />
       </div>
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1> 
+      <h1>{{ $t('loading-text') }}</h1>
     </div>
     <template #sidebar="{ isInSidebar }">
+      <!-- TODO: replace=true does what? -->
       <DropdownSidebarPanel
         :options="options"
         paramName="tab_type"
-        replace
+        :replace="true"
         :isInSidebar="isInSidebar"
       />
     </template>
@@ -34,6 +43,7 @@
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
   import PlayerSynthesized from './components/PlayerSynthesized.vue';
+  import PlayerLatest from './components/PlayerLatest.vue';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const ROUTE = `/get/?type=user&uid=${route.params.uid}`;
@@ -44,8 +54,6 @@
         },
       })
     ).data.data as UsersData;
-    console.log('HI');
-    console.log(res);
     return res;
   }
 
@@ -56,6 +64,7 @@
       PlayerHeader,
       PlayerAboutMe,
       PlayerSynthesized,
+      PlayerLatest,
     },
   })
   export default class PlayerView extends Mixins(PageDataMixin(fetchPageData)) {

@@ -33,18 +33,18 @@
       <b-col lg="1"></b-col>
       <b-col lg="3" sm="12">
         <div style="text-align:center;">
-          <a href="http://twitter.com/@eternagame"
-            ><img src="@/assets/front-page/img/icon_twt.png" class="icon" alt="Twitter"
-          /></a>
-          <a href="https://www.facebook.com/eternathegame/"
-            ><img src="@/assets/front-page/img/icon_fb.png" class="icon" alt="Facebook"
-          /></a>
-          <a href="https://www.youtube.com/channel/UCt811OXJqe35TDhe9hPYzJg"
-            ><img src="@/assets/front-page/img/icon_yt.png" class="icon" alt="YouTube"
-          /></a>
-          <a href="https://github.com/EteRNAgame"
-            ><img src="@/assets/front-page/img/icon_gh.png" class="icon" alt="GitHub"
-          /></a>
+          <a href="http://twitter.com/@eternagame">
+            <img src="@/assets/front-page/img/icon_twt.png" class="icon" alt="Twitter" />
+          </a>
+          <a href="https://www.facebook.com/eternathegame/">
+            <img src="@/assets/front-page/img/icon_fb.png" class="icon" alt="Facebook" />
+          </a>
+          <a href="https://www.youtube.com/channel/UCt811OXJqe35TDhe9hPYzJg">
+            <img src="@/assets/front-page/img/icon_yt.png" class="icon" alt="YouTube" />
+          </a>
+          <a href="https://github.com/EteRNAgame">
+            <img src="@/assets/front-page/img/icon_gh.png" class="icon" alt="GitHub" />
+          </a>
         </div>
       </b-col>
     </b-row>
@@ -125,6 +125,13 @@
   .icon {
     width: 25%;
     padding: 6px;
+    transition: ease 0.5s;
+  }
+  .icon:hover {
+    transform: rotateZ(18deg);
+  }
+  .icon:active {
+    transform: rotateZ(0deg);
   }
 
   @media (min-width: 320px) {

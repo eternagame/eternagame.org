@@ -78,12 +78,9 @@
               </b-col>
             </b-row>
           </b-container>
-          <b-button
-            class="how-it-works__btn"
-            variant="primary"
-            @click="redirect(`${puzzleRoute}6502927/`)"
-            >{{ $t('video-section:main-action') }}</b-button
-          >
+          <b-button class="how-it-works__btn" variant="primary" :href="`${puzzleRoute}6502927/`">
+            {{ $t('video-section:main-action') }}
+          </b-button>
         </section>
         <section class="biomedicine-challenges">
           <h1 class="biomedicine-challenges__title section-title">
@@ -114,7 +111,7 @@
                     {{ $t('about:section2-header1-status') }}
                   </p>
                   <b-button
-                    @click="redirect(`/labs/8489876`)"
+                    to="/labs/8489876"
                     class="biomedicine-challenges__btn"
                     variant="secondary"
                     >{{ $t('about:section2-learn-more') }}</b-button
@@ -147,7 +144,7 @@
                     {{ $t('about:section2-header2-status') }}
                   </p>
                   <b-button
-                    @click="redirect(`/labs/8037883`)"
+                    to="/labs/8037883"
                     class="biomedicine-challenges__btn"
                     variant="secondary"
                     >{{ $t('about:section2-learn-more') }}</b-button
@@ -166,16 +163,15 @@
             <b-row class="featured-publications__icons">
               <b-col cols="12" class="col-md-4 col-sm-6 featured-publications__list-item">
                 <div class="featured-publications__list-item-container">
-                  <img
-                    @click="
-                      redirect(
-                        'https://www.sciencedirect.com/science/article/pii/S0022283615006567?via%3Dihub',
-                      )
-                    "
-                    src="@/assets/about/about-section-3-1.jpg"
-                    alt="eterna featured-publications RNA structure design icon"
-                    class="featured-publications__icon"
-                  />
+                  <a
+                    href="https://www.sciencedirect.com/science/article/pii/S0022283615006567?via%3Dihub"
+                  >
+                    <img
+                      src="@/assets/about/about-section-3-1.jpg"
+                      alt="eterna featured-publications RNA structure design icon"
+                      class="featured-publications__icon"
+                    />
+                  </a>
                   <a
                     href="https://www.sciencedirect.com/science/article/pii/S0022283615006567?via%3Dihub"
                     class="featured-publications__header"
@@ -188,14 +184,13 @@
               </b-col>
               <b-col cols="12" class="col-md-4 col-sm-6 featured-publications__list-item">
                 <div class="featured-publications__list-item-container">
-                  <img
-                    @click="
-                      redirect('http://www.sciencedirect.com/science/article/pii/S0968000414001455')
-                    "
-                    src="@/assets/about/about-section-3-2.jpg"
-                    alt="eterna featured-publications videiganes icon"
-                    class="featured-publications__icon"
-                  />
+                  <a href="http://www.sciencedirect.com/science/article/pii/S0968000414001455">
+                    <img
+                      src="@/assets/about/about-section-3-2.jpg"
+                      alt="eterna featured-publications videiganes icon"
+                      class="featured-publications__icon"
+                    />
+                  </a>
                   <a
                     href="http://www.sciencedirect.com/science/article/pii/S0968000414001455"
                     class="featured-publications__header"
@@ -208,12 +203,13 @@
               </b-col>
               <b-col cols="12" class="col-md-4 col-sm-6 featured-publications__list-item">
                 <div class="featured-publications__list-item-container">
-                  <img
-                    @click="redirect('http://www.pnas.org/content/111/6/2122')"
-                    src="@/assets/about/about-section-3-3.jpg"
-                    alt="eterna featured-publications paper icon"
-                    class="featured-publications__icon"
-                  />
+                  <a href="http://www.pnas.org/content/111/6/2122">
+                    <img
+                      src="@/assets/about/about-section-3-3.jpg"
+                      alt="eterna featured-publications paper icon"
+                      class="featured-publications__icon"
+                    />
+                  </a>
                   <a
                     href="http://www.pnas.org/content/111/6/2122"
                     class="featured-publications__header"
@@ -229,7 +225,7 @@
           <b-button
             class="featured-publications__btn"
             variant="secondary"
-            @click="redirect('/about/publications')"
+            to="/about/publications"
             >{{ $t('about:section3-call-to-action') }}</b-button
           >
         </section>
@@ -242,12 +238,13 @@
             <b-row class="contribute-your-talents__icons">
               <b-col cols="12" class="col-md-4 col-sm-6 contribute-your-talents__list-item">
                 <div class="contribute-your-talents__list-item-container">
-                  <img
-                    @click="redirect('https://eternagame.org/web/playerpuzzles/')"
-                    src="@/assets/about/about-section-4-1.png"
-                    alt="eterna contribute-your-talents RNA structure design icon"
-                    class="contribute-your-talents__icon"
-                  />
+                  <a href="https://eternagame.org/web/playerpuzzles/">
+                    <img
+                      src="@/assets/about/about-section-4-1.png"
+                      alt="eterna contribute-your-talents RNA structure design icon"
+                      class="contribute-your-talents__icon"
+                    />
+                  </a>
                   <a href="https://eternagame.org/web/playerpuzzles/"
                     ><p class="contribute-your-talents__header">
                       {{ $t('about:section4-header1') }}
@@ -260,12 +257,13 @@
               </b-col>
               <b-col cols="12" class="col-md-4 col-sm-6 contribute-your-talents__list-item">
                 <div class="contribute-your-talents__list-item-container">
-                  <img
-                    @click="redirect('https://eternagame.org/web/script/')"
-                    src="@/assets/about/about-section-4-2.png"
-                    alt="eterna contribute-your-talents videiganes icon"
-                    class="contribute-your-talents__icon"
-                  />
+                  <a href="https://eternagame.org/web/script/">
+                    <img
+                      src="@/assets/about/about-section-4-2.png"
+                      alt="eterna contribute-your-talents videiganes icon"
+                      class="contribute-your-talents__icon"
+                    />
+                  </a>
                   <a href="https://eternagame.org/web/script/"
                     ><p class="contribute-your-talents__header">
                       {{ $t('about:section4-header2') }}
@@ -278,17 +276,18 @@
               </b-col>
               <b-col cols="12" class="col-md-4 col-sm-6 contribute-your-talents__list-item">
                 <div class="contribute-your-talents__list-item-container">
-                  <img
-                    @click="redirect('/news/6990398/')"
-                    src="@/assets/about/about-section-4-3.png"
-                    alt="eterna contribute-your-talents paper icon"
-                    class="contribute-your-talents__icon"
-                  />
-                  <a href="/news/6990398/">
+                  <router-link to="/news/6990398/">
+                    <img
+                      src="@/assets/about/about-section-4-3.png"
+                      alt="eterna contribute-your-talents paper icon"
+                      class="contribute-your-talents__icon"
+                    />
+                  </router-link>
+                  <router-link to="/news/6990398/">
                     <p class="contribute-your-talents__header">
                       {{ $t('about:section4-header3') }}
-                    </p></a
-                  >
+                    </p>
+                  </router-link>
                   <p class="contribute-your-talents__header-source">
                     {{ $t('about:section4-header3-details') }}
                   </p>
@@ -314,19 +313,11 @@
   })
   export default class About extends Vue {
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
-
-    redirect(path: string) {
-      window.location.href = path;
-    }
   }
 </script>
 <style lang="scss" scoped>
   a {
     color: white;
-  }
-
-  img {
-    cursor: pointer;
   }
 
   .section-title {

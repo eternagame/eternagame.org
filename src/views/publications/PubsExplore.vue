@@ -33,7 +33,7 @@
       />
     </template>
     <template #mobileSearchbar>
-      <SearchPanel :placeholder="$t('search:publications')" :isInSidebar="isInSidebar" />
+      <SearchPanel :placeholder="$t('search:publications')" :isInSidebar="false" />
     </template>
   </EternaPage>
 </template>

@@ -31,7 +31,7 @@
       />
     </template>
     <template #mobileSearchbar>
-      <SearchPanel :placeholder="$t('search:puzzles')" :isInSidebar="isInSidebar" />
+      <SearchPanel :placeholder="$t('search:puzzles')" :isInSidebar="false" />
     </template>
   </EternaPage>
 </template>

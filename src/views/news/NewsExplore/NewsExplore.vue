@@ -22,7 +22,7 @@
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
     </template>
     <template #mobileSearchbar>
-      <SearchPanel :placeholder="$t('search:news')" :isInSidebar="isInSidebar" />
+      <SearchPanel :placeholder="$t('search:news')" :isInSidebar="false" />
     </template>
   </EternaPage>
 </template>

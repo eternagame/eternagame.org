@@ -28,7 +28,7 @@
       />
     </template>
     <template #mobileSearchbar>
-      <SearchPanel :placeholder="$t('search:players')" :isInSidebar="isInSidebar" />
+      <SearchPanel :placeholder="$t('search:players')" :isInSidebar="false" />
     </template>
   </EternaPage>
 </template>

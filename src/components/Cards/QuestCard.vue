@@ -6,35 +6,32 @@
           <b>{{ title }}</b>
         </div> -->
       </template>
-      <div :style="{ cursor: !locked && 'pointer' }" @click="goToQuest()">
+      <SmartLink :link="toQuest">
         <img :src="image" class="image" />
-      </div>
+      </SmartLink>
       <template #footer>
         <div style="text-align:center; margin-bottom:0px">
           <img src="@/assets/noun_lock.svg" v-if="locked" />
           <div v-else>
             <p v-if="completed">
-              <img src="@/assets/noun_check.svg" @click="goToGame()" /><b>{{
-                `completed!`.toUpperCase()
-              }}</b>
+              <SmartLink :link="toGame">
+                <img src="@/assets/noun_check.svg" @click="goToGame()" />
+                <b>{{ `completed!`.toUpperCase() }}</b>
+              </SmartLink>
             </p>
             <div v-else>
-              <b-button
-                type="submit"
-                variant="primary"
-                style="margin-bottom:10px"
-                @click="goToGame()"
-                >{{ $t('quest-card:play') }}</b-button
-              >
-              <div @click="goToGame()" style="cursor:pointer" v-if="started">
+              <b-button type="submit" variant="primary" style="margin-bottom:10px" :[nav]="toGame">
+                {{ $t('quest-card:play') }}
+              </b-button>
+              <SmartLink v-if="started" :link="toGame">
                 <b-progress :value="to_next" max="1"></b-progress>
-              </div>
+              </SmartLink>
             </div>
           </div>
         </div>
       </template>
     </AspectRatioCard>
-    <b-popover :target="popoverId" triggers="hover">
+    <b-popover :target="popoverId" triggers="hover" placement="top">
       <div v-dompurify-html="desc"></div>
     </b-popover>
   </div>
@@ -43,10 +40,12 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
+  import SmartLink from '@/components/Common/SmartLink.vue';
 
   @Component({
     components: {
       AspectRatioCard,
+      SmartLink,
     },
   })
   export default class QuestCard extends Vue {
@@ -81,14 +80,18 @@
       window.location.href = path;
     }
 
-    goToGame() {
-      const link = this.puzzleLink || (this.current_puzzle && `${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`);
-      if (link) this.redirect(link);
+    get nav() {
+      return this.toGame.startsWith('/') ? 'to' : 'href';
     }
 
-    goToQuest() {
-      const link = this.questLink || (this.title && `/quests/${this.title}`);
-      if (!this.locked && link) this.redirect(link);
+    get toGame() {
+      return (
+        this.puzzleLink || (this.current_puzzle && `${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`)
+      );
+    }
+
+    get toQuest() {
+      return this.questLink || (this.title && `/quests/${this.title}`);
     }
 
     private locked = Number(this.level) - 1 > Number(this.current_level);

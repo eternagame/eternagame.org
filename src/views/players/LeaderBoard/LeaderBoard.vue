@@ -15,13 +15,20 @@
       <h1>{{ $t('loading-text') }}</h1>
     </div>
     <template #sidebar="{ isInSidebar }">
-      <SearchPanel :placeholder="$t('search:players')" :isInSidebar="isInSidebar" />
+      <SearchPanel
+        v-if="isInSidebar"
+        :placeholder="$t('search:players')"
+        :isInSidebar="isInSidebar"
+      />
       <DropdownSidebarPanel
         :options="options"
         paramName="sort"
         replace
         :isInSidebar="isInSidebar"
       />
+    </template>
+    <template #mobileSearchbar>
+      <SearchPanel :placeholder="$t('search:players')" :isInSidebar="isInSidebar" />
     </template>
   </EternaPage>
 </template>

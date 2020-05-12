@@ -11,6 +11,9 @@
           <slot name="sidebar" :isInSidebar="false"></slot>
         </div>
       </h2>
+      <div class="d-lg-none">
+        <slot name="mobileSearchbar"></slot>
+      </div>
       <b-row>
         <b-col cols="12" lg="9" class="body" v-if="hasSidebarSlot">
           <slot></slot>

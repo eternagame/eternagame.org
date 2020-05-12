@@ -11,8 +11,7 @@
     </div>
 
     <template #sidebar="{ isInSidebar }">
-      <SearchPanel :placeholder="$t('search:news')" :isInSidebar="isInSidebar" />
-
+      <SearchPanel v-if="isInSidebar" :placeholder="$t('search:news')" :isInSidebar="isInSidebar" />
       <DropdownSidebarPanel
         :options="options"
         paramName="sort"
@@ -21,6 +20,9 @@
       />
       <CalendarPanel :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
+    </template>
+    <template #mobileSearchbar>
+      <SearchPanel :placeholder="$t('search:news')" :isInSidebar="isInSidebar" />
     </template>
   </EternaPage>
 </template>

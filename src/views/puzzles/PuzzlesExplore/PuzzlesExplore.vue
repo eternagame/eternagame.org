@@ -16,7 +16,11 @@
       <h1>{{ $t('loading-text') }}</h1>
     </div>
     <template #sidebar="{ isInSidebar }">
-      <SearchPanel :placeholder="$t('search:puzzles')" :isInSidebar="isInSidebar" />
+      <SearchPanel
+        v-if="isInSidebar"
+        :placeholder="$t('search:puzzles')"
+        :isInSidebar="isInSidebar"
+      />
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
       <DropdownSidebarPanel
@@ -25,6 +29,9 @@
         replace
         :isInSidebar="isInSidebar"
       />
+    </template>
+    <template #mobileSearchbar>
+      <SearchPanel :placeholder="$t('search:puzzles')" :isInSidebar="isInSidebar" />
     </template>
   </EternaPage>
 </template>

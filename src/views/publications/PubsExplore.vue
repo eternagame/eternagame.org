@@ -20,13 +20,20 @@
     </div>
 
     <template #sidebar="{ isInSidebar }">
-      <SearchPanel :placeholder="$t('search:publications')" :isInSidebar="isInSidebar" />
+      <SearchPanel
+        v-if="isInSidebar"
+        :placeholder="$t('search:publications')"
+        :isInSidebar="isInSidebar"
+      />
       <DropdownSidebarPanel
         :options="options"
         paramName="sort"
         replace
         :isInSidebar="isInSidebar"
       />
+    </template>
+    <template #mobileSearchbar>
+      <SearchPanel :placeholder="$t('search:publications')" :isInSidebar="isInSidebar" />
     </template>
   </EternaPage>
 </template>

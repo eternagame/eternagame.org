@@ -25,7 +25,7 @@
       <hr v-if="index < options.length - 1" class="options-divider" :key="`${value} divider`" />
     </template>
   </div>
-  <b-dropdown variant="link" right v-else>
+  <b-dropdown variant="link" :text="$t(options[selectedIndex].text)" right v-else>
     <template v-for="({ text, value, link }, index) in options">
       <b-dropdown-item
         :[nav(link)]="navTarget(link, value)"

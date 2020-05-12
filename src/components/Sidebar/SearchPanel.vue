@@ -28,7 +28,7 @@
       SidebarPanel,
     },
   })
-  export default class SearchPannel extends mixins(SidebarPanelMixin) {
+  export default class SearchPanel extends mixins(SidebarPanelMixin) {
     @Prop()
     private placeholder!: string;
 

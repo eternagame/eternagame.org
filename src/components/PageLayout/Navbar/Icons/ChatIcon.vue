@@ -37,7 +37,7 @@
     private show: Boolean = false;
 
     $refs!: {
-      chatContainer: HTMLElement
+      chatContainer: HTMLElement;
     };
 
     goToChat() {
@@ -53,7 +53,9 @@
         container: this.$refs.chatContainer,
         username: this.$vxm.user.username ? this.$vxm.user.username : '',
         uid: this.$vxm.user.uid ? this.$vxm.user.uid.toString() : '0',
+        collapsible: true,
         onHidden: () => this.$root.$emit('bv::hide::popover', 'chat-container'),
+        onPopOut: () => this.$router.push('/chat'),
         backgroundColor: 'rgb(0, 22, 55)',
       });
     }

@@ -25,7 +25,7 @@
       <hr v-if="index < options.length - 1" class="options-divider" :key="`${value} divider`" />
     </template>
   </div>
-  <b-dropdown variant="link" :text="$t(options[selectedIndex].text)" right v-else>
+  <b-dropdown variant="link" :text="dropdownText" right v-else>
     <template v-for="({ text, value, link }, index) in options">
       <b-dropdown-item
         :[nav(link)]="navTarget(link, value)"
@@ -98,6 +98,13 @@
     // If a link is provided, navigate to that; otherwise, update the query params.
     navTarget(link: string, value: string) {
       return link || { name: this.$route.name, query: this.generateQuery(value) };
+    }
+
+    get dropdownText() {
+      if (!(this.options[this.selectedIndex] && this.options[this.selectedIndex].text)) {
+        return '';
+      }
+      return this.$t(this.options[this.selectedIndex].text);
     }
   }
 

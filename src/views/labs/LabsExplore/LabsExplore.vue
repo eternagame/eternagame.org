@@ -11,7 +11,7 @@
     </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel v-if="isInSidebar" :placeholder="$t('search:labs')" :isInSidebar="isInSidebar" />
-      <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
+      <!-- <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" /> -->
       <DropdownSidebarPanel
         :options="options"
         paramName="sort"
@@ -66,10 +66,10 @@
     },
   })
   export default class LabsExplore extends Mixins(PageDataMixin(fetchPageData)) {
-    private filters: Filter[] = [
-      { value: 'active', text: 'Active' },
-      { value: 'inactive', text: 'Inactive' },
-    ];
+    // private filters: Filter[] = [
+    //   { value: 'active', text: 'Active' },
+    //   { value: 'inactive', text: 'Inactive' },
+    // ];
 
     private options: Option[] = [
       { value: 'desc', text: 'side-panel-options:desc' },

@@ -21,7 +21,12 @@
         :placeholder="$t('search:puzzles')"
         :isInSidebar="isInSidebar"
       />
-      <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
+      <FiltersPanel
+        :filters="filters"
+        paramName="filters"
+        :isInSidebar="isInSidebar"
+        :flagged="true"
+      />
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
       <DropdownSidebarPanel
         :options="options"
@@ -53,6 +58,7 @@
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import PuzzleViewData, { PuzzleCardData } from './types';
 
+  const INITIAL_SORT = 'date';
   const INITIAL_NUMBER = 18;
 
   const ROUTE = '/get/?type=puzzles';
@@ -73,9 +79,7 @@
           ),
           single: filters && filters.includes('single') && 'checked',
           notcleared: filters && filters.includes('notcleared') && 'true',
-          order: route.query.sort,
-          // TODO replace filters in backend: https://app.clubhouse.io/vital-mind-media/story/755/make-filters-for-all-pages-work
-          // filters: filters && (filters as string).split(','),
+          sort: route.query.sort || INITIAL_SORT,
           search: route.query.search,
           size: route.query.size || INITIAL_NUMBER,
         },
@@ -105,8 +109,11 @@
     }
 
     private options: Option[] = [
-      { value: 'date_asc', text: 'side-panel-options:desc' },
-      { value: 'asc', text: 'side-panel-options:asc' },
+      { value: 'date', text: 'side-panel-options:desc' },
+      { value: 'date_asc', text: 'side-panel-options:asc' },
+      // TODO: i18nize these in en.json
+      { value: 'solved', text: 'side-panel-options:solved' },
+      { value: 'length', text: 'side-panel-options:length' },
     ];
 
     // TODO add additional filters in backend: https://app.clubhouse.io/vital-mind-media/story/755/make-filters-for-all-pages-work
@@ -120,6 +127,7 @@
       // { value: 'vienna', text: 'Vienna' },
       // { value: 'rnassd', text: 'RNAssd' },
       // { value: 'inforna', text: 'Inforna' },
+      // { value: 'switch', text: 'Switch' },
       { value: 'notcleared', text: 'Uncleared' },
     ];
 

@@ -364,5 +364,11 @@
   "lab-info:round-number": "Currently active:",
   "quest-info-sidebar:title": "Collection Info",
   "quest-info-sidebar:created": "Created By:",
-  "chat:title": "Chat"
+  "chat:title": "Chat",
+  "filters:challenge": "Challenge",
+  "filters:player": "Player",
+  "filters:single": "Single State",
+  "filters:notcleared": "Uncleared",
+  "side-panel-options:solved": "Most Solved",
+  "side-panel-options:length": "Shortest"
 }

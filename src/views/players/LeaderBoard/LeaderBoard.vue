@@ -85,8 +85,8 @@
     }
 
     private options: Option[] = [
-      { value: 'point', text: 'side-panel-options:total-points' },
       { value: 'active', text: 'side-panel-options:points-last-30-days' },
+      { value: 'point', text: 'side-panel-options:total-points' },
       { value: 'synthesizes', text: 'side-panel-options:total-synthesized' },
       { value: 'update', text: 'side-panel-options:synthesized-latest' },
     ];

@@ -1,5 +1,5 @@
 <template>
-  <div class="page-content card" @click="goToDetailPage()">
+  <div class="page-content card">
     <div class="container">
       <div class="row justify-content-between">
         <div class="col p-0">
@@ -11,7 +11,9 @@
         </div>
       </div>
       <div class="row">
-        <h3 class="card-title">{{ title }}</h3>
+        <router-link :to="`/news/${nid}`">
+          <h3 class="card-title">{{ title }}</h3>
+        </router-link>
         <div v-dompurify-html="strippedBody" class="text" />
       </div>
     </div>
@@ -35,10 +37,6 @@
     @Prop() private nid!: string;
 
     @Prop({ default: 'blogs' }) private type!: string;
-
-    goToDetailPage() {
-      this.$router.push(`/news/${this.nid}`);
-    }
 
     get formattedType(): string {
       const formatted = this.type.toUpperCase();
@@ -71,6 +69,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/styles/global.scss';
+
   .btn {
     display: inline-block;
     width: 48%;
@@ -85,6 +85,7 @@
     font-size: 1.3rem;
     font-weight: bold;
     margin: 0.4rem 0;
+    color: $white;
   }
 
   .b {
@@ -95,7 +96,7 @@
     padding: 1rem 2rem;
     margin-bottom: 1.5rem;
     max-height: 600px;
-    cursor: pointer;
+    // cursor: pointer;
     transition: background-color 0.5s ease;
   }
 

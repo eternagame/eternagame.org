@@ -58,11 +58,24 @@
   const ROUTE = '/get/?type=puzzles';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
+    const getPuzzleType = (challenge: boolean, player: boolean) => {
+      if (challenge === player) return 'AllChallengesPuzzle';
+      if (player) return 'PlayerPuzzle';
+      return 'Challenge';
+    };
+    const { filters } = route.query;
     const res = (
       await http.get(ROUTE, {
         params: {
+          puzzle_type: getPuzzleType(
+            Boolean(filters && filters.includes('challenge')),
+            Boolean(filters && filters.includes('player')),
+          ),
+          single: filters && filters.includes('single') && 'checked',
+          notcleared: filters && filters.includes('notcleared') && 'true',
           order: route.query.sort,
-          filters: route.query.filters && (route.query.filters as string).split(','),
+          // TODO replace filters in backend: https://app.clubhouse.io/vital-mind-media/story/755/make-filters-for-all-pages-work
+          // filters: filters && (filters as string).split(','),
           search: route.query.search,
           size: route.query.size || INITIAL_NUMBER,
         },
@@ -96,14 +109,17 @@
       { value: 'asc', text: 'side-panel-options:asc' },
     ];
 
+    // TODO add additional filters in backend: https://app.clubhouse.io/vital-mind-media/story/755/make-filters-for-all-pages-work
     private filters: Filter[] = [
+      { value: 'challenge', text: 'Challenge' },
+      { value: 'player', text: 'Player' },
       { value: 'single', text: 'Single State' },
-      { value: '2-state', text: '2-state switch' },
-      { value: '3-state', text: '3-state switch' },
-      { value: '4-state', text: '4-state switch' },
-      { value: 'vienna', text: 'Vienna' },
-      { value: 'rnassd', text: 'RNAssd' },
-      { value: 'inforna', text: 'Inforna' },
+      // { value: '2-state', text: '2-state switch' },
+      // { value: '3-state', text: '3-state switch' },
+      // { value: '4-state', text: '4-state switch' },
+      // { value: 'vienna', text: 'Vienna' },
+      // { value: 'rnassd', text: 'RNAssd' },
+      // { value: 'inforna', text: 'Inforna' },
       { value: 'notcleared', text: 'Uncleared' },
     ];
 

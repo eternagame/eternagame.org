@@ -53,7 +53,6 @@
       await http.get(ROUTE, {
         params: {
           order: route.query.sort,
-          filters: route.query.filters && (route.query.filters as string).split(','),
           search: route.query.search,
           size: route.query.size || INITIAL_NUMBER,
         },
@@ -78,17 +77,6 @@
     redirect(path: string) {
       this.$router.push(path);
     }
-
-    private filters: Filter[] = [
-      { value: 'single', text: 'Single State' },
-      { value: '2-state', text: '2-state switch' },
-      { value: '3-state', text: '3-state switch' },
-      { value: '4-state', text: '4-state switch' },
-      { value: 'vienna', text: 'Vienna' },
-      { value: 'rnassd', text: 'RNAssd' },
-      { value: 'inforna', text: 'Inforna' },
-      { value: 'notcleared', text: 'Uncleared' },
-    ];
 
     private tags: string[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
 

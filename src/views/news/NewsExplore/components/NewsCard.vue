@@ -1,23 +1,23 @@
 <template>
-  <div class="page-content card">
-    <div class="container">
-      <div class="row justify-content-between">
-        <div class="col p-0">
-          <!-- Note: Any space between these tags will misalign the Type tag. -->
-          <div class="b" :style="{ color: typeColor }">{{ formattedType }}</div>
+  <router-link :to="`/news/${nid}`">
+    <div class="page-content card">
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col p-0">
+            <!-- Note: Any space between these tags will misalign the Type tag. -->
+            <div class="b" :style="{ color: typeColor }">{{ formattedType }}</div>
+          </div>
+          <div class="col p-0" style="text-align:right">
+            <div class="b" style="opacity: 0.5;">{{ created }}</div>
+          </div>
         </div>
-        <div class="col p-0" style="text-align:right">
-          <div class="b" style="opacity: 0.5;">{{ created }}</div>
-        </div>
-      </div>
-      <div class="row">
-        <router-link :to="`/news/${nid}`">
+        <div class="row">
           <h3 class="card-title">{{ title }}</h3>
-        </router-link>
-        <div v-dompurify-html="strippedBody" class="text" />
+          <div v-dompurify-html="strippedBody" class="text" />
+        </div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -93,6 +93,8 @@
   }
 
   .card {
+    color: $white;
+
     padding: 1rem 2rem;
     margin-bottom: 1.5rem;
     max-height: 600px;
@@ -102,6 +104,10 @@
 
   .card:hover {
     background-color: #21508c;
+  }
+
+  a:hover {
+    text-decoration: none;
   }
 
   .text {

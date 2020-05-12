@@ -6,8 +6,14 @@
       <span class="triangle" :class="{ rotated: !contentVisible }"></span>
     </b-nav-item>
     <b-collapse @input="onToggle" :accordion="accordion" :id="collapseId" class="sublist">
-      <b-nav-item v-for="(to, linkText) in value" @click="redirect(to)" :key="linkText">
+      <b-nav-item v-for="(to, linkText) in value" :[nav(to)]="to" :key="linkText">
         {{ $t('nav-bar:' + linkText) }}
+        <img
+          class="ml-2"
+          v-if="isExternal(to)"
+          src="@/assets/navbar/ExternalLink.svg"
+          :alt="$t('nav-bar:external-link')"
+        />
       </b-nav-item>
       <div class="mb-1"></div>
     </b-collapse>
@@ -34,8 +40,14 @@
 
     contentVisible = false;
 
-    redirect(path: string) {
-      window.location.href = path;
+    // TODO: Try to dedupe with NavbarMenuItem
+    nav(link: string): string {
+      // Use vue-router for local links, instead of reloading page.
+      return link.startsWith('/') ? 'to' : 'href';
+    }
+
+    isExternal(link: string) {
+      return !(link.startsWith('/') || link.startsWith('https://eternagame.org/'));
     }
 
     get collapseId() {
@@ -78,5 +90,10 @@
 
   .rotated {
     transform: rotate(-90deg);
+  }
+
+  img {
+    margin-top: -0.2rem;
+    width: 0.9rem;
   }
 </style>

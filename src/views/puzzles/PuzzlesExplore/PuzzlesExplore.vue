@@ -21,7 +21,12 @@
         :placeholder="$t('search:puzzles')"
         :isInSidebar="isInSidebar"
       />
-      <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
+      <FiltersPanel
+        :filters="filters"
+        paramName="filters"
+        :isInSidebar="isInSidebar"
+        :flagged="true"
+      />
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
       <DropdownSidebarPanel
         :options="options"
@@ -53,6 +58,7 @@
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import PuzzleViewData, { PuzzleCardData } from './types';
 
+  const INITIAL_SORT = 'date';
   const INITIAL_NUMBER = 18;
 
   const ROUTE = '/get/?type=puzzles';
@@ -61,8 +67,8 @@
     const res = (
       await http.get(ROUTE, {
         params: {
-          order: route.query.sort,
-          filters: route.query.filters && (route.query.filters as string).split(','),
+          ...route.query, // Unpack flagged filters
+          sort: route.query.sort || INITIAL_SORT,
           search: route.query.search,
           size: route.query.size || INITIAL_NUMBER,
         },
@@ -92,19 +98,17 @@
     }
 
     private options: Option[] = [
-      { value: 'date_asc', text: 'side-panel-options:desc' },
-      { value: 'asc', text: 'side-panel-options:asc' },
+      { value: 'date', text: 'side-panel-options:desc' },
+      { value: 'date_asc', text: 'side-panel-options:asc' },
+      // TODO: i18nize these in en.json
+      { value: 'solved', text: 'Most Solved' },
+      { value: 'length', text: 'Shortest' },
     ];
 
     private filters: Filter[] = [
-      { value: 'single', text: 'Single State' },
-      { value: '2-state', text: '2-state switch' },
-      { value: '3-state', text: '3-state switch' },
-      { value: '4-state', text: '4-state switch' },
-      { value: 'vienna', text: 'Vienna' },
-      { value: 'rnassd', text: 'RNAssd' },
-      { value: 'inforna', text: 'Inforna' },
-      { value: 'notcleared', text: 'Uncleared' },
+      { value: 'single', flag: 'checked', text: 'Single State' },
+      { value: 'switch', flag: 'checked', text: 'Switch' },
+      { value: 'notcleared', flag: 'true', text: 'Uncleared' },
     ];
 
     // private tags: string[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];

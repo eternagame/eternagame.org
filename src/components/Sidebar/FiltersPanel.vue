@@ -30,17 +30,32 @@
     @Prop({ required: true })
     private paramName!: string;
 
+    /** If flagged, the server expects '?value1=flag1...', not '?filter=value1,...' */
+    @Prop({ default: false })
+    private flagged!: boolean;
+
     private selected: string[] = [];
 
     created() {
-      const data = this.$route.query[this.paramName];
-      if (data && typeof data === 'string') {
-        this.selected = data.split(',');
+      if (this.flagged) {
+        this.filters.forEach(filter => {
+          if (this.$route.query[filter.value]) {
+            this.selected.push(filter.value);
+          }
+        });
+      } else {
+        const data = this.$route.query[this.paramName];
+        if (data && typeof data === 'string') {
+          this.selected = data.split(',');
+        }
       }
     }
 
     async onCheck() {
-      await this.$router.replace({ name: this.$route.name!, query: this.getQuery() });
+      await this.$router.replace({
+        name: this.$route.name!,
+        query: this.flagged ? this.getFlaggedQuery() : this.getQuery(),
+      });
     }
 
     getQuery() {
@@ -52,10 +67,23 @@
       }
       return query;
     }
+
+    getFlaggedQuery() {
+      const query = { ...this.$route.query };
+      this.filters.forEach(filter => {
+        if (this.selected.includes(filter.value)) {
+          query[filter.value] = filter.flag || 'true';
+        } else {
+          delete query[filter.value];
+        }
+      });
+      return query;
+    }
   }
 
   export interface Filter {
     value: string;
+    flag?: string;
     text: string;
   }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div @click="goToPuzzle()">
+  <router-link :to="`/puzzles/${nid}`">
     <AspectRatioCard :aspectRatio="aspectRatio" :id="`popover-target-${nid}`" class="card">
       <template #header>
         <div class="puzzle-card-title" v-if="title">
@@ -39,7 +39,7 @@
         </div>
       </template>
     </AspectRatioCard>
-  </div>
+  </router-link>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -87,6 +87,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/styles/global.scss';
+
   .btn {
     display: inline-block;
     width: 48%;
@@ -143,6 +145,7 @@
 
   .card {
     transition: 0.3s ease;
+    color: $white;
   }
 
   .card:hover {

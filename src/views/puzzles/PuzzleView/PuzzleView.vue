@@ -18,7 +18,7 @@
 
         <div class="order-sm-1 col-sm-6">
           <hr class="top-border d-sm-none" />
-          <div v-dompurify-html="puzzle.body" />
+          <div class="puzzle-description" v-dompurify-html="puzzle.body" />
         </div>
       </div>
     </div>
@@ -121,6 +121,10 @@
     background-color: #041227;
     opacity: 0.8;
     margin: 0 auto;
+  }
+
+  .puzzle-description {
+    white-space: pre-wrap;
   }
 
   .submit-button {

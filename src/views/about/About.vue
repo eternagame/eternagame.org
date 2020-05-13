@@ -316,6 +316,8 @@
   }
 </script>
 <style lang="scss" scoped>
+  @import '@/styles/global.scss';
+
   a {
     color: white;
   }
@@ -330,6 +332,10 @@
       text-align: center;
       background-color: black;
       position: relative;
+    // Overflow page margins as a hero element
+    margin-top: -$page-margin-top;
+    margin-left: -$page-margin-side;
+    margin-right: -$page-margin-side;
     }
     &__youtube-video-1 {
       display: inline-block;

@@ -158,8 +158,10 @@
     background-repeat: no-repeat;
     min-height: 441px;
     height: 100%;
-    margin-left: -22.5px;
-    margin-right: -22.5px;
+    // Overflow page margins as a hero element
+    margin-top: -$page-margin-top;
+    margin-left: -$page-margin-side;
+    margin-right: -$page-margin-side;
   }
 
   .video-wrapper {

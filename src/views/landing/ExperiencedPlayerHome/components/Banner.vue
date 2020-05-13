@@ -35,4 +35,11 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  #carousel-1 {
+    // Overflow page margins as a hero element.
+    margin-top: -$page-margin-top;
+    margin-left: -$page-margin-side;
+    margin-right: -$page-margin-side;
+  }
 </style>

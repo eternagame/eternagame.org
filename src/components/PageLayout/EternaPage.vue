@@ -82,7 +82,7 @@
   .page-container {
     position: relative;
     min-height: Calc(100vh - 120px);
-    padding: 45px 22.5px 22.5px;
+    padding: $page-margin-top $page-margin-side;
     padding-bottom: 0px;
   }
   .page-container:before {

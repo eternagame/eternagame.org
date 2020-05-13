@@ -62,10 +62,10 @@
   @import '@/styles/global.scss';
 
   .swiper {
-    margin-left: -22.5px;
-    margin-right: -22.5px;
-    padding-left: 22.5px;
-    padding-right: 22.5px;
+    margin-left: -$page-margin-side;
+    margin-right: -$page-margin-side;
+    padding-left: $page-margin-side;
+    padding-right: $page-margin-side;
   }
 
   ::v-deep .swiper-button {

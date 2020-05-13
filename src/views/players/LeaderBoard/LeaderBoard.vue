@@ -49,7 +49,7 @@
 
   const INITIAL_NUMBER = 18;
 
-  const ROUTE = 'https://eternagame.org/get/?type=users';
+  const ROUTE = '/get/?type=users';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;

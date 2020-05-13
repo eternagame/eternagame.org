@@ -22,6 +22,7 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
+  import Utils from '@/utils/utils';
 
   @Component({
     components: {},
@@ -35,7 +36,7 @@
 
     nav(link: string): string {
       // Use vue-router for local links, instead of reloading page.
-      return link.startsWith('/') ? 'to' : 'href';
+      return Utils.isLinkInternal(link) ? 'to' : 'href';
     }
 
     isExternal(link: string) {

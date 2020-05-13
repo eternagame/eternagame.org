@@ -11,7 +11,7 @@ export default {
         return '/web/register/';
       case 'tutorial':
       case 'switch_tutorial':
-        return 'https://eternagame.org/web/tutorials/';
+        return `${process.env.VUE_APP_API_BASE_URL}/web/tutorials/`;
       case 'puzzle_solver':
       case 'lab':
       case 'top_player':
@@ -31,7 +31,7 @@ export default {
       case 'lab_winner':
         return '/labs/';
       case 'puzzle_architect':
-        return 'https://eternagame.org/web/playerpuzzles/';
+        return `${process.env.VUE_APP_API_BASE_URL}/playerpuzzles/`;
       case 'nova':
         return 'http://www.pbs.org/wgbh/nova/labs/lab/rna/';
       case 'eternacon2015':
@@ -57,12 +57,12 @@ export default {
         // return "/web/puzzle/" + current_puzzle + "/";
         return '/puzzles/?search=switch&switch=checked&sort=date';
       case 'side_quest_create_a_puzzle':
-        return 'https://eternagame.org/game/puzzlemaker/';
+        return `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`;
       case 'side_quest_create_a_tutorial':
         // return "https://eternagame.org/game/puzzlemaker/"
         return 'https://docs.google.com/document/d/1m9vkiZO9_MslT1qOXGpsfvKyCtWLLJcsW0BIbCZgHu8';
       case 'side_quest_create_a_script':
-        return 'https://eternagame.org/web/script/create/';
+        return `${process.env.VUE_APP_API_BASE_URL}/web/script/create/`;
       case 'side_quest_covid19_potd':
         // return 'https://eternagame.org/web/playerpuzzles/?search=:COVID19&sort=solved';
         return '/puzzles/?search=COVID19&sort=solved';
@@ -89,12 +89,12 @@ export default {
       case 'side_quest_switch_puzzles':
         return '/puzzles/?search=switch&switch=checked&sort=date';
       case 'side_quest_create_a_puzzle':
-        return 'https://eternagame.org/game/puzzlemaker/';
+        return `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`;
       case 'side_quest_create_a_tutorial':
         // return 'https://eternagame.org/web/tutscripts/';
         return 'https://docs.google.com/document/d/1m9vkiZO9_MslT1qOXGpsfvKyCtWLLJcsW0BIbCZgHu8';
       case 'side_quest_create_a_script':
-        return 'https://eternagame.org/web/script/';
+        return `${process.env.VUE_APP_API_BASE_URL}/web/script/`;
       case 'side_quest_covid19_potd':
         // return 'https://eternagame.org/web/playerpuzzles/?search=:COVID19&sort=solved';
         return '/puzzles/?search=COVID19&sort=solved';
@@ -102,5 +102,10 @@ export default {
         return null;
     }
     return null;
+  },
+  isLinkInternal(link: string) {
+    return link.startsWith('/')
+      && !link.startsWith('/web/')
+      && !link.startsWith('/game/');
   },
 };

@@ -6,17 +6,24 @@
     :leftNumber="puzzle.num_slots"
     :states="states"
     :rightNumber="puzzle.submitted"
+    :link="false"
   >
     <div class="text-center image-container">
       <img :src="imageURL" class="image" />
     </div>
     <template #buttons>
-      <b-button :href="`${mainRoute}${puzzle.nid}/`" variant="primary" size="sm">{{
+      <b-button class="button" :href="`${mainRoute}${puzzle.nid}/`" variant="primary" size="sm">{{
         closed ? $t('lab-puzzle-card:closed-main') : $t('lab-puzzle-card:main')
       }}</b-button>
-      <b-button :href="`${secondaryRoute}${puzzle.nid}/`" variant="secondary" size="sm">{{
-        closed ? $t('lab-puzzle-card:closed-secondary') : $t('lab-puzzle-card:secondary')
-      }}</b-button>
+      <b-button
+        class="button"
+        :href="`${secondaryRoute}${puzzle.nid}/`"
+        variant="secondary"
+        size="sm"
+        >{{
+          closed ? $t('lab-puzzle-card:closed-secondary') : $t('lab-puzzle-card:secondary')
+        }}</b-button
+      >
     </template>
   </PuzzleCard>
 </template>

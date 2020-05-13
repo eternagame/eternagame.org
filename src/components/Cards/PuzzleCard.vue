@@ -1,45 +1,48 @@
 <template>
-  <router-link :to="`/puzzles/${nid}`">
-    <AspectRatioCard :aspectRatio="aspectRatio" :id="`popover-target-${nid}`" class="card">
-      <template #header>
-        <div class="puzzle-card-title" v-if="title">
-          <img src="@/assets/noun_check.svg" v-if="cleared" style="float:right" />
+  <AspectRatioCard
+    @click="goToPuzzle()"
+    :aspectRatio="aspectRatio"
+    :id="`popover-target-${nid}`"
+    class="card"
+  >
+    <template #header>
+      <div class="puzzle-card-title" v-if="title">
+        <img src="@/assets/noun_check.svg" v-if="cleared" style="float:right" />
 
-          <b>{{ title }}</b>
-        </div>
-      </template>
-      <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable" />
-      <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
-      <template #footer>
-        <b-row class="mb-2">
-          <b-col cols="4">
-            <div class="left-col" v-if="reward">
-              <slot name="left-icon">
-                <img src="@/assets/dollar.svg" alt="reward slots" class="icon" />
-              </slot>
-              {{ reward }}
-            </div>
-          </b-col>
-          <b-col cols="4">
-            <div class="text-center" v-if="states">
-              <StateCounter :value="states" />
-            </div>
-          </b-col>
-          <b-col cols="4">
-            <div class="right-col" v-if="numCleared">
-              <slot name="right-icon">
-                <img src="@/assets/people.svg" alt="submissions" class="icon" />
-              </slot>
-              {{ numCleared }}
-            </div>
-          </b-col>
-        </b-row>
-        <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
-          <slot name="buttons" />
-        </div>
-      </template>
-    </AspectRatioCard>
-  </router-link>
+        <b>{{ title }}</b>
+      </div>
+    </template>
+    <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable" />
+    <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
+    <template #footer>
+      <b-row class="mb-2">
+        <b-col cols="4">
+          <div class="left-col" v-if="reward">
+            <slot name="left-icon">
+              <img src="@/assets/dollar.svg" alt="reward slots" class="icon" />
+            </slot>
+            {{ reward }}
+          </div>
+        </b-col>
+        <b-col cols="4">
+          <div class="text-center" v-if="states">
+            <StateCounter :value="states" />
+          </div>
+        </b-col>
+        <b-col cols="4">
+          <div class="right-col" v-if="numCleared">
+            <slot name="right-icon">
+              <img src="@/assets/people.svg" alt="submissions" class="icon" />
+            </slot>
+            {{ numCleared }}
+          </div>
+        </b-col>
+      </b-row>
+      <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
+        <slot name="buttons" />
+      </div>
+    </template>
+  </AspectRatioCard>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -59,6 +62,8 @@
     @Prop() private nid!: string;
 
     @Prop() private reward!: number;
+
+    @Prop({ default: true }) private link!: boolean;
 
     @Prop({ default: 0 }) private states!: number;
 
@@ -81,7 +86,7 @@
     }
 
     goToPuzzle() {
-      this.$router.push(`/puzzles/${this.nid}`);
+      if (this.link) this.$router.push(`/puzzles/${this.nid}`);
     }
   }
 </script>

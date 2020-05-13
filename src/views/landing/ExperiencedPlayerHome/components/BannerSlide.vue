@@ -43,6 +43,20 @@
     max-height: 519px;
   }
 
+  .slide::after {
+    display: block;
+    position: relative;
+    background-image: linear-gradient(
+      to bottom, transparent 0%,
+      rgba(0, 0, 0, 0.60) 50%,
+      rgba(0, 0, 0, 0.90) 100%
+    );
+    margin-top: -300px;
+    height: 300px;
+    width: 100%;
+    content: '';
+  }
+
   .banner-title {
     font-size: 42px;
     font-weight: bold;

@@ -1,21 +1,22 @@
 <template>
   <div class="b-container">
     <div class="row">
-      <div class="col-md-8">
+      <!-- div class="col-md-8"-->
+      <div class="col-md-12">
         <h4 class="about-me">{{ $t('player-view:about-me') }}</h4>
         <EditField :content="user.Profile" @input="setProfile" />
-        <EditPlayerNewSection v-show="addingSection" @set-section="setSection" />
+        <!--EditPlayerNewSection v-show="addingSection" @set-section="setSection" />
         <b-button
           style="margin-top:19px;"
           @click="addingSection = !addingSection"
           v-show="!addingSection"
           variant="secondary"
           >{{ $t('edit-profile:custom-section-add') }}</b-button
-        >
+        -->
       </div>
-      <div class="col-md-4">
+      <!--div class="col-md-4">
         <EditPlayerFeaturedAchievement />
-      </div>
+      </div-->
     </div>
   </div>
 </template>
@@ -36,6 +37,10 @@
   export default class PlayerAboutMe extends Vue {
     get user() {
       return this.$vxm.user.userDetails;
+    }
+
+    mounted() {
+      this.setProfile(this.$vxm.user.userDetails.Profile);
     }
 
     setProfile(text: string) {

@@ -80,7 +80,7 @@ export default function createUserStore($http: AxiosInstance) {
         this.username = username;
         this.uid = Number(uid);
         this.loggedIn = true;
-        const userDataResponse = (await axios.get(`/get/?type=user&uid=${uid}`)).data.data;
+        const userDataResponse = (await axios.get(`/get/?type=my_user&uid=${uid}`)).data.data;
         this.userDetails = userDataResponse.user;
         this.hasLabAccess = Boolean(
           Number(this.userDetails.ten_tools_level) >= 8

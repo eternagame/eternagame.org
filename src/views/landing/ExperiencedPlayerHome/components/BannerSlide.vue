@@ -5,10 +5,11 @@
     :img-src="banner_image || cover_image"
     style=" background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0))"
     ><div class="banner-text">
-      <h1 class="banner-title">{{ title }}</h1>
-      <!-- <h3>
-            {{ progressData[`banner-sub-title`].toUpperCase() }}
-          </h3> -->
+      <h1 class="banner-title">{{ carousel_title || title }}</h1>
+      <!-- If there's a subtitle, use that. If there's a title and no subtitle, use the lab name -->
+      <h3 v-if="carousel_subtitle || carousel_title">
+        {{ (carousel_subtitle || title).toUpperCase() }}
+      </h3>
       <b-button variant="primary" class="enter-lab" size="lg" :href="`/labs/${nid}`">{{
         $t('home-banner:enter')
       }}</b-button>
@@ -30,6 +31,10 @@
     @Prop({}) banner_image!: string;
 
     @Prop({}) title!: string;
+
+    @Prop({}) carousel_title!: string;
+
+    @Prop({}) carousel_subtitle!: string;
 
     @Prop({}) nid!: number;
   }

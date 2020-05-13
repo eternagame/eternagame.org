@@ -12,6 +12,16 @@
       <b-button variant="primary" class="enter-lab" size="lg" :href="`/puzzles/${nid}`">{{
         'Solve Now'
       }}</b-button>
+      <router-link to="/puzzles/?search=POTW">
+        <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
+          <i class="arrow_right"></i>{{ 'Past POTWs' }}
+        </p>
+      </router-link>
+      <router-link to="/puzzles/?search=COVID19" class="link">
+        <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
+          <i class="arrow_right"></i>{{ 'Past Training Puzzles' }}
+        </p>
+      </router-link>
     </div></b-carousel-slide
   >
 </template>
@@ -57,6 +67,7 @@
     font-weight: bold;
     font-size: 20px;
     padding: 9px 12px;
+    margin-bottom: 10px;
   }
 
   h1,

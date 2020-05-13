@@ -146,7 +146,7 @@
 
   .activity-container {
     padding: 4%;
-    min-width: 300px;
+    width: 300px;
     max-width: 100%;
   }
 

@@ -1,8 +1,8 @@
 <template>
   <b-carousel-slide
     class="slide"
-    v-if="cover_image"
-    :img-src="cover_image"
+    v-if="banner_image || cover_image"
+    :img-src="banner_image || cover_image"
     style=" background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0))"
     ><div class="banner-text">
       <h1 class="banner-title">{{ title }}</h1>
@@ -26,6 +26,8 @@
   })
   export default class BannerSlide extends Vue {
     @Prop({}) cover_image!: string;
+
+    @Prop({}) banner_image!: string;
 
     @Prop({}) title!: string;
 

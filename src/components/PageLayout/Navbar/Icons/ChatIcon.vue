@@ -1,7 +1,12 @@
 <template>
   <!-- TODO: Consider making this a NavIcon instead for consistent styling and behavior. -->
   <div>
-    <img icon src="@/assets/navbar/Chat.svg" @click="goToChat()" />
+    <div class="clickable mt-2" @click="goToChat()">
+      <img icon class="mr-1" src="@/assets/navbar/Chat.svg" />
+      <span class="d-md-none font-weight-bold">
+        {{ $t('nav-bar:chat') }}
+      </span>
+    </div>
 
     <p id="chat-popover-anchor" class="anchor">.</p>
 
@@ -64,11 +69,13 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
+  .clickable {
+    cursor: pointer;
+  }
+
   img {
-    margin-top: 0.3rem;
     width: 24px;
     height: 24px;
-    cursor: pointer;
   }
 
   // Hidden element on screen bottom right, to anchor the chat popover.

@@ -1,7 +1,7 @@
 <template>
   <NavbarIcon>
     <template #icon>
-      <img src="@/assets/navbar/DefaultIcon.svg" />
+      <img class="mr-1" src="@/assets/navbar/DefaultIcon.svg" />
       {{ username }}
     </template>
     <template #text> </template>
@@ -32,7 +32,9 @@
       this.$vxm.user.logout();
     }
 
-    private get profile(): string { return `/players/${this.$vxm.user.uid}`; }
+    private get profile(): string {
+      return `/players/${this.$vxm.user.uid}`;
+    }
 
     redirect(path: string) {
       this.$router.push(path);

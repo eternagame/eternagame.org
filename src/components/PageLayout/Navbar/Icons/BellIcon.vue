@@ -7,16 +7,18 @@
     <template #text>
       {{ $t('nav-bar:notifications') }}
     </template>
-    <template>
+    <template v-slot="slotProp">
       <div class="container">
         <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
-        <img src="@/assets/navbar/popOut.svg" style="cursor:pointer" @click="goToNews()" />
+        <router-link to="/feed">
+          <img src="@/assets/navbar/popOut.svg" @click="slotProp.hideDropdown.hide()" />
+        </router-link>
         <div class="border"></div>
         <b-dropdown-item
           v-for="item in notifications.slice(0, 4)"
           :key="item.nid || item.id"
           style="padding-left:0px;margin-left:0px"
-          @click="redirect(`news/${item.nid || item.id}`)"
+          :to="`/news/${item.nid || item.id}`"
         >
           <div class="d-flex">
             <img
@@ -66,15 +68,6 @@
     private notifications: Array<NewsItem> = [];
 
     private notificationsToShow = NUMBER_NOTIFICATIONS_TO_SHOW;
-
-    redirect(path: string) {
-      this.$router.push(path);
-    }
-
-    goToNews() {
-      // TODO close dropdown
-      this.redirect('/news');
-    }
 
     shown() {
       axios.post(NOTIFICATIONS_READ);

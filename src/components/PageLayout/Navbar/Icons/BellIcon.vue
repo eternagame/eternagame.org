@@ -8,14 +8,20 @@
       {{ $t('nav-bar:notifications') }}
     </template>
     <template v-slot="slotProp">
-      <div class="container">
-        <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
-        <router-link to="/feed">
-          <img src="@/assets/navbar/popOut.svg" @click="slotProp.hideDropdown.hide()" />
-        </router-link>
+      <div class="activity-container">
+        <div class="d-flex justify-content-between">
+          <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
+          <router-link to="/feed">
+            <img
+              class="mt-2"
+              src="@/assets/navbar/popOut.svg"
+              @click="slotProp.hideDropdown.hide()"
+            />
+          </router-link>
+        </div>
         <div class="border"></div>
         <b-dropdown-item
-          v-for="item in notifications.slice(0, 4)"
+          v-for="item in notifications"
           :key="item.nid || item.id"
           style="padding-left:0px;margin-left:0px"
           :to="`/news/${item.nid || item.id}`"
@@ -29,6 +35,9 @@
             />
             <div v-dompurify-html="item.display || item.title" class="description"></div>
           </div>
+        </b-dropdown-item>
+        <b-dropdown-item v-if="notifications.length == 0">
+          {{ $t('activity-feed:empty') }}
         </b-dropdown-item>
       </div>
     </template>
@@ -55,7 +64,7 @@
 
   const USER_ROUTE = '/get/?type=user&uid=';
 
-  const NUMBER_NOTIFICATIONS_TO_SHOW = 4;
+  const NUMBER_NOTIFICATIONS_TO_SHOW = 5;
 
   @Component({
     components: {
@@ -144,12 +153,10 @@
     border-radius: 3px;
   }
 
-  .container {
-    margin-left: 4%;
-    width: 299px;
-    padding-left: 0px;
+  .activity-container {
+    padding: 4%;
+    min-width: 300px;
     max-width: 100%;
-    height: 470.2px;
   }
 
   .header {

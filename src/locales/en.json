@@ -89,6 +89,7 @@
   "news-view:title": "Announcements",
   "news-view:new-activity-main-action": "Share",
   "activity-feed:title": "Latest Activity",
+  "activity-feed:empty": "Nothing to see here!",
   "quest-card:play": "Play",
   "player-view:title": "Player Profile",
   "player-view:message": "Message",

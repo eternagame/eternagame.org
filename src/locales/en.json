@@ -370,5 +370,6 @@
   "filters:single": "Single State",
   "filters:notcleared": "Uncleared",
   "side-panel-options:solved": "Most Solved",
-  "side-panel-options:length": "Shortest"
+  "side-panel-options:length": "Shortest",
+  "home-banner:enter": "Enter Lab"
 }

@@ -82,7 +82,7 @@
 
       axios
         .post(EDIT_PROFILE, data)
-        .then(() => window.location.reload())
+        .then(() => {} /* window.location.reload() */)
         .catch(error => this.$notify({
           title: 'Error',
           text: get(error, 'message'),

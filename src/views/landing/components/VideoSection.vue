@@ -19,7 +19,7 @@
               <h4 class="text-block">
                 {{ $t('video-section:sub-heading') }}
               </h4>
-              <b-button variant="primary" size="lg" to="/game/puzzle/6502927/" class="button">{{
+              <b-button variant="primary" size="lg" href="https://eternagame.org/game/puzzle/6502927/" class="button">{{
                 $t('video-section:main-action')
               }}</b-button>
               <b-button variant="secondary" size="lg" to="/about" class="ml-3 button">

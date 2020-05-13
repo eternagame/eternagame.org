@@ -19,11 +19,13 @@
               <h4 class="text-block">
                 {{ $t('video-section:sub-heading') }}
               </h4>
-              <b-button variant="primary" size="lg"
-                :href="`${process.env.VUE_APP_API_BASE_URL}/game/puzzle/6502927/`" class="button"
-              >{{
-                $t('video-section:main-action')
-              }}</b-button>
+              <b-button
+                variant="primary"
+                size="lg"
+                :href="`${BASE_URL_PREFIX}/game/puzzle/6502927/`"
+                class="button"
+                >{{ $t('video-section:main-action') }}</b-button
+              >
               <b-button variant="secondary" size="lg" to="/about" class="ml-3 button">
                 {{ $t('video-section:secondary-action') }}
               </b-button>
@@ -43,7 +45,9 @@
   @Component({
     components: {},
   })
-  export default class VideoSection extends Vue {}
+  export default class VideoSection extends Vue {
+    private BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;
+  }
 </script>
 
 <style lang="scss" scoped>

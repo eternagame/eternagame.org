@@ -37,7 +37,7 @@
               <td>
                 <!-- TODO: need to include filters e.g. https://eternagame.org/game/browse/6296743/?filter1=Id&filter1_arg1=6348941&filter1_arg2=6348941 -->
                 <!--eslint-disable-next-line max-len-->
-                <a :href="`${process.env.VUE_APP_API_BASE_URL}/game/browse/${slotProps.item.puznid}/`">
+                <a :href="`${BASE_URL_PREFIX}/game/browse/${slotProps.item.puznid}/`">
                   {{ slotProps.item.title }}
                 </a>
               </td>
@@ -106,7 +106,7 @@
       </div>
     </div>
     <div v-else>
-      <Preloader/>
+      <Preloader />
     </div>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
@@ -153,6 +153,8 @@
     },
   })
   export default class PlayerView extends Mixins(PageDataMixin(fetchPageData)) {
+    private BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;;
+
     private options: Option[] = [
       { value: 'about', text: 'side-panel-options:about' },
       { value: 'achievements', text: 'side-panel-options:achievements' },

@@ -257,14 +257,14 @@
               </b-col>
               <b-col cols="12" class="col-md-4 col-sm-6 contribute-your-talents__list-item">
                 <div class="contribute-your-talents__list-item-container">
-                  <a :href="`${process.env.VUE_APP_API_BASE_URL}/web/script/`">
+                  <a :href="`${BASE_URL_PREFIX}/web/script/`">
                     <img
                       src="@/assets/about/about-section-4-2.png"
                       alt="eterna contribute-your-talents videiganes icon"
                       class="contribute-your-talents__icon"
                     />
                   </a>
-                  <a :href="`${process.env.VUE_APP_API_BASE_URL}/web/script/`"
+                  <a :href="`${BASE_URL_PREFIX}/web/script/`"
                     ><p class="contribute-your-talents__header">
                       {{ $t('about:section4-header2') }}
                     </p></a
@@ -313,6 +313,8 @@
   })
   export default class About extends Vue {
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
+
+    private BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;
   }
 </script>
 <style lang="scss" scoped>
@@ -332,10 +334,10 @@
       text-align: center;
       background-color: black;
       position: relative;
-    // Overflow page margins as a hero element
-    margin-top: -$page-margin-top;
-    margin-left: -$page-margin-side;
-    margin-right: -$page-margin-side;
+      // Overflow page margins as a hero element
+      margin-top: -$page-margin-top;
+      margin-left: -$page-margin-side;
+      margin-right: -$page-margin-side;
     }
     &__youtube-video-1 {
       display: inline-block;

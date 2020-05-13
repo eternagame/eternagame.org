@@ -2,12 +2,10 @@
   <EternaPage :title="$t('nav-bar:leaderboards')">
     <div v-if="pageData">
       <div class="page-content">
-        <PlayerCard
-          v-for="(player, index) in players"
-          :key="player.uid"
-          :player="player"
-          :index="index"
-        />
+        <template v-for="(player, index) in players">
+          <PlayerCard :key="player.uid" :player="player" :index="index" />
+          <hr class="bottom-border" :key="player.uid" />
+        </template>
       </div>
       <Pagination :key="players.length" />
     </div>
@@ -94,3 +92,11 @@
     ];
   }
 </script>
+
+<style lang="scss" scoped>
+  @import '@/styles/global.scss';
+
+  .bottom-border {
+    border-top-color: $light-blue;
+  }
+</style>

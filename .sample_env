@@ -1,7 +1,0 @@
-# URL to use as base for API queries when running in development mode
-# This will be used for both the development proxy server and the SSR renderer's axios instance
-VUE_APP_API_BASE_URL=http://refresh.eternadev.org
-
-# Server listen address
-HOST='localhost'
-PORT=8080

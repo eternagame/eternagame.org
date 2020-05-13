@@ -86,34 +86,42 @@
       axios.get(NUM_NOTIFICATIONS_ROUTE).then(response => {
         this.notificationsCount = response.data.data.noti_count;
       });
-      const fetchData = async () => {
-        const response = await axios.get(NEWS_FEED_ROUTE);
-        const { blogslist, newsfeeds, notifications } = response.data.data;
+      this.fetchData();
+    }
 
-        const articles = [
-          blogslist && blogslist,
-          newsfeeds && newsfeeds,
-          notifications && notifications,
-        ]
-          .flat()
-          .filter(article => !!article) as Array<NewsItem>;
+    async fetchData() {
+      // Note: newsfeed endpoint requires credentials
+      const response = await axios.get(NEWS_FEED_ROUTE, { withCredentials: true });
+      const { blogslist, newsfeeds, notifications } = response.data.data;
 
-        this.notifications = (await Promise.all(
-          articles.slice(0, NUMBER_NOTIFICATIONS_TO_SHOW).map(async article => {
-            const { user } = (await axios.get(USER_ROUTE + article.uid)).data.data;
+      const articles = [
+        blogslist && blogslist,
+        newsfeeds && newsfeeds,
+        notifications && notifications,
+      ]
+        .flat()
+        .filter(article => !!article) as Array<NewsItem>;
 
-            return user
-              ? {
-                  ...article,
-                  name: user.name,
-                  img: user.picture,
-                  display: `${get(user, 'name')} published a news post: <b>${article.title}</b>`,
-                }
-              : article;
-          }),
-        )) as Array<NewsItem>;
-      };
-      fetchData();
+      // First, just fill in with existing articles to have something to show.
+      this.notifications = articles.slice(0, NUMBER_NOTIFICATIONS_TO_SHOW);
+
+      // Then make a second request for the individual author profiles.
+      this.notifications = (await Promise.all(
+        this.notifications.map(this.fillAuthorProfile),
+      )) as Array<NewsItem>;
+    }
+
+    async fillAuthorProfile(article: NewsItem) {
+      const { user } = (await axios.get(USER_ROUTE + article.uid)).data.data;
+
+      return user
+        ? {
+            ...article,
+            name: user.name,
+            img: user.picture,
+            display: `${get(user, 'name')} published a news post: <b>${article.title}</b>`,
+          }
+        : article;
     }
   }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <EternaPage>
     <div v-if="pageData">
-      <Banner :labs="pageData.labs" />
+      <Banner :labs="pageData.labs" :puzzle="pageData.puzzle" />
 
       <h2 class="section-header">
         {{ $t('player-home:section1') }}

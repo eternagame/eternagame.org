@@ -19,7 +19,7 @@
   "read-more:read-more": "read more",
   "read-more:read-less": "read less",
   "login-failed:failure-text": "Something's wrong...",
-  "login-failed:failure-text-description": "Sorry, there was a problem loading you in.",
+  "login-failed:failure-text-description": "Sorry, there was a problem logging you in.",
   "register-modal:new-accont-text": "Create a New Account",
   "register-modal:new-accont-explanation": "Register now to save your progress and collect rewards.",
   "register-modal:main-action": "Create Account",

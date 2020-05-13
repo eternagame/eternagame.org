@@ -87,6 +87,7 @@
   }
   .page-container:before {
     box-shadow: -45px 0 45px -45px inset black;
+    -webkit-appearance: none helped;
     content: ' ';
     height: 100%;
     left: -45px;
@@ -96,6 +97,7 @@
   }
   .page-container:after {
     box-shadow: 45px 0 45px -45px inset black;
+    -webkit-appearance: none;
     content: ' ';
     height: 100%;
     position: absolute;

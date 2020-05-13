@@ -89,7 +89,7 @@ export default function createRouter() {
       {
         path: '/feed',
         name: 'activity-feed',
-        component: () => import('./views/feed/ActivityFeed.vue'),
+        component: () => import('./views/news/ActivityFeed/ActivityFeed.vue'),
       },
       {
         path: '/players/:uid',

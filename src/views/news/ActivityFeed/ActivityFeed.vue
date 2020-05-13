@@ -1,25 +1,14 @@
 <template>
   <EternaPage :title="$t('activity-feed:title')">
     <div v-if="pageData">
-      <Gallery>
-        <Gallery :sm="12" :md="12">
-          <ActivityCard v-for="article in news" :key="article.nid" v-bind="article" />
-        </Gallery>
-        <Pagination :key="news.length" />
+      <Gallery :sm="12" :md="12">
+        <ActivityCard v-for="article in news" :key="article.nid" v-bind="article" />
       </Gallery>
+      <Pagination :key="news.length" />
     </div>
     <div v-else>
       <h1>{{ $t('loading-text') }}</h1>
     </div>
-    <template #sidebar="{ isInSidebar }">
-      <DropdownSidebarPanel
-        :options="options"
-        paramName="sort"
-        replace
-        :isInSidebar="isInSidebar"
-      />
-      <TagsPanel :tags="tags" :isInSidebar="isInSidebar" />
-    </template>
   </EternaPage>
 </template>
 
@@ -36,19 +25,16 @@
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import ActivityCard from './components/ActivityCard.vue';
-  import NewActivity from './components/NewActivity.vue';
 
   const INITIAL_NUMBER = 18;
 
-  const ROUTE = '/get/?type=newslist';
+  const ROUTE = '/get/?type=newsfeed&combined=true&filter=all';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
     const res = (
       await http.get(`${ROUTE}&size=${INITIAL_NUMBER}`, {
         params: {
-          order: route.query.sort,
-          filters: route.query.filters && (route.query.filters as string).split(','),
           size: route.query.size || INITIAL_NUMBER,
         },
       })
@@ -62,33 +48,12 @@
       DropdownSidebarPanel,
       TagsPanel,
       ActivityCard,
-      NewActivity,
       Pagination,
     },
   })
   export default class ActivityFeed extends Mixins(PageDataMixin(fetchPageData)) {
     get news() {
-      return get(this.pageData, 'newslist', []);
+      return get(this.pageData, 'entries', []);
     }
-
-    private filters: Filter[] = [
-      { value: 'single', text: 'Single State' },
-      { value: '2-state', text: '2-state switch' },
-      { value: '3-state', text: '3-state switch' },
-      { value: '4-state', text: '4-state switch' },
-      { value: 'vienna', text: 'Vienna' },
-      { value: 'rnassd', text: 'RNAssd' },
-      { value: 'inforna', text: 'Inforna' },
-      { value: 'notcleared', text: 'Uncleared' },
-    ];
-
-    private tags: string[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
-
-    private options: Option[] = [
-      { value: 'all', text: 'side-panel-options:all' },
-      { value: 'announcements', text: 'side-panel-options:announcements' },
-      { value: 'blogs', text: 'side-panel-options:blogs' },
-      { value: 'labs', text: 'side-panel-options:labs' },
-    ];
   }
 </script>

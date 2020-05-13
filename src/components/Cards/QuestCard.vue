@@ -76,10 +76,6 @@
     @Prop({})
     private current_puzzle!: string;
 
-    redirect(path: string) {
-      window.location.href = path;
-    }
-
     get nav() {
       return this.toGame.startsWith('/') ? 'to' : 'href';
     }

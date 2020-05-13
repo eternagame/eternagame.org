@@ -61,8 +61,6 @@
   export default class ExperiencedPlayerView extends Vue {
     @Prop({}) pageData!: Object;
 
-    private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
-
     redirect(path: string) {
       this.$router.push(path);
     }

@@ -5,7 +5,7 @@
       <NavbarIcons v-if="loggedIn" class="d-inline d-md-none d-lg-block icons-group" />
     </div>
     <div class="w-100 d-flex justify-content-between">
-      <b-navbar-nav class="nav-pills" v-if="loggedIn">
+      <b-navbar-nav class="nav-pills" v-if="loggedIn" style="margin-right:60px">
         <NavbarMenuItem
           v-for="(value, text) in menu"
           :key="text"

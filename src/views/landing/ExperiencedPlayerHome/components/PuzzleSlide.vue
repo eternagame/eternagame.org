@@ -32,6 +32,7 @@
   import Utils from '@/utils/utils';
   // @ts-ignore
   import get from 'lodash.get';
+  import bgimage from '@/assets/home/hero-blue-bg.png';
 
   @Component({
     components: {},
@@ -47,7 +48,8 @@
     }
 
     get imageURL() {
-      return 'https://assets.wordpress.envato-static.com/uploads/2018/01/image1.png';
+      return bgimage;
+      // return 'https://assets.wordpress.envato-static.com/uploads/2018/01/image1.png';
       //   return Utils.getPuzzleMiddleThumbnail(this.nid);
     }
   }

@@ -2,7 +2,7 @@
   <NavbarIcon @shown="shown">
     <template #icon>
       <div class="unread" v-if="notificationsCount > 1"></div>
-      <img v-if="notificationsCount" src="@/assets/navbar/Bell.svg" />
+      <img src="@/assets/navbar/Bell.svg" />
     </template>
     <template #text>
       {{ $t('nav-bar:notifications') }}
@@ -60,7 +60,7 @@
       NavbarIcon,
     },
   })
-  export default class PlayerIcon extends Vue {
+  export default class BellIcon extends Vue {
     private notificationsCount = [];
 
     private notifications: Array<NewsItem> = [];

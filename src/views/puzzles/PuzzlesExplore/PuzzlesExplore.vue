@@ -13,7 +13,7 @@
       <Pagination :key="puzzles.length" />
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
@@ -56,6 +56,7 @@
   // @ts-ignore
   import get from 'lodash.get';
   import Pagination from '@/components/PageLayout/Pagination.vue';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
   import PuzzleViewData, { PuzzleCardData } from './types';
 
   const INITIAL_SORT = 'date';
@@ -97,6 +98,7 @@
       SearchPanel,
       DropdownSidebarPanel,
       TagsPanel,
+      Preloader,
     },
   })
   export default class PuzzlesExplore extends Mixins(PageDataMixin(fetchPageData)) {

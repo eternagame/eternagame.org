@@ -9,7 +9,7 @@
       <Comments :comments="pageData.comments" :pathname="addCommentPath" />
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
 
     <template #sidebar="{ isInSidebar }">
@@ -38,6 +38,7 @@
   import Comments from '@/components/PageLayout/Comments.vue';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
   import EditField from '@/components/Common/EditField.vue';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
   import NewsData from './types';
 
   Vue.use(VueDOMPurifyHTML);
@@ -63,6 +64,7 @@
       TagsPanel,
       DropdownSidebarPanel,
       Comments,
+      Preloader,
     },
   })
   export default class NewsView extends Mixins(PageDataMixin(fetchPageData)) {

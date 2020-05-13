@@ -27,7 +27,7 @@
       </Carousel>
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
   </EternaPage>
 </template>
@@ -46,6 +46,7 @@
   import { SwiperSlide } from 'vue-awesome-swiper';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import Utils from '@/utils/utils';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
   import Banner from './components/Banner.vue';
 
   @Component({
@@ -56,6 +57,7 @@
       SwiperSlide,
       Carousel,
       Banner,
+      Preloader,
     },
   })
   export default class ExperiencedPlayerView extends Vue {

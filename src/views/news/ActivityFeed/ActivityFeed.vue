@@ -7,7 +7,7 @@
       <Pagination :key="news.length" />
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
   </EternaPage>
 </template>
@@ -24,6 +24,7 @@
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
   import ActivityCard from './components/ActivityCard.vue';
 
   const INITIAL_NUMBER = 18;
@@ -49,6 +50,7 @@
       TagsPanel,
       ActivityCard,
       Pagination,
+      Preloader,
     },
   })
   export default class ActivityFeed extends Mixins(PageDataMixin(fetchPageData)) {

@@ -7,7 +7,7 @@
       <Pagination :key="pageData.entries.length" />
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
 
     <template #sidebar="{ isInSidebar }">
@@ -41,6 +41,7 @@
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
   // @ts-ignore
   import get from 'lodash.get';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
   import NewsCard from './components/NewsCard.vue';
 
   const INITIAL_NUMBER = 18;
@@ -71,6 +72,7 @@
       TagsPanel,
       NewsCard,
       Pagination,
+      Preloader,
     },
   })
   export default class NewsExplore extends Mixins(PageDataMixin(fetchPageData)) {

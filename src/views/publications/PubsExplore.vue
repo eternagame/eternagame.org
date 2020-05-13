@@ -16,7 +16,7 @@
       </Gallery>
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
 
     <template #sidebar="{ isInSidebar }">
@@ -49,6 +49,7 @@
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   // @ts-ignore
   import get from 'lodash.get';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
   import PubsCard from './PubsCard.vue';
 
   const ROUTE = '/get/?type=pubslist';
@@ -71,6 +72,7 @@
       PubsCard,
       DropdownSidebarPanel,
       SearchPanel,
+      Preloader,
     },
   })
   export default class NewsExplore extends Mixins(PageDataMixin(fetchPageData)) {

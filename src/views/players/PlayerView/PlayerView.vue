@@ -105,7 +105,7 @@
       </div>
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
@@ -125,6 +125,7 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
   import { UsersData } from '../types';
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
@@ -147,6 +148,7 @@
       PlayerAboutMe,
       PlayerTable,
       AchievementCard,
+      Preloader,
     },
   })
   export default class PlayerView extends Mixins(PageDataMixin(fetchPageData)) {

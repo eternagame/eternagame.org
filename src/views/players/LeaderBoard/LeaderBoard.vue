@@ -12,7 +12,7 @@
       <Pagination :key="players.length" />
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
@@ -46,6 +46,7 @@
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
   import PlayerCard from './PlayerCard.vue';
 
   const INITIAL_NUMBER = 18;
@@ -77,6 +78,7 @@
       Pagination,
       DropdownSidebarPanel,
       TagsPanel,
+      Preloader,
     },
   })
   export default class LeaderBoard extends Mixins(PageDataMixin(fetchPageData)) {

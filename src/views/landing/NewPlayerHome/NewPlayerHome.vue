@@ -55,7 +55,7 @@
       </Carousel>
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
   </EternaPage>
 </template>
@@ -70,6 +70,7 @@
   import { SwiperSlide } from 'vue-awesome-swiper';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import QuestCard from '@/components/Cards/QuestCard.vue';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
 
   import PROGRESS_IMAGE_0 from '@/assets/progress/progress0.svg';
   import PROGRESS_IMAGE_1 from '@/assets/progress/progress1.svg';
@@ -101,6 +102,7 @@
       SwiperSlide,
       PuzzleCard,
       QuestCard,
+      Preloader,
     },
   })
   export default class NewPlayerView extends Vue {

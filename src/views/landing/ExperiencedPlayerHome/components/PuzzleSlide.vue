@@ -6,20 +6,19 @@
     style=" background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0))"
     ><div class="banner-text">
       <h1 class="banner-title">{{ title }}</h1>
-      <!-- <h3>
-            {{ progressData[`banner-sub-title`].toUpperCase() }}
-          </h3> -->
+      <img class="img" :src="puzzleImageURL" />
+
       <b-button variant="primary" class="enter-lab" size="lg" :href="`/puzzles/${nid}`">{{
-        'Solve Now'
+        $t('puzzle-slide:solve-now')
       }}</b-button>
       <router-link to="/puzzles/?search=POTW">
         <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
-          <i class="arrow_right"></i>{{ 'Past POTWs' }}
+          <i class="arrow_right"></i>{{ $t('puzzle-slide:past-potw') }}
         </p>
       </router-link>
       <router-link to="/puzzles/?search=COVID19" class="link">
         <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
-          <i class="arrow_right"></i>{{ 'Past Training Puzzles' }}
+          <i class="arrow_right"></i>{{ $t('puzzle-slide:past-training') }}
         </p>
       </router-link>
     </div></b-carousel-slide
@@ -43,6 +42,10 @@
 
     @Prop({ default: '9981473' }) nid!: string;
 
+    get puzzleImageURL() {
+      return Utils.getPuzzleMiddleThumbnail(this.nid);
+    }
+
     get imageURL() {
       return 'https://assets.wordpress.envato-static.com/uploads/2018/01/image1.png';
       //   return Utils.getPuzzleMiddleThumbnail(this.nid);
@@ -56,6 +59,12 @@
   .slide {
     max-width: 1200px;
     max-height: 519px;
+  }
+
+  .img {
+    float: right;
+    width: 400;
+    height: 400;
   }
 
   .banner-title {

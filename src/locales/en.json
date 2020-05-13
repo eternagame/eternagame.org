@@ -376,5 +376,8 @@
   "filters:notcleared": "Uncleared",
   "side-panel-options:solved": "Most Solved",
   "side-panel-options:length": "Shortest",
-  "home-banner:enter": "Enter Lab"
+  "home-banner:enter": "Enter Lab",
+  "puzzle-slide:past-potw": "Past POTWs",
+  "puzzle-slide:past-training": "Past Training Puzzles",
+  "puzzle-slide:solve-now": "Solve Now"
 }

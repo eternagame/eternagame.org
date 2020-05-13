@@ -78,15 +78,6 @@
 
     private notificationsToShow = NUMBER_NOTIFICATIONS_TO_SHOW;
 
-    redirect(path: string) {
-      this.$router.push(path);
-    }
-
-    goToNews() {
-      // TODO close dropdown
-      this.redirect('/feed');
-    }
-
     shown() {
       axios.post(NOTIFICATIONS_READ);
     }

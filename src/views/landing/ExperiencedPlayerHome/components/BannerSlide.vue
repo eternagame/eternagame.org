@@ -10,7 +10,7 @@
       <h3 v-if="carousel_subtitle || carousel_title">
         {{ (carousel_subtitle || title).toUpperCase() }}
       </h3>
-      <b-button variant="primary" class="enter-lab" size="lg" :href="`/labs/${nid}`">
+      <b-button variant="primary" class="enter-lab" size="lg" :to="`/labs/${nid}`">
         {{ $t('home-banner:enter') }}
       </b-button>
     </div>

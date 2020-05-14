@@ -6,7 +6,7 @@
   >
     <div v-if="pageData">
       <div class="page-content" v-dompurify-html="news.news.body"></div>
-      <Comments :comments="pageData.comments" :pathname="addCommentPath" />
+      <Comments :comments="pageData.comments" :pathname="addCommentPath" :nid="news.news.nid" />
     </div>
     <div v-else>
       <Preloader/>

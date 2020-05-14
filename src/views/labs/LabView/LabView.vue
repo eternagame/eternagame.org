@@ -18,8 +18,8 @@
     />
     <Comments
       :comments="pageData.comments"
-      v-if="pageData.comments.length"
       :pathname="addCommentPath"
+      :nid="lab.nid"
     />
     <template #sidebar="{ isInSidebar }">
       <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />

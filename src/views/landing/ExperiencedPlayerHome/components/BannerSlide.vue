@@ -10,11 +10,11 @@
       <h3 v-if="carousel_subtitle || carousel_title">
         {{ (carousel_subtitle || title).toUpperCase() }}
       </h3>
-      <b-button variant="primary" class="enter-lab" size="lg" :href="`/labs/${nid}`">{{
-        $t('home-banner:enter')
-      }}</b-button>
-    </div></b-carousel-slide
-  >
+      <b-button variant="primary" class="enter-lab" size="lg" :href="`/labs/${nid}`">
+        {{ $t('home-banner:enter') }}
+      </b-button>
+    </div>
+  </b-carousel-slide>
 </template>
 
 <script lang="ts">
@@ -52,9 +52,10 @@
     display: block;
     position: relative;
     background-image: linear-gradient(
-      to bottom, transparent 0%,
-      rgba(0, 0, 0, 0.60) 50%,
-      rgba(0, 0, 0, 0.90) 100%
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.6) 50%,
+      rgba(0, 0, 0, 0.9) 100%
     );
     margin-top: -300px;
     height: 300px;
@@ -63,37 +64,48 @@
   }
 
   .banner-title {
-    font-size: 42px;
     font-weight: bold;
+    font-size: 36px;
   }
 
-  .enter-lab {
-    font-weight: bold;
-    font-size: 20px;
-    padding: 9px 12px;
+  ::v-deep img {
+    min-height: 300px;
+    object-fit: cover;
   }
 
-  h1,
-  h2,
-  h3,
   h1 {
-    font-size: 32px;
+    font-size: 20px;
   }
 
   h2 {
-    font-size: 26px;
+    font-size: 14px;
   }
 
   h3 {
-    font-size: 18px;
+    font-size: 12px;
   }
 
   @include media-breakpoint-up(sm) {
+    .banner-title {
+      font-size: 42px;
+    }
+
     h1,
     h2,
     h3,
     .banner-text {
       text-align: left;
+    }
+    h1 {
+      font-size: 32px;
+    }
+
+    h2 {
+      font-size: 26px;
+    }
+
+    h3 {
+      font-size: 18px;
     }
   }
 </style>

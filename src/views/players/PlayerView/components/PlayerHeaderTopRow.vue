@@ -8,9 +8,9 @@
       unchecked-value="not_accepted"
       >{{ $t('player-view:following') }}
     </b-form-checkbox-->
-    <b-button type="submit" style="margin-left:10px; padding: 0 30px;" variant="primary">{{
+    <!-- <b-button type="submit" style="margin-left:10px; padding: 0 30px;" variant="primary">{{
       $t('player-view:message')
-    }}</b-button>
+    }}</b-button> -->
   </div>
 </template>
 

@@ -40,4 +40,8 @@
     margin-left: -$page-margin-side;
     margin-right: -$page-margin-side;
   }
+
+  ::v-deep .carousel-inner {
+    min-height: 300px;
+  }
 </style>

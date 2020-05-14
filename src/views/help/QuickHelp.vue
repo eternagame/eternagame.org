@@ -35,8 +35,9 @@
         </div>
 
         <div v-for="[key, command] in Object.entries(keycommands)" :key="key">
-          <div class="section-link commands-text">{{ $t(key) }}</div>
+          <!-- Note: Command needs to come before description for correct alignment. -->
           <div class="section-link commands-text" style="float: right">{{ command }}</div>
+          <div class="section-link commands-text">{{ $t(key) }}</div>
           <hr class="options-divider m-0" />
         </div>
       </div>

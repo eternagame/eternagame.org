@@ -120,6 +120,10 @@
 
   .card {
     background-color: $input-bg;
+    transition: 0.3s ease;
+  }
+  .card:hover {
+    background-color: $blue;
   }
 
   .quest-card-title {

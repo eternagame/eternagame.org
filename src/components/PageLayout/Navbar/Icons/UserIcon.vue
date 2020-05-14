@@ -6,11 +6,11 @@
     </template>
     <template #text> </template>
 
-    <b-dropdown-item @click="redirect(profile)">
+    <b-dropdown-item :to="`/players/${$vxm.user.uid}`">
       {{ $t('user-dropdown:profile').toUpperCase() }}
     </b-dropdown-item>
 
-    <b-dropdown-item @click="redirect('/account')">
+    <b-dropdown-item to="/account">
       {{ $t('user-dropdown:edit-profile').toUpperCase() }}
     </b-dropdown-item>
 
@@ -30,14 +30,6 @@
   export default class UserIcon extends Vue {
     logout() {
       this.$vxm.user.logout();
-    }
-
-    private get profile(): string {
-      return `/players/${this.$vxm.user.uid}`;
-    }
-
-    redirect(path: string) {
-      this.$router.push(path);
     }
 
     get username() {

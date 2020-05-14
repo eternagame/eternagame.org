@@ -10,7 +10,7 @@ import createUserStore from '../store/user.vuex';
 import MobileStore from '../store/mobile.vuex';
 import PageData from '../store/page-data.vuex';
 
-interface VXM {
+export interface VXM {
   user: ProxyWatchers & InstanceType<ReturnType<typeof createUserStore>>;
   mobile: ProxyWatchers & MobileStore;
   pageData: ProxyWatchers & PageData;

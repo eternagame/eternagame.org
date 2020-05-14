@@ -13,7 +13,7 @@
       <Pagination :key="puzzles.length" />
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
@@ -56,6 +56,8 @@
   // @ts-ignore
   import get from 'lodash.get';
   import Pagination from '@/components/PageLayout/Pagination.vue';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
+  import { VXM } from '@/types/vue.d';
   import PuzzleViewData, { PuzzleCardData } from './types';
 
   const INITIAL_SORT = 'date';
@@ -63,26 +65,30 @@
 
   const ROUTE = '/get/?type=puzzles';
 
-  async function fetchPageData(route: Route, http: AxiosInstance) {
+  async function fetchPageData(route: Route, http: AxiosInstance, vxm: VXM) {
     const getPuzzleType = (challenge: boolean, player: boolean) => {
       if (challenge === player) return 'AllChallengesPuzzle';
       if (player) return 'PlayerPuzzle';
       return 'Challenge';
     };
     const { filters } = route.query;
+    const params = {
+      puzzle_type: getPuzzleType(
+        Boolean(filters && filters.includes('challenge')),
+        Boolean(filters && filters.includes('player')),
+      ),
+      single: filters && filters.includes('single') && 'checked',
+      notcleared: filters && filters.includes('notcleared') && 'true',
+      sort: route.query.sort || INITIAL_SORT,
+      search: route.query.search,
+      size: route.query.size || INITIAL_NUMBER,
+    };
+
+    if (vxm.user.loggedIn) params.uid = vxm.user.uid;
+
     const res = (
       await http.get(ROUTE, {
-        params: {
-          puzzle_type: getPuzzleType(
-            Boolean(filters && filters.includes('challenge')),
-            Boolean(filters && filters.includes('player')),
-          ),
-          single: filters && filters.includes('single') && 'checked',
-          notcleared: filters && filters.includes('notcleared') && 'true',
-          sort: route.query.sort || INITIAL_SORT,
-          search: route.query.search,
-          size: route.query.size || INITIAL_NUMBER,
-        },
+        params,
       })
     ).data.data as PuzzleViewData;
     return res;
@@ -97,6 +103,7 @@
       SearchPanel,
       DropdownSidebarPanel,
       TagsPanel,
+      Preloader,
     },
   })
   export default class PuzzlesExplore extends Mixins(PageDataMixin(fetchPageData)) {

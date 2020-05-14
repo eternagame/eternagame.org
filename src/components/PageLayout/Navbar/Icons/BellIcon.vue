@@ -2,21 +2,29 @@
   <NavbarIcon @shown="shown">
     <template #icon>
       <div class="unread" v-if="notificationsCount > 1"></div>
-      <img v-if="notificationsCount" src="@/assets/navbar/Bell.svg" />
+      <img class="icon mr-1" src="@/assets/navbar/Bell.svg" />
     </template>
     <template #text>
       {{ $t('nav-bar:notifications') }}
     </template>
-    <template>
-      <div class="container">
-        <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
-        <img src="@/assets/navbar/popOut.svg" style="cursor:pointer" @click="goToNews()" />
+    <template v-slot="slotProp">
+      <div class="activity-container">
+        <div class="d-flex justify-content-between">
+          <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
+          <router-link to="/feed">
+            <img
+              class="mt-2"
+              src="@/assets/navbar/popOut.svg"
+              @click="slotProp.hideDropdown.hide()"
+            />
+          </router-link>
+        </div>
         <div class="border"></div>
         <b-dropdown-item
-          v-for="item in notifications.slice(0, 4)"
+          v-for="item in notifications"
           :key="item.nid || item.id"
           style="padding-left:0px;margin-left:0px"
-          @click="redirect(`news/${item.nid || item.id}`)"
+          :to="`/news/${item.nid || item.id}`"
         >
           <div class="d-flex">
             <img
@@ -27,6 +35,9 @@
             />
             <div v-dompurify-html="item.display || item.title" class="description"></div>
           </div>
+        </b-dropdown-item>
+        <b-dropdown-item v-if="notifications.length == 0">
+          {{ $t('activity-feed:empty') }}
         </b-dropdown-item>
       </div>
     </template>
@@ -49,75 +60,78 @@
 
   const NEWS_FEED_ROUTE = '/get/?type=newsfeed&filter=all';
 
-  const NOTIFICATIONS_READ = '/post/?type=notification_read';
+  const NOTIFICATIONS_READ = '/post/';
 
   const USER_ROUTE = '/get/?type=user&uid=';
 
-  const NUMBER_NOTIFICATIONS_TO_SHOW = 4;
+  const NUMBER_NOTIFICATIONS_TO_SHOW = 5;
 
   @Component({
     components: {
       NavbarIcon,
     },
   })
-  export default class PlayerIcon extends Vue {
+  export default class BellIcon extends Vue {
     private notificationsCount = [];
 
     private notifications: Array<NewsItem> = [];
 
     private notificationsToShow = NUMBER_NOTIFICATIONS_TO_SHOW;
 
-    redirect(path: string) {
-      this.$router.push(path);
-    }
-
-    goToNews() {
-      // TODO close dropdown
-      this.redirect('/news');
-    }
-
     shown() {
-      axios.post(NOTIFICATIONS_READ);
+      axios.post(NOTIFICATIONS_READ, new URLSearchParams({ type: 'notification_read' }));
     }
 
     mounted() {
       axios.get(NUM_NOTIFICATIONS_ROUTE).then(response => {
         this.notificationsCount = response.data.data.noti_count;
       });
-      const fetchData = async () => {
-        const response = await axios.get(NEWS_FEED_ROUTE);
-        const { blogslist, newsfeeds, notifications } = response.data.data;
+      this.fetchData();
+    }
 
-        const articles = [
-          blogslist && blogslist,
-          newsfeeds && newsfeeds,
-          notifications && notifications,
-        ]
-          .flat()
-          .filter(article => !!article) as Array<NewsItem>;
+    async fetchData() {
+      // Note: newsfeed endpoint requires credentials
+      const response = await axios.get(NEWS_FEED_ROUTE, { withCredentials: true });
+      const { blogslist, newsfeeds, notifications } = response.data.data;
 
-        this.notifications = (await Promise.all(
-          articles.slice(0, NUMBER_NOTIFICATIONS_TO_SHOW).map(async article => {
-            const { user } = (await axios.get(USER_ROUTE + article.uid)).data.data;
+      const articles = [
+        blogslist && blogslist,
+        newsfeeds && newsfeeds,
+        notifications && notifications,
+      ]
+        .flat()
+        .filter(article => !!article) as Array<NewsItem>;
 
-            return user
-              ? {
-                  ...article,
-                  name: user.name,
-                  img: user.picture,
-                  display: `${get(user, 'name')} published a news post: <b>${article.title}</b>`,
-                }
-              : article;
-          }),
-        )) as Array<NewsItem>;
-      };
-      fetchData();
+      // First, just fill in with existing articles to have something to show.
+      this.notifications = articles.slice(0, NUMBER_NOTIFICATIONS_TO_SHOW);
+
+      // Then make a second request for the individual author profiles.
+      this.notifications = (await Promise.all(
+        this.notifications.map(this.fillAuthorProfile),
+      )) as Array<NewsItem>;
+    }
+
+    async fillAuthorProfile(article: NewsItem) {
+      const { user } = (await axios.get(USER_ROUTE + article.uid)).data.data;
+
+      return user
+        ? {
+            ...article,
+            name: user.name,
+            img: user.picture,
+            display: `${get(user, 'name')} published a news post: <b>${article.title}</b>`,
+          }
+        : article;
     }
   }
 </script>
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  .icon {
+    margin-left: -0.2rem;
+  }
 
   ::v-deep img {
     width: 20px;
@@ -130,12 +144,10 @@
     border-radius: 3px;
   }
 
-  .container {
-    margin-left: 4%;
-    width: 299px;
-    padding-left: 0px;
+  .activity-container {
+    padding: 4%;
+    width: 300px;
     max-width: 100%;
-    height: 470.2px;
   }
 
   .header {

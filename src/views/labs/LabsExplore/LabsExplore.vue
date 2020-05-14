@@ -7,7 +7,7 @@
       <Pagination :key="pageData.labs.length" />
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel v-if="isInSidebar" :placeholder="$t('search:labs')" :isInSidebar="isInSidebar" />
@@ -35,6 +35,7 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import Pagination from '@/components/PageLayout/Pagination.vue';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
   import LabsExploreData, { LabCardData } from './types';
   import LabCard from './components/LabCard.vue';
 
@@ -63,6 +64,7 @@
       FiltersPanel,
       Pagination,
       DropdownSidebarPanel,
+      Preloader,
     },
   })
   export default class LabsExplore extends Mixins(PageDataMixin(fetchPageData)) {

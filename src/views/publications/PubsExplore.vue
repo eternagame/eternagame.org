@@ -6,17 +6,24 @@
       </p>
 
       <h2>{{ $t('pubs:player-title') }}</h2>
-      <Gallery :sm="12" :md="12">
+
+      <Gallery v-if="pageData.playerpubslist" :sm="12" :md="12">
         <PubsCard v-for="pub in pageData.playerpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
+      <div v-else>
+        <Preloader />
+      </div>
 
       <h2>{{ $t('pubs:researcher-title') }}</h2>
-      <Gallery :sm="12" :md="12">
+      <Gallery v-if="pageData.researcherpubslist" :sm="12" :md="12">
         <PubsCard v-for="pub in pageData.researcherpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
+      <div v-else>
+        <Preloader />
+      </div>
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader />
     </div>
 
     <template #sidebar="{ isInSidebar }">
@@ -49,6 +56,7 @@
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   // @ts-ignore
   import get from 'lodash.get';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
   import PubsCard from './PubsCard.vue';
 
   const ROUTE = '/get/?type=pubslist';
@@ -71,6 +79,7 @@
       PubsCard,
       DropdownSidebarPanel,
       SearchPanel,
+      Preloader,
     },
   })
   export default class NewsExplore extends Mixins(PageDataMixin(fetchPageData)) {

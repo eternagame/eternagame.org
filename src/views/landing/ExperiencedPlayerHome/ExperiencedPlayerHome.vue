@@ -1,40 +1,7 @@
 <template>
   <EternaPage>
     <div v-if="pageData">
-      <b-jumbotron
-        fluid
-        container-fluid
-        class="video"
-        :style="{
-          backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0),
-          rgba(0, 0, 0, 0.75)),url('${progressData[`banner-image`]}')`,
-        }"
-      >
-        <div class="banner-text">
-          <h1>{{ progressData[`banner-title`] }}</h1>
-          <h3>
-            {{ progressData[`banner-sub-title`].toUpperCase() }}
-          </h3>
-          <b-button variant="primary" size="lg" :href="`${puzzleRoute}6502927/`"
-            >Enter Lab</b-button
-          >
-
-          <!-- <div class="banner-progress">
-            <Progress
-              :progress="progressData.progressCircles[0].number"
-              :total="progressData.progressCircles[0].total"
-              :name="progressData.progressCircles[0].name"
-              color="#2f94d1"
-            />
-            <Progress
-              :progress="progressData.progressCircles[1].number"
-              :total="progressData.progressCircles[1].total"
-              :name="progressData.progressCircles[1].name"
-              color="#fac244"
-            />
-          </div> -->
-        </div>
-      </b-jumbotron>
+      <Banner :labs="pageData.labs" :puzzle="pageData.puzzle" />
 
       <h2 class="section-header">
         {{ $t('player-home:section1') }}
@@ -60,7 +27,7 @@
       </Carousel>
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader />
     </div>
   </EternaPage>
 </template>
@@ -79,6 +46,8 @@
   import { SwiperSlide } from 'vue-awesome-swiper';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import Utils from '@/utils/utils';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
+  import Banner from './components/Banner.vue';
 
   @Component({
     components: {
@@ -87,16 +56,12 @@
       Progress,
       SwiperSlide,
       Carousel,
+      Banner,
+      Preloader,
     },
   })
   export default class ExperiencedPlayerView extends Vue {
     @Prop({}) pageData!: Object;
-
-    private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
-
-    redirect(path: string) {
-      this.$router.push(path);
-    }
 
     get masteringEterna() {
       return get(this.pageData, 'achievement_roadmap', [])
@@ -141,42 +106,8 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  .video {
-    background-position: right;
-    background-repeat: no-repeat;
-    object-fit: cover;
-    @include media-breakpoint-up(sm) {
-      height: 519px;
-      padding: 31px;
-      padding-top: 322px;
-    }
-    height: 400px;
-    padding-top: 61px;
-    margin-left: -22.5px;
-    margin-right: -22.5px;
-  }
-
-  .banner-progress {
-    display: flex;
-    justify-content: center;
-    padding-top: 1rem;
-    @include media-breakpoint-up(sm) {
-      float: right;
-      margin-top: -120px;
-    }
-  }
-
   .section-header {
     margin-top: 61px;
-  }
-
-  h1,
-  h2,
-  h3,
-  .banner-text {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-weight: bold;
   }
 
   h1 {
@@ -194,8 +125,7 @@
   @include media-breakpoint-up(sm) {
     h1,
     h2,
-    h3,
-    .banner-text {
+    h3 {
       text-align: left;
     }
 

@@ -27,6 +27,8 @@
     width: 200px;
     margin: 1rem auto;
     transition: ease 0.3s;
+    // Fix Safari image height: https://stackoverflow.com/questions/10760243/safari-image-size-auto-height-css
+    align-self: flex-start;
   }
   .center:hover img {
     max-width: 100%;

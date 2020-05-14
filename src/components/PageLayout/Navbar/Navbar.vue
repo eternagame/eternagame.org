@@ -61,11 +61,11 @@
       play: {
         puzzles: '/puzzles',
         labs: '/labs',
-        data: 'https://eternagame.org/web/labs/data-browser/',
-        'puzzle-maker': 'https://eternagame.org/game/puzzlemaker/',
-        'puzzle-maker-2-states': 'https://eternagame.org/game/switchmaker/2/',
-        'puzzle-maker-3-states': 'https://eternagame.org/game/switchmaker/3/',
-        scripts: 'https://eternagame.org/web/script/',
+        data: `${process.env.VUE_APP_API_BASE_URL}/web/labs/data-browser/`,
+        'puzzle-maker': `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`,
+        'puzzle-maker-2-states': `${process.env.VUE_APP_API_BASE_URL}/game/switchmaker/2/`,
+        'puzzle-maker-3-states': `${process.env.VUE_APP_API_BASE_URL}/game/switchmaker/3/`,
+        scripts: `${process.env.VUE_APP_API_BASE_URL}/web/script/`,
       },
       learn: {
         'quick-help': '/help',
@@ -76,7 +76,7 @@
         leaderboards: '/players',
         forum: 'https://getsatisfaction.com/eternagame',
         wiki: 'http://eternawiki.org',
-        groups: 'https://eternagame.org/web/group/',
+        groups: `${process.env.VUE_APP_API_BASE_URL}/web/group/`,
       },
       news: {
         news: '/news',

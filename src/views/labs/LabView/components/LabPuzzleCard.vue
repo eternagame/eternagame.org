@@ -6,6 +6,7 @@
     :leftNumber="puzzle.num_slots"
     :states="states"
     :rightNumber="puzzle.submitted"
+    :backgroundLink="false"
   >
     <div class="text-center image-container">
       <img :src="imageURL" class="image" />

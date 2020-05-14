@@ -1,6 +1,6 @@
 <template>
   <EternaPage :title="`${$t('Edit Profile')} ${user.name}`">
-    <div class="page-content">
+    <div class="page-content" v-if="loaded">
       <EditPlayerHeader @submit-data="submit" @set-picture="setPicture" />
       <hr class="top-border" />
       <EditPlayerAboutMe @set-profile="setProfile" @set-section="setSection" />
@@ -9,6 +9,7 @@
         @set-password="setPassword"
         @set-news="setNews"
         @set-messages="setMessages"
+        @set-email="setEmail"
       />
       <div class="flex" style="margin-top:10px">
         <b-button type="submit" style="margin-left:10px" variant="primary" @click="submit">{{
@@ -23,6 +24,7 @@
         >
       </div>
     </div>
+    <Preloader v-else/>
 
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
@@ -45,12 +47,13 @@
   import Notifications from 'vue-notification';
   // @ts-ignore
   import get from 'lodash.get';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
   import EditPlayerHeader from './components/EditPlayerHeader.vue';
   import EditPlayerAboutMe from './components/EditPlayerAboutMe.vue';
   import EditPlayerCredentials from './components/EditPlayerCredentials.vue';
   import { Section } from './types';
 
-  const EDIT_PROFILE = '/login/?type=edit';
+  const EDIT_PROFILE = '/login/';
 
   Vue.use(Notifications);
 
@@ -61,6 +64,7 @@
       EditPlayerHeader,
       EditPlayerAboutMe,
       EditPlayerCredentials,
+      Preloader,
     },
   })
   export default class EditProfile extends Vue {
@@ -72,17 +76,34 @@
       return this.$vxm.user.userDetails;
     }
 
+    async beforeMount() {
+      // HACK: Update the current user object
+      await this.$vxm.user.authenticate();
+      this.loaded = true;
+    }
+
+    private loaded = false;
+
     submit() {
-      const data: object = {};
-      if (this.newPassword) data.pass = this.newPassword as string;
-      if (this.privateMessagesNotify) data.profile_mail_notification = this.privateMessagesNotify;
-      if (this.newNewsPostsNotify) data.profile_blog_mail_notification = this.newNewsPostsNotify;
-      if (this.profile) data.profile_profile = this.profile;
+      const data: any = {};
+      if (this.newPassword) {
+        data['pass[pass1]'] = this.newPassword as string;
+        data['pass[pass2]'] = this.newPassword as string;
+      }
+      data.profile_mail_notification = this.privateMessagesNotify ? 'on' : 'off';
+      data.profile_news_mail_notification = this.newNewsPostsNotify ? 'on' : 'off';
+      data.profile_blog_mail_notification = this.newNewsPostsNotify ? 'on' : 'off';
+      data.profile_profile = this.profile;
+      data.mail = this.email;
       if (this.picture) data.picture_upload = this.picture;
+      data.type = 'edit';
 
       axios
-        .post(EDIT_PROFILE, data)
-        .then(() => window.location.reload())
+        .post(EDIT_PROFILE, new URLSearchParams(data))
+        .then(() => {
+          /* his.$router.push(`/players/${this.$vxm.user.uid}`) */
+          window.location.reload();
+        })
         .catch(error => this.$notify({
           title: 'Error',
           text: get(error, 'message'),
@@ -103,10 +124,12 @@
     }
 
     setNews(notify: boolean) {
+      console.log('news', notify);
       this.newNewsPostsNotify = notify;
     }
 
     setMessages(notify: boolean) {
+      console.log('messages', notify);
       this.privateMessagesNotify = notify;
     }
 
@@ -114,11 +137,16 @@
       this.profile = text;
     }
 
+    setEmail(email: string) {
+      this.email = email;
+    }
+
     cancel() {
       this.newAboutMeText = '';
       this.newPassword = '';
       this.privateMessagesNotify = false;
       this.newNewsPostsNotify = false;
+      this.email = '';
     }
 
     private newAboutMeText: string = '';
@@ -132,6 +160,8 @@
     private sectionText: string = '';
 
     private newPassword: string = '';
+
+    private email: string = '';
 
     private privateMessagesNotify: boolean = false;
 

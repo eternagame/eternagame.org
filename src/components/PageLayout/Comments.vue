@@ -34,7 +34,7 @@
   import axios from 'axios';
   import Comment from './Comment.vue';
 
-  const ADD_COMMENT_ROUTE = '/post/?type=post_comment';
+  const ADD_COMMENT_ROUTE = '/post/';
 
   @Component({
     components: { Comment },
@@ -47,6 +47,9 @@
     private pathname!: string;
 
     @Prop()
+    private nid!: string;
+
+    @Prop()
     private name!: string;
 
     private commentText: string = '';
@@ -57,8 +60,15 @@
 
     submit() {
       axios
-        .post(ADD_COMMENT_ROUTE, { pathname: this.pathname, body: this.commentText })
-        .then(res => {});
+        .post(ADD_COMMENT_ROUTE, new URLSearchParams({
+          type: 'post_comment',
+          // pathname: this.pathname,
+          body: this.commentText,
+          nid: this.nid,
+        }))
+        .then(res => {
+          window.location.reload();
+        });
     }
   }
 </script>

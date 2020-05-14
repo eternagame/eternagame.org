@@ -72,6 +72,8 @@ $link-color: $yellow !default;
 
 $body-bg: $dark-blue !default;
 $body-color: $white !default;
+$page-margin-top: 45px;
+$page-margin-side: 22.5px;
 
 // Fonts
 
@@ -82,6 +84,8 @@ $font-size-base: 0.9375rem !default;
 $h1-font-size: 3rem !default;
 $h2-font-size: 2.5rem !default;
 $h3-font-size: 2rem !default;
+
+$headings-font-weight: bold;
 
 // Tables
 

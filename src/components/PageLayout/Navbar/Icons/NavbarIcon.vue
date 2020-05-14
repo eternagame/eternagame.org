@@ -16,7 +16,11 @@
         </span>
       </div>
     </template>
-    <slot></slot>
+    <!-- The default scope slot has the ability to hide the dropdown: 
+    https://bootstrap-vue.org/docs/components/nav#comp-ref-b-nav-item-dropdown-slots -->
+    <template v-slot="hideDropdown">
+      <slot :hide-dropdown="hideDropdown"></slot>
+    </template>
   </b-nav-dropdown>
 </template>
 <script lang="ts">

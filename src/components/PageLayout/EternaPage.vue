@@ -82,11 +82,12 @@
   .page-container {
     position: relative;
     min-height: Calc(100vh - 120px);
-    padding: 45px 22.5px 22.5px;
+    padding: $page-margin-top $page-margin-side;
     padding-bottom: 0px;
   }
   .page-container:before {
     box-shadow: -45px 0 45px -45px inset black;
+    -webkit-appearance: none helped;
     content: ' ';
     height: 100%;
     left: -45px;
@@ -96,6 +97,7 @@
   }
   .page-container:after {
     box-shadow: 45px 0 45px -45px inset black;
+    -webkit-appearance: none;
     content: ' ';
     height: 100%;
     position: absolute;

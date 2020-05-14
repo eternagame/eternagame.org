@@ -17,7 +17,7 @@
   import VueDOMPurifyHTML from 'vue-dompurify-html';
   import axios from 'axios';
 
-  const ADD_COMMENT_ROUTE = '/post/?type=delete_comment';
+  const ADD_COMMENT_ROUTE = '/post/';
 
   Vue.use(VueDOMPurifyHTML);
 
@@ -40,7 +40,7 @@
 
     deleteComment() {
       axios
-        .post(ADD_COMMENT_ROUTE, { cid: this.comment.cid })
+        .post(ADD_COMMENT_ROUTE, new URLSearchParams({ type: 'delete_comment', cid: this.comment.cid }))
         .then(res => window.location.reload());
     }
   }

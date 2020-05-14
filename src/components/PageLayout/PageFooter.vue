@@ -96,8 +96,8 @@
   }
 
   .language-bar {
-    margin-left: -22.5px;
-    margin-right: -22.5px;
+    margin-left: -$page-margin-side;
+    margin-right: -$page-margin-side;
     background-color: black;
     display: flex;
     justify-content: center;

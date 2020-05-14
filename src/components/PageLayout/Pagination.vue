@@ -1,13 +1,16 @@
 <template>
-  <h1 v-if="loading">{{ $t('loading-text') }}</h1>
+  <Preloader v-if="loading" />
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import icon from '@/assets/Filter.svg';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
 
   @Component({
-    components: {},
+    components: {
+      Preloader,
+    },
   })
   export default class Pagination extends Vue {
     @Prop({ default: 9 })

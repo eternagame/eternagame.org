@@ -4,16 +4,16 @@
     <div class="card flex p-3">
       <div class="row">
         <div class="col-md-6">
-          <template v-for="key in column1Keys">
-            <a class="section-link" :href="'#' + key" :key="key">{{ $t(key) }}</a>
-            <hr class="options-divider m-0" :key="key" />
-          </template>
+          <div v-for="key in column1Keys" :key="key">
+            <a class="section-link" :href="'#' + key">{{ $t(key) }}</a>
+            <hr class="options-divider m-0" />
+          </div>
         </div>
         <div class="col-md-6">
-          <template v-for="key in column2Keys">
-            <a class="section-link" :href="'#' + key" :key="key">{{ $t(key) }}</a>
-            <hr class="options-divider m-0" :key="key" />
-          </template>
+          <div v-for="key in column2Keys" :key="key">
+            <a class="section-link" :href="'#' + key">{{ $t(key) }}</a>
+            <hr class="options-divider m-0" />
+          </div>
         </div>
       </div>
     </div>
@@ -35,7 +35,8 @@
         </div>
 
         <div v-for="[key, command] in Object.entries(keycommands)" :key="key">
-          <div class="section-link commands-text" style="float: right">{{ $t(command) }}</div>
+          <!-- Note: Command needs to come before description for correct alignment. -->
+          <div class="section-link commands-text" style="float: right">{{ command }}</div>
           <div class="section-link commands-text">{{ $t(key) }}</div>
           <hr class="options-divider m-0" />
         </div>

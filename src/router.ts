@@ -89,7 +89,7 @@ export default function createRouter() {
       {
         path: '/feed',
         name: 'activity-feed',
-        component: () => import('./views/feed/ActivityFeed.vue'),
+        component: () => import('./views/news/ActivityFeed/ActivityFeed.vue'),
       },
       {
         path: '/players/:uid',
@@ -128,6 +128,10 @@ export default function createRouter() {
       next('/lost');
     }
     next();
+  });
+
+  router.afterEach(() => {
+    gtag('config', 'UA-17383892-2');
   });
 
   return router;

@@ -24,7 +24,7 @@
             variant="primary"
             size="lg"
             style="margin-right:10px"
-            :href="`${puzzleRoute}${nextPuzzleId}`"
+            :href="`${puzzleRoute}${nextPuzzleId}/`"
             >{{ $t('player-home:next-puzzle') }}</b-button
           >
           <b-button
@@ -55,7 +55,7 @@
       </Carousel>
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
   </EternaPage>
 </template>
@@ -70,6 +70,7 @@
   import { SwiperSlide } from 'vue-awesome-swiper';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import QuestCard from '@/components/Cards/QuestCard.vue';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
 
   import PROGRESS_IMAGE_0 from '@/assets/progress/progress0.svg';
   import PROGRESS_IMAGE_1 from '@/assets/progress/progress1.svg';
@@ -101,6 +102,7 @@
       SwiperSlide,
       PuzzleCard,
       QuestCard,
+      Preloader,
     },
   })
   export default class NewPlayerView extends Vue {
@@ -158,8 +160,10 @@
     background-repeat: no-repeat;
     min-height: 441px;
     height: 100%;
-    margin-left: -22.5px;
-    margin-right: -22.5px;
+    // Overflow page margins as a hero element
+    margin-top: -$page-margin-top;
+    margin-left: -$page-margin-side;
+    margin-right: -$page-margin-side;
   }
 
   .video-wrapper {

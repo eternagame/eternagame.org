@@ -2,17 +2,15 @@
   <EternaPage :title="$t('nav-bar:leaderboards')">
     <div v-if="pageData">
       <div class="page-content">
-        <PlayerCard
-          v-for="(player, index) in players"
-          :key="player.uid"
-          :player="player"
-          :index="index"
-        />
+        <template v-for="(player, index) in players">
+          <PlayerCard :key="player.uid" :player="player" :index="index" />
+          <hr class="bottom-border" :key="player.uid" />
+        </template>
       </div>
       <Pagination :key="players.length" />
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
@@ -46,11 +44,12 @@
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
   import PlayerCard from './PlayerCard.vue';
 
   const INITIAL_NUMBER = 18;
 
-  const ROUTE = 'https://eternagame.org/get/?type=users';
+  const ROUTE = '/get/?type=users';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const { sort } = route.query;
@@ -77,6 +76,7 @@
       Pagination,
       DropdownSidebarPanel,
       TagsPanel,
+      Preloader,
     },
   })
   export default class LeaderBoard extends Mixins(PageDataMixin(fetchPageData)) {
@@ -92,3 +92,11 @@
     ];
   }
 </script>
+
+<style lang="scss" scoped>
+  @import '@/styles/global.scss';
+
+  .bottom-border {
+    border-top-color: $light-blue;
+  }
+</style>

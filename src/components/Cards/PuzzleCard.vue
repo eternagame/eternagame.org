@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/puzzles/${nid}`">
+  <SmartLink :link="backgroundLink ? `/puzzles/${nid}` : ''">
     <AspectRatioCard :aspectRatio="aspectRatio" :id="`popover-target-${nid}`" class="card">
       <template #header>
         <div class="puzzle-card-title" v-if="title">
@@ -39,18 +39,20 @@
         </div>
       </template>
     </AspectRatioCard>
-  </router-link>
+  </SmartLink>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
   import AspectRatioCard from './AspectRatioCard.vue';
   import StateCounter from './StateCounter.vue';
+  import SmartLink from '../Common/SmartLink.vue';
 
   @Component({
     components: {
       StateCounter,
       AspectRatioCard,
+      SmartLink,
     },
   })
   export default class PuzzleCard extends Vue {
@@ -70,6 +72,9 @@
 
     @Prop({ default: false }) private cleared!: boolean;
 
+    // Whether clicking on the card background should link to the puzzle.
+    @Prop({ default: true }) private backgroundLink!: boolean;
+
     get numCleared() {
       return this.$attrs['num-cleared'];
     }
@@ -78,10 +83,6 @@
       return this.image
         ? `${process.env.VUE_APP_API_BASE_URL}${this.image}`
         : Utils.getPuzzleMiddleThumbnail(this.nid);
-    }
-
-    goToPuzzle() {
-      this.$router.push(`/puzzles/${this.nid}`);
     }
   }
 </script>
@@ -149,7 +150,6 @@
   }
 
   .card:hover {
-    cursor: pointer;
     border: 1px solid gold;
   }
 

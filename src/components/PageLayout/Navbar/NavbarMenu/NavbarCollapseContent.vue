@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="mr-5">
     <div>
       <!--return the padding from b-container-->
-      <NavbarIcons v-if="loggedIn" class="d-inline d-md-none d-lg-block icons-group" />
+      <NavbarIcons v-if="loggedIn" class="d-inline d-md-none d-lg-block icons-group mr-2" />
     </div>
     <div class="w-100 d-flex justify-content-between">
       <b-navbar-nav class="nav-pills" v-if="loggedIn">

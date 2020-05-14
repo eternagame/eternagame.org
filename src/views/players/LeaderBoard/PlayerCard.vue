@@ -1,28 +1,32 @@
 <template>
-  <div class="card player-card" style="cursor:pointer" @click="goToDetailPage()">
-    <div class="d-flex align-items-center" style="width:100%">
-      <div>
-        <p class="rank">#{{ index + 1 }}</p>
+  <router-link :to="'/players/' + player.uid">
+    <div class="card player-card">
+      <div class="d-flex align-items-center" style="width:100%">
+        <div>
+          <p class="rank">#{{ index + 1 }}</p>
+        </div>
+        <img v-if="imageLink" class="rounded-circle player-image" :src="imageLink" />
+        <img
+          v-else
+          class="rounded-circle player-image"
+          src="@/assets/front-page/img/icon_user.png"
+        />
+        <div class="player-name">
+          {{ player.name }}
+        </div>
       </div>
-      <img v-if="imageLink" class="rounded-circle player-image" :src="imageLink" />
-      <img v-else class="rounded-circle player-image" src="@/assets/front-page/img/icon_user.png" />
-      <router-link class="player-name" :to="'/players/' + player.uid">
-        {{ player.name }}
-      </router-link>
+      <div class="icons">
+        <div v-if="points">
+          <img src="@/assets/dollar.svg" class="icon" style="margin-bottom:5px" />
+          {{ points }}
+        </div>
+        <div v-if="dateCreated" class="d-none d-sm-block">
+          <img src="@/assets/calendar.svg" class="icon" style="margin-bottom:5px" />
+          {{ dateCreated }}
+        </div>
+      </div>
     </div>
-    <div class="icons">
-      <div v-if="points">
-        <img src="@/assets/dollar.svg" class="icon" style="margin-bottom:5px" />
-        {{ points }}
-      </div>
-      <div v-if="dateCreated" class="d-none d-sm-block">
-        <img src="@/assets/calendar.svg" class="icon" style="margin-bottom:5px" />
-        {{ dateCreated }}
-      </div>
-    </div>
-
-    <hr class="bottom-border" />
-  </div>
+  </router-link>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -45,10 +49,6 @@
       return this.player.points && parseInt(this.player.points, 10).toLocaleString();
     }
 
-    goToDetailPage() {
-      this.$router.push(`/players/${this.player.uid}`);
-    }
-
     private rank: string = '';
 
     created() {
@@ -59,8 +59,8 @@
 
     get dateCreated() {
       return (
-        this.player.created
-        && new Date(this.player.created).toLocaleString('default', { month: 'short', year: 'numeric' })
+        this.player.created &&
+        new Date(this.player.created).toLocaleString('default', { month: 'short', year: 'numeric' })
       );
     }
 
@@ -75,10 +75,15 @@
 
   .player-card {
     border: 0px;
+    color: $white;
+    transition: background-color 0.3s ease;
+    padding-right: 2rem;
   }
-
-  .bottom-border {
-    border-top-color: $light-blue;
+  .player-card:hover {
+    background-color: #21508c;
+  }
+  a:hover {
+    text-decoration: none;
   }
 
   .player-image {
@@ -93,8 +98,10 @@
   }
 
   .icons {
+    font-weight: bold;
     display: flex;
-    right: 0px;
+    top: 0.5rem;
+    right: 1rem;
     float: right;
     position: absolute;
     height: 80%;
@@ -123,7 +130,6 @@
       max-width: 100px;
     }
     font-weight: bold;
-    margin-top: 20px;
     margin-left: 5px;
     color: white;
     text-decoration: none;

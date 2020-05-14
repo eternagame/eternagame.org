@@ -33,7 +33,7 @@
       <Pagination :key="pageData.section3.length" />
     </div>
     <div v-else>
-      <h1>{{ $t('loading-text') }}</h1>
+      <Preloader/>
     </div>
 
     <template #sidebar="{ isInSidebar }">
@@ -61,6 +61,7 @@
   import Carousel from '@/components/Common/Carousel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import 'swiper/css/swiper.css';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
 
   const INITIAL_NUMBER = 18;
 
@@ -91,6 +92,7 @@
       BIconChevronLeft,
       Carousel,
       Pagination,
+      Preloader,
     },
   })
   export default class QuestsExplore extends Mixins(PageDataMixin(fetchPageData)) {

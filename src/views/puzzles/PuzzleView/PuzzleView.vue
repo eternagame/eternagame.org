@@ -86,9 +86,6 @@
     },
   })
   export default class PuzzleView extends Mixins(PageDataMixin(fetchPageData)) {
-    redirect(path: string) {
-      this.$router.push(path);
-    }
 
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 

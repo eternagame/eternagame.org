@@ -24,7 +24,7 @@
             variant="primary"
             size="lg"
             style="margin-right:10px"
-            :href="`${puzzleRoute}${nextPuzzleId}`"
+            :href="`${puzzleRoute}${nextPuzzleId}/`"
             >{{ $t('player-home:next-puzzle') }}</b-button
           >
           <b-button

@@ -41,6 +41,7 @@
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import SmartLink from '@/components/Common/SmartLink.vue';
+  import Utils from '@/utils/utils';
 
   @Component({
     components: {
@@ -77,7 +78,7 @@
     private current_puzzle!: string;
 
     get nav() {
-      return this.toGame.startsWith('/') ? 'to' : 'href';
+      return Utils.isLinkInternal(this.toGame) ? 'to' : 'href';
     }
 
     get toGame() {

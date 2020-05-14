@@ -60,7 +60,7 @@
 
   const NEWS_FEED_ROUTE = '/get/?type=newsfeed&filter=all';
 
-  const NOTIFICATIONS_READ = '/post/?type=notification_read';
+  const NOTIFICATIONS_READ = '/post/';
 
   const USER_ROUTE = '/get/?type=user&uid=';
 
@@ -79,7 +79,7 @@
     private notificationsToShow = NUMBER_NOTIFICATIONS_TO_SHOW;
 
     shown() {
-      axios.post(NOTIFICATIONS_READ);
+      axios.post(NOTIFICATIONS_READ, new URLSearchParams({ type: 'notification_read' }));
     }
 
     mounted() {

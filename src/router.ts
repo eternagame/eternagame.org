@@ -130,5 +130,9 @@ export default function createRouter() {
     next();
   });
 
+  router.afterEach(() => {
+    gtag('config', 'UA-17383892-2');
+  });
+
   return router;
 }

@@ -36,7 +36,7 @@
   import axios from 'axios';
   import TermsAndConditionsText from '@/views/terms/TermsAndConditionsText.vue';
 
-  const ROUTE = '/post/?type=survey&action=update&value=EULA_Agree&uid=';
+  const ROUTE = '/post/';
 
   @Component({
     components: { TermsAndConditionsText },
@@ -58,7 +58,14 @@
     }
 
     acceptTerms() {
-      if (this.status) axios.post(ROUTE + this.$vxm.user.uid);
+      if (this.status) {
+ axios.post(ROUTE, new URLSearchParams({
+        type: 'survey',
+        action: 'update',
+        value: 'EULA_AGREE',
+        uid: String(this.$vxm.user.uid),
+      }));
+}
       this.$refs.modal.hide();
     }
   }

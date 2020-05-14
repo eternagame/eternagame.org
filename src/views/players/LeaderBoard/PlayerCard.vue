@@ -49,10 +49,6 @@
       return this.player.points && parseInt(this.player.points, 10).toLocaleString();
     }
 
-    goToDetailPage() {
-      this.$router.push(`/players/${this.player.uid}`);
-    }
-
     private rank: string = '';
 
     created() {

@@ -18,7 +18,7 @@
     <h2>
       {{ $t('nav-bar:puzzles') }}
     </h2>
-    <Gallery sm="3" md="3">
+    <Gallery sm="3" md="3" v-if="pageData && pageData.puzzles">
       <PuzzleCard
         v-for="puzzle in pageData.puzzles"
         :key="puzzle.id"
@@ -27,6 +27,9 @@
         :cleared="puzzleCleared(puzzle.id)"
       />
     </Gallery>
+    <div v-else>
+      <Preloader />
+    </div>
     <template #sidebar="{ isInSidebar }">
       <SidebarPanel
         :isInSidebar="isInSidebar"
@@ -61,6 +64,7 @@
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
 
   Vue.use(VueDOMPurifyHTML);
 
@@ -79,6 +83,7 @@
       PuzzleCard,
       QuestCard,
       SidebarPanel,
+      Preloader,
     },
   })
   export default class QuestView extends Mixins(PageDataMixin(fetchPageData)) {

@@ -6,17 +6,24 @@
       </p>
 
       <h2>{{ $t('pubs:player-title') }}</h2>
-      <Gallery :sm="12" :md="12">
+
+      <Gallery v-if="pageData.playerpubslist" :sm="12" :md="12">
         <PubsCard v-for="pub in pageData.playerpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
+      <div v-else>
+        <Preloader />
+      </div>
 
       <h2>{{ $t('pubs:researcher-title') }}</h2>
-      <Gallery :sm="12" :md="12">
+      <Gallery v-if="pageData.researcherpubslist" :sm="12" :md="12">
         <PubsCard v-for="pub in pageData.researcherpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
+      <div v-else>
+        <Preloader />
+      </div>
     </div>
     <div v-else>
-      <Preloader/>
+      <Preloader />
     </div>
 
     <template #sidebar="{ isInSidebar }">

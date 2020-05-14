@@ -27,7 +27,7 @@
       </Carousel>
     </div>
     <div v-else>
-      <Preloader/>
+      <Preloader />
     </div>
   </EternaPage>
 </template>
@@ -62,10 +62,6 @@
   })
   export default class ExperiencedPlayerView extends Vue {
     @Prop({}) pageData!: Object;
-
-    redirect(path: string) {
-      this.$router.push(path);
-    }
 
     get masteringEterna() {
       return get(this.pageData, 'achievement_roadmap', [])

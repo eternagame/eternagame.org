@@ -7,7 +7,7 @@
       <Pagination :key="pageData.entries.length" />
     </div>
     <div v-else>
-      <Preloader/>
+      <Preloader />
     </div>
 
     <template #sidebar="{ isInSidebar }">
@@ -76,10 +76,6 @@
     },
   })
   export default class NewsExplore extends Mixins(PageDataMixin(fetchPageData)) {
-    redirect(path: string) {
-      this.$router.push(path);
-    }
-
     private tags: string[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
 
     private options: Option[] = [

@@ -5,18 +5,19 @@
     :img-src="imageURL"
     style=" background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0))"
     ><div class="banner-text">
-      <h1 class="banner-title">{{ title }}</h1>
-      <img class="img" :src="puzzleImageURL" />
+      <h1 class="banner-title">Puzzle of the Week</h1>
+      <h2 class="banner-subtitle d-none d-sm-block">{{ title }}</h2>
+      <img class="img d-none d-lg-block" :src="puzzleImageURL" />
 
       <b-button variant="primary" class="enter-lab" size="lg" :href="`/puzzles/${nid}`">{{
         $t('puzzle-slide:solve-now')
       }}</b-button>
-      <router-link to="/puzzles/?search=POTW">
+      <router-link class="d-none d-sm-block" to="/puzzles/?search=POTW">
         <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
           <i class="arrow_right"></i>{{ $t('puzzle-slide:past-potw') }}
         </p>
       </router-link>
-      <router-link to="/puzzles/?search=COVID19" class="link">
+      <router-link to="/puzzles/?search=COVID19" class="link d-none d-sm-block">
         <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
           <i class="arrow_right"></i>{{ $t('puzzle-slide:past-training') }}
         </p>
@@ -67,6 +68,11 @@
     float: right;
     width: 400;
     height: 400;
+  }
+
+  ::v-deep img {
+    min-height: 300px;
+    object-fit: cover;
   }
 
   .banner-title {

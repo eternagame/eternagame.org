@@ -2,7 +2,7 @@
   <div>
     <UserIcon class="float-lg-right icon" />
     <BellIcon class="float-lg-right icon" />
-    <ChatIcon class="float-lg-right icon" :isInSideBar="isInSideBar"  style="float:left;"/>
+    <ChatIcon class="float-lg-right icon" :isInSideBar="isInSideBar"/>
   </div>
 </template>
 <script lang="ts">

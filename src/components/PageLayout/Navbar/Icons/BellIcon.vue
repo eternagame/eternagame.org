@@ -26,7 +26,7 @@
           style="padding-left:0px;margin-left:0px"
           :to="
             item.type && item.type === 'message'
-              ? `/feed#${item.created}`
+              ? `/feed#${item.time}`
               : `/news/${item.nid || item.id}`
           "
         >
@@ -35,14 +35,17 @@
               class="d-none d-sm-block rounded-circle player-image-large"
               :src="'/' + item.img"
               v-if="item.img"
-              style="margin-right:10px;position:relative;top:15px"
+              style="margin-right:10px;position:relative;top:10px;width:30px;height:30px"
             />
             <div class="description">
-              {{ item.name || $t('loading-text') }}
-              <!-- TODO show replies differently -->
-              {{ item.type === 'message' ? $t('bell-icon:message') : $t('bell-icon:news-post') }}
-              <b v-if="item.display" v-dompurify-html="strippedBody(item.display)"> </b>
-              <span v-else>{{ $t('loading-text') }}</span>
+              <span v-if="item.name">
+                {{ item.name }}
+                {{
+                  item.type === 'message' ? $t('bell-icon:message') : $t('bell-icon:news-post')
+                }}</span
+              >
+              <b v-if="item.display" v-dompurify-html="strippedBody(` ${item.display}`)"> </b>
+              <b v-else> {{ $t('loading-text') }}</b>
             </div>
           </div>
         </b-dropdown-item>
@@ -69,7 +72,7 @@
 
   const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user';
 
-  const NEWS_FEED_ROUTE = '/get/?type=newsfeed&filter=all';
+  const NEWS_FEED_ROUTE = '/get/?type=newsfeed&combined=true&filter=all';
 
   const NOTIFICATIONS_READ = '/post/';
 
@@ -113,36 +116,23 @@
       if (this.calledFetch) return;
       // Note: newsfeed endpoint requires credentials
       const response = await axios.get(NEWS_FEED_ROUTE, { withCredentials: true });
-      const { blogslist, newsfeeds, notifications } = response.data.data;
+      const res = response.data.data;
 
-      const articles = [
-        blogslist && blogslist,
-        newsfeeds && newsfeeds,
-        notifications && Utils.getMessageData(notifications),
-      ]
-        .flat()
-        .filter(article => !!article) as Array<NewsItem>;
+      const articles = Utils.getMessageData(res.entries);
 
       // First, just fill in with existing articles to have something to show.
-      this.notifications = articles.slice(0, NUMBER_NOTIFICATIONS_TO_SHOW);
-
-      // Then make a second request for the individual author profiles.
-      this.notifications = (await Promise.all(
-        this.notifications.map(this.fillAuthorProfile),
-      )) as Array<NewsItem>;
-    }
-
-    async fillAuthorProfile(article: NewsItem) {
-      const { user } = (await axios.get(USER_ROUTE + article.uid || article.sender)).data.data;
-      return user
-        ? {
-            ...article,
-            img: get(article, 'target2_picture', user.picture),
-            name: get(article, 'target2_name', user.name),
-            type: get(article, 'type', 'news'),
-            display: article.content || article.title,
-          }
-        : article;
+      this.notifications = articles.slice(0, NUMBER_NOTIFICATIONS_TO_SHOW).map(article => {
+        const latestMessage = article.type === 'notifications' && Utils.getLatestMessage(article);
+        return {
+          img: get(article, 'target2_picture'),
+          name: get(article, 'target2_name'),
+          type: get(article, 'type', 'news'),
+          time: article.updated_time || article.timestamp || article.created,
+          display: latestMessage ? latestMessage.content : article.content || article.title,
+          ...article,
+          ...latestMessage,
+        };
+      });
     }
   }
 </script>
@@ -155,8 +145,8 @@
   }
 
   img {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
   }
 
   ::v-deep a {

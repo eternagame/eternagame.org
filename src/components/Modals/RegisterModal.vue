@@ -141,6 +141,7 @@
     async fbLogIn() {
       this.$bvModal.hide('modal-register');
       const data = await this.$vxm.user.fbLogin(this.fb);
+      this.$router.push('/');
       console.log(data);
     }
 

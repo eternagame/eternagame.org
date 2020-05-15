@@ -80,7 +80,7 @@
 
   const USER_ROUTE = '/get/?type=user&uid=';
 
-  const NUMBER_NOTIFICATIONS_TO_SHOW = 40;
+  const NUMBER_NOTIFICATIONS_TO_SHOW = 4;
 
   @Component({
     components: {
@@ -130,7 +130,9 @@
           name: get(article, 'target2_name'),
           type: get(article, 'type', 'news'),
           time: article.updated_time || article.timestamp || article.created,
-          display: latestMessage ? latestMessage.content : article.content || article.title,
+          display: latestMessage
+            ? latestMessage.content.body || latestMessage.content
+            : article.content || article.title,
           ...article,
           ...latestMessage,
         };

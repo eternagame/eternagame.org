@@ -41,7 +41,9 @@
               <span v-if="item.name">
                 {{ item.name }}
                 {{
-                  item.type === 'message' ? $t('bell-icon:message') : $t('bell-icon:news-post')
+                  item.type === 'notifications'
+                    ? $t('bell-icon:message')
+                    : $t('bell-icon:news-post')
                 }}</span
               >
               <b v-if="item.display" v-dompurify-html="strippedBody(` ${item.display}`)"> </b>
@@ -78,7 +80,7 @@
 
   const USER_ROUTE = '/get/?type=user&uid=';
 
-  const NUMBER_NOTIFICATIONS_TO_SHOW = 5;
+  const NUMBER_NOTIFICATIONS_TO_SHOW = 40;
 
   @Component({
     components: {

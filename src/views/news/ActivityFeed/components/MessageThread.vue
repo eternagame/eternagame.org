@@ -1,6 +1,5 @@
 <template>
   <div>
-    <a v-if="timestamp" :name="timestamp"></a>
     <div class="page-content card">
       <MessageItem
         v-for="item in messages"

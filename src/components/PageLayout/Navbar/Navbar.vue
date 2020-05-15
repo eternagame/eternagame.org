@@ -78,9 +78,7 @@
         wiki: 'http://eternawiki.org',
         groups: `${process.env.VUE_APP_API_BASE_URL}/web/group/`,
       },
-      news: {
-        news: '/news',
-      },
+      news: '/news',
       about: {
         overview: '/about',
         publications: '/about/publications',

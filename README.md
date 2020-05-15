@@ -31,7 +31,6 @@ For now, please add `VUE_APP_ENV="client"` into your `.env.local` file.
 
 ## Contributing
 
-Because of the structure of the project, we currently work with [Clubhouse](https://app.clubhouse.io/vital-mind-media/stories/space/441/everything) instead of github issues.
-If you want to contribute, please join the [Eterna player-development slack](https://join.slack.com/t/eternaplayerdev/shared_invite/enQtODk1Njk0MTQxMDQ2LWFmZjFhNDMwM2NlNjkyMzYxZDNjOTNiNzhhNTY0MDcxNWNlOWE4YjkyZmQzZWY1YmEzZmFlMmU5NWM0MWFjZjM), where we can coordinate working on the project.
+If you want to contribute, please post a bug report, post a feature report, or work on one of the existing github issues.
 
 Our work happens on the `dev` branch; please pull and submit PRs against that branch. Thanks!

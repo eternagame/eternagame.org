@@ -83,8 +83,8 @@ export default function createUserStore($http: AxiosInstance) {
         const userDataResponse = (await axios.get(`/get/?type=my_user&uid=${uid}`)).data.data;
         this.userDetails = userDataResponse.user;
         this.hasLabAccess = Boolean(
-          Number(this.userDetails.ten_tools_level) >= 8
-            || Number(this.userDetails.is_lab_member_legacy),
+          Number(this.userDetails.ten_tools_level) >= 8 ||
+            Number(this.userDetails.is_lab_member_legacy),
         );
       } else {
         throw new Error(`Authentication response malformed: ${data}`);

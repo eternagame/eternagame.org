@@ -5,6 +5,10 @@ export default {
   getPuzzleCloudThumbnail(nid: string) {
     return `https://s3.amazonaws.com/eterna/puzzle_cloud_thumbnails/thumbnail${nid}.png`;
   },
+  getMessageData(articles) {
+    const getMessages = entry => entry.message.map(message => ({ ...message, entry }));
+    return articles.map(entry => (entry.message ? getMessages(entry) : entry)).flat();
+  },
   getPuzzleLink(key: string) {
     switch (key) {
       case 'register':
@@ -104,8 +108,6 @@ export default {
     return null;
   },
   isLinkInternal(link: string) {
-    return link.startsWith('/')
-      && !link.startsWith('/web/')
-      && !link.startsWith('/game/');
+    return link.startsWith('/') && !link.startsWith('/web/') && !link.startsWith('/game/');
   },
 };

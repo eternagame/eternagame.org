@@ -2,7 +2,11 @@
   <div class="d-flex align-items-start">
     <img src="@/assets/navbar/DefaultIcon.svg" />
     <div class="ml-2 mb-4">
-      <p class="font-weight-bold mb-0">{{ name }}</p>
+      <router-link :to="`/players/${uid}`">
+        <p class="commenter-name mb-0">
+          {{ name }}
+        </p></router-link
+      >
       <p style="font-size: 0.6rem">{{ created }}</p>
       <p v-dompurify-html="comment">{{ comment }}</p>
       <p @click="deleteComment()" v-if="canDelete" style="cursor:pointer">
@@ -34,19 +38,27 @@
     @Prop()
     private comment!: string;
 
+    @Prop()
+    private uid!: string;
+
     get canDelete() {
       return this.$vxm.user.uid === this.comment.cid;
     }
 
     deleteComment() {
       axios
-        .post(ADD_COMMENT_ROUTE, new URLSearchParams({ type: 'delete_comment', cid: this.comment.cid }))
+        .post(
+          ADD_COMMENT_ROUTE,
+          new URLSearchParams({ type: 'delete_comment', cid: this.comment.cid }),
+        )
         .then(res => window.location.reload());
     }
   }
 </script>
 
 <style scoped lang="scss">
+  @import '@/styles/global.scss';
+
   .header-content {
     bottom: 10px;
     left: 10px;
@@ -54,5 +66,10 @@
 
   .body {
     padding: 40px 30px 5px;
+  }
+
+  .commenter-name {
+    font-weight: bold;
+    color: $white;
   }
 </style>

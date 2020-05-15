@@ -24,16 +24,26 @@
           v-for="item in notifications"
           :key="item.nid || item.id"
           style="padding-left:0px;margin-left:0px"
-          :to="`/news/${item.nid || item.id}`"
+          :to="
+            item.type && item.type === 'message'
+              ? `/feed#${item.created}`
+              : `/news/${item.nid || item.id}`
+          "
         >
           <div class="d-flex">
             <img
               class="d-none d-sm-block rounded-circle player-image-large"
               :src="'/' + item.img"
               v-if="item.img"
-              style="margin-right:10px"
+              style="margin-right:10px;position:relative;top:15px"
             />
-            <div v-dompurify-html="item.display || item.title" class="description"></div>
+            <div class="description">
+              {{ item.name || $t('loading-text') }}
+              <!-- TODO show replies differently -->
+              {{ item.type === 'message' ? $t('bell-icon:message') : $t('bell-icon:news-post') }}
+              <b v-if="item.display" v-dompurify-html="strippedBody(item.display)"> </b>
+              <span v-else>{{ $t('loading-text') }}</span>
+            </div>
           </div>
         </b-dropdown-item>
         <b-dropdown-item v-if="notifications.length == 0">
@@ -52,6 +62,7 @@
   import PageDataMixin from '@/mixins/PageData';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
   import { NewsItem } from '@/types/common-types';
+  import Utils from '@/utils/utils';
   import NavbarIcon from './NavbarIcon.vue';
 
   Vue.use(VueDOMPurifyHTML);
@@ -74,6 +85,8 @@
   export default class BellIcon extends Vue {
     private notificationsCount = [];
 
+    private calledFetch = false;
+
     private notifications: Array<NewsItem> = [];
 
     private notificationsToShow = NUMBER_NOTIFICATIONS_TO_SHOW;
@@ -87,9 +100,17 @@
         this.notificationsCount = response.data.data.noti_count;
       });
       this.fetchData();
+      this.calledFetch = true;
+    }
+
+    // TODO consolidate
+    strippedBody(text: string): string {
+      // For now, remove all html tags, since <ul> and <img> can break formatting.
+      return text && text.replace(/(<([^>]+)>)/gi, '');
     }
 
     async fetchData() {
+      if (this.calledFetch) return;
       // Note: newsfeed endpoint requires credentials
       const response = await axios.get(NEWS_FEED_ROUTE, { withCredentials: true });
       const { blogslist, newsfeeds, notifications } = response.data.data;
@@ -97,7 +118,7 @@
       const articles = [
         blogslist && blogslist,
         newsfeeds && newsfeeds,
-        notifications && notifications,
+        notifications && Utils.getMessageData(notifications),
       ]
         .flat()
         .filter(article => !!article) as Array<NewsItem>;
@@ -112,14 +133,14 @@
     }
 
     async fillAuthorProfile(article: NewsItem) {
-      const { user } = (await axios.get(USER_ROUTE + article.uid)).data.data;
-
+      const { user } = (await axios.get(USER_ROUTE + article.uid || article.sender)).data.data;
       return user
         ? {
             ...article,
-            name: user.name,
-            img: user.picture,
-            display: `${get(user, 'name')} published a news post: <b>${article.title}</b>`,
+            img: get(article, 'target2_picture', user.picture),
+            name: get(article, 'target2_name', user.name),
+            type: get(article, 'type', 'news'),
+            display: article.content || article.title,
           }
         : article;
     }
@@ -133,7 +154,7 @@
     margin-left: -0.2rem;
   }
 
-  ::v-deep img {
+  img {
     width: 20px;
     height: 20px;
   }

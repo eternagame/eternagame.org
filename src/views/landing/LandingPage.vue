@@ -2,6 +2,31 @@
   <PlayerHome :pageData="pageData" v-if="loggedIn" />
   <div class="page" v-else>
     <VideoSection />
+
+    <!-- Covid-19 Promo (TODO: localize?)-->
+    <div class="container bs-docs-section mt-5">
+      <div class="media row">
+        <img
+          src="/puzzle-progression/images/covid-hype.jpeg"
+          class="align-self-center mr-3 mb-3 col-sm-12 col-lg-7"
+          alt="Fight COVID-19 with Eterna"
+        />
+        <div class="media-body p-4">
+          <h3 class="mt-0" style="font-weight: bold;">Eterna takes on COVID-19</h3>
+          <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
+          <p style="font-size: 22px;">
+            With the onset of the COVID-19 pandemic, the Eterna project is looking to harness online
+            gamers toward a solution. Their mission? To develop a safe mRNA vaccine as well as
+            future challenges to create new antivirals and improved diagnostics. For more info, see
+            the <router-link to="/news/9804036/">announcement</router-link> and
+            <a href="https://challenges.eternagame.org/">crowdfunding campaign</a>.
+          </p>
+          <p class="mb-0"></p>
+        </div>
+      </div>
+    </div>
+    <!-- End Promo -->
+
     <DocsSection />
   </div>
 </template>

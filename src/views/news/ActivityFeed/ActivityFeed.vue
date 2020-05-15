@@ -1,13 +1,14 @@
 <template>
   <EternaPage :title="$t('activity-feed:title')">
     <div v-if="pageData">
-      <Gallery :sm="12" :md="12">
+      <MessageCompose />
+      <Gallery :sm="12" :md="12" style="margin-top:25px">
         <ActivityCard v-for="article in news" :key="article.nid" v-bind="article" />
       </Gallery>
       <Pagination :key="news.length" />
     </div>
     <div v-else>
-      <Preloader/>
+      <Preloader />
     </div>
   </EternaPage>
 </template>
@@ -25,7 +26,9 @@
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
+  import Utils from '@/utils/utils';
   import ActivityCard from './components/ActivityCard.vue';
+  import MessageCompose from './components/MessageCompose.vue';
 
   const INITIAL_NUMBER = 18;
 
@@ -40,7 +43,7 @@
         },
       })
     ).data.data;
-    return res;
+    return res.entries;
   }
   @Component({
     components: {
@@ -51,11 +54,12 @@
       ActivityCard,
       Pagination,
       Preloader,
+      MessageCompose,
     },
   })
   export default class ActivityFeed extends Mixins(PageDataMixin(fetchPageData)) {
     get news() {
-      return get(this.pageData, 'entries', []);
+      return get(this, 'pageData', []);
     }
   }
 </script>

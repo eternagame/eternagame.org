@@ -1,50 +1,94 @@
 <template>
-  <router-link :to="`/news/${nid}`" v-if="body">
+  <MessageThread
+    v-if="isNotification"
+    :messages="message"
+    :senderPicture="target2_picture"
+    :senderName="target2_name"
+    :targetName="target_name"
+    :targetPicture="target_picture"
+  >
+  </MessageThread>
+  <SmartLink v-else-if="body || content" :link="link">
     <div class="page-content card">
       <div class="container">
         <div class="row justify-content-between">
           <div class="col p-0">
             <!-- Note: Any space between these tags will misalign the Type tag. -->
-            <div class="b" :style="{ color: typeColor }">{{ formattedType }}</div>
+            <div :style="{ color: typeColor }">
+              <b>{{ formattedType }}</b>
+            </div>
           </div>
           <div class="col p-0" style="text-align:right">
-            <div class="b" style="opacity: 0.5;">{{ created }}</div>
+            <div style="opacity: 0.5;">
+              <b>{{ timeCreated }}</b>
+            </div>
           </div>
         </div>
-        <div class="row d-flex">
-          <img
-            class="d-none d-sm-block rounded-circle player-image-large player-image"
-            :src="'/' + img"
-            v-if="img"
-            style="margin-right:10px"
-          />
-        </div>
-        <h3 class="card-title">{{ title }}</h3>
+
+        <h3 class="card-title" v-if="title">{{ title }}</h3>
+        <div class="row d-flex" v-else style="margin-top:10px" />
         <div v-dompurify-html="strippedBody" class="text" />
+        <div v-if="commentcount" class="d-flex">
+          <img src="@/assets/comment-count.svg" />
+          <p class="icon-text">{{ commentcount }}</p>
+        </div>
       </div>
     </div>
-  </router-link>
+  </SmartLink>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
+  import SmartLink from '@/components/Common/SmartLink.vue';
+  import MessageThread from './MessageThread.vue';
 
   Vue.use(VueDOMPurifyHTML);
   @Component({
-    components: {},
+    components: { SmartLink, MessageThread },
   })
   export default class ActivityCard extends Vue {
     @Prop() private created!: string;
+
+    @Prop() private timestamp!: string;
+
+    @Prop() private type!: string;
 
     @Prop() private title!: string;
 
     @Prop() private body!: string;
 
+    @Prop() private entry!: object;
+
+    @Prop() private message!: object;
+
+    @Prop() private content!: string;
+
     @Prop() private nid!: string;
+
+    @Prop() private commentcount!: string;
+
+    @Prop() private target2_picture!: string;
+
+    @Prop() private target2_name!: string;
+
+    @Prop() private target_name!: string;
+
+    @Prop() private target_picture!: string;
 
     @Prop({ default: 'blogs' }) private type!: string;
 
-    private img = 'sites/default/files/pictures/picture-48290.png';
+    private link = this.nid && `/news/${this.nid}`;
+
+    private isNotification = this.type === 'notifications';
+
+    get timeCreated() {
+      if (!this.isNotification) return this.created;
+      return new Date(Number(this.created) * 1000).toLocaleString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+    }
 
     get formattedType(): string {
       const formatted = this.type.toUpperCase();
@@ -55,9 +99,11 @@
       return formatted;
     }
 
+    // TODO consolidate
     get strippedBody(): string {
       // For now, remove all html tags, since <ul> and <img> can break formatting.
-      return this.body && this.body.replace(/(<([^>]+)>)/gi, '');
+      const text = this.content || this.body;
+      return text && text.replace(/(<([^>]+)>)/gi, '');
     }
 
     get typeColor() {
@@ -79,17 +125,6 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  .player-image {
-    width: 39px;
-    height: 39px;
-  }
-
-  .btn {
-    display: inline-block;
-    width: 48%;
-    margin-bottom: 0px;
-  }
-
   ::v-deep .card-body {
     padding: 11.25px !important;
   }
@@ -101,13 +136,15 @@
     color: $white;
   }
 
-  .b {
+  .icon-text {
+    margin-left: 7px;
+    position: relative;
+    top: 7px;
     font-weight: bold;
   }
 
   .card {
     color: $white;
-
     padding: 1rem 2rem;
     margin-bottom: 1.5rem;
     max-height: 600px;

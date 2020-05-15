@@ -1,6 +1,6 @@
 <template>
   <EternaPage :title="$t('chat:title')">
-    <div id="full-page-chat-container" ref="chatContainer" style="width:100%; height:505px;"></div>
+    <div id="full-page-chat-container" ref="chatContainer" style="width:100%;"></div>
   </EternaPage>
 </template>
 

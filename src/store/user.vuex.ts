@@ -36,7 +36,7 @@ export default function createUserStore($http: AxiosInstance) {
       const response = await $http.get('/eterna_logout.php');
       window.localStorage.setItem('loggedIn', 'false');
       this.triedAuthenticating = false;
-      await FB.logout();
+      await this.FB.logout();
     }
 
     @action() async fbLogin(FB) {

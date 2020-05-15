@@ -2,10 +2,12 @@
   <MessageThread
     v-if="isNotification"
     :messages="message"
-    :senderPicture="target2_picture"
-    :senderName="target2_name"
-    :targetName="target_name"
-    :targetPicture="target_picture"
+    :myPicture="target2_picture"
+    :myName="target2_name"
+    :myUid="target2_uid"
+    :theirName="target_name"
+    :theirPicture="target_picture"
+    :theirUid="target_uid"
   >
   </MessageThread>
   <SmartLink v-else-if="body || content" :link="link">
@@ -69,9 +71,13 @@
 
     @Prop() private target2_picture!: string;
 
+    @Prop() private target2_uid!: string;
+
     @Prop() private target2_name!: string;
 
     @Prop() private target_name!: string;
+
+    @Prop() private target_uid!: string;
 
     @Prop() private target_picture!: string;
 

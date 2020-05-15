@@ -26,7 +26,7 @@
   // @ts-ignore
   import get from 'lodash.get';
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
-  import { Chat } from 'eterna-chat';
+  import { Chat } from 'eterna-chat-wrapper';
 
   import NavbarIcon from './NavbarIcon.vue';
 

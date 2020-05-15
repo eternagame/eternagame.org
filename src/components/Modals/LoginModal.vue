@@ -91,6 +91,7 @@
 
     private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
+    // TODO consolidate
     async fbLogIn() {
       this.$bvModal.hide('modal-login');
       const data = await this.$vxm.user.fbLogin(this.fb);
@@ -108,6 +109,7 @@
       rePassword: BFormInput;
     };
 
+    // TODO consolidate
     handleSdkInit({ FB, scope }) {
       console.log('logged in', FB);
       this.FB = FB;

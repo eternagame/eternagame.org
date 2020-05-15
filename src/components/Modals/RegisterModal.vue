@@ -76,7 +76,11 @@
       >
         {{ $t('register-modal:main-action') }}
       </b-button>
-      <v-facebook-login :app-id="fbID" @login="fbLogIn()"></v-facebook-login>
+      <v-facebook-login
+        @sdk-init="handleSdkInit"
+        :app-id="fbID"
+        @login="fbLogIn()"
+      ></v-facebook-login>
     </b-form>
   </b-modal>
 </template>
@@ -119,16 +123,24 @@
 
     attemptNumber: number = 0;
 
+    fb = null;
+
     $refs!: {
       modal: BModal;
       rePassword: BFormInput;
     };
 
-    fbLogIn() {
-      axios.post(FB_LOGIN_ROUTE).then(res => {
-        this.$bvModal.hide('modal-login');
-        this.$router.push('/');
-      });
+    // TODO consolidate
+    handleSdkInit({ FB, scope }) {
+      console.log('logged in', FB);
+      this.FB = FB;
+      // this.scope = scope;
+    }
+
+    // TODO consolidate
+    async fbLogIn() {
+      this.$bvModal.hide('modal-register');
+      const data = await this.$vxm.user.fbLogin(this.fb);
     }
 
     async tryRegister(event: Event) {

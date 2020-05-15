@@ -4,10 +4,10 @@
       <Gallery>
         <LabCard v-for="lab in pageData.labs" :key="lab.nid" :lab="lab" />
       </Gallery>
-      <Pagination :key="pageData.labs.length" />
+      <Pagination :key="pageData.labs && pageData.labs.length" />
     </div>
     <div v-else>
-      <Preloader/>
+      <Preloader />
     </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel v-if="isInSidebar" :placeholder="$t('search:labs')" :isInSidebar="isInSidebar" />

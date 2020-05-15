@@ -41,7 +41,9 @@ export default function createUserStore($http: AxiosInstance) {
 
     @action() async fbLogin(FB) {
       this.FB = FB;
-      const { data } = (await $http.post('/login', { type: 'login', method: 'facebook' })).data;
+      const { data } = (
+        await $http.post('/login/', new URLSearchParams({ type: 'login', method: 'facebook' }))
+      ).data;
       if (data.success) {
         this.loggedIn = true;
         window.localStorage.setItem('loggedIn', 'true');

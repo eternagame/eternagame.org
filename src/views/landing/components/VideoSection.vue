@@ -13,8 +13,10 @@
             <div style="text-align: center;">
               <h2 class="text-block">
                 {{ $t('video-section:heading') }}
-                <strong>{{ $t('video-section:heading-stress') }}</strong
-                >.
+                <strong>
+                  {{ $t('video-section:heading-stress') }}
+                </strong>
+                .
               </h2>
               <h4 class="text-block">
                 {{ $t('video-section:sub-heading') }}
@@ -86,6 +88,11 @@
   .text-block {
     margin-top: 18.75px;
     margin-bottom: 26.25px;
+  }
+
+  h2,
+  h4 {
+    font-weight: normal;
   }
 
   .button {

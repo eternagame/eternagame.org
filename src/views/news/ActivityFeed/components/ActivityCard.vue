@@ -1,28 +1,32 @@
 <template>
-  <SmartLink :link="nid && `/news/${nid}`" v-if="body || content">
-    <a v-if="timestamp" :name="timestamp"></a>
+  <MessageThread
+    v-if="isNotification"
+    :messages="message"
+    :senderPicture="target2_picture"
+    :senderName="target2_name"
+    :targetName="target_name"
+    :targetPicture="target_picture"
+  >
+  </MessageThread>
+  <SmartLink v-else-if="body || content" :link="link">
     <div class="page-content card">
       <div class="container">
         <div class="row justify-content-between">
           <div class="col p-0">
             <!-- Note: Any space between these tags will misalign the Type tag. -->
-            <div class="b" :style="{ color: typeColor }">{{ formattedType }}</div>
+            <div :style="{ color: typeColor }">
+              <b>{{ formattedType }}</b>
+            </div>
           </div>
           <div class="col p-0" style="text-align:right">
-            <div class="b" style="opacity: 0.5;">{{ timeCreated }}</div>
+            <div style="opacity: 0.5;">
+              <b>{{ timeCreated }}</b>
+            </div>
           </div>
         </div>
 
         <h3 class="card-title" v-if="title">{{ title }}</h3>
-        <div class="row d-flex" v-else style="margin-top:10px">
-          <img
-            class="d-none d-sm-block rounded-circle player-image"
-            :src="'/' + img"
-            v-if="img"
-            style="margin-right:10px"
-          />
-          <p v-if="name" style="margin-top:5px">{{ name }} sent you a message:</p>
-        </div>
+        <div class="row d-flex" v-else style="margin-top:10px" />
         <div v-dompurify-html="strippedBody" class="text" />
         <div v-if="commentcount" class="d-flex">
           <img src="@/assets/comment-count.svg" />
@@ -36,10 +40,11 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
   import SmartLink from '@/components/Common/SmartLink.vue';
+  import MessageThread from './MessageThread.vue';
 
   Vue.use(VueDOMPurifyHTML);
   @Component({
-    components: { SmartLink },
+    components: { SmartLink, MessageThread },
   })
   export default class ActivityCard extends Vue {
     @Prop() private created!: string;
@@ -54,22 +59,30 @@
 
     @Prop() private entry!: object;
 
+    @Prop() private message!: object;
+
     @Prop() private content!: string;
 
     @Prop() private nid!: string;
 
     @Prop() private commentcount!: string;
 
+    @Prop() private target2_picture!: string;
+
+    @Prop() private target2_name!: string;
+
+    @Prop() private target_name!: string;
+
+    @Prop() private target_picture!: string;
+
     @Prop({ default: 'blogs' }) private type!: string;
 
-    private img = this.entry && this.entry.target2_picture;
+    private link = this.nid && `/news/${this.nid}`;
 
-    private name = this.entry && this.entry.target2_name;
-
-    private isMessage = this.type === 'message';
+    private isNotification = this.type === 'notifications';
 
     get timeCreated() {
-      if (this.type !== 'message') return this.created;
+      if (!this.isNotification) return this.created;
       return new Date(Number(this.created) * 1000).toLocaleString(undefined, {
         year: 'numeric',
         month: 'short',
@@ -86,6 +99,7 @@
       return formatted;
     }
 
+    // TODO consolidate
     get strippedBody(): string {
       // For now, remove all html tags, since <ul> and <img> can break formatting.
       const text = this.content || this.body;
@@ -111,17 +125,6 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  .player-image {
-    width: 30px;
-    height: 30px;
-  }
-
-  .btn {
-    display: inline-block;
-    width: 48%;
-    margin-bottom: 0px;
-  }
-
   ::v-deep .card-body {
     padding: 11.25px !important;
   }
@@ -133,10 +136,6 @@
     color: $white;
   }
 
-  .b {
-    font-weight: bold;
-  }
-
   .icon-text {
     margin-left: 7px;
     position: relative;
@@ -146,7 +145,6 @@
 
   .card {
     color: $white;
-
     padding: 1rem 2rem;
     margin-bottom: 1.5rem;
     max-height: 600px;

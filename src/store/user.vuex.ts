@@ -17,6 +17,8 @@ export default function createUserStore($http: AxiosInstance) {
 
     public loggedIn = false;
 
+    public FB = null;
+
     public hasLabAccess: boolean = false;
 
     public userDetails: Object = {};
@@ -34,10 +36,14 @@ export default function createUserStore($http: AxiosInstance) {
       const response = await $http.get('/eterna_logout.php');
       window.localStorage.setItem('loggedIn', 'false');
       this.triedAuthenticating = false;
+      await this.FB.logout();
     }
 
-    @action() async fbLogin() {
-      const { data } = (await $http.post('/login/?type=login&method=facebook')).data;
+    @action() async fbLogin(FB) {
+      this.FB = FB;
+      const { data } = (
+        await $http.post('/login/', new URLSearchParams({ type: 'login', method: 'facebook' }))
+      ).data;
       if (data.success) {
         this.loggedIn = true;
         window.localStorage.setItem('loggedIn', 'true');

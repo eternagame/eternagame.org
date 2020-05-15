@@ -26,7 +26,7 @@
           style="padding-left:0px;margin-left:0px"
           :to="
             item.type && item.type === 'message'
-              ? `/feed#${item.created}`
+              ? `/feed#${item.time}`
               : `/news/${item.nid || item.id}`
           "
         >
@@ -35,7 +35,7 @@
               class="d-none d-sm-block rounded-circle player-image-large"
               :src="'/' + item.img"
               v-if="item.img"
-              style="margin-right:10px;position:relative;top:15px"
+              style="margin-right:10px;position:relative;top:10px;width:30px;height:30px"
             />
             <div class="description">
               <span v-if="item.name">
@@ -44,7 +44,8 @@
                   item.type === 'message' ? $t('bell-icon:message') : $t('bell-icon:news-post')
                 }}</span
               >
-              <b> {{ item.display || $t('loading-text') }}</b>
+              <b v-if="item.display" v-dompurify-html="strippedBody(` ${item.display}`)"> </b>
+              <b v-else> {{ $t('loading-text') }}</b>
             </div>
           </div>
         </b-dropdown-item>
@@ -87,6 +88,8 @@
   export default class BellIcon extends Vue {
     private notificationsCount = [];
 
+    private calledFetch = false;
+
     private notifications: Array<NewsItem> = [];
 
     private notificationsToShow = NUMBER_NOTIFICATIONS_TO_SHOW;
@@ -100,26 +103,36 @@
         this.notificationsCount = response.data.data.noti_count;
       });
       this.fetchData();
+      this.calledFetch = true;
+    }
+
+    // TODO consolidate
+    strippedBody(text: string): string {
+      // For now, remove all html tags, since <ul> and <img> can break formatting.
+      return text && text.replace(/(<([^>]+)>)/gi, '');
     }
 
     async fetchData() {
+      if (this.calledFetch) return;
       // Note: newsfeed endpoint requires credentials
       const response = await axios.get(NEWS_FEED_ROUTE, { withCredentials: true });
-      console.log(response);
       const res = response.data.data;
 
       const articles = Utils.getMessageData(res.entries);
 
       // First, just fill in with existing articles to have something to show.
-      this.notifications = articles.slice(0, NUMBER_NOTIFICATIONS_TO_SHOW);
-
-      // Then make a second request for the individual author profiles.
-      this.notifications = this.notifications.map(article => ({
-        img: get(article, 'entry.target2_picture'),
-        name: get(article, 'entry.target2_name'),
-        type: get(article, 'type', 'news'),
-        display: article.content || article.title,
-      }));
+      this.notifications = articles.slice(0, NUMBER_NOTIFICATIONS_TO_SHOW).map(article => {
+        const latestMessage = article.type === 'notifications' && Utils.getLatestMessage(article);
+        return {
+          img: get(article, 'target2_picture'),
+          name: get(article, 'target2_name'),
+          type: get(article, 'type', 'news'),
+          time: article.updated_time || article.timestamp || article.created,
+          display: latestMessage ? latestMessage.content : article.content || article.title,
+          ...article,
+          ...latestMessage,
+        };
+      });
     }
   }
 </script>
@@ -132,8 +145,8 @@
   }
 
   img {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
   }
 
   ::v-deep a {

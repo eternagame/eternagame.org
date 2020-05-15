@@ -1,3 +1,12 @@
+function getLatestMessage(entry) {
+  const messages = entry.message;
+  const latestMessage = entry.message.pop();
+  return {
+    ...latestMessage,
+    ...entry,
+  };
+}
+
 export default {
   getPuzzleMiddleThumbnail(nid: string) {
     return `https://s3.amazonaws.com/eterna/puzzle_mid_thumbnails/thumbnail${nid}.png`;
@@ -5,9 +14,11 @@ export default {
   getPuzzleCloudThumbnail(nid: string) {
     return `https://s3.amazonaws.com/eterna/puzzle_cloud_thumbnails/thumbnail${nid}.png`;
   },
+  getLatestMessage,
   getMessageData(articles) {
-    const getMessages = entry => entry.message.map(message => ({ ...message, entry }));
-    return articles.map(entry => (entry.message ? getMessages(entry) : entry)).flat();
+    return articles
+      .map(entry => (entry.type === 'message' ? getLatestMessage(entry) : entry))
+      .flat();
   },
   getPuzzleLink(key: string) {
     switch (key) {

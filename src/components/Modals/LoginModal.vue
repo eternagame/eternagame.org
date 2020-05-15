@@ -56,7 +56,11 @@
           {{ $t('login-modal:register-action') }}
         </span>
       </p>
-      <v-facebook-login :app-id="fbID" @login="fbLogIn()"></v-facebook-login>
+      <v-facebook-login
+        @sdk-init="handleSdkInit"
+        :app-id="fbID"
+        @login="fbLogIn()"
+      ></v-facebook-login>
     </b-form>
   </b-modal>
 </template>
@@ -83,11 +87,13 @@
 
     errorMessage = '';
 
+    fb = null;
+
     private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
     async fbLogIn() {
       this.$bvModal.hide('modal-login');
-      const data = await this.$vxm.user.fbLogin();
+      const data = await this.$vxm.user.fbLogin(this.fb);
       if (data.success) {
         this.form.username = '';
         this.form.password = '';
@@ -101,6 +107,12 @@
       modal: BModal;
       rePassword: BFormInput;
     };
+
+    handleSdkInit({ FB, scope }) {
+      console.log('logged in', FB);
+      this.FB = FB;
+      // this.scope = scope;
+    }
 
     async login() {
       this.$bvModal.hide('modal-login');

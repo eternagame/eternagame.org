@@ -25,7 +25,7 @@
           :key="item.nid || item.id"
           style="padding-left:0px;margin-left:0px"
           :to="
-            item.type && item.type === 'message'
+            item.type && item.type === 'notifications'
               ? `/feed#${item.time}`
               : `/news/${item.nid || item.id}`
           "

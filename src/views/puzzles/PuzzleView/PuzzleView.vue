@@ -10,7 +10,7 @@
             type="submit"
             variant="primary"
             class="submit-button"
-            :href="`${puzzleRoute}${pageData.nid}/`"
+            :href="`${puzzleRoute}${puzzle.id}/`"
           >
             {{ $t('puzzle-view:main-action') }}
           </b-button>
@@ -86,7 +86,6 @@
     },
   })
   export default class PuzzleView extends Mixins(PageDataMixin(fetchPageData)) {
-
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
     get puzzle() {

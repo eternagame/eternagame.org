@@ -7,16 +7,18 @@
       </div>
     </div>
 
-    <div class="row d-flex" style="margin-top:10px">
-      <img
-        class="d-none d-sm-block rounded-circle player-image"
-        :src="'/' + senderPicture"
-        v-if="senderPicture"
-        style="margin-right:10px"
-      />
-      <p v-if="senderName" style="margin-top:5px">{{ senderName }}:</p>
+    <div :style="{ marginLeft: !first && '50px' }">
+      <div class="row d-flex" :style="{ marginTop: '10px' }">
+        <img
+          class="d-none d-sm-block rounded-circle player-image"
+          :src="'/' + senderPicture"
+          v-if="senderPicture"
+          style="margin-right:10px"
+        />
+        <p v-if="senderName" style="margin-top:5px">{{ senderName }}:</p>
+      </div>
+      <div v-dompurify-html="strippedBody(content)" class="text" />
     </div>
-    <div v-dompurify-html="strippedBody(content)" class="text" />
   </div>
 </template>
 <script lang="ts">
@@ -31,6 +33,8 @@
     @Prop() private created!: string;
 
     @Prop() private content: string;
+
+    @Prop() private first: boolean;
 
     @Prop() private sender!: string;
 

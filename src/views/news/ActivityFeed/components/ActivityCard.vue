@@ -14,10 +14,14 @@
         <div class="row justify-content-between">
           <div class="col p-0">
             <!-- Note: Any space between these tags will misalign the Type tag. -->
-            <div class="b" :style="{ color: typeColor }">{{ formattedType }}</div>
+            <div :style="{ color: typeColor }">
+              <b>{{ formattedType }}</b>
+            </div>
           </div>
           <div class="col p-0" style="text-align:right">
-            <div class="b" style="opacity: 0.5;">{{ timeCreated }}</div>
+            <div style="opacity: 0.5;">
+              <b>{{ timeCreated }}</b>
+            </div>
           </div>
         </div>
 
@@ -121,17 +125,6 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  .player-image {
-    width: 30px;
-    height: 30px;
-  }
-
-  .btn {
-    display: inline-block;
-    width: 48%;
-    margin-bottom: 0px;
-  }
-
   ::v-deep .card-body {
     padding: 11.25px !important;
   }
@@ -143,10 +136,6 @@
     color: $white;
   }
 
-  .b {
-    font-weight: bold;
-  }
-
   .icon-text {
     margin-left: 7px;
     position: relative;
@@ -156,7 +145,6 @@
 
   .card {
     color: $white;
-
     padding: 1rem 2rem;
     margin-bottom: 1.5rem;
     max-height: 600px;

@@ -80,7 +80,7 @@
 
   const USER_ROUTE = '/get/?type=user&uid=';
 
-  const NUMBER_NOTIFICATIONS_TO_SHOW = 4;
+  const NUMBER_NOTIFICATIONS_TO_SHOW = 5;
 
   @Component({
     components: {

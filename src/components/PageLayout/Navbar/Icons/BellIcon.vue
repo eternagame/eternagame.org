@@ -38,8 +38,12 @@
               style="margin-right:10px;position:relative;top:15px"
             />
             <div class="description">
-              {{ item.name || $t('loading-text') }}
-              {{ item.type === 'message' ? $t('bell-icon:message') : $t('bell-icon:news-post') }}
+              <span v-if="item.name">
+                {{ item.name }}
+                {{
+                  item.type === 'message' ? $t('bell-icon:message') : $t('bell-icon:news-post')
+                }}</span
+              >
               <b> {{ item.display || $t('loading-text') }}</b>
             </div>
           </div>
@@ -67,7 +71,7 @@
 
   const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user';
 
-  const NEWS_FEED_ROUTE = '/get/?type=newsfeed&filter=all';
+  const NEWS_FEED_ROUTE = '/get/?type=newsfeed&combined=true&filter=all';
 
   const NOTIFICATIONS_READ = '/post/';
 
@@ -101,36 +105,21 @@
     async fetchData() {
       // Note: newsfeed endpoint requires credentials
       const response = await axios.get(NEWS_FEED_ROUTE, { withCredentials: true });
-      const { blogslist, newsfeeds, notifications } = response.data.data;
+      console.log(response);
+      const res = response.data.data;
 
-      const articles = [
-        blogslist && blogslist,
-        newsfeeds && newsfeeds,
-        notifications && Utils.getMessageData(notifications),
-      ]
-        .flat()
-        .filter(article => !!article) as Array<NewsItem>;
+      const articles = Utils.getMessageData(res.entries);
 
       // First, just fill in with existing articles to have something to show.
       this.notifications = articles.slice(0, NUMBER_NOTIFICATIONS_TO_SHOW);
 
       // Then make a second request for the individual author profiles.
-      this.notifications = (await Promise.all(
-        this.notifications.map(this.fillAuthorProfile),
-      )) as Array<NewsItem>;
-    }
-
-    async fillAuthorProfile(article: NewsItem) {
-      const { user } = (await axios.get(USER_ROUTE + article.uid || article.sender)).data.data;
-      return user
-        ? {
-            ...article,
-            img: get(article, 'entry.target2_picture', user.picture),
-            name: get(article, 'entry.target2_name', user.name),
-            type: get(article, 'type', 'news'),
-            display: article.content || article.title,
-          }
-        : article;
+      this.notifications = this.notifications.map(article => ({
+        img: get(article, 'entry.target2_picture'),
+        name: get(article, 'entry.target2_name'),
+        type: get(article, 'type', 'news'),
+        display: article.content || article.title,
+      }));
     }
   }
 </script>

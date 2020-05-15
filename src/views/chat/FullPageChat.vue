@@ -7,7 +7,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import { Chat } from 'eterna-chat';
+  import { Chat } from 'eterna-chat-wrapper';
 
   @Component({
     components: { EternaPage },

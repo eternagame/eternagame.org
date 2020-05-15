@@ -39,8 +39,10 @@
             />
             <div class="description">
               {{ item.name || $t('loading-text') }}
+              <!-- TODO show replies differently -->
               {{ item.type === 'message' ? $t('bell-icon:message') : $t('bell-icon:news-post') }}
-              <b> {{ item.display || $t('loading-text') }}</b>
+              <b v-if="item.display" v-dompurify-html="strippedBody(item.display)"> </b>
+              <span v-else>{{ $t('loading-text') }}</span>
             </div>
           </div>
         </b-dropdown-item>
@@ -83,6 +85,8 @@
   export default class BellIcon extends Vue {
     private notificationsCount = [];
 
+    private calledFetch = false;
+
     private notifications: Array<NewsItem> = [];
 
     private notificationsToShow = NUMBER_NOTIFICATIONS_TO_SHOW;
@@ -96,9 +100,17 @@
         this.notificationsCount = response.data.data.noti_count;
       });
       this.fetchData();
+      this.calledFetch = true;
+    }
+
+    // TODO consolidate
+    strippedBody(text: string): string {
+      // For now, remove all html tags, since <ul> and <img> can break formatting.
+      return text && text.replace(/(<([^>]+)>)/gi, '');
     }
 
     async fetchData() {
+      if (this.calledFetch) return;
       // Note: newsfeed endpoint requires credentials
       const response = await axios.get(NEWS_FEED_ROUTE, { withCredentials: true });
       const { blogslist, newsfeeds, notifications } = response.data.data;
@@ -125,8 +137,8 @@
       return user
         ? {
             ...article,
-            img: get(article, 'entry.target2_picture', user.picture),
-            name: get(article, 'entry.target2_name', user.name),
+            img: get(article, 'target2_picture', user.picture),
+            name: get(article, 'target2_name', user.name),
             type: get(article, 'type', 'news'),
             display: article.content || article.title,
           }

@@ -6,8 +6,18 @@ export default {
     return `https://s3.amazonaws.com/eterna/puzzle_cloud_thumbnails/thumbnail${nid}.png`;
   },
   getMessageData(articles) {
-    const getMessages = entry => entry.message.map(message => ({ ...message, entry }));
-    return articles.map(entry => (entry.message ? getMessages(entry) : entry)).flat();
+    const getLatestMessage = entry => {
+      const messages = entry.message;
+      const latestMessage = entry.message.pop();
+      return {
+        ...latestMessage,
+        ...entry,
+        reply: true,
+      };
+    };
+    return articles
+      .map(entry => (entry.type === 'message' ? getLatestMessage(entry) : entry))
+      .flat();
   },
   getPuzzleLink(key: string) {
     switch (key) {

@@ -43,7 +43,7 @@
         },
       })
     ).data.data;
-    return Utils.getMessageData(res.entries);
+    return res.entries;
   }
   @Component({
     components: {

@@ -118,6 +118,6 @@ export default {
     return null;
   },
   isLinkInternal(link: string) {
-    return link.startsWith('/') && !link.startsWith('/web/') && !link.startsWith('/game/');
+    return link.startsWith('/') && !link.startsWith('/web/') && !link.startsWith('/game/') && !link.endsWith('.php');
   },
 };

@@ -3,31 +3,26 @@
   <div class="page-content card">
     <div class="container">
       <div class="d-flex">
-        <h4 class="mt-3 mr-3">To:</h4>
+        <h4 class="mt-3 mr-3">{{ $t('activity-feed:to') }}</h4>
         <!-- TODO: Detect invalid/duplicate entries: https://bootstrap-vue.org/docs/components/form-tags#detecting-new-invalid-and-duplicate-tags -->
-        <b-form-tags
-          input-id="tags-basic"
-          v-model="targetNames"
-          placeholder="Add recipient..."
+        <b-form-input
+          input-id="input-basic"
+          v-model="targetName"
+          :placeholder="$t('activity-feed:add-recipient')"
           class="mb-2"
         >
-        </b-form-tags>
+        </b-form-input>
       </div>
-      <!-- TODO: Replace with rich html editor -->
-      <textarea
-        rows="3"
-        class="form-control"
-        v-model="commentText"
-        placeholder="Type your message..."
-      />
+      <EditField @input="setCommentText" />
+
       <b-button
         class="btn-lg mt-2"
         type="submit"
         variant="primary"
         @click="sendMessage"
-        :disabled="isSending || targetNames.length == 0 || !commentText"
+        :disabled="isSending || targetName.length || !commentText"
       >
-        Share
+        {{ $t('activity-feed:share') }}
         <b-spinner v-if="isSending" small></b-spinner>
       </b-button>
     </div>
@@ -37,14 +32,19 @@
   import axios, { AxiosInstance } from 'axios';
 
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import EditField from '@/components/Common/EditField.vue';
 
-  @Component({})
+  @Component({ components: { EditField } })
   export default class MessageCompose extends Vue {
     commentText: string = '';
 
-    targetNames: string[] = [''];
+    targetName = '';
 
     isSending: boolean = false;
+
+    setCommentText(text: string) {
+      this.commentText = text;
+    }
 
     async lookupUid(username: string) {
       console.log(username);
@@ -86,10 +86,7 @@
     async sendMessage() {
       this.isSending = true;
       try {
-        if (this.targetNames.length > 1) {
-          throw new Error('Messages can only have one recipient (for now).');
-        }
-        const targetUid: string = await this.lookupUid(this.targetNames[0]);
+        const targetUid: string = await this.lookupUid(this.targetName);
         await this.postMessage(targetUid, this.commentText);
       } catch (e) {
         // TODO: Differentiate errors (no username? post issue?), use a better UI
@@ -104,20 +101,16 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
+  $extreme-dark: #010101;
+
+  $very-dark: #101010;
+
   .page-content {
-    background-color: #101010;
+    background-color: $very-dark;
   }
 
-  ::v-deep textarea,
-  ::v-deep .b-form-tags {
-    background-color: #010101;
-
-    background-color: #010101;
-  }
-
-  ::v-deep textarea:focus,
-  ::v-deep .b-form-tags:focus {
-    background-color: #101010;
+  ::v-deep .editor-box {
+    background-color: $extreme-dark;
   }
 
   ::v-deep input {

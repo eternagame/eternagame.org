@@ -59,6 +59,7 @@
     components: { Editor, EditorContent, EditorMenuButton, EditorMenuBar },
   })
   export default class EditField extends Vue {
+    // TODO i18n
     @Prop({ default: 'Type here...' }) private content!: string;
 
     get editor() {

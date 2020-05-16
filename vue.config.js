@@ -43,6 +43,8 @@ module.exports = {
       .add('./src/entry-client.ts')
       .end();
 
+    config.devtool('source-map');
+
     // Derived from https://github.com/jonaskuske/vue-cli-ssr-hmr/blob/7bbb21105c6df964feed158c61a6c546a6741f49/vue.config.js
     // (Original license: MIT)
     if (ENABLE_SSR) {

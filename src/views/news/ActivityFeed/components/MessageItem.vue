@@ -11,13 +11,13 @@
       <div class="row d-flex" :style="{ marginTop: '10px' }">
         <img
           class="d-none d-sm-block rounded-circle player-image"
-          :src="'/' + senderPicture"
-          v-if="senderPicture"
+          :src="'/' + picture"
+          v-if="picture"
           style="margin-right:10px"
         />
-        <p v-if="senderName" style="margin-top:5px">{{ senderName }}:</p>
+        <p v-if="name" style="margin-top:5px">{{ name }}:</p>
       </div>
-      <div v-dompurify-html="strippedBody(content)" class="text" />
+      <div v-dompurify-html="strippedBody(content.body || content)" class="text" />
     </div>
   </div>
 </template>
@@ -38,13 +38,21 @@
 
     @Prop() private sender!: string;
 
-    @Prop() private senderPicture!: string;
+    @Prop() private myPicture!: string;
 
-    @Prop() private senderName!: string;
+    @Prop() private myName!: string;
 
-    @Prop() private targetPicture!: string;
+    @Prop() private myUid!: string;
 
-    @Prop() private targetName!: string;
+    @Prop() private theirPicture!: string;
+
+    @Prop() private theirName!: string;
+
+    @Prop() private theirUid!: string;
+
+    private name = this.sender === this.myUid ? this.myName : this.theirName;
+
+    private picture = this.sender === this.myUid ? this.myPicture : this.theirPicture;
 
     get timeCreated() {
       return new Date(Number(this.created) * 1000).toLocaleString(undefined, {

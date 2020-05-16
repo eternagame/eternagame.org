@@ -5,8 +5,12 @@
         v-for="(item, index) in messages"
         :key="item.created"
         v-bind="item"
-        :senderName="senderName"
-        :senderPicture="senderPicture"
+        :myName="myName"
+        :myPicture="myPicture"
+        :myUid="myUid"
+        :theirName="theirName"
+        :theirPicture="theirPicture"
+        :theirUid="theirUid"
         :first="index === 0"
       />
     </div>
@@ -15,6 +19,8 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
+  // @ts-ignore
+  import get from 'lodash.get';
   import MessageItem from './MessageItem.vue';
 
   Vue.use(VueDOMPurifyHTML);
@@ -26,13 +32,17 @@
 
     @Prop() private messages;
 
-    @Prop() private senderPicture!: string;
+    @Prop() private myPicture!: string;
 
-    @Prop() private senderName!: string;
+    @Prop() private myName!: string;
 
-    @Prop() private targetPicture!: string;
+    @Prop() private myUid!: string;
 
-    @Prop() private targetName!: string;
+    @Prop() private theirPicture!: string;
+
+    @Prop() private theirName!: string;
+
+    @Prop() private theirUid!: string;
 
     // TODO consolidate
     get timeCreated() {
@@ -42,12 +52,6 @@
         month: 'short',
         day: 'numeric',
       });
-    }
-
-    get strippedBody(): string {
-      // For now, remove all html tags, since <ul> and <img> can break formatting.
-      const text = this.content || this.body;
-      return text && text.replace(/(<([^>]+)>)/gi, '');
     }
   }
 </script>

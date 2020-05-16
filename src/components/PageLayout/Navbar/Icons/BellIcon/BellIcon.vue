@@ -74,6 +74,7 @@
     private notifications: Array<NewsItem> = [];
 
     shown() {
+      this.fetchData();
       axios.post(NOTIFICATIONS_READ, new URLSearchParams({ type: 'notification_read' }));
     }
 
@@ -85,14 +86,11 @@
       axios.get(NUM_NOTIFICATIONS_ROUTE).then(response => {
         this.notificationsCount = response.data.data.noti_count;
       });
-      this.fetchData();
+      if (!this.calledFetch) this.fetchData();
       this.calledFetch = true;
     }
 
     async fetchData() {
-      if (this.calledFetch) return;
-      this.calledFetch = true;
-
       // Note: newsfeed endpoint requires credentials
       const response = await axios.get(NEWS_FEED_ROUTE, { withCredentials: true });
       const res = response.data.data;

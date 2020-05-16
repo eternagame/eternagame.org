@@ -11,11 +11,11 @@
       <div class="row d-flex" :style="{ marginTop: '10px' }">
         <img
           class="d-none d-sm-block rounded-circle player-image"
-          :src="'/' + picture"
-          v-if="picture"
+          :src="'/' + senderPicture"
+          v-if="senderPicture"
           style="margin-right:10px"
         />
-        <p v-if="name" style="margin-top:5px">{{ name }}:</p>
+        <p v-if="senderName" style="margin-top:5px">{{ senderName }} > {{ getterName }}:</p>
       </div>
       <div v-dompurify-html="strippedBody(content.body || content)" class="text" />
     </div>
@@ -41,12 +41,17 @@
 
     @Prop() private article!: object;
 
-    private name =
+    private senderName =
       this.sender === this.article.target_uid
         ? this.article.target_name
         : this.article.target2_name;
 
-    private picture =
+    private getterName =
+      this.sender === this.article.target_uid
+        ? this.article.target2_name
+        : this.article.target_name;
+
+    private senderPicture =
       this.sender === this.article.target_uid
         ? this.article.target_picture
         : this.article.target2_picture;

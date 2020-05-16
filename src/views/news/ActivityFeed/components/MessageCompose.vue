@@ -4,15 +4,15 @@
     <div class="container">
       <div class="d-flex">
         <h4 class="mt-3 mr-3">{{ $t('activity-feed:to') }}</h4>
-        <!-- TODO: Detect invalid/duplicate entries: https://bootstrap-vue.org/docs/components/form-tags#detecting-new-invalid-and-duplicate-tags -->
-
         <vue-bootstrap-typeahead
+          ref="messageInput"
           :placeholder="$t('activity-feed:add-recipient')"
           v-model="targetName"
           :data="usernames"
+          :key="messagesSent"
         />
       </div>
-      <EditField @input="setCommentText" />
+      <EditField @input="setCommentText" :key="messagesSent" />
 
       <b-button
         class="btn-lg mt-2"
@@ -44,6 +44,8 @@
 
     usernames = [];
 
+    messagesSent = 0;
+
     async fetchData() {
       this.usernames = (await axios.get('/get/?type=usernames')).data.data.usernames.map(
         u => u.username,
@@ -56,30 +58,6 @@
 
     setCommentText(text: string) {
       this.commentText = text;
-    }
-
-    async lookupUid(username: string) {
-      console.log(username);
-      if (!username) {
-        throw new Error(`Could not find username: ${username}`);
-      }
-
-      const { users } = (
-        await axios.get('/get/?type=users', {
-          params: {
-            size: 10,
-            search: username,
-          },
-        })
-      ).data.data;
-
-      if (!users || users.length === 0) {
-        throw new Error(`Could not find username: ${username}`);
-      }
-
-      const { uid } = users[0];
-      console.log(`Found: ${uid}`);
-      return uid;
     }
 
     async postMessage(targetUid: string, message: string) {
@@ -105,7 +83,31 @@
         alert(`Error posting message.\n${e}`);
       }
       this.isSending = false;
-      // TODO: Refresh feed to show the newly posted message
+      this.$emit('submit-message');
+      this.messagesSent += 1;
+      this.targetName = '';
+    }
+
+    async lookupUid(username: string) {
+      if (!username) {
+        throw new Error(`Could not find username: ${username}`);
+      }
+
+      const { users } = (
+        await axios.get('/get/?type=users', {
+          params: {
+            size: 1,
+            search: username,
+          },
+        })
+      ).data.data;
+
+      if (!users || users.length === 0) {
+        throw new Error(`Could not find username: ${username}`);
+      }
+
+      const { uid } = users[0];
+      return uid;
     }
   }
 </script>

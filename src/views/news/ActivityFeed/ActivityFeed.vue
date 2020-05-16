@@ -1,7 +1,7 @@
 <template>
   <EternaPage :title="$t('activity-feed:title')">
-    <div v-if="pageData">
-      <MessageCompose />
+    <div v-if="news.length">
+      <MessageCompose @submit-message="sentMessage" />
       <Gallery :sm="12" :md="12" style="margin-top:25px">
         <ActivityCard v-for="article in news" :key="article.nid" :article="article" />
       </Gallery>
@@ -34,17 +34,6 @@
 
   const ROUTE = '/get/?type=newsfeed&combined=true&filter=all';
 
-  async function fetchPageData(route: Route, http: AxiosInstance) {
-    const { sort } = route.query;
-    const res = (
-      await http.get(`${ROUTE}&size=${INITIAL_NUMBER}`, {
-        params: {
-          size: route.query.size || INITIAL_NUMBER,
-        },
-      })
-    ).data.data;
-    return res.entries;
-  }
   @Component({
     components: {
       EternaPage,
@@ -57,9 +46,27 @@
       MessageCompose,
     },
   })
-  export default class ActivityFeed extends Mixins(PageDataMixin(fetchPageData)) {
-    get news() {
-      return get(this, 'pageData', []);
+  export default class ActivityFeed extends Vue {
+    news = [];
+
+    async fetchData() {
+      const { sort } = this.$route.query;
+      const res = (
+        await axios.get(`${ROUTE}&size=${INITIAL_NUMBER}`, {
+          params: {
+            size: this.$route.query.size || INITIAL_NUMBER,
+          },
+        })
+      ).data.data;
+      this.news = res.entries;
+    }
+
+    mounted() {
+      this.fetchData();
+    }
+
+    sentMessage() {
+      this.fetchData();
     }
   }
 </script>

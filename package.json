@@ -54,6 +54,7 @@
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
     "vue-axios": "^2.1.5",
+    "vue-bootstrap-typeahead": "^0.2.6",
     "vue-class-component": "^7.2.3",
     "vue-client-only": "^2.0.0",
     "vue-content-loader": "^0.2.3",

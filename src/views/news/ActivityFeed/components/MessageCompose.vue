@@ -5,13 +5,12 @@
       <div class="d-flex">
         <h4 class="mt-3 mr-3">{{ $t('activity-feed:to') }}</h4>
         <!-- TODO: Detect invalid/duplicate entries: https://bootstrap-vue.org/docs/components/form-tags#detecting-new-invalid-and-duplicate-tags -->
-        <b-form-input
-          input-id="input-basic"
-          v-model="targetName"
+
+        <vue-bootstrap-typeahead
           :placeholder="$t('activity-feed:add-recipient')"
-          class="mb-2"
-        >
-        </b-form-input>
+          v-model="targetName"
+          :data="usernames"
+        />
       </div>
       <EditField @input="setCommentText" />
 
@@ -20,7 +19,7 @@
         type="submit"
         variant="primary"
         @click="sendMessage"
-        :disabled="isSending || targetName.length || !commentText"
+        :disabled="isSending || !targetName.length || !commentText"
       >
         {{ $t('activity-feed:share') }}
         <b-spinner v-if="isSending" small></b-spinner>
@@ -33,14 +32,27 @@
 
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
+  import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
 
-  @Component({ components: { EditField } })
+  @Component({ components: { EditField, VueBootstrapTypeahead } })
   export default class MessageCompose extends Vue {
     commentText: string = '';
 
     targetName = '';
 
     isSending: boolean = false;
+
+    usernames = [];
+
+    async fetchData() {
+      this.usernames = (await axios.get('/get/?type=usernames')).data.data.usernames.map(
+        u => u.username,
+      );
+    }
+
+    mounted() {
+      this.fetchData();
+    }
 
     setCommentText(text: string) {
       this.commentText = text;

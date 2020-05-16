@@ -8,9 +8,14 @@
       unchecked-value="not_accepted"
       >{{ $t('player-view:following') }}
     </b-form-checkbox-->
-    <!-- <b-button type="submit" style="margin-left:10px; padding: 0 30px;" variant="primary">{{
-      $t('player-view:message')
-    }}</b-button> -->
+
+    <b-button
+      type="submit"
+      style="margin-left:10px; padding: 0 30px;"
+      variant="primary"
+      @click="messageUser"
+      >{{ $t('player-view:message') }}</b-button
+    >
   </div>
 </template>
 
@@ -18,12 +23,17 @@
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   import axios, { AxiosInstance } from 'axios';
   import { UserData } from '@/types/common-types';
+  import SmartLink from '@/components/Common/SmartLink.vue';
 
-  @Component({})
+  @Component({ SmartLink })
   export default class PlayerHeaderTopRow extends Vue {
     @Prop() user!: UserData;
 
     private follows = false;
+
+    messageUser() {
+      this.$router.push(`/feed?message=${this.user.name}`);
+    }
 
   /* created() {
       axios.get(`/get/?type=follow&id=${'2804'}`).then(response => {

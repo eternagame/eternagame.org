@@ -5,7 +5,7 @@
       <div class="d-flex">
         <h4 class="mt-3 mr-3">{{ $t('activity-feed:to') }}</h4>
         <vue-bootstrap-typeahead
-          ref="messageInput"
+          ref="typeahead"
           :placeholder="$t('activity-feed:add-recipient')"
           v-model="targetName"
           :data="usernames"
@@ -65,6 +65,10 @@
     }
 
     mounted() {
+      if (this.$route.query.message) {
+        this.$refs.typeahead.inputValue = this.$route.query.message;
+        this.targetName = this.$route.query.message;
+      }
       this.fetchData();
     }
 

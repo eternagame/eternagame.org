@@ -9,12 +9,13 @@
 
     <div :style="{ marginLeft: !first && '50px' }">
       <div class="row d-flex" :style="{ marginTop: '10px' }">
-        <img
-          class="d-none d-sm-block rounded-circle player-image"
-          :src="'/' + senderPicture"
-          v-if="senderPicture"
-          style="margin-right:10px"
-        />
+        <SmartLink v-if="senderPicture" :link="'/players/' + sender">
+          <img
+            class="d-none d-sm-block rounded-circle player-image"
+            :src="'/' + senderPicture"
+            style="margin-right:10px"
+          />
+        </SmartLink>
         <p v-if="senderName" style="margin-top:5px">{{ senderName }} > {{ getterName }}:</p>
       </div>
       <div v-dompurify-html="strippedBody(content.body || content)" class="text" />
@@ -28,10 +29,11 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
   import Utils from '@/utils/utils';
+  import SmartLink from '@/components/Common/SmartLink.vue';
 
   Vue.use(VueDOMPurifyHTML);
   @Component({
-    components: {},
+    components: { SmartLink },
   })
   export default class MessageItem extends Vue {
     @Prop() private created!: string;

@@ -47,6 +47,7 @@
       <!-- <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
+  <Preloader v-else style="margin-top: 10rem;" />
 </template>
 
 <script lang="ts">
@@ -62,6 +63,7 @@
   import get from 'lodash.get';
   import Utils from '@/utils/utils';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
   import PuzzleData from './types';
 
   Vue.use(VueDOMPurifyHTML);
@@ -83,20 +85,14 @@
       EternaPage,
       TagsPanel,
       SidebarPanel,
+      Preloader,
     },
   })
   export default class PuzzleView extends Mixins(PageDataMixin(fetchPageData)) {
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
     get puzzle() {
-      return {
-        ...get(this.pageData, 'puzzle'),
-        quests: [
-          'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/5ED5D090-6F62-4DF8-8C54-CC71306A4B16.png',
-          'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/6A70A1E1-9A81-4BA0-B765-A12B8F821300.png',
-          'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/E280848F-6347-4CC5-A215-F08B1F55ED1B.png',
-        ],
-      };
+      return get(this.pageData, 'puzzle');
     }
 
     get imageURL() {

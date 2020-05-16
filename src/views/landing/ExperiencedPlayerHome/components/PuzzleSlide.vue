@@ -12,12 +12,12 @@
       <b-button variant="primary" class="enter-lab" size="lg" :href="`/puzzles/${nid}`">{{
         $t('puzzle-slide:solve-now')
       }}</b-button>
-      <router-link class="d-none d-sm-block" to="/puzzles/?search=POTW">
+      <router-link class="d-none d-sm-block" to="/puzzles/?search=:POTW">
         <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
           <i class="arrow_right"></i>{{ $t('puzzle-slide:past-potw') }}
         </p>
       </router-link>
-      <router-link to="/puzzles/?search=COVID19" class="link d-none d-sm-block">
+      <router-link to="/puzzles/?search=:COVID19" class="link d-none d-sm-block">
         <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
           <i class="arrow_right"></i>{{ $t('puzzle-slide:past-training') }}
         </p>

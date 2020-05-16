@@ -90,7 +90,7 @@ export default {
         return `${process.env.VUE_APP_API_BASE_URL}/web/script/create/`;
       case 'side_quest_covid19_potd':
         // return 'https://eternagame.org/web/playerpuzzles/?search=:COVID19&sort=solved';
-        return '/puzzles/?search=COVID19&sort=solved';
+        return '/puzzles/?search=:COVID19&sort=solved';
       default:
         return null;
     }
@@ -122,7 +122,7 @@ export default {
         return `${process.env.VUE_APP_API_BASE_URL}/web/script/`;
       case 'side_quest_covid19_potd':
         // return 'https://eternagame.org/web/playerpuzzles/?search=:COVID19&sort=solved';
-        return '/puzzles/?search=COVID19&sort=solved';
+        return '/puzzles/?search=:COVID19&sort=solved';
       default:
         return null;
     }

@@ -21,7 +21,7 @@
                 style="width: 40px; height: 40px;margin-right:10px"
               />
 
-              <span v-html="htmlText"></span>
+              <span v-html="htmlText" style="color:black"></span>
             </div>
           </template>
         </vue-bootstrap-typeahead>
@@ -141,6 +141,12 @@
 
   ::v-deep .editor-box {
     background-color: $extreme-dark;
+  }
+
+  ::v-deep .vbst-item {
+  }
+
+  ::v-deep .vbst-item.active {
   }
 
   ::v-deep input {

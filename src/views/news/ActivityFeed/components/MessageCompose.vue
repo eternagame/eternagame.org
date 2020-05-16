@@ -9,8 +9,22 @@
           :placeholder="$t('activity-feed:add-recipient')"
           v-model="targetName"
           :data="usernames"
+          :serializer="user => user.username"
           :key="messagesSent"
-        />
+        >
+          <template slot="suggestion" slot-scope="{ data, htmlText }">
+            <div class="d-flex align-items-center">
+              <img
+                v-if="data.userpicture"
+                class="rounded-circle"
+                :src="`/${data.userpicture}`"
+                style="width: 40px; height: 40px;margin-right:10px"
+              />
+
+              <span v-html="htmlText"></span>
+            </div>
+          </template>
+        </vue-bootstrap-typeahead>
       </div>
       <EditField @input="setCommentText" :key="messagesSent" />
 
@@ -47,9 +61,7 @@
     messagesSent = 0;
 
     async fetchData() {
-      this.usernames = (await axios.get('/get/?type=usernames')).data.data.usernames.map(
-        u => u.username,
-      );
+      this.usernames = (await axios.get('/get/?type=usernames')).data.data.usernames;
     }
 
     mounted() {

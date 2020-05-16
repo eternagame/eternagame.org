@@ -9,7 +9,7 @@
       <Comments :comments="pageData.comments" :pathname="addCommentPath" :nid="news.news.nid" />
     </div>
     <div v-else>
-      <Preloader/>
+      <Preloader />
     </div>
 
     <template #sidebar="{ isInSidebar }">
@@ -86,8 +86,8 @@
 </script>
 
 <style lang="scss" scoped>
-.page-content {
-  white-space: pre-wrap;
-  padding: 1.5rem;
-}
+  .page-content {
+    white-space: pre-wrap;
+    padding: 1.5rem;
+  }
 </style>

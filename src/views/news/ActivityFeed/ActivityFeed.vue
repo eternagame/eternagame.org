@@ -3,7 +3,7 @@
     <div v-if="pageData">
       <MessageCompose />
       <Gallery :sm="12" :md="12" style="margin-top:25px">
-        <ActivityCard v-for="article in news" :key="article.nid" v-bind="article" />
+        <ActivityCard v-for="article in news" :key="article.nid" :article="article" />
       </Gallery>
       <Pagination :key="news.length" />
     </div>

@@ -1,12 +1,3 @@
-function getLatestMessage(entry) {
-  const messages = entry.message;
-  const latestMessage = entry.message.pop();
-  return {
-    ...latestMessage,
-    ...entry,
-  };
-}
-
 export default {
   getPuzzleMiddleThumbnail(nid: string) {
     return `https://s3.amazonaws.com/eterna/puzzle_mid_thumbnails/thumbnail${nid}.png`;
@@ -14,11 +5,30 @@ export default {
   getPuzzleCloudThumbnail(nid: string) {
     return `https://s3.amazonaws.com/eterna/puzzle_cloud_thumbnails/thumbnail${nid}.png`;
   },
-  getLatestMessage,
-  getMessageData(articles) {
-    return articles
-      .map(entry => (entry.type === 'message' ? getLatestMessage(entry) : entry))
-      .flat();
+  strippedBody(text: string): string {
+    // For now, remove all html tags, since <ul> and <img> can break formatting.
+    return text && text.replace(/(<([^>]+)>)/gi, '');
+  },
+  formattedType(article): string {
+    const formatted = article.type.toUpperCase();
+    if (formatted === 'BLOGS') {
+      // Unpluralize, since it sounds better
+      return 'BLOG';
+    }
+    return formatted;
+  },
+  typeColor(article): string {
+    switch (article.type.toLowerCase()) {
+      case 'blogs':
+        return '#53b64e';
+      case 'labs':
+        return '#50b2dc';
+      case 'announcements':
+      case 'news':
+        return '#f39c12';
+      default:
+        return '#53b64e';
+    }
   },
   getPuzzleLink(key: string) {
     switch (key) {
@@ -119,6 +129,11 @@ export default {
     return null;
   },
   isLinkInternal(link: string) {
-    return link.startsWith('/') && !link.startsWith('/web/') && !link.startsWith('/game/') && !link.endsWith('.php');
+    return (
+      link.startsWith('/') &&
+      !link.startsWith('/web/') &&
+      !link.startsWith('/game/') &&
+      !link.endsWith('.php')
+    );
   },
 };

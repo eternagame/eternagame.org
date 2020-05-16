@@ -5,12 +5,7 @@
         v-for="(item, index) in messages"
         :key="item.created"
         v-bind="item"
-        :myName="myName"
-        :myPicture="myPicture"
-        :myUid="myUid"
-        :theirName="theirName"
-        :theirPicture="theirPicture"
-        :theirUid="theirUid"
+        :article="article"
         :first="index === 0"
       />
     </div>
@@ -28,31 +23,9 @@
     components: { MessageItem },
   })
   export default class MessageThread extends Vue {
-    @Prop() private timestamp!: string;
+    @Prop() private article!: Array<object>;
 
-    @Prop() private messages;
-
-    @Prop() private myPicture!: string;
-
-    @Prop() private myName!: string;
-
-    @Prop() private myUid!: string;
-
-    @Prop() private theirPicture!: string;
-
-    @Prop() private theirName!: string;
-
-    @Prop() private theirUid!: string;
-
-    // TODO consolidate
-    get timeCreated() {
-      if (this.type !== 'message') return this.created;
-      return new Date(Number(this.created) * 1000).toLocaleString(undefined, {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      });
-    }
+    private messages = this.article.message;
   }
 </script>
 

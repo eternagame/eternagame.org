@@ -1,43 +1,49 @@
 <template>
-  <router-link :to="`/news/${nid}`">
+  <SmartLink v-if="article.body || article.content" :link="link">
     <div class="page-content card">
       <div class="container">
         <div class="row justify-content-between">
           <div class="col p-0">
             <!-- Note: Any space between these tags will misalign the Type tag. -->
-            <div class="b" :style="{ color: typeColor(article) }">{{ formattedType(article) }}</div>
+            <div :style="{ color: typeColor(article) }">
+              <b>{{ formattedType(article) }}</b>
+            </div>
           </div>
           <div class="col p-0" style="text-align:right">
-            <div class="b" style="opacity: 0.5;">{{ created }}</div>
+            <div style="opacity: 0.5;">
+              <b>{{ article.created }}</b>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <h3 class="card-title">{{ title }}</h3>
-          <div v-dompurify-html="strippedBody(article.body)" class="text" />
+
+        <h3 class="card-title" v-if="article.title">{{ article.title }}</h3>
+        <div class="row d-flex" v-else style="margin-top:10px" />
+        <div v-dompurify-html="strippedBody(article.body)" class="text" />
+        <div v-if="article.commentcount" class="d-flex">
+          <img src="@/assets/comment-count.svg" />
+          <p class="icon-text">{{ article.commentcount }}</p>
         </div>
       </div>
     </div>
-  </router-link>
+  </SmartLink>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
+  import SmartLink from '@/components/Common/SmartLink.vue';
   import Utils from '@/utils/utils';
+  import MessageThread from './MessageThread.vue';
 
   Vue.use(VueDOMPurifyHTML);
   @Component({
-    components: {},
+    components: { SmartLink, MessageThread },
   })
-  export default class NewsCard extends Vue {
-    @Prop() private created!: string;
-
-    @Prop() private title!: string;
-
-    @Prop() private body!: string;
-
-    @Prop() private nid!: string;
+  export default class NewsItem extends Vue {
+    @Prop() private article!: string;
 
     @Prop({ default: 'blogs' }) private type!: string;
+
+    private link = this.article.nid && `/news/${this.article.nid}`;
 
     private formattedType = Utils.formattedType;
 
@@ -50,12 +56,6 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  .btn {
-    display: inline-block;
-    width: 48%;
-    margin-bottom: 0px;
-  }
-
   ::v-deep .card-body {
     padding: 11.25px !important;
   }
@@ -67,13 +67,15 @@
     color: $white;
   }
 
-  .b {
+  .icon-text {
+    margin-left: 7px;
+    position: relative;
+    top: 7px;
     font-weight: bold;
   }
 
   .card {
     color: $white;
-
     padding: 1rem 2rem;
     margin-bottom: 1.5rem;
     max-height: 600px;

@@ -8,7 +8,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import ChatIcon from './ChatIcon.vue';
-  import BellIcon from './BellIcon.vue';
+  import BellIcon from './BellIcon/BellIcon.vue';
   import UserIcon from './UserIcon.vue';
 
   @Component({

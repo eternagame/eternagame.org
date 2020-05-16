@@ -22,34 +22,12 @@
         <div class="border"></div>
         <b-dropdown-item
           v-for="item in notifications"
-          :key="item.nid || item.id"
+          :key="item.created || item.timestamp || item.nid || item.id"
           style="padding-left:0px;margin-left:0px"
-          :to="
-            item.type && item.type === 'notifications'
-              ? `/feed#${item.time}`
-              : `/news/${item.nid || item.id}`
-          "
+          :to="isMessageRelated(item) ? `/feed#${item.created}` : `/news/${item.nid || item.id}`"
         >
-          <div class="d-flex">
-            <img
-              class="d-none d-sm-block rounded-circle player-image-large"
-              :src="'/' + item.img"
-              v-if="item.img"
-              style="margin-right:10px;position:relative;top:10px;width:30px;height:30px"
-            />
-            <div class="description">
-              <span v-if="item.name">
-                {{ item.name }}
-                {{
-                  item.type === 'notifications'
-                    ? $t('bell-icon:message')
-                    : $t('bell-icon:news-post')
-                }}</span
-              >
-              <b v-if="item.display" v-dompurify-html="strippedBody(` ${item.display}`)"> </b>
-              <b v-else> {{ $t('loading-text') }}</b>
-            </div>
-          </div>
+          <PlayerMessageNotification v-if="isMessageRelated(item)" :article="item" />
+          <NewsNotification v-else v-bind="item" />
         </b-dropdown-item>
         <b-dropdown-item v-if="notifications.length == 0">
           {{ $t('activity-feed:empty') }}
@@ -65,12 +43,11 @@
   import { RouteCallback, Route } from 'vue-router';
   import axios, { AxiosInstance } from 'axios';
   import PageDataMixin from '@/mixins/PageData';
-  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import { NewsItem } from '@/types/common-types';
   import Utils from '@/utils/utils';
-  import NavbarIcon from './NavbarIcon.vue';
-
-  Vue.use(VueDOMPurifyHTML);
+  import NavbarIcon from '../NavbarIcon.vue';
+  import NewsNotification from './NewsNotification.vue';
+  import PlayerMessageNotification from './PlayerMessageNotification.vue';
 
   const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user';
 
@@ -85,19 +62,23 @@
   @Component({
     components: {
       NavbarIcon,
+      NewsNotification,
+      PlayerMessageNotification,
     },
   })
   export default class BellIcon extends Vue {
-    private notificationsCount = [];
+    private notificationsCount = 0;
 
     private calledFetch = false;
 
     private notifications: Array<NewsItem> = [];
 
-    private notificationsToShow = NUMBER_NOTIFICATIONS_TO_SHOW;
-
     shown() {
       axios.post(NOTIFICATIONS_READ, new URLSearchParams({ type: 'notification_read' }));
+    }
+
+    isMessageRelated(item) {
+      return item.type === 'notifications' || item.type === 'message';
     }
 
     mounted() {
@@ -108,35 +89,29 @@
       this.calledFetch = true;
     }
 
-    // TODO consolidate
-    strippedBody(text: string): string {
-      // For now, remove all html tags, since <ul> and <img> can break formatting.
-      return text && text.replace(/(<([^>]+)>)/gi, '');
-    }
-
     async fetchData() {
       if (this.calledFetch) return;
+      this.calledFetch = true;
+
       // Note: newsfeed endpoint requires credentials
       const response = await axios.get(NEWS_FEED_ROUTE, { withCredentials: true });
       const res = response.data.data;
 
-      const articles = Utils.getMessageData(res.entries);
+      this.notifications = res.entries
+        .map(entry => this.addMessageData(entry))
+        .flat()
+        .sort((a, b) => b.created - a.created)
+        .slice(0, NUMBER_NOTIFICATIONS_TO_SHOW);
+    }
 
-      // First, just fill in with existing articles to have something to show.
-      this.notifications = articles.slice(0, NUMBER_NOTIFICATIONS_TO_SHOW).map(article => {
-        const latestMessage = article.type === 'notifications' && Utils.getLatestMessage(article);
-        return {
-          img: get(article, 'target2_picture'),
-          name: get(article, 'target2_name'),
-          type: get(article, 'type', 'news'),
-          time: article.updated_time || article.timestamp || article.created,
-          display: latestMessage
-            ? latestMessage.content.body || latestMessage.content
-            : article.content || article.title,
-          ...article,
-          ...latestMessage,
-        };
-      });
+    private uid = this.$vxm.user.userDetails.uid;
+
+    addMessageData(entry) {
+      if (!this.isMessageRelated(entry)) return entry;
+      const messages = entry.message;
+      return messages
+        .map(message => ({ ...message, ...entry }))
+        .filter(message => message.sender !== this.uid);
     }
   }
 </script>
@@ -146,11 +121,6 @@
 
   .icon {
     margin-left: -0.2rem;
-  }
-
-  img {
-    width: 25px;
-    height: 25px;
   }
 
   ::v-deep a {
@@ -174,17 +144,5 @@
   .border {
     border: 1px solid red;
     width: 100%;
-  }
-
-  .description {
-    margin-top: 5px;
-    font-weight: normal;
-    white-space: pre-wrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* number of lines to show */
-    -webkit-box-orient: vertical;
-    text-transform: none;
   }
 </style>

@@ -24,6 +24,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
+  import Utils from '@/utils/utils';
 
   Vue.use(VueDOMPurifyHTML);
   @Component({
@@ -32,27 +33,23 @@
   export default class MessageItem extends Vue {
     @Prop() private created!: string;
 
-    @Prop() private content: string;
+    @Prop() private content: string | object;
 
     @Prop() private first: boolean;
 
     @Prop() private sender!: string;
 
-    @Prop() private myPicture!: string;
+    @Prop() private article!: object;
 
-    @Prop() private myName!: string;
+    private name =
+      this.sender === this.article.target_uid
+        ? this.article.target_name
+        : this.article.target2_name;
 
-    @Prop() private myUid!: string;
-
-    @Prop() private theirPicture!: string;
-
-    @Prop() private theirName!: string;
-
-    @Prop() private theirUid!: string;
-
-    private name = this.sender === this.myUid ? this.myName : this.theirName;
-
-    private picture = this.sender === this.myUid ? this.myPicture : this.theirPicture;
+    private picture =
+      this.sender === this.article.target_uid
+        ? this.article.target_picture
+        : this.article.target2_picture;
 
     get timeCreated() {
       return new Date(Number(this.created) * 1000).toLocaleString(undefined, {
@@ -62,11 +59,7 @@
       });
     }
 
-    // TODO consolidate
-    strippedBody(text: string): string {
-      // For now, remove all html tags, since <ul> and <img> can break formatting.
-      return text && text.replace(/(<([^>]+)>)/gi, '');
-    }
+    private strippedBody = Utils.strippedBody;
   }
 </script>
 

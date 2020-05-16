@@ -2,7 +2,7 @@
   <EternaPage
     :title="pageData ? news.news.title : ''"
     :header_date="pageData ? news.news.created : ''"
-    :header_title="'announcements'.toUpperCase()"
+    :header_title="$t('news-view:anouncements').toUpperCase()"
   >
     <div v-if="pageData">
       <div class="page-content" v-dompurify-html="news.news.body"></div>

@@ -381,5 +381,6 @@
   "puzzle-slide:past-training": "Past Training Puzzles",
   "puzzle-slide:solve-now": "Solve Now",
   "bell-icon:message": "sent you a message:",
-  "bell-icon:news-post": "published a news post:"
+  "bell-icon:news-post": "published a news post:",
+  "news-view:anouncements": "announcements"
 }

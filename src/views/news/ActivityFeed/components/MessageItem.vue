@@ -18,6 +18,9 @@
         <p v-if="senderName" style="margin-top:5px">{{ senderName }} > {{ getterName }}:</p>
       </div>
       <div v-dompurify-html="strippedBody(content.body || content)" class="text" />
+      <a v-if="content.body" :href="`/${content.node.node_type}s/${content.node.id}`">
+        {{ content.node.title }}</a
+      >
     </div>
   </div>
 </template>

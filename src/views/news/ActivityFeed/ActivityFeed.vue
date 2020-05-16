@@ -10,13 +10,26 @@
     <div v-else>
       <Preloader />
     </div>
+    <template #sidebar="{ isInSidebar }">
+      <SearchPanel v-if="isInSidebar" :isInSidebar="isInSidebar" />
+      <DropdownSidebarPanel
+        :options="options"
+        paramName="filter"
+        replace
+        :isInSidebar="isInSidebar"
+      />
+    </template>
+    <template #mobileSearchbar>
+      <SearchPanel :isInSidebar="false" />
+    </template>
   </EternaPage>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Mixins, Watch } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import axios, { AxiosInstance } from 'axios';
+  import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   // @ts-ignore
   import get from 'lodash.get';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
@@ -32,7 +45,7 @@
 
   const INITIAL_NUMBER = 18;
 
-  const ROUTE = '/get/?type=newsfeed&combined=true&filter=all';
+  const ROUTE = '/get/?type=newsfeed&combined=true';
 
   @Component({
     components: {
@@ -44,17 +57,20 @@
       Pagination,
       Preloader,
       MessageCompose,
+      SearchPanel,
     },
   })
   export default class ActivityFeed extends Vue {
     news = [];
 
     async fetchData() {
-      const { sort } = this.$route.query;
+      const { filter, search, size } = this.$route.query;
       const res = (
-        await axios.get(`${ROUTE}&size=${INITIAL_NUMBER}`, {
+        await axios.get(ROUTE, {
           params: {
-            size: this.$route.query.size || INITIAL_NUMBER,
+            size: size || INITIAL_NUMBER,
+            search,
+            filter: filter || 'all',
           },
         })
       ).data.data;
@@ -65,8 +81,19 @@
       this.fetchData();
     }
 
+    @Watch('$route', { immediate: true, deep: true })
+    onUrlChange(newVal: any) {
+      this.fetchData();
+    }
+
     sentMessage() {
       this.fetchData();
     }
+
+    private options: Option[] = [
+      { value: 'all', text: 'side-panel-options:all-activity' },
+      { value: 'groups', text: 'side-panel-options:my-groups' },
+      { value: 'notifications', text: 'side-panel-options:my-messages' },
+    ];
   }
 </script>

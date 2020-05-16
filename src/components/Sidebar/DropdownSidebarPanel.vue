@@ -1,9 +1,9 @@
 <template>
   <div v-if="isInSidebar">
-    <template v-for="({ text, value, link }, index) in options">
+    <template v-for="({ text, value, link, suffix }, index) in options">
       <!-- Use regular a link for external links -->
       <a v-if="link && !link.startsWith('/')" class="option" :key="value" :href="link">
-        {{ $t(text) }}
+        {{ $t(text) }} {{ suffix && suffix }}
         <img
           class="ml-2"
           src="@/assets/navbar/ExternalLink.svg"
@@ -20,13 +20,13 @@
         :class="{ selected: routeSelected(index, link) }"
         @click.native="onClick(index, link)"
       >
-        {{ $t(text) }}
+        {{ $t(text) }} {{ suffix && suffix }}
       </router-link>
       <hr v-if="index < options.length - 1" class="options-divider" :key="`${value} divider`" />
     </template>
   </div>
   <b-dropdown variant="link" :text="dropdownText" right v-else>
-    <template v-for="({ text, value, link }, index) in options">
+    <template v-for="({ text, value, link, suffix }, index) in options">
       <b-dropdown-item
         :[nav(link)]="navTarget(link, value)"
         :key="value"
@@ -34,7 +34,7 @@
         :disabled="routeSelected(index, link)"
         @click.native="onClick(index, link)"
       >
-        {{ $t(text) }}
+        {{ $t(text) }} {{ suffix && suffix }}
       </b-dropdown-item>
       <b-dropdown-divider v-if="index < options.length - 1" :key="`${value} divider`" />
     </template>
@@ -104,7 +104,8 @@
       if (!(this.options[this.selectedIndex] && this.options[this.selectedIndex].text)) {
         return '';
       }
-      return this.$t(this.options[this.selectedIndex].text);
+      const selectedOption = this.options[this.selectedIndex];
+      return this.$t(selectedOption.text);
     }
   }
 
@@ -112,6 +113,7 @@
     value: string;
     text: string;
     link?: string;
+    suffix?: string;
   }
   export default DropdownSidebarPanel;
 </script>

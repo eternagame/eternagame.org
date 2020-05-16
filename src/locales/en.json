@@ -386,5 +386,9 @@
   "activity-feed:share": "Share",
   "activity-feed:add-recipient": "Add recipient...",
   "activity-feed:type-message": "Type your message...",
-  "activity-feed:to": "To:"
+  "activity-feed:to": "To:",
+  "search:search": "Search",
+  "side-panel-options:all-activity": "All Activity",
+  "side-panel-options:my-groups": "My Groups",
+  "side-panel-options:my-messages": "My Messages"
 }

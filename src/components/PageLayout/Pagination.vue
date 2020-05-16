@@ -25,21 +25,24 @@
 
     mounted() {
       window.onscroll = () => {
-        const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight + 1
-          >= document.documentElement.offsetHeight;
+        const bottomOfWindow =
+          document.documentElement.scrollTop + window.innerHeight + 1 >=
+          document.documentElement.offsetHeight;
 
         if (bottomOfWindow) {
-          this.loading = true;
-          const oldSize = Number(this.$route.query.size || this.initial);
-          const newSize = String(oldSize + this.increment);
-
-          this.$router.replace({
-            name: this.$route.name!,
-            query: {
-              ...this.$route.query,
-              size: newSize,
-            },
-          });
+          const length = this.$vnode.key;
+          const querySize = Number(this.$route.query.size || this.initial);
+          const newSize = querySize + this.increment;
+          if (querySize === length) {
+            this.$router.replace({
+              name: this.$route.name!,
+              query: {
+                ...this.$route.query,
+                size: String(newSize),
+              },
+            });
+            this.loading = true;
+          }
         }
       };
     }

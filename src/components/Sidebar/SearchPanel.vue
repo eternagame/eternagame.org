@@ -1,7 +1,7 @@
 <template>
   <input
     type="text"
-    :placeholder="placeholder"
+    :placeholder="placeholder || $t('search:search')"
     class="local-search"
     :value="searchValue"
     @input="onSearch"

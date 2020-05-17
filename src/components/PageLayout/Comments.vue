@@ -1,5 +1,5 @@
 <template>
-  <div v-if="comments">
+  <div>
     <div style="width:100; border: none;">
       <span class="header-content">
         <h3 style="font-size: 23px;font-weight: bold;margin-top:15px">
@@ -20,11 +20,14 @@
           style="float: right"
           variant="primary"
           @click="submit"
-          :disabled="!commentText"
-          >{{ $t('page:comments-action') }}</b-button
+          :disabled="!commentText || submitting"
+          >
+            {{ $t('page:comments-action') }}
+            <b-spinner v-if="submitting" small></b-spinner>
+          </b-button
         >
       </div>
-      <Comment v-for="comment in comments" :key="comment.cid" v-bind="comment" />
+      <Comment v-for="comment in newestComments" :key="comment.cid" v-bind="comment" />
     </div>
   </div>
 </template>
@@ -49,13 +52,22 @@
     @Prop()
     private name!: string;
 
+    private newComments = null;
+
     private commentText: string = '';
+
+    private submitting = false;
 
     get loggedIn() {
       return this.$vxm.user.loggedIn;
     }
 
+    get newestComments() {
+      return this.newComments || this.comments;
+    }
+
     submit() {
+      this.submitting = true;
       axios
         .post(ADD_COMMENT_ROUTE, new URLSearchParams({
           type: 'post_comment',
@@ -63,7 +75,9 @@
           nid: this.nid,
         }))
         .then(res => {
-          window.location.reload();
+          this.newComments = res.data.data.comments;
+          this.submitting = false;
+          this.commentText = '';
         });
     }
   }

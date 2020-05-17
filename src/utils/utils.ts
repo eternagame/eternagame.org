@@ -1,3 +1,5 @@
+import DefaultAvatar from '@/assets/navbar/DefaultIcon.svg';
+
 export default {
   getPuzzleMiddleThumbnail(nid: string) {
     return `https://s3.amazonaws.com/eterna/puzzle_mid_thumbnails/thumbnail${nid}.png`;
@@ -137,4 +139,8 @@ export default {
       !link.endsWith('.php')
     );
   },
+  getAvatar(uri: string) {
+    if (uri) return (/^http/i).exec(uri) ? uri : `/${uri}`;
+    return DefaultAvatar;
+  }
 };

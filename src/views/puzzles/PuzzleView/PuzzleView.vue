@@ -39,11 +39,15 @@
           <img src="@/assets/info.svg" />
         </template>
         <ul style="padding: 0; list-style-type:none">
+          <li v-if="puzzle['made-by-player']">
+            <img :src="avatar" class="icon" />{{ puzzle.username }}
+          </li>
           <li v-if="puzzle.reward">
             <img src="@/assets/dollar.svg" class="icon" />{{ puzzle.reward }}
           </li>
-          <li v-if="puzzle.audience">
-            <img src="@/assets/people.svg" class="icon" />{{ puzzle.num_cleared }}
+          <li>
+            <img src="@/assets/people.svg" class="icon" />
+            {{ puzzle.num-cleared ? puzzle.num-cleared : 0 }}
           </li>
           <li v-if="puzzle.created">
             <img src="@/assets/calendar.svg" class="icon" />{{ puzzle.created }}
@@ -102,6 +106,10 @@
 
     get imageURL() {
       return Utils.getPuzzleMiddleThumbnail(get(this.pageData, 'nid', ''));
+    }
+
+    get avatar() {
+      return Utils.getAvatar(this.puzzle.userpicture);
     }
   }
 </script>

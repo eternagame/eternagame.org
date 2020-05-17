@@ -18,7 +18,6 @@
     />
     <Comments
       :comments="pageData.comments"
-      :pathname="addCommentPath"
       :nid="lab.nid"
     />
     <template #sidebar="{ isInSidebar }">
@@ -61,8 +60,6 @@
     get lab() {
       return this.pageData?.lab;
     }
-
-    private addCommentPath = `/web${window.location.pathname}`;
 
     roundClosed(round) {
       return (

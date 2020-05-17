@@ -8,7 +8,7 @@
       </span>
     </div>
     <div class="card body">
-      <div v-if="pathname && loggedIn">
+      <div v-if="nid && loggedIn">
         <textarea
           rows="4"
           class="form-control"
@@ -44,9 +44,6 @@
     private comments;
 
     @Prop()
-    private pathname!: string;
-
-    @Prop()
     private nid!: string;
 
     @Prop()
@@ -62,7 +59,6 @@
       axios
         .post(ADD_COMMENT_ROUTE, new URLSearchParams({
           type: 'post_comment',
-          // pathname: this.pathname,
           body: this.commentText,
           nid: this.nid,
         }))

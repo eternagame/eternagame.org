@@ -21,7 +21,13 @@
           <div class="puzzle-description" v-dompurify-html="puzzle.body" />
         </div>
       </div>
+
     </div>
+
+    <Comments
+      :comments="pageData.comments"
+      :nid="puzzle.id"
+    />
 
     <template #sidebar="{ isInSidebar }">
       <SidebarPanel
@@ -63,6 +69,7 @@
   import Utils from '@/utils/utils';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import Preloader from '@/components/PageLayout/Preloader.vue';
+  import Comments from '@/components/PageLayout/Comments.vue';
   import PuzzleData from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
@@ -83,6 +90,7 @@
       TagsPanel,
       SidebarPanel,
       Preloader,
+      Comments
     },
   })
   export default class PuzzleView extends Mixins(PageDataMixin(fetchPageData)) {

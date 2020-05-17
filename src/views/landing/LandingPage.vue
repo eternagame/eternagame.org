@@ -46,7 +46,7 @@
     const me = (await http.get('/get/?type=me')).data.data;
     const roadmap = (await http.get('/get/?type=side_project_roadmap')).data.data;
     const carousel = (await http.get('/get/?type=carousel')).data.data;
-    const potw = get(await http.get('/get/?type=puzzle_of_the_week'), 'data.data', {});
+    const potw = get(await http.get('/get/?type=puzzle_of_the_week'), 'data.data', undefined);
     const res = { ...me, ...roadmap, ...carousel, potw };
     return res;
   }

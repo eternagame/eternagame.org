@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex align-items-start">
-    <img :src="avatar" style="width: 40px;"/>
+    <img :src="avatar" style="width: 40px; flex-shrink: 0;"/>
     <div class="ml-2 mb-4">
       <router-link :to="`/players/${uid}`">
         <p class="commenter-name mb-0">

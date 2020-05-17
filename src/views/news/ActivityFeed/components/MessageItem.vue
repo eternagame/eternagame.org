@@ -18,7 +18,7 @@
         </SmartLink>
         <p v-if="senderName" style="margin-top:5px">{{ senderName }} > {{ getterName }}:</p>
       </div>
-      <div v-dompurify-html="content.body || content" class="text" />
+      <div v-dompurify-html="content.body || content" class="text" style="word-break: break-all;" />
       <a v-if="content.body" :href="`/${content.node.node_type}s/${content.node.id}`">
         {{ content.node.title }}</a
       >

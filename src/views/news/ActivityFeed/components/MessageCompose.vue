@@ -35,7 +35,7 @@
         @click="sendMessage"
         :disabled="isSending || !targetName.length || !commentText"
       >
-        {{ $t('activity-feed:share') }}
+        {{ $t('activity-feed:send') }}
         <b-spinner v-if="isSending" small></b-spinner>
       </b-button>
     </div>
@@ -139,8 +139,11 @@
     background-color: $very-dark;
   }
 
-  ::v-deep .editor-box {
+/*
+  ::v-deep .editor {
     background-color: $extreme-dark;
+    border-radius: 5px;
+    border: 1px solid #555;
   }
 
   ::v-deep .vbst-item {
@@ -151,5 +154,25 @@
 
   ::v-deep input {
     color: $white;
+    background: $extreme-dark;
+    border: 1px solid #555;
+  }
+
+  ::v-deep input:focus {
+    background: $extreme-dark;
+  }
+*/
+
+  .page-content {
+    background-color: lighten($med-dark-blue, 10);
+  }
+
+  ::v-deep .editor {
+    background-color: rgba(1,1,1,.53);
+  }
+
+  ::v-deep input {
+    color: $white;
+    background-color:  rgba(1,1,1,.53);
   }
 </style>

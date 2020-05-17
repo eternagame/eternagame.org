@@ -57,7 +57,6 @@
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
-  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   // @ts-ignore
   import get from 'lodash.get';
@@ -65,8 +64,6 @@
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import PuzzleData from './types';
-
-  Vue.use(VueDOMPurifyHTML);
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const res = (

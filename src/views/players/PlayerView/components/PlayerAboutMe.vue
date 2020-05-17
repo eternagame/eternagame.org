@@ -15,10 +15,8 @@
 
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
-  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import PlayerFeaturedAchievement from './PlayerFeaturedAchievement.vue';
-
-  Vue.use(VueDOMPurifyHTML);
+  
   @Component({
     components: { PlayerFeaturedAchievement },
   })

@@ -21,10 +21,8 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import Utils from '@/utils/utils';
 
-  Vue.use(VueDOMPurifyHTML);
   @Component({
     components: {},
   })

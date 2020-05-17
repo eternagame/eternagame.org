@@ -11,10 +11,7 @@
   import get from 'lodash.get';
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
-  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import Utils from '@/utils/utils';
-
-  Vue.use(VueDOMPurifyHTML);
 
   @Component({
     components: {},

@@ -26,11 +26,8 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import defaultImage from '@/assets/ribosome_challenge_bg.png';
-  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import DefaultHero from '@/assets/home/hero-lab-default.png';
   import { LabData } from '../types';
-
-  Vue.use(VueDOMPurifyHTML);
 
   @Component({
     components: {},

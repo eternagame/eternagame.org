@@ -29,12 +29,10 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import SmartLink from '@/components/Common/SmartLink.vue';
   import Utils from '@/utils/utils';
   import MessageThread from './MessageThread.vue';
 
-  Vue.use(VueDOMPurifyHTML);
   @Component({
     components: { SmartLink, MessageThread },
   })

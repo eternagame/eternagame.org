@@ -23,11 +23,8 @@
   import { RouteCallback, Route } from 'vue-router';
   import axios, { AxiosInstance } from 'axios';
   import PageDataMixin from '@/mixins/PageData';
-  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import { NewsItem } from '@/types/common-types';
   import Utils from '@/utils/utils';
-
-  Vue.use(VueDOMPurifyHTML);
 
   @Component({
     components: {},

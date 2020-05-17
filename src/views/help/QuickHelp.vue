@@ -49,10 +49,8 @@
   import { Component, Vue } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
-  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import { BIconArrowUp, BIconCommand } from 'bootstrap-vue';
 
-  Vue.use(VueDOMPurifyHTML);
   @Component({
     components: {
       EternaPage,

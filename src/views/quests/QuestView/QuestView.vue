@@ -63,10 +63,7 @@
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
-  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-
-  Vue.use(VueDOMPurifyHTML);
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const me = (await http.get('/get/?type=me')).data.data;

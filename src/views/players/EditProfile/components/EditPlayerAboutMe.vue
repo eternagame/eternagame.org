@@ -24,12 +24,9 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
-  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import { UserData } from '@/types/common-types';
   import EditPlayerFeaturedAchievement from './EditPlayerFeaturedAchievement.vue';
   import EditPlayerNewSection from './EditPlayerNewSection.vue';
-
-  Vue.use(VueDOMPurifyHTML);
 
   @Component({
     components: { EditPlayerFeaturedAchievement, EditField, EditPlayerNewSection },

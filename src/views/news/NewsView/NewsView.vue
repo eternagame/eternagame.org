@@ -36,12 +36,9 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
-  import VueDOMPurifyHTML from 'vue-dompurify-html';
   import EditField from '@/components/Common/EditField.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import NewsData from './types';
-
-  Vue.use(VueDOMPurifyHTML);
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const res = (

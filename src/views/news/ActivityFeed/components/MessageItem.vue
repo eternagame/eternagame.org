@@ -9,10 +9,10 @@
 
     <div :style="{ marginLeft: !first && '50px' }">
       <div class="row d-flex" :style="{ marginTop: '10px' }">
-        <SmartLink v-if="senderPicture" :link="'/players/' + sender">
+        <SmartLink :link="'/players/' + sender">
           <img
             class="d-none d-sm-block rounded-circle player-image"
-            :src="'/' + senderPicture"
+            :src="avatar"
             style="margin-right:10px"
           />
         </SmartLink>
@@ -54,10 +54,13 @@
         ? this.article.target2_name
         : this.article.target_name;
 
-    private senderPicture =
-      this.sender === this.article.target_uid
+    get avatar() {
+      return Utils.getAvatar(
+        this.sender === this.article.target_uid
         ? this.article.target_picture
-        : this.article.target2_picture;
+        : this.article.target2_picture
+      );
+    }
 
     get timeCreated() {
       return new Date(Number(this.created) * 1000).toLocaleString(undefined, {

@@ -2,8 +2,7 @@
   <div class="d-flex" v-if="article">
     <img
       class="d-none d-sm-block rounded-circle player-image-large"
-      :src="'/' + img"
-      v-if="img"
+      :src="avatar"
       style="margin-right:10px;position:relative;top:10px;width:30px;height:30px"
     />
     <div class="description">
@@ -39,10 +38,13 @@
         ? this.article.target_name
         : this.article.target2_name;
 
-    private img =
-      this.article.sender === this.article.target_uid
-        ? this.article.target_picture
-        : this.article.target2_picture;
+    get avatar() {
+      return Utils.getAvatar(
+        this.article.sender === this.article.target_uid
+          ? this.article.target_picture
+          : this.article.target2_picture
+      );
+    }
 
     private display = this.article.content.body || this.article.content;
   }

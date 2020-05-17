@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex align-items-start">
-    <img src="@/assets/navbar/DefaultIcon.svg" />
+    <img :src="avatar" style="width: 40px;"/>
     <div class="ml-2 mb-4">
       <router-link :to="`/players/${uid}`">
         <p class="commenter-name mb-0">
@@ -19,6 +19,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import axios from 'axios';
+  import Utils from '@/utils/utils';
 
   const ADD_COMMENT_ROUTE = '/post/';
 
@@ -38,8 +39,15 @@
     @Prop()
     private uid!: string;
 
+    @Prop()
+    private picture!: string;
+
     get canDelete() {
       return this.$vxm.user.uid === this.comment.cid;
+    }
+
+    get avatar() {
+      return Utils.getAvatar(this.picture);
     }
 
     deleteComment() {

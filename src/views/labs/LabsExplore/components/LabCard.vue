@@ -6,7 +6,7 @@
           <b>{{ lab.title }}</b>
         </div>
       </template>
-      <b-img class="image" :src="lab.cover_image || '/img/ribosome_challenge_bg.f42c19e0.png'" />
+      <b-img class="image" :src="image" />
       <template #footer>
         <div class="lab-card-footer d-flex">
           <div
@@ -22,6 +22,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
+  import DefaultHero from '@/assets/home/hero-lab-default.png';
   import { LabCardData } from '../types';
 
   @Component({
@@ -58,6 +59,10 @@
         default:
           return 'red';
       }
+    }
+
+    get image() {
+      return this.lab.banner_image || this.lab.cover_image  || DefaultHero;
     }
   }
 </script>

@@ -1,9 +1,7 @@
 <template>
   <b-carousel-slide
     class="slide"
-    v-if="banner_image || cover_image"
-    :img-src="banner_image || cover_image"
-    style=" background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0))"
+    :img-src="heroImage"
     ><div class="banner-text">
       <h1 class="banner-title">{{ carousel_title || title }}</h1>
       <!-- If there's a subtitle, use that. If there's a title and no subtitle, use the lab name -->
@@ -21,13 +19,12 @@
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
+  import DefaultHero from '@/assets/home/hero-lab-default.png';
 
   @Component({
     components: {},
   })
   export default class BannerSlide extends Vue {
-    @Prop({}) cover_image!: string;
-
     @Prop({}) banner_image!: string;
 
     @Prop({}) title!: string;
@@ -37,6 +34,10 @@
     @Prop({}) carousel_subtitle!: string;
 
     @Prop({}) nid!: number;
+
+    get heroImage() {
+      return this.banner_image || DefaultHero;
+    }
   }
 </script>
 

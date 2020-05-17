@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="card" style="width:100; border: none;">
-      <div
-        :style="{
-          position: 'relative',
-          'background-image': `url(${defaultImage})`,
-          height: '250px',
-        }"
-        class="p-2"
-      >
+      <div class="lab-header p-2" :style="{
+        'background-image': `linear-gradient(
+          to bottom,
+          transparent 0%,
+          rgba(0, 0, 0, 0.6) 70%,
+          rgba(0, 0, 0, 0.9) 100%
+        ), url(${heroImage})`
+      }">
         <span class="header-content">
           <h3>
             <b>{{ lab.title }}</b>
@@ -27,6 +27,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import defaultImage from '@/assets/ribosome_challenge_bg.png';
   import VueDOMPurifyHTML from 'vue-dompurify-html';
+  import DefaultHero from '@/assets/home/hero-lab-default.png';
   import { LabData } from '../types';
 
   Vue.use(VueDOMPurifyHTML);
@@ -50,8 +51,8 @@
       return this.readMore ? this.lab.body : this.lab.body.substr(0, 1000);
     }
 
-    get defaultImage() {
-      return defaultImage;
+    get heroImage() {
+      return this.lab.banner_image  || DefaultHero;
     }
   }
 </script>
@@ -66,4 +67,20 @@
   .body {
     padding: 40px 30px 5px;
   }
+
+  .lab-header {
+    position: relative;
+    background-position: center;
+    height: 250px;
+  }
+
+  /*.lab-header::after {
+    display: block;
+    position: relative;
+    background-image: 
+    margin-top: -300px;
+    height: 300px;
+    width: 100%;
+    content: '';
+  }*/
 </style>

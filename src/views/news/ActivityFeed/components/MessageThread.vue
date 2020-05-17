@@ -8,6 +8,20 @@
         :article="article"
         :first="index === 0"
       />
+      <div style="margin-top: 20px;">
+        <b-button
+          class="mt-2"
+          variant="primary"
+          @click="showCompose = !showCompose"
+          v-if="!showCompose && messages[0].type == 'message'"
+        >
+          {{ $t('activity-feed:reply') }}
+        </b-button>
+        <MessageCompose
+          :parentNID="this.article.nid" :uid="replyUID"
+          v-if="showCompose" @cancel="showCompose = false"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -16,14 +30,22 @@
   // @ts-ignore
   import get from 'lodash.get';
   import MessageItem from './MessageItem.vue';
+  import MessageCompose from './MessageCompose.vue';
 
   @Component({
-    components: { MessageItem },
+    components: { MessageItem, MessageCompose },
   })
   export default class MessageThread extends Vue {
     @Prop() private article!: Array<object>;
 
+    private showCompose = false;
+
     private messages = this.article.message;
+
+    get replyUID() {
+      return this.article.target_uid !== this.$vxm.user.uid ?
+        this.article.target_uid : this.article.target2_uid;
+    }
   }
 </script>
 

@@ -16,12 +16,19 @@
             style="margin-right:10px"
           />
         </SmartLink>
-        <p v-if="senderName" style="margin-top:5px">{{ senderName }} > {{ getterName }}:</p>
+        <p v-if="senderName" style="margin-top:5px">
+          <template v-if="type == 'message'">
+            {{ senderName }} > {{ getterName }}:
+          </template>
+          <template v-else>
+            {{ senderName }} commented on
+            <a :href="`/${content.node.node_type}s/${content.node.id}`">
+              {{ content.node.title }}</a
+            >
+          </template>
+        </p>
       </div>
       <div v-dompurify-html="content.body || content" class="text" style="word-break: break-all;" />
-      <a v-if="content.body" :href="`/${content.node.node_type}s/${content.node.id}`">
-        {{ content.node.title }}</a
-      >
     </div>
   </div>
 </template>
@@ -43,6 +50,8 @@
     @Prop() private sender!: string;
 
     @Prop() private article!: object;
+
+    @Prop() private type!: string;
 
     private senderName =
       this.sender === this.article.target_uid

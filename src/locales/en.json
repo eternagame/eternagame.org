@@ -384,6 +384,8 @@
   "bell-icon:news-post": "published a news post:",
   "news-view:anouncements": "announcements",
   "activity-feed:send": "Send",
+  "activity-feed:reply": "Reply",
+  "activity-feed:cancel": "Cancel",
   "activity-feed:add-recipient": "Add recipient...",
   "activity-feed:type-message": "Type your message...",
   "activity-feed:to": "To:",

@@ -1,6 +1,28 @@
 <template>
   <!-- TODO: i18nify all content -->
-  <div class="page-content card">
+  <!-- TODO: De-duplicate the editfield and submit button -->
+  <div v-if="parentNID">
+    <EditField @input="setCommentText" :key="messagesSent"/>
+
+    <b-button
+      class="mt-2"
+      type="submit"
+      variant="primary"
+      @click="sendMessage"
+      :disabled="isSending || !commentText"
+    >
+      {{ $t('activity-feed:send') }}
+      <b-spinner v-if="isSending" small></b-spinner>
+    </b-button>
+    <b-button
+      class="mt-2 ml-2"
+      variant="secondary"
+      @click="$emit('cancel')"
+    >
+      {{ $t('activity-feed:cancel') }}
+    </b-button>
+  </div>
+  <div class="page-content card" v-else>
     <div class="container">
       <div class="d-flex">
         <h4 class="mt-3 mr-3">{{ $t('activity-feed:to') }}</h4>
@@ -50,6 +72,12 @@
 
   @Component({ components: { EditField, VueBootstrapTypeahead } })
   export default class MessageCompose extends Vue {
+    @Prop({})
+    parentNID?: number;
+
+    @Prop({})
+    uid?: number;
+
     commentText: string = '';
 
     targetName = '';
@@ -77,23 +105,29 @@
     }
 
     async postMessage(targetUid: string, message: string) {
+      const params = {
+        type: 'message',
+        action: 'add',
+        notification_type: 'message',
+        target_uid: targetUid,
+        body: message
+      };
+
+      if (this.parentNID) params.parent_nid = this.parentNID;
+
       await axios.post(
         '/post/?type=message',
-        new URLSearchParams({
-          type: 'message',
-          action: 'add',
-          notification_type: 'message',
-          target_uid: targetUid,
-          body: message,
-        }),
+        new URLSearchParams(params),
       );
     }
 
     async sendMessage() {
       this.isSending = true;
       try {
-        const targetUid: string = await this.lookupUid(this.targetName);
+        const targetUid: string = this.uid || await this.lookupUid(this.targetName);
         await this.postMessage(targetUid, this.commentText);
+        // TODO: Do better, eg: have the feed view just reload all data
+        window.location.reload();
       } catch (e) {
         // TODO: Differentiate errors (no username? post issue?), use a better UI
         alert(`Error posting message.\n${e}`);

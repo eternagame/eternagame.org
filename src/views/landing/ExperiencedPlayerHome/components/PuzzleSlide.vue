@@ -39,10 +39,10 @@
     components: {},
   })
   export default class PuzzleSlide extends Vue {
-    @Prop({ default: '[NuPACK][switch2.5][3 states] WOW, my 1429th 3 State Switch' })
+    @Prop({})
     title!: string;
 
-    @Prop({ default: '9981473' }) nid!: string;
+    @Prop({}) nid!: string;
 
     get puzzleImageURL() {
       return Utils.getPuzzleMiddleThumbnail(this.nid);

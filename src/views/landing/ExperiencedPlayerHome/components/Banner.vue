@@ -10,7 +10,7 @@
     style="text-shadow: 1px 1px 2px #333;"
   >
     <BannerSlide v-for="lab in labs" v-bind="lab" :key="lab.nid" />
-    <PuzzleSlide v-bind="puzzle" />
+    <PuzzleSlide v-bind="potw" v-if="potw"/>
   </b-carousel>
 </template>
 
@@ -27,7 +27,7 @@
   export default class Banner extends Vue {
     @Prop({}) labs!: Array<Object>;
 
-    @Prop({}) puzzle!: Object;
+    @Prop({}) potw!: Object;
   }
 </script>
 

@@ -18,7 +18,7 @@
         </SmartLink>
         <p v-if="senderName" style="margin-top:5px">{{ senderName }} > {{ getterName }}:</p>
       </div>
-      <div v-dompurify-html="strippedBody(content.body || content)" class="text" />
+      <div v-dompurify-html="content.body || content" class="text" />
       <a v-if="content.body" :href="`/${content.node.node_type}s/${content.node.id}`">
         {{ content.node.title }}</a
       >
@@ -67,7 +67,6 @@
       });
     }
 
-    private strippedBody = Utils.strippedBody;
   }
 </script>
 
@@ -136,5 +135,9 @@
     display: -webkit-box;
     -webkit-line-clamp: 4; /* number of lines to show */
     -webkit-box-orient: vertical;
+  }
+
+  .text ::v-deep img {
+    max-width: 100% !important;
   }
 </style>

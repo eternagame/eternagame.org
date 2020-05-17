@@ -6,7 +6,8 @@ export default {
     return `https://s3.amazonaws.com/eterna/puzzle_cloud_thumbnails/thumbnail${nid}.png`;
   },
   strippedBody(text: string): string {
-    // For now, remove all html tags, since <ul> and <img> can break formatting.
+    // For notification previews, remove all html tags,
+    // since tags like <ul> and <img> can break formatting.
     return text && text.replace(/(<([^>]+)>)/gi, '');
   },
   formattedType(article): string {

@@ -21,7 +21,7 @@
                 style="width: 40px; height: 40px;margin-right:10px"
               />
 
-              <span v-html="htmlText" style="color:black"></span>
+              <span v-html="htmlText" style="color: white"></span>
             </div>
           </template>
         </vue-bootstrap-typeahead>

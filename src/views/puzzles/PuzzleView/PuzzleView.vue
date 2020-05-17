@@ -50,7 +50,7 @@
           </li>
           <li>
             <img src="@/assets/people.svg" class="icon" />
-            {{ puzzle.num-cleared ? puzzle.num-cleared : 0 }}
+            {{ puzzle['num-cleared'] ? puzzle['num-cleared'] : 0 }}
           </li>
           <li v-if="puzzle.created">
             <img src="@/assets/calendar.svg" class="icon" />{{ puzzle.created }}

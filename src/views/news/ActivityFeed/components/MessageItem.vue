@@ -1,6 +1,5 @@
 <template>
-  <div class="container">
-    <a v-if="created" :name="created"></a>
+  <div class="container" ref="container">
     <div class="row justify-content-between">
       <div class="col p-0" style="text-align:right">
         <div class="b" style="opacity: 0.5;">{{ timeCreated }}</div>
@@ -31,9 +30,12 @@
   </div>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
   import SmartLink from '@/components/Common/SmartLink.vue';
+  import VueScrollTo from 'vue-scrollto';
+
+  Vue.use(VueScrollTo);
 
   @Component({
     components: { SmartLink },
@@ -50,6 +52,21 @@
     @Prop() private article!: object;
 
     @Prop() private type!: string;
+
+    maybeScroll() {
+      if (window.location.hash && window.location.hash.substr(1) === String(this.created)) {
+        VueScrollTo.scrollTo(this.$refs.container);
+      }
+    }
+
+    @Watch('$route', { immediate: true, deep: true })
+    onUrlChange(newVal: any) {
+      this.maybeScroll();
+    }
+
+    mounted() {
+      this.maybeScroll();
+    }
 
     private senderName =
       this.sender === this.article.target_uid

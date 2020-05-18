@@ -13,7 +13,7 @@
       <Pagination :key="puzzles.length" />
     </div>
     <div v-else>
-      <Preloader/>
+      <Preloader />
     </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
@@ -112,7 +112,9 @@
     }
 
     puzzleCleared(id: number) {
-      return this.pageData.cleared.map(puzzle => puzzle.id).includes(id);
+      return get(this, 'pageData.cleared', [])
+        .map(puzzle => puzzle.id)
+        .includes(id);
     }
 
     private options: Option[] = [

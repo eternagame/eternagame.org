@@ -40,6 +40,7 @@
                 ...this.$route.query,
                 size: String(newSize),
               },
+              hash: window.location.hash,
             });
             this.loading = true;
           }

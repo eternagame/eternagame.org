@@ -2,7 +2,7 @@
   <div class="container" ref="container">
     <div class="row justify-content-between">
       <div class="col p-0" style="text-align:right">
-        <div class="b" style="opacity: 0.5;">{{ timeCreated }}</div>
+        <div class="b" style="opacity: 0.5; ">{{ timeCreated }}</div>
       </div>
     </div>
 
@@ -55,7 +55,7 @@
 
     maybeScroll() {
       if (window.location.hash && window.location.hash.substr(1) === String(this.created)) {
-        VueScrollTo.scrollTo(this.$refs.container);
+        VueScrollTo.scrollTo(this.$refs.container, { offset: -100 });
       }
     }
 

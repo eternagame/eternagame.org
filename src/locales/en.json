@@ -386,6 +386,7 @@
   "activity-feed:send": "Send",
   "activity-feed:reply": "Reply",
   "activity-feed:cancel": "Cancel",
+  "activity-feed:commented-on": "commented on",
   "activity-feed:add-recipient": "Add recipient...",
   "activity-feed:type-message": "Type your message...",
   "activity-feed:to": "To:",

@@ -17,11 +17,9 @@
           />
         </SmartLink>
         <p v-if="senderName" style="margin-top:5px">
-          <template v-if="type == 'message'">
-            {{ senderName }} > {{ getterName }}:
-          </template>
+          <template v-if="type == 'message'"> {{ senderName }} > {{ getterName }}: </template>
           <template v-else>
-            {{ senderName }} commented on
+            {{ senderName + ' ' }} {{ $t('activity-feed:commented-on') + ' ' }}
             <a :href="`/${content.node.node_type}s/${content.node.id}`">
               {{ content.node.title }}</a
             >
@@ -66,8 +64,8 @@
     get avatar() {
       return Utils.getAvatar(
         this.sender === this.article.target_uid
-        ? this.article.target_picture
-        : this.article.target2_picture
+          ? this.article.target_picture
+          : this.article.target2_picture,
       );
     }
 
@@ -78,7 +76,6 @@
         day: 'numeric',
       });
     }
-
   }
 </script>
 

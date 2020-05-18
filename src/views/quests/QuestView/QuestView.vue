@@ -10,7 +10,11 @@
         </div>
         <div>
           <img :src="quest.image" style="max-height: 250px; max-width: 270px;margin-bottom:20px" />
-          <b-progress :value="quest.to_next" max="1"></b-progress>
+          <div v-if="completed">
+            <img src="@/assets/noun_check.svg" />
+            <b>{{ $t('quest:completed').toUpperCase() }}</b>
+          </div>
+          <b-progress :value="quest.to_next" max="1" v-else></b-progress>
         </div>
       </div>
     </div>
@@ -87,6 +91,8 @@
     get quest() {
       return this.pageData.achievement_roadmap.find(p => p.title === this.$route.params.id);
     }
+
+    private completed = this.quest.to_next >= 1;
 
     puzzleCleared(id: number) {
       return this.pageData.cleared.map(puzzle => puzzle.id).includes(id);

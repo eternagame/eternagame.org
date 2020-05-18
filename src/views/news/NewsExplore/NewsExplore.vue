@@ -1,8 +1,8 @@
 <template>
   <EternaPage :title="$t('news-explore:title')" v-if="pageData">
-    <div v-if="pageData">
+    <div v-if="pageData && pageData.entries">
       <Gallery :sm="12" :md="12">
-        <NewsCard v-for="article in pageData.entries" :key="article.nid" v-bind="article" />
+        <NewsCard v-for="article in pageData.entries" :key="article.nid" :article="article" />
       </Gallery>
       <Pagination :key="pageData.entries.length" />
     </div>

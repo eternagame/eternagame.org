@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/news/${nid}`">
+  <router-link :to="`/news/${article.nid}`">
     <div class="page-content card">
       <div class="container">
         <div class="row justify-content-between">
@@ -8,11 +8,11 @@
             <div class="b" :style="{ color: typeColor(article) }">{{ formattedType(article) }}</div>
           </div>
           <div class="col p-0" style="text-align:right">
-            <div class="b" style="opacity: 0.5;">{{ created }}</div>
+            <div class="b" style="opacity: 0.5;">{{ article.created }}</div>
           </div>
         </div>
         <div class="row">
-          <h3 class="card-title">{{ title }}</h3>
+          <h3 class="card-title">{{ article.title }}</h3>
           <div v-dompurify-html="strippedBody(article.body)" class="text" />
         </div>
       </div>
@@ -23,17 +23,19 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
 
+  interface Article {
+    created: string;
+    body: string;
+    title: string;
+    nid: string;
+    type: string;
+  }
+
   @Component({
     components: {},
   })
   export default class NewsCard extends Vue {
-    @Prop() private created!: string;
-
-    @Prop() private title!: string;
-
-    @Prop() private body!: string;
-
-    @Prop() private nid!: string;
+    @Prop() private article!: Article;
 
     @Prop({ default: 'blogs' }) private type!: string;
 

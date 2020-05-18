@@ -21,11 +21,11 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  
+
   @Component({
     components: {},
   })
-  export default class NewsCard extends Vue {
+  export default class PubsCard extends Vue {
     @Prop() private title!: string;
 
     @Prop() private abstract!: string;

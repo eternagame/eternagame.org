@@ -5,7 +5,7 @@
         <div class="row justify-content-between">
           <div class="col p-0">
             <!-- Note: Any space between these tags will misalign the Type tag. -->
-            <div class="b" :style="{ color: typeColor(article) }">{{ formattedType(article) }}</div>
+            <div class="b" :style="{ color: typeColor({type}) }">{{ formattedType({type}) }}</div>
           </div>
           <div class="col p-0" style="text-align:right">
             <div class="b" style="opacity: 0.5;">{{ created }}</div>
@@ -13,7 +13,7 @@
         </div>
         <div class="row">
           <h3 class="card-title">{{ title }}</h3>
-          <div v-dompurify-html="strippedBody(article.body)" class="text" />
+          <div v-dompurify-html="strippedBody(body)" class="text" />
         </div>
       </div>
     </div>
@@ -23,80 +23,80 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
 
-  @Component({
-    components: {},
-  })
+@Component({
+  components: {},
+})
   export default class NewsCard extends Vue {
-    @Prop() private created!: string;
+  @Prop() private created!: string;
 
-    @Prop() private title!: string;
+  @Prop() private title!: string;
 
-    @Prop() private body!: string;
+  @Prop() private body!: string;
 
-    @Prop() private nid!: string;
+  @Prop() private nid!: string;
 
-    @Prop({ default: 'blogs' }) private type!: string;
+  @Prop({ default: 'blogs' }) private type!: string;
 
-    private formattedType = Utils.formattedType;
+  private formattedType = Utils.formattedType;
 
-    private strippedBody = Utils.strippedBody;
+  private strippedBody = Utils.strippedBody;
 
-    private typeColor = Utils.typeColor;
+  private typeColor = Utils.typeColor;
   }
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/global.scss';
+@import '@/styles/global.scss';
 
-  .btn {
-    display: inline-block;
-    width: 48%;
-    margin-bottom: 0px;
-  }
+.btn {
+  display: inline-block;
+  width: 48%;
+  margin-bottom: 0px;
+}
 
-  ::v-deep .card-body {
-    padding: 11.25px !important;
-  }
+::v-deep .card-body {
+  padding: 11.25px !important;
+}
 
-  .card-title {
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin: 0.4rem 0;
-    color: $white;
-  }
+.card-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0.4rem 0;
+  color: $white;
+}
 
-  .b {
-    font-weight: bold;
-  }
+.b {
+  font-weight: bold;
+}
 
-  .card {
-    color: $white;
+.card {
+  color: $white;
 
-    padding: 1rem 2rem;
-    margin-bottom: 1.5rem;
-    max-height: 600px;
-    // cursor: pointer;
-    transition: background-color 0.5s ease;
-  }
+  padding: 1rem 2rem;
+  margin-bottom: 1.5rem;
+  max-height: 600px;
+  // cursor: pointer;
+  transition: background-color 0.5s ease;
+}
 
-  .card:hover {
-    background-color: #21508c;
-  }
+.card:hover {
+  background-color: #21508c;
+}
 
-  a:hover {
-    text-decoration: none;
-  }
+a:hover {
+  text-decoration: none;
+}
 
-  .text {
-    // white-space: nowrap;
-    // overflow: hidden;
-    // text-overflow: ellipsis;
-    // max-height: 100px;
+.text {
+  // white-space: nowrap;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+  // max-height: 100px;
 
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 4; /* number of lines to show */
-    -webkit-box-orient: vertical;
-  }
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
 </style>

@@ -13,6 +13,7 @@ export default {
     return text && text.replace(/(<([^>]+)>)/gi, '');
   },
   formattedType(article): string {
+    if (!article) return null;
     const formatted = article.type.toUpperCase();
     if (formatted === 'BLOGS') {
       // Unpluralize, since it sounds better
@@ -140,7 +141,7 @@ export default {
     );
   },
   getAvatar(uri: string) {
-    if (uri) return (/^http/i).exec(uri) ? uri : `/${uri}`;
+    if (uri) return /^http/i.exec(uri) ? uri : `/${uri}`;
     return DefaultAvatar;
-  }
+  },
 };

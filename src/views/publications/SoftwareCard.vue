@@ -9,7 +9,11 @@
       <p class="text">{{ project.description }}</p>
 
       <div class="">
-        <button type="button" class="btn btn-primary mt-3 mr-3 mb-3">
+        <button
+          type="button"
+          class="btn btn-primary mt-3 mr-3 mb-3"
+          v-b-modal.software-license-modal
+        >
           <b-icon-download />
           DOWNLOAD
         </button>
@@ -71,7 +75,11 @@
     width: 64px;
     height: 64px;
     object-fit: scale-down;
-    // background-color: white;
     border: 2px solid grey;
+
+    transition: ease 0.5s;
+  }
+  .logo:hover {
+    transform: rotateY(180deg);
   }
 </style>

@@ -71,7 +71,7 @@
 
 <style scoped lang="scss">
   .overview {
-    max-width: 70%;
+    max-width: 820px;
     margin: 2rem;
     margin-bottom: 4rem;
   }

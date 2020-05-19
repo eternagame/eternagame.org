@@ -20,6 +20,10 @@
           <img src="@/assets/dollar.svg" class="icon" style="margin-bottom:5px" />
           {{ points }}
         </div>
+        <div v-if="points">
+          <img src="@/assets/test-tube.svg" class="icon" style="margin-bottom:5px" />
+          {{ synths }}
+        </div>
         <div v-if="dateCreated" class="d-none d-sm-block">
           <img src="@/assets/calendar.svg" class="icon" style="margin-bottom:5px" />
           {{ dateCreated }}
@@ -46,7 +50,11 @@
     @Prop() private index!: number;
 
     get points() {
-      return this.player.points && parseInt(this.player.points, 10).toLocaleString();
+      return this.player.points && parseInt(this.player.points, 10).toLocaleString() || 0;
+    }
+
+    get synths() {
+      return this.player.synths && parseInt(this.player.synths, 10).toLocaleString() || 0;
     }
 
     private rank: string = '';

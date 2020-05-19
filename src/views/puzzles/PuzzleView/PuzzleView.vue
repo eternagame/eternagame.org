@@ -19,7 +19,7 @@
         <div class="order-sm-1 col-sm-6">
           <hr class="top-border d-sm-none" />
           <div
-            class="puzzle-description" style="word-break: break-all;"
+            class="puzzle-description" style="word-wrap: break-word;"
             v-dompurify-html="puzzle.body"
           />
         </div>

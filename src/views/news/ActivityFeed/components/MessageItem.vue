@@ -25,7 +25,7 @@
           </template>
         </p>
       </div>
-      <div v-dompurify-html="content.body || content" style="word-break: break-all;" />
+      <div v-dompurify-html="content.body || content" style="word-wrap: break-word;" />
     </div>
   </div>
 </template>

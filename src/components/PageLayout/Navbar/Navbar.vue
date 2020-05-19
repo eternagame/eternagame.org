@@ -3,7 +3,6 @@
     <b-container class="page-container px-4 d-flex justify-content-between">
       <EternaLogo />
       <div class="d-flex justify-content-end">
-        <LoginRow v-if="!loggedIn" />
         <div class="d-none d-lg-block">
           <NavbarCollapseContent :menu="menu" />
         </div>
@@ -28,14 +27,12 @@
   import NavbarIcons from './Icons/NavbarIcons.vue';
   import NavbarCollapseContent from './NavbarMenu/NavbarCollapseContent.vue';
   import EternaLogo from './EternaLogo.vue';
-  import LoginRow from './NavbarMenu/Login/LoginRow.vue';
   import SidebarMenuContent from './SidebarMenu/SidebarMenuContent.vue';
   import MobileSidebar from '../MobileSidebar.vue';
 
   @Component({
     components: {
       NavbarIcons,
-      LoginRow,
       NavbarCollapseContent,
       EternaLogo,
       SidebarMenuContent,

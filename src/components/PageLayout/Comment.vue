@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex align-items-start">
-    <img :src="avatar" style="width: 40px; flex-shrink: 0;"/>
+    <img :src="avatar" style="width: 40px; flex-shrink: 0;" />
     <div class="ml-2 mb-4">
       <router-link :to="`/players/${uid}`">
         <p class="commenter-name mb-0">
@@ -20,6 +20,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import axios from 'axios';
   import Utils from '@/utils/utils';
+  import { CommentItem } from '@/types/common-types';
 
   const ADD_COMMENT_ROUTE = '/post/';
 
@@ -34,7 +35,7 @@
     private created!: string;
 
     @Prop()
-    private comment!: string;
+    private comment!: CommentItem;
 
     @Prop()
     private uid!: string;
@@ -43,7 +44,7 @@
     private picture!: string;
 
     get canDelete() {
-      return this.$vxm.user.uid === this.comment.cid;
+      return String(this.$vxm.user.uid) === String(this.comment.cid);
     }
 
     get avatar() {

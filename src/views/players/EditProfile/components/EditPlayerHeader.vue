@@ -32,7 +32,7 @@
       this.$emit('submit-data');
     }
 
-    setPicture(file) {
+    setPicture(file: File) {
       this.$emit('set-picture', file);
     }
   }

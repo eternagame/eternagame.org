@@ -30,10 +30,11 @@
   </div>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Watch, Ref } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
   import SmartLink from '@/components/Common/SmartLink.vue';
   import VueScrollTo from 'vue-scrollto';
+  import { NewsItem } from '@/types/common-types';
 
   Vue.use(VueScrollTo);
 
@@ -43,24 +44,26 @@
   export default class MessageItem extends Vue {
     @Prop() private created!: string;
 
-    @Prop() private content: string | object;
+    @Prop({ default: '' }) private content!: string | object;
 
-    @Prop() private first: boolean;
+    @Prop({ default: false }) private first!: boolean;
 
     @Prop() private sender!: string;
 
-    @Prop() private article!: object;
+    @Prop() private article!: NewsItem;
 
     @Prop() private type!: string;
 
+    @Ref('container') readonly scrollTarget!: HTMLElement;
+
     maybeScroll() {
       if (window.location.hash && window.location.hash.substr(1) === String(this.created)) {
-        VueScrollTo.scrollTo(this.$refs.container, { offset: -100 });
+        VueScrollTo.scrollTo(this.scrollTarget, { offset: -100 });
       }
     }
 
     @Watch('$route', { immediate: true, deep: true })
-    onUrlChange(newVal: any) {
+    onUrlChange() {
       this.maybeScroll();
     }
 

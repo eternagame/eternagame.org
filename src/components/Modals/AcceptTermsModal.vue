@@ -51,21 +51,24 @@
     private accepted: boolean = false;
 
     mounted() {
-      const surveyValue = this.$vxm.user.loggedIn && this.$vxm.user.userDetails.Survey;
+      const surveyValue = this.$vxm.user.loggedIn && this.$vxm.user.userDetails?.Survey;
       if (surveyValue && !surveyValue.includes('EULA_Agree') && surveyValue !== 'Yes') {
         this.$refs.modal.show();
       }
     }
 
     acceptTerms() {
-      if (this.status) {
- axios.post(ROUTE, new URLSearchParams({
-        type: 'survey',
-        action: 'update',
-        value: 'EULA_AGREE',
-        uid: String(this.$vxm.user.uid),
-      }));
-}
+      if (this.accepted) {
+        axios.post(
+          ROUTE,
+          new URLSearchParams({
+            type: 'survey',
+            action: 'update',
+            value: 'EULA_AGREE',
+            uid: String(this.$vxm.user.uid),
+          }),
+        );
+      }
       this.$refs.modal.hide();
     }
   }

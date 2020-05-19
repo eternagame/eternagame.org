@@ -13,8 +13,6 @@
   import { mixins } from 'vue-class-component';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
-  // @ts-ignore
-  import get from 'lodash.get';
   import vueDebounce from 'vue-debounce';
 
   import icon from '@/assets/Filter.svg';
@@ -41,7 +39,9 @@
     onSearch(event: KeyboardEvent) {
       this.$router.replace({
         name: this.$route.name!,
-        query: { ...this.$route.query, search: get(event, 'target.value') },
+        // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
+        // @ts-ignore
+        query: { ...this.$route.query, search: event.target.value },
       });
     }
   }

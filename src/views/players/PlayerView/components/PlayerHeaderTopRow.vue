@@ -25,7 +25,7 @@
   import { UserData } from '@/types/common-types';
   import SmartLink from '@/components/Common/SmartLink.vue';
 
-  @Component({ SmartLink })
+  @Component({ components: { SmartLink } })
   export default class PlayerHeaderTopRow extends Vue {
     @Prop() user!: UserData;
 

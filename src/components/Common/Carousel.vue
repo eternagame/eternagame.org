@@ -13,9 +13,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
-  // @ts-ignore
-  import get from 'lodash.get';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { Swiper, directive } from 'vue-awesome-swiper';
   import { BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
   import 'swiper/css/swiper.css';
@@ -26,8 +24,11 @@
   export default class Carousel extends Vue {
     @Prop() private slideTo!: number;
 
+    // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
+    @Ref('slider') readonly slider!: any;
+
     mounted() {
-      if (this.slideTo) this.$refs.slider.$swiper.slideTo(this.slideTo);
+      if (this.slideTo) this.slider.$swiper.slideTo(this.slideTo);
     }
 
     private swiperOption = {

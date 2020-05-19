@@ -19,18 +19,15 @@
         <div class="order-sm-1 col-sm-6">
           <hr class="top-border d-sm-none" />
           <div
-            class="puzzle-description" style="word-break: break-all;"
+            class="puzzle-description"
+            style="word-break: break-all;"
             v-dompurify-html="puzzle.body"
           />
         </div>
       </div>
-
     </div>
 
-    <Comments
-      :comments="pageData.comments"
-      :nid="puzzle.id"
-    />
+    <Comments :comments="pageData.comments" :nid="puzzle.id" />
 
     <template #sidebar="{ isInSidebar }">
       <SidebarPanel
@@ -71,13 +68,11 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  // @ts-ignore
-  import get from 'lodash.get';
   import Utils from '@/utils/utils';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
-  import PuzzleData from './types';
+  import { PuzzleItem } from '@/types/common-types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const res = (
@@ -87,7 +82,7 @@
           filters: route.query.filters && (route.query.filters as string).split(','),
         },
       })
-    ).data.data as PuzzleData;
+    ).data.data;
     return res;
   }
 
@@ -97,22 +92,22 @@
       TagsPanel,
       SidebarPanel,
       Preloader,
-      Comments
+      Comments,
     },
   })
   export default class PuzzleView extends Mixins(PageDataMixin(fetchPageData)) {
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
     get puzzle() {
-      return get(this.pageData, 'puzzle');
+      return this.pageData?.puzzle;
     }
 
     get imageURL() {
-      return Utils.getPuzzleMiddleThumbnail(get(this.pageData, 'nid', ''));
+      return Utils.getPuzzleMiddleThumbnail(this.pageData?.nid as string);
     }
 
     get avatar() {
-      return Utils.getAvatar(this.puzzle.userpicture);
+      return Utils.getAvatar(this.puzzle?.userpicture as string);
     }
   }
 </script>

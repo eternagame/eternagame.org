@@ -29,8 +29,8 @@
     components: {},
   })
   export default class PlayerHeaderImage extends Vue {
-    get user() {
-      return this.$vxm.user.userDetails;
+    get user(): UserData {
+      return this.$vxm.user.userDetails as UserData;
     }
 
     get picture() {

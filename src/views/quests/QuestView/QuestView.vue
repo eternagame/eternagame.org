@@ -3,9 +3,7 @@
     <div class="video">
       <div class="d-flex">
         <div>
-          <h2>
-            {{ $t('quest-view:banner-title') }}
-          </h2>
+          <h2>{{ $t('quest-view:banner-title') }}</h2>
           <p style="width: 482px" v-dompurify-html="quest.desc"></p>
         </div>
         <div>
@@ -19,9 +17,7 @@
       </div>
     </div>
 
-    <h2>
-      {{ $t('nav-bar:puzzles') }}
-    </h2>
+    <h2>{{ $t('nav-bar:puzzles') }}</h2>
     <Gallery sm="3" md="3" v-if="pageData && pageData.puzzles">
       <PuzzleCard
         v-for="puzzle in pageData.puzzles"
@@ -51,7 +47,7 @@
           </li>
           <li><img src="@/assets/group.svg" class="icon" />{{ audience }}</li>
           <li><img src="@/assets/calendar.svg" class="icon" />{{ 'Sept 2019' }}</li>
-        </ul> -->
+        </ul>-->
       </SidebarPanel>
     </template>
   </EternaPage>
@@ -68,6 +64,7 @@
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
+  import { PuzzleItem, AchievementItem } from '@/types/common-types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const me = (await http.get('/get/?type=me')).data.data;
@@ -89,13 +86,15 @@
   })
   export default class QuestView extends Mixins(PageDataMixin(fetchPageData)) {
     get quest() {
-      return this.pageData.achievement_roadmap.find(p => p.title === this.$route.params.id);
+      return this.pageData.achievement_roadmap.find(
+        (p: AchievementItem) => p.title === this.$route.params.id,
+      );
     }
 
     private completed = this.quest.to_next >= 1;
 
     puzzleCleared(id: number) {
-      return this.pageData.cleared.map(puzzle => puzzle.id).includes(id);
+      return this.pageData.cleared.map((puzzle: PuzzleItem) => puzzle.id).includes(id);
     }
 
     get audience() {

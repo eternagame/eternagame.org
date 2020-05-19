@@ -38,7 +38,7 @@
   import Comments from '@/components/PageLayout/Comments.vue';
   import EditField from '@/components/Common/EditField.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import NewsData from './types';
+  import { NewsItem } from '@/types/common-types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const res = (
@@ -48,7 +48,7 @@
           filters: route.query.filters && (route.query.filters as string).split(','),
         },
       })
-    ).data.data as NewsData;
+    ).data.data as NewsItem;
     return res;
   }
 
@@ -65,12 +65,12 @@
     },
   })
   export default class NewsView extends Mixins(PageDataMixin(fetchPageData)) {
-    get news() {
-      return this.pageData;
+    get news(): NewsItem {
+      return this.pageData as NewsItem;
     }
 
     get addCommentPath() {
-      return `/web/blog/${this.pageData.news.nid}`;
+      return `/web/blog/${this.news.nid}`;
     }
 
     private options: Option[] = [

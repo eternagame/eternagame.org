@@ -36,8 +36,6 @@
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
-  // @ts-ignore
-  import get from 'lodash.get';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import QuestCard from '@/components/Cards/QuestCard.vue';
@@ -47,6 +45,7 @@
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import Utils from '@/utils/utils';
   import Preloader from '@/components/PageLayout/Preloader.vue';
+  import { AchievementItem } from '@/types/common-types';
   import Banner from './components/Banner.vue';
 
   @Component({
@@ -63,21 +62,23 @@
   export default class ExperiencedPlayerView extends Vue {
     @Prop({}) pageData!: Object;
 
+    get achievementRoadmap() {
+      return this.pageData?.achievement_roadmap || [];
+    }
+
     get masteringEterna() {
-      return get(this.pageData, 'achievement_roadmap', [])
-        .filter((p: { key: string }) => (p.key as string).includes('side_quest'))
-        .filter(p => p.level === p.current_level + 1)
-        .map(p => ({
+      return this.achievementRoadmap
+        .filter((p: AchievementItem) => p.key.includes('side_quest'))
+        .filter((p: AchievementItem) => Number(p.level) === Number(p.current_level) + 1)
+        .map((p: AchievementItem) => ({
           ...p,
-          questLink: Utils.getQuestLink(p.key as string),
-          puzzleLink: Utils.getPuzzleLink(p.key as string),
+          questLink: Utils.getQuestLink(p.key),
+          puzzleLink: Utils.getPuzzleLink(p.key),
         }));
     }
 
     get newPlayerRoadMap() {
-      return get(this.pageData, 'achievement_roadmap', []).filter(
-        (p: { key: string }) => (p.key as string) === 'ten_tools',
-      );
+      return this.achievementRoadmap.filter((p: AchievementItem) => p.key === 'ten_tools');
     }
 
     get newPlayerProgressNumber() {
@@ -86,19 +87,6 @@
 
     get masteringEternaProgressNumber() {
       return this.masteringEterna && this.masteringEterna[0].current_level;
-    }
-
-    get progressData() {
-      return {
-        'banner-title': 'Optimizing the Ribosome',
-        'banner-sub-title': 'Ribosome Design Challenge',
-        'banner-image':
-          'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/11FA9E9F-89F8-4548-A93F-241E4D1D6362.png',
-        progressCircles: [
-          { name: 'Designs Submitted', number: 14276, total: 24000 },
-          { name: 'My Submissions', number: 526, total: 1200 },
-        ],
-      };
     }
   }
 </script>

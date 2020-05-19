@@ -21,11 +21,10 @@
           variant="primary"
           @click="submit"
           :disabled="!commentText || submitting"
-          >
-            {{ $t('page:comments-action') }}
-            <b-spinner v-if="submitting" small></b-spinner>
-          </b-button
         >
+          {{ $t('page:comments-action') }}
+          <b-spinner v-if="submitting" small></b-spinner>
+        </b-button>
       </div>
       <Comment v-for="comment in newestComments" :key="comment.cid" v-bind="comment" />
     </div>
@@ -35,6 +34,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import axios from 'axios';
+  import { CommentItem } from '@/types/common-types';
   import Comment from './Comment.vue';
 
   const ADD_COMMENT_ROUTE = '/post/';
@@ -44,7 +44,7 @@
   })
   export default class Comments extends Vue {
     @Prop({ default: [] })
-    private comments;
+    private comments!: Array<CommentItem>;
 
     @Prop()
     private nid!: string;
@@ -69,11 +69,14 @@
     submit() {
       this.submitting = true;
       axios
-        .post(ADD_COMMENT_ROUTE, new URLSearchParams({
-          type: 'post_comment',
-          body: this.commentText,
-          nid: this.nid,
-        }))
+        .post(
+          ADD_COMMENT_ROUTE,
+          new URLSearchParams({
+            type: 'post_comment',
+            body: this.commentText,
+            nid: this.nid,
+          }),
+        )
         .then(res => {
           this.newComments = res.data.data.comments;
           this.submitting = false;

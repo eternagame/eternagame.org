@@ -28,16 +28,17 @@
   import EditPlayerFeaturedAchievement from './EditPlayerFeaturedAchievement.vue';
   import EditPlayerNewSection from './EditPlayerNewSection.vue';
 
+
   @Component({
     components: { EditPlayerFeaturedAchievement, EditField, EditPlayerNewSection },
   })
   export default class PlayerAboutMe extends Vue {
-    get user() {
-      return this.$vxm.user.userDetails;
+    get user(): UserData {
+      return this.$vxm.user.userDetails as UserData;
     }
 
     mounted() {
-      this.setProfile(this.$vxm.user.userDetails.Profile);
+      this.setProfile(this.user.Profile);
     }
 
     setProfile(text: string) {

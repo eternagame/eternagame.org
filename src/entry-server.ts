@@ -1,5 +1,3 @@
-// @ts-ignore
-import get from 'lodash.get';
 import i18n, { LANGUAGE_KEY_NAME, DEFAULT_LANGUAGE } from '@/plugins/i18n';
 import createApp from './app';
 

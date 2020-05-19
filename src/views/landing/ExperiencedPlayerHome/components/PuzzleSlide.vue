@@ -31,8 +31,6 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import Utils from '@/utils/utils';
-  // @ts-ignore
-  import get from 'lodash.get';
   import bgimage from '@/assets/home/hero-blue-bg.png';
 
   @Component({

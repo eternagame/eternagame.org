@@ -1,4 +1,5 @@
 import DefaultAvatar from '@/assets/navbar/DefaultIcon.svg';
+import { ActivityItem } from '@/types/common-types';
 
 export default {
   getPuzzleMiddleThumbnail(nid: string) {
@@ -12,7 +13,7 @@ export default {
     // since tags like <ul> and <img> can break formatting.
     return text && text.replace(/(<([^>]+)>)/gi, '');
   },
-  formattedType(article): string {
+  formattedType(article: ActivityItem | null): string | null {
     if (!article) return null;
     const formatted = article.type.toUpperCase();
     if (formatted === 'BLOGS') {
@@ -21,7 +22,8 @@ export default {
     }
     return formatted;
   },
-  typeColor(article): string {
+  typeColor(article: ActivityItem | null): string | null {
+    if (!article) return null;
     switch (article.type.toLowerCase()) {
       case 'blogs':
         return '#53b64e';
@@ -134,10 +136,10 @@ export default {
   },
   isLinkInternal(link: string) {
     return (
-      link.startsWith('/') &&
-      !link.startsWith('/web/') &&
-      !link.startsWith('/game/') &&
-      !link.endsWith('.php')
+      link.startsWith('/')
+      && !link.startsWith('/web/')
+      && !link.startsWith('/game/')
+      && !link.endsWith('.php')
     );
   },
   getAvatar(uri: string) {

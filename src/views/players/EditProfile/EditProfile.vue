@@ -24,7 +24,7 @@
         >
       </div>
     </div>
-    <Preloader v-else/>
+    <Preloader v-else />
 
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
@@ -45,8 +45,6 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import PageDataMixin from '@/mixins/PageData';
   import Notifications from 'vue-notification';
-  // @ts-ignore
-  import get from 'lodash.get';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import EditPlayerHeader from './components/EditPlayerHeader.vue';
   import EditPlayerAboutMe from './components/EditPlayerAboutMe.vue';
@@ -85,6 +83,7 @@
     private loaded = false;
 
     submit() {
+      // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
       const data: any = {};
       if (this.newPassword) {
         data['pass[pass1]'] = this.newPassword as string;
@@ -106,7 +105,7 @@
         })
         .catch(error => this.$notify({
           title: 'Error',
-          text: get(error, 'message'),
+          text: error?.message,
         }));
     }
 

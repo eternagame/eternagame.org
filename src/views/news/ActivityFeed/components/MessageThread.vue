@@ -18,8 +18,10 @@
           {{ $t('activity-feed:reply') }}
         </b-button>
         <MessageCompose
-          :parentNID="this.article.nid" :uid="replyUID"
-          v-if="showCompose" @cancel="showCompose = false"
+          :parentNID="this.article.nid"
+          :uid="replyUID"
+          v-if="showCompose"
+          @cancel="showCompose = false"
         />
       </div>
     </div>
@@ -27,8 +29,7 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  // @ts-ignore
-  import get from 'lodash.get';
+  import { NewsItem, UserMessage } from '@/types/common-types';
   import MessageItem from './MessageItem.vue';
   import MessageCompose from './MessageCompose.vue';
 
@@ -36,15 +37,16 @@
     components: { MessageItem, MessageCompose },
   })
   export default class MessageThread extends Vue {
-    @Prop() private article!: Array<object>;
+    @Prop() private article!: NewsItem;
 
     private showCompose = false;
 
     private messages = this.article.message;
 
     get replyUID() {
-      return this.article.target_uid !== this.$vxm.user.uid ?
-        this.article.target_uid : this.article.target2_uid;
+      return String(this.article.target_uid) !== String(this.$vxm.user.uid)
+        ? this.article.target_uid
+        : this.article.target2_uid;
     }
   }
 </script>

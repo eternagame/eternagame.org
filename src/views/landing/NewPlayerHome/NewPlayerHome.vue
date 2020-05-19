@@ -55,7 +55,7 @@
       </Carousel>
     </div>
     <div v-else>
-      <Preloader/>
+      <Preloader />
     </div>
   </EternaPage>
 </template>
@@ -81,8 +81,7 @@
   import PROGRESS_IMAGE_6 from '@/assets/progress/progress6.svg';
   import BANNER_IMAGE from '@/assets/home/new-player-hero.png';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
-  // @ts-ignore
-  import get from 'lodash.get';
+  import { AchievementItem } from '@/types/common-types';
   import HomeData from '../types';
 
   const PROGRESS_IMAGES = [
@@ -115,12 +114,9 @@
     }
 
     get newPlayerRoadMap() {
-      return (
-        this.pageData.achievement_roadmap
-        && this.pageData.achievement_roadmap.filter(
-          (p: { key: string }) => (p.key as string) === 'ten_tools',
-        )
-      );
+      return (this.pageData?.achievement_roadmap || []).filter(
+        (p: { key: string }) => p.key === 'ten_tools',
+      ) as Array<AchievementItem>;
     }
 
     get progressNumber() {
@@ -130,7 +126,10 @@
     }
 
     get nextPuzzle() {
-      return this.newPlayerRoadMap.find(p => Number(p.level) === Number(this.progressNumber) + 1);
+      const puzzle = this.newPlayerRoadMap.find(
+        (p: AchievementItem) => p.level === this.progressNumber + 1,
+      );
+      return puzzle as AchievementItem | null;
     }
 
     get nextPuzzleId() {

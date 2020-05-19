@@ -1,13 +1,15 @@
 <template>
   <div class="page-content card">
     <div class="container">
-      <h3 class="card-title mb-2">
-        <a :href="project.paperUrl">{{ project.title }}</a>
-      </h3>
-      <div class="text">{{ project.description }}</div>
+      <img class="logo rounded-circle mr-3" :src="project.logoUrl" />
 
-      <div class="mt-3 mb-3">
-        <button type="button" class="btn btn-primary mr-3">
+      <h3 class="mb-2">
+        {{ project.title }}
+      </h3>
+      <p class="text">{{ project.description }}</p>
+
+      <div class="">
+        <button type="button" class="btn btn-primary mt-3 mr-3 mb-3">
           <b-icon-download />
           DOWNLOAD
         </button>
@@ -17,17 +19,19 @@
         </button>
       </div>
 
-      <div class="row mt-3">
-        <div class="col-5">
-          <img v-if="project.thumbnailUrl" class="thumbnail" :src="project.thumbnailUrl" />
+      <div class="row mt-4">
+        <div class="col-lg-5">
+          <a :href="project.paperUrl">
+            <img v-if="project.thumbnailUrl" class="thumbnail" :src="project.thumbnailUrl" />
+          </a>
         </div>
-        <div class="col-7 text">
-          <h3 class="card-title mb-2">
+        <div class="col-lg-7 text">
+          <h3 class="paper-title">
             <a :href="project.paperUrl">
               {{ project.paperTitle }}
             </a>
           </h3>
-          <p>{{ project.journal }} - {{ project.date }}</p>
+          <p class="text-muted">{{ project.journal }} - {{ project.date }}</p>
         </div>
       </div>
     </div>
@@ -47,23 +51,27 @@
 </script>
 
 <style lang="scss" scoped>
-  .card-title a {
-    color: white;
-  }
-
-  .card-title {
-    color: white;
-    font-size: 1.3rem;
+  .paper-title {
+    font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 1rem;
   }
 
   .thumbnail {
     max-width: 100%;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5), 0 3px 10px 0 rgba(0, 0, 0, 0.5);
   }
 
   .card {
     padding: 2rem 1rem;
     margin-bottom: 1.5rem;
+  }
+
+  .logo {
+    float: left;
+    width: 64px;
+    height: 64px;
+    object-fit: scale-down;
+    // background-color: white;
+    border: 2px solid grey;
   }
 </style>

@@ -1,17 +1,19 @@
 <template>
-  <EternaPage
-    title="Eterna is a citizen science game that recruits players to design RNA molecules for biomedical research."
-  >
-    <div>
-      <p class="overview-text">
+  <EternaPage>
+    <div class="overview">
+      <h2 class="overview-title">
+        Eterna is a citizen science game that recruits players to design RNA molecules for
+        biomedical research.
+      </h2>
+      <h3 class="overview-subtitle text-muted">
         Players and researchers have created original software programs to aid in complex RNA
         design, which are now available for licensing.
-      </p>
-
-      <Gallery :sm="12" :md="6">
-        <SoftwareCard v-for="project in projects" :key="project.title" :project="project" />
-      </Gallery>
+      </h3>
     </div>
+
+    <Gallery :sm="12" :md="6">
+      <SoftwareCard v-for="project in projects" :key="project.title" :project="project" />
+    </Gallery>
   </EternaPage>
 </template>
 
@@ -68,10 +70,21 @@
 </script>
 
 <style scoped lang="scss">
-  .overview-text {
-    margin: 0.4rem 2rem;
-    font-size: 1.1rem;
-    font-style: italic;
+  .overview {
+    max-width: 70%;
+    margin: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .overview-title {
+    font-size: 1.9rem;
+    line-height: 2.5rem;
+  }
+
+  .overview-subtitle {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    font-weight: normal;
   }
 
   h2 {

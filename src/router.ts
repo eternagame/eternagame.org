@@ -62,6 +62,11 @@ export default function createRouter() {
         component: () => import('./views/help/QuickHelp.vue'),
       },
       {
+        path: '/about/software',
+        name: 'software',
+        component: () => import('./views/publications/SoftwareExplore.vue'),
+      },
+      {
         path: '/about/terms',
         name: 'terms-and-conditions',
         component: () => import('./views/terms/TermsAndConditions.vue'),
@@ -117,6 +122,14 @@ export default function createRouter() {
         component: () => import('./views/chat/FullPageChat.vue'),
       },
     ],
+    scrollBehavior(to, from, savedPosition) {
+      // Navigate to previous scroll position, or else top of page
+      // https://router.vuejs.org/guide/advanced/scroll-behavior.html
+      if (savedPosition) {
+        return savedPosition;
+      }
+      return { x: 0, y: 0 };
+    },
   });
 
   router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {

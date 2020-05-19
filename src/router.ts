@@ -62,6 +62,11 @@ export default function createRouter() {
         component: () => import('./views/help/QuickHelp.vue'),
       },
       {
+        path: '/about/software',
+        name: 'software',
+        component: () => import('./views/publications/SoftwareExplore.vue'),
+      },
+      {
         path: '/about/terms',
         name: 'terms-and-conditions',
         component: () => import('./views/terms/TermsAndConditions.vue'),

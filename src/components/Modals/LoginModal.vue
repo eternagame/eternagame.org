@@ -79,7 +79,7 @@
       VFacebookLogin,
     },
   })
-  export default class RegisterModal extends Vue {
+  export default class LoginModal extends Vue {
     form = {
       username: '',
       password: '',

@@ -34,7 +34,7 @@
       VueRecaptcha,
     },
   })
-  export default class RegisterModal extends Vue {
+  export default class ResetPasswordModal extends Vue {
     usernameOrEmail = '';
 
     errorMessage = '';

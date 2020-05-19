@@ -150,19 +150,6 @@
     text-decoration: none;
   }
 
-  .text {
-    // white-space: nowrap;
-    // overflow: hidden;
-    // text-overflow: ellipsis;
-    // max-height: 100px;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 4; /* number of lines to show */
-    -webkit-box-orient: vertical;
-  }
-
   .text ::v-deep img {
     max-width: 100% !important;
   }

@@ -8,7 +8,7 @@
         :article="article"
         :first="index === 0"
       />
-      <div style="margin-top: 20px;">
+      <div style="margin-top: 5px;">
         <b-button
           class="mt-2"
           variant="primary"

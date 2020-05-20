@@ -25,7 +25,7 @@
           </template>
         </p>
       </div>
-      <div v-dompurify-html="content.body || content" class="text" style="word-break: break-all;" />
+      <div v-dompurify-html="content.body || content" style="word-wrap: break-word;" />
     </div>
   </div>
 </template>
@@ -151,19 +151,6 @@
 
   a:hover {
     text-decoration: none;
-  }
-
-  .text {
-    // white-space: nowrap;
-    // overflow: hidden;
-    // text-overflow: ellipsis;
-    // max-height: 100px;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 4; /* number of lines to show */
-    -webkit-box-orient: vertical;
   }
 
   .text ::v-deep img {

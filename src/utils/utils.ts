@@ -2,8 +2,12 @@ import DefaultAvatar from '@/assets/navbar/DefaultIcon.svg';
 import { ActivityItem } from '@/types/common-types';
 
 export default {
-  getPuzzleMiddleThumbnail(nid: string) {
-    return `https://s3.amazonaws.com/eterna/puzzle_mid_thumbnails/thumbnail${nid}.png`;
+  getPuzzleMiddleThumbnail(nid: string | null) {
+    // return `https://s3.amazonaws.com/eterna/puzzle_mid_thumbnails/thumbnail${nid}.png`;
+    return (
+      nid &&
+      `https://renderv2-prod-renderv2bucket86ab868d-1aq5x6e32xf92.s3.amazonaws.com/puzzle_mid_thumbnails/thumbnail${nid}.svg`
+    );
   },
   getPuzzleCloudThumbnail(nid: string) {
     return `https://s3.amazonaws.com/eterna/puzzle_cloud_thumbnails/thumbnail${nid}.png`;
@@ -136,13 +140,13 @@ export default {
   },
   isLinkInternal(link: string) {
     return (
-      link.startsWith('/')
-      && !link.startsWith('/web/')
-      && !link.startsWith('/game/')
-      && !link.endsWith('.php')
+      link.startsWith('/') &&
+      !link.startsWith('/web/') &&
+      !link.startsWith('/game/') &&
+      !link.endsWith('.php')
     );
   },
-  getAvatar(uri: string) {
+  getAvatar(uri: string | null) {
     if (uri) return /^http/i.exec(uri) ? uri : `/${uri}`;
     return DefaultAvatar;
   },

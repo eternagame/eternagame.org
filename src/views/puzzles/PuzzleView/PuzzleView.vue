@@ -103,11 +103,11 @@
     }
 
     get imageURL() {
-      return Utils.getPuzzleMiddleThumbnail(this.pageData?.nid as string);
+      return Utils.getPuzzleMiddleThumbnail(this.pageData?.nid);
     }
 
     get avatar() {
-      return Utils.getAvatar(this.puzzle?.userpicture as string);
+      return Utils.getAvatar(this.puzzle?.userpicture);
     }
   }
 </script>

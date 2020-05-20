@@ -28,9 +28,8 @@
 
     private text: string = '';
 
-    setTitle(event: KeyboardEvent) {
+    setTitle(event: any) {
       // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
-      // @ts-ignore
       const title = event.target.value;
       this.title = title;
       this.sendSection();

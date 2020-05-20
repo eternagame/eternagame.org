@@ -8,7 +8,7 @@
         </p></router-link
       >
       <p style="font-size: 0.6rem">{{ created }}</p>
-      <p v-dompurify-html="comment" style="word-break: break-all;">{{ comment }}</p>
+      <p v-dompurify-html="comment" style="word-wrap: break-word;">{{ comment }}</p>
       <p @click="deleteComment()" v-if="canDelete" style="cursor:pointer">
         {{ $t('page:comments-delete') }}
       </p>
@@ -44,7 +44,7 @@
     private picture!: string;
 
     get canDelete() {
-      return String(this.$vxm.user.uid) === String(this.comment.cid);
+      return String(this.$vxm.user.uid) === this.comment.cid;
     }
 
     get avatar() {

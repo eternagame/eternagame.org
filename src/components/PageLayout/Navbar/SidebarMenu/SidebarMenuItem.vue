@@ -1,11 +1,17 @@
 <template>
   <b-nav-item class="menu-item" :to="value" v-if="typeof value === 'string'">{{ text }}</b-nav-item>
   <div class="menu-item" v-else>
-    <b-nav-item v-b-toggle="collapseId" :class="{ active: contentVisible }">
+    <b-nav-item @click="contentVisible = !contentVisible" :class="{ active: contentVisible }">
       {{ $t('nav-bar:' + text) }}
       <span class="triangle" :class="{ rotated: !contentVisible }"></span>
     </b-nav-item>
-    <b-collapse @input="onToggle" :accordion="accordion" :id="collapseId" class="sublist">
+    <b-collapse
+      @input="onToggle"
+      :accordion="accordion"
+      v-model="contentVisible"
+      :id="collapseId"
+      class="sublist"
+    >
       <b-nav-item v-for="(to, linkText) in value" :[nav(to)]="to" :key="linkText">
         {{ $t('nav-bar:' + linkText) }}
         <img
@@ -26,7 +32,7 @@
   @Component({
     components: {},
   })
-  export default class NavbarIcons extends Vue {
+  export default class SidebarMenuItem extends Vue {
     @Prop()
     private text!: string;
 

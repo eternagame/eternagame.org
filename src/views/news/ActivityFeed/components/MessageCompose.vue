@@ -2,7 +2,7 @@
   <!-- TODO: i18nify all content -->
   <!-- TODO: De-duplicate the editfield and submit button -->
   <div v-if="parentNID">
-    <EditField @input="setCommentText" :key="messagesSent"/>
+    <EditField @input="setCommentText" :key="messagesSent" />
 
     <b-button
       class="mt-2"
@@ -14,11 +14,7 @@
       {{ $t('activity-feed:send') }}
       <b-spinner v-if="isSending" small></b-spinner>
     </b-button>
-    <b-button
-      class="mt-2 ml-2"
-      variant="secondary"
-      @click="$emit('cancel')"
-    >
+    <b-button class="mt-2 ml-2" variant="secondary" @click="$emit('cancel')">
       {{ $t('activity-feed:cancel') }}
     </b-button>
   </div>
@@ -65,8 +61,9 @@
 </template>
 <script lang="ts">
   import axios, { AxiosInstance } from 'axios';
-
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  // @ts-ignore
+  import debounce from 'lodash.debounce';
+  import { Component, Vue, Mixins, Prop, Watch } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
 
@@ -89,7 +86,19 @@
     messagesSent = 0;
 
     async fetchData() {
-      this.usernames = (await axios.get('/get/?type=usernames')).data.data.usernames;
+      const res = await axios.get(
+        `/get/?type=usernames${this.targetName ? `&search=${this.targetName}` : ''}`,
+      );
+      this.usernames = res.data.data.usernames;
+    }
+
+    created() {
+      this.fetchData = debounce(this.fetchData, 200);
+    }
+
+    @Watch('targetName', { immediate: true, deep: true })
+    getUserNames() {
+      this.fetchData();
     }
 
     mounted() {
@@ -97,7 +106,6 @@
         this.$refs.typeahead.inputValue = this.$route.query.message;
         this.targetName = this.$route.query.message;
       }
-      this.fetchData();
     }
 
     setCommentText(text: string) {
@@ -110,21 +118,18 @@
         action: 'add',
         notification_type: 'message',
         target_uid: targetUid,
-        body: message
+        body: message,
       };
 
       if (this.parentNID) params.parent_nid = this.parentNID;
 
-      await axios.post(
-        '/post/?type=message',
-        new URLSearchParams(params),
-      );
+      await axios.post('/post/?type=message', new URLSearchParams(params));
     }
 
     async sendMessage() {
       this.isSending = true;
       try {
-        const targetUid: string = this.uid || await this.lookupUid(this.targetName);
+        const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
         await this.postMessage(targetUid, this.commentText);
         // TODO: Do better, eg: have the feed view just reload all data
         window.location.reload();
@@ -173,7 +178,7 @@
     background-color: $very-dark;
   }
 
-/*
+  /*
   ::v-deep .editor {
     background-color: $extreme-dark;
     border-radius: 5px;
@@ -202,11 +207,11 @@
   }
 
   ::v-deep .editor {
-    background-color: rgba(1,1,1,.53);
+    background-color: rgba(1, 1, 1, 0.53);
   }
 
   ::v-deep input {
     color: $white;
-    background-color:  rgba(1,1,1,.53);
+    background-color: rgba(1, 1, 1, 0.53);
   }
 </style>

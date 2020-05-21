@@ -5,8 +5,8 @@
         {{ $t('pubs:overview') }}
       </p>
 
+      <a name="player-publications" class="anchor-link"></a>
       <h2>{{ $t('pubs:player-title') }}</h2>
-
       <Gallery v-if="pageData.playerpubslist" :sm="12" :md="12">
         <PubsCard v-for="pub in pageData.playerpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
@@ -14,6 +14,7 @@
         <Preloader />
       </div>
 
+      <a name="researcher-publications" class="anchor-link"></a>
       <h2>{{ $t('pubs:researcher-title') }}</h2>
       <Gallery v-if="pageData.researcherpubslist" :sm="12" :md="12">
         <PubsCard v-for="pub in pageData.researcherpubslist" :key="pub.link" v-bind="pub" />
@@ -83,7 +84,10 @@
     },
   })
   export default class NewsExplore extends Mixins(PageDataMixin(fetchPageData)) {
-    private options: Option[] = [{ value: 'all', text: 'side-panel-options:all' }];
+    private options: Option[] = [
+      { value: 'all', text: 'Player Publications', link: '#player-publications' },
+      { value: 'all', text: 'Researcher Publications', link: '#researcher-publications' },
+    ];
   }
 </script>
 
@@ -98,5 +102,12 @@
     line-height: 4rem;
     font-size: 2rem;
     font-weight: bold;
+  }
+
+  .anchor-link {
+    display: block;
+    position: relative;
+    top: -120px;
+    visibility: hidden;
   }
 </style>

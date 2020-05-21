@@ -133,12 +133,13 @@ export default {
     }
     return null;
   },
-  isLinkInternal(link: string) {
+  isLinkInternal(link: string | Object) {
     return (
-      link.startsWith('/') &&
-      !link.startsWith('/web/') &&
-      !link.startsWith('/game/') &&
-      !link.endsWith('.php')
+      link instanceof Object ||
+      (link.startsWith('/') &&
+        !link.startsWith('/web/') &&
+        !link.startsWith('/game/') &&
+        !link.endsWith('.php'))
     );
   },
   getAvatar(uri: string) {

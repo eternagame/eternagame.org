@@ -1,16 +1,21 @@
 <template>
-  <b-carousel-slide
-    class="slide"
-    :img-src="heroImage"
-    ><div class="banner-text">
-      <h1 class="banner-title">{{ carousel_title || title }}</h1>
-      <!-- If there's a subtitle, use that. If there's a title and no subtitle, use the lab name -->
-      <h3 v-if="carousel_subtitle || carousel_title">
-        {{ (carousel_subtitle || title).toUpperCase() }}
-      </h3>
-      <b-button variant="primary" class="enter-lab" size="lg" :to="`/labs/${nid}`">
-        {{ $t('home-banner:enter') }}
-      </b-button>
+  <b-carousel-slide class="slide" :img-src="heroImage"
+    ><div class="banner-text d-flex ">
+      <div>
+        <h1 class="banner-title">{{ carousel_title || title }}</h1>
+        <!-- If there's a subtitle, use that. If there's a title and no subtitle, use the lab name -->
+        <h3 v-if="carousel_subtitle || carousel_title">
+          {{ (carousel_subtitle || title).toUpperCase() }}
+        </h3>
+        <b-button variant="primary" class="enter-lab" size="lg" :to="`/labs/${nid}`">
+          {{ $t('home-banner:enter') }}
+        </b-button>
+      </div>
+
+      <div class="banner-progress">
+        <Progress v-bind="progressCircles[0]" color="#2f94d1" />
+        <Progress v-bind="progressCircles[1]" color="#fac244" />
+      </div>
     </div>
   </b-carousel-slide>
 </template>
@@ -20,9 +25,10 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import DefaultHero from '@/assets/home/hero-lab-default.png';
+  import Progress from '@/components/Common/Progress.vue';
 
   @Component({
-    components: {},
+    components: { Progress },
   })
   export default class BannerSlide extends Vue {
     @Prop({}) banner_image!: string;
@@ -33,20 +39,47 @@
 
     @Prop({}) carousel_subtitle!: string;
 
+    @Prop() designs_to_be_synthesized!: number;
+
+    @Prop() max_designs!: number;
+
+    @Prop() total_submitted_solutions_of_user!: number;
+
+    @Prop() total_submitted_solutions!: number;
+
     @Prop({}) nid!: number;
 
     get heroImage() {
       return this.banner_image || DefaultHero;
     }
+
+    progressCircles = [
+      {
+        name: 'progress-circle:designs-submissions',
+        progress: this.designs_to_be_synthesized,
+        total: this.max_designs,
+      },
+      {
+        name: 'progress-circle:my-submissions',
+        progress: this.total_submitted_solutions_of_user,
+        total: this.total_submitted_solutions,
+      },
+    ];
   }
 </script>
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
+  .banner-progress {
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+  }
+
   .slide {
     max-width: 1200px;
-    max-height: 519px;
+    max-height: 819px;
   }
 
   .slide::after {

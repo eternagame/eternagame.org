@@ -1,7 +1,7 @@
 <template>
-  <div style="margin:10px;">
+  <div style="margin:10px;" v-if="progress && total">
     <vue-circle
-      :progress="100 * progress / total"
+      :progress="(100 * progress) / total"
       :size="isMobile ? 65 : 100"
       :reverse="false"
       :fill="{ color: `${color}` }"
@@ -19,7 +19,7 @@
       <p class="smaller-text">/{{ total }}</p>
     </vue-circle>
 
-    <p class="smaller-text" style="font-weight: bold;">{{ name }}</p>
+    <p class="smaller-text" style="font-weight: bold;width:112px">{{ $t(name) }}</p>
   </div>
 </template>
 <script lang="ts">

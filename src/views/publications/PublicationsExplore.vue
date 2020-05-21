@@ -1,23 +1,23 @@
 <template>
-  <EternaPage :title="$t('pubs:title')" v-if="pageData">
+  <EternaPage :title="$t('publications:title')" v-if="pageData">
     <div v-if="pageData">
       <p class="overview-text">
-        {{ $t('pubs:overview') }}
+        {{ $t('publications:overview') }}
       </p>
 
       <a name="player-publications" class="anchor-link"></a>
-      <h2>{{ $t('pubs:player-title') }}</h2>
+      <h2>{{ $t('publications:player-title') }}</h2>
       <Gallery v-if="pageData.playerpubslist" :sm="12" :md="12">
-        <PubsCard v-for="pub in pageData.playerpubslist" :key="pub.link" v-bind="pub" />
+        <PublicationsCard v-for="pub in pageData.playerpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
       <div v-else>
         <Preloader />
       </div>
 
       <a name="researcher-publications" class="anchor-link"></a>
-      <h2>{{ $t('pubs:researcher-title') }}</h2>
+      <h2>{{ $t('publications:researcher-title') }}</h2>
       <Gallery v-if="pageData.researcherpubslist" :sm="12" :md="12">
-        <PubsCard v-for="pub in pageData.researcherpubslist" :key="pub.link" v-bind="pub" />
+        <PublicationsCard v-for="pub in pageData.researcherpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
       <div v-else>
         <Preloader />
@@ -58,7 +58,7 @@
   // @ts-ignore
   import get from 'lodash.get';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import PubsCard from './PubsCard.vue';
+  import PublicationsCard from './PublicationsCard.vue';
 
   const ROUTE = '/get/?type=pubslist';
 
@@ -77,16 +77,16 @@
     components: {
       Pagination,
       EternaPage,
-      PubsCard,
+      PublicationsCard,
       DropdownSidebarPanel,
       SearchPanel,
       Preloader,
     },
   })
-  export default class PubsExplore extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class PublicationsExplore extends Mixins(PageDataMixin(fetchPageData)) {
     private options: Option[] = [
-      { value: 'all', text: 'pubs:player-title', link: '#player-publications' },
-      { value: 'all', text: 'pubs:researcher-title', link: '#researcher-publications' },
+      { value: 'all', text: 'publications:player-title', link: '#player-publications' },
+      { value: 'all', text: 'publications:researcher-title', link: '#researcher-publications' },
     ];
   }
 </script>

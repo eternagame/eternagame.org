@@ -89,7 +89,7 @@ export default function createRouter() {
       {
         path: '/about/publications',
         name: 'publications-list',
-        component: () => import('./views/publications/PubsExplore.vue'),
+        component: () => import('./views/publications/PublicationsExplore.vue'),
       },
       {
         path: '/feed',

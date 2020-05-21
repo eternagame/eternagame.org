@@ -86,24 +86,24 @@
     padding-bottom: 0px;
   }
   .page-container:before {
-    box-shadow: -45px 0 45px -45px inset black;
+    background: linear-gradient(to left, #07111e, #05224b);
     -webkit-appearance: none helped;
     content: ' ';
     height: 100%;
-    left: -45px;
+    left: -25px;
     position: absolute;
     top: 0;
-    width: 45px;
+    width: 25px;
   }
   .page-container:after {
-    box-shadow: 45px 0 45px -45px inset black;
+    background: linear-gradient(to right, #07111e, #05224b);
     -webkit-appearance: none;
     content: ' ';
     height: 100%;
     position: absolute;
     top: 0;
-    right: -45px;
-    width: 45px;
+    right: -25px;
+    width: 25px;
   }
   .page-container:before,
   .page-container:after {

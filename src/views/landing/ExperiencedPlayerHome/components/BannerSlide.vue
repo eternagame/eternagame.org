@@ -39,13 +39,13 @@
 
     @Prop({}) carousel_subtitle!: string;
 
-    @Prop() designs_to_be_synthesized!: number;
+    @Prop({ default: 14276 }) designs_to_be_synthesized!: number;
 
-    @Prop() max_designs!: number;
+    @Prop({ default: 24000 }) max_designs!: number;
 
-    @Prop() total_submitted_solutions_of_user!: number;
+    @Prop({ default: 526 }) total_submitted_solutions_of_user!: number;
 
-    @Prop() total_submitted_solutions!: number;
+    @Prop({ default: 1200 }) total_submitted_solutions!: number;
 
     @Prop({}) nid!: number;
 
@@ -79,7 +79,7 @@
 
   .slide {
     max-width: 1200px;
-    max-height: 819px;
+    max-height: 519px;
   }
 
   .slide::after {

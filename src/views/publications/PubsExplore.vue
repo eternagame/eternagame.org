@@ -83,10 +83,10 @@
       Preloader,
     },
   })
-  export default class NewsExplore extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class PubsExplore extends Mixins(PageDataMixin(fetchPageData)) {
     private options: Option[] = [
-      { value: 'all', text: 'Player Publications', link: '#player-publications' },
-      { value: 'all', text: 'Researcher Publications', link: '#researcher-publications' },
+      { value: 'all', text: 'pubs:player-title', link: '#player-publications' },
+      { value: 'all', text: 'pubs:researcher-title', link: '#researcher-publications' },
     ];
   }
 </script>

@@ -49,13 +49,15 @@
   const ROUTE = '/get/?type=newsandblogslist';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    const { sort } = route.query;
+    const { sort, to_created, from_created, size, search } = route.query;
     const res = (
       await http.get(ROUTE, {
         params: {
-          order: route.query.sort,
-          search: route.query.search,
-          size: route.query.size || INITIAL_NUMBER,
+          order: sort,
+          search,
+          size: size || INITIAL_NUMBER,
+          from_created,
+          to_created,
         },
       })
     ).data.data;

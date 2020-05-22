@@ -85,6 +85,7 @@
     font-size: 20px;
     padding: 9px 12px;
     margin-bottom: 10px;
+    text-shadow: none;
   }
 
   h1,

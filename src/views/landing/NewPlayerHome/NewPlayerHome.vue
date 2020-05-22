@@ -113,10 +113,8 @@
       return `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)), url(${BANNER_IMAGE})`;
     }
 
-    get newPlayerRoadMap() {
-      return (this.pageData?.achievement_roadmap || []).filter(
-        (p: { key: string }) => p.key === 'ten_tools',
-      ) as Array<AchievementItem>;
+    get newPlayerRoadMap(): AchievementItem[] {
+      return (this.pageData?.achievement_roadmap || []).filter(p => p.key === 'ten_tools');
     }
 
     get progressNumber() {
@@ -125,15 +123,13 @@
       );
     }
 
-    get nextPuzzle() {
-      const puzzle = this.newPlayerRoadMap.find(
-        (p: AchievementItem) => p.level === this.progressNumber + 1,
-      );
-      return puzzle as AchievementItem | null;
+    get nextPuzzle(): AchievementItem | undefined {
+      const puzzle = this.newPlayerRoadMap.find(p => p.level === this.progressNumber + 1);
+      return puzzle;
     }
 
     get nextPuzzleId() {
-      return this.nextPuzzle && this.nextPuzzle.current_puzzle;
+      return this.nextPuzzle && this.nextPuzzle?.current_puzzle;
     }
 
     get progress() {

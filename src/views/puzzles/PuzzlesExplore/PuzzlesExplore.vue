@@ -117,9 +117,9 @@
       return this.pageData?.puzzles;
     }
 
-    puzzleCleared(id: number) {
-      const puzzlesCleared = this.pageData.cleared || [];
-      return puzzlesCleared.map((puzzle: PuzzleItem) => puzzle.id).includes(id);
+    puzzleCleared(id: string) {
+      const puzzlesCleared: PuzzleItem[] = this.pageData.cleared || [];
+      return puzzlesCleared.map(puzzle => puzzle.id.includes(id));
     }
 
     private options: Option[] = [

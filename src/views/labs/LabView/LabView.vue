@@ -58,11 +58,11 @@
       return this.pageData?.lab;
     }
 
-    roundClosed(round:{round:number}) {
+    roundClosed(round: { round: number }) {
       return (
-        round.round < Number(this.lab?.puzzles?.length)
-        || this.lab?.exp_phase == null
-        || Number(this.lab?.exp_phase) >= 1
+        round.round < Number(this.lab?.puzzles?.length) ||
+        this.lab?.exp_phase == null ||
+        Number(this.lab?.exp_phase) >= 1
       );
     }
 

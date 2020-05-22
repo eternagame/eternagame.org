@@ -60,7 +60,7 @@
     },
   })
   export default class ExperiencedPlayerView extends Vue {
-    @Prop({}) pageData!: Object;
+    @Prop({required:true}) pageData!: any;
 
     get achievementRoadmap() {
       return this.pageData?.achievement_roadmap || [];

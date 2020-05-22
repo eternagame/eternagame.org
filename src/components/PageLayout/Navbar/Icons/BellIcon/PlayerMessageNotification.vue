@@ -29,7 +29,7 @@
   export default class PlayerMessageNotification extends Vue {
     private strippedBody = Utils.strippedBody;
 
-    @Prop() private article!: NotificationItem;
+    @Prop({ required: true }) private article!: NotificationItem;
 
     private name =
       this.article.sender === this.article.target_uid

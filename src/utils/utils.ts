@@ -17,8 +17,8 @@ export default {
     // since tags like <ul> and <img> can break formatting.
     return text && text.replace(/(<([^>]+)>)/gi, '');
   },
-  formattedType(article: ActivityItem | null): string | null {
-    if (!article) return null;
+  formattedType(article: ActivityItem): string {
+    if (!article) return '';
     const formatted = article.type.toUpperCase();
     if (formatted === 'BLOGS') {
       // Unpluralize, since it sounds better

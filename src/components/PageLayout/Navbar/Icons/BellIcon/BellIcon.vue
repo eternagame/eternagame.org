@@ -27,7 +27,9 @@
           <PlayerMessageNotification v-if="isMessageRelated(item)" :article="item" />
           <NewsNotification v-else v-bind="item" />
         </b-dropdown-item>
-        <b-dropdown-item v-if="notifications.length == 0">{{ $t('activity-feed:empty') }}</b-dropdown-item>
+        <b-dropdown-item v-if="notifications.length == 0">{{
+          $t('activity-feed:empty')
+        }}</b-dropdown-item>
       </div>
     </template>
   </NavbarIcon>
@@ -53,96 +55,93 @@
 
   const NUMBER_NOTIFICATIONS_TO_SHOW = 5;
 
-@Component({
-  components: {
-    NavbarIcon,
-    NewsNotification,
-    PlayerMessageNotification,
-  },
-})
+  @Component({
+    components: {
+      NavbarIcon,
+      NewsNotification,
+      PlayerMessageNotification,
+    },
+  })
   export default class BellIcon extends Vue {
-  private notificationsCount = 0;
+    private notificationsCount = 0;
 
-  private calledFetch = false;
+    private calledFetch = false;
 
-  private notifications: Array<NewsItem> = [];
+    private notifications: Array<NewsItem> = [];
 
-  shown() {
-    this.fetchData();
-    axios.post(
-      NOTIFICATIONS_READ,
-      new URLSearchParams({ type: 'notification_read' }),
-    );
-  }
+    shown() {
+      this.fetchData();
+      axios.post(NOTIFICATIONS_READ, new URLSearchParams({ type: 'notification_read' }));
+    }
 
-  isMessageRelated(item: NewsItem) {
-    return item.type === 'notifications' || item.type === 'message';
-  }
+    isMessageRelated(item: NewsItem) {
+      return item.type === 'notifications' || item.type === 'message';
+    }
 
-  mounted() {
-    axios.get(NUM_NOTIFICATIONS_ROUTE).then(response => {
-      this.notificationsCount = response.data.data.noti_count;
-    });
-    if (!this.calledFetch) this.fetchData();
-    this.calledFetch = true;
-  }
+    mounted() {
+      axios.get(NUM_NOTIFICATIONS_ROUTE).then(response => {
+        this.notificationsCount = response.data.data.noti_count;
+      });
+      if (!this.calledFetch) this.fetchData();
+      this.calledFetch = true;
+    }
 
-  async fetchData() {
-    // Note: newsfeed endpoint requires credentials
-    const response = await axios.get(NEWS_FEED_ROUTE, {
-      withCredentials: true,
-    });
-    const res = response.data.data as NewsItem[];
+    async fetchData() {
+      // Note: newsfeed endpoint requires credentials
+      const response = await axios.get(NEWS_FEED_ROUTE, {
+        withCredentials: true,
+      });
+      const res = response.data.data as NewsItem[];
 
-    this.notifications = res.entries
-      .map((entry: NewsItem) => this.addMessageData(entry))
-      .flat()
-      .sort((a: NewsItem, b: NewsItem) => b.created - a.created)
-      .slice(0, NUMBER_NOTIFICATIONS_TO_SHOW);
-  }
+      this.notifications = res.entries
+        .map((entry: NewsItem) => this.addMessageData(entry))
+        .flat()
+        .sort((a: NewsItem, b: NewsItem) => b.created - a.created)
+        .slice(0, NUMBER_NOTIFICATIONS_TO_SHOW);
+    }
 
-  private uid = this.$vxm.user.userDetails?.uid;
+    private uid = this.$vxm.user.userDetails?.uid;
 
-  addMessageData(entry: NewsItem) {
-    if (!this.isMessageRelated(entry)) return entry;
-    const messages = entry.message || [];
-    return (
-      messages
-        .map((message: UserMessage) => ({ ...message, ...entry }))
-        // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
-        .filter(item => item.sender !== this.uid)
-    );
-  }
+    addMessageData(entry: NewsItem) {
+      if (!this.isMessageRelated(entry)) return entry;
+      const messages = entry.message || [];
+      return (
+        messages
+          .map((message: UserMessage) => ({ ...message, ...entry }))
+          // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
+          .filter(item => item.sender !== this.uid)
+      );
+    }
   }
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/global.scss';
+  @import '@/styles/global.scss';
 
-.icon {
-  margin-left: -0.2rem;
-}
+  .icon {
+    margin-left: -0.2rem;
+  }
 
-::v-deep a {
-  padding-right: 10px !important;
-  padding-left: 10px !important;
-  border-radius: 3px;
-}
+  ::v-deep a {
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+    border-radius: 3px;
+  }
 
-.activity-container {
-  padding: 4%;
-  width: 300px;
-  max-width: 100%;
-}
+  .activity-container {
+    padding: 4%;
+    width: 300px;
+    max-width: 100%;
+  }
 
-.header {
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 14.5px;
-}
+  .header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 14.5px;
+  }
 
-.border {
-  border: 1px solid red;
-  width: 100%;
-}
+  .border {
+    border: 1px solid red;
+    width: 100%;
+  }
 </style>

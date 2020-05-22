@@ -1,12 +1,12 @@
 <template>
   <EternaPage
-    :title="pageData ? news.news.title : ''"
-    :header_date="pageData ? news.news.created : ''"
+    :title="pageData ? pageData.news.title : ''"
+    :header_date="pageData ? pageData.news.created : ''"
     :header_title="$t('news-view:anouncements').toUpperCase()"
   >
     <div v-if="pageData">
-      <div class="page-content" v-dompurify-html="news.news.body"></div>
-      <Comments :comments="pageData.comments" :nid="news.news.nid" />
+      <div class="page-content" v-dompurify-html="this.pageData.news.body"></div>
+      <Comments :comments="pageData.comments" :nid="this.pageData.news.nid" />
     </div>
     <div v-else>
       <Preloader />
@@ -65,12 +65,8 @@
     },
   })
   export default class NewsView extends Mixins(PageDataMixin(fetchPageData)) {
-    get news(): NewsItem {
-      return this.pageData as NewsItem;
-    }
-
     get addCommentPath() {
-      return `/web/blog/${this.news.nid}`;
+      return `/web/blog/${this.pageData.nid}`;
     }
 
     private options: Option[] = [

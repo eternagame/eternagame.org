@@ -1,8 +1,9 @@
 <template>
   <EternaPage v-if="puzzle" :title="puzzle.title">
     <div class="page-content">
+      <h2>About the Puzzle</h2>
       <div class="d-flex flex-wrap " xs="12" sm="8">
-        <div style="text-align:center" class="order-sm-2 col-sm-6">
+        <div style="text-align:center" class="order-sm-2 image-col">
           <div class="puzzle-image">
             <img v-if="imageURL" :src="imageURL" />
           </div>
@@ -16,7 +17,7 @@
           </b-button>
         </div>
 
-        <div class="order-sm-1 col-sm-6">
+        <div class="order-sm-1 description-col">
           <hr class="top-border d-sm-none" />
           <div
             class="puzzle-description" style="word-wrap: break-word;"
@@ -118,17 +119,35 @@
 </script>
 
 <style scoped lang="scss">
+  @import '@/styles/global.scss';
+
+  .description-col {
+    width: 60%;
+  }
+
+  .image-col {
+    width: 40%;
+  }
+
+  @include media-breakpoint-down(xs) {
+    .description-col, .image-col {
+      width: 100%;
+    }
+  }
+
   .quest-image {
     margin: 15px;
   }
 
   .puzzle-image {
-    width: auto;
-    max-width: 334px;
-    height: 365px;
+    width: 100%;
     background-color: #041227;
-    opacity: 0.8;
-    margin: 0 auto;
+    border-radius: 5px;
+    padding: 50px 60px;
+
+    img {
+      width: 100%;
+    }
   }
 
   .puzzle-description {

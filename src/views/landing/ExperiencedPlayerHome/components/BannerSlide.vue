@@ -36,13 +36,13 @@
 
     @Prop({}) carousel_subtitle!: string;
 
-    @Prop({ default: 14276 }) designs_to_be_synthesized!: number;
+    @Prop() designs_to_be_synthesized!: number;
 
-    @Prop({ default: 24000 }) max_designs!: number;
+    @Prop() max_designs!: number;
 
-    @Prop({ default: 526 }) total_submitted_solutions_of_user!: number;
+    @Prop() total_submitted_solutions_of_user!: number;
 
-    @Prop({ default: 1200 }) total_submitted_solutions!: number;
+    @Prop() total_submitted_solutions!: number;
 
     @Prop({}) nid!: number;
 
@@ -83,7 +83,7 @@
   .banner-title,
   .banner-subtitle {
     @include media-breakpoint-up(md) {
-      max-width:85%;
+      max-width: 85%;
     }
   }
 

@@ -16,8 +16,6 @@
     },
   })
   export default class CalendarPanel extends mixins(SidebarPanelMixin) {
-    @Prop() tags!: string[];
-
     private dates = {};
 
     mounted() {
@@ -25,8 +23,8 @@
 
       if (from_created && to_created)
         this.dates = {
-          start: new Date(Number(from_created)),
-          end: new Date(Number(to_created)),
+          start: new Date(+from_created),
+          end: new Date(+to_created),
         };
     }
 

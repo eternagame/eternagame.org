@@ -131,8 +131,6 @@
       try {
         const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
         await this.postMessage(targetUid, this.commentText);
-        // TODO: Do better, eg: have the feed view just reload all data
-        window.location.reload();
       } catch (e) {
         // TODO: Differentiate errors (no username? post issue?), use a better UI
         alert(`Error posting message.\n${e}`);
@@ -148,8 +146,8 @@
         throw new Error(`Could not find username: ${username}`);
       }
 
-      const { users } = (
-        await axios.get('/get/?type=users', {
+      const { usernames } = (
+        await axios.get('/get/?type=usernames&filter=exact', {
           params: {
             size: 1,
             search: username,
@@ -157,11 +155,11 @@
         })
       ).data.data;
 
-      if (!users || users.length === 0) {
+      if (!usernames || usernames.length === 0) {
         throw new Error(`Could not find username: ${username}`);
       }
 
-      const { uid } = users[0];
+      const { uid } = usernames[0];
       return uid;
     }
   }

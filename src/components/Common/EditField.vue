@@ -89,7 +89,7 @@
             emptyNodeText: 'Type your message...',
             showOnlyWhenEditable: true,
             showOnlyCurrent: true,
-          })
+          }),
         ],
       });
     }
@@ -138,5 +138,10 @@
     pointer-events: none;
     height: 0;
     font-style: italic;
+  }
+
+  .editor ::v-deep p {
+    margin-bottom: 0;
+    padding-bottom: 1rem;
   }
 </style>

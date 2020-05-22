@@ -2,7 +2,8 @@ import DefaultAvatar from '@/assets/navbar/DefaultIcon.svg';
 
 export default {
   getPuzzleMiddleThumbnail(nid: string) {
-    return `https://s3.amazonaws.com/eterna/puzzle_mid_thumbnails/thumbnail${nid}.png`;
+    // return `https://s3.amazonaws.com/eterna/puzzle_mid_thumbnails/thumbnail${nid}.png`;
+    return `https://renderv2-prod-renderv2bucket86ab868d-1aq5x6e32xf92.s3.amazonaws.com/puzzle_mid_thumbnails/thumbnail${nid}.svg`;
   },
   getPuzzleCloudThumbnail(nid: string) {
     return `https://s3.amazonaws.com/eterna/puzzle_cloud_thumbnails/thumbnail${nid}.png`;
@@ -132,12 +133,13 @@ export default {
     }
     return null;
   },
-  isLinkInternal(link: string) {
+  isLinkInternal(link: string | Object) {
     return (
-      link.startsWith('/') &&
-      !link.startsWith('/web/') &&
-      !link.startsWith('/game/') &&
-      !link.endsWith('.php')
+      link instanceof Object ||
+      (link.startsWith('/') &&
+        !link.startsWith('/web/') &&
+        !link.startsWith('/game/') &&
+        !link.endsWith('.php'))
     );
   },
   getAvatar(uri: string) {

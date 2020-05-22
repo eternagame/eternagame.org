@@ -169,30 +169,6 @@
     background-color: $very-dark;
   }
 
-  /*
-  ::v-deep .editor {
-    background-color: $extreme-dark;
-    border-radius: 5px;
-    border: 1px solid #555;
-  }
-
-  ::v-deep .vbst-item {
-  }
-
-  ::v-deep .vbst-item.active {
-  }
-
-  ::v-deep input {
-    color: $white;
-    background: $extreme-dark;
-    border: 1px solid #555;
-  }
-
-  ::v-deep input:focus {
-    background: $extreme-dark;
-  }
-*/
-
   .page-content {
     background-color: lighten($med-dark-blue, 10);
   }

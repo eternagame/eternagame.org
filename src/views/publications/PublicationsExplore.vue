@@ -1,22 +1,23 @@
 <template>
-  <EternaPage :title="$t('pubs:title')" v-if="pageData">
+  <EternaPage :title="$t('publications:title')" v-if="pageData">
     <div v-if="pageData">
       <p class="overview-text">
-        {{ $t('pubs:overview') }}
+        {{ $t('publications:overview') }}
       </p>
 
-      <h2>{{ $t('pubs:player-title') }}</h2>
-
+      <a name="player-publications" class="anchor-link"></a>
+      <h2>{{ $t('publications:player-title') }}</h2>
       <Gallery v-if="pageData.playerpubslist" :sm="12" :md="12">
-        <PubsCard v-for="pub in pageData.playerpubslist" :key="pub.link" v-bind="pub" />
+        <PublicationsCard v-for="pub in pageData.playerpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
       <div v-else>
         <Preloader />
       </div>
 
-      <h2>{{ $t('pubs:researcher-title') }}</h2>
+      <a name="researcher-publications" class="anchor-link"></a>
+      <h2>{{ $t('publications:researcher-title') }}</h2>
       <Gallery v-if="pageData.researcherpubslist" :sm="12" :md="12">
-        <PubsCard v-for="pub in pageData.researcherpubslist" :key="pub.link" v-bind="pub" />
+        <PublicationsCard v-for="pub in pageData.researcherpubslist" :key="pub.link" v-bind="pub" />
       </Gallery>
       <div v-else>
         <Preloader />
@@ -55,7 +56,7 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import PubsCard from './PubsCard.vue';
+  import PublicationsCard from './PublicationsCard.vue';
 
   const ROUTE = '/get/?type=pubslist';
 
@@ -74,14 +75,17 @@
     components: {
       Pagination,
       EternaPage,
-      PubsCard,
+      PublicationsCard,
       DropdownSidebarPanel,
       SearchPanel,
       Preloader,
     },
   })
-  export default class NewsExplore extends Mixins(PageDataMixin(fetchPageData)) {
-    private options: Option[] = [{ value: 'all', text: 'side-panel-options:all' }];
+  export default class PublicationsExplore extends Mixins(PageDataMixin(fetchPageData)) {
+    private options: Option[] = [
+      { value: 'all', text: 'publications:player-title', link: '#player-publications' },
+      { value: 'all', text: 'publications:researcher-title', link: '#researcher-publications' },
+    ];
   }
 </script>
 
@@ -96,5 +100,12 @@
     line-height: 4rem;
     font-size: 2rem;
     font-weight: bold;
+  }
+
+  .anchor-link {
+    display: block;
+    position: relative;
+    top: -120px;
+    visibility: hidden;
   }
 </style>

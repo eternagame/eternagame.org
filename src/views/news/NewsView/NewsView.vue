@@ -66,7 +66,7 @@
   })
   export default class NewsView extends Mixins(PageDataMixin(fetchPageData)) {
     get addCommentPath() {
-      return `/web/blog/${this.pageData.nid}`;
+      return `/web/blog/${this.pageData?.nid}`;
     }
 
     private options: Option[] = [

@@ -1,24 +1,30 @@
 <template>
   <EternaPage :title="$t('quest-info:title')" v-if="pageData">
-    <div class="video">
-      <div class="d-flex">
-        <div>
-          <h2>{{ $t('quest-view:banner-title') }}</h2>
-          <p style="width: 482px" v-dompurify-html="quest.desc"></p>
+    <div class="quest-description">
+      <div class="row">
+        <div class="col-lg-7">
+          <h2>
+            {{ $t('quest-view:banner-title') }}
+          </h2>
+          <p v-dompurify-html="quest.desc"></p>
         </div>
-        <div>
-          <img :src="quest.image" style="max-height: 250px; max-width: 270px;margin-bottom:20px" />
-          <div v-if="completed">
-            <img src="@/assets/noun_check.svg" />
-            <b>{{ $t('quest:completed').toUpperCase() }}</b>
+        <div class="col-lg-5 d-flex justify-content-center">
+          <div>
+            <img :src="quest.image" class="m-3 quest-badge" />
+            <div v-if="completed">
+              <img src="@/assets/noun_check.svg" class="mr-2" />
+              <b>{{ $t('quest:completed').toUpperCase() }}</b>
+            </div>
+            <b-progress :value="quest.to_next" max="1" v-else></b-progress>
           </div>
-          <b-progress :value="quest.to_next" max="1" v-else></b-progress>
         </div>
       </div>
     </div>
 
-    <h2>{{ $t('nav-bar:puzzles') }}</h2>
-    <Gallery sm="3" md="3" v-if="pageData && pageData.puzzles">
+    <h2>
+      {{ $t('nav-bar:puzzles') }}
+    </h2>
+    <Gallery sm="4" md="3" v-if="pageData && pageData.puzzles">
       <PuzzleCard
         v-for="puzzle in pageData.puzzles"
         :key="puzzle.id"
@@ -106,10 +112,14 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  .video {
+  .quest-badge {
+    max-width: 270px;
+  }
+
+  .quest-description {
     background-color: $med-dark-blue;
     object-fit: contain;
-    padding: 31px;
+    padding: 2rem;
   }
   .icon {
     margin-right: 10px;

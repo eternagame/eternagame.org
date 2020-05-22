@@ -1,21 +1,18 @@
 <template>
   <b-carousel-slide class="slide" :img-src="heroImage"
-    ><div class="banner-text d-flex ">
-      <div>
-        <h1 class="banner-title">{{ carousel_title || title }}</h1>
-        <!-- If there's a subtitle, use that. If there's a title and no subtitle, use the lab name -->
-        <h3 v-if="carousel_subtitle || carousel_title">
-          {{ (carousel_subtitle || title).toUpperCase() }}
-        </h3>
-        <b-button variant="primary" class="enter-lab" size="lg" :to="`/labs/${nid}`">
-          {{ $t('home-banner:enter') }}
-        </b-button>
-      </div>
-
+    ><div class="banner-text" style="max-width:740px">
+      <h1 class="banner-title">{{ carousel_title || title }}</h1>
+      <!-- If there's a subtitle, use that. If there's a title and no subtitle, use the lab name -->
+      <h3 v-if="carousel_subtitle || carousel_title" class="banner-subtitle">
+        {{ (carousel_subtitle || title).toUpperCase() }}
+      </h3>
       <div class="banner-progress">
         <Progress v-bind="progressCircles[0]" color="#2f94d1" />
         <Progress v-bind="progressCircles[1]" color="#fac244" />
       </div>
+      <b-button variant="primary" class="enter-lab" size="lg" :to="`/labs/${nid}`">
+        {{ $t('home-banner:enter') }}
+      </b-button>
     </div>
   </b-carousel-slide>
 </template>
@@ -72,9 +69,30 @@
   @import '@/styles/global.scss';
 
   .banner-progress {
+    @include media-breakpoint-up(md) {
+      right: -160px;
+      position: absolute;
+      bottom: 0px;
+      right: -100px;
+    }
+
     display: flex;
     justify-content: center;
-    padding-top: 1rem;
+  }
+
+  .banner-title,
+  .banner-subtitle {
+    @include media-breakpoint-up(md) {
+      max-width:85%;
+    }
+  }
+
+  .banner-title {
+    font-weight: bold;
+    font-size: 36px;
+    @include media-breakpoint-down(md) {
+      font-size: 20px;
+    }
   }
 
   .slide {
@@ -95,11 +113,6 @@
     height: 300px;
     width: 100%;
     content: '';
-  }
-
-  .banner-title {
-    font-weight: bold;
-    font-size: 36px;
   }
 
   ::v-deep img {

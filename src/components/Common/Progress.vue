@@ -1,6 +1,7 @@
 <template>
-  <div style="margin:10px;" v-if="progress && total">
+  <div v-if="progress && total">
     <vue-circle
+      :key="$mq"
       :progress="(100 * progress) / total"
       :size="isMobile ? 65 : 100"
       :reverse="false"
@@ -26,6 +27,15 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   // @ts-ignore
   import VueCircle from 'vue2-circle-progress/src/index.vue';
+  // @ts-ignore
+  import VueMq from 'vue-mq';
+
+  Vue.use(VueMq, {
+    breakpoints: {
+      mobile: 567,
+      lg: Infinity,
+    },
+  });
 
   @Component({
     components: { VueCircle },
@@ -42,8 +52,7 @@
     private total!: number;
 
     get isMobile() {
-      // Possibly should use a library like vue-mq instead
-      return window.matchMedia('(max-width: 567px)').matches;
+      return this.$mq === 'mobile';
     }
   }
 </script>

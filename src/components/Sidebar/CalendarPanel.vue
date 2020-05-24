@@ -19,7 +19,10 @@
     },
   })
   export default class CalendarPanel extends mixins(SidebarPanelMixin) {
-    private dates = {};
+    private dates: {
+      start?: Date;
+      end?: Date;
+    } = {};
 
     mounted() {
       const { start_date, end_date } = this.$route.query;

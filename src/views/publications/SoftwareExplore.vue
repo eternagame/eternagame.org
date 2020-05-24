@@ -37,25 +37,67 @@
     date: string;
   }
 
-  const mockProject: SoftwareProject = {
-    title: 'EternaBrain',
-    logoUrl: 'https://software.eternagame.org/img/logo_eternabrain.svg',
-    description:
-      'The Eterna project has collected over 1 million player moves by crowdsourcing RNA designs in the form of puzzles that reach extraordinary difficulty. EternaBrain is a multilayer convolutional neural network trained on this player data, which surpasses all six other prior algorithms that were not informed by Eterna strategies and suggests a path for automated RNA design to achieve human-competitive performance.',
-    thumbnailUrl: 'https://software.eternagame.org/img/thumb_eternabrain_paper.png',
-    paperTitle:
-      'EternaBrain: Automated RNA design through move sets from an Internet-scale RNA videogame',
-    paperUrl: 'https://doi.org/10.1101/326736',
-    journal: 'bioRxiv',
-    date: 'May 2018',
-  };
-
+  // TODO: Save assets locally instead of hotlinking to old site.
   const projects: SoftwareProject[] = [
-    mockProject,
-    mockProject,
-    mockProject,
-    mockProject,
-    mockProject,
+    {
+      title: 'EternaBrain',
+      logoUrl: 'https://software.eternagame.org/img/logo_eternabrain.svg',
+      description:
+        'The Eterna project has collected over 1 million player moves by crowdsourcing RNA designs in the form of puzzles that reach extraordinary difficulty. EternaBrain is a multilayer convolutional neural network trained on this player data, which surpasses all six other prior algorithms that were not informed by Eterna strategies and suggests a path for automated RNA design to achieve human-competitive performance.',
+      thumbnailUrl: 'https://software.eternagame.org/img/thumb_eternabrain_paper.png',
+      paperTitle:
+        'EternaBrain: Automated RNA design through move sets from an Internet-scale RNA videogame',
+      paperUrl: 'https://doi.org/10.1101/326736',
+      journal: 'bioRxiv',
+      date: 'May 2018',
+    },
+    {
+      title: 'NEMO',
+      logoUrl: 'https://software.eternagame.org/img/logo_nemo.svg',
+      description:
+        'Solving the RNA inverse folding problem, also known as the RNA design problem, is critical to advance several scientific fields like bioengineering, yet existing approaches have had limited success. NEMO combines a different technique, Nested Monte Carlo Search (NMCS), with domain-specific knowledge to create an algorithm that outperforms all prior published methods by wide margins and solves 95 of the 100 puzzles listed in a recently proposed RNA solving difficulty benchmark.',
+      thumbnailUrl: 'https://software.eternagame.org/img/thumb_nemo_paper.png',
+      paperTitle:
+        'An unexpectedly effective Monte Carlo technique for the RNA inverse folding problem',
+      paperUrl: 'https://doi.org/10.1101/345587',
+      journal: 'bioRxiv',
+      date: 'June 2018',
+    },
+    {
+      title: 'EternaBot',
+      logoUrl: 'https://software.eternagame.org/img/logo_eternabot.svg',
+      description:
+        'A community of 37,000 nonexperts leveraged continuous remote laboratory feedback to learn new design rules that substantially improve the experimental accuracy of RNA structure designs. These rules, distilled by machine learning into an automated algorithm EternaBot, also significantly outperform prior algorithms in a gauntlet of independent tests.',
+      thumbnailUrl: 'https://software.eternagame.org/img/thumb_eternabot_paper.jpg',
+      paperTitle: 'RNA design rules from a massive open laboratory',
+      paperUrl: 'https://doi.org/10.1073/pnas.1313039111',
+      journal: 'PNAS',
+      date: 'Feb 2014',
+    },
+    {
+      title: 'SentRNA',
+      logoUrl: 'https://software.eternagame.org/img/logo_sentRNA.svg',
+      description:
+        'SentRNA is a fully-connected neural network trained using the eternasolves dataset. The agent first predicts an initial sequence for a target using the trained network, and then refines that solution if necessary using a short adaptive walk utilizing a canon of standard design moves. Through this approach, SentRNA can learn and apply human-like design strategies to solve several complex targets previously unsolvable by any computational approach.',
+      thumbnailUrl: 'https://software.eternagame.org/img/thumb_sentRNA_paper.png',
+      paperTitle:
+        'SentRNA: Improving computational RNA design by incorporating a prior of human design strategies',
+      paperUrl: 'https://arxiv.org/abs/1803.03146',
+      journal: 'arxiv',
+      date: 'Mar 2018',
+    },
+    {
+      title: 'RNAmake',
+      logoUrl: 'https://software.eternagame.org/img/logo_rnamake.svg',
+      description:
+        'SentRNA is a fully-connected neural network trained using the eternasolves dataset. The agent first predicts an initial sequence for a target using the trained network, and then refines that solution if necessary using a short adaptive walk utilizing a canon of standard design moves. Through this approach, SentRNA can learn and apply human-like design strategies to solve several complex targets previously unsolvable by any computational approach.',
+      thumbnailUrl: 'https://software.eternagame.org/img/thumb_rnamake_paper.png',
+      paperTitle:
+        'Computational design of asymmetric three-dimensional RNA structures and machines',
+      paperUrl: 'https://doi.org/10.1101/223479',
+      journal: 'bioRxiv',
+      date: 'Nov 2017',
+    },
   ];
 
   @Component({

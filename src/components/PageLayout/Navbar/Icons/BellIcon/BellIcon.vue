@@ -91,7 +91,8 @@
       const response = await axios.get(NEWS_FEED_ROUTE, {
         withCredentials: true,
       });
-      const res = response.data.data as NewsItem[];
+      // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
+      const res = response.data.data as any;
 
       this.notifications = res.entries
         .map((entry: NewsItem) => this.addMessageData(entry))

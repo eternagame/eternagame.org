@@ -70,13 +70,14 @@
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import { PuzzleItem, AchievementItem } from '@/types/common-types';
+  import { MeQueryResponse } from '@/types/common-types';
+  import QuestViewData from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    const me = (await http.get('/get/?type=me')).data.data;
+    const me = (await http.get('/get/?type=me')).data.data as MeQueryResponse;
     const puzzles = (
       await http.get(`/get/?type=puzzles&puzzle_type=Progression&search=${route.params.id}`)
-    ).data.data;
+    ).data.data as QuestViewData;
     return { ...me, ...puzzles };
   }
 
@@ -92,15 +93,11 @@
   })
   export default class QuestView extends Mixins(PageDataMixin(fetchPageData)) {
     get quest() {
-      return this.pageData.achievement_roadmap.find(
-        (p: AchievementItem) => p.title === this.$route.params.id,
-      );
+      return this.pageData!.achievement_roadmap.find(p => p.title === this.$route.params.id)!;
     }
 
-    private completed = this.quest.to_next >= 1;
-
-    puzzleCleared(id: number) {
-      return this.pageData.cleared.map((puzzle: PuzzleItem) => puzzle.id).includes(id);
+    puzzleCleared(id: string) {
+      return this.pageData!.cleared.map(puzzle => puzzle.id).includes(id);
     }
 
     get audience() {

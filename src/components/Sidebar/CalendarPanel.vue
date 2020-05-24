@@ -1,12 +1,7 @@
 <template>
-  <div>
-    <DatePicker
-      mode="range"
-      v-model="dates"
-      :popover="{ visibility: 'visible' }"
-      :input-props="{ placeholder: $t('news-view:select-date'), class: 'local-search' }"
-    />
-  </div>
+  <SidebarPanel :isInSidebar="isInSidebar" header="calendar" headerIcon="@/assets/calendar.svg">
+    <DatePicker mode="range" v-model="dates" color="yellow" is-dark is-inline />
+  </SidebarPanel>
 </template>
 
 <script lang="ts">
@@ -27,12 +22,12 @@
     private dates = {};
 
     mounted() {
-      const { from_created, to_created } = this.$route.query;
+      const { start_date, end_date } = this.$route.query;
 
-      if (from_created && to_created)
+      if (start_date && end_date)
         this.dates = {
-          start: new Date(+from_created),
-          end: new Date(+to_created),
+          start: new Date(+start_date),
+          end: new Date(+end_date),
         };
     }
 
@@ -42,10 +37,19 @@
       if (start && end)
         this.$router.replace({
           name: this.$route.name!,
-          query: { ...this.$route.query, from_created: start.getTime(), to_created: end.getTime() },
+          query: { ...this.$route.query, start_date: start.getTime(), end_date: end.getTime() },
         });
     }
   }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  ::v-deep .vc-container {
+    background-color: transparent;
+    border: 0px;
+  }
+
+  ::v-deep .vc-weekday {
+    color: gray;
+  }
+</style>

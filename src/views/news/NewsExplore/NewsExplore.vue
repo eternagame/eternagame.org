@@ -57,8 +57,8 @@
           order: sort,
           search,
           size: size || INITIAL_NUMBER,
-          from_created: start_date,
-          to_created: end_date,
+          from_created: start_date && new Date(start_date as string).getTime() / 1000,
+          to_created: end_date && new Date(end_date as string).getTime() / 1000,
         },
       })
     ).data.data;

@@ -26,8 +26,8 @@
 
       if (start_date && end_date)
         this.dates = {
-          start: new Date(+start_date),
-          end: new Date(+end_date),
+          start: new Date(start_date as string),
+          end: new Date(end_date as string),
         };
     }
 
@@ -37,7 +37,11 @@
       if (start && end)
         this.$router.replace({
           name: this.$route.name!,
-          query: { ...this.$route.query, start_date: start.getTime(), end_date: end.getTime() },
+          query: {
+            ...this.$route.query,
+            start_date: start.toLocaleDateString().replace(/\//g, '-'),
+            end_date: end.toLocaleDateString().replace(/\//g, '-'),
+          },
         });
     }
   }

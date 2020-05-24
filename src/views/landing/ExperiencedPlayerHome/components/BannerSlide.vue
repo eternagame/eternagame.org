@@ -6,6 +6,7 @@
       <h3 v-if="carousel_subtitle || carousel_title" class="banner-subtitle">
         {{ (carousel_subtitle || title).toUpperCase() }}
       </h3>
+
       <div class="banner-progress">
         <Progress v-bind="progressCircles[0]" color="#2f94d1" />
         <Progress v-bind="progressCircles[1]" color="#fac244" />
@@ -44,6 +45,8 @@
 
     @Prop() total_submitted_solutions!: number;
 
+    @Prop() project_closes!: number | null;
+
     @Prop({}) nid!: number;
 
     get heroImage() {
@@ -53,13 +56,13 @@
     progressCircles = [
       {
         name: 'progress-circle:designs-submissions',
-        progress: this.designs_to_be_synthesized,
-        total: this.max_designs,
+        progress: this.total_submitted_solutions,
+        total: this.designs_to_be_synthesized,
       },
       {
         name: 'progress-circle:my-submissions',
         progress: this.total_submitted_solutions_of_user,
-        total: this.total_submitted_solutions,
+        total: this.max_designs,
       },
     ];
   }

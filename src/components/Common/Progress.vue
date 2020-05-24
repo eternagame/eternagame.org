@@ -1,5 +1,5 @@
 <template>
-  <div v-if="progress && total">
+  <div v-if="progress && total" style="margin-right:10px">
     <vue-circle
       :key="$mq"
       :progress="(100 * progress) / total"

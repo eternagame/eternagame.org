@@ -1,5 +1,12 @@
 <template>
-  <DatePicker mode="range" v-model="dates" />
+  <div>
+    <DatePicker
+      mode="range"
+      v-model="dates"
+      :popover="{ visibility: 'visible' }"
+      :input-props="{ placeholder: $t('news-view:select-date'), class: 'local-search' }"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -7,6 +14,7 @@
   import { mixins } from 'vue-class-component';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
+  // @ts-ignore
   import DatePicker from 'v-calendar/lib/components/date-picker.umd';
 
   @Component({

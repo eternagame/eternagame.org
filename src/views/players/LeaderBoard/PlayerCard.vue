@@ -3,7 +3,7 @@
     <div class="card player-card">
       <div class="d-flex align-items-center" style="width:100%">
         <div>
-          <p class="rank">#{{ index + 1 }}</p>
+          <p class="rank">#{{ (index + 1).toString().padEnd(3, ' ') }}</p>
         </div>
         <img v-if="imageLink" class="rounded-circle player-image" :src="imageLink" />
         <img
@@ -12,17 +12,17 @@
           src="@/assets/front-page/img/icon_user.png"
         />
         <div class="player-name">
-          {{ player.name }}
+          {{ player.name.padEnd(12) }}
         </div>
       </div>
       <div class="icons">
         <div v-if="points">
           <img src="@/assets/dollar.svg" class="icon" style="margin-bottom:5px" />
-          {{ points }}
+          <span style="margin-left:5px">{{ points.toString().padStart(7) }}</span>
         </div>
         <div v-if="points">
           <img src="@/assets/test-tube.svg" class="icon" style="margin-bottom:5px" />
-          {{ synths }}
+          <span style="margin-left:5px">{{ synths.toString().padStart(2) }}</span>
         </div>
         <div v-if="dateCreated" class="d-none d-sm-block">
           <img src="@/assets/calendar.svg" class="icon" style="margin-bottom:5px" />
@@ -50,11 +50,11 @@
     @Prop() private index!: number;
 
     get points() {
-      return this.player.points && parseInt(this.player.points, 10).toLocaleString() || 0;
+      return (this.player.points && parseInt(this.player.points, 10).toLocaleString()) || 0;
     }
 
     get synths() {
-      return this.player.synths && parseInt(this.player.synths, 10).toLocaleString() || 0;
+      return (this.player.synths && parseInt(this.player.synths, 10).toLocaleString()) || 0;
     }
 
     private rank: string = '';

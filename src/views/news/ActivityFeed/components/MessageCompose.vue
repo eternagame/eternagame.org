@@ -61,8 +61,9 @@
 </template>
 <script lang="ts">
   import axios, { AxiosInstance } from 'axios';
-
-  import { Component, Vue, Mixins, Prop, Ref } from 'vue-property-decorator';
+  // @ts-ignore
+  import debounce from 'lodash.debounce';
+  import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
 
@@ -85,7 +86,19 @@
     messagesSent = 0;
 
     async fetchData() {
-      this.usernames = (await axios.get('/get/?type=usernames')).data.data.usernames;
+      const res = await axios.get(
+        `/get/?type=usernames${this.targetName ? `&search=${this.targetName}` : ''}`,
+      );
+      this.usernames = res.data.data.usernames;
+    }
+
+    created() {
+      this.fetchData = debounce(this.fetchData, 200);
+    }
+
+    @Watch('targetName', { immediate: true, deep: true })
+    getUserNames() {
+      this.fetchData();
     }
 
     @Ref('typeahead') readonly typeahead!: { inputValue: string };
@@ -95,7 +108,6 @@
         this.typeahead.inputValue = String(this.$route.query.message);
         this.targetName = String(this.$route.query.message);
       }
-      this.fetchData();
     }
 
     setCommentText(text: string) {
@@ -122,8 +134,6 @@
       try {
         const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
         await this.postMessage(targetUid, this.commentText);
-        // TODO: Do better, eg: have the feed view just reload all data
-        window.location.reload();
       } catch (e) {
         // TODO: Differentiate errors (no username? post issue?), use a better UI
         alert(`Error posting message.\n${e}`);
@@ -139,8 +149,8 @@
         throw new Error(`Could not find username: ${username}`);
       }
 
-      const { users } = (
-        await axios.get('/get/?type=users', {
+      const { usernames } = (
+        await axios.get('/get/?type=usernames&filter=exact', {
           params: {
             size: 1,
             search: username,
@@ -148,11 +158,11 @@
         })
       ).data.data;
 
-      if (!users || users.length === 0) {
+      if (!usernames || usernames.length === 0) {
         throw new Error(`Could not find username: ${username}`);
       }
 
-      const { uid } = users[0];
+      const { uid } = usernames[0];
       return uid;
     }
   }

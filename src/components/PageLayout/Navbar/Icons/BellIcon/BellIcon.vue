@@ -1,7 +1,7 @@
 <template>
   <NavbarIcon @shown="shown">
     <template #icon>
-      <div class="unread" v-if="notificationsCount >= 1"></div>
+      <div class="unread" v-if="notificationsCount > 0"></div>
       <img class="icon mr-1" src="@/assets/navbar/Bell.svg" />
     </template>
     <template #text>{{ $t('nav-bar:notifications') }}</template>
@@ -55,6 +55,8 @@
 
   const NUMBER_NOTIFICATIONS_TO_SHOW = 5;
 
+  const REFRESH_FREQUENCY = 30000; // 30 seconds
+
   @Component({
     components: {
       NavbarIcon,
@@ -78,12 +80,25 @@
       return item.type === 'notifications' || item.type === 'message';
     }
 
-    mounted() {
+    refreshData() {
       axios.get(NUM_NOTIFICATIONS_ROUTE).then(response => {
-        this.notificationsCount = response.data.data.noti_count;
+        const notificationCount = response.data.data.noti_count;
+        this.notificationsCount = notificationCount;
+        if (notificationCount > 0) this.fetchData();
       });
-      if (!this.calledFetch) this.fetchData();
-      this.calledFetch = true;
+    }
+
+    checkDataInterval: any = null;
+
+    mounted() {
+      this.fetchData();
+      if (!this.checkDataInterval) {
+        this.checkDataInterval = setInterval(this.refreshData, REFRESH_FREQUENCY);
+      }
+    }
+
+    destroyed() {
+      clearInterval(this.checkDataInterval);
     }
 
     async fetchData() {

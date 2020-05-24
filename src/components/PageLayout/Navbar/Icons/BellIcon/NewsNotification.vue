@@ -7,8 +7,6 @@
   </div>
 </template>
 <script lang="ts">
-  // @ts-ignore
-  import get from 'lodash.get';
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import Utils from '@/utils/utils';

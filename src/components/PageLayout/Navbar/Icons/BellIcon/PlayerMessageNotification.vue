@@ -16,13 +16,11 @@
   </div>
 </template>
 <script lang="ts">
-  // @ts-ignore
-  import get from 'lodash.get';
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import axios, { AxiosInstance } from 'axios';
   import PageDataMixin from '@/mixins/PageData';
-  import { NewsItem } from '@/types/common-types';
+  import { NewsItem, NotificationItem, UserMessage } from '@/types/common-types';
   import Utils from '@/utils/utils';
 
   @Component({
@@ -31,7 +29,7 @@
   export default class PlayerMessageNotification extends Vue {
     private strippedBody = Utils.strippedBody;
 
-    @Prop() private article: object;
+    @Prop({ required: true }) private article!: NotificationItem;
 
     private name =
       this.article.sender === this.article.target_uid
@@ -42,10 +40,12 @@
       return Utils.getAvatar(
         this.article.sender === this.article.target_uid
           ? this.article.target_picture
-          : this.article.target2_picture
+          : this.article.target2_picture,
       );
     }
 
+    // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
+    // @ts-ignore
     private display = this.article.content.body || this.article.content;
   }
 </script>

@@ -32,16 +32,12 @@
     components: { EditPlayerFeaturedAchievement, EditField, EditPlayerNewSection },
   })
   export default class PlayerAboutMe extends Vue {
-    get user() {
-      return this.$vxm.user.userDetails;
-    }
-
     mounted() {
-      this.setProfile(this.$vxm.user.userDetails.Profile);
+      this.setProfile(this.$vxm.user.userDetails?.Profile);
     }
 
-    setProfile(text: string) {
-      this.$emit('set-profile', text);
+    setProfile(text: string | undefined) {
+      if (text) this.$emit('set-profile', text);
     }
 
     setSection(section: object) {

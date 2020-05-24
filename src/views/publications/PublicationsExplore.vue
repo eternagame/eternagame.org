@@ -55,8 +55,6 @@
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
-  // @ts-ignore
-  import get from 'lodash.get';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import PublicationsCard from './PublicationsCard.vue';
 

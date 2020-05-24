@@ -1,12 +1,12 @@
 <template>
   <EternaPage
-    :title="pageData ? news.news.title : ''"
-    :header_date="pageData ? news.news.created : ''"
+    :title="pageData ? pageData.news.title : ''"
+    :header_date="pageData ? pageData.news.created : ''"
     :header_title="$t('news-view:anouncements').toUpperCase()"
   >
     <div v-if="pageData">
-      <div class="page-content" v-dompurify-html="news.news.body"></div>
-      <Comments :comments="pageData.comments" :nid="news.news.nid" />
+      <div class="page-content" v-dompurify-html="this.pageData.news.body"></div>
+      <Comments :comments="pageData.comments" :nid="this.pageData.news.nid" />
     </div>
     <div v-else>
       <Preloader />
@@ -38,7 +38,7 @@
   import Comments from '@/components/PageLayout/Comments.vue';
   import EditField from '@/components/Common/EditField.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import NewsData from './types';
+  import { NewsItem } from '@/types/common-types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const res = (
@@ -48,7 +48,7 @@
           filters: route.query.filters && (route.query.filters as string).split(','),
         },
       })
-    ).data.data as NewsData;
+    ).data.data as NewsItem;
     return res;
   }
 
@@ -65,12 +65,8 @@
     },
   })
   export default class NewsView extends Mixins(PageDataMixin(fetchPageData)) {
-    get news() {
-      return this.pageData;
-    }
-
     get addCommentPath() {
-      return `/web/blog/${this.pageData.news.nid}`;
+      return `/web/blog/${this.pageData?.nid}`;
     }
 
     private options: Option[] = [

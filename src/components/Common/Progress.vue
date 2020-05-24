@@ -1,7 +1,7 @@
 <template>
   <div style="margin:10px;">
     <vue-circle
-      :progress="100 * progress / total"
+      :progress="(100 * progress) / total"
       :size="isMobile ? 65 : 100"
       :reverse="false"
       :fill="{ color: `${color}` }"
@@ -24,6 +24,7 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
+  // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
   // @ts-ignore
   import VueCircle from 'vue2-circle-progress/src/index.vue';
 

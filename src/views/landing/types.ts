@@ -1,8 +1,5 @@
-export default interface HomeData {
-  achievement_roadmap: Array<Achievement>;
-}
+import { AchievementItem } from '@/types/common-types';
 
-export interface Achievement {
-  current_level: number;
-  key: string;
+export default interface HomeData {
+  achievement_roadmap: Array<AchievementItem>;
 }

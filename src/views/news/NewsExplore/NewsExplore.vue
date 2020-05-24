@@ -39,8 +39,6 @@
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
-  // @ts-ignore
-  import get from 'lodash.get';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import NewsCard from './components/NewsCard.vue';
 

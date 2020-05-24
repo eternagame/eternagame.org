@@ -397,5 +397,8 @@
   "side-panel-options:all-activity": "All Activity",
   "side-panel-options:my-groups": "My Groups",
   "side-panel-options:my-messages": "My Messages",
-  "quest:completed": "Completed!"
+  "quest:completed": "Completed!",
+  "news-view:select-date": "Please select a date range",
+  "calendar": "calendar",
+  "filters": "filters"
 }

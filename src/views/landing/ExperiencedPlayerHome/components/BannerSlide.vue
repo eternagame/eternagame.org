@@ -7,7 +7,8 @@
         {{ (carousel_subtitle || title).toUpperCase() }}
       </h3>
 
-      <div class="banner-progress">
+      <flip-countdown :deadline="closesDateFormat" v-if="project_closes"></flip-countdown>
+      <div class="banner-progress" v-else>
         <Progress v-bind="progressCircles[0]" color="#2f94d1" />
         <Progress v-bind="progressCircles[1]" color="#fac244" />
       </div>
@@ -24,9 +25,10 @@
   import { AxiosInstance } from 'axios';
   import DefaultHero from '@/assets/home/hero-lab-default.png';
   import Progress from '@/components/Common/Progress.vue';
+  import FlipCountdown from 'vue2-flip-countdown';
 
   @Component({
-    components: { Progress },
+    components: { Progress, FlipCountdown },
   })
   export default class BannerSlide extends Vue {
     @Prop({}) banner_image!: string;
@@ -45,7 +47,17 @@
 
     @Prop() total_submitted_solutions!: number;
 
-    @Prop() project_closes!: number | null;
+    get closesDateFormat(): string | null {
+      if (!this.project_closes) return null;
+      const d = new Date(this.project_closes * 1000);
+      return `${[d.getMonth() + 1, d.getDate(), d.getFullYear()].join('/')} ${[
+        d.getHours(),
+        d.getMinutes(),
+        d.getSeconds(),
+      ].join(':')}`;
+    }
+
+    @Prop() project_closes: number | null = 1591492359;
 
     @Prop({}) nid!: number;
 

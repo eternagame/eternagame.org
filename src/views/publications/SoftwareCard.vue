@@ -9,18 +9,40 @@
       <p class="text">{{ project.description }}</p>
 
       <div class="">
-        <button
-          type="button"
-          class="btn btn-primary mt-3 mr-3 mb-3"
-          v-b-modal.software-license-modal
-        >
-          <b-icon-download />
-          DOWNLOAD
-        </button>
-        <button type="button" class="btn btn-secondary">
-          <b-icon-book />
-          TUTORIAL
-        </button>
+        <template v-if="project.licenseTerms">
+          <b-btn
+            type="button"
+            class="btn btn-primary mt-3 mr-3 mb-3"
+            v-b-modal.software-license-modal
+            v-b-tooltip.hover.bottom
+            title="Request software license"
+          >
+            <b-icon-download />
+            REQUEST
+          </b-btn>
+        </template>
+        <template v-else>
+          <b-btn
+            type="button"
+            class="btn btn-primary mt-3 mr-3 mb-3"
+            v-b-tooltip.hover.bottom
+            :title="project.downloadTooltip"
+            :href="project.downloadUrl"
+          >
+            <b-icon-download />
+            DOWNLOAD
+          </b-btn>
+          <b-btn
+            type="button"
+            class="btn btn-secondary"
+            v-b-tooltip.hover.bottom
+            :title="project.helpTooltip"
+            :href="project.helpUrl"
+          >
+            <b-icon-book />
+            TUTORIAL
+          </b-btn>
+        </template>
       </div>
 
       <div class="row mt-4">

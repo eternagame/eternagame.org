@@ -29,12 +29,16 @@
     title: string;
     logoUrl: string;
     description: string;
-    // TODO: Download, Tutorial
     thumbnailUrl: string;
     paperTitle: string;
     paperUrl: string;
     journal: string;
     date: string;
+    licenseTerms?: string;
+    downloadTooltip?: string;
+    downloadUrl?: string;
+    helpTooltip?: string;
+    helpUrl?: string;
   }
 
   // TODO: Save assets locally instead of hotlinking to old site.
@@ -50,6 +54,10 @@
       paperUrl: 'https://doi.org/10.1101/326736',
       journal: 'bioRxiv',
       date: 'May 2018',
+      downloadTooltip: 'Download via GitHub',
+      downloadUrl: 'https://github.com/EteRNAgame/EternaBrain',
+      helpTooltip: 'View on GitHub',
+      helpUrl: 'https://github.com/EteRNAgame/EternaBrain/blob/master/README.md',
     },
     {
       title: 'NEMO',
@@ -62,6 +70,7 @@
       paperUrl: 'https://doi.org/10.1101/345587',
       journal: 'bioRxiv',
       date: 'June 2018',
+      licenseTerms: 'TODO: Propogate to license modal',
     },
     {
       title: 'EternaBot',

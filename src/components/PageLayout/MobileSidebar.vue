@@ -1,6 +1,6 @@
 <template>
   <transition name="slide">
-    <div ref="mobileSidebar" class="mobile-sidebar" v-show="isOpen">
+    <div ref="mobileSidebar" class="mobile-sidebar  d-lg-none" v-show="isOpen">
       <nav>
         <div class="d-flex justify-content-end">
           <button class="btn p-0" @click="closeMenu">
@@ -35,9 +35,9 @@
     onDocumentClick(event: Event) {
       const element = event.srcElement as HTMLElement;
       if (
-        element
-        && !element.classList.contains('sidebar')
-        && !this.$refs.mobileSidebar.contains(element)
+        element &&
+        !element.classList.contains('sidebar') &&
+        !this.$refs.mobileSidebar.contains(element)
       ) {
         this.closeMenu();
       }

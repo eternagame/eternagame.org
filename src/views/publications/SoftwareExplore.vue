@@ -109,17 +109,17 @@
       title: 'RNAmake',
       logoUrl: 'https://software.eternagame.org/img/logo_rnamake.svg',
       description:
-        'SentRNA is a fully-connected neural network trained using the eternasolves dataset. The agent first predicts an initial sequence for a target using the trained network, and then refines that solution if necessary using a short adaptive walk utilizing a canon of standard design moves. Through this approach, SentRNA can learn and apply human-like design strategies to solve several complex targets previously unsolvable by any computational approach.',
+        'RNAMake is a toolkit for designing and optimizing RNA 3D structure. It allows the alignment between RNA motifs. These motif are small modular peices of RNA that are believed to fold independently, thus attaching them together with helix flanking both sides allows users of RNAMake to build large segments of RNA with a high success rate of forming the predicted structure in vitro.',
       thumbnailUrl: 'https://software.eternagame.org/img/thumb_rnamake_paper.png',
       paperTitle:
         'Computational design of asymmetric three-dimensional RNA structures and machines',
       paperUrl: 'https://doi.org/10.1101/223479',
       journal: 'bioRxiv',
       date: 'Nov 2017',
-      downloadTooltip: 'Download via GitHub',
-      downloadUrl: 'https://github.com/jyesselm/RNAMake',
-      helpTooltip: 'View on GitHub',
-      helpUrl: 'https://github.com/jyesselm/RNAMake/blob/master/README.md',
+      downloadTooltip: 'Download via SimTK',
+      downloadUrl: 'https://simtk.org/frs/?group_id=1749',
+      helpTooltip: 'View documentation',
+      helpUrl: 'https://ribokit.github.io/RNAMake/',
     },
   ];
 

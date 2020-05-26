@@ -46,7 +46,7 @@
       </div>
 
       <div class="row mt-4">
-        <div class="col-lg-5">
+        <div class="col-lg-5 mb-3">
           <a :href="project.paperUrl">
             <img v-if="project.thumbnailUrl" class="thumbnail" :src="project.thumbnailUrl" />
           </a>

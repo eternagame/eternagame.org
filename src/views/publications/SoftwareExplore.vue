@@ -70,7 +70,9 @@
       paperUrl: 'https://doi.org/10.1101/345587',
       journal: 'bioRxiv',
       date: 'June 2018',
-      licenseTerms: 'TODO: Propogate to license modal',
+      downloadTooltip: 'Download via SimTK',
+      downloadUrl: 'https://simtk.org/projects/nemo',
+      helpTooltip: 'Coming soon',
     },
     {
       title: 'EternaBot',
@@ -82,6 +84,10 @@
       paperUrl: 'https://doi.org/10.1073/pnas.1313039111',
       journal: 'PNAS',
       date: 'Feb 2014',
+      downloadTooltip: 'Run via eternabot.org',
+      downloadUrl: 'http://eternabot.org/',
+      helpTooltip: 'View on eternabot.org',
+      helpUrl: 'http://eternabot.org/about',
     },
     {
       title: 'SentRNA',
@@ -94,6 +100,10 @@
       paperUrl: 'https://arxiv.org/abs/1803.03146',
       journal: 'arxiv',
       date: 'Mar 2018',
+      downloadTooltip: 'Download via GitHub',
+      downloadUrl: 'https://github.com/jadeshi/SentRNA',
+      helpTooltip: 'View on GitHub',
+      helpUrl: 'https://github.com/jadeshi/SentRNA/blob/master/README.md',
     },
     {
       title: 'RNAmake',
@@ -106,6 +116,10 @@
       paperUrl: 'https://doi.org/10.1101/223479',
       journal: 'bioRxiv',
       date: 'Nov 2017',
+      downloadTooltip: 'Download via GitHub',
+      downloadUrl: 'https://github.com/jyesselm/RNAMake',
+      helpTooltip: 'View on GitHub',
+      helpUrl: 'https://github.com/jyesselm/RNAMake/blob/master/README.md',
     },
   ];
 

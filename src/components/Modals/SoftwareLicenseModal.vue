@@ -69,18 +69,6 @@
 
     acceptTerms() {
       this.signed = true;
-      // if (this.status) {
-      //   axios.post(
-      //     ROUTE,
-      //     new URLSearchParams({
-      //       type: 'survey',
-      //       action: 'update',
-      //       value: 'EULA_AGREE',
-      //       uid: String(this.$vxm.user.uid),
-      //     }),
-      //   );
-      // }
-      // this.$refs.modal.hide();
     }
   }
 </script>

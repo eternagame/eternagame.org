@@ -1,7 +1,7 @@
 <template>
   <b-modal
     ref="modal"
-    id="software-license-modal"
+    :id="id"
     body-class="py-0"
     header-border-variant="primary"
     footer-border-variant="primary"
@@ -11,8 +11,7 @@
       <b>LICENSE TERMS</b>
     </template>
     <div class="content">
-      <h3 class="p-2 mt-3 mb-0">{{ $t('terms-modal:eula') }}</h3>
-      <TermsAndConditionsText />
+      <div v-dompurify-html="licenseTerms"></div>
     </div>
     <template #modal-footer>
       <div v-if="!signed">
@@ -45,19 +44,22 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
   import axios from 'axios';
-  import TermsAndConditionsText from '@/views/terms/TermsAndConditionsText.vue';
 
   const ROUTE = '/post/';
 
-  @Component({
-    components: { TermsAndConditionsText },
-  })
+  @Component({})
   export default class SoftwareLicenseModal extends Vue {
     errorMessage: string = '';
 
     $refs!: {
       modal: BModal;
     };
+
+    @Prop({})
+    licenseTerms!: string;
+
+    @Prop({})
+    id!: string;
 
     private accepted: boolean = false;
 

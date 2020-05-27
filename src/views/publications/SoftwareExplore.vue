@@ -46,7 +46,9 @@
     paperUrl: string;
     journal: string;
     date: string;
+    // HTML string for license. If present, we'll use the license approval flow.
     licenseTerms?: string;
+    // Otherwise, we allow user to download the content immediately.
     downloadTooltip?: string;
     downloadUrl?: string;
     helpTooltip?: string;

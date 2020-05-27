@@ -13,13 +13,14 @@
           <b-btn
             type="button"
             class="btn btn-primary mt-3 mr-3 mb-3"
-            v-b-modal.software-license-modal
+            @click="$bvModal.show(id)"
             v-b-tooltip.hover.bottom
             title="Request software license"
           >
             <b-icon-download />
             REQUEST
           </b-btn>
+          <SoftwareLicenseModal :id="id" :license-terms="project.licenseTerms" />
         </template>
         <template v-else>
           <b-btn
@@ -67,12 +68,18 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { BIconDownload, BIconBook } from 'bootstrap-vue';
   import { SoftwareProject } from './SoftwareExplore.vue';
+  import SoftwareLicenseModal from '../../components/Modals/SoftwareLicenseModal.vue';
 
   @Component({
-    components: { BIconBook, BIconDownload },
+    components: { BIconBook, BIconDownload, SoftwareLicenseModal },
   })
   export default class SoftwareCard extends Vue {
     @Prop() private project!: SoftwareProject;
+
+    get id() {
+      // Note: assumes project titles are unique.
+      return `software-license-modal-${this.project.title}`;
+    }
   }
 </script>
 

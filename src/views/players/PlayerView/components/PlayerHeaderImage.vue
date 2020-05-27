@@ -24,7 +24,16 @@
   })
   export default class PlayerHeaderImage extends Vue {
     get picture() {
-      return this.user.picture && `${process.env.VUE_APP_API_BASE_URL}/${this.user.picture}`;
+      const playerImage = this.user.picture;
+      const lowercaseUrl = playerImage.toLowerCase();
+      let fullUrl = playerImage;
+      if (lowercaseUrl.length === 0) {
+        fullUrl = DEFAULT_PLAYER_PICTURE;
+      } else if (!(lowercaseUrl.startsWith('http://') || lowercaseUrl.startsWith('https://'))) {
+        fullUrl = `${process.env.VUE_APP_API_BASE_URL}/${playerImage}`;
+      }
+      console.log(fullUrl);
+      return fullUrl;
     }
 
     @Prop() user!: UserData;

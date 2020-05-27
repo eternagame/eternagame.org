@@ -17,23 +17,14 @@
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   import { UserData } from '@/types/common-types';
-  import { DEFAULT_PLAYER_PICTURE } from '@/utils/constants';
+  import Utils from '@/utils/utils';
 
   @Component({
     components: {},
   })
   export default class PlayerHeaderImage extends Vue {
     get picture() {
-      const playerImage = this.user.picture;
-      const lowercaseUrl = playerImage.toLowerCase();
-      let fullUrl = playerImage;
-      if (lowercaseUrl.length === 0) {
-        fullUrl = DEFAULT_PLAYER_PICTURE;
-      } else if (!(lowercaseUrl.startsWith('http://') || lowercaseUrl.startsWith('https://'))) {
-        fullUrl = `${process.env.VUE_APP_API_BASE_URL}/${playerImage}`;
-      }
-      console.log(fullUrl);
-      return fullUrl;
+      return Utils.getAvatar(this.user.picture);
     }
 
     @Prop() user!: UserData;

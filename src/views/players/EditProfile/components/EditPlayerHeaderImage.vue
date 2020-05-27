@@ -22,6 +22,7 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import Utils from '@/utils/utils';
   import { UserData } from '@/types/common-types';
   import { DEFAULT_PLAYER_PICTURE } from '@/utils/constants';
 
@@ -34,7 +35,7 @@
     }
 
     get picture() {
-      return this.user.picture && `${process.env.VUE_APP_API_BASE_URL}/${this.user.picture}`;
+      return Utils.getAvatar(this.user.picture);
     }
   }
 </script>

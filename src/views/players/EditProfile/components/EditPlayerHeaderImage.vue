@@ -23,8 +23,6 @@
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
-  import { UserData } from '@/types/common-types';
-  import { DEFAULT_PLAYER_PICTURE } from '@/utils/constants';
 
   @Component({
     components: {},

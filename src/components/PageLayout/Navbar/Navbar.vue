@@ -2,6 +2,8 @@
   <b-navbar toggleable="lg" type="dark" variant="dark" fixed="top" class="navbar">
     <b-container class="page-container px-4 d-flex justify-content-between">
       <EternaLogo />
+      <p id="chat-popover-anchor" class="anchor">.</p>
+
       <div class="d-flex justify-content-end">
         <LoginRow v-if="!loggedIn" />
         <div class="d-none d-lg-block">
@@ -93,6 +95,15 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  // Hidden element on screen bottom right, to anchor the chat popover.
+  .anchor {
+    bottom: 0;
+    right: 3rem;
+    position: fixed;
+    z-index: -3000;
+    opacity: 0;
+  }
 
   nav {
     border: 0px;

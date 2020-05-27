@@ -53,17 +53,25 @@
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import VueAxios from 'vue-axios';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  // @ts-ignore
-  import get from 'lodash.get';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { VXM } from '@/types/vue.d';
-  import PuzzleViewData, { PuzzleCardData } from './types';
+  import { PuzzleItem } from '@/types/common-types';
 
   const INITIAL_SORT = 'date';
   const INITIAL_NUMBER = 18;
 
   const ROUTE = '/get/?type=puzzles';
+
+  interface PuzzleExploreParams {
+    puzzle_type: string;
+    single: string;
+    notcleared: string;
+    sort: string;
+    search: string;
+    size: string;
+    uid: number | null;
+  }
 
   async function fetchPageData(route: Route, http: AxiosInstance, vxm: VXM) {
     const getPuzzleType = (challenge: boolean, player: boolean) => {
@@ -82,16 +90,14 @@
       sort: route.query.sort || INITIAL_SORT,
       search: route.query.search,
       size: route.query.size || INITIAL_NUMBER,
-    };
+    } as PuzzleExploreParams;
 
     if (vxm.user.loggedIn) params.uid = vxm.user.uid;
 
-    const res = (
-      await http.get(ROUTE, {
-        params,
-      })
-    ).data.data as PuzzleViewData;
-    return res;
+    const res = await http.get(ROUTE, {
+      params,
+    });
+    return res.data.data;
   }
 
   @Component({
@@ -108,13 +114,12 @@
   })
   export default class PuzzlesExplore extends Mixins(PageDataMixin(fetchPageData)) {
     get puzzles() {
-      return get(this.pageData, 'puzzles', []);
+      return this.pageData?.puzzles;
     }
 
-    puzzleCleared(id: number) {
-      return get(this, 'pageData.cleared', [])
-        .map(puzzle => puzzle.id)
-        .includes(id);
+    puzzleCleared(id: string) {
+      const puzzlesCleared: PuzzleItem[] = this.pageData.cleared || [];
+      return puzzlesCleared.map(puzzle => puzzle.id.includes(id));
     }
 
     private options: Option[] = [

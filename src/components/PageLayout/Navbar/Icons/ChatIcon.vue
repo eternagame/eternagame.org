@@ -23,8 +23,6 @@
   </div>
 </template>
 <script lang="ts">
-  // @ts-ignore
-  import get from 'lodash.get';
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { Chat } from 'eterna-chat-wrapper';
 
@@ -37,7 +35,7 @@
   })
   export default class ChatIcon extends Vue {
     @Prop({ default: false })
-    private isInSideBar;
+    private isInSideBar!: boolean;
 
     private show: Boolean = false;
 
@@ -59,7 +57,6 @@
         username: this.$vxm.user.username ? this.$vxm.user.username : '',
         uid: this.$vxm.user.uid ? this.$vxm.user.uid.toString() : '0',
         onHidden: () => this.$root.$emit('bv::hide::popover', 'chat-container'),
-        onPopOut: () => this.$router.push('/chat'),
         backgroundColor: 'rgb(0, 22, 55)',
       });
     }

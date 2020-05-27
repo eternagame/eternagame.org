@@ -12,6 +12,7 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+
   @Component({})
   export default class PlayerHeaderTopRow extends Vue {
     submit() {
@@ -19,17 +20,19 @@
     }
 
     chooseFiles() {
-      // @ts-ignore
-      document.getElementById('fileUpload').click();
+      const item = document.getElementById('fileUpload');
+      if (item) item.click();
     }
 
-    handleFile(evt) {
-      const file = evt.target.files[0]; // FileList object
+    handleFile(event: Event) {
+      const target = event.target as HTMLInputElement;
+      const file: File = (target.files as FileList)[0];
       this.$emit('set-picture', file);
     }
 
     mounted() {
-      document.getElementById('fileUpload').addEventListener('change', this.handleFile, false);
+      const item = document.getElementById('fileUpload');
+      if (item) item.addEventListener('change', this.handleFile, false);
     }
   }
 </script>

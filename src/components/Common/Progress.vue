@@ -3,7 +3,7 @@
     <vue-circle
       :key="$mq"
       :progress="(100 * progress) / total"
-      :size="isMobile ? 65 : 100"
+      :size="$mq === 'mobile' ? 65 : 100"
       :reverse="false"
       :fill="{ color: `${color}` }"
       line-cap="round"
@@ -11,7 +11,7 @@
       :animation-start-value="0.0"
       :start-angle="4.7"
       insert-mode="append"
-      :thickness="isMobile ? 6 : 10"
+      :thickness="$mq === 'mobile' ? 6 : 10"
       :show-percent="false"
     >
       <p class="larger-text" style="font-weight: bold; margin: 0; padding-top: 0.3rem">
@@ -25,6 +25,7 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
+  // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
   // @ts-ignore
   import VueCircle from 'vue2-circle-progress/src/index.vue';
   // @ts-ignore
@@ -50,10 +51,6 @@
 
     @Prop({ required: true })
     private total!: number;
-
-    get isMobile() {
-      return this.$mq === 'mobile';
-    }
   }
 </script>
 <style lang="scss" scoped>

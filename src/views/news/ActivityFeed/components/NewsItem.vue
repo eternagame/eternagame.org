@@ -31,13 +31,14 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import SmartLink from '@/components/Common/SmartLink.vue';
   import Utils from '@/utils/utils';
+  import { NewsItem as NewsItemType } from '@/types/common-types';
   import MessageThread from './MessageThread.vue';
 
   @Component({
     components: { SmartLink, MessageThread },
   })
   export default class NewsItem extends Vue {
-    @Prop() private article!: string;
+    @Prop() private article!: NewsItemType;
 
     @Prop({ default: 'blogs' }) private type!: string;
 

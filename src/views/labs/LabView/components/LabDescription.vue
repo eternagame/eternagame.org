@@ -1,14 +1,17 @@
 <template>
   <div>
     <div class="card" style="width:100; border: none;">
-      <div class="lab-header p-2" :style="{
-        'background-image': `linear-gradient(
+      <div
+        class="lab-header p-2"
+        :style="{
+          'background-image': `linear-gradient(
           to bottom,
           transparent 0%,
           rgba(0, 0, 0, 0.6) 70%,
           rgba(0, 0, 0, 0.9) 100%
-        ), url(${heroImage})`
-      }">
+        ), url(${heroImage})`,
+        }"
+      >
         <span class="header-content">
           <h3>
             <b>{{ lab.title }}</b>
@@ -49,7 +52,7 @@
     }
 
     get heroImage() {
-      return this.lab.banner_image  || DefaultHero;
+      return this.lab.banner_image || DefaultHero;
     }
   }
 </script>
@@ -74,7 +77,7 @@
   /*.lab-header::after {
     display: block;
     position: relative;
-    background-image: 
+    background-image:
     margin-top: -300px;
     height: 300px;
     width: 100%;

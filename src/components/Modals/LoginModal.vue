@@ -56,11 +56,7 @@
           {{ $t('login-modal:register-action') }}
         </span>
       </p>
-      <v-facebook-login
-        @sdk-init="handleSdkInit"
-        :app-id="fbID"
-        @login="fbLogIn()"
-      ></v-facebook-login>
+      <FacebookAuthentication @fb-verify="registerWithFacebook"></FacebookAuthentication>
     </b-form>
   </b-modal>
 </template>
@@ -69,14 +65,12 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
-  import axios from 'axios';
-  // @ts-ignore
-  import VFacebookLogin from 'vue-facebook-login-component';
+  import FacebookAuthentication from './components/FacebookAuthentication.vue';
 
   @Component({
     components: {
       VueRecaptcha,
-      VFacebookLogin,
+      FacebookAuthentication,
     },
   })
   export default class LoginModal extends Vue {
@@ -87,14 +81,12 @@
 
     errorMessage = '';
 
-    fb = null;
+    FB = null;
 
     private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
-    // TODO consolidate
-    async fbLogIn() {
+    registerWithFacebook(data: { success: boolean; error: string }) {
       this.$bvModal.hide('modal-login');
-      const data = await this.$vxm.user.fbLogin(this.fb);
       if (data.success) {
         this.form.username = '';
         this.form.password = '';
@@ -108,13 +100,6 @@
       modal: BModal;
       rePassword: BFormInput;
     };
-
-    // TODO consolidate
-    handleSdkInit({ FB, scope }) {
-      console.log('logged in', FB);
-      this.FB = FB;
-      // this.scope = scope;
-    }
 
     async login() {
       this.$bvModal.hide('modal-login');

@@ -76,11 +76,7 @@
       >
         {{ $t('register-modal:main-action') }}
       </b-button>
-      <v-facebook-login
-        @sdk-init="handleSdkInit"
-        :app-id="fbID"
-        @login="fbLogIn()"
-      ></v-facebook-login>
+      <FacebookAuthentication @fb-verify="registerWithFacebook"></FacebookAuthentication>
     </b-form>
   </b-modal>
 </template>
@@ -90,8 +86,7 @@
   import { BModal, BFormInput } from 'bootstrap-vue';
   import axios from 'axios';
   import VueRecaptcha from 'vue-recaptcha';
-  // @ts-ignore
-  import VFacebookLogin from 'vue-facebook-login-component';
+  import FacebookAuthentication from './components/FacebookAuthentication.vue';
 
   const FB_LOGIN_ROUTE = '/login/?type=login&method=facebook';
 
@@ -105,7 +100,7 @@
   @Component({
     components: {
       VueRecaptcha,
-      VFacebookLogin,
+      FacebookAuthentication,
     },
   })
   export default class RegisterModal extends Vue {
@@ -123,26 +118,16 @@
 
     attemptNumber: number = 0;
 
-    fb = null;
+    FB = null;
 
     $refs!: {
       modal: BModal;
       rePassword: BFormInput;
     };
 
-    // TODO consolidate
-    handleSdkInit({ FB, scope }) {
-      console.log('logged in', FB);
-      this.FB = FB;
-      // this.scope = scope;
-    }
-
-    // TODO consolidate
-    async fbLogIn() {
+    registerWithFacebook() {
       this.$bvModal.hide('modal-register');
-      const data = await this.$vxm.user.fbLogin(this.fb);
       this.$router.push('/');
-      console.log(data);
     }
 
     async tryRegister(event: Event) {

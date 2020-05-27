@@ -10,7 +10,7 @@
       <Pagination :key="players.length" />
     </div>
     <div v-else>
-      <Preloader/>
+      <Preloader />
     </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
@@ -35,8 +35,6 @@
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import axios, { AxiosInstance } from 'axios';
-  // @ts-ignore
-  import get from 'lodash.get';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
@@ -81,7 +79,7 @@
   })
   export default class LeaderBoard extends Mixins(PageDataMixin(fetchPageData)) {
     get players() {
-      return get(this.pageData, 'users', []);
+      return this.pageData?.users || [];
     }
 
     private options: Option[] = [

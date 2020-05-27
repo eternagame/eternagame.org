@@ -44,10 +44,12 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
   // @ts-ignore
   import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
   // eslint-disable-next-line max-len
   // prettier-ignore
+  // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
   // @ts-ignore
   import { Heading, Bold, Underline, Image, HardBreak, OrderedList, ListItem, Code, Italic, Link, Strike, BulletList, History, Placeholder } from 'tiptap-extensions';
 
@@ -66,6 +68,7 @@
       const parent = this;
       return new Editor({
         content: this.content,
+        // @ts-ignore
         onUpdate: ({ getHTML }) => {
           parent.$emit('input', getHTML());
         },

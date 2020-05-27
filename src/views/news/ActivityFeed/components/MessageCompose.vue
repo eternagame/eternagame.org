@@ -63,7 +63,7 @@
   import axios, { AxiosInstance } from 'axios';
   // @ts-ignore
   import debounce from 'lodash.debounce';
-  import { Component, Vue, Mixins, Prop, Watch } from 'vue-property-decorator';
+  import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
 
@@ -101,10 +101,12 @@
       this.fetchData();
     }
 
+    @Ref('typeahead') readonly typeahead!: { inputValue: string };
+
     mounted() {
       if (this.$route.query.message) {
-        this.$refs.typeahead.inputValue = this.$route.query.message;
-        this.targetName = this.$route.query.message;
+        this.typeahead.inputValue = String(this.$route.query.message);
+        this.targetName = String(this.$route.query.message);
       }
     }
 
@@ -121,6 +123,7 @@
         body: message,
       };
 
+      // @ts-ignore
       if (this.parentNID) params.parent_nid = this.parentNID;
 
       await axios.post('/post/?type=message', new URLSearchParams(params));

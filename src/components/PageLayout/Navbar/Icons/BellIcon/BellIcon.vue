@@ -4,9 +4,7 @@
       <div class="unread" v-if="notificationsCount > 0"></div>
       <img class="icon mr-1" src="@/assets/navbar/Bell.svg" />
     </template>
-    <template #text>
-      {{ $t('nav-bar:notifications') }}
-    </template>
+    <template #text>{{ $t('nav-bar:notifications') }}</template>
     <template v-slot="slotProp">
       <div class="activity-container">
         <div class="d-flex justify-content-between">
@@ -29,21 +27,19 @@
           <PlayerMessageNotification v-if="isMessageRelated(item)" :article="item" />
           <NewsNotification v-else v-bind="item" />
         </b-dropdown-item>
-        <b-dropdown-item v-if="notifications.length == 0">
-          {{ $t('activity-feed:empty') }}
-        </b-dropdown-item>
+        <b-dropdown-item v-if="notifications.length == 0">{{
+          $t('activity-feed:empty')
+        }}</b-dropdown-item>
       </div>
     </template>
   </NavbarIcon>
 </template>
 <script lang="ts">
-  // @ts-ignore
-  import get from 'lodash.get';
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import axios, { AxiosInstance } from 'axios';
   import PageDataMixin from '@/mixins/PageData';
-  import { NewsItem } from '@/types/common-types';
+  import { NewsItem, UserMessage, NotificationItem } from '@/types/common-types';
   import Utils from '@/utils/utils';
   import NavbarIcon from '../NavbarIcon.vue';
   import NewsNotification from './NewsNotification.vue';
@@ -80,7 +76,7 @@
       axios.post(NOTIFICATIONS_READ, new URLSearchParams({ type: 'notification_read' }));
     }
 
-    isMessageRelated(item) {
+    isMessageRelated(item: NewsItem) {
       return item.type === 'notifications' || item.type === 'message';
     }
 
@@ -107,24 +103,30 @@
 
     async fetchData() {
       // Note: newsfeed endpoint requires credentials
-      const response = await axios.get(NEWS_FEED_ROUTE, { withCredentials: true });
-      const res = response.data.data;
+      const response = await axios.get(NEWS_FEED_ROUTE, {
+        withCredentials: true,
+      });
+      // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
+      const res = response.data.data as any;
 
       this.notifications = res.entries
-        .map(entry => this.addMessageData(entry))
+        .map((entry: NewsItem) => this.addMessageData(entry))
         .flat()
-        .sort((a, b) => b.created - a.created)
+        .sort((a: NewsItem, b: NewsItem) => b.created - a.created)
         .slice(0, NUMBER_NOTIFICATIONS_TO_SHOW);
     }
 
-    private uid = this.$vxm.user.userDetails.uid;
+    private uid = this.$vxm.user.userDetails?.uid;
 
-    addMessageData(entry) {
+    addMessageData(entry: NewsItem) {
       if (!this.isMessageRelated(entry)) return entry;
-      const messages = entry.message;
-      return messages
-        .map(message => ({ ...message, ...entry }))
-        .filter(message => message.sender !== this.uid);
+      const messages = entry.message || [];
+      return (
+        messages
+          .map((message: UserMessage) => ({ ...message, ...entry }))
+          // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
+          .filter(item => item.sender !== this.uid)
+      );
     }
   }
 </script>

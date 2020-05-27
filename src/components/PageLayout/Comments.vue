@@ -2,9 +2,9 @@
   <div>
     <div style="width:100; border: none;">
       <span class="header-content">
-        <h3 style="font-size: 23px;font-weight: bold;margin-top:15px">
-          {{ name || $t('page:comments-title') }}
-        </h3>
+        <h3
+          style="font-size: 23px;font-weight: bold;margin-top:15px"
+        >{{ name || $t('page:comments-title') }}</h3>
       </span>
     </div>
     <div class="card body">
@@ -21,11 +21,10 @@
           variant="primary"
           @click="submit"
           :disabled="!commentText || submitting"
-          >
-            {{ $t('page:comments-action') }}
-            <b-spinner v-if="submitting" small></b-spinner>
-          </b-button
         >
+          {{ $t('page:comments-action') }}
+          <b-spinner v-if="submitting" small></b-spinner>
+        </b-button>
       </div>
       <Comment v-for="comment in newestComments" :key="comment.cid" v-bind="comment" />
     </div>
@@ -35,67 +34,71 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import axios from 'axios';
+  import { CommentItem } from '@/types/common-types';
   import Comment from './Comment.vue';
 
   const ADD_COMMENT_ROUTE = '/post/';
 
-  @Component({
-    components: { Comment },
-  })
+@Component({
+  components: { Comment },
+})
   export default class Comments extends Vue {
-    @Prop({ default: [] })
-    private comments;
+  @Prop({ default: [] })
+  private comments!: CommentItem[];
 
-    @Prop()
-    private nid!: string;
+  @Prop()
+  private nid!: string;
 
-    @Prop()
-    private name!: string;
+  @Prop()
+  private name!: string;
 
-    private newComments = null;
+  private newComments = null;
 
-    private commentText: string = '';
+  private commentText: string = '';
 
-    private submitting = false;
+  private submitting = false;
 
-    get loggedIn() {
-      return this.$vxm.user.loggedIn;
-    }
+  get loggedIn() {
+    return this.$vxm.user.loggedIn;
+  }
 
-    get newestComments() {
-      return this.newComments || this.comments;
-    }
+  get newestComments() {
+    return this.newComments || this.comments;
+  }
 
-    submit() {
-      this.submitting = true;
-      axios
-        .post(ADD_COMMENT_ROUTE, new URLSearchParams({
+  submit() {
+    this.submitting = true;
+    axios
+      .post(
+        ADD_COMMENT_ROUTE,
+        new URLSearchParams({
           type: 'post_comment',
           body: this.commentText,
           nid: this.nid,
-        }))
-        .then(res => {
-          this.newComments = res.data.data.comments;
-          this.submitting = false;
-          this.commentText = '';
-        });
-    }
+        }),
+      )
+      .then(res => {
+        this.newComments = res.data.data.comments;
+        this.submitting = false;
+        this.commentText = '';
+      });
+  }
   }
 </script>
 
 <style scoped lang="scss">
-  .header-content {
-    bottom: 10px;
-    left: 10px;
-  }
+.header-content {
+  bottom: 10px;
+  left: 10px;
+}
 
-  .body {
-    padding: 1.5rem;
-  }
+.body {
+  padding: 1.5rem;
+}
 
-  .form-control {
-    margin: 0;
-    margin-bottom: 0.5rem;
-    background-color: #01010188;
-  }
+.form-control {
+  margin: 0;
+  margin-bottom: 0.5rem;
+  background-color: #01010188;
+}
 </style>

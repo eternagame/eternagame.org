@@ -82,7 +82,7 @@
       about: {
         overview: '/about',
         publications: '/about/publications',
-        software: 'https://software.eternagame.org/',
+        software: '/about/software',
         donate: 'https://challenges.eternagame.org/',
         terms: '/about/terms',
         'code-of-conduct': '/about/conduct',

@@ -2,6 +2,9 @@ import DefaultAvatar from '@/assets/navbar/DefaultIcon.svg';
 import { ActivityItem } from '@/types/common-types';
 
 export default {
+  isExternal(link: string) {
+    return !(link.startsWith('/') || link.startsWith('https://eternagame.org/'));
+  },
   getPuzzleMiddleThumbnail(nid: string | null) {
     // return `https://s3.amazonaws.com/eterna/puzzle_mid_thumbnails/thumbnail${nid}.png`;
     return (

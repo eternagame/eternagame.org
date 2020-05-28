@@ -32,8 +32,6 @@
     components: { EditPlayerFeaturedAchievement, EditField, EditPlayerNewSection },
   })
   export default class PlayerAboutMe extends Vue {
-    private user = this.$vxm.user.userDetails;
-
     private aboutMeText = this.$vxm.user.userDetails?.Profile;
 
     setProfile(text: string | undefined) {

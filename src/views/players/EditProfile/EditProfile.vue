@@ -83,7 +83,6 @@
     private loaded = false;
 
     async submit() {
-      // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
       const data = new FormData();
       if (this.newPassword) {
         data.set('pass[pass1]', this.newPassword as string);

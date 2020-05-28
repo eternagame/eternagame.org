@@ -64,7 +64,7 @@ export default function createRouter() {
       {
         path: '/about/software',
         name: 'software',
-        component: () => import('./views/publications/SoftwareExplore.vue'),
+        component: () => import('./views/software/SoftwareExplore.vue'),
       },
       {
         path: '/about/terms',

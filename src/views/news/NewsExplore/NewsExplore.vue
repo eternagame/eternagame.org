@@ -40,6 +40,7 @@
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
+  import { NewsItem } from '@/types/common-types';
   import NewsCard from './components/NewsCard.vue';
 
   const INITIAL_NUMBER = 18;
@@ -52,7 +53,6 @@
     const res = (
       await http.get(ROUTE, {
         params: {
-          order: sort,
           search,
           size: size || INITIAL_NUMBER,
           from_created: start_date && new Date(start_date as string).getTime() / 1000,
@@ -60,7 +60,15 @@
         },
       })
     ).data.data;
-    return res;
+    // TODO https://github.com/eternagame/eternagame.org/issues/157 move filtering to backend
+    switch (sort) {
+    case 'news':
+      return { ...res, entries: res.entries.filter((entry: NewsItem) => entry.type === sort) };
+    case 'blogs':
+      return { ...res, entries: res.entries.filter((entry: NewsItem) => entry.type === 'blogs') };
+    default:
+      return res;
+    }
   }
 
   @Component({
@@ -81,9 +89,8 @@
 
     private options: Option[] = [
       { value: 'all', text: 'side-panel-options:all' },
-      { value: 'announcements', text: 'side-panel-options:announcements' },
+      { value: 'news', text: 'side-panel-options:announcements' },
       { value: 'blogs', text: 'side-panel-options:blogs' },
-      { value: 'labs', text: 'side-panel-options:labs' },
     ];
   }
 </script>

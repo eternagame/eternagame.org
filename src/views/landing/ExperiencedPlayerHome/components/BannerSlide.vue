@@ -1,7 +1,12 @@
 <template>
   <b-carousel-slide class="slide" :img-src="heroImage">
     <div class="banner-text" style="max-width:740px">
-      <h1 :class="{ 'banner-title': true, 'long-title': displayTitle.length > 40 }">
+      <h1
+        :class="{
+          'banner-title': true,
+          'long-title': displayTitle.length > 40,
+        }"
+      >
         {{ displayTitle }}
       </h1>
       <!-- If there's a subtitle, use that. If there's a title and no subtitle, use the lab name -->
@@ -130,7 +135,7 @@
     }
 
     @include media-breakpoint-down(sm) {
-      font-size: 18px;
+      font-size: 16px;
     }
   }
 
@@ -139,6 +144,7 @@
     font-size: 42px;
     @include media-breakpoint-down(md) {
       font-size: 20px;
+      margin: 0 auto;
     }
   }
 
@@ -170,37 +176,5 @@
   ::v-deep img {
     min-height: 300px;
     object-fit: cover;
-  }
-
-  h1 {
-    font-size: 20px;
-  }
-
-  h2 {
-    font-size: 14px;
-  }
-
-  h3 {
-    font-size: 12px;
-  }
-
-  @include media-breakpoint-up(sm) {
-    h1,
-    h2,
-    h3,
-    .banner-text {
-      text-align: left;
-    }
-    h1 {
-      font-size: 32px;
-    }
-
-    h2 {
-      font-size: 26px;
-    }
-
-    h3 {
-      font-size: 18px;
-    }
   }
 </style>

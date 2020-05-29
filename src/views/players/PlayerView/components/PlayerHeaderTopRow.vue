@@ -41,8 +41,8 @@
       .includes(String(this.$vxm.user.uid));
 
     toggleFollow() {
-      const route = this.follows ? FOLLOW_ROUTE : UNFOLLOW_ROUTE;
-      axios.post(route + this.$vxm.user.uid);
+      const route = this.follows ? UNFOLLOW_ROUTE : FOLLOW_ROUTE;
+      axios.post(route + this.user.uid);
     }
 
     messageUser() {

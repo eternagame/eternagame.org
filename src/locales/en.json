@@ -398,7 +398,11 @@
   "side-panel-options:my-groups": "My Groups",
   "side-panel-options:my-messages": "My Messages",
   "quest:completed": "Completed!",
+  "progress-circle:my-submissions": "My Submissions",
+  "progress-circle:designs-submissions": "Designs Submitted",
   "news-view:select-date": "Please select a date range",
   "calendar": "calendar",
-  "filters": "filters"
+  "filters": "filters",
+  "count-down:select-synthesis-bold": " designs",
+  "count-down:select-synthesis": " will be selected for synthesis in:"
 }

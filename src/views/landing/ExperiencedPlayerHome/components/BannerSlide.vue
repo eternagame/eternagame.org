@@ -91,7 +91,7 @@
       {
         name: 'progress-circle:designs-submissions',
         progress: this.total_submitted_solutions,
-        total: this.designs_to_be_synthesized,
+        total: this.total_designs,
       },
       {
         name: 'progress-circle:my-submissions',

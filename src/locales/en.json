@@ -404,5 +404,6 @@
   "calendar": "calendar",
   "filters": "filters",
   "count-down:select-synthesis-bold": " designs",
-  "count-down:select-synthesis": " will be selected for synthesis in:"
+  "count-down:select-synthesis": " will be selected for synthesis in:",
+  "puzzle-slide::puzzle-of-week": "Puzzle of the Week"
 }

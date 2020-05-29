@@ -5,8 +5,8 @@
     :img-src="imageURL"
     style=" background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0))"
     ><div class="banner-text">
-      <h1 class="banner-title">Puzzle of the Week</h1>
-      <h2 class="banner-subtitle d-none d-sm-block">{{ title }}</h2>
+      <h1 class="banner-title">{{ $t('puzzle-slide::puzzle-of-week') }}</h1>
+      <h2 class="banner-subtitle ">{{ title }}</h2>
       <img class="img d-none d-lg-block" :src="puzzleImageURL" />
 
       <b-button variant="primary" class="enter-lab" size="lg" :href="`/puzzles/${nid}`">{{

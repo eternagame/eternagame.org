@@ -4,7 +4,7 @@
       <Gallery :sm="12" :md="12">
         <NewsCard v-for="article in pageData.entries" :key="article.nid" v-bind="article" />
       </Gallery>
-      <Pagination :key="pageData.entries.length" />
+      <Pagination :key="pageData.entries && pageData.entries.length" />
     </div>
     <div v-else>
       <Preloader />

@@ -10,7 +10,7 @@
           :cleared="puzzleCleared(puzzle.id)"
         />
       </Gallery>
-      <Pagination :key="puzzles.length" />
+      <Pagination :key="puzzles && puzzles.length" />
     </div>
     <div v-else>
       <Preloader />

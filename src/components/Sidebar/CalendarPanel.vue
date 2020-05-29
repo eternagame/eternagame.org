@@ -1,6 +1,6 @@
 <template>
   <SidebarPanel :isInSidebar="isInSidebar" header="calendar" headerIcon="@/assets/calendar.svg">
-    <DatePicker mode="range" v-model="dates" color="yellow" is-dark is-inline />
+    <vc-date-picker mode="range" v-model="dates" color="yellow" is-dark is-inline />
   </SidebarPanel>
 </template>
 
@@ -10,12 +10,15 @@
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
   // @ts-ignore
-  import DatePicker from 'v-calendar/lib/components/date-picker.umd';
+  import VCalendar from 'v-calendar';
+
+  Vue.use(VCalendar, {
+    componentPrefix: 'vc',
+  });
 
   @Component({
     components: {
       SidebarPanel,
-      DatePicker,
     },
   })
   export default class CalendarPanel extends mixins(SidebarPanelMixin) {

@@ -59,6 +59,8 @@
 
     @Prop() designs_to_be_synthesized!: number;
 
+    @Prop() total_designs!: number;
+
     @Prop() max_designs!: number;
 
     @Prop() total_submitted_solutions_of_user!: number;
@@ -88,13 +90,13 @@
     progressCircles = [
       {
         name: 'progress-circle:designs-submissions',
-        progress: this.total_submitted_solutions || 1,
-        total: this.designs_to_be_synthesized || 2,
+        progress: this.total_submitted_solutions,
+        total: this.designs_to_be_synthesized,
       },
       {
         name: 'progress-circle:my-submissions',
-        progress: this.total_submitted_solutions_of_user || 1,
-        total: this.max_designs || 2,
+        progress: this.total_submitted_solutions_of_user,
+        total: this.max_designs,
       },
     ];
   }

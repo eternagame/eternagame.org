@@ -1,6 +1,6 @@
 <template>
   <div :class="{ panel: isInSidebar, toggler: !isInSidebar }">
-    <div class="sidebar-panel-header" :style="headerStyle" @click.stop="clickedHeader">
+    <div class="sidebar-panel-header" :style="headerStyle" @click="clickedHeader">
       <img v-if="headerIcon" :src="headerIcon" class="header-icon" />
       <span :class="headerTextClasses">{{ header }}</span>
     </div>
@@ -32,10 +32,12 @@
       return this.isInSidebar ? [] : ['d-none', 'd-md-inline-block'];
     }
 
-    clickedHeader() {
-      if (!this.isInSidebar) {
-        this.$vxm.mobile.showPageSidebar();
-      }
+    clickedHeader(event: Event) {
+      console.log('should open sidebar', this.isInSidebar);
+      event.stopPropagation();
+      // if (!this.isInSidebar) {
+      this.$vxm.mobile.showPageSidebar();
+      // }
     }
 
     get headerStyle() {

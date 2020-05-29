@@ -1,7 +1,7 @@
 <template>
   <div :class="{ panel: isInSidebar, toggler: !isInSidebar }">
     <div class="sidebar-panel-header" :style="headerStyle" @click="clickedHeader">
-      <img v-if="headerIcon" :src="headerIcon" class="header-icon" />
+      <img v-if="headerIcon" :src="headerIcon" class="header-icon" @click="alert('clicked icon')" />
       <span :class="headerTextClasses">{{ header }}</span>
     </div>
     <template v-if="isInSidebar">

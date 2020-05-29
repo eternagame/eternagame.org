@@ -135,15 +135,24 @@
     }
 
     @include media-breakpoint-down(sm) {
-      font-size: 16px;
+      font-size: 20px;
+    }
+
+    @include media-breakpoint-down(xs) {
+      font-size: 14px;
     }
   }
 
   .banner-title {
     font-weight: bold;
     font-size: 42px;
+    text-align: left;
     @include media-breakpoint-down(md) {
+      font-size: 30px;
+    }
+    @include media-breakpoint-down(xs) {
       font-size: 20px;
+      text-align: center;
       margin: 0 auto;
     }
   }

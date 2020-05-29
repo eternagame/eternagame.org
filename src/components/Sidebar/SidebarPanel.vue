@@ -33,7 +33,7 @@
     }
 
     clickedHeader(event) {
-      console.log('clicked header', this.isInSidebar);
+      console.log('clicked header; removed check', this.isInSidebar);
       event.stopPropagation();
       // if (!this.isInSidebar) {
       this.$vxm.mobile.showPageSidebar();

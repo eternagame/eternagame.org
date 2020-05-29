@@ -63,9 +63,11 @@
     // TODO https://github.com/eternagame/eternagame.org/issues/157 move filtering to backend
     switch (sort) {
     case 'news':
-      return { ...res, entries: res.entries.filter((entry: NewsItem) => entry.type === sort) };
     case 'blogs':
-      return { ...res, entries: res.entries.filter((entry: NewsItem) => entry.type === 'blogs') };
+      return {
+        ...res,
+        entries: res.entries?.filter((entry: NewsItem) => entry.type === sort),
+      };
     default:
       return res;
     }

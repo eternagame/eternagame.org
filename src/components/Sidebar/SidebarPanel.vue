@@ -33,6 +33,7 @@
     }
 
     clickedHeader() {
+      console.log('clicked header', this.isInSidebar);
       if (!this.isInSidebar) {
         this.$vxm.mobile.showPageSidebar();
       }

@@ -3,7 +3,7 @@
     <vue-circle
       :key="$mq"
       :progress="(100 * progress) / total"
-      :size="$mq === 'mobile' ? 65 : 100"
+      :size="$mq === 'small' ? 65 : 100"
       :reverse="false"
       :fill="{ color: `${color}` }"
       line-cap="round"
@@ -11,7 +11,7 @@
       :animation-start-value="0.0"
       :start-angle="4.7"
       insert-mode="append"
-      :thickness="$mq === 'mobile' ? 6 : 10"
+      :thickness="$mq === 'small' ? 6 : 10"
       :show-percent="false"
     >
       <p class="larger-text" style="font-weight: bold; margin: 0; padding-top: 0.3rem">
@@ -33,7 +33,7 @@
 
   Vue.use(VueMq, {
     breakpoints: {
-      mobile: 567,
+      small: 768,
       lg: Infinity,
     },
   });

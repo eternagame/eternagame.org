@@ -1,18 +1,24 @@
 <template>
-  <b-carousel-slide class="slide" :img-src="heroImage"
-    ><div class="banner-text" style="max-width:740px">
-      <h1 class="banner-title">{{ carousel_title || title }}</h1>
+  <b-carousel-slide class="slide" :img-src="heroImage">
+    <div class="banner-text" style="max-width:740px">
+      <h1 :class="{ 'banner-title': true, 'long-title': displayTitle.length > 40 }">
+        {{ displayTitle }}
+      </h1>
       <!-- If there's a subtitle, use that. If there's a title and no subtitle, use the lab name -->
       <h3 v-if="carousel_subtitle || carousel_title" class="banner-subtitle">
         {{ (carousel_subtitle || title).toUpperCase() }}
       </h3>
 
-      <flip-countdown
-        :deadline="closesDateFormat"
-        v-if="project_closes"
-        class="countdown"
-      ></flip-countdown>
-      <div class="banner-progress" v-else>
+      <div class="countdown" v-if="project_closes">
+        <p v-if="designs_to_be_synthesized" style="text-align:center">
+          <b> {{ designs_to_be_synthesized }}</b
+          ><b>{{ $t('count-down:select-synthesis-bold') }}</b
+          ><span> {{ $t('count-down:select-synthesis') }}</span>
+        </p>
+        <flip-countdown :deadline="closesDateFormat" style="padding:0px"></flip-countdown>
+      </div>
+
+      <div class="banner-progress" v-if="!project_closes">
         <Progress v-bind="progressCircles[0]" color="#2f94d1" />
         <Progress v-bind="progressCircles[1]" color="#fac244" />
       </div>
@@ -31,6 +37,8 @@
   import Progress from '@/components/Common/Progress.vue';
   // @ts-ignore
   import FlipCountdown from 'vue2-flip-countdown';
+  // @ts-ignore
+  import VueMq from 'vue-mq';
 
   @Component({
     components: { Progress, FlipCountdown },
@@ -52,6 +60,8 @@
 
     @Prop() total_submitted_solutions!: number;
 
+    private displayTitle = this.carousel_title || this.title;
+
     get closesDateFormat(): string | null {
       if (!this.project_closes) return null;
       const d = new Date(this.project_closes * 1000);
@@ -62,7 +72,7 @@
       ].join(':')}`;
     }
 
-    @Prop() project_closes!: number | null;
+    @Prop({}) project_closes!: number | null;
 
     @Prop({}) nid!: number;
 
@@ -73,13 +83,13 @@
     progressCircles = [
       {
         name: 'progress-circle:designs-submissions',
-        progress: this.total_submitted_solutions,
-        total: this.designs_to_be_synthesized,
+        progress: this.total_submitted_solutions || 1,
+        total: this.designs_to_be_synthesized || 2,
       },
       {
         name: 'progress-circle:my-submissions',
-        progress: this.total_submitted_solutions_of_user,
-        total: this.max_designs,
+        progress: this.total_submitted_solutions_of_user || 1,
+        total: this.max_designs || 2,
       },
     ];
   }
@@ -87,6 +97,17 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  .countdown {
+    @include media-breakpoint-down(md) {
+      font-size: 14px;
+    }
+    @include media-breakpoint-up(md) {
+      left: 35%;
+      position: relative;
+    }
+    font-size: 20px;
+  }
 
   .banner-progress {
     @include media-breakpoint-up(md) {
@@ -99,19 +120,31 @@
     justify-content: center;
   }
 
-  .banner-title,
-  .banner-subtitle {
-    @include media-breakpoint-up(md) {
-      max-width: 85%;
+  .banner-title.long-title {
+    @include media-breakpoint-up(lg) {
+      font-size: 30px;
+    }
+
+    @include media-breakpoint-down(md) {
+      font-size: 25px;
+    }
+
+    @include media-breakpoint-down(sm) {
+      font-size: 18px;
     }
   }
 
   .banner-title {
     font-weight: bold;
-    font-size: 36px;
+    font-size: 42px;
     @include media-breakpoint-down(md) {
       font-size: 20px;
     }
+  }
+
+  .banner-title,
+  .banner-subtitle {
+    max-width: 85%;
   }
 
   .slide {
@@ -152,10 +185,6 @@
   }
 
   @include media-breakpoint-up(sm) {
-    .banner-title {
-      font-size: 42px;
-    }
-
     h1,
     h2,
     h3,

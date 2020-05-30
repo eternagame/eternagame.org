@@ -7,7 +7,6 @@
     ><div class="banner-text">
       <h1 class="banner-title">{{ $t('puzzle-slide::puzzle-of-week') }}</h1>
       <h2 class="banner-subtitle ">{{ title }}</h2>
-      <img class="img d-none d-lg-block" :src="puzzleImageURL" />
 
       <b-button variant="primary" class="enter-lab" size="lg" :href="`/puzzles/${nid}`">{{
         $t('puzzle-slide:solve-now')
@@ -31,7 +30,7 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import Utils from '@/utils/utils';
-  import bgimage from '@/assets/home/hero-blue-bg.png';
+  import bgimage from '@/assets/home/hero-potw.png';
 
   @Component({
     components: {},
@@ -42,14 +41,8 @@
 
     @Prop({}) nid!: string;
 
-    get puzzleImageURL() {
-      return Utils.getPuzzleMiddleThumbnail(this.nid);
-    }
-
     get imageURL() {
       return bgimage;
-      // return 'https://assets.wordpress.envato-static.com/uploads/2018/01/image1.png';
-      //   return Utils.getPuzzleMiddleThumbnail(this.nid);
     }
   }
 </script>

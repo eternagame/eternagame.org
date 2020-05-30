@@ -20,7 +20,7 @@
     <!-- <span class="gray-header">{{ $t('lab-info:currently-active') }}</span -->
     <!-- ><br /> -->
     <!-- <b>{{ $t('lab-info:round-number') }} 4</b> -->
-    <div class="banner-progress" v-if="!isInSideBar">
+    <div class="banner-progress d-none d-lg-block">
       <Progress v-bind="progressCircles[0]" color="#2f94d1" />
       <Progress v-bind="progressCircles[1]" color="#fac244" />
     </div>

@@ -47,6 +47,10 @@ export interface LabData {
   current_cloud_round: number;
   curr_time: number;
   banner_image: string;
+  total_submitted_solutions: number;
+  total_designs: number;
+  total_submitted_solutions_of_user: number;
+  max_designs: number;
 }
 
 export interface PuzzleData {

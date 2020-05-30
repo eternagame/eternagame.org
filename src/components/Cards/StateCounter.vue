@@ -39,9 +39,9 @@
     border: solid white;
     border-width: 0 0.5px 0.5px 0;
     display: inline-block;
-    padding: 2px;
+    padding: 1.5px;
     position: relative;
-    top: -1px;
+    top: -2px;
   }
 
   .right {

@@ -8,8 +8,6 @@
       </span>
     </div>
 
-    <p id="chat-popover-anchor" class="anchor">.</p>
-
     <b-popover
       :show.sync="show"
       id="chat-container"
@@ -73,15 +71,6 @@
   img {
     width: 24px;
     height: 24px;
-  }
-
-  // Hidden element on screen bottom right, to anchor the chat popover.
-  .anchor {
-    bottom: 0;
-    right: 3rem;
-    position: fixed;
-    z-index: -3000;
-    opacity: 0;
   }
 
   #chat-container {

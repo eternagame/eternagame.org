@@ -64,7 +64,9 @@
 
     @Prop() private folder!: string;
 
-    @Prop() private number_of_states!: number;
+    // @Prop() private number_of_states!: number;
+
+    private number_of_states: number = 2;
 
     @Prop() private image!: string;
 

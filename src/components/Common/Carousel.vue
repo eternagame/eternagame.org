@@ -43,7 +43,11 @@
           slidesPerView: 1,
           spaceBetween: 20,
         },
-        576: {
+        500: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        720: {
           slidesPerView: 3,
           spaceBetween: 20,
         },

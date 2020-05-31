@@ -7,7 +7,7 @@
         </div> -->
       </template>
       <SmartLink :link="toQuest">
-        <img :src="image" class="image" />
+        <img :src="image" style="width: 80%; margin: auto;" class="scalable" />
       </SmartLink>
       <template #footer>
         <div style="text-align:center; margin-bottom:0px">
@@ -20,7 +20,7 @@
               </SmartLink>
             </p>
             <div v-else>
-              <b-button type="submit" variant="primary" style="margin-bottom:10px" :[nav]="toGame">
+              <b-button variant="primary" style="margin:10px 0" :[nav]="toGame">
                 {{ $t('quest-card:play') }}
               </b-button>
               <SmartLink v-if="started" :link="toGame">
@@ -103,11 +103,6 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
-
-  .image {
-    max-width: 242px;
-    max-height: 175px;
-  }
 
   .btn {
     display: inline-block;

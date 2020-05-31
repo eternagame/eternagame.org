@@ -20,6 +20,7 @@
       >
         {{ $t('nav-bar:' + linkText) }}
         <img
+          v-if="isExternal(to)"
           class="ml-2"
           src="@/assets/navbar/ExternalLink.svg"
           :alt="$t('nav-bar:external-link')"

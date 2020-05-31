@@ -1,7 +1,7 @@
 <template>
   <b-carousel
     id="carousel-1"
-    :interval="40000000"
+    :interval="4000"
     controls
     indicators
     background="#ababab"

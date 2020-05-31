@@ -71,14 +71,6 @@
     font-weight: bold;
   }
 
-  .enter-lab {
-    font-weight: bold;
-    font-size: 20px;
-    padding: 9px 12px;
-    margin-bottom: 10px;
-    text-shadow: none;
-  }
-
   h1,
   h2,
   h3,

@@ -1,35 +1,37 @@
 <template>
   <b-carousel-slide class="slide" :img-src="heroImage">
-    <div class="banner-text" style="max-width:740px">
-      <h1
-        :class="{
-          'banner-title': true,
-          'long-title': displayTitle.length > 40,
-        }"
-      >
-        {{ displayTitle }}
-      </h1>
-      <!-- If there's a subtitle, use that. If there's a title and no subtitle, use the lab name -->
-      <h3 v-if="carousel_subtitle || carousel_title" class="banner-subtitle">
-        {{ (carousel_subtitle || title).toUpperCase() }}
-      </h3>
+    <div class="banner-content">
+      <div class="banner-text">
+        <h2 class="banner-title">
+          {{ displayTitle }}
+        </h2>
+        <!-- If there's a subtitle, use that. If there's a title and no subtitle, use the lab name -->
+        <h3 v-if="carousel_subtitle || carousel_title" class="banner-subtitle">
+          {{ (carousel_subtitle || title).toUpperCase() }}
+        </h3>
 
-      <div class="countdown" v-if="project_closes">
-        <p v-if="designs_to_be_synthesized" style="text-align:center">
-          <b> {{ designs_to_be_synthesized }}</b
-          ><b>{{ $t('count-down:select-synthesis-bold') }}</b
-          ><span> {{ $t('count-down:select-synthesis') }}</span>
-        </p>
-        <flip-countdown :deadline="closesDateFormat" style="padding:0px"></flip-countdown>
+        <b-button variant="primary" class="enter-lab" size="lg" :to="`/labs/${nid}`">
+          {{ $t('home-banner:enter') }}
+        </b-button>
       </div>
-
-      <div class="banner-progress" v-if="!project_closes">
-        <Progress v-bind="progressCircles[0]" color="#2f94d1" />
-        <Progress v-bind="progressCircles[1]" color="#fac244" />
+      <div class="banner-status">
+        <div class="countdown" v-if="project_closes">
+          <p v-if="designs_to_be_synthesized" style="text-align:center; margin-bottom: 8px;">
+            <b> {{ designs_to_be_synthesized }}</b
+            ><b>{{ $t('count-down:select-synthesis-bold') }}</b
+            ><span> {{ $t('count-down:select-synthesis') }}</span>
+          </p>
+          <flip-countdown
+            :deadline="closesDateFormat"
+            :labels="countdownLabels"
+            style="padding:0px"
+          />
+        </div>
+        <div class="banner-progress">
+          <Progress v-bind="progressCircles[0]" color="#2f94d1" v-if="total_designs"/>
+          <Progress v-bind="progressCircles[1]" color="#fac244" />
+        </div>
       </div>
-      <b-button variant="primary" class="enter-lab" size="lg" :to="`/labs/${nid}`">
-        {{ $t('home-banner:enter') }}
-      </b-button>
     </div>
   </b-carousel-slide>
 </template>
@@ -67,7 +69,13 @@
 
     @Prop() total_submitted_solutions!: number;
 
-    private displayTitle = this.carousel_title || this.title;
+    @Prop({}) project_closes!: number | null;
+
+    @Prop({}) nid!: number;
+
+    private get displayTitle() {
+      return this.carousel_title || this.title;
+    };
 
     get closesDateFormat(): string | null {
       if (!this.project_closes) return null;
@@ -79,94 +87,87 @@
       ].join(':')}`;
     }
 
-    @Prop({}) project_closes!: number | null;
-
-    @Prop({}) nid!: number;
-
     get heroImage() {
       return this.banner_image || DefaultHero;
     }
 
-    progressCircles = [
-      {
-        name: 'progress-circle:designs-submissions',
-        progress: this.total_submitted_solutions,
-        total: this.total_designs,
-      },
-      {
-        name: 'progress-circle:my-submissions',
-        progress: this.total_submitted_solutions_of_user,
-        total: this.max_designs,
-      },
-    ];
+    get progressCircles() {
+      return [
+        {
+          name: 'progress-circle:designs-submissions',
+          progress: this.total_submitted_solutions,
+          total: this.total_designs,
+        },
+        {
+          name: 'progress-circle:my-submissions',
+          progress: this.total_submitted_solutions_of_user,
+          total: this.max_designs,
+        },
+      ];
+    };
+
+    get countdownLabels() {
+      return {
+        days: "DAYS",
+        hours: "HOURS",
+        minutes: "MIN",
+        seconds: "SEC"
+      };
+    }
   }
 </script>
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  .countdown {
-    @include media-breakpoint-down(md) {
-      font-size: 14px;
-    }
-    @include media-breakpoint-up(md) {
-      left: 35%;
-      position: relative;
-    }
-    font-size: 20px;
-  }
-
-  .banner-progress {
-    @include media-breakpoint-up(md) {
-      right: -160px;
-      position: absolute;
-      bottom: 0px;
-    }
-
+  .banner-content {
     display: flex;
-    justify-content: center;
-  }
-
-  .banner-title.long-title {
-    @include media-breakpoint-up(lg) {
-      font-size: 30px;
-    }
-
-    @include media-breakpoint-down(md) {
-      font-size: 25px;
-    }
+    justify-content: space-between;
+    align-items: flex-end;
+    text-align: left;
 
     @include media-breakpoint-down(sm) {
-      font-size: 20px;
-    }
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
 
-    @include media-breakpoint-down(xs) {
-      font-size: 14px;
+      .banner-status {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .banner-progress {
+          display: flex;
+          flex-direction: row;
+        }
+      }
+
+      .banner-text {
+        width: 100%;
+      }
     }
+  }
+
+  .banner-text {
+    width: 50%;
+  }
+
+  .banner-status {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: max-content;
   }
 
   .banner-title {
     font-weight: bold;
-    font-size: 42px;
-    text-align: left;
-    @include media-breakpoint-down(md) {
-      font-size: 30px;
-    }
-    @include media-breakpoint-down(xs) {
-      font-size: 20px;
-      text-align: center;
-      margin: 0 auto;
-    }
-  }
-
-  .banner-title,
-  .banner-subtitle {
-    max-width: 85%;
   }
 
   .slide {
     max-width: 1200px;
     max-height: 519px;
+    text-shadow: none !important;
   }
 
   .slide::after {
@@ -183,9 +184,48 @@
     width: 100%;
     content: '';
   }
+  
+  h2 {
+    font-size: 32px;
+  }
+  h3 {
+    font-size: 18px;
+  }
 
   ::v-deep img {
     min-height: 300px;
     object-fit: cover;
+  }
+
+  .countdown {
+    font-size: 14px;
+    text-align: center;
+    max-width: 200px;
+    margin-right: 10px;
+  }
+
+  ::v-deep .flip-card {
+    font-size: 1.5rem !important;
+  }
+
+  ::v-deep .flip-card__top,
+  ::v-deep .flip-card__bottom,
+  ::v-deep .flip-card__back-bottom,
+  ::v-deep .flip-card__back::before,
+  ::v-deep .flip-card__back::after {
+    color: white !important;
+    width: 2.3rem !important;
+  }
+
+  ::v-deep .flip-card__bottom,
+  ::v-deep .flip-card__back-bottom,
+  ::v-deep .flip-card__bottom-4digits,
+  ::v-deep .flip-card__back-bottom-4digits {
+    border: none !important;
+  }
+
+  ::v-deep .flip-clock__slot {
+    font-size: .6rem !important;
+    font-weight: bold;
   }
 </style>

@@ -3,7 +3,7 @@
     <vue-circle
       :key="$mq"
       :progress="(100 * progress) / total"
-      :size="$mq === 'small' ? 65 : 100"
+      :size="$mq === 'small' ? 75 : 100"
       :reverse="false"
       :fill="{ color: `${color}` }"
       line-cap="round"
@@ -20,7 +20,7 @@
       <p class="smaller-text">/{{ total }}</p>
     </vue-circle>
 
-    <p class="smaller-text" style="font-weight: bold;width:112px">{{ $t(name) }}</p>
+    <p class="smaller-text" style="font-weight: bold; width:120px">{{ $t(name) }}</p>
   </div>
 </template>
 <script lang="ts">
@@ -63,12 +63,16 @@
     font-size: 12px;
   }
 
+  p {
+    margin-bottom: 0;
+  }
+
   @include media-breakpoint-down(sm) {
     .larger-text {
-      font-size: 12px;
+      font-size: 16px;
     }
     .smaller-text {
-      font-size: 8px;
+      font-size: 12px;
     }
   }
 </style>

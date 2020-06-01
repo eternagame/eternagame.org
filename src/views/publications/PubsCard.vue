@@ -12,7 +12,7 @@
           <p v-dompurify-html="authors"></p>
         </div>
         <div class="col-sm-4 order-2 order-sm-1" v-if="image">
-          <img class="thumbnail" :src="image" />
+          <img class="thumbnail" :src="`/${image}`" />
         </div>
       </div>
       <div v-if="abstract" v-dompurify-html="abstract" class="text mt-3" />

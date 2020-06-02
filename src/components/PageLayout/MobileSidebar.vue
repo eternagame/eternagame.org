@@ -43,14 +43,17 @@
       }
     }
 
-    isOpen = false;
+    get isOpen() {
+      console.log(this.$vxm.user.showSidebar);
+      return this.$vxm.user.showSidebar;
+    }
 
     openMenu() {
-      this.isOpen = true;
+      this.$vxm.user.openSidebar();
     }
 
     closeMenu() {
-      this.isOpen = false;
+      this.$vxm.user.closeSidebar();
     }
 
     @Watch('$route')

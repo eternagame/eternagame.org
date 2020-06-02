@@ -16,6 +16,8 @@ export default function createUserStore($http: AxiosInstance) {
 
     public loggedIn = false;
 
+    public showSidebar = true;
+
     // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
     public FB: any = null;
 
@@ -37,6 +39,14 @@ export default function createUserStore($http: AxiosInstance) {
       window.localStorage.setItem('loggedIn', 'false');
       this.triedAuthenticating = false;
       await this.FB?.logout();
+    }
+
+    @action() async openSidebar() {
+      this.showSidebar = true;
+    }
+
+    @action() async closeSidebar() {
+      this.showSidebar = false;
     }
 
     @action() async fbLogin(FB: any) {
@@ -89,8 +99,8 @@ export default function createUserStore($http: AxiosInstance) {
         const userDataResponse = (await axios.get(`/get/?type=my_user&uid=${uid}`)).data.data;
         this.userDetails = userDataResponse.user;
         this.hasLabAccess = Boolean(
-          Number((this.userDetails as UserData).ten_tools_level) >= 8
-            || Number((this.userDetails as UserData).is_lab_member_legacy),
+          Number((this.userDetails as UserData).ten_tools_level) >= 8 ||
+            Number((this.userDetails as UserData).is_lab_member_legacy),
         );
       } else {
         throw new Error(`Authentication response malformed: ${data}`);

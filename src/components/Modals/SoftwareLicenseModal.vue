@@ -25,7 +25,7 @@
       </div>
     </div>
     <template #modal-footer>
-      <div v-if="!token">
+      <b-form @submit="acceptTerms" v-if="!token">
         <b-input placeholder="Name" v-model="licenseRequest.name" required />
         <b-input
           type="email"
@@ -41,13 +41,13 @@
         <b-button
           class="accept-button"
           variant="primary"
-          @click="acceptTerms"
+          type="submit"
           :disabled="!accepted || showSpinner"
         >
           {{ $t('terms-modal:submit') }}
           <b-spinner v-if="showSpinner" small />
         </b-button>
-      </div>
+      </b-form>
       <div v-else>
         <h3>Thanks, {{ licenseRequest.name }}.</h3>
         <p>

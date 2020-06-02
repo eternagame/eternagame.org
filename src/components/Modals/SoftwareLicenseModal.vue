@@ -8,10 +8,32 @@
   >
     <!-- TODO: i18nify -->
     <template #modal-title>
-      <b>LICENSE TERMS</b>
+      <b> {{ token ? 'CHOOSE VERSION' : 'LICENSE TERMS' }}</b>
     </template>
     <div class="content">
-      <div v-dompurify-html="licenseTerms"></div>
+      <div v-if="!token">
+        <div v-dompurify-html="licenseTerms"></div>
+      </div>
+      <div v-else class="p-2">
+        <h2>Available Releases</h2>
+        <div v-for="version in softwareVersions" :key="version.version_id" class="card mt-3 p-2">
+          <h3>{{ version.name }} ({{ version.version_id }})</h3>
+          <div class="flex">
+            <b-btn
+              :disabled="downloading"
+              @click="startDownload(version.version_id, 'zip')"
+              class="mr-3"
+            >
+              <b-spinner v-if="downloading" small />
+              Download as .zip
+            </b-btn>
+            <b-btn :disabled="downloading" @click="startDownload(version.version_id, 'tarball')">
+              <b-spinner v-if="downloading" small />
+              Download as .tarball
+            </b-btn>
+          </div>
+        </div>
+      </div>
     </div>
     <template #modal-footer>
       <div v-if="!token">
@@ -37,10 +59,11 @@
         </b-button>
       </div>
       <div v-else>
-        <h3>Thanks, {{ name }}.</h3>
+        <h3>Thanks, {{ licenseRequest.name }}.</h3>
         <p>
-          Your request for a software license has been granted. Select the version you would like to
-          download:
+          Your request for a software license has been granted. <br />
+          Select the version you would like to download. <br />
+          (Note: Downloads may be >100MB and take a while.)
         </p>
       </div>
     </template>
@@ -52,12 +75,20 @@
   import { BModal } from 'bootstrap-vue';
   import axios from 'axios';
 
-  const ROUTE = '/post/';
+  const POST_ROUTE = '/post/';
+  const LIST_RELEASES_ROUTE = '/get/?type=software_package_releases';
+  const DOWNLOAD_SOFTWARE_ROUTE = '/get/?type=software_package_download';
+
+  interface SoftwareVersion {
+    name: string;
+    version_id: string;
+    description: string;
+    published: string;
+    // assets: string[]; // TODO: Or is this an array of typed objects?
+  }
 
   @Component({})
   export default class SoftwareLicenseModal extends Vue {
-    errorMessage: string = '';
-
     $refs!: {
       modal: BModal;
     };
@@ -66,7 +97,7 @@
     licenseTerms!: string;
 
     // Unique string used to refer to this popup.
-    // TODO: Possibly merge with the below.
+    // TODO: Possibly merge with packageid, below.
     @Prop({})
     id!: string;
 
@@ -75,6 +106,8 @@
     packageid!: string;
 
     private accepted = false;
+
+    private downloading = false;
 
     private token = '';
 
@@ -86,17 +119,73 @@
       department: '',
     };
 
+    private softwareVersions: SoftwareVersion[] = [];
+
     async acceptTerms() {
       const response = await axios({
         method: 'post',
-        url: ROUTE,
+        url: POST_ROUTE,
         data: new URLSearchParams({
           type: 'request_software_license',
           ...this.licenseRequest,
           packageid: this.packageid,
         }),
       });
+      await this.fetchVersions();
       this.token = response.data.data.token;
+    }
+
+    async fetchVersions() {
+      const response = await axios({
+        method: 'get',
+        url: LIST_RELEASES_ROUTE,
+        params: {
+          packageid: this.packageid,
+        },
+      });
+      this.softwareVersions = response.data.data;
+    }
+
+    // Unfortunately we can't just use <a download href="url>...
+    async startDownload(versionid: string, asset: string) {
+      this.downloading = true;
+      const response = await axios({
+        method: 'get',
+        url: DOWNLOAD_SOFTWARE_ROUTE,
+        params: {
+          token: this.token,
+          packageid: this.packageid,
+          versionid,
+          asset,
+        },
+        responseType: 'blob', // Hint axios so we can download the repsonse.
+      });
+
+      const filename = this.extractFilenameFromHeader(response.headers['content-disposition']);
+      this.saveToFile(response.data, filename, response.headers['content-type']);
+      this.downloading = false;
+    }
+
+    extractFilenameFromHeader(disposition?: string) {
+      if (disposition && disposition.split('filename=').length > 1) {
+        return disposition.split('filename=')[1];
+      }
+      return 'download.zip';
+    }
+
+    saveToFile(data: any, filename: string, type: string) {
+      const blob = new Blob([data], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async mounted() {
+      console.log('mounted');
     }
   }
 </script>

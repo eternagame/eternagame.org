@@ -2,10 +2,13 @@
   <EternaPage :title="$t('nav-bar:leaderboards')">
     <div v-if="pageData">
       <div class="page-content">
-        <template v-for="(player, index) in players">
-          <PlayerCard :key="player.uid" :player="player" :index="index" />
-          <hr class="bottom-border" :key="player.uid" />
-        </template>
+        <table style="width: 100%">
+          <tbody>
+            <template v-for="(player, index) in players">
+              <PlayerCard :key="player.uid" :player="player" :index="index" />
+            </template>
+          </tbody>
+        </table>
       </div>
       <Pagination :key="players.length" />
     </div>

@@ -35,7 +35,7 @@
     clickedHeader(event: Event) {
       event.stopPropagation();
       if (!this.isInSidebar) {
-        console.log('should open sidebar');
+        console.log('should open sidebar', this.$vxm.mobile);
         this.$vxm.mobile.showPageSidebar();
       }
     }

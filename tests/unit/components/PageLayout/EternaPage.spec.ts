@@ -1,22 +1,23 @@
-import {
-  shallowMount, mount, Wrapper,
-} from '@vue/test-utils';
+import { shallowMount, mount, Wrapper } from '@vue/test-utils';
 import Vuex, { Store, ActionTree, MutationTree } from 'vuex';
 import Vue from 'vue';
 import {
-  createProxy, mutation, extractVuexModule, createModule,
-} from 'vuex-class-component';
+  createProxy,
+  mutation,
+  extractVuexModule,
+  createModule,
+} from '@/plugins/vuex-class-component/dist/index';
 import { ProxyWatchers } from 'vuex-class-component/dist/interfaces';
 import axios from 'axios';
 import EternaPage from '@/components/PageLayout/EternaPage.vue';
 import MobileSidebar from '@/components/PageLayout/MobileSidebar.vue';
-import { localVue } from '../../localVue';
 import MobileStore from '@/store/mobile.vuex';
+import { localVue } from '../../localVue';
 
 jest.mock('axios');
 
 type Interface<T> = {
-  [P in keyof T]: T[P]
+  [P in keyof T]: T[P];
 };
 
 describe('EternaPage.vue', () => {
@@ -28,7 +29,7 @@ describe('EternaPage.vue', () => {
   let wrapper: Wrapper<Vue>;
   let showPageSidebar: jest.Mock;
   let $vxm: {
-    mobile: ProxyWatchers & Interface<MobileStore>
+    mobile: ProxyWatchers & Interface<MobileStore>;
   };
   beforeEach(() => {
     const VuexModule = createModule({ strict: false });
@@ -79,7 +80,7 @@ describe('EternaPage.vue', () => {
 
   it('Should fire `MobileSidebar.openMenu` when the `mobileStore/showPageSidebar` mutation is called', async () => {
     const mockFn = jest.fn();
-    const sidebar = (wrapper.find(MobileSidebar).vm as any);
+    const sidebar = wrapper.find(MobileSidebar).vm as any;
     sidebar.openMenu = mockFn;
     expect(mockFn).not.toBeCalled();
     $vxm.mobile.showPageSidebar();

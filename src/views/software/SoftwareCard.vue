@@ -1,15 +1,15 @@
 <template>
   <div class="page-content card">
     <div class="container">
-      <img class="logo rounded-circle mr-3" :src="project.logoUrl" />
+      <img class="logo rounded-circle mr-3" :src="`/sites/default/files/${project.logo}`" />
 
       <h3 class="mb-2">
-        {{ project.title }}
+        {{ project.name }}
       </h3>
       <p class="text">{{ project.description }}</p>
 
       <div class="">
-        <template v-if="project.licenseTerms">
+        <template v-if="project.license_terms">
           <b-btn
             type="button"
             class="btn btn-primary mt-3 mr-3 mb-3"
@@ -23,7 +23,7 @@
           <SoftwareLicenseModal
             :id="id"
             :packageid="packageid"
-            :license-terms="project.licenseTerms"
+            :license-terms="project.license_terms"
           />
         </template>
         <template v-else>
@@ -31,8 +31,8 @@
             type="button"
             class="btn btn-primary mt-3 mr-3 mb-3"
             v-b-tooltip.hover.bottom
-            :title="project.downloadTooltip"
-            :href="project.downloadUrl"
+            :title="project.download_tooltip"
+            :href="project.download_url"
           >
             <b-icon-download />
             DOWNLOAD
@@ -41,8 +41,8 @@
             type="button"
             class="btn btn-secondary"
             v-b-tooltip.hover.bottom
-            :title="project.helpTooltip"
-            :href="project.helpUrl"
+            :title="project.help_tooltip"
+            :href="project.help_url"
           >
             <b-icon-book />
             TUTORIAL
@@ -52,17 +52,17 @@
 
       <div class="row mt-4">
         <div class="col-lg-5 mb-3">
-          <a :href="project.paperUrl">
-            <img v-if="project.thumbnailUrl" class="thumbnail" :src="project.thumbnailUrl" />
+          <a :href="project.paper_url">
+            <img v-if="project.thumbnail_url" class="thumbnail" :src="`/sites/default/files/${project.thumbnail_url}`" />
           </a>
         </div>
         <div class="col-lg-7 text">
           <h3 class="paper-title">
-            <a :href="project.paperUrl">
-              {{ project.paperTitle }}
+            <a :href="project.paper_url">
+              {{ project.paper_name }}
             </a>
           </h3>
-          <p class="text-muted">{{ project.journal }} - {{ project.date }}</p>
+          <p class="text-muted">{{ project.paper_journal }} - {{ project.paper_date }}</p>
         </div>
       </div>
     </div>
@@ -81,13 +81,11 @@
     @Prop() private project!: SoftwareProject;
 
     get id() {
-      // Note: assumes project titles are unique.
-      return `software-license-modal-${this.project.title}`;
+      return `software-license-modal-${this.project.nid}`;
     }
 
     get packageid() {
-      // TODO: Fill from the API response instead.
-      return '9957244';
+      return this.project.nid;
     }
   }
 </script>

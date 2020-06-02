@@ -16,7 +16,7 @@ export default function createUserStore($http: AxiosInstance) {
 
     public loggedIn = false;
 
-    public showSidebar = true;
+    public showSidebar = false;
 
     // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
     public FB: any = null;

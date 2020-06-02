@@ -10,12 +10,11 @@
     <div class="flex">
       <b-button
         variant="primary"
-        :disabled="showSpinner"
-        @click="startDownload(version.version_id, 'zip')"
         class="mr-3"
+        target="_blank"
+        :href="downloadLink"
       >
-        {{ showSpinner ? 'DOWNLOADING...' : 'DOWNLOAD' }}
-        <b-spinner v-if="showSpinner" small />
+        DOWNLOAD
       </b-button>
     </div>
   </div>
@@ -40,31 +39,13 @@
     @Prop({})
     packageid!: string;
 
-    showSpinner = false;
-
     // Which asset to download as.
     asset = 'zip';
 
     assets = ['zip', 'tarball'];
 
-    // Unfortunately we can't just use <a download href="url>...
-    async startDownload(versionid: string, asset: string) {
-      this.showSpinner = true;
-      const response = await axios({
-        method: 'get',
-        url: DOWNLOAD_SOFTWARE_ROUTE,
-        params: {
-          token: this.token,
-          packageid: this.packageid,
-          versionid,
-          asset,
-        },
-        responseType: 'blob', // Hint axios so we can download the repsonse.
-      });
-
-      const filename = this.extractFilenameFromHeader(response.headers['content-disposition']);
-      this.saveToFile(response.data, filename, response.headers['content-type']);
-      this.showSpinner = false;
+    get downloadLink() {
+      return `${process.env.VUE_APP_API_BASE_URL}/get/?type=software_package_download&token=${this.token}&packageid=${this.packageid}&asset=${this.asset}&versionid=${this.version.version_id}`;
     }
 
     extractFilenameFromHeader(disposition?: string) {

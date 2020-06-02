@@ -1,11 +1,10 @@
 <template>
   <div class="page-content card">
     <div class="container">
-      <img class="logo rounded-circle mr-3" :src="project.logo" />
+      <img class="logo rounded-circle mr-3" :src="`/sites/default/files/${project.logo}`" />
 
       <h3 class="mb-2">
-        Project Name
-        <!-- {{ project.name }} -->
+        {{ project.name }}
       </h3>
       <p class="text">{{ project.description }}</p>
 
@@ -54,13 +53,13 @@
       <div class="row mt-4">
         <div class="col-lg-5 mb-3">
           <a :href="project.paper_url">
-            <img v-if="project.thumbnail_url" class="thumbnail" :src="project.thumbnail_url" />
+            <img v-if="project.thumbnail_url" class="thumbnail" :src="`/sites/default/files/${project.thumbnail_url}`" />
           </a>
         </div>
         <div class="col-lg-7 text">
           <h3 class="paper-title">
             <a :href="project.paper_url">
-              {{ project.paper_title }}
+              {{ project.paper_name }}
             </a>
           </h3>
           <p class="text-muted">{{ project.paper_journal }} - {{ project.paper_date }}</p>

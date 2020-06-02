@@ -38,7 +38,7 @@
   import SoftwareCard from './SoftwareCard.vue';
 
   export interface SoftwareProject {
-    // name: string;
+    name: string;
     nid: string;
     logo: string;
     description: string;

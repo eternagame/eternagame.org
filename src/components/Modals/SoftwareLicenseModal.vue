@@ -12,7 +12,7 @@
     </template>
     <div class="content">
       <div v-if="!token">
-        <div v-dompurify-html="licenseTerms"></div>
+        <div style="white-space: pre-wrap;" v-dompurify-html="licenseTerms"></div>
       </div>
       <div v-else class="p-2">
         <VersionCard

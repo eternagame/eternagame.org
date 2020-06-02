@@ -20,7 +20,11 @@
             <b-icon-download />
             REQUEST
           </b-btn>
-          <SoftwareLicenseModal :id="id" :license-terms="project.licenseTerms" />
+          <SoftwareLicenseModal
+            :id="id"
+            :packageid="packageid"
+            :license-terms="project.licenseTerms"
+          />
         </template>
         <template v-else>
           <b-btn
@@ -79,6 +83,11 @@
     get id() {
       // Note: assumes project titles are unique.
       return `software-license-modal-${this.project.title}`;
+    }
+
+    get packageid() {
+      // TODO: Fill from the API response instead.
+      return '9957244';
     }
   }
 </script>

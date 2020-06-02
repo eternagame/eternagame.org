@@ -14,9 +14,16 @@
       <div v-dompurify-html="licenseTerms"></div>
     </div>
     <template #modal-footer>
-      <div v-if="!signed">
-        <b-input placeholder="Name" v-model="name" required />
-        <b-input type="email" :placeholder="$t('register-modal:email')" v-model="email" required />
+      <div v-if="!token">
+        <b-input placeholder="Name" v-model="licenseRequest.name" required />
+        <b-input
+          type="email"
+          :placeholder="$t('register-modal:email')"
+          v-model="licenseRequest.email"
+          required
+        />
+        <b-input placeholder="Institution" v-model="licenseRequest.institution" required />
+        <b-input placeholder="Department" v-model="licenseRequest.department" required />
         <b-checkbox class="font-weight-bold" v-model="accepted">
           {{ $t('terms-modal:accept') }}
         </b-checkbox>
@@ -32,8 +39,8 @@
       <div v-else>
         <h3>Thanks, {{ name }}.</h3>
         <p>
-          Your license request has been sent to Rhiju Das (rhiju@stanford.edu). You will receive a
-          confirmation at your email ({{ email }}) when it has been approved.
+          Your request for a software license has been granted. Select the version you would like to
+          download:
         </p>
       </div>
     </template>
@@ -58,19 +65,38 @@
     @Prop({})
     licenseTerms!: string;
 
+    // Unique string used to refer to this popup.
+    // TODO: Possibly merge with the below.
     @Prop({})
     id!: string;
 
-    private accepted: boolean = false;
+    // The id used by the server to refer to this software package.
+    @Prop({})
+    packageid!: string;
 
-    private signed: boolean = false;
+    private accepted = false;
 
-    private name!: string;
+    private token = '';
 
-    private email!: string;
+    // The parameters needed by the server when requesting a new license
+    private licenseRequest = {
+      name: '',
+      email: '',
+      institution: '',
+      department: '',
+    };
 
-    acceptTerms() {
-      this.signed = true;
+    async acceptTerms() {
+      const response = await axios({
+        method: 'post',
+        url: ROUTE,
+        data: new URLSearchParams({
+          type: 'request_software_license',
+          ...this.licenseRequest,
+          packageid: this.packageid,
+        }),
+      });
+      this.token = response.data.data.token;
     }
   }
 </script>

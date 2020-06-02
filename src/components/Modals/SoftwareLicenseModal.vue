@@ -8,15 +8,33 @@
   >
     <!-- TODO: i18nify -->
     <template #modal-title>
-      <b>LICENSE TERMS</b>
+      <b> {{ token ? 'AVAILABLE RELEASES' : 'LICENSE TERMS' }}</b>
     </template>
     <div class="content">
-      <div v-dompurify-html="licenseTerms"></div>
+      <div v-if="!token">
+        <div style="white-space: pre-wrap;" v-dompurify-html="licenseTerms"></div>
+      </div>
+      <div v-else class="p-2">
+        <VersionCard
+          v-for="version in softwareVersions"
+          :token="token"
+          :packageid="packageid"
+          :version="version"
+          :key="version.version_id"
+        />
+      </div>
     </div>
     <template #modal-footer>
-      <div v-if="!signed">
-        <b-input placeholder="Name" v-model="name" required />
-        <b-input type="email" :placeholder="$t('register-modal:email')" v-model="email" required />
+      <div v-if="!token">
+        <b-input placeholder="Name" v-model="licenseRequest.name" required />
+        <b-input
+          type="email"
+          :placeholder="$t('register-modal:email')"
+          v-model="licenseRequest.email"
+          required
+        />
+        <b-input placeholder="Institution" v-model="licenseRequest.institution" required />
+        <b-input placeholder="Department" v-model="licenseRequest.department" required />
         <b-checkbox class="font-weight-bold" v-model="accepted">
           {{ $t('terms-modal:accept') }}
         </b-checkbox>
@@ -24,16 +42,18 @@
           class="accept-button"
           variant="primary"
           @click="acceptTerms"
-          :disabled="!accepted"
+          :disabled="!accepted || showSpinner"
         >
           {{ $t('terms-modal:submit') }}
+          <b-spinner v-if="showSpinner" small />
         </b-button>
       </div>
       <div v-else>
-        <h3>Thanks, {{ name }}.</h3>
+        <h3>Thanks, {{ licenseRequest.name }}.</h3>
         <p>
-          Your license request has been sent to Rhiju Das (rhiju@stanford.edu). You will receive a
-          confirmation at your email ({{ email }}) when it has been approved.
+          Your request for a software license has been granted. <br />
+          Select the version you would like to download. <br />
+          (Note: Downloads may be >100MB and take a while.)
         </p>
       </div>
     </template>
@@ -44,13 +64,21 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
   import axios from 'axios';
+  import VersionCard from '../../views/software/VersionCard.vue';
 
-  const ROUTE = '/post/';
+  const POST_ROUTE = '/post/';
+  const LIST_RELEASES_ROUTE = '/get/?type=software_package_releases';
 
-  @Component({})
+  export interface SoftwareVersion {
+    name: string;
+    version_id: string;
+    description: string;
+    published: string;
+    // assets: string[]; // TODO: Or is this an array of typed objects?
+  }
+
+  @Component({ components: { VersionCard } })
   export default class SoftwareLicenseModal extends Vue {
-    errorMessage: string = '';
-
     $refs!: {
       modal: BModal;
     };
@@ -58,19 +86,56 @@
     @Prop({})
     licenseTerms!: string;
 
+    // Unique string used to refer to this popup.
+    // TODO: Possibly merge with packageid, below.
     @Prop({})
     id!: string;
 
-    private accepted: boolean = false;
+    // The id used by the server to refer to this software package.
+    @Prop({})
+    packageid!: string;
 
-    private signed: boolean = false;
+    private accepted = false;
 
-    private name!: string;
+    private showSpinner = false;
 
-    private email!: string;
+    private token = '';
 
-    acceptTerms() {
-      this.signed = true;
+    // The parameters needed by the server when requesting a new license
+    private licenseRequest = {
+      name: '',
+      email: '',
+      institution: '',
+      department: '',
+    };
+
+    private softwareVersions: SoftwareVersion[] = [];
+
+    async acceptTerms() {
+      this.showSpinner = true;
+      const response = await axios({
+        method: 'post',
+        url: POST_ROUTE,
+        data: new URLSearchParams({
+          type: 'request_software_license',
+          ...this.licenseRequest,
+          packageid: this.packageid,
+        }),
+      });
+      await this.fetchVersions();
+      this.token = response.data.data.token;
+      this.showSpinner = false;
+    }
+
+    async fetchVersions() {
+      const response = await axios({
+        method: 'get',
+        url: LIST_RELEASES_ROUTE,
+        params: {
+          packageid: this.packageid,
+        },
+      });
+      this.softwareVersions = response.data.data;
     }
   }
 </script>

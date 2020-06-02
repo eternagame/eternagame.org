@@ -25,7 +25,7 @@
       </div>
     </div>
     <template #modal-footer>
-      <b-form @submit="acceptTerms" v-if="!token">
+      <b-form @submit.prevent="acceptTerms" v-if="!token">
         <b-input placeholder="Name" v-model="licenseRequest.name" required />
         <b-input
           type="email"

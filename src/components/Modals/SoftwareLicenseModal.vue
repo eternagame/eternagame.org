@@ -53,7 +53,6 @@
         <p>
           Your request for a software license has been granted. <br />
           Select the version you would like to download. <br />
-          (Note: Downloads may be >100MB and take a while.)
         </p>
       </div>
     </template>

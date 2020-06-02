@@ -53,7 +53,11 @@
       <div class="row mt-4">
         <div class="col-lg-5 mb-3">
           <a :href="project.paper_url">
-            <img v-if="project.thumbnail" class="thumbnail" :src="`/sites/default/files/${project.thumbnail}`" />
+            <img
+              v-if="project.thumbnail"
+              class="thumbnail"
+              :src="`/sites/default/files/${project.thumbnail}`"
+            />
           </a>
         </div>
         <div class="col-lg-7 text">

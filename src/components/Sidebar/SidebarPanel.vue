@@ -33,11 +33,11 @@
     }
 
     clickedHeader(event: Event) {
-      console.log('should open sidebar', this.isInSidebar);
       event.stopPropagation();
-      // if (!this.isInSidebar) {
-      this.$vxm.mobile.showPageSidebar();
-      // }
+      if (!this.isInSidebar) {
+        console.log('should open sidebar');
+        this.$vxm.mobile.showPageSidebar();
+      }
     }
 
     get headerStyle() {

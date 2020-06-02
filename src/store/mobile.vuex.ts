@@ -8,5 +8,7 @@ const VuexModule = createModule({
 
 export default class MobileStore extends VuexModule {
   // Subscribed to
-  @mutation showPageSidebar() {}
+  @mutation showPageSidebar() {
+    console.log('mobile.vuex: show page side bar mutation was called');
+  }
 }

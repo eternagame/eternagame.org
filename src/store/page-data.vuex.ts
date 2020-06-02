@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { createModule } from '@/plugins/vuex-class-component/dist/index';
+import { createModule } from 'vuex-class-component';
 import { AxiosInstance } from 'axios';
 
 const VuexModule = createModule({

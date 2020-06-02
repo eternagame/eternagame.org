@@ -46,7 +46,6 @@
     isOpen = false;
 
     openMenu() {
-      console.log('mobile sidebar: opening menu');
       this.isOpen = true;
     }
 

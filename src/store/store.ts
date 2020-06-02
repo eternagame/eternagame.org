@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { extractVuexModule, createProxy } from '@/plugins/vuex-class-component/dist/index';
+import { extractVuexModule, createProxy } from 'vuex-class-component';
 import { AxiosInstance } from 'axios';
 import createUserStore from './user.vuex';
 import MobileStore from './mobile.vuex';

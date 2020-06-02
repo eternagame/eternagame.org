@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { createModule, mutation, action } from '@/plugins/vuex-class-component/dist/index';
+import { createModule, mutation, action } from 'vuex-class-component';
 import axios, { AxiosInstance } from 'axios';
 import { UserData } from '@/types/common-types';
 
@@ -89,8 +89,8 @@ export default function createUserStore($http: AxiosInstance) {
         const userDataResponse = (await axios.get(`/get/?type=my_user&uid=${uid}`)).data.data;
         this.userDetails = userDataResponse.user;
         this.hasLabAccess = Boolean(
-          Number((this.userDetails as UserData).ten_tools_level) >= 8 ||
-            Number((this.userDetails as UserData).is_lab_member_legacy),
+          Number((this.userDetails as UserData).ten_tools_level) >= 8
+            || Number((this.userDetails as UserData).is_lab_member_legacy),
         );
       } else {
         throw new Error(`Authentication response malformed: ${data}`);

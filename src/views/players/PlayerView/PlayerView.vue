@@ -2,7 +2,7 @@
   <EternaPage :title="$t('player-view:title')">
     <div v-if="pageData">
       <div class="page-content">
-        <PlayerHeader :user="pageData.user" :follows="pageData.follows" />
+        <PlayerHeader :user="pageData.user" :followList="pageData.follow" />
 
         <PlayerAboutMe
           v-if="!$route.query.tab_type || $route.query.tab_type == 'about'"
@@ -138,6 +138,7 @@
     // Achievements are provided when no tab_type is specified.
     const tab_type = route.query.tab_type === 'achievements' ? 'about' : route.query.tab_type;
     const res = (await http.get(ROUTE, { params: { tab_type } })).data.data as UsersData;
+
     return res;
   }
 
@@ -153,7 +154,7 @@
     },
   })
   export default class PlayerView extends Mixins(PageDataMixin(fetchPageData)) {
-    private BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;;
+    private BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;
 
     private options: Option[] = [
       { value: 'about', text: 'side-panel-options:about' },

@@ -28,12 +28,17 @@
     components: {},
   })
   export default class PlayerHeaderImage extends Vue {
+    @Prop() uploadedPicture!: File | null;
+
     get user() {
       return this.$vxm.user.userDetails;
     }
 
     get picture() {
-      return Utils.getAvatar(this.user.picture);
+      return (
+        (this.uploadedPicture && URL.createObjectURL(this.uploadedPicture)) ||
+        (Utils.getAvatar(this.user?.picture || null))
+      );
     }
   }
 </script>

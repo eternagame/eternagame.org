@@ -39,6 +39,7 @@
     icon!: String;
 
     get activeClass() {
+      // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
       // prettier-ignore
       // @ts-ignore
       // eslint-disable-next-line max-len

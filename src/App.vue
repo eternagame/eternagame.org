@@ -10,6 +10,7 @@
   import Navbar from '@/components/PageLayout/Navbar/Navbar.vue';
   import Modals from '@/components/Modals/Modals.vue';
   import { LANGUAGES, DEFAULT_LANGUAGE, LANGUAGE_KEY_NAME } from '@/plugins/i18n';
+  // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
   // @ts-ignore
   import browserLanguage from 'in-browser-language';
 

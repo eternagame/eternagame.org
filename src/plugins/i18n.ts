@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+// @ts-ignore
 import browserLanguage from 'in-browser-language';
 
 Vue.use(VueI18n);

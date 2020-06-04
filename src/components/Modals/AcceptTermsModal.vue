@@ -51,14 +51,14 @@
     private accepted: boolean = false;
 
     mounted() {
-      const surveyValue = this.$vxm.user.loggedIn && this.$vxm.user.userDetails.Survey;
+      const surveyValue = this.$vxm.user.loggedIn && this.$vxm.user.userDetails?.Survey;
       if (surveyValue && !surveyValue.includes('EULA_Agree') && surveyValue !== 'Yes') {
         this.$refs.modal.show();
       }
     }
 
     acceptTerms() {
-      if (this.status) {
+      if (this.accepted) {
         axios.post(
           ROUTE,
           new URLSearchParams({

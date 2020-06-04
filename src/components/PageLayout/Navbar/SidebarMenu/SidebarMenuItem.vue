@@ -12,11 +12,16 @@
       :id="collapseId"
       class="sublist"
     >
-      <b-nav-item v-for="(to, linkText) in value" :[nav(to)]="to" :key="linkText">
+      <b-nav-item
+        v-for="(to, linkText) in value"
+        :[nav(to)]="to"
+        :key="linkText"
+        :target="isExternal(to) ? '_blank' : '_self'"
+      >
         {{ $t('nav-bar:' + linkText) }}
         <img
-          class="ml-2"
           v-if="isExternal(to)"
+          class="ml-2"
           src="@/assets/navbar/ExternalLink.svg"
           :alt="$t('nav-bar:external-link')"
         />
@@ -53,8 +58,8 @@
       return Utils.isLinkInternal(link) ? 'to' : 'href';
     }
 
-    isExternal(link: string) {
-      return !(link.startsWith('/') || link.startsWith('https://eternagame.org/'));
+    isExternal(link: string): boolean {
+      return Utils.isExternal(link);
     }
 
     get collapseId() {

@@ -17,6 +17,7 @@ export interface Comment {
   picture: string;
 }
 
+// TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
 export interface LabData {
   nid: string;
   created: string; // timestamp; change to int?
@@ -39,12 +40,17 @@ export interface LabData {
   pending: null;
   voters: null;
   cover_image: string;
-  conclusion: null;
+  conclusion: string | null;
   coadmin_names: string[];
   username: string; // of whome?
   synthesized_solutions: [];
   current_cloud_round: number;
   curr_time: number;
+  banner_image: string;
+  total_submitted_solutions: number;
+  total_designs: number;
+  total_submitted_solutions_of_user: number;
+  max_designs: number;
 }
 
 export interface PuzzleData {
@@ -67,7 +73,7 @@ export interface PuzzleData {
 }
 
 export interface RoundData {
-  puzzles: PuzzleData[]
+  puzzles: PuzzleData[];
   round: number;
   is_playable: boolean;
 }

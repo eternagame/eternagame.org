@@ -2,15 +2,18 @@
   <EternaPage :title="$t('nav-bar:leaderboards')">
     <div v-if="pageData">
       <div class="page-content">
-        <template v-for="(player, index) in players">
-          <PlayerCard :key="player.uid" :player="player" :index="index" />
-          <hr class="bottom-border" :key="player.uid" />
-        </template>
+        <table style="width: 100%">
+          <tbody>
+            <template v-for="(player, index) in players">
+              <PlayerCard :key="player.uid" :player="player" :index="index" />
+            </template>
+          </tbody>
+        </table>
       </div>
       <Pagination :key="players.length" />
     </div>
     <div v-else>
-      <Preloader/>
+      <Preloader />
     </div>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
@@ -35,8 +38,6 @@
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import axios, { AxiosInstance } from 'axios';
-  // @ts-ignore
-  import get from 'lodash.get';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
@@ -81,7 +82,7 @@
   })
   export default class LeaderBoard extends Mixins(PageDataMixin(fetchPageData)) {
     get players() {
-      return get(this.pageData, 'users', []);
+      return this.pageData?.users || [];
     }
 
     private options: Option[] = [

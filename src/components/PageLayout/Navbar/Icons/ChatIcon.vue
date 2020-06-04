@@ -8,8 +8,6 @@
       </span>
     </div>
 
-    <p id="chat-popover-anchor" class="anchor">.</p>
-
     <b-popover
       :show.sync="show"
       id="chat-container"
@@ -23,8 +21,6 @@
   </div>
 </template>
 <script lang="ts">
-  // @ts-ignore
-  import get from 'lodash.get';
   import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
   import { Chat } from 'eterna-chat-wrapper';
 
@@ -37,7 +33,7 @@
   })
   export default class ChatIcon extends Vue {
     @Prop({ default: false })
-    private isInSideBar;
+    private isInSideBar!: boolean;
 
     private show: Boolean = false;
 
@@ -59,7 +55,6 @@
         username: this.$vxm.user.username ? this.$vxm.user.username : '',
         uid: this.$vxm.user.uid ? this.$vxm.user.uid.toString() : '0',
         onHidden: () => this.$root.$emit('bv::hide::popover', 'chat-container'),
-        onPopOut: () => this.$router.push('/chat'),
         backgroundColor: 'rgb(0, 22, 55)',
       });
     }
@@ -76,15 +71,6 @@
   img {
     width: 24px;
     height: 24px;
-  }
-
-  // Hidden element on screen bottom right, to anchor the chat popover.
-  .anchor {
-    bottom: 0;
-    right: 3rem;
-    position: fixed;
-    z-index: -3000;
-    opacity: 0;
   }
 
   #chat-container {

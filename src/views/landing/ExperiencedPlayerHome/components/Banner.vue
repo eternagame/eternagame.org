@@ -44,4 +44,14 @@
   ::v-deep .carousel-inner {
     min-height: 300px;
   }
+
+  ::v-deep .carousel-control-prev,
+  ::v-deep .carousel-control-next {
+    max-width: 100px;
+  }
+
+  ::v-deep .carousel-caption {
+    left: min(100px, 15%) !important;
+    right: min(100px, 15%) !important;
+  }
 </style>

@@ -16,10 +16,7 @@
       :comments="pageData.supercomments"
       v-if="pageData.supercomments.length"
     />
-    <Comments
-      :comments="pageData.comments"
-      :nid="lab.nid"
-    />
+    <Comments :comments="pageData.comments" :nid="lab.nid" />
     <template #sidebar="{ isInSidebar }">
       <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" /> -->
@@ -61,20 +58,20 @@
       return this.pageData?.lab;
     }
 
-    roundClosed(round) {
+    roundClosed(round: { round: number }) {
       return (
-        round.round < this.lab.puzzles.length
-        || this.lab.exp_phase == null
-        || this.lab.exp_phase >= 1
+        round.round < Number(this.lab?.puzzles?.length) ||
+        this.lab?.exp_phase == null ||
+        Number(this.lab?.exp_phase) >= 1
       );
     }
 
     get closedRounds() {
-      return this.lab.puzzles.filter(round => this.roundClosed(round));
+      return this.lab?.puzzles.filter(round => this.roundClosed(round));
     }
 
     get openRounds() {
-      return this.lab.puzzles.filter(round => !this.roundClosed(round));
+      return this.lab?.puzzles.filter(round => !this.roundClosed(round));
     }
   }
 </script>

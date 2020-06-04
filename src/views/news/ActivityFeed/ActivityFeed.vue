@@ -30,8 +30,6 @@
   import { RouteCallback, Route } from 'vue-router';
   import axios, { AxiosInstance } from 'axios';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
-  // @ts-ignore
-  import get from 'lodash.get';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
@@ -82,7 +80,7 @@
     }
 
     @Watch('$route', { immediate: true, deep: true })
-    onUrlChange(newVal: any) {
+    onUrlChange() {
       this.fetchData();
     }
 

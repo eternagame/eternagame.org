@@ -1,20 +1,22 @@
 <template>
   <EternaPage :title="$t('quest-info:title')" v-if="pageData">
-    <div class="video">
-      <div class="d-flex">
-        <div>
+    <div class="quest-description">
+      <div class="row">
+        <div class="col-lg-7">
           <h2>
             {{ $t('quest-view:banner-title') }}
           </h2>
-          <p style="width: 482px" v-dompurify-html="quest.desc"></p>
+          <p v-dompurify-html="quest.desc"></p>
         </div>
-        <div>
-          <img :src="quest.image" style="max-height: 250px; max-width: 270px;margin-bottom:20px" />
-          <div v-if="completed">
-            <img src="@/assets/noun_check.svg" />
-            <b>{{ $t('quest:completed').toUpperCase() }}</b>
+        <div class="col-lg-5 d-flex justify-content-center">
+          <div>
+            <img :src="quest.image" class="m-3 quest-badge" />
+            <div v-if="completed">
+              <img src="@/assets/noun_check.svg" class="mr-2" />
+              <b>{{ $t('quest:completed').toUpperCase() }}</b>
+            </div>
+            <b-progress :value="quest.to_next" max="1" v-else></b-progress>
           </div>
-          <b-progress :value="quest.to_next" max="1" v-else></b-progress>
         </div>
       </div>
     </div>
@@ -22,7 +24,7 @@
     <h2>
       {{ $t('nav-bar:puzzles') }}
     </h2>
-    <Gallery sm="3" md="3" v-if="pageData && pageData.puzzles">
+    <Gallery sm="4" md="3" v-if="pageData && pageData.puzzles">
       <PuzzleCard
         v-for="puzzle in pageData.puzzles"
         :key="puzzle.id"
@@ -51,7 +53,7 @@
           </li>
           <li><img src="@/assets/group.svg" class="icon" />{{ audience }}</li>
           <li><img src="@/assets/calendar.svg" class="icon" />{{ 'Sept 2019' }}</li>
-        </ul> -->
+        </ul>-->
       </SidebarPanel>
     </template>
   </EternaPage>
@@ -68,12 +70,14 @@
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
+  import { MeQueryResponse } from '@/types/common-types';
+  import QuestViewData from './types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
-    const me = (await http.get('/get/?type=me')).data.data;
+    const me = (await http.get('/get/?type=me')).data.data as MeQueryResponse;
     const puzzles = (
       await http.get(`/get/?type=puzzles&puzzle_type=Progression&search=${route.params.id}`)
-    ).data.data;
+    ).data.data as QuestViewData;
     return { ...me, ...puzzles };
   }
 
@@ -89,13 +93,11 @@
   })
   export default class QuestView extends Mixins(PageDataMixin(fetchPageData)) {
     get quest() {
-      return this.pageData.achievement_roadmap.find(p => p.title === this.$route.params.id);
+      return this.pageData!.achievement_roadmap.find(p => p.title === this.$route.params.id)!;
     }
 
-    private completed = this.quest.to_next >= 1;
-
-    puzzleCleared(id: number) {
-      return this.pageData.cleared.map(puzzle => puzzle.id).includes(id);
+    puzzleCleared(id: string) {
+      return this.pageData!.cleared.map(puzzle => puzzle.id).includes(id);
     }
 
     get audience() {
@@ -107,10 +109,14 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  .video {
+  .quest-badge {
+    max-width: 270px;
+  }
+
+  .quest-description {
     background-color: $med-dark-blue;
     object-fit: contain;
-    padding: 31px;
+    padding: 2rem;
   }
   .icon {
     margin-right: 10px;

@@ -6,7 +6,6 @@
     <ResetPasswordModal />
     <AcceptTermsModal />
     <LoginModal />
-    <SoftwareLicenseModal />
   </div>
 </template>
 
@@ -18,7 +17,6 @@
   import ResetCompleteModal from './ResetCompleteModal.vue';
   import ResetPasswordModal from './ResetPasswordModal.vue';
   import LoginModal from './LoginModal.vue';
-  import SoftwareLicenseModal from './SoftwareLicenseModal.vue';
 
   @Component({
     components: {
@@ -28,7 +26,6 @@
       ResetPasswordModal,
       LoginModal,
       AcceptTermsModal,
-      SoftwareLicenseModal,
     },
   })
   export default class Modals extends Vue {}

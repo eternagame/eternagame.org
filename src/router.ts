@@ -64,7 +64,7 @@ export default function createRouter() {
       {
         path: '/about/software',
         name: 'software',
-        component: () => import('./views/publications/SoftwareExplore.vue'),
+        component: () => import('./views/software/SoftwareExplore.vue'),
       },
       {
         path: '/about/terms',
@@ -89,7 +89,7 @@ export default function createRouter() {
       {
         path: '/about/publications',
         name: 'publications-list',
-        component: () => import('./views/publications/PubsExplore.vue'),
+        component: () => import('./views/publications/PublicationsExplore.vue'),
       },
       {
         path: '/feed',
@@ -144,6 +144,8 @@ export default function createRouter() {
   });
 
   router.afterEach(() => {
+    // @ts-ignore
+    // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
     gtag('config', 'UA-17383892-2');
   });
 

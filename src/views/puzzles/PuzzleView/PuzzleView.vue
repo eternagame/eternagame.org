@@ -1,8 +1,9 @@
 <template>
   <EternaPage v-if="puzzle" :title="puzzle.title">
     <div class="page-content">
+      <h2>About the Puzzle</h2>
       <div class="d-flex flex-wrap " xs="12" sm="8">
-        <div style="text-align:center" class="order-sm-2 col-sm-6">
+        <div style="text-align:center" class="order-sm-2 image-col">
           <div class="puzzle-image">
             <img v-if="imageURL" :src="imageURL" />
           </div>
@@ -16,21 +17,18 @@
           </b-button>
         </div>
 
-        <div class="order-sm-1 col-sm-6">
+        <div class="order-sm-1 description-col">
           <hr class="top-border d-sm-none" />
           <div
-            class="puzzle-description" style="word-wrap: break-word;"
+            class="puzzle-description"
+            style="word-break: break-all;"
             v-dompurify-html="puzzle.body"
           />
         </div>
       </div>
-
     </div>
 
-    <Comments
-      :comments="pageData.comments"
-      :nid="puzzle.id"
-    />
+    <Comments :comments="pageData.comments" :nid="puzzle.id" />
 
     <template #sidebar="{ isInSidebar }">
       <SidebarPanel
@@ -71,13 +69,11 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  // @ts-ignore
-  import get from 'lodash.get';
   import Utils from '@/utils/utils';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
-  import PuzzleData from './types';
+  import { PuzzleItem } from '@/types/common-types';
 
   async function fetchPageData(route: Route, http: AxiosInstance) {
     const res = (
@@ -87,7 +83,7 @@
           filters: route.query.filters && (route.query.filters as string).split(','),
         },
       })
-    ).data.data as PuzzleData;
+    ).data.data;
     return res;
   }
 
@@ -97,38 +93,55 @@
       TagsPanel,
       SidebarPanel,
       Preloader,
-      Comments
+      Comments,
     },
   })
   export default class PuzzleView extends Mixins(PageDataMixin(fetchPageData)) {
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
     get puzzle() {
-      return get(this.pageData, 'puzzle');
+      return this.pageData?.puzzle;
     }
 
     get imageURL() {
-      return Utils.getPuzzleMiddleThumbnail(get(this.pageData, 'nid', ''));
+      return Utils.getPuzzleMiddleThumbnail(this.pageData?.nid);
     }
 
     get avatar() {
-      return Utils.getAvatar(this.puzzle.userpicture);
+      return Utils.getAvatar(this.puzzle?.userpicture);
     }
   }
 </script>
 
 <style scoped lang="scss">
+  @import '@/styles/global.scss';
+
+  .description-col {
+    width: 60%;
+  }
+
+  .image-col {
+    width: 40%;
+  }
+
+  @include media-breakpoint-down(xs) {
+    .description-col, .image-col {
+      width: 100%;
+    }
+  }
+
   .quest-image {
     margin: 15px;
   }
 
   .puzzle-image {
-    width: auto;
-    max-width: 334px;
-    height: 365px;
+    width: 100%;
     background-color: #041227;
-    opacity: 0.8;
-    margin: 0 auto;
+    border-radius: 5px;
+    padding: 1.6rem 2.2rem;
+    img {
+      width: 100%;
+    }
   }
 
   .puzzle-description {

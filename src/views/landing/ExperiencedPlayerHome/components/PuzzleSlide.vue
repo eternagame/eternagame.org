@@ -5,9 +5,8 @@
     :img-src="imageURL"
     style=" background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0))"
     ><div class="banner-text">
-      <h1 class="banner-title">Puzzle of the Week</h1>
-      <h2 class="banner-subtitle d-none d-sm-block">{{ title }}</h2>
-      <img class="img d-none d-lg-block" :src="puzzleImageURL" />
+      <h1 class="banner-title">{{ $t('puzzle-slide::puzzle-of-week') }}</h1>
+      <h2 class="banner-subtitle ">{{ title }}</h2>
 
       <b-button variant="primary" class="enter-lab" size="lg" :href="`/puzzles/${nid}`">{{
         $t('puzzle-slide:solve-now')
@@ -31,9 +30,7 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import Utils from '@/utils/utils';
-  // @ts-ignore
-  import get from 'lodash.get';
-  import bgimage from '@/assets/home/hero-blue-bg.png';
+  import bgimage from '@/assets/home/hero-potw.png';
 
   @Component({
     components: {},
@@ -44,14 +41,8 @@
 
     @Prop({}) nid!: string;
 
-    get puzzleImageURL() {
-      return Utils.getPuzzleMiddleThumbnail(this.nid);
-    }
-
     get imageURL() {
       return bgimage;
-      // return 'https://assets.wordpress.envato-static.com/uploads/2018/01/image1.png';
-      //   return Utils.getPuzzleMiddleThumbnail(this.nid);
     }
   }
 </script>
@@ -78,14 +69,6 @@
   .banner-title {
     font-size: 42px;
     font-weight: bold;
-  }
-
-  .enter-lab {
-    font-weight: bold;
-    font-size: 20px;
-    padding: 9px 12px;
-    margin-bottom: 10px;
-    text-shadow: none;
   }
 
   h1,

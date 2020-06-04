@@ -32,7 +32,7 @@
     private readMore = false;
 
     get descriptionToShow() {
-      return this.readMore ? this.lab.conclusion : this.lab.conclusion.substr(0, 1000);
+      return this.readMore ? this.lab.conclusion : this.lab?.conclusion?.substr(0, 1000);
     }
 
     get defaultImage() {

@@ -1,9 +1,16 @@
 import DefaultAvatar from '@/assets/navbar/DefaultIcon.svg';
+import { ActivityItem } from '@/types/common-types';
 
 export default {
-  getPuzzleMiddleThumbnail(nid: string) {
-    return `https://s3.amazonaws.com/eterna/puzzle_mid_thumbnails/thumbnail${nid}.png`;
-    // return `https://renderv2-prod-renderv2bucket86ab868d-1aq5x6e32xf92.s3.amazonaws.com/puzzle_mid_thumbnails/thumbnail${nid}.svg`;
+  isExternal(link: string) {
+    return !(link.startsWith('/') || link.startsWith('https://eternagame.org/'));
+  },
+  getPuzzleMiddleThumbnail(nid: string | null) {
+    // return `https://s3.amazonaws.com/eterna/puzzle_mid_thumbnails/thumbnail${nid}.png`;
+    return (
+      nid &&
+      `https://renderv2-prod-renderv2bucket86ab868d-1aq5x6e32xf92.s3.amazonaws.com/puzzle_mid_thumbnails/thumbnail${nid}.svg`
+    );
   },
   getPuzzleCloudThumbnail(nid: string) {
     return `https://s3.amazonaws.com/eterna/puzzle_cloud_thumbnails/thumbnail${nid}.png`;
@@ -13,8 +20,8 @@ export default {
     // since tags like <ul> and <img> can break formatting.
     return text && text.replace(/(<([^>]+)>)/gi, '');
   },
-  formattedType(article): string {
-    if (!article) return null;
+  formattedType(article: ActivityItem): string {
+    if (!article) return '';
     const formatted = article.type.toUpperCase();
     if (formatted === 'BLOGS') {
       // Unpluralize, since it sounds better
@@ -22,7 +29,8 @@ export default {
     }
     return formatted;
   },
-  typeColor(article): string {
+  typeColor(article: ActivityItem | null): string | null {
+    if (!article) return null;
     switch (article.type.toLowerCase()) {
       case 'blogs':
         return '#53b64e';
@@ -133,15 +141,16 @@ export default {
     }
     return null;
   },
-  isLinkInternal(link: string) {
+  isLinkInternal(link: string | Object) {
     return (
-      link.startsWith('/') &&
-      !link.startsWith('/web/') &&
-      !link.startsWith('/game/') &&
-      !link.endsWith('.php')
+      link instanceof Object ||
+      (link.startsWith('/') &&
+        !link.startsWith('/web/') &&
+        !link.startsWith('/game/') &&
+        !link.endsWith('.php'))
     );
   },
-  getAvatar(uri: string) {
+  getAvatar(uri: string | null) {
     if (uri) return /^http/i.exec(uri) ? uri : `/${uri}`;
     return DefaultAvatar;
   },

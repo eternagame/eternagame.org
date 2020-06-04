@@ -62,7 +62,7 @@
     }
 
     get image() {
-      return this.lab.banner_image || this.lab.cover_image  || DefaultHero;
+      return this.lab?.banner_image || this.lab.cover_image || DefaultHero;
     }
   }
 </script>

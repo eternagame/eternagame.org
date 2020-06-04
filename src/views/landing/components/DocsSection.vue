@@ -25,7 +25,7 @@
               </b-col>
               <b-col lg="2">
                 <a
-                  href="http://player.pbs.org/widget/partnerplayer/2365197961/?w=506&h=288&chapterbar=true&autoplay=true&endscreen=false"
+                  href="https://www.pbs.org/wgbh/nova/video/decoding-covid-19/"
                 >
                   <img src="@/assets/front-page/img/logo_nova.svg" class="media-logo" alt />
                 </a>

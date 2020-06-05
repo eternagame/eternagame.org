@@ -87,9 +87,9 @@
 
     registerWithFacebook(data: { success: boolean; error: string }) {
       this.$bvModal.hide('modal-login');
+      this.form.password = '';
       if (data.success) {
         this.form.username = '';
-        this.form.password = '';
         this.$router.push('/');
       } else {
         this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });
@@ -108,7 +108,9 @@
           username: this.form.username,
           password: this.form.password,
         });
+        this.form.password = '';
         if (data.success) {
+          this.form.username = '';
           this.$router.push('/');
         } else {
           this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });

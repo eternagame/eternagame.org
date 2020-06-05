@@ -6,6 +6,7 @@
     body-class="py-0"
     header-border-variant="primary"
     hide-footer
+    @shown="shown"
   >
     <template #modal-title>
       <b>{{ $t('login-row:main-action').toUpperCase() }}</b>
@@ -36,14 +37,14 @@
 
       <p
         class="mt-0"
-        @click="$bvModal.hide('modal-login')"
         v-b-modal.modal-reset-password
         style="text-align:end; text-decoration:underline;margin-top:"
       >
         {{ $t('login-sub:main-action') }}
       </p>
-      <b-button type="submit" variant="primary" class="submit-button">
+      <b-button type="submit" variant="primary" class="submit-button" :disabled="loading">
         {{ $t('login-modal:main-action').toUpperCase() }}
+        <b-spinner v-if="loading" small />
       </b-button>
 
       <p style="text-align:center">
@@ -62,7 +63,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
   import FacebookAuthentication from './components/FacebookAuthentication.vue';
@@ -83,39 +84,46 @@
 
     FB = null;
 
+    loading = false;
+
     private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
     registerWithFacebook(data: { success: boolean; error: string }) {
-      this.$bvModal.hide('modal-login');
       this.form.password = '';
       if (data.success) {
-        this.form.username = '';
+        this.$bvModal.hide('modal-login');
         this.$router.push('/');
       } else {
-        this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });
+        this.errorMessage = data.error;
       }
     }
 
-    $refs!: {
-      modal: BModal;
-      rePassword: BFormInput;
-    };
+    @Ref() readonly modal!: BModal;
+
+    @Ref() readonly rePassword!: BFormInput;
 
     async login() {
-      this.$bvModal.hide('modal-login');
       if (this.form.username && this.form.password) {
+        this.loading = true;
         const data = await this.$vxm.user.login({
           username: this.form.username,
           password: this.form.password,
         });
-        this.form.password = '';
+        this.loading = false;
         if (data.success) {
           this.form.username = '';
+          this.$bvModal.hide('modal-login');
           this.$router.push('/');
         } else {
-          this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });
+          this.errorMessage = data.error;
         }
       }
+    }
+
+    shown() {
+      this.errorMessage = '';
+      this.form.username = '';
+      this.form.password = '';
     }
   }
 </script>

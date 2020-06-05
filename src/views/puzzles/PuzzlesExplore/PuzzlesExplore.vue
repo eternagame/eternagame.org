@@ -119,7 +119,7 @@
     }
 
     puzzleCleared(id: string) {
-      return this.cleared.map(puzzle => puzzle.id.includes(id));
+      return this.cleared.some(puzzle => id === puzzle.id);
     }
 
     private options: Option[] = [

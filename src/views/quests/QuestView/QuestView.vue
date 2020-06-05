@@ -1,5 +1,5 @@
 <template>
-  <EternaPage :title="$t('quest-info:title')" v-if="$fetchState.firstFetchComplete && quest">
+  <EternaPage :title="$t('quest-info:title')" v-if="fetchState.firstFetchComplete && quest">
     <div class="quest-description">
       <div class="row">
         <div class="col-lg-7">

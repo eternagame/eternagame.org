@@ -1,6 +1,6 @@
 <template>
   <EternaPage :title="$t('nav-bar:puzzles')">
-    <div v-if="$fetchState.firstFetchComplete">
+    <div v-if="fetchState.firstFetchComplete">
       <Gallery>
         <PuzzleCard
           v-for="puzzle in puzzles"

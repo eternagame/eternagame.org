@@ -1,6 +1,6 @@
 <template>
   <EternaPage :title="$t('player-view:title')">
-    <div v-if="$fetchState.firstFetchComplete">
+    <div v-if="fetchState.firstFetchComplete">
       <div class="page-content">
         <PlayerHeader :user="user" :followList="follow" />
 

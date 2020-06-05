@@ -1,6 +1,6 @@
 <template>
   <EternaPage :title="$t('nav-bar:leaderboards')">
-    <div v-if="$fetchState.firstFetchComplete">
+    <div v-if="fetchState.firstFetchComplete">
       <div class="page-content">
         <table style="width: 100%">
           <tbody>

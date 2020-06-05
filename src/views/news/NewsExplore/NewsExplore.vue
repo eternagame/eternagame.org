@@ -1,6 +1,6 @@
 <template>
   <EternaPage :title="$t('news-explore:title')">
-    <div v-if="$fetchState.firstFetchComplete">
+    <div v-if="fetchState.firstFetchComplete">
       <Gallery :sm="12" :md="12">
         <NewsCard v-for="article in newsItems" :key="article.nid" v-bind="article" />
       </Gallery>

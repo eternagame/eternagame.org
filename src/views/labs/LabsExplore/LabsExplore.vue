@@ -1,6 +1,6 @@
 <template>
   <EternaPage :title="$t('nav-bar:labs')">
-    <div v-if="$fetchState.firstFetchComplete">
+    <div v-if="fetchState.firstFetchComplete">
       <Gallery>
         <LabCard v-for="lab in labs" :key="lab.nid" :lab="lab" />
       </Gallery>

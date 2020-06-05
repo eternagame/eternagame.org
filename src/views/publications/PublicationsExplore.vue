@@ -1,6 +1,6 @@
 <template>
   <EternaPage :title="$t('publications:title')">
-    <div v-if="$fetchState.firstFetchComplete">
+    <div v-if="fetchState.firstFetchComplete">
       <p class="overview-text">
         {{ $t('publications:overview') }}
       </p>

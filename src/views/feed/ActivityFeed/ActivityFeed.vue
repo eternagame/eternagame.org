@@ -1,6 +1,6 @@
 <template>
   <EternaPage :title="$t('activity-feed:title')">
-    <div v-if="$fetchState.firstFetchComplete">
+    <div v-if="fetchState.firstFetchComplete">
       <MessageCompose @submit-message="sentMessage" />
       <Gallery :sm="12" :md="12" style="margin-top:25px">
         <ActivityCard

@@ -1,6 +1,6 @@
 <template>
   <EternaPage>
-    <template v-if="$fetchState.firstFetchComplete">
+    <template v-if="fetchState.firstFetchComplete">
       <b-carousel
         id="header-carousel"
         :interval="4000"

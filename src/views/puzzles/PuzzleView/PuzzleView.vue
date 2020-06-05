@@ -1,9 +1,9 @@
 <template>
   <!--
     Tacking on the `&& puzzle` just to make our lives easier with typing,
-    as TS doesn't know that $fetchState.firstFetchComplete correlates to it being filled out
+    as TS doesn't know that fetchState.firstFetchComplete correlates to it being filled out
   -->
-  <EternaPage v-if="$fetchState.firstFetchComplete && puzzle" :title="puzzle.title">
+  <EternaPage v-if="fetchState.firstFetchComplete && puzzle" :title="puzzle.title">
     <div class="page-content">
       <h2>About the Puzzle</h2>
       <div class="d-flex flex-wrap " xs="12" sm="8">

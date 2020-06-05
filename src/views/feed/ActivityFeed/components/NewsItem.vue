@@ -40,8 +40,6 @@
   export default class NewsItem extends Vue {
     @Prop() private article!: NewsItemType|BlogItem;
 
-    @Prop({ default: 'blogs' }) private type!: string;
-
     private get link() {
       return `/news/${this.article.nid}`;
     }

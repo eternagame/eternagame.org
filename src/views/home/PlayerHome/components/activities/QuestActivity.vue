@@ -1,18 +1,19 @@
 <template>
   <BaseActivity :heading="$t('player-home:section1')" v-if="quests.length > 0">
-    <swiper-slide v-for="(item, index) in quests" :key="index">
+    <SwiperSlide v-for="(item, index) in quests" :key="index">
         <QuestCard
           :key="item.title"
           v-bind="item"
           :imageLink="item.questLink"
           :buttonLink="item.puzzleLink"
         />
-    </swiper-slide>
+    </SwiperSlide>
   </BaseActivity>
 </template>
 
 <script lang="ts">
   import {Vue, Component, Prop} from 'vue-property-decorator';
+  import { SwiperSlide } from 'vue-awesome-swiper';
   import {ProcessedRoadmapAchievement} from '@/types/common-types';
   import Utils from '@/utils/utils';
   import QuestCard from '@/components/Cards/QuestCard.vue';
@@ -20,6 +21,7 @@
 
   @Component({
     components: {
+      SwiperSlide,
       BaseActivity,
       QuestCard
     }

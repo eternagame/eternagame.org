@@ -12,8 +12,12 @@
   import {Vue, Component, Prop} from 'vue-property-decorator';
   import Carousel from '@/components/Common/Carousel.vue';
 
-  @Component
-  export default class TutorialActivity extends Vue {
+  @Component({
+    components: {
+      Carousel
+    }
+  })
+  export default class BaseActivity extends Vue {
       @Prop() heading!: string;
 
       @Prop() slideTo?: number;

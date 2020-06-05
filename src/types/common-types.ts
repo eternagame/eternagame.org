@@ -98,7 +98,7 @@ export interface RoadmapAchievement {
   verb: string;
   past: string;
   to_next: number;
-  prereq: string;
+  prereq?: string;
   current_puzzle?: string;
 }
 

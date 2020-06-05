@@ -28,6 +28,7 @@
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
+  import { CommentItem } from '@/types/common-types';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
@@ -37,7 +38,6 @@
   import LabInfoPanel from './components/LabInfoPanel.vue';
   import LabRound from './components/LabRound.vue';
   import LabViewData, { LabData } from './types';
-  import { CommentItem } from '../../../types/common-types';
 
   @Component({
     components: {

@@ -34,12 +34,6 @@ export default class FetchMixin extends Vue {
 
   fetchState: FetchState = getInitialState();
 
-  constructor() {
-    super();
-    console.log(getInitialState());
-    console.log(this.fetchState);
-  }
-
   async $fetch() {
     if (!this.fetch) return;
 
@@ -79,7 +73,7 @@ export default class FetchMixin extends Vue {
   }
 
   async mounted() {
-    const {fetchKey} = (this.$vnode.elm as HTMLElement).dataset;
+    const fetchKey = (this.$vnode.elm as HTMLElement).dataset?.fetchKey;
     if (fetchKey === undefined) {
       await this.$fetch();
       return;

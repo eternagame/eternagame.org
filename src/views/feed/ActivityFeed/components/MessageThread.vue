@@ -6,7 +6,7 @@
         :key="item.created"
         :message="item"
         :notification="notification"
-        :style="{marginLeft: !(index === 0) && '50px'}"
+        :style="{paddingLeft: !(index === 0) && '50px'}"
       />
       <div style="margin-top: 5px;">
         <b-button
@@ -61,9 +61,5 @@
     margin-bottom: 1.5rem;
     // cursor: pointer;
     transition: background-color 0.5s ease;
-  }
-
-  .card:hover {
-    background-color: #21508c;
   }
 </style>

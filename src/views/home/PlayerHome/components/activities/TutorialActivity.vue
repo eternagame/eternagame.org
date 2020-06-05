@@ -7,14 +7,15 @@
         v-if="!$vxm.user.hasLabAccess"
       />
     </template>
-    <swiper-slide v-for="(item, index) in tools" :key="index">
+    <SwiperSlide v-for="(item, index) in tools" :key="index">
       <QuestCard :key="item.title" v-bind="item" />
-    </swiper-slide>
+    </SwiperSlide>
   </BaseActivity>
 </template>
 
 <script lang="ts">
   import {Vue, Component, Prop} from 'vue-property-decorator';
+  import { SwiperSlide } from 'vue-awesome-swiper';
   import {RoadmapAchievement} from '@/types/common-types';
   import Utils from '@/utils/utils';
   import PROGRESS_IMAGE_0 from '@/assets/progress/progress0.svg';
@@ -39,6 +40,7 @@
 
   @Component({
     components: {
+      SwiperSlide,
       BaseActivity,
       QuestCard
     }

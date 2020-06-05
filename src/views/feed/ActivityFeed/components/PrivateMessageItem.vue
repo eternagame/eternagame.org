@@ -3,6 +3,7 @@
     :sender="message.sender"
     :created="message.created"
     :avatar="avatar"
+    :message="message.content"
   >
     <template> {{ senderName }} > {{ recieverName }}: </template>
   </MessageItem>

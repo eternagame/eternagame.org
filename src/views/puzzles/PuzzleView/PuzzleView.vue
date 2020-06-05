@@ -77,7 +77,7 @@
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
   import FetchMixin from '@/mixins/FetchMixin';
-  import { PuzzleResponse, Puzzle, CommentItem } from '../../../types/common-types';
+  import { PuzzleResponse, Puzzle, CommentItem } from '@/types/common-types';
 
   @Component({
     components: {

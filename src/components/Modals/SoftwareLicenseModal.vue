@@ -63,7 +63,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
   import axios from 'axios';
-  import VersionCard from '../../views/software/VersionCard.vue';
+  import VersionCard from '@/views/software/VersionCard.vue';
 
   const POST_ROUTE = '/post/';
   const LIST_RELEASES_ROUTE = '/get/?type=software_package_releases';

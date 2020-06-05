@@ -75,8 +75,8 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { BIconDownload, BIconBook } from 'bootstrap-vue';
+  import SoftwareLicenseModal from '@/components/Modals/SoftwareLicenseModal.vue';
   import { SoftwareProject } from './SoftwareExplore.vue';
-  import SoftwareLicenseModal from '../../components/Modals/SoftwareLicenseModal.vue';
 
   @Component({
     components: { BIconBook, BIconDownload, SoftwareLicenseModal },

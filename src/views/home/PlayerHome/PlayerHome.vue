@@ -31,7 +31,10 @@
 <script lang="ts">
   import { Component, Vue, Prop, Mixins } from 'vue-property-decorator';
   import axios, { AxiosInstance } from 'axios';
+  import { RoadmapAchievement, ProcessedRoadmapAchievement } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
+  import EternaPage from '@/components/PageLayout/EternaPage.vue';
+  import Carousel from '@/components/Common/Carousel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { LabData } from '../../labs/LabView/types';
   import TutorialTeaserSlide from './components/banner/TutorialTeaserSlide.vue';
@@ -39,10 +42,11 @@
   import LabSlide from './components/banner/LabSlide.vue';
   import QuestActivity from './components/activities/QuestActivity.vue';
   import TutorialActivity from './components/activities/TutorialActivity.vue';
-  import { RoadmapAchievement, ProcessedRoadmapAchievement } from '../../../types/common-types';
 
   @Component({
     components: {
+      EternaPage,
+      Carousel,
       POTWSlide,
       LabSlide,
       TutorialTeaserSlide,
@@ -74,8 +78,10 @@
         .map(p => ({
           ...p,
           prereqSatisfied: roadmap.some(
-            ach => `${ach.key}${ach.level}` === ach.prereq
+            ach => ach.prereq === undefined || (
+              `${ach.key}${ach.level}` === ach.prereq
               && Number(ach.current_level) >= ach.level
+            )
           )
         }));
         

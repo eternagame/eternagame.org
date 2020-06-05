@@ -1,8 +1,8 @@
 <template>
   <div>
-    <MessageThread v-if="isPrivateMessage" :article="notification" />
-    <CommentMessageItem v-if="isComment" :notification="notification" :message="commentMessage" />
-    <NewsItem v-if="isNews" :notification="notification" />
+    <MessageThread v-if="isPrivateMessage" :notification="notification" />
+    <CommentMessageItem v-else-if="isComment" :notification="notification" :message="commentMessage" />
+    <NewsItem v-else-if="isNews" :article="notification" />
   </div>
 </template>
 <script lang="ts">
@@ -15,11 +15,15 @@
     CommentNotificationItem
   } from '@/types/common-types';
   import MessageThread from './MessageThread.vue';
-  import MessageItem from './MessageItem.vue';
+  import CommentMessageItem from './CommentMessageItem.vue';
   import NewsItem from './NewsItem.vue';
 
   @Component({
-    components: { MessageThread, NewsItem, MessageItem },
+    components: {
+      MessageThread,
+      NewsItem,
+      CommentMessageItem
+    },
   })
   export default class ActivityCard extends Vue {
     @Prop() private notification!: NotificationItem;
@@ -33,11 +37,11 @@
     }
 
     get commentMessage() {
-      return (this.notification as CommentNotificationItem).message[0];
+      return this.isComment ? (this.notification as CommentNotificationItem).message[0] : '';
     }
 
     get isNews() {
-      return this.notification.type === NotificationType.NEWS || NotificationType.BLOG;
+      return [NotificationType.NEWS, NotificationType.BLOG].includes(this.notification.type);
     }
   }
 </script>

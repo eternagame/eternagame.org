@@ -44,7 +44,6 @@
     }
 
     get isOpen() {
-      console.log(this.$vxm.user.showSidebar);
       return this.$vxm.user.showSidebar;
     }
 

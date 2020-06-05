@@ -62,7 +62,6 @@
 
     created() {
       this.unsubscribe = this.$vxm.mobile.$subscribe('showPageSidebar', payload => {
-        console.log('Eterna page: show sidebar was called');
         this.$refs.mobileSidebar.openMenu();
       });
     }

@@ -118,10 +118,6 @@
     transition: background-color 0.5s ease;
   }
 
-  .card:hover {
-    background-color: #21508c;
-  }
-
   a:hover {
     text-decoration: none;
   }

@@ -49,7 +49,7 @@ export default function createRouter() {
       {
         path: '/',
         name: 'landing',
-        component: () => import('./views/landing/LandingPage.vue'),
+        component: () => import('./views/home/Home.vue'),
       },
       {
         path: '/about',
@@ -94,7 +94,7 @@ export default function createRouter() {
       {
         path: '/feed',
         name: 'activity-feed',
-        component: () => import('./views/news/ActivityFeed/ActivityFeed.vue'),
+        component: () => import('./views/feed/ActivityFeed/ActivityFeed.vue'),
       },
       {
         path: '/players/:uid',

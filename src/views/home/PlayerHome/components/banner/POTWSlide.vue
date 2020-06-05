@@ -1,10 +1,10 @@
 <template>
   <b-carousel-slide
     class="slide"
-    v-if="imageURL"
     :img-src="imageURL"
     style=" background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0))"
-    ><div class="banner-text">
+  >
+    <div class="banner-text">
       <h1 class="banner-title">{{ $t('puzzle-slide::puzzle-of-week') }}</h1>
       <h2 class="banner-subtitle ">{{ title }}</h2>
 
@@ -21,8 +21,8 @@
           <i class="arrow_right"></i>{{ $t('puzzle-slide:past-training') }}
         </p>
       </router-link>
-    </div></b-carousel-slide
-  >
+    </div>
+  </b-carousel-slide>
 </template>
 
 <script lang="ts">
@@ -35,7 +35,7 @@
   @Component({
     components: {},
   })
-  export default class PuzzleSlide extends Vue {
+  export default class POTWSlide extends Vue {
     @Prop({})
     title!: string;
 

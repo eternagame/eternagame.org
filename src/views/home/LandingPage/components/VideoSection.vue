@@ -42,7 +42,6 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import i18n from '@/plugins/i18n';
 
   @Component({
     components: {},
@@ -54,8 +53,9 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+  
   .video {
-    background: url(../../../assets/front-page/img/bg_video.jpg) no-repeat center center fixed;
+    background: url(~@/assets/front-page/img/bg_video.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

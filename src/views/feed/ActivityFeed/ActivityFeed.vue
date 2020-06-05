@@ -1,11 +1,15 @@
 <template>
   <EternaPage :title="$t('activity-feed:title')">
-    <div v-if="news.length">
+    <div v-if="$fetchState.firstFetchComplete">
       <MessageCompose @submit-message="sentMessage" />
       <Gallery :sm="12" :md="12" style="margin-top:25px">
-        <ActivityCard v-for="article in news" :key="article.nid" :article="article" />
+        <ActivityCard
+          v-for="notification in notifications"
+          :key="notification.nid"
+          :notification="notification"
+        />
       </Gallery>
-      <Pagination :key="news.length" />
+      <Pagination :key="notifications.length" />
     </div>
     <div v-else>
       <Preloader />
@@ -33,11 +37,12 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
-  import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import Utils from '@/utils/utils';
+  import FetchMixin from '@/mixins/FetchMixin';
+  import { NotificationItem } from '@/types/common-types';
   import ActivityCard from './components/ActivityCard.vue';
   import MessageCompose from './components/MessageCompose.vue';
 
@@ -58,10 +63,10 @@
       SearchPanel,
     },
   })
-  export default class ActivityFeed extends Vue {
-    news = [];
+  export default class ActivityFeed extends Mixins(FetchMixin) {
+    notifications: NotificationItem[] = [];
 
-    async fetchData() {
+    async fetch() {
       const { filter, search, size } = this.$route.query;
       const res = (
         await axios.get(ROUTE, {
@@ -72,20 +77,11 @@
           },
         })
       ).data.data;
-      this.news = res.entries;
-    }
-
-    mounted() {
-      this.fetchData();
-    }
-
-    @Watch('$route', { immediate: true, deep: true })
-    onUrlChange() {
-      this.fetchData();
+      this.notifications = res.entries;
     }
 
     sentMessage() {
-      this.fetchData();
+      this.$fetch();
     }
 
     private options: Option[] = [

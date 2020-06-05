@@ -1,6 +1,5 @@
 <template>
-  <PlayerHome :pageData="pageData" v-if="loggedIn" />
-  <div class="page" v-else>
+  <div class="page">
     <VideoSection />
 
     <!-- Covid-19 Promo (TODO: localize?)-->
@@ -54,30 +53,18 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
-  import PageDataMixin from '@/mixins/PageData';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
-  import PlayerHome from './PlayerHome.vue';
   import DocsSection from './components/DocsSection.vue';
   import VideoSection from './components/VideoSection.vue';
-
-  async function fetchPageData(route: Route, http: AxiosInstance) {
-    const me = (await http.get('/get/?type=me')).data.data;
-    const roadmap = (await http.get('/get/?type=side_project_roadmap')).data.data;
-    const carousel = (await http.get('/get/?type=carousel')).data.data;
-    const potw = (await http.get('/get/?type=puzzle_of_the_week')).data.data;
-    const res = { ...me, ...roadmap, ...carousel, potw };
-    return res;
-  }
-
+  
   @Component({
     components: {
       DocsSection,
       VideoSection,
-      PlayerHome,
     },
   })
-  export default class LandingPage extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class LandingPage extends Vue {
     get loggedIn() {
       return this.$vxm.user.loggedIn;
     }

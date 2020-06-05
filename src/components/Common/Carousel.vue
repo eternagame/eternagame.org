@@ -22,7 +22,7 @@
     directives: { swiper: directive },
   })
   export default class Carousel extends Vue {
-    @Prop() private slideTo!: number;
+    @Prop() private slideTo?: number;
 
     // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
     @Ref('slider') readonly slider!: any;

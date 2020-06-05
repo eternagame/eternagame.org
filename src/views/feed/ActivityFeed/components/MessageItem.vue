@@ -6,7 +6,7 @@
       </div>
     </div>
 
-    <div :style="{ marginLeft: !first && '50px' }">
+    <div>
       <div class="row d-flex" :style="{ marginTop: '10px' }">
         <SmartLink :link="'/players/' + sender">
           <img
@@ -15,17 +15,12 @@
             style="margin-right:10px"
           />
         </SmartLink>
-        <p v-if="senderName" style="margin-top:5px">
-          <template v-if="type == 'message'"> {{ senderName }} > {{ getterName }}: </template>
-          <template v-else>
-            {{ senderName + ' ' }} {{ $t('activity-feed:commented-on') + ' ' }}
-            <a :href="`/${content.node.node_type}s/${content.node.id}`">
-              {{ content.node.title }}</a
-            >
-          </template>
+        <p style="margin-top:5px">
+          <slot/>
         </p>
       </div>
-      <div v-dompurify-html="content.body || content" style="word-wrap: break-word;" />
+      <!--div v-dompurify-html="content.body || content" style="word-wrap: break-word;" /-->
+      <div v-dompurify-html="message" style="word-wrap: break-word;" />
     </div>
   </div>
 </template>
@@ -34,7 +29,7 @@
   import Utils from '@/utils/utils';
   import SmartLink from '@/components/Common/SmartLink.vue';
   import VueScrollTo from 'vue-scrollto';
-  import { NewsItem } from '@/types/common-types';
+  import { NotificationNotificationItem, NotificationMessage, PrivateNotificationMessage, NotificationMessageType } from '@/types/common-types';
 
   Vue.use(VueScrollTo);
 
@@ -42,17 +37,13 @@
     components: { SmartLink },
   })
   export default class MessageItem extends Vue {
-    @Prop() private created!: string;
+    @Prop() sender!: string;
 
-    @Prop({ default: '' }) private content!: string | object;
+    @Prop() message!: string;
 
-    @Prop({ default: false }) private first!: boolean;
+    @Prop() created!: string;
 
-    @Prop() private sender!: string;
-
-    @Prop() private article!: NewsItem;
-
-    @Prop() private type!: string;
+    @Prop() avatar!: string;
 
     @Ref('container') readonly scrollTarget!: HTMLElement;
 
@@ -69,24 +60,6 @@
 
     mounted() {
       this.maybeScroll();
-    }
-
-    private senderName =
-      this.sender === this.article.target_uid
-        ? this.article.target_name
-        : this.article.target2_name;
-
-    private getterName =
-      this.sender === this.article.target_uid
-        ? this.article.target2_name
-        : this.article.target_name;
-
-    get avatar() {
-      return Utils.getAvatar(
-        this.sender === this.article.target_uid
-          ? this.article.target_picture
-          : this.article.target2_picture,
-      );
     }
 
     get timeCreated() {

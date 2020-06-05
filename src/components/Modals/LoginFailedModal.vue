@@ -11,7 +11,7 @@
     {{ $t('login-failed:failure-text-description') }}
     <b-alert class="mt-3" show variant="danger">{{ errorMessage }}</b-alert>
     <template #modal-footer>
-      <b-button variant="secondary" @click="hideModal">Close</b-button>
+      <b-button variant="secondary" @click="hideModal" v-b-modal.modal-login>Close</b-button>
     </template>
   </b-modal>
 </template>

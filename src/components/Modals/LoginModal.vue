@@ -42,9 +42,9 @@
       >
         {{ $t('login-sub:main-action') }}
       </p>
-      <b-button type="submit" variant="primary" class="submit-button">{{
-        $t('login-modal:main-action').toUpperCase()
-      }}</b-button>
+      <b-button type="submit" variant="primary" class="submit-button">
+        {{ $t('login-modal:main-action').toUpperCase() }}
+      </b-button>
 
       <p style="text-align:center">
         {{ $t('login-modal:register-pre-text') }}

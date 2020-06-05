@@ -13,10 +13,10 @@
     <LabConclusion :lab="lab" style="margin-bottom: 52.5px;" />
     <Comments
       :name="$t('lab-view:admin-comments')"
-      :comments="pageData.supercomments"
-      v-if="pageData.supercomments.length"
+      :comments="adminUpdates"
+      v-if="adminUpdates.length"
     />
-    <Comments :comments="pageData.comments" :nid="lab.nid" />
+    <Comments :comments="comments" :nid="lab.nid" />
     <template #sidebar="{ isInSidebar }">
       <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" /> -->
@@ -30,17 +30,14 @@
   import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
-  import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
+  import FetchMixin from '@/mixins/FetchMixin';
   import LabDescription from './components/LabDescription.vue';
   import LabConclusion from './components/LabConclusion.vue';
   import LabInfoPanel from './components/LabInfoPanel.vue';
   import LabRound from './components/LabRound.vue';
   import LabViewData, { LabData } from './types';
-
-  async function fetchPageData(route: Route, http: AxiosInstance) {
-    return (await http.get(`/get/?type=project&nid=${route.params.id}`)).data.data as LabViewData;
-  }
+  import { CommentItem } from '../../../types/common-types';
 
   @Component({
     components: {
@@ -53,9 +50,21 @@
       Comments,
     },
   })
-  export default class LabView extends Mixins(PageDataMixin(fetchPageData)) {
-    get lab() {
-      return this.pageData?.lab;
+  export default class LabView extends Mixins(FetchMixin) {
+    lab: LabData | null = null;
+
+    comments: CommentItem[] | null = null;
+
+    adminUpdates: CommentItem[] | null = null;
+
+    async fetch() {
+      const res = (
+        await this.$http.get(`/get/?type=project&nid=${this.$route.params.id}`)
+      ).data.data as LabViewData;
+      
+      this.lab = res.lab;
+      this.comments = res.comments;
+      this.adminUpdates = res.supercomments;
     }
 
     roundClosed(round: { round: number }) {

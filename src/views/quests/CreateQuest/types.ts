@@ -1,20 +1,13 @@
+import { CommentItem } from '@/types/common-types';
+
 export default interface LabViewData {
   lab: LabData;
-  comments: Comment[];
-  supercomments: []; // ?
+  comments: CommentItem[];
+  supercomments: CommentItem[];
   follow: []; // ?
   sum_picks: null;
   my_votes: number;
   uid: string;
-}
-
-export interface Comment {
-  cid: string;
-  name: string;
-  uid: string;
-  comment: string;
-  created: string;
-  picture: string;
 }
 
 export interface LabData {

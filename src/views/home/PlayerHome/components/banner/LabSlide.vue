@@ -50,7 +50,7 @@
   @Component({
     components: { Progress, FlipCountdown },
   })
-  export default class BannerSlide extends Vue {
+  export default class LabSlide extends Vue {
     @Prop({}) banner_image!: string;
 
     @Prop({}) title!: string;

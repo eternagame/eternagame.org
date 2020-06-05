@@ -1,5 +1,5 @@
 <template>
-  <SmartLink v-if="article.body || article.content" :link="link">
+  <SmartLink :link="link">
     <div class="page-content card">
       <div class="container">
         <div class="row justify-content-between">
@@ -19,9 +19,9 @@
         <h3 class="card-title" v-if="article.title">{{ article.title }}</h3>
         <div class="row d-flex" v-else style="margin-top:10px" />
         <div v-dompurify-html="strippedBody(article.body)" class="text" />
-        <div v-if="article.commentcount" class="d-flex">
+        <div v-if="commentCount" class="d-flex">
           <img src="@/assets/comment-count.svg" />
-          <p class="icon-text">{{ article.commentcount }}</p>
+          <p class="icon-text">{{ commentCount }}</p>
         </div>
       </div>
     </div>
@@ -31,18 +31,26 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import SmartLink from '@/components/Common/SmartLink.vue';
   import Utils from '@/utils/utils';
-  import { NewsItem as NewsItemType } from '@/types/common-types';
+  import {NewsItem as NewsItemType, BlogItem, NotificationType} from '@/types/common-types';
   import MessageThread from './MessageThread.vue';
 
   @Component({
     components: { SmartLink, MessageThread },
   })
   export default class NewsItem extends Vue {
-    @Prop() private article!: NewsItemType;
+    @Prop() private article!: NewsItemType|BlogItem;
 
     @Prop({ default: 'blogs' }) private type!: string;
 
-    private link = this.article.nid && `/news/${this.article.nid}`;
+    private get link() {
+      return `/news/${this.article.nid}`;
+    }
+
+    private get commentCount() {
+      return this.article.type === NotificationType.NEWS ?
+        this.article.commentcount
+        : this.article.comments.length;
+    }
 
     private formattedType = Utils.formattedType;
 

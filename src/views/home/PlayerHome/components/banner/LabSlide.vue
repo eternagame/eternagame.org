@@ -136,17 +136,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-
-        .banner-progress {
-          display: flex;
-          flex-direction: row;
-        }
       }
 
       .banner-text {
         width: 100%;
       }
     }
+  }
+
+  .banner-progress {
+    display: flex;
   }
 
   .banner-text {

@@ -6,7 +6,7 @@
   <EternaPage v-if="fetchState.firstFetchComplete && puzzle" :title="puzzle.title">
     <div class="page-content">
       <h2>About the Puzzle</h2>
-      <div class="d-flex flex-wrap " xs="12" sm="8">
+      <div class="d-flex flex-wrap justify-content-between" xs="12" sm="8">
         <div style="text-align:center" class="order-sm-2 image-col">
           <div class="puzzle-image">
             <img v-if="imageURL" :src="imageURL" />
@@ -25,7 +25,7 @@
           <hr class="top-border d-sm-none" />
           <div
             class="puzzle-description"
-            style="word-break: break-all;"
+            style="word-wrap: break-word;"
             v-dompurify-html="puzzle.body"
           />
         </div>
@@ -125,7 +125,7 @@
   @import '@/styles/global.scss';
 
   .description-col {
-    width: 60%;
+    width: calc(60% - 15px);
   }
 
   .image-col {
@@ -149,6 +149,7 @@
     padding: 1.6rem 2.2rem;
     img {
       width: 100%;
+      max-height: 400px;
     }
   }
 

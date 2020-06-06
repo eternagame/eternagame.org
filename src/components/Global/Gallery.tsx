@@ -1,5 +1,5 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { CreateElement, VNode } from 'vue';
+import { CreateElement } from 'vue';
 import GalleryColumn from './GalleryColumn.vue';
 
 @Component({

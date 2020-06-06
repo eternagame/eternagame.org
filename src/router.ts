@@ -128,9 +128,17 @@ export default function createRouter() {
       if (savedPosition) {
         return savedPosition;
       }
+
+      if (to.hash) {
+        return { selector: to.hash };
+      }
+      
+      if(to.params.keepScroll) return null;
+
       return { x: 0, y: 0 };
     },
   });
+  
 
   router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {
     const userStore = router.app.$vxm.user;

@@ -41,6 +41,7 @@
                 size: String(newSize),
               },
               hash: window.location.hash,
+              params: { keepScroll: 'true' }
             });
             this.loading = true;
           }

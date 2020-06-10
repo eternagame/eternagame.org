@@ -3,23 +3,17 @@ import { Vue, Component, Watch } from 'vue-property-decorator';
 import { Route, RouteCallback } from 'vue-router';
 import { isCacheError } from '@/store/FetchData.vuex';
 
-interface FetchState {
-  key: number | null;
-  firstFetchComplete: boolean;
-  pending: boolean;
-  lastFetched: Date;
-  error: Error | null;
-}
+class FetchState {
+  key: number | null = null;
 
-function getInitialState(): FetchState {
-  return {
-    key: null,
-    firstFetchComplete: false,
-    pending: false,
-    lastFetched: new Date(),
-    error: null
-  };
-};
+  firstFetchComplete: boolean = false;
+
+  pending: boolean = false;
+
+  lastFetched: Date = new Date();
+
+  error: Error | null= null;
+}
 
 /**
  * Handles retrieving async page data in an ssr-friendly way
@@ -32,7 +26,7 @@ function getInitialState(): FetchState {
 export default class FetchMixin extends Vue {
   fetch?(): Promise<void>;
 
-  fetchState: FetchState = getInitialState();
+  fetchState: FetchState = new FetchState();
 
   async $fetch() {
     if (!this.fetch) return;
@@ -94,7 +88,7 @@ export default class FetchMixin extends Vue {
   @Watch('$route.path')
   private async fetchForNewPage() {
     // This is actually a completely different page, so don't act like we've loaded it already
-    this.fetchState = getInitialState();
+    this.fetchState = new FetchState();
     await this.$fetch();
   }
 

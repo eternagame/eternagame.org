@@ -6,8 +6,8 @@
           {{ displayTitle }}
         </h2>
         <!-- If there's a subtitle, use that. If there's a title and no subtitle, use the lab name -->
-        <h3 v-if="carousel_subtitle || carousel_title" class="banner-subtitle">
-          {{ (carousel_subtitle || title).toUpperCase() }}
+        <h3 v-if="carousel_subtitle || carousel_title" class="text-uppercase">
+          {{ carousel_subtitle || title }}
         </h3>
 
         <b-button variant="primary" class="enter-lab" size="lg" :to="`/labs/${nid}`">

@@ -15,8 +15,8 @@
           <div v-else>
             <p v-if="completed">
               <SmartLink :link="toGame">
-                <img src="@/assets/noun_check.svg" @click="goToGame()" />
-                <b>{{ $t('quest:completed').toUpperCase() }}</b>
+                <img src="@/assets/noun_check.svg" />
+                <b style="text-transform: uppercase;">{{ $t('quest:completed') }}</b>
               </SmartLink>
             </p>
             <div v-else>

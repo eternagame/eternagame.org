@@ -7,7 +7,7 @@
     hide-footer
   >
     <template #modal-title>
-      <b>{{ $t('register-modal:title').toUpperCase() }}</b>
+      <b class="text-uppercase">{{ $t('register-modal:title') }}</b>
     </template>
     {{ $t('register-modal:register-explanation') }}
     <transition name="fade">

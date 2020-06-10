@@ -13,7 +13,7 @@
             <img :src="quest.image" class="m-3 quest-badge" />
             <div v-if="completed">
               <img src="@/assets/noun_check.svg" class="mr-2" />
-              <b>{{ $t('quest:completed').toUpperCase() }}</b>
+              <b class="text-uppercase">{{ $t('quest:completed') }}</b>
             </div>
             <b-progress :value="quest.to_next" max="1" v-else></b-progress>
           </div>

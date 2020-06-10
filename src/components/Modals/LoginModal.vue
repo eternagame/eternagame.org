@@ -9,7 +9,7 @@
     @shown="shown"
   >
     <template #modal-title>
-      <b>{{ $t('login-row:main-action').toUpperCase() }}</b>
+      <b class="text-uppercase">{{ $t('login-row:main-action') }}</b>
     </template>
     <transition name="fade">
       <b-alert class="mt-3" show variant="danger" v-if="errorMessage">
@@ -42,8 +42,8 @@
       >
         {{ $t('login-sub:main-action') }}
       </p>
-      <b-button type="submit" variant="primary" class="submit-button" :disabled="loading">
-        {{ $t('login-modal:main-action').toUpperCase() }}
+      <b-button type="submit" variant="primary" class="submit-button text-uppercase" :disabled="loading">
+        {{ $t('login-modal:main-action') }}
         <b-spinner v-if="loading" small />
       </b-button>
 

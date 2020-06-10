@@ -2,7 +2,7 @@
   <EternaPage
     :title="title"
     :header_date="created"
-    :header_title="$t('news-view:anouncements').toUpperCase()"
+    :header_title="$t('news-view:anouncements')"
   >
     <div v-if="fetchState.firstFetchComplete">
       <div class="page-content" v-dompurify-html="body"></div>

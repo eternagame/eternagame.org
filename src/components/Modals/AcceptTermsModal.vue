@@ -6,7 +6,7 @@
     footer-border-variant="primary"
   >
     <template #modal-title>
-      <b>{{ $t('terms:title-short').toUpperCase() }}</b>
+      <b class="text-uppercase">{{ $t('terms:title-short') }}</b>
     </template>
     <div class="content">
       <h3 class="p-2 mt-3 mb-0">{{ $t('terms-modal:eula') }}</h3>

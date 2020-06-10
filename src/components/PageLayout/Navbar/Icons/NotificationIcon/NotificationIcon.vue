@@ -74,12 +74,10 @@
 
     private notifications: NotificationItem[] = [];
 
-    checkDataInterval: any = null;
+    checkDataInterval?: number;
 
     async mounted() {
-      if (!this.checkDataInterval) {
-        this.checkDataInterval = setInterval(this.$fetch, REFRESH_FREQUENCY);
-      }
+      this.checkDataInterval = setInterval(this.$fetch, REFRESH_FREQUENCY);
     }
 
     destroyed() {

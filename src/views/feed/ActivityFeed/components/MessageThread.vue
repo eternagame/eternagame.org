@@ -6,7 +6,7 @@
         :key="item.created"
         :message="item"
         :notification="notification"
-        :style="{paddingLeft: !(index === 0) && '50px'}"
+        :style="{paddingLeft: index === 0 ? 0 : '50px'}"
       />
       <div style="margin-top: 5px;">
         <b-button

@@ -6,7 +6,7 @@
     body-class="py-0"
     header-border-variant="primary"
     hide-footer
-    @shown="shown"
+    @shown="onShown"
   >
     <template #modal-title>
       <b class="text-uppercase">{{ $t('login-row:main-action') }}</b>
@@ -120,7 +120,7 @@
       }
     }
 
-    shown() {
+    onShown() {
       this.errorMessage = '';
       this.form.username = '';
       this.form.password = '';

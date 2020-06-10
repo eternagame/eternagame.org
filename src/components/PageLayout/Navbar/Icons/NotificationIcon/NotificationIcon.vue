@@ -1,5 +1,5 @@
 <template>
-  <NavbarIcon @shown="shown">
+  <NavbarIcon @shown="onShown">
     <template #icon>
       <div class="unread" v-if="notificationsCount > 0"></div>
       <img class="icon mr-1" src="@/assets/navbar/Bell.svg" />
@@ -86,7 +86,7 @@
       clearInterval(this.checkDataInterval);
     }
 
-    async shown() {
+    async onShown() {
       await this.$http.post('/post/', new URLSearchParams({ type: 'notification_read' }));
       await this.$fetch();
     }

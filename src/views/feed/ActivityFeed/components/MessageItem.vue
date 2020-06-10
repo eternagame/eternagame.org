@@ -19,7 +19,6 @@
           <slot/>
         </p>
       </div>
-      <!--div v-dompurify-html="content.body || content" style="word-wrap: break-word;" /-->
       <div v-dompurify-html="message" style="word-wrap: break-word;" />
     </div>
   </div>

@@ -84,7 +84,6 @@
       { value: 'categories', text: 'news-view:option-categories' },
       { value: 'announcements', text: 'news-view:option-announcements' },
       { value: 'blog', text: 'news-view:option-blog' },
-      // { value: 'labs', text: 'news-view:option-labs' },
     ];
   }
 </script>

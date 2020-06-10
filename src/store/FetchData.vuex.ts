@@ -6,7 +6,7 @@ const VuexModule = createModule({
   strict: false,
 });
 
-interface CacheData {data: any};
+interface CacheData {data: object};
 interface CacheError {error: Error};
 
 export function isCacheData(cache: CacheData | CacheError): cache is CacheData {

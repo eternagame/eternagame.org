@@ -5,7 +5,7 @@
     :avatar="avatar"
     :message="message.content"
   >
-    <template> {{ senderName }} > {{ recieverName }}: </template>
+    {{ senderName }} > {{ recieverName }}:
   </MessageItem>
 </template>
 <script lang="ts">

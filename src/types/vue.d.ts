@@ -5,6 +5,7 @@
 import VueRouter, { Route, RawLocation, RouteCallback } from 'vue-router';
 import { AxiosInstance, AxiosStatic } from 'axios';
 import { ProxyWatchers } from 'vuex-class-component/dist/interfaces';
+import SwiperClass from 'swiper';
 import createUserStore from '../store/user.vuex';
 import MobileStore from '../store/mobile.vuex';
 import FetchData from '../store/FetchData.vuex';
@@ -38,4 +39,10 @@ declare module 'vue-router' {
   export type RouteCallback<V extends Vue> = (
     to?: RawLocation | false | ((vm: V) => any) | void,
   ) => void;
+}
+
+declare module 'vue-awesome-swiper' {
+  interface SwiperRef extends Vue {
+    $swiper: SwiperClass
+  }
 }

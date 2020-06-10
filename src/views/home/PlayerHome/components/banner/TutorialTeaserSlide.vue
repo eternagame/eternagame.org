@@ -52,8 +52,7 @@
   export default class TutorialTeaserSlide extends Vue {
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
-    @Prop()
-    nextPuzzleID!: string;
+    @Prop({ required: true }) readonly nextPuzzleID!: string;
 
     get imageURL() {
       return bgimage;

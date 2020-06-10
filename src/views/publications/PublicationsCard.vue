@@ -26,21 +26,21 @@
     components: {},
   })
   export default class NewsCard extends Vue {
-    @Prop() private title!: string;
+    @Prop({ required: true }) readonly title!: string;
 
-    @Prop() private abstract!: string;
+    @Prop({ required: true }) readonly abstract!: string;
 
-    @Prop() private authors!: string;
+    @Prop({ required: true }) readonly authors!: string;
 
-    @Prop() private link!: string;
+    @Prop({ required: true }) readonly link!: string;
 
-    @Prop() private pdf_link!: string;
+    @Prop({ required: true }) readonly pdf_link!: string;
 
-    @Prop() private journal!: string;
+    @Prop({ required: true }) readonly journal!: string;
 
-    @Prop() private pub_date!: string;
+    @Prop({ required: true }) readonly pub_date!: string;
 
-    @Prop() private image!: string;
+    @Prop({ required: true }) readonly image!: string;
   }
 </script>
 

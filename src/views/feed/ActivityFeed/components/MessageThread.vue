@@ -37,7 +37,7 @@
     components: { PrivateMessageItem, MessageCompose },
   })
   export default class MessageThread extends Vue {
-    @Prop() private notification!: PrivateMessageNotificationItem;
+    @Prop({ required: true }) readonly notification!: PrivateMessageNotificationItem;
 
     private showCompose = false;
 

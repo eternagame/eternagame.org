@@ -37,13 +37,13 @@
     components: { SmartLink },
   })
   export default class MessageItem extends Vue {
-    @Prop() sender!: string;
+    @Prop({ required: true }) readonly sender!: string;
 
-    @Prop() message!: string;
+    @Prop({ required: true }) readonly message!: string;
 
-    @Prop() created!: string;
+    @Prop({ required: true }) readonly created!: string;
 
-    @Prop() avatar!: string;
+    @Prop({ required: true }) readonly avatar!: string;
 
     @Ref('container') readonly scrollTarget!: HTMLElement;
 

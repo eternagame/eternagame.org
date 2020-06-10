@@ -42,8 +42,7 @@
     },
   })
   export default class LabInfoPanel extends mixins(SidebarPanelMixin) {
-    @Prop()
-    private lab!: LabData;
+    @Prop({ required: true }) readonly lab!: LabData;
 
     progressCircles = [
       {

@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import MobileSidebar from './MobileSidebar.vue';
   import PageFooter from './PageFooter.vue';
 
@@ -45,24 +45,19 @@
     },
   })
   export default class EternaPage extends Vue {
-    @Prop()
-    title!: string;
+    @Prop({ default: '' }) readonly title!: string;
 
-    @Prop()
-    header_title!: string;
+    @Prop({ default: '' }) readonly header_title!: string;
 
-    @Prop()
-    header_date!: string;
+    @Prop({ default: '' }) readonly header_date!: string;
 
-    $refs!: {
-      mobileSidebar: MobileSidebar;
-    };
+    @Ref() mobileSidebar!: MobileSidebar;
 
     unsubscribe!: () => void;
 
     created() {
       this.unsubscribe = this.$vxm.mobile.$subscribe('showPageSidebar', payload => {
-        this.$refs.mobileSidebar.openMenu();
+        this.mobileSidebar.openMenu();
       });
     }
 

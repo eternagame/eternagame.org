@@ -19,7 +19,7 @@
     },
   })
   export default class NavbarIcons extends Vue {
-    @Prop({ default: false }) private isInSideBar!: boolean;
+    @Prop({ default: false }) readonly isInSideBar!: boolean;
   }
 </script>
 

@@ -46,7 +46,7 @@
     }
   })
   export default class TutorialActivity extends Vue {
-    @Prop() tools!: RoadmapAchievement[];
+    @Prop({ required: true }) readonly tools!: RoadmapAchievement[];
 
     get heading() {
       return this.$vxm.user.hasLabAccess ?

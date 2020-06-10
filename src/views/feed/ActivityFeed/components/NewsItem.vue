@@ -38,7 +38,7 @@
     components: { SmartLink, MessageThread },
   })
   export default class NewsItem extends Vue {
-    @Prop() private article!: NewsItemType|BlogItem;
+    @Prop({ required: true }) readonly article!: NewsItemType|BlogItem;
 
     private get link() {
       return `/news/${this.article.nid}`;

@@ -23,11 +23,9 @@
     components: {},
   })
   export default class LabConclusion extends Vue {
-    @Prop()
-    private lab!: LabData;
+    @Prop({ required: true }) readonly lab!: LabData;
 
-    @Prop({ default: '250px' })
-    private height!: string;
+    @Prop({ default: '250px' }) readonly height!: string;
 
     private readMore = false;
 

@@ -27,7 +27,7 @@
     }
   })
   export default class QuestActivity extends Vue {
-    @Prop() sideQuests!: ProcessedRoadmapAchievement[];
+    @Prop({ required: true }) readonly sideQuests!: ProcessedRoadmapAchievement[];
 
     get quests() {
       return this.sideQuests

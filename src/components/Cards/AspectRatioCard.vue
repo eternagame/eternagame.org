@@ -24,8 +24,7 @@
     },
   })
   export default class AspectRatioCard extends Vue {
-    @Prop({ default: 1 })
-    private aspectRatio!: number; // Height / width
+    @Prop({ default: 1 }) readonly aspectRatio!: number; // Height / width
   }
 </script>
 

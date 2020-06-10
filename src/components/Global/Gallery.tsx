@@ -8,9 +8,9 @@ import GalleryColumn from './GalleryColumn.vue';
 export default class Gallery extends Vue {
   functional = true;
 
-  @Prop() private md!: string;
+  @Prop() readonly md?: string;
 
-  @Prop() private sm!: string;
+  @Prop() readonly sm?: string;
 
   public render(h: CreateElement) {
     const { md, sm } = this;

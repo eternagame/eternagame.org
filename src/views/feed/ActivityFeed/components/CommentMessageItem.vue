@@ -25,9 +25,9 @@
     components: { MessageItem },
   })
   export default class CommentMessageItem extends Vue {
-    @Prop() notification!: CommentNotificationItem;
+    @Prop({ required: true }) readonly notification!: CommentNotificationItem;
     
-    @Prop() message!: CommentNotificationMessage;
+   @Prop({ required: true }) readonly message!: CommentNotificationMessage;
 
     get avatar() {
       return Utils.getAvatar(this.notification.target2_picture);

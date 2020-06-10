@@ -26,7 +26,7 @@
   </b-navbar>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import NavbarIcons from './Icons/NavbarIcons.vue';
   import NavbarCollapseContent from './NavbarMenu/NavbarCollapseContent.vue';
   import EternaLogo from './EternaLogo.vue';
@@ -47,12 +47,10 @@
   export default class Navbar extends Vue {
     burgerMenuOpen = false;
 
-    $refs!: {
-      sidebar: MobileSidebar;
-    };
+    @Ref() sidebar!: MobileSidebar;
 
     openSidebar() {
-      this.$refs.sidebar.openMenu();
+      this.sidebar.openMenu();
     }
 
     get loggedIn() {

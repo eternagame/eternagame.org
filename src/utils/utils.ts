@@ -29,7 +29,7 @@ export default {
     }
     return formatted;
   },
-  typeColor(notification: NotificationItem | null): string | null {
+  typeColor(notification: NotificationItem | {type: string} | null): string | null {
     if (!notification) return null;
     switch (notification.type.toLowerCase()) {
       case 'blogs':

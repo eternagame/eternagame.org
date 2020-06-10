@@ -65,15 +65,14 @@
   import debounce from 'lodash.debounce';
   import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
+  // @ts-ignore
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
 
   @Component({ components: { EditField, VueBootstrapTypeahead } })
   export default class MessageCompose extends Vue {
-    @Prop({})
-    parentNID?: number;
+    @Prop() readonly parentNID?: number;
 
-    @Prop({})
-    uid?: number;
+    @Prop() readonly uid?: number;
 
     commentText: string = '';
 
@@ -87,7 +86,7 @@
 
     async fetchData() {
       const res = await axios.get(
-        `/get/?type=usernames${this.targetName ? `&search=${this.targetName}` : ''}`,
+        `/get/?type=usernames&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );
       this.usernames = res.data.data.usernames;
     }

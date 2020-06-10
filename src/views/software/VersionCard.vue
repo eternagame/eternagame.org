@@ -32,14 +32,11 @@
 
   @Component({})
   export default class VersionCard extends Vue {
-    @Prop({})
-    version!: SoftwareVersion;
+    @Prop({ required: true }) readonly version!: SoftwareVersion;
 
-    @Prop({})
-    token!: string;
+    @Prop({ required: true }) readonly token!: string;
 
-    @Prop({})
-    packageid!: string;
+    @Prop({ required: true }) readonly packageid!: string;
 
     // Which asset to download as.
     asset = 'zip';
@@ -69,7 +66,7 @@
 
   .select-asset {
     color: white;
-    display: inline;
+    display: inline-block;
     width: 80px;
   }
 </style>

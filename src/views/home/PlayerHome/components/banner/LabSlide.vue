@@ -51,27 +51,27 @@
     components: { Progress, FlipCountdown },
   })
   export default class LabSlide extends Vue {
-    @Prop({}) banner_image!: string;
+    @Prop({ required: true }) readonly banner_image!: string;
 
-    @Prop({}) title!: string;
+    @Prop({ required: true }) readonly title!: string;
 
-    @Prop({}) carousel_title!: string;
+    @Prop({ required: true }) readonly carousel_title!: string;
 
-    @Prop({}) carousel_subtitle!: string;
+    @Prop({ required: true }) readonly carousel_subtitle!: string;
 
-    @Prop() designs_to_be_synthesized!: number;
+    @Prop({ required: true }) readonly designs_to_be_synthesized!: number;
 
-    @Prop() total_designs!: number;
+    @Prop({ required: true }) readonly total_designs!: number;
 
-    @Prop() max_designs!: number;
+    @Prop({ required: true }) readonly max_designs!: number;
 
-    @Prop() total_submitted_solutions_of_user!: number;
+    @Prop({ required: true }) readonly total_submitted_solutions_of_user!: number;
 
-    @Prop() total_submitted_solutions!: number;
+    @Prop({ required: true }) readonly total_submitted_solutions!: number;
 
-    @Prop({}) project_closes!: number | null;
+   @Prop({ required: true }) readonly project_closes!: number | null;
 
-    @Prop({}) nid!: number;
+    @Prop({ required: true }) readonly nid!: number;
 
     private get displayTitle() {
       return this.carousel_title || this.title;

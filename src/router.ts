@@ -153,7 +153,6 @@ export default function createRouter() {
 
   router.afterEach(() => {
     // @ts-ignore
-    // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
     gtag('config', 'UA-17383892-2');
   });
 

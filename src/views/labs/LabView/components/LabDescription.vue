@@ -42,14 +42,7 @@
     components: { Progress },
   })
   export default class LabDescription extends Vue {
-    @Prop()
-    private lab!: LabData;
-
-    @Prop()
-    private height!: string;
-
-    @Prop()
-    private maximumCollapsedHeight!: number;
+    @Prop({ required: true }) readonly lab!: LabData;
 
     private readMore = false;
 

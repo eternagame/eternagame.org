@@ -34,7 +34,7 @@
     },
   })
   export default class LabRound extends Vue {
-    @Prop() round!: RoundData;
+    @Prop({ required: true }) readonly round!: RoundData;
 
     @Prop({ default: false }) closed!: boolean;
   }

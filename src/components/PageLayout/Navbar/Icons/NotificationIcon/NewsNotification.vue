@@ -14,7 +14,7 @@
     },
   })
   export default class NewsNotification extends Vue {
-    @Prop() article!: NewsItem | BlogItem;
+    @Prop({ required: true }) readonly article!: NewsItem | BlogItem;
 
     private strippedBody = Utils.strippedBody;
   }

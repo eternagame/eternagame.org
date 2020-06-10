@@ -82,7 +82,7 @@
     components: { BIconBook, BIconDownload, SoftwareLicenseModal },
   })
   export default class SoftwareCard extends Vue {
-    @Prop() private project!: SoftwareProject;
+    @Prop({ required: true }) readonly project!: SoftwareProject;
 
     get id() {
       return `software-license-modal-${this.project.nid}`;

@@ -50,32 +50,23 @@
     },
   })
   export default class QuestCard extends Vue {
-    @Prop({})
-    private image!: string;
+    @Prop({required: true}) readonly image!: string;
 
-    @Prop({})
-    private to_next!: number;
+    @Prop({required: true}) readonly to_next!: number;
 
-    @Prop({})
-    private title!: string;
+    @Prop({required: true}) readonly title!: string;
 
-    @Prop({})
-    private desc!: string;
+    @Prop({required: true}) readonly desc!: string;
 
-    @Prop({})
-    private level!: string;
+    @Prop({required: true}) readonly level!: string;
 
-    @Prop({})
-    private questLink!: string;
+    @Prop() readonly questLink?: string;
 
-    @Prop({})
-    private puzzleLink!: string;
+    @Prop() readonly puzzleLink?: string;
 
-    @Prop({})
-    private current_level!: string;
+    @Prop({required: true}) readonly current_level!: string;
 
-    @Prop({})
-    private current_puzzle!: string;
+    @Prop() readonly current_puzzle?: string;
 
     get nav() {
       return Utils.isLinkInternal(this.toGame) ? 'to' : 'href';
@@ -83,7 +74,9 @@
 
     get toGame() {
       return (
-        this.puzzleLink || (this.current_puzzle && `${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`)
+        this.puzzleLink
+        || (this.current_puzzle && `${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`)
+        || '#'
       );
     }
 

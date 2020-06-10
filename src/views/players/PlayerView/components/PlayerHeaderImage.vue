@@ -23,11 +23,11 @@
     components: {},
   })
   export default class PlayerHeaderImage extends Vue {
+    @Prop({ required: true }) readonly user!: UserData;
+
     get picture() {
       return Utils.getAvatar(this.user.picture);
     }
-
-    @Prop() user!: UserData;
   }
 </script>
 

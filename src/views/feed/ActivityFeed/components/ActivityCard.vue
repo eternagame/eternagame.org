@@ -26,7 +26,7 @@
     },
   })
   export default class ActivityCard extends Vue {
-    @Prop() private notification!: NotificationItem;
+    @Prop({ required: true }) readonly notification!: NotificationItem;
 
     get isPrivateMessage() {
       return isPMNotiItem(this.notification);

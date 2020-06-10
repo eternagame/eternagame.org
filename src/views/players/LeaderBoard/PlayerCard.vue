@@ -50,9 +50,9 @@
     },
   })
   export default class PlayerCard extends Vue {
-    @Prop() private player!: UserData;
+    @Prop({ required: true }) readonly player!: UserData;
 
-    @Prop() private index!: number;
+    @Prop({ required: true }) readonly index!: number;
 
     get points() {
       return (this.player.points && parseInt(this.player.points, 10).toLocaleString()) || 0;

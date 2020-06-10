@@ -30,9 +30,9 @@
     components: { PlayerHeaderImage, PlayerHeaderRank, PlayerHeaderIcons, PlayerHeaderTopRow },
   })
   export default class PlayerHeader extends Vue {
-    @Prop() user!: UserData;
+    @Prop({ required: true }) readonly user!: UserData;
 
-    @Prop() followList!: UserData[];
+    @Prop({ required: true }) readonly followList!: UserData[];
   }
 </script>
 

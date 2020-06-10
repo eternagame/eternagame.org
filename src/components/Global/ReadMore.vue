@@ -15,8 +15,7 @@
     components: {},
   })
   export default class ReadMore extends Vue {
-    @Prop()
-    value!: boolean;
+    @Prop({ required: true }) readonly value!: boolean;
   }
 </script>
 

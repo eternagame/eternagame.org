@@ -36,10 +36,9 @@
     components: {},
   })
   export default class POTWSlide extends Vue {
-    @Prop({})
-    title!: string;
+    @Prop({ required: true }) readonly title!: string;
 
-    @Prop({}) nid!: string;
+    @Prop({ required: true }) readonly nid!: string;
 
     get imageURL() {
       return bgimage;

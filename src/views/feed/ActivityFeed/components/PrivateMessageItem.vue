@@ -18,9 +18,9 @@
     components: { MessageItem },
   })
   export default class PrivateMessageItem extends Vue {
-    @Prop() notification!: PrivateMessageNotificationItem;
+    @Prop({ required: true }) readonly notification!: PrivateMessageNotificationItem;
     
-    @Prop() message!: PrivateNotificationMessage;
+    @Prop({ required: true }) readonly message!: PrivateNotificationMessage;
 
     get senderName() {
       return this.message.sender === this.notification.target_uid

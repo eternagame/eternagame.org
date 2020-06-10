@@ -26,13 +26,13 @@
 
   @Component({})
   export default class BaseNotification extends Vue {
-    @Prop() to!: string;
+    @Prop({ required: true }) readonly to!: string;
 
-    @Prop() avatar?: string;
+    @Prop() readonly avatar?: string;
 
-    @Prop() prefix?: string;
+    @Prop() readonly prefix?: string;
 
-    @Prop() content!: string;
+    @Prop({ required: true }) readonly content!: string;
 
     strippedBody = Utils.strippedBody;
   }

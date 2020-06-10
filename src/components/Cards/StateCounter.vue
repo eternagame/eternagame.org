@@ -30,7 +30,7 @@
     components: {},
   })
   export default class StateCounter extends Vue {
-    @Prop({ required: true }) value!: number;
+    @Prop({ required: true }) readonly value!: number;
   }
 </script>
 

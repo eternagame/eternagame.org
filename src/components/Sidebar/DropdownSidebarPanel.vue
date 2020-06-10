@@ -4,7 +4,7 @@
       <SmartLink
         class="option"
         :link="navTarget(link, value)"
-        :key="value"
+        :key="`${value}-${link}`"
         :replace="replace"
         :class="{ selected: routeSelected(index, link) }"
         @click.native="onClick(index, link)"
@@ -18,14 +18,14 @@
           :alt="$t('nav-bar:external-link')"
         />
       </SmartLink>
-      <hr v-if="index < options.length - 1" class="options-divider" :key="`${value} divider`" />
+      <hr v-if="index < options.length - 1" class="options-divider" :key="`${value} ${link} divider`" />
     </template>
   </div>
   <b-dropdown variant="link" :text="dropdownText" right v-else>
     <template v-for="({ text, value, link, suffix }, index) in options">
       <b-dropdown-item
         :[nav(link)]="navTarget(link, value)"
-        :key="value"
+        :key="`${value}-${link}`"
         :replace="replace"
         :disabled="routeSelected(index, link)"
         @click.native="onClick(index, link)"
@@ -48,17 +48,13 @@
     components: { SmartLink },
   })
   class DropdownSidebarPanel extends mixins(SidebarPanelMixin) {
-    @Prop({ required: true })
-    options!: Option[];
+    @Prop({ required: true }) readonly options!: Option[];
 
-    @Prop({ default: 0 })
-    defaultIndex!: number;
+    @Prop({ default: 0 }) readonly defaultIndex!: number;
 
-    @Prop({ required: true })
-    paramName!: string;
+    @Prop({ required: true }) readonly paramName!: string;
 
-    @Prop({ default: false })
-    replace!: boolean;
+    @Prop({ default: false }) readonly replace!: boolean;
 
     selectedIndex = this.defaultIndex;
 
@@ -88,14 +84,14 @@
       return query;
     }
 
-    nav(link: string): string {
+    nav(link?: string): string {
       // Use vue-router for local links, instead of reloading page.
       return link && !link.startsWith('/') ? 'href' : 'to';
     }
 
     // If a link is provided, navigate to that; otherwise, update the query params.
-    navTarget(link: string, value: string) {
-      return link || { name: this.$route.name, query: this.generateQuery(value) };
+    navTarget(link?: string, value?: string) {
+      return link || { name: this.$route.name, query: this.generateQuery(value || '') };
     }
 
     get dropdownText() {

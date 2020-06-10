@@ -19,7 +19,7 @@
       },
   })
   export default class PrivateMessageNotification extends Vue {
-    @Prop() comment!: CommentNotificationItem;
+    @Prop({ required: true }) readonly comment!: CommentNotificationItem;
     
     get name() {
       return this.comment.message[0].sender === this.comment.target_uid

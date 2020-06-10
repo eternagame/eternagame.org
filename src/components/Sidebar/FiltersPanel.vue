@@ -18,17 +18,13 @@
     },
   })
   export default class FiltersPanel extends mixins(SidebarPanelMixin) {
-    @Prop({ default: 'filters' })
-    private header!: string;
+    @Prop({ default: 'filters' }) readonly header!: string;
 
-    @Prop({ default: icon })
-    private headerIcon!: string;
+    @Prop({ default: icon }) readonly headerIcon!: string;
 
-    @Prop({ required: true })
-    private filters!: Filter[];
+    @Prop({ required: true }) readonly filters!: Filter[];
 
-    @Prop({ required: true })
-    private paramName!: string;
+    @Prop({ required: true }) readonly paramName!: string;
 
     private selected: string[] = [];
 

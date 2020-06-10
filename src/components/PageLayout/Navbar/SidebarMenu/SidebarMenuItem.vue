@@ -38,17 +38,13 @@
     components: {},
   })
   export default class SidebarMenuItem extends Vue {
-    @Prop()
-    private text!: string;
+    @Prop({ required: true }) readonly text!: string;
 
-    @Prop()
-    private value!: string | object;
+    @Prop({ required: true }) readonly value!: string | object;
 
-    @Prop()
-    private accordion!: string;
+    @Prop({ required: true }) readonly accordion!: string;
 
-    @Prop()
-    private index!: number;
+    @Prop({ required: true }) readonly index!: number;
 
     contentVisible = false;
 

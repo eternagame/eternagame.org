@@ -1,10 +1,10 @@
 <template>
-  <EternaPage :title="$t('news-explore:title')" v-if="pageData">
-    <div v-if="pageData">
+  <EternaPage :title="$t('news-explore:title')">
+    <div v-if="fetchState.firstFetchComplete">
       <Gallery :sm="12" :md="12">
-        <NewsCard v-for="article in pageData.entries" :key="article.nid" v-bind="article" />
+        <NewsCard v-for="article in newsItems" :key="article.nid" v-bind="article" />
       </Gallery>
-      <Pagination :key="pageData.entries && pageData.entries.length" />
+      <Pagination :key="newsItems.length" />
     </div>
     <div v-else>
       <Preloader />
@@ -35,43 +35,17 @@
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
-  import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import { NewsItem } from '@/types/common-types';
+  import { NewsItem, BlogItem } from '@/types/common-types';
+  import FetchMixin from '@/mixins/FetchMixin';
   import NewsCard from './components/NewsCard.vue';
 
   const INITIAL_NUMBER = 18;
 
   const ROUTE = '/get/?type=newsandblogslist';
-
-  async function fetchPageData(route: Route, http: AxiosInstance) {
-    const { sort, end_date, start_date, size, search } = route.query;
-
-    const res = (
-      await http.get(ROUTE, {
-        params: {
-          search,
-          size: size || INITIAL_NUMBER,
-          from_created: start_date && new Date(start_date as string).getTime() / 1000,
-          to_created: end_date && new Date(end_date as string).getTime() / 1000,
-        },
-      })
-    ).data.data;
-    // TODO https://github.com/eternagame/eternagame.org/issues/157 move filtering to backend
-    switch (sort) {
-    case 'news':
-    case 'blogs':
-      return {
-        ...res,
-        entries: res.entries?.filter((entry: NewsItem) => entry.type === sort),
-      };
-    default:
-      return res;
-    }
-  }
 
   @Component({
     components: {
@@ -86,7 +60,7 @@
       Preloader,
     },
   })
-  export default class NewsExplore extends Mixins(PageDataMixin(fetchPageData)) {
+  export default class NewsExplore extends Mixins(FetchMixin) {
     private tags: string[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
 
     private options: Option[] = [
@@ -94,5 +68,31 @@
       { value: 'news', text: 'side-panel-options:announcements' },
       { value: 'blogs', text: 'side-panel-options:blogs' },
     ];
+
+    private newsItems: (NewsItem|BlogItem)[] = [];
+
+    async fetch() {
+      const { sort, end_date, start_date, size, search } = this.$route.query;
+
+      const res = (
+        await this.$http.get(ROUTE, {
+          params: {
+            search,
+            size: size || INITIAL_NUMBER,
+            from_created: start_date && new Date(start_date as string).getTime() / 1000,
+            to_created: end_date && new Date(end_date as string).getTime() / 1000,
+          },
+        })
+      ).data.data.entries as NewsItem[];
+      // TODO https://github.com/eternagame/eternagame.org/issues/157 move filtering to backend
+      switch (sort) {
+        case 'news':
+        case 'blogs':
+          this.newsItems = res.filter(entry => entry.type === sort);
+          break;
+        default:
+          this.newsItems = res;
+      }
+    }
   }
 </script>

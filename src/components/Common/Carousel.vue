@@ -14,18 +14,18 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
-  import { Swiper, directive } from 'vue-awesome-swiper';
+  import { Swiper, SwiperRef, directive } from 'vue-awesome-swiper';
   import { BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
   import 'swiper/css/swiper.css';
+
   @Component({
     components: { Swiper, BIconChevronRight, BIconChevronLeft },
     directives: { swiper: directive },
   })
   export default class Carousel extends Vue {
-    @Prop() private slideTo!: number;
+    @Prop({required: true}) readonly slideTo?: number;
 
-    // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
-    @Ref('slider') readonly slider!: any;
+    @Ref('slider') readonly slider!: SwiperRef;
 
     mounted() {
       if (this.slideTo) this.slider.$swiper.slideTo(this.slideTo);

@@ -27,15 +27,15 @@
   components: {},
 })
   export default class NewsCard extends Vue {
-  @Prop() private created!: string;
+  @Prop({ required: true }) readonly created!: string;
 
-  @Prop() private title!: string;
+  @Prop({ required: true }) readonly title!: string;
 
-  @Prop() private body!: string;
+  @Prop({ required: true }) readonly body!: string;
 
-  @Prop() private nid!: string;
+  @Prop({ required: true }) readonly nid!: string;
 
-  @Prop({ default: 'blogs' }) private type!: string;
+  @Prop({ default: 'blogs' }) readonly type!: string;
 
   private formattedType = Utils.formattedType;
 

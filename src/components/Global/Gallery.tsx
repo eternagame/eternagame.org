@@ -1,5 +1,5 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { CreateElement, VNode } from 'vue';
+import { CreateElement } from 'vue';
 import GalleryColumn from './GalleryColumn.vue';
 
 @Component({
@@ -8,9 +8,9 @@ import GalleryColumn from './GalleryColumn.vue';
 export default class Gallery extends Vue {
   functional = true;
 
-  @Prop() private md!: string;
+  @Prop() readonly md?: string;
 
-  @Prop() private sm!: string;
+  @Prop() readonly sm?: string;
 
   public render(h: CreateElement) {
     const { md, sm } = this;

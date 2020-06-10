@@ -21,7 +21,7 @@
     components: { PlayerFeaturedAchievement },
   })
   export default class PlayerAboutMe extends Vue {
-    @Prop() user!: object;
+    @Prop({ required: true }) readonly user!: object;
   }
 </script>
 

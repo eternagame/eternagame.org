@@ -28,7 +28,7 @@
     components: {},
   })
   export default class PlayerHeaderImage extends Vue {
-    @Prop() uploadedPicture!: File | null;
+    @Prop({ required: true }) readonly uploadedPicture!: File | null;
 
     get user() {
       return this.$vxm.user.userDetails;

@@ -2,7 +2,7 @@
   <div style="overflow:hidden; margin-top: 120px;">
     <b-container class="page-container">
       <b-col class="sub-heading" cols="12" lg="9" v-if="header_title && header_date">
-        <h3>{{ header_title }}</h3>
+        <h3 class="text-uppercase">{{ header_title }}</h3>
         <p>{{ header_date }}</p>
       </b-col>
       <h2 class="page-title" v-if="title">
@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import MobileSidebar from './MobileSidebar.vue';
   import PageFooter from './PageFooter.vue';
 
@@ -45,25 +45,19 @@
     },
   })
   export default class EternaPage extends Vue {
-    @Prop()
-    title!: string;
+    @Prop({ default: '' }) readonly title!: string;
 
-    @Prop()
-    header_title!: string;
+    @Prop({ default: '' }) readonly header_title!: string;
 
-    @Prop()
-    header_date!: string;
+    @Prop({ default: '' }) readonly header_date!: string;
 
-    $refs!: {
-      mobileSidebar: MobileSidebar;
-    };
+    @Ref() mobileSidebar!: MobileSidebar;
 
     unsubscribe!: () => void;
 
     created() {
       this.unsubscribe = this.$vxm.mobile.$subscribe('showPageSidebar', payload => {
-        console.log('Eterna page: show sidebar was called');
-        this.$refs.mobileSidebar.openMenu();
+        this.mobileSidebar.openMenu();
       });
     }
 

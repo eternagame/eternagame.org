@@ -24,8 +24,7 @@
     },
   })
   export default class SearchPanel extends mixins(SidebarPanelMixin) {
-    @Prop()
-    private placeholder!: string;
+    @Prop() readonly placeholder?: string;
 
     private search: string = '';
 
@@ -36,9 +35,7 @@
     replaceRoute(event: KeyboardEvent) {
       this.$router.replace({
         name: this.$route.name!,
-        // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
-        // @ts-ignore
-        query: { ...this.$route.query, search: event.target.value },
+        query: { ...this.$route.query, search: (event.target as HTMLInputElement).value },
       });
     }
 

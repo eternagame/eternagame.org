@@ -7,7 +7,7 @@
     hide-footer
   >
     <template #modal-title>
-      <b>{{ $t('register-modal:title').toUpperCase() }}</b>
+      <b class="text-uppercase">{{ $t('register-modal:title') }}</b>
     </template>
     {{ $t('register-modal:register-explanation') }}
     <transition name="fade">
@@ -47,6 +47,7 @@
           v-model="form.rePassword"
           required
           ref="rePassword"
+          :state="form.password === form.rePassword"
         />
         <span class="input-group-append">
           <img src="@/assets/front-page/img/lock.svg" />
@@ -64,7 +65,7 @@
         <b-checkbox class="mr-1" v-model="accepted">
           {{ $t('register-modal:disclaimer-accept') }}
         </b-checkbox>
-        <b-link size="sm" to="/about/terms" @click="$bvModal.hide('modal-register')">{{
+        <b-link size="sm" to="/about/terms" @click="modal.hide()">{{
           $t('register-modal:disclaimer')
         }}</b-link>
       </div>
@@ -72,9 +73,10 @@
         type="submit"
         variant="primary"
         class="submit-button mt-2 mb-5"
-        :disabled="submitted"
+        :disabled="loading"
       >
         {{ $t('register-modal:main-action') }}
+        <b-spinner v-if="loading" small />
       </b-button>
       <FacebookAuthentication @fb-verify="registerWithFacebook"></FacebookAuthentication>
     </b-form>
@@ -82,7 +84,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import axios from 'axios';
   import VueRecaptcha from 'vue-recaptcha';
@@ -108,7 +110,7 @@
 
     private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
-    private submitted = false;
+    private loading = false;
 
     private accepted: boolean = false;
 
@@ -120,13 +122,12 @@
 
     FB = null;
 
-    $refs!: {
-      modal: BModal;
-      rePassword: BFormInput;
-    };
+    @Ref() readonly modal!: BModal;
+
+    @Ref() readonly rePassword!: BFormInput;
 
     registerWithFacebook() {
-      this.$bvModal.hide('modal-register');
+      this.modal.hide();
       this.$router.push('/');
     }
 
@@ -137,11 +138,11 @@
         return;
       }
       if (this.form.password !== this.form.rePassword) {
-        (this.$refs.rePassword.$el as HTMLInputElement).setCustomValidity('Password Must Match.');
         this.errorMessage = 'register-modal:error-password-match';
         return;
       }
-      this.submitted = true;
+      
+      this.loading = true;
       await this.register();
     }
 
@@ -167,7 +168,7 @@
       } else {
         this.errorMessage = data.data.error;
         this.attemptNumber += 1;
-        this.submitted = false;
+        this.loading = false;
       }
     }
 
@@ -178,10 +179,11 @@
           password: this.form.password,
         });
         if (data.success) {
-          this.$refs.modal.hide();
+          this.loading = false;
+          this.modal.hide();
           this.$router.push('/');
         } else {
-          this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });
+          this.errorMessage = data.data.error;
         }
       }
     }

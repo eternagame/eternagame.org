@@ -31,10 +31,9 @@
 
   @Component({ components: { SmartLink } })
   export default class PlayerHeaderTopRow extends Vue {
-    @Prop() user!: UserData;
+    @Prop({ required: true }) readonly user!: UserData;
 
-    @Prop()
-    private followList!: UserData[];
+    @Prop({ required: true }) readonly followList!: UserData[];
 
     private follows: boolean = this.followList
       .map((u: UserData) => u.uid)

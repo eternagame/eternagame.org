@@ -7,15 +7,15 @@
     <template #text> </template>
 
     <b-dropdown-item :to="`/players/${$vxm.user.uid}`">
-      {{ $t('user-dropdown:profile').toUpperCase() }}
+      {{ $t('user-dropdown:profile') }}
     </b-dropdown-item>
 
     <b-dropdown-item to="/account">
-      {{ $t('user-dropdown:edit-profile').toUpperCase() }}
+      {{ $t('user-dropdown:edit-profile') }}
     </b-dropdown-item>
 
     <b-dropdown-item @click="logout">
-      {{ $t('user-dropdown:logout').toUpperCase() }}
+      {{ $t('user-dropdown:logout') }}
     </b-dropdown-item>
   </NavbarIcon>
 </template>
@@ -43,5 +43,9 @@
 
   ::v-deep .dropdown .nav-link {
     background-color: $dark-blue;
+  }
+
+  ::v-deep a.dropdown-item {
+    text-transform: uppercase;
   }
 </style>

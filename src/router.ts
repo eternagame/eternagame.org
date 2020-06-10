@@ -49,7 +49,7 @@ export default function createRouter() {
       {
         path: '/',
         name: 'landing',
-        component: () => import('./views/landing/LandingPage.vue'),
+        component: () => import('./views/home/Home.vue'),
       },
       {
         path: '/about',
@@ -94,7 +94,7 @@ export default function createRouter() {
       {
         path: '/feed',
         name: 'activity-feed',
-        component: () => import('./views/news/ActivityFeed/ActivityFeed.vue'),
+        component: () => import('./views/feed/ActivityFeed/ActivityFeed.vue'),
       },
       {
         path: '/players/:uid',
@@ -128,9 +128,17 @@ export default function createRouter() {
       if (savedPosition) {
         return savedPosition;
       }
+
+      if (to.hash) {
+        return { selector: to.hash };
+      }
+      
+      if(to.params.keepScroll) return null;
+
       return { x: 0, y: 0 };
     },
   });
+  
 
   router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {
     const userStore = router.app.$vxm.user;
@@ -145,7 +153,6 @@ export default function createRouter() {
 
   router.afterEach(() => {
     // @ts-ignore
-    // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
     gtag('config', 'UA-17383892-2');
   });
 

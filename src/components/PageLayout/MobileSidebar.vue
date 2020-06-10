@@ -14,15 +14,13 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Watch, Ref } from 'vue-property-decorator';
 
   @Component({
     components: {},
   })
   export default class MobileSidebar extends Vue {
-    $refs!: {
-      mobileSidebar: HTMLDivElement;
-    };
+    @Ref() mobileSidebar!: HTMLDivElement;
 
     mounted() {
       document.addEventListener('click', this.onDocumentClick);
@@ -37,14 +35,13 @@
       if (
         element &&
         !element.classList.contains('sidebar') &&
-        !this.$refs.mobileSidebar.contains(element)
+        !this.mobileSidebar.contains(element)
       ) {
         this.closeMenu();
       }
     }
 
     get isOpen() {
-      console.log(this.$vxm.user.showSidebar);
       return this.$vxm.user.showSidebar;
     }
 

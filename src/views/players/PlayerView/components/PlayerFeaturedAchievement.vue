@@ -19,7 +19,7 @@
     components: {},
   })
   export default class PlayerFeaturedAchievement extends Vue {
-    @Prop() user!: object;
+    @Prop({ required: true }) readonly user!: object;
   }
 </script>
 

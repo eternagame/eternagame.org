@@ -6,7 +6,7 @@
     footer-border-variant="primary"
   >
     <template #modal-title>
-      <b>{{ $t('terms:title-short').toUpperCase() }}</b>
+      <b class="text-uppercase">{{ $t('terms:title-short') }}</b>
     </template>
     <div class="content">
       <h3 class="p-2 mt-3 mb-0">{{ $t('terms-modal:eula') }}</h3>
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
   import axios from 'axios';
   import TermsAndConditionsText from '@/views/terms/TermsAndConditionsText.vue';
@@ -44,16 +44,14 @@
   export default class AcceptTermsModal extends Vue {
     errorMessage: string = '';
 
-    $refs!: {
-      modal: BModal;
-    };
+    @Ref() readonly modal!: BModal;
 
     private accepted: boolean = false;
 
     mounted() {
       const surveyValue = this.$vxm.user.loggedIn && this.$vxm.user.userDetails?.Survey;
       if (surveyValue && !surveyValue.includes('EULA_Agree') && surveyValue !== 'Yes') {
-        this.$refs.modal.show();
+        this.modal.show();
       }
     }
 
@@ -69,7 +67,7 @@
           }),
         );
       }
-      this.$refs.modal.hide();
+      this.modal.hide();
     }
   }
 </script>

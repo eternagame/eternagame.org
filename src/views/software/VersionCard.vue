@@ -26,21 +26,17 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import axios from 'axios';
-
-  import { SoftwareVersion } from '../../components/Modals/SoftwareLicenseModal.vue';
+  import { SoftwareVersion } from '@/components/Modals/SoftwareLicenseModal.vue';
 
   const DOWNLOAD_SOFTWARE_ROUTE = '/get/?type=software_package_download';
 
   @Component({})
   export default class VersionCard extends Vue {
-    @Prop({})
-    version!: SoftwareVersion;
+    @Prop({ required: true }) readonly version!: SoftwareVersion;
 
-    @Prop({})
-    token!: string;
+    @Prop({ required: true }) readonly token!: string;
 
-    @Prop({})
-    packageid!: string;
+    @Prop({ required: true }) readonly packageid!: string;
 
     // Which asset to download as.
     asset = 'zip';
@@ -70,7 +66,7 @@
 
   .select-asset {
     color: white;
-    display: inline;
+    display: inline-block;
     width: 80px;
   }
 </style>

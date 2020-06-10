@@ -22,11 +22,9 @@
     components: {},
   })
   export default class SidebarPanel extends mixins(SidebarPanelMixin) {
-    @Prop({ required: true })
-    private header!: string;
+    @Prop({ required: true }) readonly header!: string;
 
-    @Prop()
-    private headerIcon!: string;
+    @Prop({ required: true }) readonly headerIcon!: string;
 
     get headerTextClasses() {
       return this.isInSidebar ? [] : ['d-none', 'd-md-inline-block'];

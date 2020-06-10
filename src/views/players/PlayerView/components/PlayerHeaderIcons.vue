@@ -12,7 +12,7 @@
 
   @Component({})
   export default class PlayerHeaderIcons extends Vue {
-    @Prop() user!: UserData;
+    @Prop({ required: true }) readonly user!: UserData;
 
     get formattedCreated(): string {
       const start = this.user.created.indexOf(' ');

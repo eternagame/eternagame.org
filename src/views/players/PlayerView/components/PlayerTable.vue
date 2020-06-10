@@ -17,14 +17,15 @@
 
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
+  import { LatestPuzzle } from '@/types/common-types';
 
   @Component({
     components: {},
   })
   export default class PlayerTable extends Vue {
-    @Prop() title!: String;
+    @Prop({ required: true }) readonly title!: String;
 
-    @Prop() entries!: object[];
+    @Prop({ required: true }) readonly entries!: LatestPuzzle[];
   }
 </script>
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <LoginFailedModal />
     <RegisterModal />
     <ResetCompleteModal />
     <ResetPasswordModal />
@@ -11,7 +10,6 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import LoginFailedModal from './LoginFailedModal.vue';
   import AcceptTermsModal from './AcceptTermsModal.vue';
   import RegisterModal from './RegisterModal.vue';
   import ResetCompleteModal from './ResetCompleteModal.vue';
@@ -20,7 +18,6 @@
 
   @Component({
     components: {
-      LoginFailedModal,
       RegisterModal,
       ResetCompleteModal,
       ResetPasswordModal,

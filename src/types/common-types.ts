@@ -370,25 +370,3 @@ export function isPMNotiItem(notification: NotificationItem): notification is Pr
 export function isCommentNotiItem(notification: NotificationItem): notification is CommentNotificationItem {
   return isNotiNotiItem(notification) && notification.message[0].type === NotificationMessageType.COMMENT;
 }
-
-interface I1 {
-  key: 'I1'
-}
-
-interface I2 {
-  key: 'I2';
-}
-
-type T = I1 | I2;
-
-function isI1(t: T): t is I1 {
-  return t.key === 'I1';
-}
-
-interface I3 extends I1 {}
-
-type T2 = I2 | I3;
-
-function isI1_2(t: T2): t is I1 {
-  return t.key === 'I1';
-}

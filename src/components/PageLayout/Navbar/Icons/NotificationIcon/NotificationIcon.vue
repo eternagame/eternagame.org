@@ -106,7 +106,7 @@
       this.notifications = res
         .map(this.splitMessageThreads)
         .flat()
-        .sort((a: NotificationItem, b: NotificationItem) => this.getCreated(b) - this.getCreated(a))
+        .sort((a, b) => this.getCreated(b) - this.getCreated(a))
         .slice(0, NUMBER_NOTIFICATIONS_TO_SHOW);
     }
 

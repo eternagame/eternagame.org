@@ -51,7 +51,7 @@
         {{ $t('login-modal:register-pre-text') }}
         <span
           style="text-decoration:underline"
-          @click="$bvModal.hide('modal-login')"
+          @click="modal.hide()"
           v-b-modal.modal-register
         >
           {{ $t('login-modal:register-action') }}
@@ -75,6 +75,10 @@
     },
   })
   export default class LoginModal extends Vue {
+    @Ref() readonly modal!: BModal;
+
+    @Ref() readonly rePassword!: BFormInput;
+
     form = {
       username: '',
       password: '',
@@ -91,16 +95,12 @@
     registerWithFacebook(data: { success: boolean; error: string }) {
       this.form.password = '';
       if (data.success) {
-        this.$bvModal.hide('modal-login');
+        this.modal.hide();
         this.$router.push('/');
       } else {
         this.errorMessage = data.error;
       }
     }
-
-    @Ref() readonly modal!: BModal;
-
-    @Ref() readonly rePassword!: BFormInput;
 
     async login() {
       if (this.form.username && this.form.password) {
@@ -112,7 +112,7 @@
         this.loading = false;
         if (data.success) {
           this.form.username = '';
-          this.$bvModal.hide('modal-login');
+          this.modal.hide();
           this.$router.push('/');
         } else {
           this.errorMessage = data.error;

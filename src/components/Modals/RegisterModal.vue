@@ -65,7 +65,7 @@
         <b-checkbox class="mr-1" v-model="accepted">
           {{ $t('register-modal:disclaimer-accept') }}
         </b-checkbox>
-        <b-link size="sm" to="/about/terms" @click="$bvModal.hide('modal-register')">{{
+        <b-link size="sm" to="/about/terms" @click="modal.hide()">{{
           $t('register-modal:disclaimer')
         }}</b-link>
       </div>
@@ -127,7 +127,7 @@
     @Ref() readonly rePassword!: BFormInput;
 
     registerWithFacebook() {
-      this.$bvModal.hide('modal-register');
+      this.modal.hide();
       this.$router.push('/');
     }
 

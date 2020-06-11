@@ -47,6 +47,37 @@
     </div>
     <!-- End Promo -->
 
+
+    <!-- BLM Letter (TODO: localize?)-->
+    <div class="container bs-docs-section mt-5">
+    <div style="padding:15px;background:black;">
+      <div class="media row">
+        
+        <div class="media-body p-4">
+          
+            <h3 class="mt-0" style="font-weight: bold;">Black lives matter.</h3>
+            <p style="font-size: 16px;">
+  Disparities endemic to American society and the world at large affect Eterna. Unequal access to education, to technology, and to free time limits who can contribute to Eterna.
+  <br /><br />
+  Our current goal is to design refrigerator-stable mRNA vaccines that would accelerate COVID-19 immunization to all communities. The winning solutions could come from anywhere in the world, from anyone who possesses a gift for puzzles.
+  <br /><br />
+  For OpenVaccine and all other current and future challenges, Eterna is therefore committed to cultivating a diverse playerbase both to find solutions that have eluded experts and to ethically set the research priorities of its worldwide projects.
+  <br /><br />
+  Soon Eterna will be playable on mobile phones, making our reach global and more accessible to players without laptop/desktop devices. Eterna is accelerating several new programs and partnerships that aim to increase accessibility in all senses and to increase participation in and leadership within Eterna from disadvantaged groups. We strive to be the scientific discovery game of the people.
+  <br /><br />
+  Learn more about the issues: <a href="https://blacklivesmatter.com/what-matters-2020/" target="_blank">blacklivesmatter.com//what-matters-2020/</a></p>
+          
+        </div>
+        <img
+          src="https://blacklivesmatter.com/wp-content/themes/blm/dist/images/logo-black-lives-matter.png"
+          class="align-self-center mr-3 mb-3 col-sm-12 col-lg-3"
+          alt="Black Lives Matter" border="0"
+        /><br />
+      </div>
+      </div>
+    </div>
+    <!-- End Promo -->
+
     <DocsSection />
   </div>
 </template>

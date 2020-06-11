@@ -43,14 +43,11 @@
   components: { Comment },
 })
   export default class Comments extends Vue {
-  @Prop({ default: [] })
-  private comments!: CommentItem[];
+  @Prop({ default: [] }) readonly comments!: CommentItem[];
 
-  @Prop()
-  private nid!: string;
+  @Prop({ required: true }) readonly nid!: string;
 
-  @Prop()
-  private name!: string;
+  @Prop() readonly name?: string;
 
   private newComments = null;
 

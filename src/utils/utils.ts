@@ -1,5 +1,5 @@
 import DefaultAvatar from '@/assets/navbar/DefaultIcon.svg';
-import { ActivityItem } from '@/types/common-types';
+import { NotificationItem } from '@/types/common-types';
 
 export default {
   isExternal(link: string) {
@@ -20,18 +20,18 @@ export default {
     // since tags like <ul> and <img> can break formatting.
     return text && text.replace(/(<([^>]+)>)/gi, '');
   },
-  formattedType(article: ActivityItem): string {
-    if (!article) return '';
-    const formatted = article.type.toUpperCase();
+  formattedType(notification: NotificationItem): string {
+    if (!notification) return '';
+    const formatted = notification.type.toUpperCase();
     if (formatted === 'BLOGS') {
       // Unpluralize, since it sounds better
       return 'BLOG';
     }
     return formatted;
   },
-  typeColor(article: ActivityItem | null): string | null {
-    if (!article) return null;
-    switch (article.type.toLowerCase()) {
+  typeColor(notification: NotificationItem | {type: string} | null): string | null {
+    if (!notification) return null;
+    switch (notification.type.toLowerCase()) {
       case 'blogs':
         return '#53b64e';
       case 'labs':

@@ -43,7 +43,6 @@
   import axios, { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
-  import PageDataMixin from '@/mixins/PageData';
   import Notifications from 'vue-notification';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import EditPlayerHeader from './components/EditPlayerHeader.vue';
@@ -96,12 +95,11 @@
       if (this.picture) data.append(`files[picture_upload]`, this.picture);
       data.set('type', 'edit');
 
-      axios
-        .post(EDIT_PROFILE, data, {
-          headers: {
-            'Content-type': 'multipart/form-data',
-          },
-        })
+      this.$http.post(EDIT_PROFILE, data, {
+        headers: {
+          'Content-type': 'multipart/form-data',
+        },
+      })
         .then(() => {
           /* his.$router.push(`/players/${this.$vxm.user.uid}`) */
           window.location.reload();

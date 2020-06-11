@@ -56,26 +56,26 @@
     },
   })
   export default class PuzzleCard extends Vue {
-    @Prop() private title!: string;
+    @Prop({required: true}) readonly title!: string;
 
-    @Prop() private nid!: string;
+    @Prop({required: true}) readonly nid!: string;
 
-    @Prop() private reward!: number;
+    @Prop() readonly reward?: number;
 
-    @Prop() private folder!: string;
+    @Prop() readonly folder?: string;
 
-    @Prop() private number_of_states!: number;
+    @Prop() readonly number_of_states?: number;
 
-    @Prop() private image!: string;
+    @Prop() readonly image?: string;
 
-    @Prop({ default: 1 }) private aspectRatio!: number;
+    @Prop({ default: 1 }) readonly aspectRatio!: number;
 
-    @Prop({ default: false }) private locked!: boolean;
+    @Prop({ default: false }) readonly locked!: boolean;
 
-    @Prop({ default: false }) private cleared!: boolean;
+    @Prop({ default: false }) readonly cleared!: boolean;
 
     // Whether clicking on the card background should link to the puzzle.
-    @Prop({ default: true }) private backgroundLink!: boolean;
+    @Prop({ default: true }) readonly backgroundLink!: boolean;
 
     get numCleared() {
       return this.$attrs['num-cleared'];

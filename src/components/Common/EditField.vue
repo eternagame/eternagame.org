@@ -44,14 +44,13 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
-  // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
   // @ts-ignore
   import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
-  // eslint-disable-next-line max-len
-  // prettier-ignore
-  // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
+  import {
+    Heading, Bold, Underline, Image, HardBreak, OrderedList,
+    ListItem, Code, Italic, Link, Strike, BulletList, History, Placeholder
   // @ts-ignore
-  import { Heading, Bold, Underline, Image, HardBreak, OrderedList, ListItem, Code, Italic, Link, Strike, BulletList, History, Placeholder } from 'tiptap-extensions';
+  } from 'tiptap-extensions';
 
   import EditorMenuButton from './EditorMenuButton.vue';
 
@@ -62,7 +61,7 @@
   })
   export default class EditField extends Vue {
     // TODO i18n
-    @Prop({ default: '' }) private content!: string;
+    @Prop({ default: '' }) readonly content!: string;
 
     get editor() {
       const parent = this;

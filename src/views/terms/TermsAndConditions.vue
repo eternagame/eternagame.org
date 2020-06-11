@@ -2,7 +2,7 @@
   <div>
     <EternaPage
       :title="$t('terms:title')"
-      :header_title="$t('terms:title-short').toUpperCase()"
+      :header_title="$t('terms:title-short')"
       :header_date="$t('terms:header-date')"
     >
       <div class="page-content mt-2">

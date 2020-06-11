@@ -4,7 +4,7 @@ import { extractVuexModule, createProxy } from 'vuex-class-component';
 import { AxiosInstance } from 'axios';
 import createUserStore from './user.vuex';
 import MobileStore from './mobile.vuex';
-import PageData from './page-data.vuex';
+import FetchData from './FetchData.vuex';
 
 Vue.use(Vuex);
 
@@ -12,20 +12,20 @@ export default function createStore(axios: AxiosInstance) {
   // const BoundUserStore = UserStore.bound(axios);
   const BoundUserStore = createUserStore(axios);
   const BoundMobileStore = MobileStore;
-  const BoundPageData = PageData;
+  const BoundFetchData = FetchData;
 
   const store = new Vuex.Store({
     modules: {
       ...extractVuexModule(BoundUserStore),
       ...extractVuexModule(BoundMobileStore),
-      ...extractVuexModule(BoundPageData),
+      ...extractVuexModule(BoundFetchData),
     },
   });
 
   const vxm = {
     user: createProxy(store, BoundUserStore),
     mobile: createProxy(store, BoundMobileStore),
-    pageData: createProxy(store, BoundPageData),
+    fetchData: createProxy(store, BoundFetchData),
   };
 
   return {

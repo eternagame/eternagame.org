@@ -21,7 +21,7 @@
     },
   })
   export default class TagsPanel extends mixins(SidebarPanelMixin) {
-    @Prop() tags!: string[];
+    @Prop({ required: true }) readonly tags!: string[];
   }
 </script>
 

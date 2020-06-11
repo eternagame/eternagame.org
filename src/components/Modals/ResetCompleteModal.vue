@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
 
   @Component({
@@ -27,18 +27,16 @@
   export default class ResetCompleteModal extends Vue {
     errorMessage: string = '';
 
-    $refs!: {
-      modal: BModal;
-    };
+    @Ref() readonly modal!: BModal;
 
     created() {
       this.$vxm.user.$subscribe('showResetCompleteModal', payload => {
-        this.$refs.modal.show();
+        this.modal.show();
       });
     }
 
     hideModal() {
-      this.$refs.modal.hide();
+      this.modal.hide();
     }
   }
 </script>

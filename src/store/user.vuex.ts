@@ -28,9 +28,7 @@ export default function createUserStore($http: AxiosInstance) {
     public triedAuthenticating = false;
 
     public promptSignAgreement = false;
-
-    @mutation showLoginFailedModal({ errorMessage }: { errorMessage: String }) {}
-
+    
     @mutation showResetCompleteModal() {}
 
     @action() async logout() {

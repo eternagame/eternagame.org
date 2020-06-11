@@ -32,11 +32,9 @@
     components: {},
   })
   export default class NavbarIcons extends Vue {
-    @Prop()
-    private text!: string;
+    @Prop({ required: true }) readonly text!: string;
 
-    @Prop()
-    private value!: string | object;
+    @Prop({ required: true }) readonly value!: string | object;
 
     nav(link: string): string {
       // Use vue-router for local links, instead of reloading page.

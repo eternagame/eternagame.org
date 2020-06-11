@@ -1,7 +1,7 @@
 <template>
   <EternaPage
     :title="$t('code-of-conduct:section1-title')"
-    :header_title="$t('code-of-conduct:title').toUpperCase()"
+    :header_title="$t('code-of-conduct:title')"
     :header_date="$t('terms:header-date')"
   >
     <!-- Note: Header date is copied from Terms & Conditions, so may not be correct. -->

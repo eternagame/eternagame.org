@@ -28,20 +28,15 @@
     components: {},
   })
   export default class Comment extends Vue {
-    @Prop()
-    private name!: string;
+    @Prop({ required: true }) readonly name!: string;
 
-    @Prop()
-    private created!: string;
+    @Prop({ required: true }) readonly created!: string;
 
-    @Prop()
-    private comment!: CommentItem;
+    @Prop({ required: true }) readonly comment!: CommentItem;
 
-    @Prop()
-    private uid!: string;
+    @Prop({ required: true }) readonly uid!: string;
 
-    @Prop()
-    private picture!: string;
+    @Prop({ required: true }) readonly picture!: string;
 
     get canDelete() {
       return String(this.$vxm.user.uid) === this.comment.cid;

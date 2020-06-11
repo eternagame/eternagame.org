@@ -21,7 +21,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Mixins, Ref } from 'vue-property-decorator';
   import { Chat } from 'eterna-chat-wrapper';
 
   import NavbarIcon from './NavbarIcon.vue';
@@ -32,14 +32,11 @@
     },
   })
   export default class ChatIcon extends Vue {
-    @Prop({ default: false })
-    private isInSideBar!: boolean;
+    @Prop({ default: false }) readonly isInSideBar!: boolean;
 
-    private show: Boolean = false;
+    private show: boolean = false;
 
-    $refs!: {
-      chatContainer: HTMLElement;
-    };
+    @Ref() readonly chatContainer!: HTMLElement;
 
     goToChat() {
       if (this.isInSideBar) {
@@ -51,7 +48,7 @@
 
     addChat() {
       const chat = new Chat({
-        container: this.$refs.chatContainer,
+        container: this.chatContainer,
         username: this.$vxm.user.username ? this.$vxm.user.username : '',
         uid: this.$vxm.user.uid ? this.$vxm.user.uid.toString() : '0',
         onHidden: () => this.$root.$emit('bv::hide::popover', 'chat-container'),

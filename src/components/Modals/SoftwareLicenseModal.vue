@@ -25,7 +25,7 @@
       </div>
     </div>
     <template #modal-footer>
-      <b-form @submit="acceptTerms" v-if="!token">
+      <b-form @submit.prevent="acceptTerms" v-if="!token">
         <b-input placeholder="Name" v-model="licenseRequest.name" required />
         <b-input
           type="email"
@@ -53,7 +53,6 @@
         <p>
           Your request for a software license has been granted. <br />
           Select the version you would like to download. <br />
-          (Note: Downloads may be >100MB and take a while.)
         </p>
       </div>
     </template>
@@ -61,10 +60,10 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
   import axios from 'axios';
-  import VersionCard from '../../views/software/VersionCard.vue';
+  import VersionCard from '@/views/software/VersionCard.vue';
 
   const POST_ROUTE = '/post/';
   const LIST_RELEASES_ROUTE = '/get/?type=software_package_releases';
@@ -79,21 +78,14 @@
 
   @Component({ components: { VersionCard } })
   export default class SoftwareLicenseModal extends Vue {
-    $refs!: {
-      modal: BModal;
-    };
-
-    @Prop({})
-    licenseTerms!: string;
+    @Prop({ required: true }) readonly licenseTerms!: string;
 
     // Unique string used to refer to this popup.
     // TODO: Possibly merge with packageid, below.
-    @Prop({})
-    id!: string;
+    @Prop({ required: true }) readonly id!: string;
 
     // The id used by the server to refer to this software package.
-    @Prop({})
-    packageid!: string;
+    @Prop({ required: true }) readonly packageid!: string;
 
     private accepted = false;
 

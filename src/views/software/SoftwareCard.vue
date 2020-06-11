@@ -53,7 +53,11 @@
       <div class="row mt-4">
         <div class="col-lg-5 mb-3">
           <a :href="project.paper_url">
-            <img v-if="project.thumbnail" class="thumbnail" :src="`/sites/default/files/${project.thumbnail}`" />
+            <img
+              v-if="project.thumbnail"
+              class="thumbnail"
+              :src="`/sites/default/files/${project.thumbnail}`"
+            />
           </a>
         </div>
         <div class="col-lg-7 text">
@@ -71,14 +75,14 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { BIconDownload, BIconBook } from 'bootstrap-vue';
+  import SoftwareLicenseModal from '@/components/Modals/SoftwareLicenseModal.vue';
   import { SoftwareProject } from './SoftwareExplore.vue';
-  import SoftwareLicenseModal from '../../components/Modals/SoftwareLicenseModal.vue';
 
   @Component({
     components: { BIconBook, BIconDownload, SoftwareLicenseModal },
   })
   export default class SoftwareCard extends Vue {
-    @Prop() private project!: SoftwareProject;
+    @Prop({ required: true }) readonly project!: SoftwareProject;
 
     get id() {
       return `software-license-modal-${this.project.nid}`;

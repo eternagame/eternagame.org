@@ -25,7 +25,6 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
   // @ts-ignore
   import VueCircle from 'vue2-circle-progress/src/index.vue';
   // @ts-ignore
@@ -42,15 +41,13 @@
     components: { VueCircle },
   })
   export default class Progress extends Vue {
-    @Prop() private name!: string;
+    @Prop({ required: true }) readonly name!: string;
 
-    @Prop({ required: true }) private color!: string;
+    @Prop({ required: true }) readonly color!: string;
 
-    @Prop({ default: 0 })
-    private progress!: number;
+    @Prop({ default: 0 }) readonly progress!: number;
 
-    @Prop({ required: true })
-    private total!: number;
+    @Prop({ required: true }) readonly total!: number;
   }
 </script>
 <style lang="scss" scoped>

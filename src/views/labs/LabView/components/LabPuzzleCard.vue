@@ -38,11 +38,11 @@
     },
   })
   export default class LabPuzzleCard extends Vue {
-    @Prop() private puzzle!: PuzzleData;
+    @Prop({ required: true }) readonly puzzle!: PuzzleData;
 
-    @Prop({ default: '275px' }) private width!: string;
+    @Prop({ default: '275px' }) readonly width!: string;
 
-    @Prop({ default: true }) private closed!: boolean;
+    @Prop({ default: true }) readonly closed!: boolean;
 
     private secondaryRoute: string = this.closed
       ? PUZZLE_ROUTE_SOLUTIONS_PREFIX

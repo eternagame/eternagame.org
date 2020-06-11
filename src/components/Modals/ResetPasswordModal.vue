@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
 
@@ -39,9 +39,7 @@
 
     errorMessage = '';
 
-    $refs!: {
-      modal: BModal;
-    };
+    @Ref() readonly modal!: BModal;
 
     async resetPassword() {
       // $('#loader').modal('show');
@@ -59,7 +57,7 @@
       // $('#loader').modal('hide');
       const { data } = response;
       if (data.data.success) {
-        this.$refs.modal.hide();
+        this.modal.hide();
         this.$vxm.user.showResetCompleteModal();
       } else {
         this.errorMessage = data.data.error;

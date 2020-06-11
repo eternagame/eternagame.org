@@ -5,7 +5,6 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
 
-  // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
   // @ts-ignore
   import VFacebookLogin from 'vue-facebook-login-component';
 
@@ -24,7 +23,6 @@
       this.$emit('fb-verify', data);
     }
 
-    // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
     // @ts-ignore
     handleSdkInit({ FB }) {
       this.FB = FB;

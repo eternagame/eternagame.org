@@ -31,7 +31,7 @@
     },
   })
   export default class LabCard extends Vue {
-    @Prop() private lab!: LabCardData;
+    @Prop({ required: true }) readonly lab!: LabCardData;
 
     get labUrl() {
       return `/labs/${this.lab.nid}`;

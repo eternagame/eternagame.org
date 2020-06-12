@@ -6,12 +6,11 @@
     <div class="container bs-docs-section mt-5">
       <div class="media row">
         <div class="media-body p-4">
-          <h3 class="mt-0" style="font-weight: bold;">Eterna takes on COVID-19</h3>
+          <h3 class="mt-0" style="font-weight: bold;">OpenVaccine: Eterna takes on COVID-19</h3>
           <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
           <p style="font-size: 22px;">
             With the onset of the COVID-19 pandemic, the Eterna project is looking to harness online
-            gamers toward a solution. Their mission? To develop a safe mRNA vaccine as well as
-            future challenges to create new antivirals and improved diagnostics. For more info, see
+            gamers toward a solution. Their mission? To develop mRNA vaccines stable enough to be deployed to everyone in the world and not just a privileged few. For more info, see
             the <router-link to="/news/9804036/">announcement</router-link> and
             <a href="https://challenges.eternagame.org/">crowdfunding campaign</a>.
           </p>

@@ -12,7 +12,7 @@
         $t('puzzle-slide:solve-now')
       }}</b-button>
       <router-link class="d-none d-sm-block" to="/puzzles/?search=:POTW">
-        <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
+        <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px; margin-top:10px;">
           <i class="arrow_right"></i>{{ $t('puzzle-slide:past-potw') }}
         </p>
       </router-link>
@@ -52,6 +52,7 @@
   .slide {
     max-width: 1200px;
     max-height: 519px;
+    text-shadow: none !important;
   }
 
   .img {

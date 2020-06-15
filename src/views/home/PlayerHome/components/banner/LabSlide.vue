@@ -166,6 +166,7 @@
   .slide {
     max-width: 1200px;
     max-height: 519px;
+    min-height: 500px;
     text-shadow: none !important;
   }
 
@@ -192,7 +193,7 @@
   }
 
   ::v-deep img {
-    min-height: 300px;
+    min-height: 500px;
     object-fit: cover;
   }
 

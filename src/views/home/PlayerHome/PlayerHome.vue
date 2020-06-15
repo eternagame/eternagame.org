@@ -98,6 +98,14 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
+  ::v-deep section {
+    text-align:center;
+  }
+
+  ::v-deep .player-progress-bar {
+    max-width: 100%;
+  }
+
   #header-carousel {
     // Overflow page margins as a hero element.
     margin-top: -$page-margin-top;

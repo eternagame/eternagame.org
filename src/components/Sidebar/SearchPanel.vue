@@ -1,11 +1,16 @@
 <template>
-  <input
-    type="text"
-    :placeholder="placeholder || $t('search:search')"
-    class="local-search"
-    :value="searchValue"
-    @input="onSearch"
-  />
+  <div class="custom-input-group">
+    <input
+      type="text"
+      :placeholder="placeholder || $t('search:search')"
+      class="local-search"
+      :value="searchValue"
+      @input="onSearch"
+    />
+    <span class="input-group-append">
+      <img src="@/assets/sidebar/search.svg" />
+    </span>
+  </div>
 </template>
 
 <script lang="ts">
@@ -52,5 +57,16 @@
 <style scoped lang="scss">
   input {
     margin-bottom: 10px;
+  }
+  .custom-input-group {
+    position: relative;
+  }
+
+  .custom-input-group {
+    span {
+      position: absolute;
+      top: 7.375px;
+      right: 11.25px;
+    }
   }
 </style>

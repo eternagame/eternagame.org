@@ -4,7 +4,7 @@
     :img-src="imageURL"
     style=" background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0))"
   >
-    <div style="padding: 5rem 2rem;">
+    <div>
       <p class="video-title">
         {{ $t('player-home:banner-title') }}<br /><i>{{ $t('player-home:banner-together') }}</i>
       </p>
@@ -62,6 +62,22 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  ::v-deep .carousel-caption {
+    text-align: left;
+  }
+
+  ::v-deep img {
+    min-height: 500px;
+    object-fit: cover;
+  }
+
+  .slide {
+    max-width: 1200px;
+    max-height: 519px;
+    min-height: 519px;
+    text-shadow: none !important;
+  }
 
   .video-title {
     line-height: 3rem;

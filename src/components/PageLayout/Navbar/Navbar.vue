@@ -74,7 +74,7 @@
       },
       community: {
         leaderboards: '/players',
-        forum: '/eterna_getsat_redirect.php',
+        forum: 'https://forum.eternagame.org',
         wiki: 'http://eternawiki.org',
         groups: `${process.env.VUE_APP_API_BASE_URL}/web/group/`,
       },

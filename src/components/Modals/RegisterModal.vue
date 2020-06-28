@@ -78,7 +78,7 @@
         {{ $t('register-modal:main-action') }}
         <b-spinner v-if="loading" small />
       </b-button>
-      <FacebookAuthentication @fb-verify="registerWithFacebook"></FacebookAuthentication>
+      <FacebookAuthentication @fb-verify="registerWithFacebook" class="btn"></FacebookAuthentication>
     </b-form>
   </b-modal>
 </template>

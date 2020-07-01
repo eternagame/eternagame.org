@@ -1,6 +1,6 @@
 <template>
   <SidebarPanel :isInSidebar="isInSidebar" :header="header" :headerIcon="headerIcon">
-    <b-checkbox-group v-model="selected" :options="filters" @input="onCheck" stacked />
+    <b-checkbox-group v-model="selected" :options="filters" @input="onCheck" value=checked stacked />
   </SidebarPanel>
 </template>
 
@@ -30,7 +30,7 @@
     @Prop({ required: true })
     private paramName!: string;
 
-    private selected: string[] = [];
+    private selected: string[] = ['notcleared'];
 
     created() {
       const data = this.$route.query[this.paramName];

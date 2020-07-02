@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UserIcon class="float-lg-right icon" />
+    <UserIcon class="float-lg-right icon"/>
     <BellIcon class="float-lg-right icon" />
     <ChatIcon class="float-lg-right icon" :isInSideBar="isInSideBar" style="float:left" />
   </div>
@@ -19,7 +19,7 @@
     },
   })
   export default class NavbarIcons extends Vue {
-    @Prop({ default: false }) private isInSideBar;
+    @Prop({ default: false }) private isInSideBar !: boolean;
   }
 </script>
 

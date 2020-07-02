@@ -121,6 +121,16 @@ export default function createRouter() {
         name: 'chat',
         component: () => import('./views/chat/FullPageChat.vue'),
       },
+      {
+        path: '/scripts',
+        name: 'scripts',
+        component: () => import('./views/scripts/ScriptsList.vue'),
+      },
+      {
+        path: '/script/:nid',
+        name: 'script',
+        component: () => import('./views/scripts/ScriptView.vue'),
+      },
     ],
     scrollBehavior(to, from, savedPosition) {
       // Navigate to previous scroll position, or else top of page

@@ -1,0 +1,240 @@
+<template>
+  <EternaPage v-if="script" :title="script.title">
+    <div class="page-content">
+      <div class="d-flex flex-wrap " xs="12" sm="8">
+
+        <div class="order-sm-1 col-sm-12">
+          <hr class="top-border d-sm-none" />
+          <div
+            class="script-description" style="word-wrap: break-word;"
+            v-dompurify-html="script.body"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="page-content" style="margin-top: 10px">
+      <div class="d-flex flex-wrap " xs="12" sm="8">
+        <div class="order-sm-1 cols-sm-10" style="width: 100%">
+          <div class="clear-header" id="clear-header-input">
+            <h6>Input</h6>
+            <button class="btn clear-button" @click="clearInputs">
+              Clear
+            </button>
+          </div>
+          <ul style="list-style-type: none; padding: 0">
+            <li v-for="input in Object.keys(inputs)" :key="input">
+              <span style="display: inline-block; width: 150px">{{ input }}</span>
+              <input v-model="inputs[input]">
+            </li>
+          </ul>
+        </div>
+        <div class="order-sm-2 cols-sm-10" style="width: 100%">
+          <codemirror style="width: 100%" :options="codeOptions" v-model="code" />
+          <button class="btn green" @click="evaluate">Evaluate</button>
+        </div>
+        <div class="order-sm-3 cols-sm-10" style="width: 100%">
+          <div class="clear-header">
+          <h6>Output</h6>
+          <button class="btn clear-button" @click="results = ''">Clear</button>
+          </div>
+          <div class="script-output" v-dompurify-html="results" />
+        </div>
+      </div>
+    </div>
+
+    <Comments
+      :comments="data.comments || []"
+      :nid="script.nid"
+    />
+
+    <template #sidebar="{ isInSidebar }">
+      <SidebarPanel
+        :isInSidebar="isInSidebar"
+        header="Script Info"
+        :headerIcon="require('@/assets/info.svg')"
+      >
+        <template #header-icon>
+          <img src="@/assets/info.svg" >
+        </template>
+        <ul style="padding: 0; list-style-type:none">
+          <li v-if="script.author && script.author.name">
+            <img src="@/assets/navbar/DefaultIcon.svg" class="icon">{{ script.author.name }}
+          </li>
+          <li v-if="script.pageview">
+            <img src="@/assets/people.svg" class="icon" /> &emsp;
+            {{ script.pageview }}
+          </li>
+          <li v-if="scriptDate !== ''"> &emsp;
+            <img src="@/assets/calendar.svg" class="icon" />{{ scriptDate }}
+          </li>
+          <li v-if="script.type">
+            <img src="@/assets/test-tube.svg" class="icon" />{{ script.type }}
+          </li>
+          <li v-if="script.success_rate">
+            <span style="font-weight: bold; text-align: center" class="icon">%</span> {{script.success_rate}}
+          </li>
+        </ul>
+      </SidebarPanel>
+    </template>
+  </EternaPage>
+  <Preloader v-else style="margin-top: 10rem;" />
+</template>
+<script lang="ts">
+  import {Component, Prop, Vue} from 'vue-property-decorator';
+  import EternaPage from '@/components/PageLayout/EternaPage.vue';
+  import get from 'lodash.get';
+  import Preloader from '@/components/PageLayout/Preloader.vue';
+  import { VXM } from '@/types/vue.d';
+  import { RouteCallback, Route } from 'vue-router';
+  import axios, { AxiosInstance } from 'axios';
+  import { codemirror } from 'vue-codemirror';
+  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
+  import Comments from '@/components/PageLayout/Comments.vue';
+
+  const js = require('codemirror/mode/javascript/javascript.js');
+
+  const INITIAL_SORT = 'date';
+  const INITIAL_SIZE = 10;
+  const INITIAL_SKIP = 0;
+
+  const ROUTE = '/get/?type=script';
+
+  async function fetchPageData(route: Route, http: AxiosInstance, vxm: VXM) {
+    const { filters } = route.query;
+    const params = {
+      need: 'script',
+      id: route.params.nid,
+      rnd: 0.704488224442372,
+    };
+
+    const res = (
+      await http.get(ROUTE, {
+        params,
+      })
+    ).data.data;
+    return res;
+  }
+
+
+  @Component({
+    components: {
+      EternaPage,
+      codemirror,
+      SidebarPanel,
+      Comments
+    }
+  })
+  export default class ScriptView extends Vue {
+    evaluate() {
+      this.results += 'Not implemented yet <br>';
+      const timeout = parseInt(this.inputs.Timeout || '10', 10);
+      // TODO
+    }
+
+    data : any = {};
+
+    code = '';
+
+    created() {
+      fetchPageData(this.$route, this.$http, this.$vxm).then(e => {
+        this.data = e;
+        this.code = this.data.script[0].source;
+        if (this.data.script[0].input !== '[]' && JSON.parse(this.data.script[0].input)) {
+          const inputs = JSON.parse(this.data.script[0].input);
+          inputs.forEach(i => {
+            Vue.set(this.inputs, i.value, '');
+          });
+        }
+      });
+    }
+
+    get codeOptions() {
+      return {
+        tabSize: 4,
+        mode: 'text/javascript',
+        lineNumbers: true,
+        line: true,
+        readOnly: !this.enabled,
+      };
+    }
+
+    get script() {
+      return this.data.script ? this.data.script[0] : {};
+    }
+
+    get scriptDate() {
+      if (!this.script || !this.script.time) return '';
+      const dateString = this.script.time;
+      // Has to be multiplied by 1000 for Date constructor to work (milliseconds)
+      const dateNum = parseInt(this.script.time, 10) * 1000;
+      return new Date(dateNum).toLocaleDateString('en-US');
+    }
+
+    inputs: {
+      [name: string]: string;
+    } = {
+      Timeout: '10',
+    };
+
+    enabled = false;
+
+    results = '';
+
+    clearInputs() {
+      Object.keys(this.inputs).forEach(e => Vue.set(this.inputs, e, ''));
+    }
+  }
+</script>
+<style>
+@import '~codemirror/lib/codemirror.css';
+.CodeMirror {
+  height: 800px !important;
+  border-radius: 5px;
+  margin: 5px 0px;
+  width: inherit;
+}
+</style>
+<style lang="scss" scoped>
+  @import '@/styles/global.scss'; 
+  .icon {
+    margin-right: 10px;
+    width: 20.4px;
+    height: 20px;
+    object-fit: contain;
+  }
+  li {
+    margin-bottom: 20px;
+  }
+  .script-output {
+    background-color: white;
+    font-family: monospace;
+    color: black;
+    width: 100%;
+    overflow: auto;
+    height: 200px;
+    padding: 2px;
+    border-radius: 5px;
+    margin: 5px 0px;
+  }
+  .clear-button {
+    background-color: $green;
+    position: relative;
+    float: right;
+  }
+  .clear-header {
+    overflow: hidden;
+    margin: 10px 0;
+  }
+  #clear-header-input {
+    margin: 0;
+  }
+  .clear-header > h6 {
+    margin-bottom: 0;
+    display: inline-block;
+    vertical-align: sub;
+  }
+  .green {
+    background-color: $green;
+  }
+</style>

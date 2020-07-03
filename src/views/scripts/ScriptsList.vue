@@ -1,7 +1,7 @@
 <template>
   <EternaPage :title="$t('nav-bar:scripts')">
     <router-link :to="`/create/script/`"><button class="btn">Create</button></router-link>
-    <div v-if="pageData">
+    <div v-if="scripts">
       <ScriptCard
         v-for="script in scripts"
         :key="script.nid"
@@ -48,10 +48,10 @@
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
-  import PageDataMixin from '@/mixins/PageData';
+  import FetchMixin from '@/mixins/FetchMixin';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import VueAxios from 'vue-axios';
-  // @ts-ignore
+  // eslint-disable-next-line import/no-unresolved
   import get from 'lodash.get';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
@@ -92,9 +92,22 @@
       Preloader,
     },
   })
-  export default class ScriptsList extends Mixins(PageDataMixin(fetchPageData)) {
-    get scripts() {
-      return get(this.pageData, 'lists', []);
+  export default class ScriptsList extends Mixins(FetchMixin) {
+    scripts : {}[] = [];
+
+    async fetch() {
+      const res = (
+        await this.$http.get(`/get/?type=script`, {
+          params: {
+            need: 'lists',
+            skip: 0,
+            sort: this.$route.query.sort || INITIAL_SORT,
+            search: this.$route.query.search,
+            size: this.$route.query.size || INITIAL_NUMBER,
+          },
+        })
+      ).data.data;
+      this.scripts = res.lists;
     }
 
     private options: Option[] = [

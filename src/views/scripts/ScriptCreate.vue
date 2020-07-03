@@ -1,14 +1,26 @@
 <template>
-  <EternaPage v-if="script" :title="script.title">
+  <EternaPage v-if="script" :title="`${$route.params.nid ? 'Edit' : 'Create'} Script`">
     <div class="page-content">
       <div class="d-flex flex-wrap " xs="12" sm="8">
 
-        <div class="order-sm-1 col-sm-12">
+        <div class="order-sm-1">
           <hr class="top-border d-sm-none" />
-          <div
-            class="script-description" style="word-wrap: break-word;"
-            v-dompurify-html="script.body"
-          />
+          <div class="edit-row"><span>Title</span>
+            <input class="edit-row-input form-control form-control-sm" v-model="script.title"></div>
+          <div class="edit-row">
+            <span>Type</span> <select class="edit-row-input custom-select" v-model="script.type">
+              <option>Booster</option>
+              <option>Etc</option>
+              <option>RNA scoring</option>
+              <option>Puzzle solving</option>
+            </select>
+          </div>
+          <div class="edit-row"><span style="vertical-align:top">Description</span><textarea
+            class="edit-row-input script-description form-control form-control-sm"
+            placeholder="Description"
+            style="word-wrap: break-word;"
+            v-model="script.body"
+          /></div>
         </div>
       </div>
     </div>
@@ -25,14 +37,14 @@
           <ul style="list-style-type: none; padding: 0">
             <li v-for="input in Object.keys(inputs)" :key="input">
               <span style="display: inline-block; width: 150px">{{ input }}</span>
-              <input v-model="inputs[input]">
+              <input class="form-control form-control-sm" style="max-width: 150px; display: inline-block" v-model="inputs[input]">
             </li>
           </ul>
         </div>
         <div class="order-sm-2 cols-sm-10" style="width: 100%">
           <codemirror style="width: 100%" :options="codeOptions" v-model="code" />
           <button class="btn green" @click="evaluate">Evaluate</button>
-          <button class="btn" @click="post">Save</button>
+          <button class="btn green" style="margin-left: 5px" @click="post">Save</button>
         </div>
         <div class="order-sm-3 cols-sm-10" style="width: 100%">
           <div class="clear-header">
@@ -49,6 +61,7 @@
 <script lang="ts">
   import {Component, Prop, Vue} from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
+  // eslint-disable-next-line import/no-unresolved
   import get from 'lodash.get';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { VXM } from '@/types/vue.d';
@@ -56,6 +69,7 @@
   import axios, { AxiosInstance } from 'axios';
   import { codemirror } from 'vue-codemirror';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
+  import { Script } from './Script';
 
   const js = require('codemirror/mode/javascript/javascript.js');
 
@@ -82,7 +96,7 @@
     return res;
   }
 
-  async function postScript(route: Route, http: AxiosInstance, vxm: VXM, script: Object) {
+  async function postScript(route: Route, http: AxiosInstance, vxm: VXM, script: Script) {
     const { filters } = route.query;
 
     const params = new FormData();
@@ -138,7 +152,7 @@
           this.data = e;
           this.code = this.data.script[0].source || '';
           if (this.data.script[0].input !== '[]' && JSON.parse(this.data.script[0].input)) {
-            const inputs = JSON.parse(this.data.script[0].input);
+            const inputs = JSON.parse(this.data.script[0].input) as { value: string }[];
             inputs.forEach(i => {
               Vue.set(this.inputs, i.value, '');
             });
@@ -239,5 +253,26 @@
   }
   .green {
     background-color: $green;
+  }
+  .edit-row-input {
+    margin-left: 21px;
+    width: 200px;
+    display: inline-block;
+  }
+  textarea.edit-row-input {
+    width: inherit;
+    resize: none;
+    max-width: 100%;
+    min-height: 2rem;
+  }
+  .edit-row > select {
+    margin-left: 18px;
+  }
+  .edit-row {
+    position: relative;
+  }
+  .edit-row > span {
+    width: 100px;
+    display: inline-block;
   }
 </style>

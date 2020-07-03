@@ -84,7 +84,6 @@
 <script lang="ts">
   import {Component, Prop, Vue} from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import get from 'lodash.get';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { VXM } from '@/types/vue.d';
   import { RouteCallback, Route } from 'vue-router';
@@ -92,6 +91,7 @@
   import { codemirror } from 'vue-codemirror';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
+  import { Script } from './Script';
 
   const js = require('codemirror/mode/javascript/javascript.js');
 
@@ -163,7 +163,9 @@
         this.data = e;
         this.code = this.data.script[0].source;
         if (this.data.script[0].input !== '[]' && JSON.parse(this.data.script[0].input)) {
-          const inputs = JSON.parse(this.data.script[0].input);
+          const inputs = JSON.parse(this.data.script[0].input) as {
+            value: string,
+          }[];
           inputs.forEach(i => {
             Vue.set(this.inputs, i.value, '');
           });

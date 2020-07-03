@@ -2,7 +2,7 @@
   <div style="overflow:hidden; margin-top: 120px;">
     <b-container class="page-container">
       <b-col class="sub-heading" cols="12" lg="9" v-if="header_title && header_date">
-        <h3>{{ header_title }}</h3>
+        <h3 class="text-uppercase">{{ header_title }}</h3>
         <p>{{ header_date }}</p>
       </b-col>
       <h2 class="page-title" v-if="title">
@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import MobileSidebar from './MobileSidebar.vue';
   import PageFooter from './PageFooter.vue';
 
@@ -45,24 +45,19 @@
     },
   })
   export default class EternaPage extends Vue {
-    @Prop()
-    title!: string;
+    @Prop({ default: '' }) readonly title!: string;
 
-    @Prop()
-    header_title!: string;
+    @Prop({ default: '' }) readonly header_title!: string;
 
-    @Prop()
-    header_date!: string;
+    @Prop({ default: '' }) readonly header_date!: string;
 
-    $refs!: {
-      mobileSidebar: MobileSidebar;
-    };
+    @Ref() mobileSidebar!: MobileSidebar;
 
     unsubscribe!: () => void;
 
     created() {
       this.unsubscribe = this.$vxm.mobile.$subscribe('showPageSidebar', payload => {
-        this.$refs.mobileSidebar.openMenu();
+        this.mobileSidebar.openMenu();
       });
     }
 
@@ -86,24 +81,24 @@
     padding-bottom: 0px;
   }
   .page-container:before {
-    box-shadow: -45px 0 45px -45px inset black;
+    background: linear-gradient(to left, #07111e, #05224b);
     -webkit-appearance: none helped;
     content: ' ';
     height: 100%;
-    left: -45px;
+    left: -25px;
     position: absolute;
     top: 0;
-    width: 45px;
+    width: 25px;
   }
   .page-container:after {
-    box-shadow: 45px 0 45px -45px inset black;
+    background: linear-gradient(to right, #07111e, #05224b);
     -webkit-appearance: none;
     content: ' ';
     height: 100%;
     position: absolute;
     top: 0;
-    right: -45px;
-    width: 45px;
+    right: -25px;
+    width: 25px;
   }
   .page-container:before,
   .page-container:after {

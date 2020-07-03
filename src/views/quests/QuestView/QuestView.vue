@@ -1,20 +1,22 @@
 <template>
-  <EternaPage :title="$t('quest-info:title')" v-if="pageData">
-    <div class="video">
-      <div class="d-flex">
-        <div>
+  <EternaPage :title="$t('quest-info:title')" v-if="fetchState.firstFetchComplete && quest">
+    <div class="quest-description">
+      <div class="row">
+        <div class="col-lg-7">
           <h2>
             {{ $t('quest-view:banner-title') }}
           </h2>
-          <p style="width: 482px" v-dompurify-html="quest.desc"></p>
+          <p v-dompurify-html="quest.desc"></p>
         </div>
-        <div>
-          <img :src="quest.image" style="max-height: 250px; max-width: 270px;margin-bottom:20px" />
-          <div v-if="completed">
-            <img src="@/assets/noun_check.svg" />
-            <b>{{ $t('quest:completed').toUpperCase() }}</b>
+        <div class="col-lg-5 d-flex justify-content-center">
+          <div>
+            <img :src="quest.image" class="m-3 quest-badge" />
+            <div v-if="completed">
+              <img src="@/assets/noun_check.svg" class="mr-2" />
+              <b class="text-uppercase">{{ $t('quest:completed') }}</b>
+            </div>
+            <b-progress :value="quest.to_next" max="1" v-else></b-progress>
           </div>
-          <b-progress :value="quest.to_next" max="1" v-else></b-progress>
         </div>
       </div>
     </div>
@@ -22,9 +24,9 @@
     <h2>
       {{ $t('nav-bar:puzzles') }}
     </h2>
-    <Gallery sm="3" md="3" v-if="pageData && pageData.puzzles">
+    <Gallery sm="4" md="3" v-if="puzzles">
       <PuzzleCard
-        v-for="puzzle in pageData.puzzles"
+        v-for="puzzle in puzzles"
         :key="puzzle.id"
         :nid="puzzle.id"
         v-bind="puzzle"
@@ -51,10 +53,11 @@
           </li>
           <li><img src="@/assets/group.svg" class="icon" />{{ audience }}</li>
           <li><img src="@/assets/calendar.svg" class="icon" />{{ 'Sept 2019' }}</li>
-        </ul> -->
+        </ul>-->
       </SidebarPanel>
     </template>
   </EternaPage>
+  <Preloader v-else style="margin-top: 10rem;" />
 </template>
 
 <script lang="ts">
@@ -62,20 +65,13 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-
-  async function fetchPageData(route: Route, http: AxiosInstance) {
-    const me = (await http.get('/get/?type=me')).data.data;
-    const puzzles = (
-      await http.get(`/get/?type=puzzles&puzzle_type=Progression&search=${route.params.id}`)
-    ).data.data;
-    return { ...me, ...puzzles };
-  }
+  import { MeQueryResponse, PuzzleList, PuzzleItem, ClearedPuzzle, RoadmapAchievement } from '@/types/common-types';
+  import FetchMixin from '@/mixins/FetchMixin';
 
   @Component({
     components: {
@@ -87,19 +83,33 @@
       Preloader,
     },
   })
-  export default class QuestView extends Mixins(PageDataMixin(fetchPageData)) {
-    get quest() {
-      return this.pageData.achievement_roadmap.find(p => p.title === this.$route.params.id);
+  export default class QuestView extends Mixins(FetchMixin) {
+    puzzles: PuzzleItem[] = [];
+
+    cleared: ClearedPuzzle[] = [];
+
+    quest: RoadmapAchievement | null = null;
+
+    get locked() {
+      return this.quest? Number(this.quest.level) - 1 > Number(this.quest.current_level) : true;
     }
 
-    private completed = this.quest.to_next >= 1;
-
-    puzzleCleared(id: number) {
-      return this.pageData.cleared.map(puzzle => puzzle.id).includes(id);
+    get completed() {
+      return this.quest ? this.quest.to_next >= 1 && !this.locked : false;
     }
 
-    get audience() {
-      return 423;
+    async fetch() {
+      const me = (await this.$http.get('/get/?type=me')).data.data as MeQueryResponse;
+      const puzzles = (
+        await this.$http.get(`/get/?type=puzzles&puzzle_type=Progression&search=${this.$route.params.id}`)
+      ).data.data as PuzzleList;
+      this.puzzles = puzzles.puzzles;
+      this.cleared = puzzles.cleared || [];
+      this.quest = me.achievement_roadmap.find(p => p.title === this.$route.params.id) || null;
+    }
+
+    puzzleCleared(id: string) {
+      return this.cleared.map(puzzle => puzzle.id).includes(id);
     }
   }
 </script>
@@ -107,10 +117,14 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  .video {
+  .quest-badge {
+    max-width: 270px;
+  }
+
+  .quest-description {
     background-color: $med-dark-blue;
     object-fit: contain;
-    padding: 31px;
+    padding: 2rem;
   }
   .icon {
     margin-right: 10px;

@@ -7,7 +7,7 @@
         </div> -->
       </template>
       <SmartLink :link="toQuest">
-        <img :src="image" class="image" />
+        <img :src="image" style="width: 80%; margin: auto;" class="scalable" />
       </SmartLink>
       <template #footer>
         <div style="text-align:center; margin-bottom:0px">
@@ -15,12 +15,12 @@
           <div v-else>
             <p v-if="completed">
               <SmartLink :link="toGame">
-                <img src="@/assets/noun_check.svg" @click="goToGame()" />
-                <b>{{ $t('quest:completed').toUpperCase() }}</b>
+                <img src="@/assets/noun_check.svg" />
+                <b style="text-transform: uppercase;">{{ $t('quest:completed') }}</b>
               </SmartLink>
             </p>
             <div v-else>
-              <b-button type="submit" variant="primary" style="margin-bottom:10px" :[nav]="toGame">
+              <b-button variant="primary" style="margin:10px 0" :[nav]="toGame">
                 {{ $t('quest-card:play') }}
               </b-button>
               <SmartLink v-if="started" :link="toGame">
@@ -50,32 +50,23 @@
     },
   })
   export default class QuestCard extends Vue {
-    @Prop({})
-    private image!: string;
+    @Prop({required: true}) readonly image!: string;
 
-    @Prop({})
-    private to_next!: number;
+    @Prop({required: true}) readonly to_next!: number;
 
-    @Prop({})
-    private title!: string;
+    @Prop({required: true}) readonly title!: string;
 
-    @Prop({})
-    private desc!: string;
+    @Prop({required: true}) readonly desc!: string;
 
-    @Prop({})
-    private level!: string;
+    @Prop({required: true}) readonly level!: string;
 
-    @Prop({})
-    private questLink!: string;
+    @Prop() readonly questLink?: string;
 
-    @Prop({})
-    private puzzleLink!: string;
+    @Prop() readonly puzzleLink?: string;
 
-    @Prop({})
-    private current_level!: string;
+    @Prop({required: true}) readonly current_level!: string;
 
-    @Prop({})
-    private current_puzzle!: string;
+    @Prop() readonly current_puzzle?: string;
 
     get nav() {
       return Utils.isLinkInternal(this.toGame) ? 'to' : 'href';
@@ -83,7 +74,9 @@
 
     get toGame() {
       return (
-        this.puzzleLink || (this.current_puzzle && `${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`)
+        this.puzzleLink
+        || (this.current_puzzle && `${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`)
+        || '#'
       );
     }
 
@@ -103,11 +96,6 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
-
-  .image {
-    max-width: 242px;
-    max-height: 175px;
-  }
 
   .btn {
     display: inline-block;

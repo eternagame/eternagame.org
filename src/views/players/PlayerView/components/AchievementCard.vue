@@ -14,9 +14,9 @@
     components: {},
   })
   export default class AchievementCard extends Vue {
-    @Prop() image!: String;
+    @Prop({ required: true }) readonly image!: String;
 
-    @Prop() title!: String;
+    @Prop({ required: true }) readonly title!: String;
   }
 </script>
 

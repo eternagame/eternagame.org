@@ -6,9 +6,10 @@
     body-class="py-0"
     header-border-variant="primary"
     hide-footer
+    @shown="onShown"
   >
     <template #modal-title>
-      <b>{{ $t('login-row:main-action').toUpperCase() }}</b>
+      <b class="text-uppercase">{{ $t('login-row:main-action') }}</b>
     </template>
     <transition name="fade">
       <b-alert class="mt-3" show variant="danger" v-if="errorMessage">
@@ -36,50 +37,48 @@
 
       <p
         class="mt-0"
-        @click="$bvModal.hide('modal-login')"
         v-b-modal.modal-reset-password
         style="text-align:end; text-decoration:underline;margin-top:"
       >
         {{ $t('login-sub:main-action') }}
       </p>
-      <b-button type="submit" variant="primary" class="submit-button">{{
-        $t('login-modal:main-action').toUpperCase()
-      }}</b-button>
+      <b-button type="submit" variant="primary" class="submit-button text-uppercase" :disabled="loading">
+        {{ $t('login-modal:main-action') }}
+        <b-spinner v-if="loading" small />
+      </b-button>
 
       <p style="text-align:center">
         {{ $t('login-modal:register-pre-text') }}
         <span
           style="text-decoration:underline"
-          @click="$bvModal.hide('modal-login')"
+          @click="modal.hide()"
           v-b-modal.modal-register
         >
           {{ $t('login-modal:register-action') }}
         </span>
       </p>
-      <v-facebook-login
-        @sdk-init="handleSdkInit"
-        :app-id="fbID"
-        @login="fbLogIn()"
-      ></v-facebook-login>
+      <FacebookAuthentication @fb-verify="registerWithFacebook" class="btn"></FacebookAuthentication>
     </b-form>
   </b-modal>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
-  import axios from 'axios';
-  // @ts-ignore
-  import VFacebookLogin from 'vue-facebook-login-component';
+  import FacebookAuthentication from './components/FacebookAuthentication.vue';
 
   @Component({
     components: {
       VueRecaptcha,
-      VFacebookLogin,
+      FacebookAuthentication,
     },
   })
   export default class LoginModal extends Vue {
+    @Ref() readonly modal!: BModal;
+
+    @Ref() readonly rePassword!: BFormInput;
+
     form = {
       username: '',
       password: '',
@@ -87,48 +86,44 @@
 
     errorMessage = '';
 
-    fb = null;
+    FB = null;
+
+    loading = false;
 
     private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
-    // TODO consolidate
-    async fbLogIn() {
-      this.$bvModal.hide('modal-login');
-      const data = await this.$vxm.user.fbLogin(this.fb);
+    registerWithFacebook(data: { success: boolean; error: string }) {
+      this.form.password = '';
       if (data.success) {
-        this.form.username = '';
-        this.form.password = '';
+        this.modal.hide();
         this.$router.push('/');
       } else {
-        this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });
+        this.errorMessage = data.error;
       }
     }
 
-    $refs!: {
-      modal: BModal;
-      rePassword: BFormInput;
-    };
-
-    // TODO consolidate
-    handleSdkInit({ FB, scope }) {
-      console.log('logged in', FB);
-      this.FB = FB;
-      // this.scope = scope;
-    }
-
     async login() {
-      this.$bvModal.hide('modal-login');
       if (this.form.username && this.form.password) {
+        this.loading = true;
         const data = await this.$vxm.user.login({
           username: this.form.username,
           password: this.form.password,
         });
+        this.loading = false;
         if (data.success) {
+          this.form.username = '';
+          this.modal.hide();
           this.$router.push('/');
         } else {
-          this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });
+          this.errorMessage = data.error;
         }
       }
+    }
+
+    onShown() {
+      this.errorMessage = '';
+      this.form.username = '';
+      this.form.password = '';
     }
   }
 </script>
@@ -247,5 +242,8 @@
         }
       }
     }
+  }
+  FacebookAuthentication {
+    
   }
 </style>

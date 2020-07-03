@@ -1,6 +1,6 @@
 <template>
   <EternaPage :title="$t('nav-bar:puzzles')">
-    <div v-if="pageData">
+    <div v-if="fetchState.firstFetchComplete">
       <Gallery>
         <PuzzleCard
           v-for="puzzle in puzzles"
@@ -10,7 +10,7 @@
           :cleared="puzzleCleared(puzzle.id)"
         />
       </Gallery>
-      <Pagination :key="puzzles.length" />
+      <Pagination :key="puzzles && puzzles.length" />
     </div>
     <div v-else>
       <Preloader />
@@ -49,49 +49,28 @@
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
-  import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import VueAxios from 'vue-axios';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  // @ts-ignore
-  import get from 'lodash.get';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { VXM } from '@/types/vue.d';
-  import PuzzleViewData, { PuzzleCardData } from './types';
+  import { PuzzleList, ClearedPuzzle, PuzzleItem } from '@/types/common-types';
+  import FetchMixin from '@/mixins/FetchMixin';
 
   const INITIAL_SORT = 'date';
   const INITIAL_NUMBER = 18;
 
   const ROUTE = '/get/?type=puzzles';
 
-  async function fetchPageData(route: Route, http: AxiosInstance, vxm: VXM) {
-    const getPuzzleType = (challenge: boolean, player: boolean) => {
-      if (challenge === player) return 'AllChallengesPuzzle';
-      if (player) return 'PlayerPuzzle';
-      return 'Challenge';
-    };
-    const { filters } = route.query;
-    const params = {
-      puzzle_type: getPuzzleType(
-        Boolean(filters && filters.includes('challenge')),
-        Boolean(filters && filters.includes('player')),
-      ),
-      single: filters && filters.includes('single') && 'checked',
-      notcleared: filters && filters.includes('notcleared') && 'true',
-      sort: route.query.sort || INITIAL_SORT,
-      search: route.query.search,
-      size: route.query.size || INITIAL_NUMBER,
-    };
-
-    if (vxm.user.loggedIn) params.uid = vxm.user.uid;
-
-    const res = (
-      await http.get(ROUTE, {
-        params,
-      })
-    ).data.data as PuzzleViewData;
-    return res;
+  interface PuzzleExploreParams {
+    puzzle_type: string;
+    single: string;
+    notcleared: string;
+    sort: string;
+    search: string;
+    size: string;
+    uid: number | null;
   }
 
   @Component({
@@ -106,15 +85,41 @@
       Preloader,
     },
   })
-  export default class PuzzlesExplore extends Mixins(PageDataMixin(fetchPageData)) {
-    get puzzles() {
-      return get(this.pageData, 'puzzles', []);
+  export default class PuzzlesExplore extends Mixins(FetchMixin) {
+    puzzles: PuzzleItem[] = [];
+
+    cleared: ClearedPuzzle[] = [];
+
+    async fetch() {
+      const getPuzzleType = (challenge: boolean, player: boolean) => {
+        if (challenge === player) return 'AllChallengesPuzzle';
+        if (player) return 'PlayerPuzzle';
+        return 'Challenge';
+      };
+      const { filters, sort, search, size } = this.$route.query;
+      const params = {
+        puzzle_type: getPuzzleType(
+          Boolean(filters && filters.includes('challenge')),
+          Boolean(filters && filters.includes('player')),
+        ),
+        single: filters && filters.includes('single') && 'checked',
+        notcleared: filters && filters.includes('notcleared') && 'true',
+        sort: sort || INITIAL_SORT,
+        size: size || INITIAL_NUMBER,
+        search,
+      } as PuzzleExploreParams;
+
+      if (this.$vxm.user.loggedIn) params.uid = this.$vxm.user.uid;
+
+      const res = (await this.$http.get(ROUTE, {
+        params,
+      })).data.data as PuzzleList;
+      this.puzzles = res.puzzles;
+      this.cleared = res.cleared || [];
     }
 
-    puzzleCleared(id: number) {
-      return get(this, 'pageData.cleared', [])
-        .map(puzzle => puzzle.id)
-        .includes(id);
+    puzzleCleared(id: string) {
+      return this.cleared.some(puzzle => id === puzzle.id);
     }
 
     private options: Option[] = [
@@ -140,6 +145,6 @@
       { value: 'notcleared', text: 'Uncleared' },
     ];
 
-    // private tags: string[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
+  // private tags: string[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
   }
 </script>

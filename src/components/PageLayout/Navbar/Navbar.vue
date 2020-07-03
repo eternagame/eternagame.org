@@ -2,6 +2,8 @@
   <b-navbar toggleable="lg" type="dark" variant="dark" fixed="top" class="navbar">
     <b-container class="page-container px-4 d-flex justify-content-between">
       <EternaLogo />
+      <p id="chat-popover-anchor" class="anchor">.</p>
+
       <div class="d-flex justify-content-end">
         <LoginRow v-if="!loggedIn" />
         <div class="d-none d-lg-block">
@@ -24,7 +26,7 @@
   </b-navbar>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import NavbarIcons from './Icons/NavbarIcons.vue';
   import NavbarCollapseContent from './NavbarMenu/NavbarCollapseContent.vue';
   import EternaLogo from './EternaLogo.vue';
@@ -45,12 +47,10 @@
   export default class Navbar extends Vue {
     burgerMenuOpen = false;
 
-    $refs!: {
-      sidebar: MobileSidebar;
-    };
+    @Ref() sidebar!: MobileSidebar;
 
     openSidebar() {
-      this.$refs.sidebar.openMenu();
+      this.sidebar.openMenu();
     }
 
     get loggedIn() {
@@ -74,7 +74,7 @@
       },
       community: {
         leaderboards: '/players',
-        forum: '/eterna_getsat_redirect.php',
+        forum: 'https://forum.eternagame.org',
         wiki: 'http://eternawiki.org',
         groups: `${process.env.VUE_APP_API_BASE_URL}/web/group/`,
       },
@@ -82,7 +82,7 @@
       about: {
         overview: '/about',
         publications: '/about/publications',
-        software: 'https://software.eternagame.org/',
+        software: '/about/software',
         donate: 'https://challenges.eternagame.org/',
         terms: '/about/terms',
         'code-of-conduct': '/about/conduct',
@@ -93,6 +93,15 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  // Hidden element on screen bottom right, to anchor the chat popover.
+  .anchor {
+    bottom: 0;
+    right: 3rem;
+    position: fixed;
+    z-index: -3000;
+    opacity: 0;
+  }
 
   nav {
     border: 0px;

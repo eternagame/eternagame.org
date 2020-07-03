@@ -11,7 +11,7 @@
         </div>
       </b-col>
       <b-col md="6" class="player-details">
-        <PlayerHeaderTopRow class="header-top-row" :user="user" :follows="follows" />
+        <PlayerHeaderTopRow class="header-top-row" :user="user" :followList="followList" />
         <PlayerHeaderIcons class="header-icons" :user="user" />
       </b-col>
     </b-row>
@@ -20,6 +20,7 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { UserData } from '@/types/common-types';
   import PlayerHeaderImage from './PlayerHeaderImage.vue';
   import PlayerHeaderTopRow from './PlayerHeaderTopRow.vue';
   import PlayerHeaderRank from './PlayerHeaderRank.vue';
@@ -29,9 +30,9 @@
     components: { PlayerHeaderImage, PlayerHeaderRank, PlayerHeaderIcons, PlayerHeaderTopRow },
   })
   export default class PlayerHeader extends Vue {
-    @Prop() user!: object;
+    @Prop({ required: true }) readonly user!: UserData;
 
-    @Prop() follows!: object;
+    @Prop({ required: true }) readonly followList!: UserData[];
   }
 </script>
 

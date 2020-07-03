@@ -11,26 +11,26 @@
       <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable" />
       <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
       <template #footer>
-        <b-row class="mb-2">
+        <b-row class="mb-2" style="margin-top:10px">
           <b-col cols="4">
-            <div class="left-col" v-if="reward">
+            <div class="left-col" v-if="folder">
               <slot name="left-icon">
+                <img src="@/assets/chemical_bond.svg" alt="folder slots" class="icon" />
+              </slot>
+              {{ folder }}
+            </div>
+          </b-col>
+          <b-col cols="4">
+            <div class="text-center" v-if="number_of_states > 1">
+              <StateCounter :value="number_of_states" style="position:relative;top:-5px" />
+            </div>
+          </b-col>
+          <b-col cols="4">
+            <div class="right-col" v-if="reward">
+              <slot name="right-icon">
                 <img src="@/assets/dollar.svg" alt="reward slots" class="icon" />
               </slot>
               {{ reward }}
-            </div>
-          </b-col>
-          <b-col cols="4">
-            <div class="text-center" v-if="states">
-              <StateCounter :value="states" />
-            </div>
-          </b-col>
-          <b-col cols="4">
-            <div class="right-col" v-if="numCleared">
-              <slot name="right-icon">
-                <img src="@/assets/people.svg" alt="submissions" class="icon" />
-              </slot>
-              {{ numCleared }}
             </div>
           </b-col>
         </b-row>
@@ -56,24 +56,26 @@
     },
   })
   export default class PuzzleCard extends Vue {
-    @Prop() private title!: string;
+    @Prop({required: true}) readonly title!: string;
 
-    @Prop() private nid!: string;
+    @Prop({required: true}) readonly nid!: string;
 
-    @Prop() private reward!: number;
+    @Prop() readonly reward?: number;
 
-    @Prop({ default: 0 }) private states!: number;
+    @Prop() readonly folder?: string;
 
-    @Prop() private image!: string;
+    @Prop() readonly number_of_states?: number;
 
-    @Prop({ default: 1 }) private aspectRatio!: number;
+    @Prop() readonly image?: string;
 
-    @Prop({ default: false }) private locked!: boolean;
+    @Prop({ default: 1 }) readonly aspectRatio!: number;
 
-    @Prop({ default: false }) private cleared!: boolean;
+    @Prop({ default: false }) readonly locked!: boolean;
+
+    @Prop({ default: false }) readonly cleared!: boolean;
 
     // Whether clicking on the card background should link to the puzzle.
-    @Prop({ default: true }) private backgroundLink!: boolean;
+    @Prop({ default: true }) readonly backgroundLink!: boolean;
 
     get numCleared() {
       return this.$attrs['num-cleared'];

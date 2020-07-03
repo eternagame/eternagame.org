@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="44.39" height="34.657" viewBox="0 0 44.39 34.657">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Mask" width="18.773" height="17.329" transform="translate(0.834 0.329)" fill="#fff"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fde100"/>
+      <stop offset="0.299" stop-color="#3391ce"/>
+      <stop offset="0.648" stop-color="#ea5626"/>
+      <stop offset="1" stop-color="#4fb248"/>
+    </linearGradient>
+    <clipPath id="clip-path-2">
+      <rect id="Mask-2" data-name="Mask" width="18.773" height="17.329" fill="#fff"/>
+    </clipPath>
+    <linearGradient id="linear-gradient-3" x1="0.551" y1="-1.01" x2="0.551" y2="2.005" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fde100"/>
+      <stop offset="0.309" stop-color="#3391ce"/>
+      <stop offset="0.629" stop-color="#ea5626"/>
+      <stop offset="1" stop-color="#4fb248"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_9" data-name="Group 9" transform="translate(-1.383)">
+    <g id="Mask-3" data-name="Mask" transform="translate(0.549 17)">
+      <g id="Mask-4" data-name="Mask" clip-path="url(#clip-path)">
+        <path id="Mask-5" data-name="Mask" d="M15.1,9.066H1.418v.988L2.6,11.02h11.86l-2.384,1.954H4.98L7.363,14.93H9.69L0,22.877V34.287H1.954V33.039h13.68V31.084H1.954V29.13h13.68V27.175H1.954V25.221h13.68v-.988l-1.179-.966H2.6L4.98,21.312h7.093L9.69,19.357H7.363l9.69-7.948V0H15.1V1.248H1.418V3.2H15.1V5.157H1.418V7.112H15.1Z" transform="translate(2.057 -17)" fill="url(#linear-gradient)"/>
+      </g>
+    </g>
+    <g id="Mask-6" data-name="Mask" transform="translate(27)">
+      <g id="Mask-7" data-name="Mask" clip-path="url(#clip-path-2)">
+        <path id="Mask-8" data-name="Mask" d="M15.1,9.066H1.418v.988L2.6,11.02h11.86l-2.384,1.954H4.98L7.363,14.93H9.69L0,22.877V34.287H1.954V33.039h13.68V31.084H1.954V29.13h13.68V27.175H1.954V25.221h13.68v-.988l-1.179-.966H2.6L4.98,21.312h7.093L9.69,19.357H7.363l9.69-7.948V0H15.1V1.248H1.418V3.2H15.1V5.157H1.418V7.112H15.1Z" fill="url(#linear-gradient)"/>
+      </g>
+    </g>
+    <path id="_" data-name="+" d="M0,6.113V3.735H3.735V0h2.4V3.735H9.867V6.113H6.132V9.867h-2.4V6.113Z" transform="translate(18.5 11.662)" fill="url(#linear-gradient-3)"/>
+  </g>
+</svg>

@@ -12,11 +12,16 @@
       :id="collapseId"
       class="sublist"
     >
-      <b-nav-item v-for="(to, linkText) in value" :[nav(to)]="to" :key="linkText">
+      <b-nav-item
+        v-for="(to, linkText) in value"
+        :[nav(to)]="to"
+        :key="linkText"
+        :target="isExternal(to) ? '_blank' : '_self'"
+      >
         {{ $t('nav-bar:' + linkText) }}
         <img
-          class="ml-2"
           v-if="isExternal(to)"
+          class="ml-2"
           src="@/assets/navbar/ExternalLink.svg"
           :alt="$t('nav-bar:external-link')"
         />
@@ -33,17 +38,13 @@
     components: {},
   })
   export default class SidebarMenuItem extends Vue {
-    @Prop()
-    private text!: string;
+    @Prop({ required: true }) readonly text!: string;
 
-    @Prop()
-    private value!: string | object;
+    @Prop({ required: true }) readonly value!: string | object;
 
-    @Prop()
-    private accordion!: string;
+    @Prop({ required: true }) readonly accordion!: string;
 
-    @Prop()
-    private index!: number;
+    @Prop({ required: true }) readonly index!: number;
 
     contentVisible = false;
 
@@ -53,8 +54,8 @@
       return Utils.isLinkInternal(link) ? 'to' : 'href';
     }
 
-    isExternal(link: string) {
-      return !(link.startsWith('/') || link.startsWith('https://eternagame.org/'));
+    isExternal(link: string): boolean {
+      return Utils.isExternal(link);
     }
 
     get collapseId() {

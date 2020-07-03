@@ -2,11 +2,15 @@
   <b-nav-item :to="value" v-if="typeof value === 'string'">{{ text }}</b-nav-item>
   <b-nav-item-dropdown v-else menu-class="shadow-sm" :text="text">
     <template v-for="([linkText, to], index) in dropdownEntries">
-      <b-dropdown-item :[nav(to)]="to" :key="linkText">
+      <b-dropdown-item
+        :[nav(to)]="to"
+        :key="linkText"
+        :target="isExternal(to) ? '_blank' : '_self'"
+      >
         {{ $t('nav-bar:' + linkText) }}
         <img
-          class="ml-2"
           v-if="isExternal(to)"
+          class="ml-2"
           src="@/assets/navbar/ExternalLink.svg"
           :alt="$t('nav-bar:external-link')"
         />
@@ -28,19 +32,17 @@
     components: {},
   })
   export default class NavbarIcons extends Vue {
-    @Prop()
-    private text!: string;
+    @Prop({ required: true }) readonly text!: string;
 
-    @Prop()
-    private value!: string | object;
+    @Prop({ required: true }) readonly value!: string | object;
 
     nav(link: string): string {
       // Use vue-router for local links, instead of reloading page.
       return Utils.isLinkInternal(link) ? 'to' : 'href';
     }
 
-    isExternal(link: string) {
-      return !(link.startsWith('/') || link.startsWith('https://eternagame.org/'));
+    isExternal(link: string): boolean {
+      return Utils.isExternal(link);
     }
 
     // only called if typeof this.value === object

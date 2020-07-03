@@ -1,9 +1,9 @@
 <template>
   <div style="text-align: center;">
     <span>
-      <b-button @click="$emit('input', !value)" variant="outline-info" size="sm">{{
-        value ? $t('read-more:read-less').toUpperCase() : $t('read-more:read-more').toUpperCase()
-      }}</b-button>
+      <b-button @click="$emit('input', !value)" variant="outline-info" size="sm" class="text-uppercase">
+        {{ value ? $t('read-more:read-less') : $t('read-more:read-more') }}
+      </b-button>
     </span>
   </div>
 </template>
@@ -15,8 +15,7 @@
     components: {},
   })
   export default class ReadMore extends Vue {
-    @Prop()
-    value!: boolean;
+    @Prop({ required: true }) readonly value!: boolean;
   }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <EternaPage :title="`${$t('Edit Profile')} ${user.name}`">
+  <EternaPage :title="`${$t('edit-profile:title')} ${user.name}`">
     <div class="page-content" v-if="loaded">
       <EditPlayerHeader @submit-data="submit" @set-picture="setPicture" />
       <hr class="top-border" />
@@ -24,7 +24,7 @@
         >
       </div>
     </div>
-    <Preloader v-else/>
+    <Preloader v-else />
 
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
@@ -43,10 +43,7 @@
   import axios, { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
-  import PageDataMixin from '@/mixins/PageData';
   import Notifications from 'vue-notification';
-  // @ts-ignore
-  import get from 'lodash.get';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import EditPlayerHeader from './components/EditPlayerHeader.vue';
   import EditPlayerAboutMe from './components/EditPlayerAboutMe.vue';
@@ -84,33 +81,38 @@
 
     private loaded = false;
 
-    submit() {
-      const data: any = {};
+    async submit() {
+      const data = new FormData();
       if (this.newPassword) {
-        data['pass[pass1]'] = this.newPassword as string;
-        data['pass[pass2]'] = this.newPassword as string;
+        data.set('pass[pass1]', this.newPassword as string);
+        data.set('pass[pass2]', this.newPassword as string);
       }
-      data.profile_mail_notification = this.privateMessagesNotify ? 'on' : 'off';
-      data.profile_news_mail_notification = this.newNewsPostsNotify ? 'on' : 'off';
-      data.profile_blog_mail_notification = this.newNewsPostsNotify ? 'on' : 'off';
-      data.profile_profile = this.profile;
-      data.mail = this.email;
-      if (this.picture) data.picture_upload = this.picture;
-      data.type = 'edit';
+      data.set('profile_mail_notification', this.privateMessagesNotify ? 'on' : 'off');
+      data.set('profile_news_mail_notification', this.newNewsPostsNotify ? 'on' : 'off');
+      data.set('profile_blog_mail_notification', this.newNewsPostsNotify ? 'on' : 'off');
+      data.set('profile_profile', this.profile);
+      data.set('mail', this.email);
+      if (this.picture) data.append(`files[picture_upload]`, this.picture);
+      data.set('type', 'edit');
 
-      axios
-        .post(EDIT_PROFILE, new URLSearchParams(data))
+      this.$http.post(EDIT_PROFILE, data, {
+        headers: {
+          'Content-type': 'multipart/form-data',
+        },
+      })
         .then(() => {
           /* his.$router.push(`/players/${this.$vxm.user.uid}`) */
           window.location.reload();
         })
-        .catch(error => this.$notify({
-          title: 'Error',
-          text: get(error, 'message'),
-        }));
+        .catch(error =>
+          this.$notify({
+            title: 'Error',
+            text: error?.message,
+          }),
+        );
     }
 
-    setPicture(picture: string) {
+    setPicture(picture: Blob) {
       this.picture = picture;
     }
 
@@ -124,12 +126,10 @@
     }
 
     setNews(notify: boolean) {
-      console.log('news', notify);
       this.newNewsPostsNotify = notify;
     }
 
     setMessages(notify: boolean) {
-      console.log('messages', notify);
       this.privateMessagesNotify = notify;
     }
 
@@ -153,7 +153,7 @@
 
     private profile: string = '';
 
-    private picture: string = '';
+    private picture: Blob | null = null;
 
     private sectionTitle: string = '';
 

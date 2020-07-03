@@ -18,7 +18,7 @@
     <p v-show="!passwordsMatch">Please make sure passwords match!</p>
 
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-address') }}</p>
-    <input type="email" style="color:#fff" v-model="email" @change="sendEmail()" required/>
+    <input type="email" style="color:#fff" v-model="email" @change="sendEmail()" required />
     <p style="margin-top:13px">{{ $t('edit-profile:email-details') }}</p>
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-notifications') }}</p>
     <b-form-checkbox v-model="messagesNotify" @change="sendMessages()">
@@ -33,16 +33,15 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
-  // @ts-ignore
-  import get from 'lodash.get';
+  import { UserData } from '@/types/common-types';
 
   @Component({
     components: { EditField },
   })
   export default class PlayerEditCredentials extends Vue {
-    get user() {
+    get user(): UserData {
       return {
-        ...this.$vxm.user.userDetails,
+        ...(this.$vxm.user.userDetails as UserData),
       };
     }
 
@@ -61,8 +60,8 @@
     mounted() {
       this.email = this.user.mail;
       // HACK: Because this is backwards in the checkboxes for some reason...
-      this.newsNotify = !(this.user['News mail notification'] === 'on');
-      this.messagesNotify = !(this.user['Mail notification'] === 'on');
+      this.newsNotify = String(this.user['News mail notification']) !== 'on';
+      this.messagesNotify = this.user['Mail notification'] !== 'on';
 
       this.sendMessages();
       this.sendNews();

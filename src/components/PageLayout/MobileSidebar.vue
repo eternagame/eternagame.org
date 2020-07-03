@@ -1,6 +1,6 @@
 <template>
   <transition name="slide">
-    <div ref="mobileSidebar" class="mobile-sidebar" v-show="isOpen">
+    <div ref="mobileSidebar" class="mobile-sidebar  d-lg-none" v-show="isOpen">
       <nav>
         <div class="d-flex justify-content-end">
           <button class="btn p-0" @click="closeMenu">
@@ -14,15 +14,13 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Watch, Ref } from 'vue-property-decorator';
 
   @Component({
     components: {},
   })
   export default class MobileSidebar extends Vue {
-    $refs!: {
-      mobileSidebar: HTMLDivElement;
-    };
+    @Ref() mobileSidebar!: HTMLDivElement;
 
     mounted() {
       document.addEventListener('click', this.onDocumentClick);
@@ -35,22 +33,24 @@
     onDocumentClick(event: Event) {
       const element = event.srcElement as HTMLElement;
       if (
-        element
-        && !element.classList.contains('sidebar')
-        && !this.$refs.mobileSidebar.contains(element)
+        element &&
+        !element.classList.contains('sidebar') &&
+        !this.mobileSidebar.contains(element)
       ) {
         this.closeMenu();
       }
     }
 
-    isOpen = false;
+    get isOpen() {
+      return this.$vxm.user.showSidebar;
+    }
 
     openMenu() {
-      this.isOpen = true;
+      this.$vxm.user.openSidebar();
     }
 
     closeMenu() {
-      this.isOpen = false;
+      this.$vxm.user.closeSidebar();
     }
 
     @Watch('$route')

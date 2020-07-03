@@ -30,8 +30,7 @@
     },
   })
   export default class SidebarMenuContent extends Vue {
-    @Prop({ required: true })
-    menu!: {
+    @Prop({ required: true }) menu!: {
       [text: string]: { [text: string]: string } | string;
     };
 

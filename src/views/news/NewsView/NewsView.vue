@@ -1,12 +1,12 @@
 <template>
   <EternaPage
-    :title="pageData ? news.news.title : ''"
-    :header_date="pageData ? news.news.created : ''"
-    :header_title="$t('news-view:anouncements').toUpperCase()"
+    :title="title"
+    :header_date="created"
+    :header_title="$t('news-view:anouncements')"
   >
-    <div v-if="pageData">
-      <div class="page-content" v-dompurify-html="news.news.body"></div>
-      <Comments :comments="pageData.comments" :nid="news.news.nid" />
+    <div v-if="fetchState.firstFetchComplete">
+      <div class="page-content" v-dompurify-html="body"></div>
+      <Comments :comments="comments" :nid="nid" />
     </div>
     <div v-else>
       <Preloader />
@@ -31,26 +31,14 @@
   import { AxiosInstance } from 'axios';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import PageDataMixin from '@/mixins/PageData';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
   import EditField from '@/components/Common/EditField.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import NewsData from './types';
-
-  async function fetchPageData(route: Route, http: AxiosInstance) {
-    const res = (
-      await http.get(`/get/?type=news&nid=${route.params.id}&script=-1`, {
-        params: {
-          order: route.query.sort,
-          filters: route.query.filters && (route.query.filters as string).split(','),
-        },
-      })
-    ).data.data as NewsData;
-    return res;
-  }
+  import { CommentItem, NewsArticle } from '@/types/common-types';
+  import FetchMixin from '@/mixins/FetchMixin';
 
   @Component({
     components: {
@@ -64,20 +52,38 @@
       Preloader,
     },
   })
-  export default class NewsView extends Mixins(PageDataMixin(fetchPageData)) {
-    get news() {
-      return this.pageData;
-    }
+  export default class NewsView extends Mixins(FetchMixin) {
+    nid: string | null = null;
 
-    get addCommentPath() {
-      return `/web/blog/${this.pageData.news.nid}`;
+    title: string = '';
+
+    body: string = '';
+
+    created: string = '';
+
+    comments: CommentItem[] = [];
+
+    async fetch() {
+      const res = (
+        await this.$http.get(`/get/?type=news&nid=${this.$route.params.id}`, {
+          params: {
+            order: this.$route.query.sort,
+            filters: this.$route.query.filters && (this.$route.query.filters as string).split(','),
+          },
+        })
+      ).data.data as {news: NewsArticle, comments: CommentItem[]};
+
+      this.nid = res.news.nid;
+      this.title = res.news.title;
+      this.body = res.news.body;
+      this.created = res.news.created;
+      this.comments = res.comments;
     }
 
     private options: Option[] = [
       { value: 'categories', text: 'news-view:option-categories' },
       { value: 'announcements', text: 'news-view:option-announcements' },
       { value: 'blog', text: 'news-view:option-blog' },
-      { value: 'labs', text: 'news-view:option-labs' },
     ];
   }
 </script>

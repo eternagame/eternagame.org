@@ -13,11 +13,9 @@
     },
   })
   export default class Pagination extends Vue {
-    @Prop({ default: 9 })
-    private increment!: number;
+    @Prop({ default: 9 }) readonly increment!: number;
 
-    @Prop({ default: 18 })
-    private initial!: number;
+    @Prop({ default: 18 }) readonly initial!: number;
 
     private search: string = '';
 
@@ -41,6 +39,7 @@
                 size: String(newSize),
               },
               hash: window.location.hash,
+              params: { keepScroll: 'true' }
             });
             this.loading = true;
           }

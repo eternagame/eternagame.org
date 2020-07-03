@@ -17,7 +17,7 @@
 
   @Component({})
   export default class SmartLink extends Vue {
-    @Prop({ default: '' }) link!: string;
+    @Prop({ default: '' }) readonly link!: string | Object;
 
     get isInternal() {
       return Utils.isLinkInternal(this.link);

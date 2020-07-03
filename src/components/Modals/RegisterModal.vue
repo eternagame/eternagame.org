@@ -7,7 +7,7 @@
     hide-footer
   >
     <template #modal-title>
-      <b>{{ $t('register-modal:title').toUpperCase() }}</b>
+      <b class="text-uppercase">{{ $t('register-modal:title') }}</b>
     </template>
     {{ $t('register-modal:register-explanation') }}
     <transition name="fade">
@@ -47,6 +47,7 @@
           v-model="form.rePassword"
           required
           ref="rePassword"
+          :state="form.password === form.rePassword"
         />
         <span class="input-group-append">
           <img src="@/assets/front-page/img/lock.svg" />
@@ -64,7 +65,7 @@
         <b-checkbox class="mr-1" v-model="accepted">
           {{ $t('register-modal:disclaimer-accept') }}
         </b-checkbox>
-        <b-link size="sm" to="/about/terms" @click="$bvModal.hide('modal-register')">{{
+        <b-link size="sm" to="/about/terms" @click="modal.hide()">{{
           $t('register-modal:disclaimer')
         }}</b-link>
       </div>
@@ -72,26 +73,22 @@
         type="submit"
         variant="primary"
         class="submit-button mt-2 mb-5"
-        :disabled="submitted"
+        :disabled="loading"
       >
         {{ $t('register-modal:main-action') }}
+        <b-spinner v-if="loading" small />
       </b-button>
-      <v-facebook-login
-        @sdk-init="handleSdkInit"
-        :app-id="fbID"
-        @login="fbLogIn()"
-      ></v-facebook-login>
+      <FacebookAuthentication @fb-verify="registerWithFacebook" class="btn"></FacebookAuthentication>
     </b-form>
   </b-modal>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import axios from 'axios';
   import VueRecaptcha from 'vue-recaptcha';
-  // @ts-ignore
-  import VFacebookLogin from 'vue-facebook-login-component';
+  import FacebookAuthentication from './components/FacebookAuthentication.vue';
 
   const FB_LOGIN_ROUTE = '/login/?type=login&method=facebook';
 
@@ -105,7 +102,7 @@
   @Component({
     components: {
       VueRecaptcha,
-      VFacebookLogin,
+      FacebookAuthentication,
     },
   })
   export default class RegisterModal extends Vue {
@@ -113,7 +110,7 @@
 
     private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
-    private submitted = false;
+    private loading = false;
 
     private accepted: boolean = false;
 
@@ -123,26 +120,15 @@
 
     attemptNumber: number = 0;
 
-    fb = null;
+    FB = null;
 
-    $refs!: {
-      modal: BModal;
-      rePassword: BFormInput;
-    };
+    @Ref() readonly modal!: BModal;
 
-    // TODO consolidate
-    handleSdkInit({ FB, scope }) {
-      console.log('logged in', FB);
-      this.FB = FB;
-      // this.scope = scope;
-    }
+    @Ref() readonly rePassword!: BFormInput;
 
-    // TODO consolidate
-    async fbLogIn() {
-      this.$bvModal.hide('modal-register');
-      const data = await this.$vxm.user.fbLogin(this.fb);
+    registerWithFacebook() {
+      this.modal.hide();
       this.$router.push('/');
-      console.log(data);
     }
 
     async tryRegister(event: Event) {
@@ -152,11 +138,11 @@
         return;
       }
       if (this.form.password !== this.form.rePassword) {
-        (this.$refs.rePassword.$el as HTMLInputElement).setCustomValidity('Password Must Match.');
         this.errorMessage = 'register-modal:error-password-match';
         return;
       }
-      this.submitted = true;
+      
+      this.loading = true;
       await this.register();
     }
 
@@ -182,7 +168,7 @@
       } else {
         this.errorMessage = data.data.error;
         this.attemptNumber += 1;
-        this.submitted = false;
+        this.loading = false;
       }
     }
 
@@ -193,10 +179,11 @@
           password: this.form.password,
         });
         if (data.success) {
-          this.$refs.modal.hide();
+          this.loading = false;
+          this.modal.hide();
           this.$router.push('/');
         } else {
-          this.$vxm.user.showLoginFailedModal({ errorMessage: data.error });
+          this.errorMessage = data.data.error;
         }
       }
     }

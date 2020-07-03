@@ -1,7 +1,7 @@
 <template
   ><div>
     <div class="d-flex">
-      <EditPlayerHeaderImage />
+      <EditPlayerHeaderImage :uploadedPicture="uploadedPicture" />
       <div class="player-details">
         <EditPlayerHeaderTopRow @submit-data="submit" @set-picture="setPicture" />
         <div class="d-none d-sm-block">
@@ -32,7 +32,10 @@
       this.$emit('submit-data');
     }
 
-    setPicture(file) {
+    private uploadedPicture: File | null = null;
+
+    setPicture(file: File) {
+      this.uploadedPicture = file;
       this.$emit('set-picture', file);
     }
   }

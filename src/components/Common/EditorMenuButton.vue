@@ -18,30 +18,15 @@
     components: {},
   })
   export default class EditorMenuButton extends Vue {
-    @Prop({
-      required: true,
-    })
-    command!: string;
+    @Prop({ required: true }) readonly command!: string;
 
-    @Prop({
-      required: true,
-      default: () => {},
-    })
-    editorParams!: { isActive: Object };
+    @Prop({ required: true, default: () => {} }) readonly editorParams!: EditorParams;
 
-    @Prop({
-      type: Object,
-      default: () => {},
-    })
-    args!: Object;
+    @Prop({ type: Object, default: () => {} }) readonly args!: object;
 
-    @Prop({})
-    icon!: String;
+    @Prop() readonly icon?: string;
 
     get activeClass() {
-      // prettier-ignore
-      // @ts-ignore
-      // eslint-disable-next-line max-len
       return this.editorParams.isActive[this.command] && this.editorParams.isActive[this.command](this.args)
         ? 'active'
         : null;
@@ -50,6 +35,16 @@
     get iconClass() {
       return `fa-${this.icon ? this.icon : this.command}`;
     }
+  }
+
+  interface EditorParams {
+    isActive: {
+      [name: string]: (args: object) => boolean;
+    };
+    
+    commands: {
+      [name: string]: (args: object) => void;
+    };
   }
 </script>
 

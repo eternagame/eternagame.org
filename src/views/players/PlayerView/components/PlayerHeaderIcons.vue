@@ -8,9 +8,11 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { UserData } from '@/types/common-types';
+
   @Component({})
   export default class PlayerHeaderIcons extends Vue {
-    @Prop() user!: object;
+    @Prop({ required: true }) readonly user!: UserData;
 
     get formattedCreated(): string {
       const start = this.user.created.indexOf(' ');

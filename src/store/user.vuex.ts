@@ -1,8 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { createModule, mutation, action } from 'vuex-class-component';
 import axios, { AxiosInstance } from 'axios';
-// @ts-ignore
-import get from 'lodash.get';
+import { UserData } from '@/types/common-types';
 
 const VuexModule = createModule({
   strict: false,
@@ -17,18 +16,19 @@ export default function createUserStore($http: AxiosInstance) {
 
     public loggedIn = false;
 
-    public FB = null;
+    public showSidebar = false;
+
+    // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
+    public FB: any = null;
 
     public hasLabAccess: boolean = false;
 
-    public userDetails: Object = {};
+    public userDetails: UserData | null = null;
 
     public triedAuthenticating = false;
 
     public promptSignAgreement = false;
-
-    @mutation showLoginFailedModal({ errorMessage }: { errorMessage: String }) {}
-
+    
     @mutation showResetCompleteModal() {}
 
     @action() async logout() {
@@ -36,10 +36,18 @@ export default function createUserStore($http: AxiosInstance) {
       const response = await $http.get('/eterna_logout.php');
       window.localStorage.setItem('loggedIn', 'false');
       this.triedAuthenticating = false;
-      await this.FB.logout();
+      await this.FB?.logout();
     }
 
-    @action() async fbLogin(FB) {
+    @action() async openSidebar() {
+      this.showSidebar = true;
+    }
+
+    @action() async closeSidebar() {
+      this.showSidebar = false;
+    }
+
+    @action() async fbLogin(FB: any) {
       this.FB = FB;
       const { data } = (
         await $http.post('/login/', new URLSearchParams({ type: 'login', method: 'facebook' }))
@@ -89,8 +97,8 @@ export default function createUserStore($http: AxiosInstance) {
         const userDataResponse = (await axios.get(`/get/?type=my_user&uid=${uid}`)).data.data;
         this.userDetails = userDataResponse.user;
         this.hasLabAccess = Boolean(
-          Number(this.userDetails.ten_tools_level) >= 8 ||
-            Number(this.userDetails.is_lab_member_legacy),
+          Number((this.userDetails as UserData).ten_tools_level) >= 8 ||
+            Number((this.userDetails as UserData).is_lab_member_legacy),
         );
       } else {
         throw new Error(`Authentication response malformed: ${data}`);

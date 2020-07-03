@@ -1,35 +1,31 @@
 <template>
   <div v-if="isInSidebar">
     <template v-for="({ text, value, link, suffix }, index) in options">
-      <!-- Use regular a link for external links -->
-      <a v-if="link && !link.startsWith('/')" class="option" :key="value" :href="link">
-        {{ $t(text) }} {{ suffix && suffix }}
-        <img
-          class="ml-2"
-          src="@/assets/navbar/ExternalLink.svg"
-          :alt="$t('nav-bar:external-link')"
-        />
-      </a>
-      <!-- Otherwise, use a router-link -->
-      <router-link
-        v-else
-        :to="navTarget(link, value)"
-        :key="value"
+      <SmartLink
         class="option"
+        :link="navTarget(link, value)"
+        :key="`${value}-${link}`"
         :replace="replace"
         :class="{ selected: routeSelected(index, link) }"
         @click.native="onClick(index, link)"
       >
         {{ $t(text) }} {{ suffix && suffix }}
-      </router-link>
-      <hr v-if="index < options.length - 1" class="options-divider" :key="`${value} divider`" />
+        <!-- Note: Can't use Utils.isInternal(). #anchors use href, but not external icon. -->
+        <img
+          v-if="link && !(link.startsWith('/') || link.startsWith('#'))"
+          class="ml-2"
+          src="@/assets/navbar/ExternalLink.svg"
+          :alt="$t('nav-bar:external-link')"
+        />
+      </SmartLink>
+      <hr v-if="index < options.length - 1" class="options-divider" :key="`${value} ${link} divider`" />
     </template>
   </div>
   <b-dropdown variant="link" :text="dropdownText" right v-else>
     <template v-for="({ text, value, link, suffix }, index) in options">
       <b-dropdown-item
         :[nav(link)]="navTarget(link, value)"
-        :key="value"
+        :key="`${value}-${link}`"
         :replace="replace"
         :disabled="routeSelected(index, link)"
         @click.native="onClick(index, link)"
@@ -45,22 +41,20 @@
   import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
+  import Utils from '@/utils/utils';
+  import SmartLink from '../Common/SmartLink.vue';
 
   @Component({
-    components: {},
+    components: { SmartLink },
   })
   class DropdownSidebarPanel extends mixins(SidebarPanelMixin) {
-    @Prop({ required: true })
-    options!: Option[];
+    @Prop({ required: true }) readonly options!: Option[];
 
-    @Prop({ default: 0 })
-    defaultIndex!: number;
+    @Prop({ default: 0 }) readonly defaultIndex!: number;
 
-    @Prop({ required: true })
-    paramName!: string;
+    @Prop({ required: true }) readonly paramName!: string;
 
-    @Prop({ default: false })
-    replace!: boolean;
+    @Prop({ default: false }) readonly replace!: boolean;
 
     selectedIndex = this.defaultIndex;
 
@@ -90,14 +84,14 @@
       return query;
     }
 
-    nav(link: string): string {
+    nav(link?: string): string {
       // Use vue-router for local links, instead of reloading page.
       return link && !link.startsWith('/') ? 'href' : 'to';
     }
 
     // If a link is provided, navigate to that; otherwise, update the query params.
-    navTarget(link: string, value: string) {
-      return link || { name: this.$route.name, query: this.generateQuery(value) };
+    navTarget(link?: string, value?: string) {
+      return link || { name: this.$route.name, query: this.generateQuery(value || '') };
     }
 
     get dropdownText() {

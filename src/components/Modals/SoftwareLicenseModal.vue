@@ -1,40 +1,58 @@
 <template>
   <b-modal
     ref="modal"
-    id="software-license-modal"
+    :id="id"
     body-class="py-0"
     header-border-variant="primary"
     footer-border-variant="primary"
   >
     <!-- TODO: i18nify -->
     <template #modal-title>
-      <b>LICENSE TERMS</b>
+      <b> {{ token ? 'AVAILABLE RELEASES' : 'LICENSE TERMS' }}</b>
     </template>
     <div class="content">
-      <h3 class="p-2 mt-3 mb-0">{{ $t('terms-modal:eula') }}</h3>
-      <TermsAndConditionsText />
+      <div v-if="!token">
+        <div style="white-space: pre-wrap;" v-dompurify-html="licenseTerms"></div>
+      </div>
+      <div v-else class="p-2">
+        <VersionCard
+          v-for="version in softwareVersions"
+          :token="token"
+          :packageid="packageid"
+          :version="version"
+          :key="version.version_id"
+        />
+      </div>
     </div>
     <template #modal-footer>
-      <div v-if="!signed">
-        <b-input placeholder="Name" v-model="name" required />
-        <b-input type="email" :placeholder="$t('register-modal:email')" v-model="email" required />
+      <b-form @submit.prevent="acceptTerms" v-if="!token">
+        <b-input placeholder="Name" v-model="licenseRequest.name" required />
+        <b-input
+          type="email"
+          :placeholder="$t('register-modal:email')"
+          v-model="licenseRequest.email"
+          required
+        />
+        <b-input placeholder="Institution" v-model="licenseRequest.institution" required />
+        <b-input placeholder="Department" v-model="licenseRequest.department" required />
         <b-checkbox class="font-weight-bold" v-model="accepted">
           {{ $t('terms-modal:accept') }}
         </b-checkbox>
         <b-button
           class="accept-button"
           variant="primary"
-          @click="acceptTerms"
-          :disabled="!accepted"
+          type="submit"
+          :disabled="!accepted || showSpinner"
         >
           {{ $t('terms-modal:submit') }}
+          <b-spinner v-if="showSpinner" small />
         </b-button>
-      </div>
+      </b-form>
       <div v-else>
-        <h3>Thanks, {{ name }}.</h3>
+        <h3>Thanks, {{ licenseRequest.name }}.</h3>
         <p>
-          Your license request has been sent to Rhiju Das (rhiju@stanford.edu). You will receive a
-          confirmation at your email ({{ email }}) when it has been approved.
+          Your request for a software license has been granted. <br />
+          Select the version you would like to download. <br />
         </p>
       </div>
     </template>
@@ -42,45 +60,74 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
   import axios from 'axios';
-  import TermsAndConditionsText from '@/views/terms/TermsAndConditionsText.vue';
+  import VersionCard from '@/views/software/VersionCard.vue';
 
-  const ROUTE = '/post/';
+  const POST_ROUTE = '/post/';
+  const LIST_RELEASES_ROUTE = '/get/?type=software_package_releases';
 
-  @Component({
-    components: { TermsAndConditionsText },
-  })
+  export interface SoftwareVersion {
+    name: string;
+    version_id: string;
+    description: string;
+    published: string;
+    // assets: string[]; // TODO: Or is this an array of typed objects?
+  }
+
+  @Component({ components: { VersionCard } })
   export default class SoftwareLicenseModal extends Vue {
-    errorMessage: string = '';
+    @Prop({ required: true }) readonly licenseTerms!: string;
 
-    $refs!: {
-      modal: BModal;
+    // Unique string used to refer to this popup.
+    // TODO: Possibly merge with packageid, below.
+    @Prop({ required: true }) readonly id!: string;
+
+    // The id used by the server to refer to this software package.
+    @Prop({ required: true }) readonly packageid!: string;
+
+    private accepted = false;
+
+    private showSpinner = false;
+
+    private token = '';
+
+    // The parameters needed by the server when requesting a new license
+    private licenseRequest = {
+      name: '',
+      email: '',
+      institution: '',
+      department: '',
     };
 
-    private accepted: boolean = false;
+    private softwareVersions: SoftwareVersion[] = [];
 
-    private signed: boolean = false;
+    async acceptTerms() {
+      this.showSpinner = true;
+      const response = await axios({
+        method: 'post',
+        url: POST_ROUTE,
+        data: new URLSearchParams({
+          type: 'request_software_license',
+          ...this.licenseRequest,
+          packageid: this.packageid,
+        }),
+      });
+      await this.fetchVersions();
+      this.token = response.data.data.token;
+      this.showSpinner = false;
+    }
 
-    private name!: string;
-
-    private email!: string;
-
-    acceptTerms() {
-      this.signed = true;
-      // if (this.status) {
-      //   axios.post(
-      //     ROUTE,
-      //     new URLSearchParams({
-      //       type: 'survey',
-      //       action: 'update',
-      //       value: 'EULA_AGREE',
-      //       uid: String(this.$vxm.user.uid),
-      //     }),
-      //   );
-      // }
-      // this.$refs.modal.hide();
+    async fetchVersions() {
+      const response = await axios({
+        method: 'get',
+        url: LIST_RELEASES_ROUTE,
+        params: {
+          packageid: this.packageid,
+        },
+      });
+      this.softwareVersions = response.data.data;
     }
   }
 </script>

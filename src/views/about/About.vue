@@ -92,7 +92,7 @@
                 <div class="open-tb-video-wrapper">
                   <iframe
                     class="biomedicine-challenges__video"
-                    src="https://www.youtube.com/embed/gQgA8LkHJjY"
+                    src="https://www.youtube.com/embed/pGMu569jkEc"
                     frameborder="0"
                     allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
@@ -109,6 +109,38 @@
                   </p>
                   <p class="biomedicine-challenges__status-message">
                     {{ $t('about:section2-header1-status') }}
+                  </p>
+                  <b-button
+                    to="/labs/10027854"
+                    class="biomedicine-challenges__btn"
+                    variant="secondary"
+                    >{{ $t('about:section2-learn-more') }}</b-button
+                  >
+                </aside>
+              </b-col>
+            </b-row>
+            <b-row class="biomedicine-challenges__sub-section">
+              <b-col cols="12" class="col-md-6 ">
+                <div class="open-tb-video-wrapper">
+                  <iframe
+                    class="biomedicine-challenges__video"
+                    src="https://www.youtube.com/embed/gQgA8LkHJjY"
+                    frameborder="0"
+                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </b-col>
+              <b-col cols="12" class="col-md-6">
+                <aside class="biomedicine-challenges__aside">
+                  <h1 class="biomedicine-challenges__heading">
+                    {{ $t('about:section2-header2') }}
+                  </h1>
+                  <p class="biomedicine-challenges__sub-text">
+                    {{ $t('about:section2-header2-details') }}
+                  </p>
+                  <p class="biomedicine-challenges__status-message">
+                    {{ $t('about:section2-header2-status') }}
                   </p>
                   <b-button
                     to="/labs/8489876"
@@ -135,13 +167,13 @@
               <b-col cols="12" class="col-md-6">
                 <aside class="biomedicine-challenges__aside">
                   <h1 class="biomedicine-challenges__heading">
-                    {{ $t('about:section2-header2') }}
+                    {{ $t('about:section2-header3') }}
                   </h1>
                   <p class="biomedicine-challenges__sub-text">
-                    {{ $t('about:section2-header2-details') }}
+                    {{ $t('about:section2-header3-details') }}
                   </p>
                   <p class="biomedicine-challenges__status-message">
-                    {{ $t('about:section2-header2-status') }}
+                    {{ $t('about:section2-header3-status') }}
                   </p>
                   <b-button
                     to="/labs/8037883"

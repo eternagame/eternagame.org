@@ -31,7 +31,7 @@
     },
   })
   export default class LabCard extends Vue {
-    @Prop() private lab!: LabCardData;
+    @Prop({ required: true }) readonly lab!: LabCardData;
 
     get labUrl() {
       return `/labs/${this.lab.nid}`;
@@ -62,7 +62,7 @@
     }
 
     get image() {
-      return this.lab.banner_image || this.lab.cover_image  || DefaultHero;
+      return this.lab?.banner_image || this.lab.cover_image || DefaultHero;
     }
   }
 </script>

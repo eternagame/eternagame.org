@@ -11,9 +11,9 @@
     components: {},
   })
   export default class GalleryColumn extends Vue {
-    @Prop({ required: true, default: '4' }) sm!: string;
+    @Prop({ default: '4' }) sm!: string;
 
-    @Prop({ required: true, default: '4' }) md!: string;
+    @Prop({ default: '4' }) md!: string;
   }
 </script>
 

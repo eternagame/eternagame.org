@@ -6,8 +6,9 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+
   @Component({})
   export default class PlayerHeader extends Vue {
-    @Prop() user!: object;
+    @Prop({ required: true }) readonly user!: object;
   }
 </script>

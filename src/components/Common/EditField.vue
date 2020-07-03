@@ -46,10 +46,11 @@
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   // @ts-ignore
   import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
-  // eslint-disable-next-line max-len
-  // prettier-ignore
+  import {
+    Heading, Bold, Underline, Image, HardBreak, OrderedList,
+    ListItem, Code, Italic, Link, Strike, BulletList, History, Placeholder
   // @ts-ignore
-  import { Heading, Bold, Underline, Image, HardBreak, OrderedList, ListItem, Code, Italic, Link, Strike, BulletList, History, Placeholder } from 'tiptap-extensions';
+  } from 'tiptap-extensions';
 
   import EditorMenuButton from './EditorMenuButton.vue';
 
@@ -60,12 +61,13 @@
   })
   export default class EditField extends Vue {
     // TODO i18n
-    @Prop({ default: '' }) private content!: string;
+    @Prop({ default: '' }) readonly content!: string;
 
     get editor() {
       const parent = this;
       return new Editor({
         content: this.content,
+        // @ts-ignore
         onUpdate: ({ getHTML }) => {
           parent.$emit('input', getHTML());
         },
@@ -89,7 +91,7 @@
             emptyNodeText: 'Type your message...',
             showOnlyWhenEditable: true,
             showOnlyCurrent: true,
-          })
+          }),
         ],
       });
     }
@@ -138,5 +140,10 @@
     pointer-events: none;
     height: 0;
     font-style: italic;
+  }
+
+  .editor ::v-deep p {
+    margin-bottom: 0;
+    padding-bottom: 1rem;
   }
 </style>

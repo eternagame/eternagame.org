@@ -13,21 +13,22 @@
   </div>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
-  // @ts-ignore
-  import get from 'lodash.get';
-  import { Swiper, directive } from 'vue-awesome-swiper';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Swiper, SwiperRef, directive } from 'vue-awesome-swiper';
   import { BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
   import 'swiper/css/swiper.css';
+
   @Component({
     components: { Swiper, BIconChevronRight, BIconChevronLeft },
     directives: { swiper: directive },
   })
   export default class Carousel extends Vue {
-    @Prop() private slideTo!: number;
+    @Prop({required: true}) readonly slideTo?: number;
+
+    @Ref('slider') readonly slider!: SwiperRef;
 
     mounted() {
-      if (this.slideTo) this.$refs.slider.$swiper.slideTo(this.slideTo);
+      if (this.slideTo) this.slider.$swiper.slideTo(this.slideTo);
     }
 
     private swiperOption = {
@@ -42,7 +43,11 @@
           slidesPerView: 1,
           spaceBetween: 20,
         },
-        576: {
+        500: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        720: {
           slidesPerView: 3,
           spaceBetween: 20,
         },

@@ -48,7 +48,8 @@
         </div>
       </b-col>
     </b-row>
-    <!-- <div class="mt-3 language-bar">
+    <!--
+    <div class="mt-3 language-bar">
       <div @click="setLanguage('en')" :class="{ active: isLanguage('en') }">
         English (US)
       </div>

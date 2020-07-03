@@ -19,8 +19,6 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
-  // @ts-ignore
-  import get from 'lodash.get';
 
   @Component({
     components: { EditField },
@@ -30,8 +28,9 @@
 
     private text: string = '';
 
-    setTitle(event: KeyboardEvent) {
-      const title = get(event, 'target.value');
+    setTitle(event: any) {
+      // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
+      const title = event.target.value;
       this.title = title;
       this.sendSection();
     }

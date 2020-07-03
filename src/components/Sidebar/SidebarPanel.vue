@@ -1,6 +1,6 @@
 <template>
   <div :class="{ panel: isInSidebar, toggler: !isInSidebar }">
-    <div class="sidebar-panel-header" :style="headerStyle" @click.stop="clickedHeader">
+    <div class="sidebar-panel-header" :style="headerStyle" @click="clickedHeader">
       <img v-if="headerIcon" :src="headerIcon" class="header-icon" />
       <span :class="headerTextClasses">{{ header }}</span>
     </div>
@@ -22,18 +22,18 @@
     components: {},
   })
   export default class SidebarPanel extends mixins(SidebarPanelMixin) {
-    @Prop({ required: true })
-    private header!: string;
+    @Prop({ required: true }) readonly header!: string;
 
-    @Prop()
-    private headerIcon!: string;
+    @Prop({ required: true }) readonly headerIcon!: string;
 
     get headerTextClasses() {
       return this.isInSidebar ? [] : ['d-none', 'd-md-inline-block'];
     }
 
-    clickedHeader() {
+    clickedHeader(event: Event) {
+      event.stopPropagation();
       if (!this.isInSidebar) {
+        this.$vxm.user.openSidebar();
         this.$vxm.mobile.showPageSidebar();
       }
     }

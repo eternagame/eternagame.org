@@ -30,9 +30,14 @@
     @Prop({ required: true })
     private paramName!: string;
 
-    private selected: string[] = ['notcleared'];
+    @Prop({ default: false})
+    scriptSearch !: boolean;
+
+    private selected: string[] = [];
 
     created() {
+      // Only adds default notcleared if searching puzzles (i.e. not searching scrips)
+      this.selected = this.scriptSearch ? [] : ['notcleared'];
       const data = this.$route.query[this.paramName];
       if (data && typeof data === 'string') {
         this.selected = data.split(',');

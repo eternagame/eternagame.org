@@ -12,7 +12,7 @@
     <div class="script-list-item-body">
       <div class="script-list-item-info">
         <p class="script-list-item-type">{{script.type}}</p>
-        <p class="script-list-item-success">{{script.success_rate || ''}}</p>
+        <p class="script-list-item-success">{{script.success_rate ? `${Math.round((Number(script.success_rate) * 10000)) / 100}%` : ''}}</p>
       </div>
       <p class="script-list-item-desc" v-html="script.body" />
       <p class="script-list-item-date">{{script.created}}</p>
@@ -21,6 +21,7 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue} from 'vue-property-decorator';
+  import axios, { AxiosInstance } from 'axios';
 
   @Component
   export default class ScriptCard extends Vue {
@@ -44,7 +45,6 @@
     float: right;
   }
   .script-list-item {
-    max-width: 800px;
     width: 100%;
     background-color: $med-dark-blue;
     border-radius: 5px;

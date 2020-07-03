@@ -32,7 +32,7 @@
         <div class="order-sm-2 cols-sm-10" style="width: 100%">
           <codemirror style="width: 100%" :options="codeOptions" v-model="code" />
           <button class="btn green" @click="evaluate">Evaluate</button>
-          <router-link :to="`/create/script/${script.nid}`"><button class="btn green">Edit</button></router-link>
+          <button class="btn" @click="post">Save</button>
         </div>
         <div class="order-sm-3 cols-sm-10" style="width: 100%">
           <div class="clear-header">
@@ -43,41 +43,6 @@
         </div>
       </div>
     </div>
-
-    <Comments
-      :comments="data.comments || []"
-      :nid="script.nid"
-    />
-
-    <template #sidebar="{ isInSidebar }">
-      <SidebarPanel
-        :isInSidebar="isInSidebar"
-        header="Script Info"
-        :headerIcon="require('@/assets/info.svg')"
-      >
-        <template #header-icon>
-          <img src="@/assets/info.svg" >
-        </template>
-        <ul style="padding: 0; list-style-type:none">
-          <li v-if="script.author && script.author.name">
-            <img src="@/assets/navbar/DefaultIcon.svg" class="icon">{{ script.author.name }}
-          </li>
-          <li v-if="script.pageview">
-            <img src="@/assets/people.svg" class="icon" /> &emsp;
-            {{ script.pageview }}
-          </li>
-          <li v-if="scriptDate !== ''"> &emsp;
-            <img src="@/assets/calendar.svg" class="icon" />{{ scriptDate }}
-          </li>
-          <li v-if="script.type">
-            <img src="@/assets/test-tube.svg" class="icon" />{{ script.type }}
-          </li>
-          <li v-if="script.success_rate">
-            <span style="font-weight: bold; text-align: center" class="icon">%</span> {{script.success_rate}}
-          </li>
-        </ul>
-      </SidebarPanel>
-    </template>
   </EternaPage>
   <Preloader v-else style="margin-top: 10rem;" />
 </template>
@@ -91,7 +56,6 @@
   import axios, { AxiosInstance } from 'axios';
   import { codemirror } from 'vue-codemirror';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
-  import Comments from '@/components/PageLayout/Comments.vue';
 
   const js = require('codemirror/mode/javascript/javascript.js');
 
@@ -118,13 +82,24 @@
     return res;
   }
 
-  async function increasePageViews(route: Route, http: AxiosInstance, vxm: VXM) {
+  async function postScript(route: Route, http: AxiosInstance, vxm: VXM, script: Object) {
     const { filters } = route.query;
 
     const params = new FormData();
     params.set('type', 'script');
-    params.set('need', 'increase_pageview');
-    params.set('id', route.params.nid);
+    params.set('need', 'save');
+    if (route.params && route.params.nid && script.author.name === vxm.user.username) {
+      params.set('parent_nid', route.params.nid);
+    }
+    params.set('author', JSON.stringify({
+      name: vxm.user.username,
+      uid: vxm.user.uid,
+    }));
+    params.set('input', JSON.stringify(script.input));
+    params.set('description', script.body);
+    params.set('script_type', script.type);
+    params.set('title', script.title);
+    params.set('source', script.source);
     params.set('rnd', '0.704488224442372');
 
     const header = {
@@ -143,11 +118,10 @@
     components: {
       EternaPage,
       codemirror,
-      SidebarPanel,
-      Comments,
+      Preloader
     }
   })
-  export default class ScriptView extends Vue {
+  export default class ScriptCreate extends Vue {
     evaluate() {
       this.results += 'Not implemented yet <br>';
       const timeout = parseInt(this.inputs.Timeout || '10', 10);
@@ -159,17 +133,18 @@
     code = '';
 
     created() {
-      fetchPageData(this.$route, this.$http, this.$vxm).then(e => {
-        this.data = e;
-        this.code = this.data.script[0].source;
-        if (this.data.script[0].input !== '[]' && JSON.parse(this.data.script[0].input)) {
-          const inputs = JSON.parse(this.data.script[0].input);
-          inputs.forEach(i => {
-            Vue.set(this.inputs, i.value, '');
-          });
-        }
-      });
-      increasePageViews(this.$route, this.$http, this.$vxm);
+      if (this.$route.params.nid) {
+        fetchPageData(this.$route, this.$http, this.$vxm).then(e => {
+          this.data = e;
+          this.code = this.data.script[0].source || '';
+          if (this.data.script[0].input !== '[]' && JSON.parse(this.data.script[0].input)) {
+            const inputs = JSON.parse(this.data.script[0].input);
+            inputs.forEach(i => {
+              Vue.set(this.inputs, i.value, '');
+            });
+          }
+        });
+      }
     }
 
     get codeOptions() {
@@ -200,12 +175,17 @@
       Timeout: '10',
     };
 
-    enabled = false;
+    enabled = true;
 
     results = '';
 
     clearInputs() {
       Object.keys(this.inputs).forEach(e => Vue.set(this.inputs, e, ''));
+    }
+
+    post() {
+      this.script.source = this.code;
+      postScript(this.$route, this.$http, this.$vxm, this.script);
     }
   }
 </script>

@@ -22,4 +22,6 @@ export interface Script {
   }[];
 
   source: string;
+
+  nid: string;
 }

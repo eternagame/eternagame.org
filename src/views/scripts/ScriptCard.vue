@@ -1,5 +1,5 @@
 <template>
-  <div class="script-list-item">
+  <div class="script-list-item" v-show="scriptNotRemoved">
     <div class="script-list-item-head">
       <router-link :to="`/script/${script.nid}`">
       <h5 class="script-list-item-title">{{script.title}}</h5>
@@ -22,20 +22,12 @@
 <script lang="ts">
   import { Component, Prop, Vue} from 'vue-property-decorator';
   import axios, { AxiosInstance } from 'axios';
+  import { Script } from './Script';
 
   @Component
   export default class ScriptCard extends Vue {
     @Prop()
-    script !: {
-      title: string,
-      body: string,
-      created: string,
-      author: {
-        name: string,
-      },
-      uid: string,
-      success_rate: string,
-    };
+    script !: Script;
   }
 </script>
 <style lang="scss" scoped>
@@ -51,6 +43,7 @@
     margin: 8px;
     padding: 5px;
     overflow: hidden;
+    position: relative;
   }
   .script-list-item-head, .script-list-item-body {
     width: 100%;
@@ -68,5 +61,8 @@
   }
   p {
     margin-bottom: 0;
+  }
+  .green {
+    background-color: $green;
   }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <EternaPage :title="$t('nav-bar:scripts')">
-    <router-link :to="`/create/script/`"><button class="btn">Create</button></router-link>
+    <router-link :to="`/create/script/`"><button class="btn green">Create</button></router-link>
+    <router-link :to="`/scripts/documentation/`"><button class="btn green">Documentation</button></router-link>
     <div v-if="scripts">
       <ScriptCard
         v-for="script in scripts"
@@ -57,6 +58,7 @@
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { VXM } from '@/types/vue.d';
   import ScriptCard from './ScriptCard.vue';
+  import { Script } from './Script';
 
   const INITIAL_SORT = 'date';
   const INITIAL_NUMBER = 18;
@@ -132,3 +134,10 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+@import '@/styles/global.scss';
+
+.green {
+  background-color: $green;
+}
+</style>

@@ -44,7 +44,8 @@
         <div class="order-sm-2 cols-sm-10" style="width: 100%">
           <codemirror style="width: 100%" :options="codeOptions" v-model="code" />
           <button class="btn green" @click="evaluate">Evaluate</button>
-          <button class="btn green" style="margin-left: 5px" @click="post">Save</button>
+          <button class="btn green" style="margin-left: 10px" @click="post">Save</button>
+          <button class="btn green" style="margin-left: 10px" @click="cancel">Cancel</button>
         </div>
         <div class="order-sm-3 cols-sm-10" style="width: 100%">
           <div class="clear-header">
@@ -120,11 +121,34 @@
       'Access-Control-Allow-Origin': true,
       'Content-Type': 'multipart/form-data',
     };
-    http.post(POST_ROUTE, params, {
-      headers:  {
-        header,
-      }
-    });
+    const res = (
+      await http.post(POST_ROUTE, params, {
+        headers:  {
+          header,
+        }
+      })
+    ).data.data;
+    return res;
+  }
+
+  async function removeScript(route: Route, http: AxiosInstance, vxm: VXM, script: Script) {
+    const params = new FormData();
+    params.set('type', 'remove_script');
+    params.set('nid', script.nid);
+    params.set('rnd', '0.704488224442372');
+
+    const header = {
+      'Access-Control-Allow-Origin': true,
+      'Content-Type': 'multipart/form-data',
+    };
+    const res = (
+      await http.post(POST_ROUTE, params, {
+        headers:  {
+          header,
+        }
+      })
+    ).data.data;
+    return res;
   }
 
 
@@ -199,7 +223,17 @@
 
     post() {
       this.script.source = this.code;
-      postScript(this.$route, this.$http, this.$vxm, this.script);
+      postScript(this.$route, this.$http, this.$vxm, this.script).then(e => {
+        if (this.script.author.name !== this.$vxm.user.username) {
+          const {nid} = e;
+          this.$router.push(`/create/script/${nid}`);
+          this.script.author.name = this.$vxm.user.username;
+        }
+      });;
+    }
+
+    cancel() {
+      this.$router.push(`/script/${this.script.nid}`);
     }
   }
 </script>
@@ -260,10 +294,9 @@
     display: inline-block;
   }
   textarea.edit-row-input {
-    width: inherit;
+    width: 500px;
+    height: 5rem;
     resize: none;
-    max-width: 100%;
-    min-height: 2rem;
   }
   .edit-row > select {
     margin-left: 18px;

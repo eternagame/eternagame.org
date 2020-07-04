@@ -9,6 +9,7 @@
             class="script-description" style="word-wrap: break-word;"
             v-dompurify-html="script.body"
           />
+          <button class="btn green" v-if="script.author.name === $vxm.user.username" @click="removeScript"><router-link style="color: white; text-decoration: none" to="/scripts">Remove</router-link></button>
         </div>
       </div>
     </div>
@@ -32,7 +33,7 @@
         <div class="order-sm-2 cols-sm-10" style="width: 100%">
           <codemirror style="width: 100%" :options="codeOptions" v-model="code" />
           <button class="btn green" @click="evaluate">Evaluate</button>
-          <router-link :to="`/create/script/${script.nid}`"><button class="btn green">Edit</button></router-link>
+          <router-link :to="`/create/script/${script.nid}`" style="margin-left: 10px"><button class="btn green">Edit</button></router-link>
         </div>
         <div class="order-sm-3 cols-sm-10" style="width: 100%">
           <div class="clear-header">
@@ -208,6 +209,23 @@
 
     clearInputs() {
       Object.keys(this.inputs).forEach(e => Vue.set(this.inputs, e, ''));
+    }
+
+    async removeScript() {
+      const params = new FormData();
+      params.set('type', 'remove_script');
+      params.set('nid', this.script.nid);
+      params.set('rnd', '0.704488224442372');
+
+      const header = {
+        'Access-Control-Allow-Origin': true,
+        'Content-Type': 'multipart/form-data',
+      };
+      this.$http.post('/post/', params, {
+        headers:  {
+          header,
+        }
+      });
     }
   }
 </script>

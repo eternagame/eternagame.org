@@ -116,6 +116,7 @@ export interface MeQueryResponse {
 }
 
 export interface Publication {
+  nid: string;
   title: string;
   journal: string;
   pub_date: string;

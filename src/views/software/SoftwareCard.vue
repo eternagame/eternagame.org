@@ -1,5 +1,6 @@
 <template>
   <div class="page-content card">
+    <a :href="`/node/${packageid}/edit`" class="edit-link" v-if="showEdit">Edit</a>
     <div class="container">
       <img class="logo rounded-circle mr-3" :src="`/sites/default/files/${project.logo}`" />
 
@@ -91,6 +92,10 @@
     get packageid() {
       return this.project.nid;
     }
+
+    get showEdit() {
+      return this.$vxm.user.userDetails?.is_admin;
+    }
   }
 </script>
 
@@ -121,5 +126,11 @@
   }
   .logo:hover {
     transform: rotateY(180deg);
+  }
+
+  .edit-link {
+    position: absolute;
+    top: 5px;
+    right: 15px;
   }
 </style>

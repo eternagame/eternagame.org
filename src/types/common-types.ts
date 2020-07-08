@@ -12,6 +12,7 @@ export interface UserData {
   is_lab_member_legacy: boolean;
   ten_tools_level: number;
   Survey: string;
+  is_admin: boolean;
 }
 
 export interface LatestPuzzle {

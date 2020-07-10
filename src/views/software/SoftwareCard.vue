@@ -19,7 +19,7 @@
             title="Request software license"
           >
             <b-icon-download />
-            REQUEST
+            REQUEST LICENSE
           </b-btn>
           <SoftwareLicenseModal
             :id="id"

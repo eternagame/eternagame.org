@@ -2,25 +2,30 @@
   <EternaPage v-if="script" :title="`${$route.params.nid ? 'Edit' : 'Create'} Script`">
     <div class="page-content">
       <div class="d-flex flex-wrap " xs="12" sm="8">
-
         <div class="order-sm-1">
-          <hr class="top-border d-sm-none" />
-          <div class="edit-row"><span>Title</span>
-            <input class="edit-row-input form-control form-control-sm" v-model="script.title"></div>
-          <div class="edit-row">
-            <span>Type</span> <select class="edit-row-input custom-select" v-model="script.type">
+          <div class="form-group">
+            <label for="title-edit">Title</label>
+            <input id="title-edit" class="edit-row-input form-control form-control-sm" v-model="script.title">
+          </div>
+          <div class="form-group">
+            <label for="type-edit">Type</label>
+            <select id="type-edit" class="edit-row-input form-control custom-select" v-model="script.type">
               <option>Booster</option>
               <option>Etc</option>
               <option>RNA scoring</option>
               <option>Puzzle solving</option>
             </select>
           </div>
-          <div class="edit-row"><span style="vertical-align:top">Description</span><textarea
-            class="edit-row-input script-description form-control form-control-sm"
-            placeholder="Description"
-            style="word-wrap: break-word;"
-            v-model="script.body"
-          /></div>
+          <div class="form-group">
+            <label for="desc-edit" style="margin-top: 5px; vertical-align: top;">Description</label>
+            <textarea
+              id="desc-edit"
+              class="edit-row-input script-description form-control form-control-sm"
+              placeholder="Description"
+              style="word-wrap: break-word;"
+              v-model="script.body"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -30,29 +35,40 @@
         <div class="order-sm-1 cols-sm-10" style="width: 100%">
           <div class="clear-header" id="clear-header-input">
             <h6>Input</h6>
-            <button class="btn clear-button" @click="clearInputs">
+            <button class="btn fl btn-primary" @click="clearInputs">
               Clear
             </button>
           </div>
-          <ul style="list-style-type: none; padding: 0">
-            <li v-for="input in Object.keys(inputs)" :key="input">
-              <span style="display: inline-block; width: 150px">{{ input }}</span>
-              <input class="form-control form-control-sm" style="max-width: 150px; display: inline-block" v-model="inputs[input]">
+          <ul class="list-group" style="list-style-type: none">
+            <li v-for="input in Object.keys(inputs).filter(e => e !== 'timeout')" :key="input">
+              <span style="display: inline-block; width: 150px;">{{ input }}</span>
+              <input v-model="inputs[input]" class='form-control form-control-sm mr-sm-2 align-middle' style="width: auto; display: inline-block;">
+              <button @click="deleteInput(input)" class="btn btn-danger">Remove</button>
+            </li>
+            <li>
+              <span style="display: inline-block; width: 150px;">Timeout</span>
+              <input v-model="inputs.timeout" class='form-control form-control-sm' style="width: auto; display: inline-block;">
+            </li>
+            <li>
+              <input v-model="newInput" placeholder="Add input" style="display: inline-block; width: auto" class="form-control form-control-sm mr-sm-2 align-middle">
+              <button class="btn btn-primary" @click="inputs[newInput] = ''; newInput = ''">+</button>
             </li>
           </ul>
         </div>
         <div class="order-sm-2 cols-sm-10" style="width: 100%">
           <codemirror style="width: 100%" :options="codeOptions" v-model="code" />
-          <button class="btn green" @click="evaluate">Evaluate</button>
-          <button class="btn green" style="margin-left: 10px" @click="post">Save</button>
-          <button class="btn green" style="margin-left: 10px" @click="cancel">Cancel</button>
+          <button class="btn btn-primary" @click.stop="evaluate">Evaluate</button>
+          <button class="btn btn-primary" style="margin-left: 10px" @click="post">Save</button>
+          <button class="btn btn-primary" style="margin-left: 10px" @click="cancel">Cancel</button>
         </div>
         <div class="order-sm-3 cols-sm-10" style="width: 100%">
           <div class="clear-header">
           <h6>Output</h6>
-          <button class="btn clear-button" @click="results = ''">Clear</button>
+          <button class="btn float-rightbtn-primary" @click="results = ''">Clear</button>
           </div>
-          <div class="script-output" v-dompurify-html="results" />
+          <div class="script-output">
+            <pre v-dompurify-html="results" />
+          </div>
         </div>
       </div>
     </div>
@@ -61,6 +77,7 @@
 </template>
 <script lang="ts">
   import {Component, Prop, Vue} from 'vue-property-decorator';
+  import { EternaScript } from 'eternascript';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   // eslint-disable-next-line import/no-unresolved
   import get from 'lodash.get';
@@ -70,7 +87,9 @@
   import axios, { AxiosInstance } from 'axios';
   import { codemirror } from 'vue-codemirror';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
+  import Utils from '@/utils/utils';
   import { Script } from './Script';
+  import { PUZZLE_ROUTE_PREFIX } from '../../utils/constants';
 
   const js = require('codemirror/mode/javascript/javascript.js');
 
@@ -161,10 +180,19 @@
   })
   export default class ScriptCreate extends Vue {
     evaluate() {
-      this.results += 'Not implemented yet <br>';
-      const timeout = parseInt(this.inputs.Timeout || '10', 10);
-      // TODO
+      const script = new EternaScript(this.code, this.inputs);
+      script.onConsole = (e: string) => {
+        this.results = `${e}${this.results}`;
+      };
+      script.onClear = () => { this.results = ''; };
+      script.evaluate().then(e => {
+        this.results = `Result: ${e.result}\nCompleted in ${e.time / 1000} seconds\n${this.results}`;
+      });
     }
+
+    newInput = '';
+
+    puzzleRoute = PUZZLE_ROUTE_PREFIX;
 
     data : any = {};
 
@@ -209,8 +237,9 @@
 
     inputs: {
       [name: string]: string;
+      timeout: string;
     } = {
-      Timeout: '10',
+      timeout: '10',
     };
 
     enabled = true;
@@ -234,6 +263,10 @@
 
     cancel() {
       this.$router.push(`/script/${this.script.nid}`);
+    }
+
+    deleteInput(input: string) {
+      Vue.delete(this.inputs, input);
     }
   }
 </script>
@@ -268,11 +301,6 @@
     border-radius: 5px;
     margin: 5px 0px;
   }
-  .clear-button {
-    background-color: $green;
-    position: relative;
-    float: right;
-  }
   .clear-header {
     overflow: hidden;
     margin: 10px 0;
@@ -281,31 +309,8 @@
     margin: 0;
   }
   .clear-header > h6 {
-    margin-bottom: 0;
+    margin-top: 10px;
     display: inline-block;
     vertical-align: sub;
-  }
-  .green {
-    background-color: $green;
-  }
-  .edit-row-input {
-    margin-left: 21px;
-    width: 200px;
-    display: inline-block;
-  }
-  textarea.edit-row-input {
-    width: 500px;
-    height: 5rem;
-    resize: none;
-  }
-  .edit-row > select {
-    margin-left: 18px;
-  }
-  .edit-row {
-    position: relative;
-  }
-  .edit-row > span {
-    width: 100px;
-    display: inline-block;
   }
 </style>

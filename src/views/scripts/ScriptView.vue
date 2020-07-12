@@ -3,42 +3,53 @@
     <div class="page-content">
       <div class="d-flex flex-wrap " xs="12" sm="8">
 
-        <div class="order-sm-1 col-sm-12">
+        <div class="order-sm-1 col-sm-12" style="padding-right: 0px">
           <hr class="top-border d-sm-none" />
           <div
-            class="script-description" style="word-wrap: break-word;"
+            class="script-description"
+            style="word-wrap: break-word; padding: 0"
             v-dompurify-html="script.body"
           />
-          <button class="btn green" v-if="script.author.name === $vxm.user.username" @click="removeScript"><router-link style="color: white; text-decoration: none" to="/scripts">Remove</router-link></button>
+          <button
+              class="btn btn-primary mt-2"
+              style="position: relative; right: 0"
+              v-if="script.author.name === $vxm.user.username"
+              @click="removeScript">
+                <router-link style="color: white; text-decoration: none" to="/scripts">Remove</router-link>
+            </button>
         </div>
       </div>
     </div>
 
     <div class="page-content" style="margin-top: 10px">
       <div class="d-flex flex-wrap " xs="12" sm="8">
-        <div class="order-sm-1 cols-sm-10" style="width: 100%">
+        <div class="order-sm-1" style="width: 100%">
           <div class="clear-header" id="clear-header-input">
             <h6>Input</h6>
-            <button class="btn clear-button" @click="clearInputs">
+            <button class="btn clear-button btn-primary" @click="clearInputs">
               Clear
             </button>
           </div>
-          <ul style="list-style-type: none; padding: 0">
-            <li v-for="input in Object.keys(inputs)" :key="input">
-              <span style="display: inline-block; width: 150px">{{ input }}</span>
-              <input v-model="inputs[input]">
+          <ul style="list-style-type: none" class="list-group">
+            <li v-for="input in Object.keys(inputs).filter(e => e !== 'timeout')" :key="input">
+              <span style="display: inline-block; width: 150px;">{{ input }}</span>
+              <input v-model="inputs[input]" class='form-control form-control-sm mr-sm-2 align-middle' style="width: auto; display: inline-block;">
+            </li>
+            <li>
+              <span style="display: inline-block; width: 150px;">Timeout</span>
+              <input v-model="inputs.timeout" class='form-control form-control-sm' style="width: auto; display: inline-block;">
             </li>
           </ul>
         </div>
         <div class="order-sm-2 cols-sm-10" style="width: 100%">
           <codemirror style="width: 100%" :options="codeOptions" v-model="code" />
-          <button class="btn green" @click="evaluate">Evaluate</button>
-          <router-link :to="`/create/script/${script.nid}`" style="margin-left: 10px"><button class="btn green">Edit</button></router-link>
+          <button class="btn btn-primary" @click="evaluate">Evaluate</button>
+          <router-link :to="`/create/script/${script.nid}`" style="margin-left: 10px"><button class="btn btn-primary">Edit</button></router-link>
         </div>
         <div class="order-sm-3 cols-sm-10" style="width: 100%">
           <div class="clear-header">
           <h6>Output</h6>
-          <button class="btn clear-button" @click="results = ''">Clear</button>
+          <button class="btn float-right btn-primary" @click="results = ''">Clear</button>
           </div>
           <div class="script-output" v-dompurify-html="results" />
         </div>
@@ -92,6 +103,7 @@
   import { codemirror } from 'vue-codemirror';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
+  import { EternaScript } from 'eternascript';
   import { Script } from './Script';
 
   const js = require('codemirror/mode/javascript/javascript.js');
@@ -150,9 +162,8 @@
   })
   export default class ScriptView extends Vue {
     evaluate() {
-      this.results += 'Not implemented yet <br>';
-      const timeout = parseInt(this.inputs.Timeout || '10', 10);
-      // TODO
+      const eternaScript = new EternaScript(this.code, this.inputs);
+
     }
 
     data : any = {};
@@ -199,8 +210,9 @@
 
     inputs: {
       [name: string]: string;
+      timeout: string;
     } = {
-      Timeout: '10',
+      timeout: '10',
     };
 
     enabled = false;
@@ -261,7 +273,6 @@
     margin: 5px 0px;
   }
   .clear-button {
-    background-color: $green;
     position: relative;
     float: right;
   }
@@ -276,8 +287,5 @@
     margin-bottom: 0;
     display: inline-block;
     vertical-align: sub;
-  }
-  .green {
-    background-color: $green;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="script-list-item" v-show="scriptNotRemoved">
+  <div class="script-list-item">
     <div class="script-list-item-head">
       <router-link :to="`/script/${script.nid}`">
       <h5 class="script-list-item-title">{{script.title}}</h5>
@@ -40,7 +40,7 @@
     width: 100%;
     background-color: $med-dark-blue;
     border-radius: 5px;
-    margin: 8px;
+    margin: 0px 8px;
     padding: 5px;
     overflow: hidden;
     position: relative;

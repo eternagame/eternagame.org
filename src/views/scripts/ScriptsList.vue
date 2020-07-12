@@ -1,7 +1,7 @@
 <template>
   <EternaPage :title="$t('nav-bar:scripts')">
-    <router-link :to="`/create/script/`"><button class="btn green">Create</button></router-link>
-    <router-link :to="`/scripts/documentation/`"><button class="btn green">Documentation</button></router-link>
+    <router-link :to="`/create/script/`"><button class="btn btn-primary">Create</button></router-link>
+    <router-link :to="`/scripts/documentation/`"><button class="btn btn-primary ml-2">Documentation</button></router-link>
     <div v-if="scripts">
       <ScriptCard
         v-for="script in scripts"
@@ -134,10 +134,3 @@
     }
   }
 </script>
-<style lang="scss" scoped>
-@import '@/styles/global.scss';
-
-.green {
-  background-color: $green;
-}
-</style>

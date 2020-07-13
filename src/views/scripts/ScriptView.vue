@@ -180,7 +180,7 @@
         this.data = e;
         this.code = this.data.script[0].source;
         if (!this.script.input) return;
-        if (this.script && this.script.input !== undefined && JSON.parse(this.script.input)) {
+        if (this.script && this.script.input !== 'undefined' && JSON.parse(this.script.input)) {
           const inputs = JSON.parse(this.script.input) as {
             value: string,
           }[];
@@ -192,12 +192,6 @@
         }
       });
       increasePageViews(this.$route, this.$http, this.$vxm);
-    }
-
-
-    @Watch('code')
-    hint() {
-      if (this.$refs && this.$refs.editor) this.$refs.editor.codemirror.showHint();
     }
 
     get codeOptions() {

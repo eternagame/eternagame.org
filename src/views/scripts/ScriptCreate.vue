@@ -1,5 +1,10 @@
 <template>
   <EternaPage v-if="script" :title="`${$route.params.nid ? 'Edit' : 'Create'} Script`">
+    <div class="alert alert-dismissible alert-warning" v-show="warning !== ''">
+      <button type="button" class="close" @click="warning = ''">&times;</button>
+      <h4 class="alert-heading">Warning</h4>
+      <p class="mb-0">{{warning}}.</p>
+    </div>
     <div class="page-content">
       <div class="d-flex flex-wrap " xs="12" sm="8">
         <div class="order-sm-1">
@@ -210,11 +215,13 @@
         fetchPageData(this.$route, this.$http, this.$vxm).then(e => {
           this.data = e;
           this.code = this.data.script[0].source || '';
-          if (this.data.script[0].input !== '[]' && JSON.parse(this.data.script[0].input)) {
+          if (this.script && this.script.input !== undefined && JSON.parse(this.script.input)) {
             const inputs = JSON.parse(this.data.script[0].input) as { value: string }[];
-            inputs.forEach(i => {
-              Vue.set(this.inputs, i.value, '');
-            });
+            if (inputs && inputs.length > 0 && inputs.forEach) {
+              inputs.forEach(i => {
+                Vue.set(this.inputs, i.value, '');
+              });
+            }
           }
         });
       }
@@ -225,7 +232,7 @@
       const cursor = this.$refs.editor.codemirror.getCursor();
       const value = e.split('\n');
       const typedChar = value[Math.max(0, cursor.line - 1)][Math.max(0, cursor.ch - 1)];
-      if (!typedChar || typedChar.match(/(\s|\{\};)/)) return;
+      if (!typedChar || typedChar.match(/(\s|\{|\}|;)/)) return;
       if (this.$refs && this.$refs.editor) this.$refs.editor.codemirror.showHint();
     }
 
@@ -276,13 +283,29 @@
 
     post() {
       this.script.source = this.code;
+      if (!this.script.title || this.script.title === undefined) {
+        this.warning = 'Must add a title';
+        return;
+      }
+      if (!this.script.description || this.script.description === undefined) {
+        this.warning = 'Must add a description';
+        return;
+      }
+      if (!this.script.type || this.script.type === undefined) {
+        this.warning = 'Must add a type';
+        return;
+      }
       postScript(this.$route, this.$http, this.$vxm, this.script).then(e => {
-        if (this.script.author.name !== this.$vxm.user.username) {
+        if (!this.script.author || this.script.author.name !== this.$vxm.user.username) {
           const {nid} = e;
           this.$router.push(`/create/script/${nid}`);
-          this.script.author.name = this.$vxm.user.username;
+          if (!this.script.author) this.data.script[0].author = {};
+          this.data.script[0].author.name = this.$vxm.user.username;
         }
-      });;
+        if (!e.success) {
+          this.warning = JSON.stringify(e);
+        }
+      });
     }
 
     cancel() {
@@ -296,6 +319,8 @@
     $refs !: {
       editor: codemirror;
     };
+
+    warning = '';
   }
 </script>
 <style>

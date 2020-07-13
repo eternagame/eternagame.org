@@ -111,8 +111,7 @@
   const js = require('codemirror/mode/javascript/javascript.js');
   const gutter = require('codemirror/addon/fold/foldgutter.js');
   const fold = require('codemirror/addon/fold/foldcode.js');
-  const match = require('codemirror/addon/edit/matchbrackets.js');
-  const close = require('codemirror/addon/edit/closebrackets.js');
+  const brace = require('codemirror/addon/fold/brace-fold');
 
   const INITIAL_SORT = 'date';
   const INITIAL_SIZE = 10;

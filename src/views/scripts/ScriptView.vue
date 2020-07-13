@@ -13,7 +13,7 @@
           <button
               class="btn btn-primary mt-2"
               style="position: relative; right: 0"
-              v-if="script.author.name === $vxm.user.username"
+              v-if="script.author && script.author.name === $vxm.user.username"
               @click="removeScript">
                 <router-link style="color: white; text-decoration: none" to="/scripts">Remove</router-link>
             </button>
@@ -94,7 +94,7 @@
   <Preloader v-else style="margin-top: 10rem;" />
 </template>
 <script lang="ts">
-  import {Component, Prop, Vue} from 'vue-property-decorator';
+  import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { VXM } from '@/types/vue.d';
@@ -106,7 +106,13 @@
   import { EternaScript } from 'eternascript';
   import { Script } from './Script';
 
+
+  // Addons for codemirror
   const js = require('codemirror/mode/javascript/javascript.js');
+  const gutter = require('codemirror/addon/fold/foldgutter.js');
+  const fold = require('codemirror/addon/fold/foldcode.js');
+  const match = require('codemirror/addon/edit/matchbrackets.js');
+  const close = require('codemirror/addon/edit/closebrackets.js');
 
   const INITIAL_SORT = 'date';
   const INITIAL_SIZE = 10;
@@ -174,16 +180,25 @@
       fetchPageData(this.$route, this.$http, this.$vxm).then(e => {
         this.data = e;
         this.code = this.data.script[0].source;
-        if (this.data.script[0].input !== '[]' && JSON.parse(this.data.script[0].input)) {
-          const inputs = JSON.parse(this.data.script[0].input) as {
+        if (!this.script.input) return;
+        if (this.script && this.script.input !== undefined && JSON.parse(this.script.input)) {
+          const inputs = JSON.parse(this.script.input) as {
             value: string,
           }[];
-          inputs.forEach(i => {
-            Vue.set(this.inputs, i.value, '');
-          });
+          if (inputs && inputs.length > 0 && inputs.forEach) {
+            inputs.forEach(i => {
+              Vue.set(this.inputs, i.value, '');
+            });
+          }
         }
       });
       increasePageViews(this.$route, this.$http, this.$vxm);
+    }
+
+
+    @Watch('code')
+    hint() {
+      if (this.$refs && this.$refs.editor) this.$refs.editor.codemirror.showHint();
     }
 
     get codeOptions() {
@@ -193,6 +208,14 @@
         lineNumbers: true,
         line: true,
         readOnly: !this.enabled,
+        lineWrapping: true,
+        foldGutter: true,
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        hintOptions: {
+          completeSingle: false,
+        },
       };
     }
 

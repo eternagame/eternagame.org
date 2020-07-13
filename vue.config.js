@@ -67,7 +67,7 @@ module.exports = {
       if (!IS_SERVER_BUILD && !PRODUCTION) {
         config.plugin('hmr').use(webpack.HotModuleReplacementPlugin);
       }
-
+    
       if (IS_SERVER_BUILD) {
         config
           // Configure the server-side build that's run in a Node environment

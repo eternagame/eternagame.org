@@ -35,7 +35,7 @@
         <div class="order-sm-1 cols-sm-10" style="width: 100%">
           <div class="clear-header" id="clear-header-input">
             <h6>Input</h6>
-            <button class="btn fl btn-primary" @click="clearInputs">
+            <button class="btn float-right btn-primary" @click="clearInputs">
               Clear
             </button>
           </div>
@@ -55,8 +55,8 @@
             </li>
           </ul>
         </div>
-        <div class="order-sm-2 cols-sm-10" style="width: 100%">
-          <codemirror style="width: 100%" :options="codeOptions" v-model="code" />
+        <div class="order-sm-2" style="width: 100%">
+          <codemirror v-model="code" :options="codeOptions" style="margin-bottom: 5px" ref="editor"/>
           <button class="btn btn-primary" @click.stop="evaluate">Evaluate</button>
           <button class="btn btn-primary" style="margin-left: 10px" @click="post">Save</button>
           <button class="btn btn-primary" style="margin-left: 10px" @click="cancel">Cancel</button>
@@ -64,7 +64,7 @@
         <div class="order-sm-3 cols-sm-10" style="width: 100%">
           <div class="clear-header">
           <h6>Output</h6>
-          <button class="btn float-rightbtn-primary" @click="results = ''">Clear</button>
+          <button class="btn float-right btn-primary" @click="results = ''">Clear</button>
           </div>
           <div class="script-output">
             <pre v-dompurify-html="results" />
@@ -76,7 +76,7 @@
   <Preloader v-else style="margin-top: 10rem;" />
 </template>
 <script lang="ts">
-  import {Component, Prop, Vue} from 'vue-property-decorator';
+  import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
   import { EternaScript } from 'eternascript';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   // eslint-disable-next-line import/no-unresolved
@@ -91,7 +91,13 @@
   import { Script } from './Script';
   import { PUZZLE_ROUTE_PREFIX } from '../../utils/constants';
 
+  // Addons for codemirror
   const js = require('codemirror/mode/javascript/javascript.js');
+  const gutter = require('codemirror/addon/fold/foldgutter.js');
+  const fold = require('codemirror/addon/fold/foldcode.js');
+  const match = require('codemirror/addon/edit/matchbrackets.js');
+  const close = require('codemirror/addon/edit/closebrackets.js');
+  const hint = require('codemirror/addon/hint/show-hint.js');
 
   const INITIAL_SORT = 'date';
   const INITIAL_SIZE = 10;
@@ -175,7 +181,7 @@
     components: {
       EternaPage,
       codemirror,
-      Preloader
+      Preloader,
     }
   })
   export default class ScriptCreate extends Vue {
@@ -213,6 +219,11 @@
       }
     }
 
+    @Watch('code')
+    hint() {
+      if (this.$refs && this.$refs.editor) this.$refs.editor.codemirror.showHint();
+    }
+
     get codeOptions() {
       return {
         tabSize: 4,
@@ -220,6 +231,14 @@
         lineNumbers: true,
         line: true,
         readOnly: !this.enabled,
+        lineWrapping: true,
+        foldGutter: true,
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        hintOptions: {
+          completeSingle: false,
+        },
       };
     }
 
@@ -268,16 +287,17 @@
     deleteInput(input: string) {
       Vue.delete(this.inputs, input);
     }
+
+    $refs !: {
+      editor: codemirror;
+    };
   }
 </script>
 <style>
+/* Codemirror addon styles */
 @import '~codemirror/lib/codemirror.css';
-.CodeMirror {
-  height: 800px !important;
-  border-radius: 5px;
-  margin: 5px 0px;
-  width: inherit;
-}
+@import '~codemirror/addon/fold/foldgutter.css';
+@import '~codemirror/addon/hint/show-hint.css';
 </style>
 <style lang="scss" scoped>
   @import '@/styles/global.scss'; 
@@ -312,5 +332,9 @@
     margin-top: 10px;
     display: inline-block;
     vertical-align: sub;
+  }
+  .editor {
+    width: auto;
+    height: 500px;
   }
 </style>

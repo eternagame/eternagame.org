@@ -5,13 +5,13 @@
         <div class="order-sm-1">
           <div class="form-group">
             <label for="title-edit">Title</label>
-            <input id="title-edit" class="edit-row-input form-control form-control-sm" v-model="script.title">
+            <input id="title-edit" placeholder="Title" class="edit-row-input form-control form-control-sm" v-model="script.title">
           </div>
           <div class="form-group">
             <label for="type-edit">Type</label>
             <select id="type-edit" class="edit-row-input form-control custom-select" v-model="script.type">
               <option>Booster</option>
-              <option>Etc</option>
+              <option selected>Etc</option>
               <option>RNA scoring</option>
               <option>Puzzle solving</option>
             </select>
@@ -29,7 +29,6 @@
         </div>
       </div>
     </div>
-
     <div class="page-content" style="margin-top: 10px">
       <div class="d-flex flex-wrap " xs="12" sm="8">
         <div class="order-sm-1 cols-sm-10" style="width: 100%">

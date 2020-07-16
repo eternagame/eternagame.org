@@ -83,7 +83,6 @@
     @Prop({ required: true }) readonly licenseTerms!: string;
 
     // Unique string used to refer to this popup.
-    // TODO: Possibly merge with packageid, below.
     @Prop({ required: true }) readonly id!: string;
 
     // The id used by the server to refer to this software package.

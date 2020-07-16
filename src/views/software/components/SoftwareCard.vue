@@ -1,6 +1,6 @@
 <template>
   <div class="page-content card">
-    <a :href="`/node/${packageid}/edit`" class="edit-link" v-if="showEdit">Edit</a>
+    <a :href="editURL" class="edit-link" v-if="showEdit">Edit</a>
     <div class="container">
       <img class="logo rounded-circle mr-3" :src="`/sites/default/files/${project.logo}`" />
 
@@ -94,6 +94,10 @@
 
     get showEdit() {
       return this.$vxm.user.userDetails?.is_admin;
+    }
+
+    get editURL() {
+      return `${process.env.VUE_APP_API_BASE_URL}/node/${this.packageid}/edit`;
     }
   }
 </script>

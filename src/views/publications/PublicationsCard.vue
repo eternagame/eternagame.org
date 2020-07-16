@@ -1,6 +1,6 @@
 <template>
   <div class="page-content card">
-    <a :href="`/node/${nid}/edit`" class="edit-link" v-if="showEdit">Edit</a>
+    <a :href="editURL" class="edit-link" v-if="showEdit">Edit</a>
     <div class="container">
       <div class="row">
         <div class="col-sm order-1 order-sm-2">
@@ -47,6 +47,10 @@
 
     get showEdit() {
       return this.$vxm.user.userDetails?.is_admin;
+    }
+
+    get editURL() {
+      return `${process.env.VUE_APP_API_BASE_URL}/node/${this.nid}/edit`;
     }
   }
 </script>

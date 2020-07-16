@@ -73,7 +73,9 @@
     version_id: string;
     description: string;
     published: string;
-    // assets: string[]; // TODO: Or is this an array of typed objects?
+    assets: {
+      name: string; 
+    }[];
   }
 
   @Component({ components: { VersionCard } })

@@ -27,28 +27,27 @@
             :license-terms="project.license_terms"
           />
         </template>
-        <template v-else>
-          <b-btn
-            type="button"
-            class="btn btn-primary mt-3 mr-3 mb-3"
-            v-b-tooltip.hover.bottom
-            :title="project.download_tooltip"
-            :href="project.download_url"
-          >
-            <b-icon-download />
-            DOWNLOAD
-          </b-btn>
-          <b-btn
+        <b-btn v-else
+          type="button"
+          class="btn btn-primary mt-3 mr-3 mb-3"
+          v-b-tooltip.hover.bottom
+          :title="project.download_tooltip"
+          :href="project.download_url"
+        >
+          <b-icon-download />
+          DOWNLOAD
+        </b-btn>
+        <b-btn
             type="button"
             class="btn btn-secondary"
             v-b-tooltip.hover.bottom
             :title="project.help_tooltip"
             :href="project.help_url"
-          >
-            <b-icon-book />
-            TUTORIAL
-          </b-btn>
-        </template>
+            v-if="project.help_url"
+        >
+          <b-icon-book />
+          TUTORIAL
+        </b-btn>
       </div>
 
       <div class="row mt-4">

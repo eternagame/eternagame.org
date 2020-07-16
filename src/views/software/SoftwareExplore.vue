@@ -24,7 +24,7 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
 
-  import SoftwareCard from './SoftwareCard.vue';
+  import SoftwareCard from './components/SoftwareCard.vue';
 
   export interface SoftwareProject {
     name: string;

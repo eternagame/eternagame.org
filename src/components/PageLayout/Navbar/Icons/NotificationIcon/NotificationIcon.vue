@@ -2,7 +2,7 @@
   <NavbarIcon @shown="onShown">
     <template #icon>
       <div class="unread" v-if="notificationsCount > 0"></div>
-      <img class="icon mr-1" src="@/assets/navbar/Bell.svg" />
+      <img class="icon" src="@/assets/navbar/Bell.svg" />
     </template>
     <template #text>{{ $t('nav-bar:notifications') }}</template>
     <template v-slot="slotProp">
@@ -141,10 +141,6 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  .icon {
-    margin-left: -0.2rem;
-  }
-
   ::v-deep a {
     padding-right: 10px !important;
     padding-left: 10px !important;
@@ -166,5 +162,10 @@
   .border {
     border: 1px solid red;
     width: 100%;
+  }
+
+  img.icon {
+    width: 24px;
+    height: 24px;
   }
 </style>

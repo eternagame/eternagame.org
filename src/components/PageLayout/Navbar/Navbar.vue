@@ -9,8 +9,8 @@
         <div class="d-none d-lg-block">
           <NavbarCollapseContent :menu="menu" />
         </div>
-        <div class="icons-group">
-          <NavbarIcons v-if="loggedIn" class="d-none d-md-inline-block d-lg-none icons-group" />
+        <div class="d-flex">
+          <NavbarIcons v-if="loggedIn" class="d-none d-md-inline-block d-lg-none" />
           <img
             v-if="loggedIn"
             src="@/assets/navbar/Toggler.svg"
@@ -114,10 +114,6 @@
 
   ::v-deep .navbar-nav {
     text-transform: uppercase;
-  }
-
-  ::v-deep .icons-group > * {
-    margin-left: 10px;
   }
 
   .toggler {

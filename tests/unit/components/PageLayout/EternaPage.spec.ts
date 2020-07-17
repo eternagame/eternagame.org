@@ -10,8 +10,8 @@ import { ProxyWatchers } from 'vuex-class-component/dist/interfaces';
 import axios from 'axios';
 import EternaPage from '@/components/PageLayout/EternaPage.vue';
 import MobileSidebar from '@/components/PageLayout/MobileSidebar.vue';
-import { localVue } from '../../localVue';
 import MobileStore from '@/store/mobile.vuex';
+import { localVue } from '../../localVue';
 
 jest.mock('axios');
 
@@ -36,9 +36,7 @@ describe('EternaPage.vue', () => {
     class MockMobileStore extends VuexModule {
       $http = axios;
 
-      @mutation showPageSidebar() {
-        showPageSidebar();
-      }
+      showPageSidebar: boolean = false;
     }
 
     store = new Vuex.Store({
@@ -75,15 +73,5 @@ describe('EternaPage.vue', () => {
     expect(wrapper.findAll(`.page-title .${sidebarContentClass}`)).toHaveLength(1);
     expect(wrapper.findAll(`.sidebar .${sidebarContentClass}`)).toHaveLength(1);
     expect(wrapper.findAll(`mobilesidebar-stub .${sidebarContentClass}`)).toHaveLength(1);
-  });
-
-  it('Should fire `MobileSidebar.openMenu` when the `mobileStore/showPageSidebar` mutation is called', async () => {
-    const mockFn = jest.fn();
-    const sidebar = (wrapper.find(MobileSidebar).vm as any);
-    sidebar.openMenu = mockFn;
-    expect(mockFn).not.toBeCalled();
-    $vxm.mobile.showPageSidebar();
-    await Vue.nextTick();
-    expect(mockFn).toBeCalledTimes(1);
   });
 });

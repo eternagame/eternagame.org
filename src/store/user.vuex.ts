@@ -39,14 +39,6 @@ export default function createUserStore($http: AxiosInstance) {
       await this.FB?.logout();
     }
 
-    @action() async openSidebar() {
-      this.showSidebar = true;
-    }
-
-    @action() async closeSidebar() {
-      this.showSidebar = false;
-    }
-
     @action() async fbLogin(FB: any) {
       this.FB = FB;
       const { data } = (

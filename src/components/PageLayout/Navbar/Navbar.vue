@@ -14,11 +14,11 @@
           <img
             v-if="loggedIn"
             src="@/assets/navbar/Toggler.svg"
-            @click.stop="openSidebar"
+            @click.stop="showSidebar = true"
             class="toggler d-inline-block d-lg-none "
           />
         </div>
-        <MobileSidebar ref="sidebar">
+        <MobileSidebar :show.sync="showSidebar">
           <SidebarMenuContent :menu="menu" />
         </MobileSidebar>
       </div>
@@ -45,13 +45,9 @@
     },
   })
   export default class Navbar extends Vue {
-    burgerMenuOpen = false;
+    showSidebar = false;
 
     @Ref() sidebar!: MobileSidebar;
-
-    openSidebar() {
-      this.sidebar.openMenu();
-    }
 
     get loggedIn() {
       return this.$vxm.user.loggedIn;

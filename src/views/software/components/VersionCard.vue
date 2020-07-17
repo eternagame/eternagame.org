@@ -1,5 +1,5 @@
 <template>
-  <div class="card mt-3 mr-2 p-3">
+  <div class="card p-3">
     <h3>
       {{ version.name }}
     </h3>

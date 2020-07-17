@@ -9,6 +9,7 @@
         Players and researchers have created original software programs to aid in complex RNA
         design, which are now available for licensing.
       </h3>
+      Questions? Contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a>.
     </div>
 
     <Gallery :sm="12" :md="6">

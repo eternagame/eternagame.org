@@ -5,6 +5,9 @@ const VuexModule = createModule({
   strict: false,
 });
 
-export default class MobileStore extends VuexModule {
-  showPageSidebar: boolean = false;
+export default function createMobilStore() {
+  class MobileStore extends VuexModule {
+    public showPageSidebar: boolean = false;
+  }
+  return MobileStore;
 }

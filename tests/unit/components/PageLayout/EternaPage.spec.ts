@@ -26,27 +26,8 @@ describe('EternaPage.vue', () => {
   let store: Store<any>;
   let mutations: MutationTree<any>;
   let wrapper: Wrapper<Vue>;
-  let showPageSidebar: jest.Mock;
-  let $vxm: {
-    mobile: ProxyWatchers & Interface<MobileStore>
-  };
   beforeEach(() => {
     const VuexModule = createModule({ strict: false });
-    showPageSidebar = jest.fn();
-    class MockMobileStore extends VuexModule {
-      $http = axios;
-
-      showPageSidebar: boolean = false;
-    }
-
-    store = new Vuex.Store({
-      modules: {
-        ...extractVuexModule(MockMobileStore),
-      },
-    });
-    $vxm = {
-      mobile: createProxy(store, MockMobileStore),
-    };
     wrapper = shallowMount(EternaPage, {
       slots: {
         default: `<div class="${bodyContentClass}"></div>`,
@@ -57,9 +38,6 @@ describe('EternaPage.vue', () => {
       },
       localVue,
       store,
-      mocks: {
-        $vxm,
-      },
     });
   });
 

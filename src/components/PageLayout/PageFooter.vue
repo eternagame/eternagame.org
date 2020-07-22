@@ -33,16 +33,16 @@
       <b-col lg="1"></b-col>
       <b-col lg="3" sm="12">
         <div style="text-align:center;">
-          <a href="http://twitter.com/@eternagame">
+          <a href="https://twitter.com/eternagame">
             <img src="@/assets/front-page/img/icon_twt.png" class="icon" alt="Twitter" />
           </a>
           <a href="https://www.facebook.com/eternathegame/">
             <img src="@/assets/front-page/img/icon_fb.png" class="icon" alt="Facebook" />
           </a>
-          <a href="https://www.youtube.com/channel/UCt811OXJqe35TDhe9hPYzJg">
+          <a href="https://www.youtube.com/eternagame">
             <img src="@/assets/front-page/img/icon_yt.png" class="icon" alt="YouTube" />
           </a>
-          <a href="https://github.com/EteRNAgame">
+          <a href="https://github.com/eternagame">
             <img src="@/assets/front-page/img/icon_gh.png" class="icon" alt="GitHub" />
           </a>
         </div>

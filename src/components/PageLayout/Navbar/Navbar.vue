@@ -71,6 +71,7 @@
       community: {
         leaderboards: '/players',
         forum: 'https://forum.eternagame.org',
+        discord: 'https://discord.gg/KYeTwux',
         wiki: 'http://eternawiki.org',
         groups: `${process.env.VUE_APP_API_BASE_URL}/web/group/`,
       },

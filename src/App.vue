@@ -40,7 +40,7 @@
   @import '@/styles/custom.scss';
 
   .breakpoint {
-    position: sticky;
+    position: fixed;
     top: 0.75rem;
     left: 0.75rem;
     z-index: 1500;

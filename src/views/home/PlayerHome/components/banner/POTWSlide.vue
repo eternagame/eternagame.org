@@ -1,16 +1,20 @@
 <template>
   <b-carousel-slide
     class="slide"
-    :img-src="imageURL"
-    style=" background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0))"
   >
+    <template v-slot:img>
+      <img :src="imageURL" class="img-fluid w-100 d-block bg-image" />
+      <div class="puzzle-image-wrapper">
+        <img :src="puzImageURL" class="puzzle-image" />
+      </div>
+    </template>
     <div class="banner-text">
       <h1 class="banner-title">{{ $t('puzzle-slide::puzzle-of-week') }}</h1>
       <h2 class="banner-subtitle ">{{ title }}</h2>
 
-      <b-button variant="primary" class="enter-lab" size="lg" :href="`/puzzles/${nid}`">{{
-        $t('puzzle-slide:solve-now')
-      }}</b-button>
+      <b-button variant="primary" class="enter-lab" size="lg" :href="`/puzzles/${nid}`">
+        {{ $t('puzzle-slide:solve-now') }}
+      </b-button>
       <router-link class="d-none d-sm-block" to="/puzzles/?search=:POTW">
         <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px; margin-top:10px;">
           <i class="arrow_right"></i>{{ $t('puzzle-slide:past-potw') }}
@@ -43,11 +47,52 @@
     get imageURL() {
       return bgimage;
     }
+
+    get puzImageURL() {
+      return Utils.getPuzzleMiddleThumbnail(this.nid);
+    }
   }
 </script>
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  .banner-text {
+    width: 50%;
+  }
+
+  .puzzle-image-wrapper {
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 100px;
+  }
+
+  .puzzle-image {
+    width: 100%;
+  }
+
+  @include media-breakpoint-down(md) {
+    .banner-text {
+      width: 100%;
+    }
+
+    .puzzle-image-wrapper {
+      width: 100%;
+      height: 50%;
+      padding: 1rem 15%;
+    }
+
+    .puzzle-image {
+      width: initial;
+      height: 100%;
+    }
+  }
 
   .slide {
     max-width: 1200px;
@@ -56,13 +101,7 @@
     text-shadow: none !important;
   }
 
-  .img {
-    float: right;
-    width: 400;
-    height: 400;
-  }
-
-  ::v-deep img {
+  .bg-image {
     min-height: 500px;
     object-fit: cover;
   }

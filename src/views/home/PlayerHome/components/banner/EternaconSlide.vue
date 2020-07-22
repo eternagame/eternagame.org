@@ -25,7 +25,7 @@
       <b-button
         class="button"
         variant="secondary"
-        disabled="true"
+        :disabled="true"
         size="lg"
         href="#"
       >

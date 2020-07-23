@@ -3,7 +3,7 @@
     class="slide"
   >
     <template v-slot:img>
-      <img :src="imageURL" class="img-fluid w-100 d-block bg-image" />
+      <img src="~@/assets/home/hero-blue-bg.png" class="img-fluid w-100 d-block bg-image" />
       <div class="puzzle-image-wrapper">
         <img :src="puzImageURL" class="puzzle-image" />
       </div>
@@ -34,7 +34,6 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import Utils from '@/utils/utils';
-  import bgimage from '@/assets/home/hero-potw.png';
 
   @Component({
     components: {},
@@ -43,11 +42,7 @@
     @Prop({ required: true }) readonly title!: string;
 
     @Prop({ required: true }) readonly nid!: string;
-
-    get imageURL() {
-      return bgimage;
-    }
-
+    
     get puzImageURL() {
       return Utils.getPuzzleMiddleThumbnail(this.nid);
     }

@@ -3,7 +3,7 @@
     class="slide"
   >
     <template v-slot:img>
-      <img src="~@/assets/home/hero-blue-bg.png" class="img-fluid w-100 d-block bg-image" />
+      <img src="~@/assets/home/hero-sunburst.png" class="img-fluid w-100 d-block bg-image" />
       <div class="puzzle-image-wrapper">
         <img :src="puzImageURL" class="puzzle-image" />
       </div>
@@ -70,6 +70,7 @@
 
   .puzzle-image {
     width: 100%;
+    z-index: 50;
   }
 
   @include media-breakpoint-down(md) {
@@ -128,5 +129,20 @@
     .banner-text {
       text-align: left;
     }
+  }
+
+  .slide::after {
+    display: block;
+    position: relative;
+    background-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.6) 50%,
+      rgba(0, 0, 0, 0.9) 100%
+    );
+    margin-top: -400px;
+    height: 400px;
+    width: 100%;
+    content: '';
   }
 </style>

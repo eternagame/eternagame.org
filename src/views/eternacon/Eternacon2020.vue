@@ -73,13 +73,13 @@
           <template v-for="session in sessions">
             <li :key="`${session.topic}-${session.time}`" class="row">
               <div class="col-sm-3">
-                <span class="session-time">{{session.time}}</span><br/>
-                <span class="font-weight-bold">{{session.speaker}}</span><br/>
-                <span class="text-muted">{{session.affiliation}}</span>
+                <div class="session-time">{{session.time}}</div>
+                <div class="font-weight-bold">{{session.speaker}}</div>
+                <div class="text-muted">{{session.affiliation}}</div>
               </div>
               <b-card class="col-sm-9" v-if="session.topic !== 'Break'">
                 <h5>{{session.topic}}</h5>
-                <p v-dompurify-html="session.abstract"></p>
+                <p v-dompurify-html="session.abstract" v-if="session.abstract"></p>
               </b-card>
               <div class="col-sm-9 text-center" v-else>
                 <h5 class="d-inline m-0">Break</h5> - join us on
@@ -221,6 +221,7 @@
 
     li > * {
       padding: .5rem;
+      height: min-content;
     }
 
     .session-time {

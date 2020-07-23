@@ -74,6 +74,7 @@
         discord: 'https://discord.gg/KYeTwux',
         wiki: 'http://eternawiki.org',
         groups: `${process.env.VUE_APP_API_BASE_URL}/web/group/`,
+        eternacon: `/eternacon`,
       },
       news: '/news',
       about: {

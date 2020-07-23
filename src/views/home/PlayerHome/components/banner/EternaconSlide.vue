@@ -6,7 +6,7 @@
   >
     <div>
       <p class="video-title">
-        Register now for <i>Eternacon 2020</i>
+        <strong>Register now</strong> for Eternacon 2020
       </p>
 
       <p class="explain">
@@ -25,11 +25,10 @@
       <b-button
         class="button"
         variant="secondary"
-        :disabled="true"
         size="lg"
-        href="#"
+        to="/eternacon"
       >
-        Schedule
+        Schedule &amp; Info
       </b-button>
       <div class="d-flex" style="margin-top: 22px;">
         <a href="https://discord.gg/KYeTwux">
@@ -84,7 +83,6 @@
   .video-title {
     line-height: 3rem;
     font-size: 2.8rem;
-    font-weight: bold;
     @include media-breakpoint-only(xs) {
       line-height: 1.6rem;
       font-size: 1.5rem;

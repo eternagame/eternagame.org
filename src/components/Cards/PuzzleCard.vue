@@ -37,6 +37,28 @@
         <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
           <slot name="buttons" />
         </div>
+
+
+        <b-row class="mb-2" style="margin-top:10px">
+          <b-col cols="6">
+            <div class="left-col" v-if="folder">
+              <slot name="left-icon">
+                <img :src="avatar" class="icon" />
+              </slot>
+              {{ username }}
+            </div>
+          </b-col>
+          <b-col cols="6">
+            <div class="right-col">
+              <slot name="right-icon">
+                <img src="@/assets/people.svg" alt="reward slots" class="icon" />
+              </slot>
+              {{ numCleared }}
+            </div>
+          </b-col>
+        </b-row>
+
+
       </template>
     </AspectRatioCard>
   </SmartLink>
@@ -64,6 +86,8 @@
 
     @Prop() readonly folder?: string;
 
+    @Prop() readonly username?: string;
+
     @Prop() readonly number_of_states?: number;
 
     @Prop() readonly image?: string;
@@ -78,13 +102,21 @@
     @Prop({ default: true }) readonly backgroundLink!: boolean;
 
     get numCleared() {
-      return this.$attrs['num-cleared'];
+      if (this.$attrs['num-cleared'] > 0){
+        return this.$attrs['num-cleared'];
+      } 
+        return 0;
+      
     }
 
     get imageURL() {
       return this.image
         ? `${process.env.VUE_APP_API_BASE_URL}${this.image}`
         : Utils.getPuzzleMiddleThumbnail(this.nid);
+    }
+
+    get avatar() {
+      return Utils.getAvatar(this.userpicture || null);
     }
   }
 </script>

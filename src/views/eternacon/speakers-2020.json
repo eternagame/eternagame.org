@@ -105,9 +105,16 @@
         {
             "speaker": "Hannah Wayment-Steele",
             "affiliation": "Das Lab, Stanford University",
-            "time": "4:40 - 5:10 PM UTC",
-            "topic": "EternaFold: Improved RNA secondary structure modeling through crowdsourced RNA design on Eterna",
-            "abstract": "Although algorithms for predicting RNA structure have been in development for decades, little is known about their accuracy in many of their use-cases. We created a database, \"EternaBench\", comprising the diverse high-throughput structural data gathered from Eterna Cloud Labs and Riboswitch challenges, to evaluate the performance of a wide set of structure algorithms. Surprisingly, we found that CONTRAfold and RNAsoft, which were developed through statistical learning, perform notably better than Vienna, NUPACK, and RNAstructure, despite these algorithms being derived from experimental data. Motivated by this finding, we developed a multitask-learning-based model, \"EternaFold\", trained on the EternaBench data, which demonstrates improved predictions both on molecules from Eterna, as well as completely independent datasets of viral genomes and mRNAs. Experimental data from Eterna allows us to establish the first large-scale, independent benchmarks of RNA thermodynamic predictions, as well as leverage the diversity of player designs to improve structure prediction through statistical learning."
+            "time": "4:40 - 4:55 PM UTC",
+            "topic": "EternaFold: Learning better secondary structure prediction from Eterna data",
+            "abstract": "The diverse high-throughput structural data gathered from Eterna Cloud Labs and Riboswitch challenges has made it possible to develop the best secondary structure folding engine yet to date -- EternaFold, which is now available as another folding engine in Eterna.  We will talk about the data that enabled this to be and how we compare EternaFold to other secondary structure packages, and how Eterna players can continue to help improve secondary structure prediction."
+        },
+        {
+            "speaker": "Hannah Wayment-Steele",
+            "affiliation": "Das Lab, Stanford University",
+            "time": "4:55 - 5:10 PM UTC",
+            "topic": "The p(unp) Challenges: Computational forecasts for vaccine stabiliziation",
+            "abstract": "RNA molecules are inherently unstable, yet there is greater need than ever to develop principles to design stabilized mRNA molecules for therapeutics. Recently, we launched a lab asking Eterna players to design a variety of mRNAs minimizing \"p(unp)\", a measure related to how degradable the molecule is. We'll describe how Eterna players compared to standard mRNA design methods, as well as computer algorithms trying to minimize p(unp), and what the p(unp) lab predicts for future vaccine development efforts."
         },
         {
             "time": "5:10 - 5:30 PM UTC",

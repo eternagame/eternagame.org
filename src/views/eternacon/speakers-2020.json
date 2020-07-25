@@ -10,27 +10,20 @@
         {
             "speaker": "Rhiju Das, PhD",
             "affiliation": "Principal Investigator, Eterna; Das Lab, Stanford University",
-            "time": "4:15 - 4:45 PM UTC",
+            "time": "4:15 - 4:30 PM UTC",
             "topic": "State of Eterna",
             "abstract": "Many things have happened in Eterna's last year. This is a chance to reflect on what we have accomplished, and where we will head next."
         },
         {
-            "speaker": "Kathrin Leppek, PhD",
-            "affiliation": "Barna Lab, Stanford University",
-            "time": "4:45 - 5:15 PM UTC",
+            "speaker": "Kathrin Leppek, PhD, Do Soon Kim",
+            "affiliation": "Barna Lab, Stanford University; Das Lab, Stanford University",
+            "time": "4:30 - 5:30 PM UTC",
             "topic": "OpenVaccine – enhancing mRNA vaccines to fight SARS-CoV2",
             "abstract": "OpenVaccine – enhancing mRNA vaccines to fight SARS-CoV2 by integrating Eterna-derived sequences and RNA biology in the lab to come up with optimal design solutions for mRNA vaccines."
         },
         {
-            "time": "5:15 - 5:45 PM UTC",
+            "time": "5:30 - 6:15 PM UTC",
             "topic": "Break"
-        },
-        {
-            "speaker": "Guy Geva (MasterStormer)",
-            "affiliation": "Eterna Player; Former Developer",
-            "time": "5:45 - 6:15 PM UTC",
-            "topic": "Improving Eterna's tutorials as a puzzle game",
-            "abstract": "Lessons we can learn from puzzle games on how to improve the Eterna puzzle progression both in terms of effectively and enjoyment, and what do we need in order to implement them."
         },
         {
             "speaker": "Mia Mihailovic",

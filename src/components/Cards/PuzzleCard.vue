@@ -102,11 +102,10 @@
     @Prop({ default: true }) readonly backgroundLink!: boolean;
 
     get numCleared() {
-      if (this.$attrs['num-cleared'] > 0){
+      if (this.$attrs['num-cleared']){
         return this.$attrs['num-cleared'];
       } 
         return 0;
-      
     }
 
     get imageURL() {
@@ -116,7 +115,7 @@
     }
 
     get avatar() {
-      return Utils.getAvatar(this.userpicture || null);
+      return Utils.getAvatar(null);
     }
   }
 </script>

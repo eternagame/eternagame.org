@@ -14,9 +14,8 @@
               <h2 class="text-block">
                 {{ $t('video-section:heading') }}
                 <strong>
-                  {{ $t('video-section:heading-stress') }}
+                  {{ $t('video-section:heading-stress') }}.
                 </strong>
-                .
               </h2>
               <h4 class="text-block">
                 {{ $t('video-section:sub-heading') }}
@@ -79,6 +78,15 @@
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
+  }
+
+  @media only screen and (max-width: 600px) {
+    video {
+      display:none;
+    }
+    h2 {
+      font-size: 2rem;
+    }
   }
 
   .video-wrapper {

@@ -47,6 +47,9 @@
           <li v-if="puzzle['made-by-player']">
             <img :src="avatar" class="icon" />{{ puzzle.username }}
           </li>
+          <li v-if="puzzle.folder">
+            <img src="@/assets/chemical_bond.svg" class="icon" />{{ puzzle.folder }}
+          </li>
           <li v-if="puzzle.reward">
             <img src="@/assets/dollar.svg" class="icon" />{{ puzzle.reward }}
           </li>

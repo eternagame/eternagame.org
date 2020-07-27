@@ -81,6 +81,7 @@
         publications: '/about/publications',
         software: '/about/software',
         eternacon: `/eternacon`,
+        merch: `https://www.redbubble.com/people/eternagame/explore`,
         donate: 'https://challenges.eternagame.org/',
         terms: '/about/terms',
         'code-of-conduct': '/about/conduct',

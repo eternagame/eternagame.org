@@ -61,7 +61,7 @@
           </ul>
         </div>
         <div class="order-sm-2" style="width: 100%">
-          <codemirror v-model="code" :options="codeOptions" style="margin-bottom: 5px" ref="editor" @input="hint"/>
+          <MonacoEditor height="800" class="editor" language="typescript" :options="codeOptions" ref="editor" />
           <button class="btn btn-primary" @click.stop="evaluate">Evaluate</button>
           <button class="btn btn-primary" style="margin-left: 10px" @click="post">Save</button>
           <button class="btn btn-primary" style="margin-left: 10px" @click="cancel">Cancel</button>
@@ -90,20 +90,11 @@
   import { VXM } from '@/types/vue.d';
   import { RouteCallback, Route } from 'vue-router';
   import axios, { AxiosInstance } from 'axios';
-  import { codemirror } from 'vue-codemirror';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Utils from '@/utils/utils';
+  import MonacoEditor from 'vue-monaco-editor';
   import { Script } from './Script';
   import { PUZZLE_ROUTE_PREFIX } from '../../utils/constants';
-
-  const js = require('codemirror/mode/javascript/javascript.js');
-  const gutter = require('codemirror/addon/fold/foldgutter.js');
-  const fold = require('codemirror/addon/fold/foldcode.js');
-  const brace = require('codemirror/addon/fold/brace-fold.js');
-  const match = require('codemirror/addon/edit/matchbrackets.js');
-  const close = require('codemirror/addon/edit/closebrackets.js');
-  const hint = require('codemirror/addon/hint/show-hint.js');
-  const jshint = require('codemirror/addon/hint/javascript-hint');
 
   const INITIAL_SORT = 'date';
   const INITIAL_SIZE = 10;
@@ -186,7 +177,7 @@
   @Component({
     components: {
       EternaPage,
-      codemirror,
+      MonacoEditor,
       Preloader,
     }
   })
@@ -227,30 +218,9 @@
       }
     }
 
-    hint(e: string) {
-      // Don't show hint if the user just typed a newline, semicolon, or braces
-      const cursor = this.$refs.editor.codemirror.getCursor();
-      const value = e.split('\n');
-      const typedChar = value[Math.max(0, cursor.line - 1)][Math.max(0, cursor.ch - 1)];
-      if (!typedChar || typedChar.match(/(\s|\{|\}|;)/)) return;
-      if (this.$refs && this.$refs.editor) this.$refs.editor.codemirror.showHint();
-    }
-
     get codeOptions() {
       return {
-        tabSize: 4,
-        mode: 'text/javascript',
-        lineNumbers: true,
-        line: true,
-        readOnly: !this.enabled,
-        lineWrapping: true,
-        foldGutter: true,
-        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-        matchBrackets: true,
-        autoCloseBrackets: true,
-        hintOptions: {
-          completeSingle: false,
-        },
+        folding: true,
       };
     }
 
@@ -316,20 +286,10 @@
       Vue.delete(this.inputs, input);
     }
 
-    $refs !: {
-      editor: codemirror;
-    };
-
     warning = '';
   }
 </script>
-<style>
-@import '~codemirror/lib/codemirror.css';
-@import '~codemirror/addon/fold/foldgutter.css';
-@import '~codemirror/addon/hint/show-hint.css';
-</style>
 <style lang="scss" scoped>
-  @import '@/styles/global.scss'; 
   .icon {
     margin-right: 10px;
     width: 20.4px;
@@ -361,9 +321,5 @@
     margin-top: 10px;
     display: inline-block;
     vertical-align: sub;
-  }
-  .editor {
-    width: auto;
-    height: 500px;
   }
 </style>

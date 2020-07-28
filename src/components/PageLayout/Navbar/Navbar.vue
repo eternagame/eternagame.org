@@ -9,16 +9,16 @@
         <div class="d-none d-lg-block">
           <NavbarCollapseContent :menu="menu" />
         </div>
-        <div class="icons-group">
-          <NavbarIcons v-if="loggedIn" class="d-none d-md-inline-block d-lg-none icons-group" />
+        <div class="d-flex">
+          <NavbarIcons v-if="loggedIn" class="d-none d-md-inline-block d-lg-none" />
           <img
             v-if="loggedIn"
             src="@/assets/navbar/Toggler.svg"
-            @click.stop="openSidebar"
+            @click.stop="showSidebar = true"
             class="toggler d-inline-block d-lg-none "
           />
         </div>
-        <MobileSidebar ref="sidebar">
+        <MobileSidebar :show.sync="showSidebar">
           <SidebarMenuContent :menu="menu" />
         </MobileSidebar>
       </div>
@@ -45,13 +45,9 @@
     },
   })
   export default class Navbar extends Vue {
-    burgerMenuOpen = false;
+    showSidebar = false;
 
     @Ref() sidebar!: MobileSidebar;
-
-    openSidebar() {
-      this.sidebar.openMenu();
-    }
 
     get loggedIn() {
       return this.$vxm.user.loggedIn;
@@ -75,6 +71,7 @@
       community: {
         leaderboards: '/players',
         forum: 'https://forum.eternagame.org',
+        discord: 'https://discord.gg/KYeTwux',
         wiki: 'http://eternawiki.org',
         groups: `${process.env.VUE_APP_API_BASE_URL}/web/group/`,
       },
@@ -83,6 +80,8 @@
         overview: '/about',
         publications: '/about/publications',
         software: '/about/software',
+        eternacon: `/eternacon`,
+        merch: `https://www.redbubble.com/people/eternagame/explore`,
         donate: 'https://challenges.eternagame.org/',
         terms: '/about/terms',
         'code-of-conduct': '/about/conduct',
@@ -114,10 +113,6 @@
 
   ::v-deep .navbar-nav {
     text-transform: uppercase;
-  }
-
-  ::v-deep .icons-group > * {
-    margin-left: 10px;
   }
 
   .toggler {

@@ -2,8 +2,8 @@ import {
   shallowMount, mount, Wrapper,
 } from '@vue/test-utils';
 import Vue from 'vue';
-import { localVue } from '../../localVue';
 import MobileSidebar from '@/components/PageLayout/MobileSidebar.vue';
+import { localVue } from '../../localVue';
 
 describe('MobileSidebar.vue', () => {
   const contentClass = 'test-body-content';

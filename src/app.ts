@@ -47,6 +47,7 @@ Vue.use(() => {
 InitGlobalComponents();
 
 Vue.config.productionTip = false;
+Vue.config.devtools = true;
 
 export default function createApp() {
   const router = createRouter();

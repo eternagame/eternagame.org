@@ -1,15 +1,13 @@
 <template>
-  <div class="d-flex">
-    <img src="@/assets/dollar.svg" class="icon" /> {{ user.points }}
-    <img src="@/assets/test-tube.svg" class="icon ml-4" /> {{ user.synthesized_count }}
-    <img src="@/assets/calendar.svg" class="icon ml-4" /> {{ formattedCreated }}
-    <router-link
+  <div class="d-flex"><router-link
       :to="`../certificate/${user.uid}`"
       v-if="isCurrentUser"
-      class="ml-4"
     >
       Certificate
     </router-link>
+    <img src="@/assets/dollar.svg" class="icon ml-4" /> {{ user.points }}
+    <img src="@/assets/test-tube.svg" class="icon ml-4" /> {{ user.synthesized_count }}
+    <img src="@/assets/calendar.svg" class="icon ml-4" /> {{ formattedCreated }}
   </div>
 </template>
 

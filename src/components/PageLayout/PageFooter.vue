@@ -124,7 +124,7 @@
   }
 
   .sponsor-logo {
-    max-width: 85%;
+    width: 85%;
     padding: 10px;
   }
 

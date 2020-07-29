@@ -7,14 +7,14 @@ import { AxiosInstance, AxiosStatic } from 'axios';
 import { ProxyWatchers } from 'vuex-class-component/dist/interfaces';
 import SwiperClass from 'swiper';
 import createUserStore from '../store/user.vuex';
-import MobileStore from '../store/mobile.vuex';
-import FetchData from '../store/FetchData.vuex';
 import Pagination from '../store/pagination.vuex';
+import createMobilStore from '../store/mobile.vuex';
+import createFetchDataStore from '../store/FetchData.vuex';
 
 export interface VXM {
   user: ProxyWatchers & InstanceType<ReturnType<typeof createUserStore>>;
-  mobile: ProxyWatchers & MobileStore;
-  fetchData: ProxyWatchers & FetchData;
+  mobile: ProxyWatchers & InstanceType<ReturnType<typeof createMobilStore>>;
+  fetchData: ProxyWatchers & InstanceType<ReturnType<typeof createFetchDataStore>>;;
   pagination: ProxyWatchers & Pagination;
 }
 

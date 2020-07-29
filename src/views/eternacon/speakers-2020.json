@@ -1,0 +1,199 @@
+{
+    "Saturday, July 25": [
+        {
+            "speaker": "Jonathan Romano (LFP6)",
+            "affiliation": "Lead Developer, Eterna; Organizer",
+            "time": "4:00 - 4:15 PM UTC",
+            "topic": "Opening Remarks",
+            "abstract": "Welcome to Eternacon 2020 and logistics."
+        },
+        {
+            "speaker": "Rhiju Das, PhD",
+            "affiliation": "Principal Investigator, Eterna; Das Lab, Stanford University",
+            "time": "4:15 - 4:30 PM UTC",
+            "topic": "State of Eterna",
+            "abstract": "Many things have happened in Eterna's last year. This is a chance to reflect on what we have accomplished, and where we will head next."
+        },
+        {
+            "speaker": "Kathrin Leppek, PhD, Do Soon Kim",
+            "affiliation": "Barna Lab, Stanford University; Das Lab, Stanford University",
+            "time": "4:30 - 5:30 PM UTC",
+            "topic": "OpenVaccine – enhancing mRNA vaccines to fight SARS-CoV2",
+            "abstract": "OpenVaccine – enhancing mRNA vaccines to fight SARS-CoV2 by integrating Eterna-derived sequences and RNA biology in the lab to come up with optimal design solutions for mRNA vaccines."
+        },
+        {
+            "time": "5:30 - 6:15 PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Mia Mihailovic",
+            "affiliation": "Chemical Engineering Ph.D. Candidate, Contreras Lab, University of Texas at Austin",
+            "time": "6:15 - 6:45 PM UTC",
+            "topic": "Designing and Optimizing RNA Targeting",
+            "abstract": "RNAs are increasingly recognized as useful design platforms for rapid, post-transcriptional, targeted cellular regulation. Native RNA regulators are enabled by their intra- and inter-molecular interactions that dictate their structure and specific sites of imparted activity. In mimicry of regional-level RNA activity, we have designed a high-throughput, next generation sequencing-enabled tool for evaluating the basepairing availability of user-defined RNA regions of interest. In this talk, we will describe our application of these types of characterization tools (both cell free and intracellular) to rationally and modularly re-design RNAs for desired activity. We will further talk on preliminary efforts to expand our method-based platform to address longstanding challenges in the field, including therapeutic RNA optimization as well as recognition of long-range tertiary contacts."
+        },
+        {
+            "speaker": "Brourd",
+            "affiliation": "Eterna Player",
+            "time": "6:45 - 7:00 PM UTC",
+            "topic": "Eternacon PuzzleJam 2020 - Introduction",
+            "abstract": "It is the first annual Eternacon PuzzleJam! This event will be a celebration of puzzle making in Eterna. All Eternacon participants will be given a 24 hour time period to make three puzzles with different provided prompts. Players will submit their puzzles on the Eterna site, where the favorites will be voted on to move on to a final selection on day 2. The players whose puzzles are ultimately chosen will be entitled to bragging rights and maybe even other swag (points, badges, merchandising rights)! This will be a perfect opportunity for players to show off their skills in Eterna in both solving and making puzzles. Tune in on the first day for the puzzle prompts and compete with other players for the title of puzzle making master."
+        },
+        {
+            "time": "7:00 - 8:00 PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Andrew Murphy (rna-key)",
+            "affiliation": "Eterna Player; Owner, Keystone Research Solutions",
+            "time": "8:00 - 8:30 PM UTC",
+            "topic": "The story of \"A Gamer’s Guide to Eterna\"",
+            "abstract": "The 84 page first edition of “A Gamer’s Guide to Eterna” came about through six years of interaction in our work internship program for local high school senior students. To support this year’s students, I gathered and organized material, wrote as if introducing a general gamer to Eterna, then illustrated and produced the electronic book. So far since May, 30 of our interns have spent 600+ hours in Eterna on 1300+ puzzles (total puzzles, not unique puzzles)."
+        },
+        {
+            "speaker": "Daniela Ruiz, Diana Varela Ajche, Ellanique Collins, Alexis Vanzandt, Chelsea Narcisse, Kristina Littlejohn",
+            "affiliation": "Prairie View A&M University",
+            "time": "8:30 - 9:00 PM UTC",
+            "topic": "PVAMU Eterna Lab Rats Respond Positively To Eterna",
+            "abstract": "Engaging in research over the past year at Prairie View A&M University (PVAMU) has been a most satisfying experience. Our research focused on using bioinformatics databases to characterize novel genes. Most recently we were introduced to Eterna, which uses a novel gaming technique to expose students to RNA research. Our objective was to determine the challenges, if any, that PVAMU students face when they play Eterna.<br/><br/>We hypothesize that the gaming aspect of Eterna will present few challenges to PVAMU undergraduate students. Ten PVAMU students were introduced to Eterna in June 2020. Students were asked to discuss their Eterna experience over the past month. Now known as the PVAMU Etrna Lab Rats, all ten students have played the puzzles on the Eterna website and found the games to be fun and informative. However, a few challenges faced were (1) students’ lack of knowledge on certain vocabulary terms needed to play puzzles and (2) were unable to play the game on their mobile devices, and encountered problems within the chat box. In conclusion, 100% of the students have enjoyed their experience playing Eterna. They have advanced onto new levels, found entertainment maneuvering bases, and have enjoyed the support amongst experienced players within the game. However, our findings demonstrated that there are still opportunities to further enhance, develop, and improve the players performance. This can be achieved by implementing resources within the game. Our hypothesis suggests that improvements need to be established throughout the program in order to maximize our team performance."
+        },
+        {
+            "time": "9:00 - 9:30 PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Martin Skladany, J.D.",
+            "affiliation": "Professor of Law, Penn State",
+            "time": "9:30 - 10:30 PM UTC",
+            "topic": "Reforming Patent & Copyright Law",
+            "abstract": "Current patent and copyright theory sounds inspiring. Yet examining how both laws were created, have evolved overtime, and generate negative externalities is sobering. Radical reform is required."
+        },
+        {
+            "time": "10:30 - 11:00 PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Astromon",
+            "affiliation": "Eterna Player",
+            "time": "11:00 - 11:30 PM UTC",
+            "topic": "Ribosome Challenge Round One - Analysis, Tips, and Methods",
+            "abstract": "Analysis of Round 1 of the Ribosome Challenge"
+        },
+        {
+            "speaker": "Hoglahoo",
+            "affiliation": "Eterna Player",
+            "time": "11:30 PM UTC",
+            "topic": "Eternacon Puzzle Challenge 2020",
+            "abstract": "Join in our annual challenge to solve a puzzle specifically designed for Eternacon 2020"
+        }
+    ],
+    "Sunday, July 26": [
+        {
+            "speaker": "Jonathan Romano (LFP6)",
+            "affiliation": "Eterna Lead Developer; Organizer",
+            "time": "4:00 - 4:10 PM UTC",
+            "topic": "Opening Remarks (Reminders)",
+            "abstract": "Welcome and logistical reminders."
+        },
+        {
+            "speaker": "Francesco Cavallari",
+            "affiliation": "Founder and President, Video Games Without Borders",
+            "time": "4:10 - 4:40 PM UTC",
+            "topic": "Flatten Island: the game supporting the fight against COVID-19",
+            "abstract": "In the latest months, we have heard a lot about how to #FlattenTheCurve ... now it's time to prove what we have learned! Video Games Without Borders recently released Flatten Island, the game supporting the fight against #COVID19. Manage the emergency with your decisions... and with a touch of humor!<br/><br/>Play for FREE, DONATE if you can!<br/><a href='https://flattenisland.org'>https://flattenisland.org</a>"
+        },
+        {
+            "speaker": "Hannah Wayment-Steele",
+            "affiliation": "Das Lab, Stanford University",
+            "time": "4:40 - 4:55 PM UTC",
+            "topic": "EternaFold: Learning better secondary structure prediction from Eterna data",
+            "abstract": "The diverse high-throughput structural data gathered from Eterna Cloud Labs and Riboswitch challenges has made it possible to develop the best secondary structure folding engine yet to date -- EternaFold, which is now available as another folding engine in Eterna.  We will talk about the data that enabled this to be and how we compare EternaFold to other secondary structure packages, and how Eterna players can continue to help improve secondary structure prediction."
+        },
+        {
+            "speaker": "Hannah Wayment-Steele",
+            "affiliation": "Das Lab, Stanford University",
+            "time": "4:55 - 5:10 PM UTC",
+            "topic": "The p(unp) Challenges: Computational forecasts for vaccine stabiliziation",
+            "abstract": "RNA molecules are inherently unstable, yet there is greater need than ever to develop principles to design stabilized mRNA molecules for therapeutics. Recently, we launched a lab asking Eterna players to design a variety of mRNAs minimizing \"p(unp)\", a measure related to how degradable the molecule is. We'll describe how Eterna players compared to standard mRNA design methods, as well as computer algorithms trying to minimize p(unp), and what the p(unp) lab predicts for future vaccine development efforts."
+        },
+        {
+            "time": "5:10 - 5:30 PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Zoe Watson, Fred Ward, and Jamie H. D. Cate, PhD",
+            "affiliation": "Cate Lab, University of California-Berkeley",
+            "time": "5:30 - 6:30 PM UTC",
+            "topic": "Structures of wild type and engineered ribosomes",
+            "abstract": "Cryogenic electron microscopy (cryo-EM) is a powerful technique for understanding the structural biology of the ribosome, suitable for the two-pronged goal of teasing out alternative conformational states and achieving high resolution. In this talk we will present cryo-EM structures of a mutant engineered ribosome, called P7A7, and the wild type E. coli ribosome. P7A7 carries 12 mutations in the active site, which have previously been shown to allow for incorporation of beta-amino acids into a protein chain in the cell. However, the structure shows these mutations act to severely disrupt the folding and assembly of the large subunit in vitro. This result suggests that new approaches will be needed to experiment with ribosomal function in a way that is less detrimental to its proper assembly. In part 2 of this talk, our recent high resolution structure of the wild type ribosome is presented to highlight what we can learn at 2 Å resolution."
+        },
+        {
+            "time": "6:30 - 7:30 PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Amy Barish (amybarish)",
+            "affiliation": "Eterna Player",
+            "time": "7:30 - 8:00 PM UTC",
+            "topic": "OpenVaccine Lightning Round Result Analysis",
+            "abstract": "The results of the OpenVaccine Lightning Round will be presented and discussed.  This was the first lab in Eterna's attempt to stabilize mRNA and eventually optimize a vaccine for Covid-19.  Find out what we have learned so you can apply to future labs!"
+        },
+        {
+            "speaker": "Jonathan Romano (LFP6)",
+            "affiliation": "Lead Developer, Eterna",
+            "time": "8:00 - 8:30 PM UTC",
+            "topic": "Eterna Development Year In Review: Refresh and Beyond",
+            "abstract": "Over the past year there have been many exciting developments in the Eterna platform from both a user-facing and technical perspective. Let's take a moment to celebrate and appreciate these advancements, and look into the future to what Eterna can become."
+        },
+        {
+            "time": "8:30 - 9:00 PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Antje Krüger, PhD",
+            "affiliation": "Jewett Lab, Northwestern University",
+            "time": "9:00 - 10:00 PM UTC",
+            "topic": "Discovering Stabilized Ribosomes - Towards New Machines for Making Smart Therapeutics and Materials",
+            "abstract": "About a year ago we started the ribosome challenge, which included the biggest and most complicated puzzles ever deployed on Eterna. We were aiming high, but we were confident that the enthusiasm and creativity of the Eterna community would make it solvable. The stunning results of the challenge speak for themselves. These are exciting times for us scientists and hopefully for you players, too.<br/><br/>In this talk, I will discuss the motivation and goal of the challenge, provide some information about assembly and functionality of the ribosome, illustrate how I test players’ designs in lab, and present the latest round 2 results."
+        },
+        {
+            "time": "10:00 - 10:30 PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Ronald Lorenzo, PhD",
+            "affiliation": "Texas A&M University; Eterna Player",
+            "time": "10:30 - 11:00 PM UTC",
+            "topic": "Who becomes an Eterna player and why? A sociological framework for understanding citizen science motivation in an online RNA game",
+            "abstract": "In The Lonely Crowd (1950) sociologist David Riesman explores the three various types of social character present in society, their emotional motivations, and their interactions with media of communication.  Different from personality, social character refers to the social organization of preferences and goals within individuals, as well as their emotional drives.  Based on Riesman’s theoretical framework, I extend his insights to interpret participation in online citizen science video games generally and Eterna specifically.  I elaborate on two different forms of social character found within contemporary society: inner-directed character types and other-directed character types.  The Inner-directed type is drawn to activities as temporary withdrawals from the world, where the individual can find solitude.  Inner-directed types are motivated by goals based on permanent values, and they are more likely to engage in altruistic behavior such as engaging in citizen science.  Other-directed types are motivated by social cues taken from their peers, and when they retreat into video games, it is as an attempted escape from the pervasive anxiety they experience in contemporary society.  Other-directed types do not have goals based on permanent values, and they are less likely to commit to citizen science out of altruistic notions.  Based on the social character profiles of potential citizen scientists, I extend Riesman’s framework to offer suggestions for recruiting and retaining participants from the two types."
+        },
+        {
+            "speaker": "Astromon",
+            "affiliation": "Eterna Player",
+            "time": "11:00 - 11:10 PM UTC",
+            "topic": "In memory of Malcolm",
+            "abstract": "Remembering long-time player Malcolm Watson"
+        },
+        {
+            "speaker": "Astromon",
+            "affiliation": "Eterna Player; EPA Board Member",
+            "time": "11:10 - 11:20 PM UTC",
+            "topic": "EPA Overview",
+            "abstract": "Introduction and overview of the Eterna Players Alliance"
+        },
+        {
+            "speaker": "Astromon",
+            "affiliation": "Eterna Player",
+            "time": "11:20 - 11:30 PM UTC",
+            "topic": "Eterna Art Show",
+            "abstract": "Eterna community art"
+        },
+        {
+            "speaker": "Brourd",
+            "affiliation": "Eterna Player",
+            "time": "11:30PM PM UTC",
+            "topic": "Eternacon PuzzleJam 2020 - Judging",
+            "abstract": "It is the first annual Eternacon PuzzleJam! This event will be a celebration of puzzle making in Eterna. All Eternacon participants will be given a 24 hour time period to make three puzzles with different provided prompts. Players will submit their puzzles on the Eterna site, where the favorites will be voted on to move on to a final selection on day 2. The players whose puzzles are ultimately chosen will be entitled to bragging rights and maybe even other swag (points, badges, merchandising rights)! This will be a perfect opportunity for players to show off their skills in Eterna in both solving and making puzzles. Tune in on the first day for the puzzle prompts and compete with other players for the title of puzzle making master."
+        }
+    ]
+}

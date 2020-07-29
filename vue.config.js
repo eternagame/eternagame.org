@@ -11,6 +11,7 @@ const PRODUCTION = process.env.NODE_ENV == 'production';
 
 module.exports = {
   lintOnSave: true,
+  productionSourceMap: true,
   devServer: {
     proxy: {
       '': {
@@ -43,7 +44,14 @@ module.exports = {
       .add('./src/entry-client.ts')
       .end();
 
-    config.devtool('source-map');
+    config
+      .optimization
+      .minimizer('terser')
+      .tap(args => {
+        const opts = args[0].terserOptions;
+        opts.mangle = false;
+        return args;
+      });
 
     // Derived from https://github.com/jonaskuske/vue-cli-ssr-hmr/blob/7bbb21105c6df964feed158c61a6c546a6741f49/vue.config.js
     // (Original license: MIT)
@@ -77,7 +85,7 @@ module.exports = {
           .end()
           .target('node')
           .devtool('source-map')
-          .externals(nodeExternals({ whitelist: [/\.css$/, /^vue-bootstrap-breakpoint-indicator/] }))
+          .externals(nodeExternals({ allowlist: [/\.css$/, /^vue-bootstrap-breakpoint-indicator/] }))
           .output.filename('server-bundle.js')
           .libraryTarget('commonjs2')
           .end()

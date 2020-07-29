@@ -1,5 +1,6 @@
 <template>
   <div class="page-content card">
+    <a :href="editURL" class="edit-link" v-if="showEdit">Edit</a>
     <div class="container">
       <img class="logo rounded-circle mr-3" :src="`/sites/default/files/${project.logo}`" />
 
@@ -18,7 +19,7 @@
             title="Request software license"
           >
             <b-icon-download />
-            REQUEST
+            REQUEST LICENSE
           </b-btn>
           <SoftwareLicenseModal
             :id="id"
@@ -26,28 +27,27 @@
             :license-terms="project.license_terms"
           />
         </template>
-        <template v-else>
-          <b-btn
-            type="button"
-            class="btn btn-primary mt-3 mr-3 mb-3"
-            v-b-tooltip.hover.bottom
-            :title="project.download_tooltip"
-            :href="project.download_url"
-          >
-            <b-icon-download />
-            DOWNLOAD
-          </b-btn>
-          <b-btn
+        <b-btn v-else
+          type="button"
+          class="btn btn-primary mt-3 mr-3 mb-3"
+          v-b-tooltip.hover.bottom
+          :title="project.download_tooltip"
+          :href="project.download_url"
+        >
+          <b-icon-download />
+          DOWNLOAD
+        </b-btn>
+        <b-btn
             type="button"
             class="btn btn-secondary"
             v-b-tooltip.hover.bottom
             :title="project.help_tooltip"
             :href="project.help_url"
-          >
-            <b-icon-book />
-            TUTORIAL
-          </b-btn>
-        </template>
+            v-if="project.help_url"
+        >
+          <b-icon-book />
+          TUTORIAL
+        </b-btn>
       </div>
 
       <div class="row mt-4">
@@ -75,8 +75,8 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { BIconDownload, BIconBook } from 'bootstrap-vue';
-  import SoftwareLicenseModal from '@/components/Modals/SoftwareLicenseModal.vue';
-  import { SoftwareProject } from './SoftwareExplore.vue';
+  import SoftwareLicenseModal from './SoftwareLicenseModal.vue';
+  import { SoftwareProject } from '../SoftwareExplore.vue';
 
   @Component({
     components: { BIconBook, BIconDownload, SoftwareLicenseModal },
@@ -90,6 +90,14 @@
 
     get packageid() {
       return this.project.nid;
+    }
+
+    get showEdit() {
+      return this.$vxm.user.userDetails?.is_admin;
+    }
+
+    get editURL() {
+      return `${process.env.VUE_APP_API_BASE_URL}/node/${this.packageid}/edit`;
     }
   }
 </script>
@@ -121,5 +129,11 @@
   }
   .logo:hover {
     transform: rotateY(180deg);
+  }
+
+  .edit-link {
+    position: absolute;
+    top: 5px;
+    right: 15px;
   }
 </style>

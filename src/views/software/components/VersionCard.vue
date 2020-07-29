@@ -1,5 +1,5 @@
 <template>
-  <div class="card mt-3 mr-2 p-3">
+  <div class="card p-3">
     <h3>
       {{ version.name }}
     </h3>
@@ -26,7 +26,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import axios from 'axios';
-  import { SoftwareVersion } from '@/components/Modals/SoftwareLicenseModal.vue';
+  import { SoftwareVersion } from './SoftwareLicenseModal.vue';
 
   const DOWNLOAD_SOFTWARE_ROUTE = '/get/?type=software_package_download';
 

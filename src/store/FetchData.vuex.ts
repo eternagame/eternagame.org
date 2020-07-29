@@ -17,6 +17,9 @@ export function isCacheError(cache: CacheData | CacheError): cache is CacheError
   return !!(cache && (cache as CacheError).error);
 }
 
-export default class FetchData extends VuexModule {
-  ssrCache: (CacheData | CacheError)[] = [];
+export default function createFetchDataStore() {
+  class FetchDataStore extends VuexModule {
+    ssrCache: (CacheData | CacheError)[] = [];
+  }
+  return FetchDataStore;
 }

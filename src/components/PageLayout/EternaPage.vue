@@ -25,7 +25,7 @@
           <slot name="sidebar" :isInSidebar="true"></slot>
         </b-col>
       </b-row>
-      <MobileSidebar ref="mobileSidebar" v-if="hasSidebarSlot">
+      <MobileSidebar v-if="hasSidebarSlot" :show.sync="$vxm.mobile.showPageSidebar">
         <slot name="sidebar" :isInSidebar="true"></slot>
       </MobileSidebar>
       <PageFooter />
@@ -50,20 +50,6 @@
     @Prop({ default: '' }) readonly header_title!: string;
 
     @Prop({ default: '' }) readonly header_date!: string;
-
-    @Ref() mobileSidebar!: MobileSidebar;
-
-    unsubscribe!: () => void;
-
-    created() {
-      this.unsubscribe = this.$vxm.mobile.$subscribe('showPageSidebar', payload => {
-        this.mobileSidebar.openMenu();
-      });
-    }
-
-    beforeDestroy() {
-      this.unsubscribe();
-    }
 
     get hasSidebarSlot() {
       return !!this.$scopedSlots.sidebar;

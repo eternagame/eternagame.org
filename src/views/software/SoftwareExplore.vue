@@ -9,6 +9,7 @@
         Players and researchers have created original software programs to aid in complex RNA
         design, which are now available for licensing.
       </h3>
+      Questions? Contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a>.
     </div>
 
     <Gallery :sm="12" :md="6">
@@ -23,19 +24,8 @@
   import axios from 'axios';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  // Assets need to be imported; can't hardcode '@/assets/...'
-  import EternaBrainLogo from '@/assets/software/logo_eternabrain.svg';
-  import EternaBrainThumbnail from '@/assets/software/thumb_eternabrain_paper.png';
-  import NemoLogo from '@/assets/software/logo_nemo.svg';
-  import NemoThumbnail from '@/assets/software/thumb_nemo_paper.png';
-  import EternaBotLogo from '@/assets/software/logo_eternabot.svg';
-  import EternaBotThumbnail from '@/assets/software/thumb_eternabot_paper.jpg';
-  import SentRNALogo from '@/assets/software/logo_sentrna.svg';
-  import SentRNAThumbnail from '@/assets/software/thumb_sentrna_paper.png';
-  import RNAMakeLogo from '@/assets/software/logo_rnamake.svg';
-  import RNAMakeThumbnail from '@/assets/software/thumb_rnamake_paper.png';
 
-  import SoftwareCard from './SoftwareCard.vue';
+  import SoftwareCard from './components/SoftwareCard.vue';
 
   export interface SoftwareProject {
     name: string;
@@ -68,7 +58,7 @@
     projects: SoftwareProject[] = [];
 
     async mounted() {
-      const response = await axios.get(ROUTE);
+      const response = await this.$http.get(ROUTE);
       this.projects = response.data.data;
     }
   }

@@ -3,7 +3,7 @@
     :to="`/feed#${comment.message[0].created}`"
     :avatar="avatar"
     :prefix="`${name} ${$t('bell-icon:comment')}`"
-    :content="comment.message[0].content"
+    :content="comment.message[0].content.body"
   />
 </template>
 

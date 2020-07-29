@@ -9,11 +9,13 @@ import SwiperClass from 'swiper';
 import createUserStore from '../store/user.vuex';
 import MobileStore from '../store/mobile.vuex';
 import FetchData from '../store/FetchData.vuex';
+import Pagination from '../store/pagination.vuex';
 
 export interface VXM {
   user: ProxyWatchers & InstanceType<ReturnType<typeof createUserStore>>;
   mobile: ProxyWatchers & MobileStore;
   fetchData: ProxyWatchers & FetchData;
+  pagination: ProxyWatchers & Pagination;
 }
 
 declare module 'vue/types/options' {

@@ -6,6 +6,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import icon from '@/assets/Filter.svg';
   import Preloader from '@/components/PageLayout/Preloader.vue';
+  import { navigationModes } from '@/store/pagination.vuex';
 
   @Component({
     components: {
@@ -27,16 +28,18 @@
           document.documentElement.scrollTop + window.innerHeight + 1 >=
           document.documentElement.offsetHeight;
 
-        if (bottomOfWindow) {
+        if (bottomOfWindow && !this.pagesEnabled) {
           const length = this.$vnode.key;
-          const querySize = Number(this.$route.query.size || this.initial);
-          const newSize = querySize + this.increment;
-          if (querySize === length) {
+          const { skip } = this.$route.query;
+          let skipped = parseInt(skip as string, 10) || 18;
+          if (skipped === 0) skipped = 18;
+          if (skipped === length) {
             this.$router.replace({
               name: this.$route.name!,
               query: {
                 ...this.$route.query,
-                size: String(newSize),
+                size: this.increment.toString(),
+                skip: String(skipped + this.increment),
               },
               hash: window.location.hash,
               params: { keepScroll: 'true' }
@@ -45,6 +48,10 @@
           }
         }
       };
+    }
+
+    get pagesEnabled() {
+      return this.$vxm.pagination.navigation === navigationModes.NAVIGATION_PAGES;
     }
   }
 </script>

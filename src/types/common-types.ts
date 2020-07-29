@@ -246,8 +246,12 @@ export type UserDirectGroupMessage = NotificationMessageBase<
 export type RegularGroupNotificationMessage = NotificationMessageBase<
   NotificationMessageType.GROUP_MESSAGE,
   {
-    group: string;
     body: string;
+    node: {
+      id: string;
+      title: string;
+      node_type: "eterna_group";
+    }
   }
 >;
 

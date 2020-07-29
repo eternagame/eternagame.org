@@ -37,6 +37,7 @@
       const { node_type } = this.message.content.node;
       if (node_type === 'puzzle') return 'puzzles';
       if (node_type === 'solution') return 'solutions';
+      if (node_type === 'group') return 'groups';
       return `${node_type}s`;
     }
   }

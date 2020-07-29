@@ -3,11 +3,11 @@
     <MessageItem
       :sender="message.sender"
       :created="message.created"
-      :message="message.content.body"
+      :message="content"
       :avatar="avatar"
     >
       <template>
-          {{ notification.target2_name + ' ' }} {{ $t('activity-feed:commented-on') + ' ' }}
+          {{ notification.target2_name + ' ' }} {{ isInvite ? $t('activity-feed:invite') : $t('activity-feed:broadcast') + ' ' }}
           <router-link :to="`/groups/${nid}`">
               {{ title }}
           </router-link>
@@ -17,7 +17,7 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import {GroupNotificationItem, GroupNotificationMessage, RegularGroupNotificationMessage} from '@/types/common-types';
+  import {GroupNotificationItem, GroupNotificationMessage, RegularGroupNotificationMessage, NotificationType } from '@/types/common-types';
   import Utils from '@/utils/utils';
   import MessageItem from './MessageItem.vue';
 
@@ -30,17 +30,19 @@
     @Prop({ required: true }) readonly message!: GroupNotificationMessage;
 
     get nid() {
-      if (!this.message || !this.message.content) return '';
-      const asNode = this.message.content as { node: { id: string } };
-      if (!asNode || !asNode.node || !asNode.node.id) return '';
-      return asNode.node.id;
+      return this.notification.nid;
     }
 
     get title() {
-      if (!this.message || !this.message.content) return '';
-      const asNode = this.message.content as { node: { title: string } };
-      if (!asNode || !asNode.node || !asNode.node.title) return '';
-      return asNode.node.title;
+      return this.isInvite ? 'a group' : (this.message as RegularGroupNotificationMessage).content.group;
+    }
+
+    get isInvite() {
+      return typeof this.message.content === 'string';
+    }
+
+    get content() {
+      return this.isInvite ? this.message.content : (this.message as RegularGroupNotificationMessage).content.body;
     }
 
     get avatar() {

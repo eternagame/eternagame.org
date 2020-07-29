@@ -54,7 +54,7 @@
     }
 
     get isGroup() {
-      return NotificationType.GROUP === this.notification.type;
+      return isDirectedNotificationItem(this.notification);
     }
   }
 </script>

@@ -121,6 +121,20 @@ export default function createRouter() {
         name: 'chat',
         component: () => import('./views/chat/FullPageChat.vue'),
       },
+      {
+        path: '/eternacon',
+        redirect: { name: 'eternacon-2020' }
+      },
+      {
+        path: '/eternacon/2020',
+        name: 'eternacon-2020',
+        component: () => import('./views/eternacon/Eternacon2020.vue'),
+      },
+      {
+        path: '/eternacon/about',
+        name: 'about-eternacon',
+        component: () => import('./views/eternacon/AboutEternacon.vue'),
+      }
     ],
     scrollBehavior(to, from, savedPosition) {
       // Navigate to previous scroll position, or else top of page

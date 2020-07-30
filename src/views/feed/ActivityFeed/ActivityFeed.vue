@@ -22,6 +22,13 @@
         replace
         :isInSidebar="isInSidebar"
       />
+      <DropdownSidebarPanel
+        class="mt-4"
+        :options="sortOptions"
+        paramName="sort"
+        replace
+        :isInSidebar="isInSidebar"
+      />
     </template>
     <template #mobileSearchbar>
       <SearchPanel :isInSidebar="false" />
@@ -67,7 +74,7 @@
     notifications: NotificationItem[] = [];
 
     async fetch() {
-      const { filter, search, size } = this.$route.query;
+      const { filter, search, size, sort } = this.$route.query;
       const res = (
         await axios.get(ROUTE, {
           params: {
@@ -77,7 +84,11 @@
           },
         })
       ).data.data;
-      this.notifications = res.entries;
+      if (sort !== 'date') {
+        this.notifications = (res.entries as NotificationItem[]).reverse();
+      } else {
+        this.notifications = res.entries;
+      }
     }
 
     sentMessage() {
@@ -88,6 +99,14 @@
       { value: 'all', text: 'side-panel-options:all-activity' },
       { value: 'groups', text: 'side-panel-options:my-groups' },
       { value: 'notifications', text: 'side-panel-options:my-messages' },
+      { value: 'news', text: 'side-panel-options:news' },
+      { value: 'labs', text: 'side-panel-options:labs'},
+      { value: 'rewards', text: 'side-panel-options:rewards'}
+    ];
+
+    private sortOptions: Option[] = [
+      { value: 'date', text: 'side-panel-options:desc'},
+      { value: 'date_asc', text: 'side-panel-options:asc'}
     ];
   }
 </script>

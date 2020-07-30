@@ -34,12 +34,6 @@
           <input class="form-control" v-model="puzzle.title" />
           <textarea class="form-control" v-model="puzzle.body"/>
         </div>
-        <div class="order-sm-4 button-col">
-          <button class="btn btn-primary" @click="isEditing = !isEditing">{{ isEditing ? 'Submit' : 'Edit'}}</button>
-          <a :href="`${tutorialRoute}${nid}`" class="btn btn-primary ml-2">
-            {{ puzzle.rscript ? 'Edit' : 'Create'}} Tutorial
-          </a>
-        </div>
       </div>
     </div>
 
@@ -69,10 +63,13 @@
             <img src="@/assets/calendar.svg" class="icon" />{{ puzzle.created }}
           </li>
         </ul>
-        <!--
+        <section v-if="madeByUser">
           <button class="btn btn-primary" @click="isEditing = !isEditing">{{ isEditing ? 'Submit' : 'Edit'}}</button>
-          <button class="btn btn-primary ml-2">{{ puzzle.rscript ? 'Edit' : 'Create'}} Tutorial</button>
-        -->
+          <br>
+          <a :href="`${tutorialRoute}${nid}`" class="btn btn-primary mt-2">
+            {{ puzzle.rscript ? 'Edit' : 'Create'}} Tutorial
+          </a>
+        </section>
       </SidebarPanel>
       <!-- <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" /> -->
     </template>

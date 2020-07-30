@@ -19,7 +19,7 @@ export default function createStore(axios: AxiosInstance) {
     modules: {
       ...extractVuexModule(BoundUserStore),
       ...extractVuexModule(BoundMobileStore),
-      ...extractVuexModule(BoundPaginationStore)
+      ...extractVuexModule(BoundPaginationStore),
       ...extractVuexModule(BoundFetchDataStore),
     },
   });

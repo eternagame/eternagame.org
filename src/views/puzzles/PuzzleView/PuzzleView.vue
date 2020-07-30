@@ -21,13 +21,24 @@
           </b-button>
         </div>
 
-        <div class="order-sm-1 description-col">
+        <div v-if="!isEditing" class="order-sm-1 description-col">
           <hr class="top-border d-sm-none" />
           <div
             class="puzzle-description"
             style="word-wrap: break-word;"
             v-dompurify-html="puzzle.body"
           />
+        </div>
+        <div v-else class="order-sm-1 edit-col">
+          <hr class="top-border d-sm-none" />
+          <input class="form-control" v-model="puzzle.title" />
+          <textarea class="form-control" v-model="puzzle.body"/>
+        </div>
+        <div class="order-sm-4 button-col">
+          <button class="btn btn-primary" @click="isEditing = !isEditing">{{ isEditing ? 'Submit' : 'Edit'}}</button>
+          <a :href="`${tutorialRoute}${nid}`" class="btn btn-primary ml-2">
+            {{ puzzle.rscript ? 'Edit' : 'Create'}} Tutorial
+          </a>
         </div>
       </div>
     </div>
@@ -58,6 +69,10 @@
             <img src="@/assets/calendar.svg" class="icon" />{{ puzzle.created }}
           </li>
         </ul>
+        <!--
+          <button class="btn btn-primary" @click="isEditing = !isEditing">{{ isEditing ? 'Submit' : 'Edit'}}</button>
+          <button class="btn btn-primary ml-2">{{ puzzle.rscript ? 'Edit' : 'Create'}} Tutorial</button>
+        -->
       </SidebarPanel>
       <!-- <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" /> -->
     </template>
@@ -66,14 +81,14 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Vue, Mixins, Watch } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Utils from '@/utils/utils';
-  import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
+  import { PUZZLE_ROUTE_PREFIX,  PUZZLE_ROUTE_TUTORIAL_PREFIX} from '@/utils/constants';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
   import FetchMixin from '@/mixins/FetchMixin';
@@ -91,11 +106,15 @@
   export default class PuzzleView extends Mixins(FetchMixin) {
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
+    private tutorialRoute: string = PUZZLE_ROUTE_TUTORIAL_PREFIX;
+
     puzzle: Puzzle | null = null;
 
     nid: string | null = null;
 
     comments: CommentItem[] = [];
+
+    private isEditing = false;
 
     async fetch() {
       const res = (
@@ -115,6 +134,10 @@
       return this.puzzle && this.puzzle['made-by-player'] !== '0';
     }
 
+    get madeByUser() {
+      return this.puzzle && this.$vxm.user.uid && this.puzzle.uid === this.$vxm.user.uid.toString();
+    }
+
     get imageURL() {
       return Utils.getPuzzleMiddleThumbnail(this.nid);
     }
@@ -122,13 +145,25 @@
     get avatar() {
       return Utils.getAvatar(this.puzzle?.userpicture || null);
     }
+
+    @Watch('isEditing')
+    async submit() {
+      if (!this.isEditing) return;
+      const data = new URLSearchParams();
+      data.set('type', 'edit_puzzle');
+      data.set('nid', this.nid!.toString());
+      data.set('title', this.puzzle!.title);
+      data.set('description', this.puzzle!.body);
+      const res = await this.$http.post(`${process.env.VUE_APP_API_BASE_URL}/post/`, data);
+      console.log(res);
+    }
   }
 </script>
 
 <style scoped lang="scss">
   @import '@/styles/global.scss';
 
-  .description-col {
+  .description-col, .edit-col {
     width: calc(60% - 15px);
   }
 
@@ -187,5 +222,11 @@
 
   li {
     margin-bottom: 20px;
+  }
+
+  .bottom-button {
+    position: relative;
+    bottom: 0px;
+    margin-bottom: 0px;
   }
 </style>

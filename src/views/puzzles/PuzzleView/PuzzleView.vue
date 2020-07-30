@@ -44,7 +44,7 @@
           <img src="@/assets/info.svg" />
         </template>
         <ul style="padding: 0; list-style-type:none" v-if="puzzle">
-          <li v-if="puzzle['made-by-player']">
+          <li v-if="madeByPlayer">
             <img :src="avatar" class="icon" />{{ puzzle.username }}
           </li>
           <li v-if="puzzle.reward">
@@ -109,6 +109,10 @@
       this.puzzle = res.puzzle;
       this.nid = res.nid;
       this.comments = res.comments;
+    }
+
+    get madeByPlayer() {
+      return this.puzzle && this.puzzle['made-by-player'] !== '0';
     }
 
     get imageURL() {

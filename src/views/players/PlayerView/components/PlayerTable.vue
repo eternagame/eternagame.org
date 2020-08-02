@@ -32,6 +32,10 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
+  table {
+    table-layout: fixed;
+  }
+
   .content {
     margin: 1rem;
   }

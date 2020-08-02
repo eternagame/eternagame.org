@@ -18,7 +18,7 @@
         BaseNotification
       },
   })
-  export default class PrivateMessageNotification extends Vue {
+  export default class CommentNotification extends Vue {
     @Prop({ required: true }) readonly comment!: CommentNotificationItem;
     
     get name() {

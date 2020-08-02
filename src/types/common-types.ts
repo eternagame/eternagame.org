@@ -248,8 +248,8 @@ export type UserDirectGroupMessage = NotificationMessageBase<
 export type RegularGroupNotificationMessage = NotificationMessageBase<
   NotificationMessageType.GROUP_MESSAGE,
   {
-    group: string;
     body: string;
+    group: string;
   }
 >;
 
@@ -293,7 +293,7 @@ export interface NotificationNotificationItem extends DirectedNotificationItemBa
 
 export interface GroupNotificationItem extends DirectedNotificationItemBase {
   type: NotificationType.GROUP;
-  message: [GroupNotificationMessage|CommentNotificationMessage<'eterna_group'>];
+  message: [GroupNotificationMessage|CommentNotificationMessage<'eterna_group'>]
 }
 
 type DirectedNotificationItem = NotificationNotificationItem | GroupNotificationItem;
@@ -370,5 +370,5 @@ export function isPMNotiItem(notification: NotificationItem): notification is Pr
 }
 
 export function isCommentNotiItem(notification: NotificationItem): notification is CommentNotificationItem {
-  return isNotiNotiItem(notification) && notification.message[0].type === NotificationMessageType.COMMENT;
+  return isNotiNotiItem(notification) && ( notification.message[0].type === NotificationMessageType.COMMENT);
 }

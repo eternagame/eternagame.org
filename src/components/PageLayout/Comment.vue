@@ -9,9 +9,9 @@
       >
       <p style="font-size: 0.6rem">{{ created }}</p>
       <p v-dompurify-html="comment" style="word-wrap: break-word;">{{ comment }}</p>
-      <p @click="deleteComment()" v-if="canDelete" style="cursor:pointer">
+      <button @click="deleteComment()" v-if="canDelete" style="cursor:pointer" class="btn btn-danger">
         {{ $t('page:comments-delete') }}
-      </p>
+      </button>
     </div>
   </div>
 </template>
@@ -39,7 +39,7 @@
     @Prop({ required: true }) readonly picture!: string;
 
     get canDelete() {
-      return String(this.$vxm.user.uid) === this.comment.cid;
+      return String(this.$vxm.user.uid) === this.uid;
     }
 
     get avatar() {
@@ -50,7 +50,7 @@
       axios
         .post(
           ADD_COMMENT_ROUTE,
-          new URLSearchParams({ type: 'delete_comment', cid: this.comment.cid }),
+          new URLSearchParams({ type: 'delete_comment', cid: this.$vnode.key as string }),
         )
         .then(res => window.location.reload());
     }

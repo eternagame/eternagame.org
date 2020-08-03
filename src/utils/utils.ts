@@ -18,7 +18,7 @@ export default {
   strippedBody(text: string): string {
     // For notification previews, remove all html tags,
     // since tags like <ul> and <img> can break formatting.
-    return text && text.replace(/(<([^>]+)>)/gi, '');
+    return text && text.replace && text.replace(/(<([^>]+)>)/gi, '');
   },
   formattedType(notification: NotificationItem): string {
     if (!notification) return '';
@@ -107,7 +107,6 @@ export default {
       default:
         return null;
     }
-    return null;
   },
   getQuestLink(key: string) {
     switch (key) {
@@ -139,7 +138,6 @@ export default {
       default:
         return null;
     }
-    return null;
   },
   isLinkInternal(link: string | Object) {
     return (

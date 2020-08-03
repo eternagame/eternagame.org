@@ -22,13 +22,6 @@
         replace
         :isInSidebar="isInSidebar"
       />
-      <DropdownSidebarPanel
-        class="mt-4"
-        :options="sortOptions"
-        paramName="sort"
-        replace
-        :isInSidebar="isInSidebar"
-      />
     </template>
     <template #mobileSearchbar>
       <SearchPanel :isInSidebar="false" />
@@ -49,7 +42,7 @@
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import Utils from '@/utils/utils';
   import FetchMixin from '@/mixins/FetchMixin';
-  import { NotificationItem } from '@/types/common-types';
+  import { NotificationItem, RewardNotificationItem, NotificationType } from '@/types/common-types';
   import ActivityCard from './components/ActivityCard.vue';
   import MessageCompose from './components/MessageCompose.vue';
 
@@ -74,7 +67,7 @@
     notifications: NotificationItem[] = [];
 
     async fetch() {
-      const { filter, search, size, sort } = this.$route.query;
+      const { filter, search, size } = this.$route.query;
       const res = (
         await axios.get(ROUTE, {
           params: {
@@ -84,11 +77,7 @@
           },
         })
       ).data.data;
-      if (sort !== 'date') {
-        this.notifications = (res.entries as NotificationItem[]).reverse();
-      } else {
-        this.notifications = res.entries;
-      }
+      this.notifications = res.entries;
     }
 
     sentMessage() {
@@ -102,11 +91,6 @@
       { value: 'news', text: 'side-panel-options:news' },
       { value: 'labs', text: 'side-panel-options:labs'},
       { value: 'rewards', text: 'side-panel-options:rewards'}
-    ];
-
-    private sortOptions: Option[] = [
-      { value: 'date', text: 'side-panel-options:desc'},
-      { value: 'date_asc', text: 'side-panel-options:asc'}
     ];
   }
 </script>

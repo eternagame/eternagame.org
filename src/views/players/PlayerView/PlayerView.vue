@@ -188,6 +188,7 @@
       this.follow = res.follow;
       this.latestPuzzles = res.latest_puzzles || [];
       this.createdPuzzles = res.created_puzzles || [];
+      this.clearedPuzzles = res.cleared_puzzles || [];
       this.synthesized = res.synthesized || [];
       this.achievements = res.achievements || {};
     }

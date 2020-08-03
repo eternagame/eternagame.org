@@ -2,7 +2,7 @@
   <!-- TODO: Consider making this a NavIcon instead for consistent styling and behavior. -->
   <div>
     <div class="clickable mt-2" @click="goToChat()">
-      <img icon class="mr-1" src="@/assets/navbar/Chat.svg" />
+      <img class="mr-1" src="@/assets/navbar/Chat.svg" />
       <span class="d-md-none font-weight-bold">
         {{ $t('nav-bar:chat') }}
       </span>
@@ -68,6 +68,7 @@
   img {
     width: 24px;
     height: 24px;
+    margin: 0 10px;
   }
 
   #chat-container {

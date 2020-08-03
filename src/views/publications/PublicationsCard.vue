@@ -1,5 +1,6 @@
 <template>
   <div class="page-content card">
+    <a :href="editURL" class="edit-link" v-if="showEdit">Edit</a>
     <div class="container">
       <div class="row">
         <div class="col-sm order-1 order-sm-2">
@@ -26,6 +27,8 @@
     components: {},
   })
   export default class NewsCard extends Vue {
+    @Prop({ required: true }) readonly nid!: string;
+
     @Prop({ required: true }) readonly title!: string;
 
     @Prop({ required: true }) readonly abstract!: string;
@@ -41,6 +44,14 @@
     @Prop({ required: true }) readonly pub_date!: string;
 
     @Prop({ required: true }) readonly image!: string;
+
+    get showEdit() {
+      return this.$vxm.user.userDetails?.is_admin;
+    }
+
+    get editURL() {
+      return `${process.env.VUE_APP_API_BASE_URL}/node/${this.nid}/edit`;
+    }
   }
 </script>
 
@@ -63,5 +74,11 @@
   .card {
     padding: 2rem 1rem;
     margin-bottom: 1.5rem;
+  }
+
+  .edit-link {
+    position: absolute;
+    top: 5px;
+    right: 15px;
   }
 </style>

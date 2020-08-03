@@ -1,6 +1,12 @@
 <template>
   <div class="d-flex">
-    <img src="@/assets/dollar.svg" class="icon" /> {{ user.points }}
+    <a
+      :href="`${BASE_URL_PREFIX}/certificate/${user.uid}`"
+      v-if="isCurrentUser"
+    >
+      Certificate
+    </a>
+    <img src="@/assets/dollar.svg" class="icon ml-4" /> {{ user.points }}
     <img src="@/assets/test-tube.svg" class="icon ml-4" /> {{ user.synthesized_count }}
     <img src="@/assets/calendar.svg" class="icon ml-4" /> {{ formattedCreated }}
   </div>
@@ -18,6 +24,12 @@
       const start = this.user.created.indexOf(' ');
       return this.user.created.substring(start);
     }
+
+    get isCurrentUser() {
+      return this.$vxm.user.uid && this.$vxm.user.uid.toString() === this.user.uid;
+    }
+
+    private BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;
   }
 </script>
 

@@ -2,7 +2,7 @@
   <NavbarIcon @shown="onShown">
     <template #icon>
       <div class="unread" v-if="notificationsCount > 0"></div>
-      <img class="icon mr-1" src="@/assets/navbar/Bell.svg" />
+      <img class="icon" src="@/assets/navbar/Bell.svg" />
     </template>
     <template #text>{{ $t('nav-bar:notifications') }}</template>
     <template v-slot="slotProp">
@@ -22,6 +22,7 @@
           <NewsNotification v-if="isNewsItem(item)" :key="getCreated(item)" :article="item" />
           <PrivateMessageNotification v-else-if="isPM(item)" :key="getCreated(item)" :pm="item" />
           <CommentNotification v-else-if="isComment(item)" :key="getCreated(item)" :comment="item" />
+          <GroupNotificationItem v-else-if="isGroup(item)" :key="getCreated(item)" :group="item" />
         </template>
         <b-dropdown-item v-if="notifications.length == 0">
           {{$t('activity-feed:empty')}}
@@ -48,6 +49,7 @@
   import NewsNotification from './NewsNotification.vue';
   import PrivateMessageNotification from './PrivateMessageNotification.vue';
   import CommentNotification from './CommentNotification.vue';
+  import GroupNotificationItem from './GroupNotification.vue';
 
   const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user';
 
@@ -64,7 +66,8 @@
       NavbarIcon,
       NewsNotification,
       PrivateMessageNotification,
-      CommentNotification
+      CommentNotification,
+      GroupNotificationItem
     },
   })
   export default class NotificationIcon extends Mixins(FetchMixin) {
@@ -135,15 +138,15 @@
     private isComment(notification: NotificationItem) {
       return isCommentNotiItem(notification);
     }
+
+    private isGroup(notification: NotificationItem) {
+      return isDirectedNotificationItem(notification);
+    }
   }
 </script>
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
-
-  .icon {
-    margin-left: -0.2rem;
-  }
 
   ::v-deep a {
     padding-right: 10px !important;
@@ -166,5 +169,10 @@
   .border {
     border: 1px solid red;
     width: 100%;
+  }
+
+  img.icon {
+    width: 24px;
+    height: 24px;
   }
 </style>

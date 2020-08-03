@@ -9,7 +9,12 @@
           :notification="notification"
         />
       </Gallery>
-      <Pagination :key="notifications.length" />
+      <Pagination
+        :key="notifications && notifications.length"
+        :useSize="true"
+        :loading="loading"
+        @loading="loading = $event"
+      />
     </div>
     <div v-else>
       <Preloader />
@@ -42,7 +47,8 @@
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import Utils from '@/utils/utils';
   import FetchMixin from '@/mixins/FetchMixin';
-  import { NotificationItem } from '@/types/common-types';
+  import { NotificationItem, NotificationType } from '@/types/common-types';
+  import { navigationModes } from '@/store/pagination.vuex';
   import ActivityCard from './components/ActivityCard.vue';
   import MessageCompose from './components/MessageCompose.vue';
 
@@ -65,6 +71,8 @@
   })
   export default class ActivityFeed extends Mixins(FetchMixin) {
     notifications: NotificationItem[] = [];
+
+    loading = true;
 
     async fetch() {
       const { filter, search, size } = this.$route.query;

@@ -10,20 +10,16 @@
           :cleared="puzzleCleared(puzzle.id)"
         />
       </Gallery>
-      <Pagination :key="puzzles && puzzles.length" />
     </div>
     <div v-else>
       <Preloader />
     </div>
-    <b-pagination
-      v-if="pagesEnabled"
-      v-model="currentPage"
-      :total-rows="total"
-      :per-page="12"
-      style="bottom: 0;"
-      :style="{ position: loading ? 'absolute': 'relative'}"
-      align="center"
-      limit=15
+    <Pagination
+      :key="puzzles && puzzles.length"
+      @page="currentPage = $event"
+      :total="total"
+      :loading="loading"
+      @loading="loading = $event"
     />
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
@@ -189,18 +185,6 @@
 
     currentPage: number = 1;
 
-    @Watch('currentPage')
-    async updateQuery() {
-      this.loading = true;
-      await this.$router.replace({ name: this.$route.name!, query: this.getQuery(), });
-    }
-
-    getQuery() {
-      const query = { ...this.$route.query };
-      if (this.pagesEnabled) query.skip = (12 * (this.currentPage - 1)).toString();
-      return query;
-    }
-
     loading = false;
 
     get displayedPuzzles() {
@@ -211,22 +195,8 @@
       return this.puzzles;
     }
 
-    @Watch('pagesEnabled')
-    reload() {
-      window.location.reload();
-    }
-
     async refresh() {
       await this.fetch(true);
-    }
-
-    created() {
-      if (this.$route.query.skip) this.currentPage = parseInt(this.$route.query.skip as string, 10) / 12 + 1;
-      if (!this.pagesEnabled) {
-        this.$route.query.skip = '0';
-        this.$route.query.size = INITIAL_NUMBER.toString();
-      }
-      this.$router.replace({ name: this.$route.name!, query: this.$route.query });
     }
 
   // private tags: string[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];

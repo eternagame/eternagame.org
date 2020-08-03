@@ -14,7 +14,7 @@ import createFetchDataStore from '../store/FetchData.vuex';
 export interface VXM {
   user: ProxyWatchers & InstanceType<ReturnType<typeof createUserStore>>;
   mobile: ProxyWatchers & InstanceType<ReturnType<typeof createMobilStore>>;
-  fetchData: ProxyWatchers & InstanceType<ReturnType<typeof createFetchDataStore>>;;
+  fetchData: ProxyWatchers & InstanceType<ReturnType<typeof createFetchDataStore>>;
   pagination: ProxyWatchers & Pagination;
 }
 

@@ -80,6 +80,9 @@
               <b-card class="col-sm-9" v-if="session.topic !== 'Break'">
                 <h5>{{session.topic}}</h5>
                 <p v-dompurify-html="session.abstract" v-if="session.abstract"></p>
+                <div v-if="session.vimeoLink" class="embed-responsive embed-responsive-16by9 mt-2">
+                  <iframe :src="session.vimeoLink" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                </div>
               </b-card>
               <div class="col-sm-9 text-center" v-else>
                 <h5 class="d-inline m-0">Break</h5> - join us on

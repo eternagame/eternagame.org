@@ -8,6 +8,7 @@
           :nid="puzzle.id"
           v-bind="puzzle"
           :cleared="puzzleCleared(puzzle.id)"
+          :madeByPlayer="puzzle['made-by-player'] !== '0'"
         />
       </Gallery>
       <Pagination :key="puzzles && puzzles.length" />

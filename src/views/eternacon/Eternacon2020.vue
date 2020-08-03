@@ -80,8 +80,17 @@
               <b-card class="col-sm-9" v-if="session.topic !== 'Break'">
                 <h5>{{session.topic}}</h5>
                 <p v-dompurify-html="session.abstract" v-if="session.abstract"></p>
-                <div v-if="session.vimeoLink" class="embed-responsive embed-responsive-16by9 mt-2">
+                <div v-if="session.vimeoLink && $vxm.user.hasLabAccess" class="embed-responsive embed-responsive-16by9 mt-2">
                   <iframe :src="session.vimeoLink" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                </div>
+                <div class="video-available" v-else-if="session.vimeoLink">
+                  A recording for this session is available to lab members.
+                  <template v-if="$vxm.user.loggedIn">
+                    Finish the tutorials to gain access.
+                  </template>
+                  <template v-else>
+                    Log in to watch.
+                  </template>
                 </div>
               </b-card>
               <div class="col-sm-9 text-center" v-else>
@@ -229,6 +238,11 @@
 
     .session-time {
       color: $yellow;
+    }
+
+    .video-available {
+      color: $yellow;
+      font-weight: bold;
     }
 
     p {

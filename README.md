@@ -1,8 +1,10 @@
-# Eterna Refresh
+# eternagame.org
 
-The site rewrite of [Eterna](eternagame.org).
+Website frontend for [Eterna](eternagame.org).
 
-The rewrite is based on the design present [here](https://github.com/eternagame/design).
+Interested in development? Join the discusson on the Eterna Discord!
+
+[![Eterna Discord](https://discord.com/api/guilds/702618517589065758/widget.png?style=banner2)](https://discord.gg/KYeTwux)
 
 ## Project setup
 
@@ -30,7 +32,6 @@ For now, please add `VUE_APP_ENV="client"` into your `.env.local` file.
     Add `"editor.formatOnSave": true,` to your .vscode/settings.json
 
 ## Contributing
-
-If you want to contribute, please post a bug report, post a feature report, or work on one of the existing github issues.
+If you want to contribute, please post a bug report, post a feature report, or work on one of the existing github issues. We also recommend joining our [Discord](https://discord.gg/KYeTwux) to chat with other developers.
 
 Our work happens on the `dev` branch; please pull and submit PRs against that branch. Thanks!

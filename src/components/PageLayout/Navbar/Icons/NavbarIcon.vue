@@ -11,7 +11,7 @@
     <template #button-content>
       <div>
         <slot name="icon"></slot>
-        <span class="d-md-none">
+        <span class="d-md-none mx-2">
           <slot name="text"></slot>
         </span>
       </div>
@@ -36,4 +36,14 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  ::v-deep .nav-link.dropdown-toggle {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  ::v-deep .dropdown-toggle:focus {
+    border-radius: 0.5rem;
+  }
+</style>

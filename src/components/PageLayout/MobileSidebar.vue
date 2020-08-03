@@ -3,7 +3,7 @@
     <div ref="mobileSidebar" class="mobile-sidebar  d-lg-none" v-show="isOpen">
       <nav>
         <div class="d-flex justify-content-end">
-          <button class="btn p-0" @click="closeMenu">
+          <button class="btn p-0" @click="isOpen = false">
             <img src="@/assets/sidebar/Cross.svg" class="cross-icon" />
           </button>
         </div>
@@ -14,13 +14,15 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Watch, Ref } from 'vue-property-decorator';
+  import { Component, PropSync, Vue, Watch, Ref } from 'vue-property-decorator';
 
   @Component({
     components: {},
   })
   export default class MobileSidebar extends Vue {
     @Ref() mobileSidebar!: HTMLDivElement;
+
+    @PropSync('show', {required: true}) isOpen!: boolean;
 
     mounted() {
       document.addEventListener('click', this.onDocumentClick);
@@ -37,25 +39,13 @@
         !element.classList.contains('sidebar') &&
         !this.mobileSidebar.contains(element)
       ) {
-        this.closeMenu();
+        this.isOpen = false;
       }
-    }
-
-    get isOpen() {
-      return this.$vxm.user.showSidebar;
-    }
-
-    openMenu() {
-      this.$vxm.user.openSidebar();
-    }
-
-    closeMenu() {
-      this.$vxm.user.closeSidebar();
     }
 
     @Watch('$route')
     onRouteChange() {
-      this.closeMenu();
+      this.isOpen = false;
     }
   }
 </script>

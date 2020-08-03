@@ -8,7 +8,7 @@
     >
       <template>
           {{ notification.target2_name + ' ' }} {{ $t('activity-feed:commented-on') + ' ' }}
-          <a :href="`/${message.content.node.node_type}s/${message.content.node.id}`">
+          <a :href="`/${nodeType}/${message.content.node.id}`">
               {{ message.content.node.title }}
           </a>
       </template>
@@ -27,10 +27,18 @@
   export default class CommentMessageItem extends Vue {
     @Prop({ required: true }) readonly notification!: CommentNotificationItem;
     
-   @Prop({ required: true }) readonly message!: CommentNotificationMessage;
+    @Prop({ required: true }) readonly message!: CommentNotificationMessage;
 
     get avatar() {
       return Utils.getAvatar(this.notification.target2_picture);
+    }
+
+    get nodeType() {
+      const { node_type } = this.message.content.node;
+      if (node_type === 'puzzle') return 'puzzles';
+      if (node_type === 'solution') return 'solutions';
+      if (node_type === 'group') return 'groups';
+      return `${node_type}s`;
     }
   }
 </script>

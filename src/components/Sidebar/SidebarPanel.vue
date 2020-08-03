@@ -33,8 +33,7 @@
     clickedHeader(event: Event) {
       event.stopPropagation();
       if (!this.isInSidebar) {
-        this.$vxm.user.openSidebar();
-        this.$vxm.mobile.showPageSidebar();
+        this.$vxm.mobile.showPageSidebar = true;
       }
     }
 

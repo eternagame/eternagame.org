@@ -1,8 +1,8 @@
 <template>
   <NavbarIcon>
     <template #icon>
-      <img class="mr-1" src="@/assets/navbar/DefaultIcon.svg" />
-      {{ username }}
+      <img src="@/assets/navbar/DefaultIcon.svg" />
+      <span class="mx-2">{{ username }}</span>
     </template>
     <template #text> </template>
 

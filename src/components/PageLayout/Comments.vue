@@ -26,7 +26,7 @@
           <b-spinner v-if="submitting" small></b-spinner>
         </b-button>
       </div>
-      <Comment v-for="comment in newestComments" :key="comment.cid" v-bind="comment" />
+      <Comment v-for="comment in newestComments" :key="comment.cid" v-bind="comment" @deleted="onDeleted(comment)" />
     </div>
   </div>
 </template>
@@ -49,7 +49,7 @@
 
   @Prop() readonly name?: string;
 
-  private newComments = null;
+  private newComments: CommentItem[] | null = null;
 
   private commentText: string = '';
 
@@ -61,6 +61,10 @@
 
   get newestComments() {
     return this.newComments || this.comments;
+  }
+
+  onDeleted(comment: CommentItem) {
+    this.newComments = this.newestComments.filter(c => c !== comment);
   }
 
   submit() {

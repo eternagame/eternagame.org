@@ -54,6 +54,7 @@
     }
 
     menu = {
+      home: '/',
       play: {
         puzzles: '/puzzles',
         labs: '/labs',

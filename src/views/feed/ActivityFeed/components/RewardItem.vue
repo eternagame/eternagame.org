@@ -3,26 +3,21 @@
     <div class="page-content card">
       <div class="container">
         <div class="row justify-content-between">
-          <div class="col p-0">
-            <!-- Note: Any space between these tags will misalign the Type tag. -->
-            <div :style="{ color: typeColor(article) }">
-              <b>{{ formattedType(article) }}</b>
-            </div>
-          </div>
           <div class="col p-0" style="text-align:right">
-            <div style="opacity: 0.5; font-weight: bold;">
+            <div style="opacity: 0.5; font-weight: bold">
               {{ date }}
             </div>
           </div>
         </div>
-
-        <h3 class="card-title" v-if="article.title">{{ article.title }}</h3>
+        <h3 class="card-title" v-if="reward.title">{{ reward.title }}</h3>
         <div class="row d-flex" v-else style="margin-top:10px" />
-        <div v-dompurify-html="strippedBody(article.body)" class="text" />
-        <div v-if="commentCount" class="d-flex">
-          <img src="@/assets/comment-count.svg" />
-          <p class="icon-text">{{ commentCount }}</p>
-        </div>
+          <p>
+            You received {{ reward.field_reward_amount_value }}
+            <img src="@/assets/dollar.svg" alt="coins" class="icon coin-icon" />
+            for {{ isVote ? 'voting on' : 'your design'}},
+            <a :href="link">{{ reward.field_reward_solution_title_value }}</a>,
+            in <a :href="puzzleLink">{{ reward.field_reward_puzzle_title_value}}</a>
+          </p>
       </div>
     </div>
   </SmartLink>
@@ -31,38 +26,35 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import SmartLink from '@/components/Common/SmartLink.vue';
   import Utils from '@/utils/utils';
-  import {NewsItem as NewsItemType, BlogItem, NotificationType} from '@/types/common-types';
+  import {RewardNotificationItem, NotificationType} from '@/types/common-types';
+  import { PUZZLE_ROUTE_BROWSE_PREFIX, PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import MessageThread from './MessageThread.vue';
 
   @Component({
     components: { SmartLink, MessageThread },
   })
   export default class NewsItem extends Vue {
-    @Prop({ required: true }) readonly article!: NewsItemType|BlogItem;
+    @Prop({ required: true }) readonly reward!: RewardNotificationItem;
 
     private get link() {
-      return `/news/${this.article.nid}`;
+      return `${PUZZLE_ROUTE_BROWSE_PREFIX}${this.reward.field_reward_puzzle_nid_value}/?filter1=Id&filter1_arg1=${this.reward.field_reward_solution_nid_value}&filter1_arg2=${this.reward.field_reward_solution_nid_value}`;
     }
 
-    private get commentCount() {
-      return this.article.type === NotificationType.NEWS ?
-        this.article.commentcount
-        : this.article.comments.length;
+    private get puzzleLink() {
+      return `${PUZZLE_ROUTE_PREFIX}/${this.reward.field_reward_solution_nid_value}`;
+    }
+
+    private get isVote() {
+      return this.reward.field_reward_type_value === 'VOTE';
     }
 
     private get date() {
-      return new Date(this.article.created).toLocaleDateString(undefined, {
+      return new Date(parseInt(this.reward.created, 10) * 1000).toLocaleDateString(undefined, {
         year: 'numeric',
         month: 'short',
         day: 'numeric'
       });
     }
-
-    private formattedType = Utils.formattedType;
-
-    private strippedBody = Utils.strippedBody;
-
-    private typeColor = Utils.typeColor;
   }
 </script>
 
@@ -115,5 +107,9 @@
     display: -webkit-box;
     -webkit-line-clamp: 4; /* number of lines to show */
     -webkit-box-orient: vertical;
+  }
+
+  .coin-icon {
+    margin-bottom: 2px;
   }
 </style>

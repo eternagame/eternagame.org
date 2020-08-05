@@ -80,6 +80,24 @@
               <b-card class="col-sm-9" v-if="session.topic !== 'Break'">
                 <h5>{{session.topic}}</h5>
                 <p v-dompurify-html="session.abstract" v-if="session.abstract"></p>
+                <template v-if="session.vimeoLink && $vxm.user.hasLabAccess">
+                  <p class="video-info">
+                    This video may contain confidential information such as upublished research. Please do not share
+                    its contents, and limit discussion to the lab categories on the forum and Discord.
+                  </p>
+                  <div class="embed-responsive embed-responsive-16by9 mt-2">
+                    <iframe :src="session.vimeoLink" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                  </div>
+                </template>
+                <p class="video-info" v-else-if="session.vimeoLink">
+                  A recording for this session is available to lab members.
+                  <template v-if="$vxm.user.loggedIn">
+                    Finish the tutorials to gain access.
+                  </template>
+                  <template v-else>
+                    Log in to watch.
+                  </template>
+                </p>
               </b-card>
               <div class="col-sm-9 text-center" v-else>
                 <h5 class="d-inline m-0">Break</h5> - join us on
@@ -226,6 +244,11 @@
 
     .session-time {
       color: $yellow;
+    }
+
+    .video-info {
+      color: $yellow;
+      font-weight: bold;
     }
 
     p {

@@ -48,7 +48,7 @@ export default function createRouter() {
       },
       {
         path: '/',
-        name: 'landing',
+        name: 'home',
         component: () => import('./views/home/Home.vue'),
       },
       {

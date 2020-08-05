@@ -47,7 +47,7 @@
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import Utils from '@/utils/utils';
   import FetchMixin from '@/mixins/FetchMixin';
-  import { NotificationItem, NotificationType } from '@/types/common-types';
+  import { NotificationItem, RewardNotificationItem, NotificationType } from '@/types/common-types';
   import { navigationModes } from '@/store/pagination.vuex';
   import ActivityCard from './components/ActivityCard.vue';
   import MessageCompose from './components/MessageCompose.vue';
@@ -96,6 +96,8 @@
       { value: 'all', text: 'side-panel-options:all-activity' },
       { value: 'groups', text: 'side-panel-options:my-groups' },
       { value: 'notifications', text: 'side-panel-options:my-messages' },
+      { value: 'news', text: 'side-panel-options:news' },
+      { value: 'rewards', text: 'side-panel-options:labs'},
     ];
   }
 </script>

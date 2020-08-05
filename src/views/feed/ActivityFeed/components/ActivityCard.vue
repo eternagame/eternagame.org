@@ -58,6 +58,7 @@
 
     get isReward() {
       return this.notification.type === NotificationType.REWARD;
+    }
       
     get isGroup() {
       return isDirectedNotificationItem(this.notification);

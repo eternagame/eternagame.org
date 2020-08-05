@@ -4,8 +4,8 @@
       <div class="container">
         <div class="row justify-content-between">
           <div class="col p-0" style="text-align:right">
-            <div style="opacity: 0.5;">
-              <b>{{ reward.created }}</b>
+            <div style="opacity: 0.5; font-weight: bold">
+              {{ date }}
             </div>
           </div>
         </div>
@@ -48,6 +48,13 @@
       return this.reward.field_reward_type_value === 'VOTE';
     }
 
+    private get date() {
+      return new Date(parseInt(this.reward.created, 10) * 1000).toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    }
   }
 </script>
 

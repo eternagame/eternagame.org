@@ -10,8 +10,8 @@
             </div>
           </div>
           <div class="col p-0" style="text-align:right">
-            <div style="opacity: 0.5;">
-              <b>{{ article.created }}</b>
+            <div style="opacity: 0.5; font-weight: bold;">
+              {{ date }}
             </div>
           </div>
         </div>
@@ -48,6 +48,14 @@
       return this.article.type === NotificationType.NEWS ?
         this.article.commentcount
         : this.article.comments.length;
+    }
+
+    private get date() {
+      return new Date(this.article.created).toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
     }
 
     private formattedType = Utils.formattedType;

@@ -55,18 +55,53 @@
 
             <div class="left-col" v-if="leftNumber">
               <slot name="left-icon">
-                <img src="@/assets/noun_star.svg" alt="my solutions" class="icon" />
+                <img src="@/assets/test-tube.svg" alt="slots" class="icon" />
               </slot>
               {{ leftNumber }}
             </div>
 
+            <div class="left-col" v-if="numSynths">
+              <slot name="left-icon">
+                <img src="@/assets/test-tube.svg" alt="synths" class="icon" />
+              </slot>
+              {{ numSynths }}
+            </div>
+
           </b-col>
           <b-col cols="6">
-            <div class="right-col">
+            <div class="right-col" v-if="numCleared">
               <slot name="right-icon">
                 <img src="@/assets/people.svg" alt="reward slots" class="icon" />
               </slot>
               {{ numCleared }}
+            </div>
+
+            <div class="right-col" v-if="rightNumber">
+              <slot name="right-icon">
+                <img src="@/assets/noun_globe.svg" alt="reward slots" class="icon" />
+              </slot>
+              {{ rightNumber }}
+            </div>
+          </b-col>
+        </b-row>
+
+        <b-row class="mb-2" style="margin-top:10px">
+          <b-col cols="6">
+            <div class="left-col" v-if="numSolutions">
+              <slot name="left-icon">
+                <img src="@/assets/noun_puzzle.svg" alt="my solutions" class="icon" />
+              </slot>
+              {{ numSolutions }}
+            </div>
+
+          </b-col>
+
+          <b-col cols="6">
+            <div class="right-col" v-if="maxSubmissions">
+              <slot name="right-icon">
+                <img src="@/assets/noun_max.svg" alt="max submissions" class="icon" />
+              </slot>
+              {{ maxSubmissions }}
             </div>
           </b-col>
         </b-row>
@@ -109,6 +144,12 @@
 
     @Prop() readonly rightNumber?: number;
 
+    @Prop() readonly numSynths?: number;
+
+    @Prop() readonly mySolutions?: number;
+
+    @Prop() readonly maxSubmissions?: number;
+
     @Prop() readonly states?: number;
 
     @Prop() readonly image?: string;
@@ -125,10 +166,15 @@
     get numCleared() {
       if (this.$attrs['num-cleared']){
         return this.$attrs['num-cleared'];
-      } if (this.rightNumber){
-        return this.rightNumber;
       }
         return 0;
+    }
+
+    get numSolutions() {
+      if (this.mySolutions !== 0){
+        return this.mySolutions;
+      }
+        return '0';
     }
 
     get imageURL() {

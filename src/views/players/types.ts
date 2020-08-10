@@ -14,6 +14,7 @@ export interface UserItem {
 export interface UsersData {
   users: UserItem[];
   follows: FollowData[];
+  num_users: string;
 }
 
 export interface SynthesizedData {

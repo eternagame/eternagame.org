@@ -3,13 +3,15 @@
     <Preloader v-if="loading && (!pagesEnabled || useSize)" />
     <b-pagination
       v-if="pagesEnabled && !useSize"
-      v-model="currentPage"
+      :value="currentPage"
+      @change="currentPage = $event"
       :total-rows="total"
-      :per-page="12"
+      :per-page="initial"
       style="bottom: 0;"
       :style="{ position: loading ? 'absolute': 'relative'}"
-      align="center"
+      align="fill"
       limit=15
+      class="my-2 w-100"
     />
   </div>
 </template>
@@ -26,7 +28,7 @@
     },
   })
   export default class Pagination extends Vue {
-    @Prop({ default: 9 }) readonly increment!: number;
+    @Prop({ default: 18 }) readonly increment!: number;
 
     @Prop({ default: 18 }) readonly initial!: number;
 
@@ -34,7 +36,7 @@
 
     @Prop({ default: false }) loading!: boolean;
 
-    @Prop({ default: 0}) total !: number;
+    @Prop({ required: true }) total !: number;
 
     @Prop({ default: false }) useSize !: boolean;
 
@@ -47,8 +49,9 @@
         if (bottomOfWindow && !this.pagesEnabled) {
           const length = this.$vnode.key;
           const { skip } = this.$route.query;
-          let skipped = parseInt(skip as string, 10) || 18;
-          if (skipped === 0) skipped = 18;
+          let skipped = +skip || this.initial;
+          if (skipped === 0) skipped = this.initial;
+          skipped = this.convertToIncrementOf(skipped, this.increment);
           if (skipped === length) {
             this.$router.replace({
               name: this.$route.name!,
@@ -61,55 +64,47 @@
               params: { keepScroll: 'true' }
             });
             this.$emit('loading', true);
-          }
-        } else if (bottomOfWindow && this.useSize) {
-          const length = this.$vnode.key;
-          const querySize = Number(this.$route.query.size || this.initial);
-          const newSize = querySize + this.increment;
-          if (querySize === length) {
-            this.$router.replace({
-              name: this.$route.name!,
-              query: {
-                ...this.$route.query,
-                size: String(newSize),
-              },
-              hash: window.location.hash,
-              params: { keepScroll: 'true' }
-            });
-            this.$emit('loading', true);
+          } else if (!this.loading) {
+            this.$route.query.skip = length?.toString() || this.$route.query.skip;
           }
         }
       };
+    }
+
+    convertToIncrementOf(num: number, inc: number, ceil = true) {
+      return (ceil ? Math.ceil : Math.floor)(num / inc) * inc;
     }
 
     get pagesEnabled() {
       return this.$vxm.pagination.navigation === navigationModes.NAVIGATION_PAGES;
     }
 
-    currentPage = 1;
+    currentPage = (+this.$route.query.skip || 0) / this.initial + 1;
 
     created() {
-      if (this.$route.query.skip) this.currentPage = parseInt(this.$route.query.skip as string, 10) / 12 + 1;
-      if (!this.pagesEnabled) {
-        this.$route.query.skip = '0';
+      if (!this.pagesEnabled && this.$route.query.size !== this.initial.toString()) {
+        this.$route.query.size = this.initial.toString();
+      } else if (this.$route.query.size !== this.initial.toString()) {
         this.$route.query.size = this.initial.toString();
       }
-      this.$router.replace({ name: this.$route.name!, query: this.$route.query });
+      this.$route.query.skip = this.convertToIncrementOf(+this.$route.query.skip, this.increment).toString();
     }
 
     @Watch('currentPage')
     async updateQuery() {
       this.$emit('page', this.currentPage);
+      const newQuery = this.getQuery();
+      if (newQuery !== this.$route.query) await this.$router.replace({ name: this.$route.name!, query: this.getQuery(), });
       this.$emit('loading', true);
-      await this.$router.replace({ name: this.$route.name!, query: this.getQuery(), });
     }
 
     getQuery() {
       const query = { ...this.$route.query };
-      if (this.pagesEnabled) query.skip = (12 * (this.currentPage - 1)).toString();
+      if (this.pagesEnabled) query.skip = (this.initial * (this.currentPage - 1)).toString();
       return query;
     }
   }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+</style>

@@ -1,6 +1,6 @@
 <template>
   <EternaPage :title="$t('nav-bar:puzzles')">
-    <div v-if="fetchState.firstFetchComplete && !loading">
+    <div v-if="fetchState.firstFetchComplete">
       <Gallery>
         <PuzzleCard
           v-for="puzzle in displayedPuzzles"
@@ -11,7 +11,7 @@
         />
       </Gallery>
     </div>
-    <div v-else>
+    <div v-else-if="!fetchState.firstFetchComplete && pagesEnabled && loading">
       <Preloader />
     </div>
     <Pagination
@@ -67,10 +67,11 @@
   import { PuzzleList, ClearedPuzzle, PuzzleItem } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import ChooseView from '@/components/Sidebar/ChooseView.vue';
-  import { navigationModes } from '../../../store/pagination.vuex';
+  import { navigationModes } from '@/store/pagination.vuex';
 
   const INITIAL_SORT = 'date';
   const INITIAL_NUMBER = 18;
+  const INCREMENT = INITIAL_NUMBER;
 
   const ROUTE = '/get/?type=puzzles';
 
@@ -113,6 +114,7 @@
         return 'Challenge';
       };
       const { filters, sort, search, size, skip } = this.$route.query;
+      const convertToIncrementOf = (num: number, inc: number) => Math.ceil(num / inc) * inc;
       const params = {
         puzzle_type: getPuzzleType(
           Boolean(filters && filters.includes('challenge')),
@@ -122,9 +124,9 @@
         switch: filters && filters.includes('switch') && 'checked',
         notcleared: filters && filters.includes('notcleared') && 'true',
         sort: sort || INITIAL_SORT,
-        size: this.pagesEnabled ? '12' : (size || INITIAL_NUMBER),
+        size: this.pagesEnabled ? INITIAL_NUMBER : (size || INITIAL_NUMBER),
         search,
-        skip,
+        skip: convertToIncrementOf(+skip || 0, INCREMENT).toString(),
       } as PuzzleExploreParams;
 
       if (refresh) {
@@ -183,21 +185,24 @@
       return this.$vxm.pagination.navigation === navigationModes.NAVIGATION_PAGES;
     }
 
+    @Watch('pagesEnabled')
+    async refresh() {
+      this.$route.query.skip = this.puzzles.length.toString();
+      await this.fetch(true);
+    }
+
     currentPage: number = 1;
 
     loading = false;
 
     get displayedPuzzles() {
       if (this.pagesEnabled) {
-        const start = (this.currentPage - 1) * 12;
-        return this.puzzles.slice(start, start + 12);
+        const start = (this.currentPage - 1) * 18;
+        return this.puzzles.slice(start, start + 18);
       }
       return this.puzzles;
     }
 
-    async refresh() {
-      await this.fetch(true);
-    }
 
   // private tags: string[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
   }

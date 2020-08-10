@@ -4,17 +4,23 @@
       <div class="page-content">
         <table style="width: 100%">
           <tbody>
-            <template v-for="(player, index) in users">
-              <PlayerCard :key="player.uid" :player="player" :index="index" />
+            <template v-for="(player, index) in displayedUsers">
+              <PlayerCard :key="player.uid" :player="player" :index="index + (currentPage - 1) * 18" />
             </template>
           </tbody>
         </table>
       </div>
-      <Pagination :key="users.length" />
     </div>
     <div v-else>
       <Preloader />
     </div>
+    <Pagination
+      :key="users.length"
+      @page="currentPage = $event"
+      :total="total"
+      :loading="loading"
+      @loading="loading = $event"
+    />
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
         v-if="isInSidebar"
@@ -27,6 +33,9 @@
         replace
         :isInSidebar="isInSidebar"
       />
+      <ChooseView v-if="isInSidebar" />
+      <span v-if="isInSidebar" class="ml-1 mt-2 d-inline-block custom-control-label no-before no-after">{{ total }} results </span><br>
+      <button v-if="isInSidebar" class="btn btn-primary mt-1" @click="refresh">Refresh</button>
     </template>
     <template #mobileSearchbar>
       <SearchPanel :placeholder="$t('search:players')" :isInSidebar="false" />
@@ -35,7 +44,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Mixins, Watch } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import axios, { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
@@ -46,10 +55,13 @@
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
+  import ChooseView from '@/components/Sidebar/ChooseView.vue';
+  import { navigationModes } from '@/store/pagination.vuex';
   import PlayerCard from './PlayerCard.vue';
   import { UserItem, UsersData } from '../types';
 
   const INITIAL_NUMBER = 18;
+  const INCREMENT = INITIAL_NUMBER;
 
   const ROUTE = '/get/?type=users';
 
@@ -63,6 +75,7 @@
       DropdownSidebarPanel,
       TagsPanel,
       Preloader,
+      ChooseView,
     },
   })
   export default class LeaderBoard extends Mixins(FetchMixin) {
@@ -74,20 +87,59 @@
 
     private users: UserItem[] = [];
 
-    async fetch() {
-      const {sort, filters, size, search} = this.$route.query;
+    get pagesEnabled() {
+      return this.$vxm.pagination.navigation === navigationModes.NAVIGATION_PAGES;
+    }
+
+    @Watch('pagesEnabled')
+    async refresh() {
+      this.$route.query.skip = this.users.length.toString();
+      await this.fetch(true);
+    }
+
+    currentPage: number = 1;
+
+    loading = false;
+
+    get displayedUsers() {
+      if (this.pagesEnabled) {
+        const start = (this.currentPage - 1) * 18;
+        return this.users.slice(start, start + 18);
+      }
+      return this.users;
+    }
+
+    total = 0;
+
+    async fetch(refresh = false) {
+      const {sort, filters, size, search, skip} = this.$route.query;
+
+      const params = {
+        sort,
+        search,
+        filters: filters && (filters as string).split(','),
+        size: size || INITIAL_NUMBER,
+        skip,
+      };
 
       const res = (
         await this.$http.get(`${ROUTE}&size=${INITIAL_NUMBER}`, {
-          params: {
-            sort,
-            search,
-            filters: filters && (filters as string).split(','),
-            size: size || INITIAL_NUMBER,
-          },
+          params,
         })
       ).data.data as UsersData;
-      this.users = res.users;
+
+      this.total = parseInt(res.num_users, 10);
+      const skipped = parseInt(params.skip as string, 10);
+      const puzzlesLoaded = parseInt(params.size as string, 10);
+      // Ensure splice places items where they should go by making the array larger
+      while (this.users.length < skipped && this.pagesEnabled) {
+        this.users.push({} as UserItem);
+      }
+      // Replace the old puzzles the new ones
+      this.users.splice(skipped, puzzlesLoaded, ...res.users);
+      // Remove duplicates, in case a new puzzles was added
+      this.users = [...new Set(this.users)];
+      this.loading = false;
     }
   }
 </script>
@@ -98,4 +150,7 @@
   .bottom-border {
     border-top-color: $light-blue;
   }
+  .no-before::before, .no-after::after {
+  content: none !important;
+}
 </style>

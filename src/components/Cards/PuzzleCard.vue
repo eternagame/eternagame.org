@@ -26,6 +26,9 @@
             <div class="text-center" v-if="number_of_states > 1">
               <StateCounter :value="number_of_states" style="position:relative;top:-5px" />
             </div>
+            <div class="text-center" v-if="states > 1">
+              <StateCounter :value="states" style="position:relative;top:-5px" />
+            </div>
           </b-col>
           <b-col cols="4">
             <div class="right-col" v-if="reward">
@@ -105,6 +108,8 @@
     @Prop() readonly leftNumber?: number;
 
     @Prop() readonly rightNumber?: number;
+
+    @Prop() readonly states?: number;
 
     @Prop() readonly image?: string;
 

@@ -39,7 +39,7 @@
 
     @Watch('dates')
     onSearch(event: KeyboardEvent) {
-      const { start, end } = this.dates;
+      const { start, end } = (this.dates || {});
       if (start && end)
         this.$router.replace({
           name: this.$route.name!,

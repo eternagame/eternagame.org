@@ -2,13 +2,19 @@
   <EternaPage :title="$t('news-explore:title')">
     <div v-if="fetchState.firstFetchComplete">
       <Gallery :sm="12" :md="12">
-        <NewsCard v-for="article in newsItems" :key="article.nid" v-bind="article" />
+        <NewsCard v-for="article in filteredNewsItems" :key="article.nid" v-bind="article" />
       </Gallery>
-      <Pagination :key="newsItems.length" />
     </div>
     <div v-else>
       <Preloader />
     </div>
+      <Pagination
+        :key="newsItems.length"
+        @page="currentPage = $event"
+        :total="total + 18"
+        :loading="loading"
+        @loading="loading = $event"
+      />
 
     <template #sidebar="{ isInSidebar }">
       <SearchPanel v-if="isInSidebar" :placeholder="$t('search:news')" :isInSidebar="isInSidebar" />
@@ -20,6 +26,10 @@
       />
       <CalendarPanel :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
+
+      <ChooseView v-if="isInSidebar" />
+      <span v-if="isInSidebar" class="ml-1 mt-2 d-inline-block custom-control-label no-before no-after">{{ total }} results </span><br>
+      <button v-if="isInSidebar" class="btn btn-primary mt-1" @click="refresh">Refresh</button>
     </template>
     <template #mobileSearchbar>
       <SearchPanel :placeholder="$t('search:news')" :isInSidebar="false" />
@@ -28,7 +38,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Mixins, Watch } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
@@ -41,9 +51,12 @@
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { NewsItem, BlogItem } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
+  import ChooseView from '@/components/Sidebar/ChooseView.vue';
+  import { navigationModes } from '@/store/pagination.vuex';
   import NewsCard from './components/NewsCard.vue';
 
   const INITIAL_NUMBER = 18;
+  const INCREMENT = INITIAL_NUMBER;
 
   const ROUTE = '/get/?type=newsandblogslist';
 
@@ -58,6 +71,7 @@
       NewsCard,
       Pagination,
       Preloader,
+      ChooseView,
     },
   })
   export default class NewsExplore extends Mixins(FetchMixin) {
@@ -71,28 +85,86 @@
 
     private newsItems: (NewsItem|BlogItem)[] = [];
 
-    async fetch() {
-      const { sort, end_date, start_date, size, search } = this.$route.query;
+    async fetch (refresh = false) {
+      const { sort, end_date, start_date, size, search , skip} = this.$route.query;
+
+      const params = {
+        search,
+        size: size || INITIAL_NUMBER,
+        from_created: start_date && new Date(start_date as string).getTime() / 1000,
+        to_created: end_date && new Date(end_date as string).getTime() / 1000,
+        skip
+      };
+
+      if (refresh) {
+        params.size = (parseInt(params.size as string, 10) + parseInt(params.skip! as string, 10)).toString();
+        params.skip = '0';
+      }
 
       const res = (
         await this.$http.get(ROUTE, {
-          params: {
-            search,
-            size: size || INITIAL_NUMBER,
-            from_created: start_date && new Date(start_date as string).getTime() / 1000,
-            to_created: end_date && new Date(end_date as string).getTime() / 1000,
-          },
+          params,
         })
       ).data.data.entries as NewsItem[];
-      // TODO https://github.com/eternagame/eternagame.org/issues/157 move filtering to backend
+
+      const skipped = parseInt(params.skip as string, 10);
+      const puzzlesLoaded = parseInt(params.size as string, 10);
+      // Ensure splice places items where they should go by making the array larger
+      while (this.newsItems.length < skipped && this.pagesEnabled) {
+        this.newsItems.push({
+          created: new Date().toLocaleDateString(),
+          body: 'Loading...',
+          title: 'Loading...',
+          nid: '0'
+        } as NewsItem);
+      }
+      // Replace the old puzzles the new ones
+      this.newsItems.splice(skipped, puzzlesLoaded, ...res);
+      // Remove duplicates, in case a new puzzles was added
+      this.newsItems = [...new Set(this.newsItems)];
+      this.loading = false;
+      this.total = this.newsItems.length;
+    }
+
+    get pagesEnabled() {
+      return this.$vxm.pagination.navigation === navigationModes.NAVIGATION_PAGES;
+    }
+
+    @Watch('pagesEnabled')
+    async refresh() {
+      this.$route.query.skip = this.newsItems.length.toString();
+      await this.fetch(true);
+    }
+
+    currentPage: number = 1;
+
+    loading = false;
+
+    total = 0;
+
+    get displayedNewsItems() {
+      if (this.pagesEnabled) {
+        const start = (this.currentPage - 1) * 18;
+        return this.newsItems.slice(start, start + 18);
+      }
+      return this.newsItems;
+    }
+
+    get filteredNewsItems() {
+      const { sort } = this.$route.query;
       switch (sort) {
         case 'news':
         case 'blogs':
-          this.newsItems = res.filter(entry => entry.type === sort);
-          break;
+          return this.displayedNewsItems.filter(entry => entry.type === sort);
         default:
-          this.newsItems = res;
+          return this.displayedNewsItems;
       }
     }
   }
 </script>
+
+<style scoped>
+.no-before::before, .no-after::after {
+  content: none !important;
+}
+</style>

@@ -17,7 +17,7 @@
           <b-col cols="4">
             <div class="left-col" v-if="folder">
               <slot name="left-icon">
-                <img src="@/assets/chemical_bond.svg" alt="folder slots" class="icon" />
+                <img src="@/assets/chemical_bond.svg" alt="folder" class="icon" />
               </slot>
               {{ folder }}
             </div>
@@ -33,7 +33,7 @@
           <b-col cols="4">
             <div class="right-col" v-if="reward">
               <slot name="right-icon">
-                <img src="@/assets/dollar.svg" alt="reward slots" class="icon" />
+                <img src="@/assets/dollar.svg" alt="reward" class="icon" />
               </slot>
               {{ reward }}
             </div>
@@ -53,32 +53,35 @@
               {{ username }}
             </div>
 
-            <div class="left-col" v-if="leftNumber">
-              <slot name="left-icon">
-                <img src="@/assets/test-tube.svg" alt="slots" class="icon" />
-              </slot>
-              {{ leftNumber }}
-            </div>
 
             <div class="left-col" v-if="numSynths">
               <slot name="left-icon">
-                <img src="@/assets/test-tube.svg" alt="synths" class="icon" />
+                <img src="@/assets/test-tube.svg" alt="actual synthesized" class="icon" />
               </slot>
               {{ numSynths }}
+            </div>
+
+            <div v-else>
+              <div class="left-col" v-if="leftNumber">
+                <slot name="left-icon">
+                  <img src="@/assets/test-tube.svg" alt="synthesis slots" class="icon" />
+                </slot>
+                {{ leftNumber }}
+              </div>
             </div>
 
           </b-col>
           <b-col cols="6">
             <div class="right-col" v-if="numCleared">
               <slot name="right-icon">
-                <img src="@/assets/people.svg" alt="reward slots" class="icon" />
+                <img src="@/assets/people.svg" alt="players cleared" class="icon" />
               </slot>
               {{ numCleared }}
             </div>
 
             <div class="right-col" v-if="rightNumber">
               <slot name="right-icon">
-                <img src="@/assets/noun_globe.svg" alt="reward slots" class="icon" />
+                <img src="@/assets/noun_globe.svg" alt="total solutions submitted" class="icon" />
               </slot>
               {{ rightNumber }}
             </div>
@@ -99,7 +102,7 @@
           <b-col cols="6">
             <div class="right-col" v-if="maxSubmissions">
               <slot name="right-icon">
-                <img src="@/assets/noun_max.svg" alt="max submissions" class="icon" />
+                <img src="@/assets/noun_max.svg" alt="maximum submissions" class="icon" />
               </slot>
               {{ maxSubmissions }}
             </div>

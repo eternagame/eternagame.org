@@ -62,7 +62,7 @@
           </li>
         </ul>
       </SidebarPanel>
-      <!-- <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" /> -->
+      <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" />
     </template>
   </EternaPage>
   <Preloader v-else style="margin-top: 10rem;" />

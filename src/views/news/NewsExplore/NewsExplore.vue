@@ -18,18 +18,18 @@
 
     <template #sidebar="{ isInSidebar }">
       <SearchPanel v-if="isInSidebar" :placeholder="$t('search:news')" :isInSidebar="isInSidebar" />
+      <ChooseView v-if="isInSidebar" />
       <DropdownSidebarPanel
+        class="mt-3"  
         :options="options"
         paramName="sort"
         replace
         :isInSidebar="isInSidebar"
       />
-      <CalendarPanel :isInSidebar="isInSidebar" />
-      <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
-
-      <ChooseView v-if="isInSidebar" />
-      <span v-if="isInSidebar" class="ml-1 mt-2 d-inline-block custom-control-label no-before no-after">{{ total }} results </span><br>
-      <button v-if="isInSidebar" class="btn btn-primary mt-1" @click="refresh">Refresh</button>
+      <CalendarPanel :isInSidebar="isInSidebar" class="mb-0 pt-3"/>
+      <TagsPanel :tags="tags" :isInSidebar="isInSidebar" class="pt-3 mb-0"/>
+      <p v-if="isInSidebar" class="ml-1 mt-0 d-inline-block custom-control-label no-before no-after">{{ total }} results</p><br>
+      <button v-if="isInSidebar" class="btn btn-primary mt-1 ml-1" @click="refresh">Refresh</button>
     </template>
     <template #mobileSearchbar>
       <SearchPanel :placeholder="$t('search:news')" :isInSidebar="false" />
@@ -138,7 +138,7 @@
 
     currentPage: number = 1;
 
-    loading = false;
+    loading = true;
 
     total = 0;
 
@@ -159,6 +159,10 @@
         default:
           return this.displayedNewsItems;
       }
+    }
+
+    created() {
+      this.refresh();
     }
   }
 </script>

@@ -4,7 +4,7 @@
       <img src="@/assets/sidebar/hashtag.svg" />
     </template>
     <ul style="padding: 0; list-style-type:none">
-      <li class="gray-header" v-for="tag in tags" :key="tag">{{ tag }}</li>
+      <li class="gray-header" v-for="tag in tags" :key="tag" :class="{ 'text-white': tagSelected(tag) }">{{ tag }}</li>
     </ul>
   </SidebarPanel>
 </template>
@@ -22,7 +22,12 @@
   })
   export default class TagsPanel extends mixins(SidebarPanelMixin) {
     @Prop({ required: true }) readonly tags!: string[];
+
+    tagSelected(tag: string) {
+      return this.$route.query.search?.includes(`:${tag.replace('#', '')}`);
+    }
   }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+</style>

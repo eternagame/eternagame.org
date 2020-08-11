@@ -36,13 +36,17 @@
     }
 
     async onCheck() {
-      await this.$router.replace({ name: this.$route.name!, query: this.getQuery() });
+      const query = this.getQuery();
+      if (query === this.$route.query) return;
+      await this.$router.replace({ name: this.$route.name!, query, });
     }
 
     getQuery() {
       const query = { ...this.$route.query };
       if (this.selected.length) {
         query[this.paramName] = this.selected.join(',');
+        if (query.size !== '18') query.size = '18';
+        if (query.skip !== '0') query.skip = '0';
       } else {
         delete query[this.paramName];
       }

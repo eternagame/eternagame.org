@@ -10,9 +10,10 @@
       style="bottom: 0;"
       :style="{ position: loading ? 'absolute': 'relative'}"
       align="fill"
-      limit=15
+      limit=11
       class="my-2 w-100"
     />
+    <!-- Limit is 11 because the ellipsis counts. The style bind makes sure the pagination is always at the bottom of the page, but not covering any content up.-->
   </div>
 </template>
 

@@ -27,22 +27,24 @@
         :placeholder="$t('search:puzzles')"
         :isInSidebar="isInSidebar"
       />
+      <ChooseView v-if="isInSidebar" />
       <FiltersPanel
+        class="pt-3 mb-0"
         :filters="filters"
         paramName="filters"
         :isInSidebar="isInSidebar"
         :flagged="true"
       />
-      <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
+      <TagsPanel :tags="tags" :isInSidebar="isInSidebar" class="py-3 mb-0"/>
       <DropdownSidebarPanel
+        class="mt-0 mb-3"
         :options="options"
         paramName="sort"
         replace
         :isInSidebar="isInSidebar"
       />
-      <ChooseView v-if="isInSidebar" />
-      <span v-if="isInSidebar" class="ml-1 mt-2 d-inline-block custom-control-label no-before no-after">{{ total }} results </span><br>
-      <button v-if="isInSidebar" class="btn btn-primary mt-1" @click="refresh">Refresh</button>
+      <p v-if="isInSidebar" class="ml-1 mt-2 d-inline-block custom-control-label no-before no-after">{{ total }} results </p><br>
+      <button v-if="isInSidebar" class="btn btn-primary mt-1 ml-1" @click="refresh">Refresh</button>
     </template>
     <template #mobileSearchbar>
       <SearchPanel :placeholder="$t('search:puzzles')" :isInSidebar="false" />
@@ -181,6 +183,8 @@
       { value: 'notcleared', text: 'Uncleared' },
     ];
 
+    private tags = ['#POTW', '#RibosomeChallenge', '#COVID19', '#Eterna100'];
+
     get pagesEnabled() {
       return this.$vxm.pagination.navigation === navigationModes.NAVIGATION_PAGES;
     }
@@ -193,7 +197,8 @@
 
     currentPage: number = 1;
 
-    loading = false;
+    // The page starts out loading
+    loading = true;
 
     get displayedPuzzles() {
       if (this.pagesEnabled) {

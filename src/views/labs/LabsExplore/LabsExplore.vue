@@ -17,16 +17,17 @@
     />
     <template #sidebar="{ isInSidebar }">
       <SearchPanel v-if="isInSidebar" :placeholder="$t('search:labs')" :isInSidebar="isInSidebar" />
-      <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
+      <ChooseView v-if="isInSidebar" />
+      <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" class="pt-3 mb-0"/>
       <DropdownSidebarPanel
+        class="mt-3 mb-1"
         :options="options"
         paramName="sort"
         replace
         :isInSidebar="isInSidebar"
       />
-      <ChooseView v-if="isInSidebar" />
-      <span v-if="isInSidebar" class="ml-1 mt-2 d-inline-block custom-control-label no-before no-after">{{ total }} results </span><br>
-      <button v-if="isInSidebar" class="btn btn-primary mt-1" @click="refresh">Refresh</button>
+      <p v-if="isInSidebar" class="ml-1 mt-2 d-inline-block custom-control-label no-before no-after">{{ total }} results </p><br>
+      <button v-if="isInSidebar" class="btn btn-primary mt-1 ml-1" @click="refresh">Refresh</button>
     </template>
     <template #mobileSearchbar>
       <SearchPanel :placeholder="$t('search:labs')" :isInSidebar="false" />
@@ -68,7 +69,7 @@
   export default class LabsExplore extends Mixins(FetchMixin) {
     labs: LabCardData[] | null = [];
 
-    loading = false;
+    loading = true;
 
     total = 0;
 

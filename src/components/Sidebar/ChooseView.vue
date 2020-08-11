@@ -1,11 +1,33 @@
 <template>
-  <b-form-radio-group class="mt-2" v-model="$vxm.pagination.navigation" :options="options" stacked>
-  </b-form-radio-group>
+  <b-button-group class="mt-2">
+    <b-button
+      @click="$vxm.pagination.navigation = 0"
+      :class="{ enabled: $vxm.pagination.navigation === 0}"
+      title="Navigate with pages"
+      aria-label="pages"
+    >
+      <b-icon-file-earmark-plus />
+    </b-button>
+    <b-button
+      @click="$vxm.pagination.navigation = 1"
+      :class="{ enabled: $vxm.pagination.navigation === 1}"
+      title="Navigate with infinite scroll"
+      aria-label="scroll"
+    >
+      <b-icon-arrow-down />
+    </b-button>
+  </b-button-group>
 </template>
 <script lang="ts">
   import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
+  import { BIcon, BIconFileEarmarkPlus, BIconArrowDown } from 'bootstrap-vue';
 
-@Component
+@Component({
+  components: {
+    BIconFileEarmarkPlus,
+    BIconArrowDown,
+  }
+})
   export default class ChooseView extends Vue {
     options= [
       { value: 0, text: 'Pages' },
@@ -20,3 +42,10 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+@import '@/styles/global.scss';
+button.enabled {
+  background-color: darken($secondary, 15%);
+  border-color: darken($secondary, 15%)
+}
+</style>

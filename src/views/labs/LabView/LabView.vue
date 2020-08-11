@@ -19,7 +19,7 @@
     <Comments :comments="comments" :nid="lab.nid" />
     <template #sidebar="{ isInSidebar }">
       <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />
-      <!-- <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" /> -->
+      <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" class="pt-0" />
     </template>
   </EternaPage>
 </template>

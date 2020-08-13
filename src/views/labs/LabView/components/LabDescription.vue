@@ -25,7 +25,7 @@
 
       <div class="body">
         <div ref="content" style="margin-bottom: 10px;" v-dompurify-html="descriptionToShow"></div>
-        <ReadMore v-model="readMore"></ReadMore>
+        <ReadMore v-model="readMore" v-if="readMoreNeeded"></ReadMore>
       </div>
     </div>
   </div>
@@ -37,6 +37,8 @@
   import DefaultHero from '@/assets/home/hero-lab-default.png';
   import Progress from '@/components/Common/Progress.vue';
   import { LabData } from '../types';
+
+  const MAX_CHARS = 1000;
 
   @Component({
     components: { Progress },
@@ -59,8 +61,12 @@
       },
     ];
 
+    get readMoreNeeded() {
+      return this.lab.body.length > MAX_CHARS;
+    }
+
     get descriptionToShow() {
-      return this.readMore ? this.lab.body : this.lab.body.substr(0, 1000);
+      return this.readMore ? this.lab.body : this.lab.body.substr(0, MAX_CHARS);
     }
 
     get heroImage() {

@@ -9,7 +9,7 @@
     </div>
     <div class="card body conclusion" v-if="$vxm.user.hasLabAccess">
       <div ref="content" style="margin-bottom: 10px;" v-dompurify-html="descriptionToShow"></div>
-      <ReadMore v-model="showFullText"></ReadMore>
+      <ReadMore v-model="showFullText" v-if="readMoreNeeded"></ReadMore>
     </div>
     <div class="card" v-else>
       <p class="card-body text-center py-4 m-0 font-weight-bold">
@@ -25,6 +25,8 @@
   import defaultImage from '@/assets/ribosome_challenge_bg.png';
   import { LabData } from '../types';
 
+  const MAX_CHARS = 1000;
+
   @Component({
     components: {},
   })
@@ -35,8 +37,12 @@
 
     private showFullText = false;
 
+    get readMoreNeeded() {
+      return this.conclusion.length > MAX_CHARS;
+    }
+
     get descriptionToShow() {
-      return this.showFullText ? this.conclusion : this.conclusion.substr(0, 1000);
+      return this.showFullText ? this.conclusion : this.conclusion.substr(0, MAX_CHARS);
     }
 
     get defaultImage() {

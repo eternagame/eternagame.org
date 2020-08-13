@@ -108,8 +108,4 @@
 
     border: 0px;
   }
-
-  ::v-deep a {
-    color: white;
-  }
 </style>

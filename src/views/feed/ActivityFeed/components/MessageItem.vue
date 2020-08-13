@@ -19,7 +19,7 @@
           <slot/>
         </p>
       </div>
-      <div v-dompurify-html="message" style="word-wrap: break-word;" />
+      <div v-dompurify-html="message" style="overflow-wrap: break-word;" />
     </div>
   </div>
 </template>

@@ -10,7 +10,7 @@
       </b-tab>
     </b-tabs>
     <LabRound v-else v-for="round in closedRounds" :key="round.round" :round="round" />
-    <LabConclusion :lab="lab" style="margin-bottom: 52.5px;" />
+    <LabConclusion v-if="lab.conclusion" :conclusion="lab.conclusion" style="margin-bottom: 52.5px;" />
     <Comments
       :name="$t('lab-view:admin-comments')"
       :comments="adminUpdates"

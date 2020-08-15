@@ -9,7 +9,7 @@
       >
       <p style="font-size: 0.6rem">{{ created }}</p>
       <p v-dompurify-html="comment" style="overflow-wrap: break-word;">{{ comment }}</p>
-      <button @click="deleteComment()" v-if="canDelete" style="cursor:pointer" class="btn btn-danger" :disabled="deleting">
+      <button @click="deleteComment()" v-if="canDelete" style="cursor:pointer" class="btn btn-danger btn-sm" :disabled="deleting">
         {{ $t('page:comments-delete') }}
         <b-spinner v-if="deleting" small></b-spinner>
       </button>

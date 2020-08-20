@@ -38,10 +38,10 @@
 
     <template #sidebar="{ isInSidebar }">
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
-      <TagsPanel
+      <!-- <TagsPanel
         :tags="['#Switch', '#Ribozyme', '#XOR', '#MS2', '#FMN', '#Telomerase']"
         :isInSidebar="isInSidebar"
-      />
+      /> -->
     </template>
   </EternaPage>
 </template>

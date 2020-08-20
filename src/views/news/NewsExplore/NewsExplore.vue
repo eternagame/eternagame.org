@@ -27,7 +27,7 @@
         :isInSidebar="isInSidebar"
       />
       <CalendarPanel :isInSidebar="isInSidebar" class="mb-0 pt-3"/>
-      <TagsPanel :tags="tags" :isInSidebar="isInSidebar" class="pt-3 mb-0"/>
+      <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" class="pt-3 mb-0"/> -->
       <p v-if="isInSidebar" class="ml-1 mt-0 d-inline-block custom-control-label no-before no-after">{{ total }} results</p><br>
       <button v-if="isInSidebar" class="btn btn-primary mt-1 ml-1" @click="refresh">Refresh</button>
     </template>

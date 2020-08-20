@@ -27,6 +27,7 @@
         :placeholder="$t('search:puzzles')"
         :isInSidebar="isInSidebar"
       />
+      <UserSearch ref="userSearch" placeholder="activity-feed:search-users" v-if="isInSidebar" @uid="updateUID" class="mb-2"/>
       <ChooseView v-if="isInSidebar" />
       <FiltersPanel
         class="pt-3 mb-0"
@@ -70,6 +71,7 @@
   import FetchMixin from '@/mixins/FetchMixin';
   import ChooseView from '@/components/Sidebar/ChooseView.vue';
   import { navigationModes } from '@/store/pagination.vuex';
+  import UserSearch from '@/views/feed/ActivityFeed/components/UserSearch.vue';
 
   const INITIAL_SORT = 'date';
   const INITIAL_NUMBER = 18;
@@ -85,6 +87,7 @@
     sort: string;
     search: string;
     size: string;
+    creator_uid: number | null;
     uid: number | null;
     skip: string | null;
   }
@@ -100,6 +103,7 @@
       TagsPanel,
       Preloader,
       ChooseView,
+      UserSearch,
     },
   })
   export default class PuzzlesExplore extends Mixins(FetchMixin) {
@@ -128,7 +132,8 @@
         sort: sort || INITIAL_SORT,
         size: this.pagesEnabled ? INITIAL_NUMBER : (size || INITIAL_NUMBER),
         search,
-        skip: convertToIncrementOf(+skip || 0, INCREMENT).toString(),
+        skip: convertToIncrementOf(+skip || 0, INCREMENT).toString() ?? 0,
+        creator_uid: this.uid || null,
       } as PuzzleExploreParams;
 
       if (refresh) {
@@ -206,6 +211,13 @@
         return this.puzzles.slice(start, start + 18);
       }
       return this.puzzles;
+    }
+
+    uid = '';
+
+    updateUID(newValue: string) {
+      this.uid = newValue;
+      this.fetch();
     }
 
 

@@ -80,16 +80,16 @@
               <b-card class="col-sm-9" v-if="session.topic !== 'Break'">
                 <h5>{{session.topic}}</h5>
                 <p v-dompurify-html="session.abstract" v-if="session.abstract"></p>
-                <template v-if="session.vimeoLink && $vxm.user.hasLabAccess">
+                <template v-if="session.privateLink && $vxm.user.hasLabAccess">
                   <p class="video-info">
                     This video may contain confidential information such as upublished research. Please do not share
                     its contents, and limit discussion to the lab categories on the forum and Discord.
                   </p>
                   <div class="embed-responsive embed-responsive-16by9 mt-2">
-                    <iframe :src="session.vimeoLink" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    <iframe :src="session.privateLink" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
                   </div>
                 </template>
-                <p class="video-info" v-else-if="session.vimeoLink">
+                <p class="video-info" v-else-if="session.privateLink">
                   A recording for this session is available to lab members.
                   <template v-if="$vxm.user.loggedIn">
                     Finish the tutorials to gain access.
@@ -98,9 +98,9 @@
                     Log in to watch.
                   </template>
                 </p>
-                <template v-if="session.youtubeLink">
+                <template v-if="session.publicLink">
                   <div class="embed-responsive embed-responsive-16by9 mt-2">
-                    <iframe :src="session.youtubeLink" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    <iframe :src="session.publicLink" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
                   </div>
                 </template>
               </b-card>

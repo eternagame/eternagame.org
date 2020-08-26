@@ -2,7 +2,7 @@
   <div class="page-content card">
     <a :href="editURL" class="edit-link" v-if="showEdit">Edit</a>
     <div class="container">
-      <img class="logo rounded-circle mr-3" :src="`/sites/default/files/${project.logo}`" />
+      <img class="logo mr-3" style="border:0;" :src="`/sites/default/files/${project.logo}`" />
 
       <h3 class="mb-2">
         {{ project.name }}

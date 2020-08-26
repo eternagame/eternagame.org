@@ -98,6 +98,11 @@
                     Log in to watch.
                   </template>
                 </p>
+                <template v-if="session.youtubeLink">
+                  <div class="embed-responsive embed-responsive-16by9 mt-2">
+                    <iframe :src="session.youtubeLink" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                  </div>
+                </template>
               </b-card>
               <div class="col-sm-9 text-center" v-else>
                 <h5 class="d-inline m-0">Break</h5> - join us on

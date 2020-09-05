@@ -119,7 +119,8 @@
             "affiliation": "Das Lab, Stanford University",
             "time": "4:55 - 5:10 PM UTC",
             "topic": "The p(unp) Challenges: Computational forecasts for vaccine stabiliziation",
-            "abstract": "RNA molecules are inherently unstable, yet there is greater need than ever to develop principles to design stabilized mRNA molecules for therapeutics. Recently, we launched a lab asking Eterna players to design a variety of mRNAs minimizing \"p(unp)\", a measure related to how degradable the molecule is. We'll describe how Eterna players compared to standard mRNA design methods, as well as computer algorithms trying to minimize p(unp), and what the p(unp) lab predicts for future vaccine development efforts."
+            "abstract": "RNA molecules are inherently unstable, yet there is greater need than ever to develop principles to design stabilized mRNA molecules for therapeutics. Recently, we launched a lab asking Eterna players to design a variety of mRNAs minimizing \"p(unp)\", a measure related to how degradable the molecule is. We'll describe how Eterna players compared to standard mRNA design methods, as well as computer algorithms trying to minimize p(unp), and what the p(unp) lab predicts for future vaccine development efforts.",
+            "publicLink": "https://player.vimeo.com/video/454930796?title=0&byline=0&portrait=0"
         },
         {
             "time": "5:10 - 5:30 PM UTC",
@@ -162,7 +163,8 @@
             "affiliation": "Jewett Lab, Northwestern University",
             "time": "9:00 - 10:00 PM UTC",
             "topic": "Discovering Stabilized Ribosomes - Towards New Machines for Making Smart Therapeutics and Materials",
-            "abstract": "About a year ago we started the ribosome challenge, which included the biggest and most complicated puzzles ever deployed on Eterna. We were aiming high, but we were confident that the enthusiasm and creativity of the Eterna community would make it solvable. The stunning results of the challenge speak for themselves. These are exciting times for us scientists and hopefully for you players, too.<br/><br/>In this talk, I will discuss the motivation and goal of the challenge, provide some information about assembly and functionality of the ribosome, illustrate how I test players’ designs in lab, and present the latest round 2 results."
+            "abstract": "About a year ago we started the ribosome challenge, which included the biggest and most complicated puzzles ever deployed on Eterna. We were aiming high, but we were confident that the enthusiasm and creativity of the Eterna community would make it solvable. The stunning results of the challenge speak for themselves. These are exciting times for us scientists and hopefully for you players, too.<br/><br/>In this talk, I will discuss the motivation and goal of the challenge, provide some information about assembly and functionality of the ribosome, illustrate how I test players’ designs in lab, and present the latest round 2 results.",
+            "privateLink": "https://player.vimeo.com/video/454930755?title=0&byline=0&portrait=0"
         },
         {
             "time": "10:00 - 10:30 PM UTC",

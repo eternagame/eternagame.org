@@ -25,7 +25,7 @@
           <hr class="top-border d-sm-none" />
           <div
             class="puzzle-description"
-            style="word-wrap: break-word;"
+            style="overflow-wrap: break-word;"
             v-dompurify-html="puzzle.body"
           />
         </div>

@@ -18,14 +18,18 @@
     <p v-show="!passwordsMatch">Please make sure passwords match!</p>
 
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-address') }}</p>
-    <input type="email" style="color:#fff" v-model="email" @change="sendEmail()" required />
+    <input type="email" style="color:#fff" v-model="mail" @change="sendEmail()" required />
     <p style="margin-top:13px">{{ $t('edit-profile:email-details') }}</p>
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-notifications') }}</p>
-    <b-form-checkbox v-model="messagesNotify" @change="sendMessages()">
+    <b-form-checkbox v-model="messagesNotify" @change="toggleMessages()">
       <b>{{ $t('edit-profile:email-private-messages') }}</b>
     </b-form-checkbox>
-    <b-form-checkbox style="margin-top:15px" v-model="newsNotify" @change="sendNews()">
+    <b-form-checkbox style="margin-top:15px" v-model="newsNotify" @change="toggleNews()">
       <b>{{ $t('edit-profile:email-news-posts') }}</b>
+    </b-form-checkbox>
+    <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:permissions') }}</p>
+    <b-form-checkbox style="margin-top:15px" v-model="certificatePublic" @change="toggleCertificate()">
+      <b>{{ $t('edit-profile:certificate-public') }}</b>
     </b-form-checkbox>
   </div>
 </template>
@@ -51,25 +55,19 @@
 
     private passwordConfirm: string = '';
 
-    private email: string = '';
+    private mail: string = '';
 
     private newsNotify: boolean = false;
 
     private messagesNotify: boolean = false;
 
+    private certificatePublic: boolean = false;
+
     mounted() {
-      this.email = this.user.mail;
-      // HACK: Because this is backwards in the checkboxes for some reason...
-      this.newsNotify = String(this.user['News mail notification']) !== 'on';
-      this.messagesNotify = this.user['Mail notification'] !== 'on';
-
-      this.sendMessages();
-      this.sendNews();
-
-      this.newsNotify = !this.newsNotify;
-      this.messagesNotify = !this.messagesNotify;
-
-      this.sendEmail();
+      this.mail = this.user.mail;
+      this.newsNotify = this.user['News mail notification'] === 'on';
+      this.messagesNotify = this.user['Mail notification'] === 'on';
+      this.certificatePublic = this.user['Certificate public'] === 'on';
     }
 
     get passwordsMatch() {
@@ -80,18 +78,23 @@
       if (this.passwordsMatch) this.$emit('set-password', this.password);
     }
 
-    sendNews() {
-      // Why is this backwards???
-      this.$emit('set-news', !this.newsNotify);
+    toggleNews() {
+      this.newsNotify = !this.newsNotify;
+      this.$emit('set-news', this.newsNotify);
     }
 
-    sendMessages() {
-      // Why is this backwards???
-      this.$emit('set-messages', !this.messagesNotify);
+    toggleMessages() {
+      this.messagesNotify = !this.messagesNotify;
+      this.$emit('set-messages', this.messagesNotify);
+    }
+
+    toggleCertificate() {
+      this.certificatePublic = !this.certificatePublic;
+      this.$emit('set-certificate', this.certificatePublic);
     }
 
     sendEmail() {
-      this.$emit('set-email', this.email);
+      this.$emit('set-email', this.mail);
     }
   }
 </script>

@@ -42,7 +42,7 @@
         <b-card>
           <div class="d-flex align-items-center">
             <p class="mb-0 mr-4">
-              For commercial purposes, you can request a license, including royalte-free licenses
+              For commercial purposes, you can request a license, including royalty-free licenses
               that comply with the <a href="https://opencovidpledge.org/" target="_blank">Open COVID Pledge</a>
             </p>
             <b-btn

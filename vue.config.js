@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin');
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
+const MonacoEditorWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const resolve = filepath => path.resolve(__dirname, filepath);
 
@@ -72,10 +73,11 @@ module.exports = {
         .end()
         .devtool('source-map');
 
+
       if (!IS_SERVER_BUILD && !PRODUCTION) {
         config.plugin('hmr').use(webpack.HotModuleReplacementPlugin);
       }
-
+    
       if (IS_SERVER_BUILD) {
         config
           // Configure the server-side build that's run in a Node environment

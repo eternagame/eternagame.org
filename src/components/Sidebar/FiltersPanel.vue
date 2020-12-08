@@ -1,6 +1,6 @@
 <template>
   <SidebarPanel :isInSidebar="isInSidebar" :header="header" :headerIcon="headerIcon">
-    <b-checkbox-group v-model="selected" :options="filters" @input="onCheck" stacked />
+    <b-checkbox-group v-model="selected" :options="filters" @input="onCheck" value=checked stacked />
   </SidebarPanel>
 </template>
 
@@ -26,9 +26,14 @@
 
     @Prop({ required: true }) readonly paramName!: string;
 
+    @Prop({ default: false})
+    scriptSearch !: boolean;
+
     private selected: string[] = [];
 
     created() {
+      // Only adds default notcleared if searching puzzles (i.e. not searching scrips)
+      this.selected = this.scriptSearch ? [] : ['notcleared'];
       const data = this.$route.query[this.paramName];
       if (data && typeof data === 'string') {
         this.selected = data.split(',');

@@ -122,6 +122,31 @@ export default function createRouter() {
         component: () => import('./views/chat/FullPageChat.vue'),
       },
       {
+        path: '/scripts',
+        name: 'scripts',
+        component: () => import('./views/scripts/ScriptsList.vue'),
+      },
+      {
+        path: '/scripts/documentation',
+        name: 'documentation',
+        component: () => import('./views/scripts/ScriptDocumentation.vue'),
+      },
+      {
+        path: '/create/script/:nid',
+        name: 'script-create',
+        component: () => import('./views/scripts/ScriptCreate.vue'),
+      },
+      {
+        path: '/create/script',
+        name: 'script-create',
+        component: () => import('./views/scripts/ScriptCreate.vue'),
+      },
+      {
+        path: '/script/:nid',
+        name: 'script',
+        component: () => import('./views/scripts/ScriptView.vue'),
+      }, 
+      {
         path: '/eternacon',
         redirect: { name: 'eternacon-2020' }
       },

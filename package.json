@@ -23,7 +23,7 @@
     "@voerro/vue-tagsinput": "github:voerro/vue-tagsinput",
     "acorn": "^7.3.1",
     "add": "^2.0.6",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",
     "canvas": "^2.6.1",

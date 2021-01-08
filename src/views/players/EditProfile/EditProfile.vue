@@ -3,13 +3,18 @@
     <div class="page-content" v-if="loaded">
       <EditPlayerHeader @submit-data="submit" @set-picture="setPicture" />
       <hr class="top-border" />
-      <EditPlayerAboutMe @set-profile="setProfile" @set-section="setSection" />
+      <EditPlayerAboutMe
+        @set-profile="setProfile"
+        @set-personal-name="setPersonalName"
+        @set-section="setSection"
+      />
       <hr class="top-border" />
       <EditPlayerCredentials
         @set-password="setPassword"
         @set-news="setNews"
         @set-messages="setMessages"
         @set-email="setEmail"
+        @set-certificate="setCertificate"
       />
       <div class="flex" style="margin-top:10px">
         <b-button type="submit" style="margin-left:10px" variant="primary" @click="submit">{{
@@ -90,8 +95,10 @@
       data.set('profile_mail_notification', this.privateMessagesNotify ? 'on' : 'off');
       data.set('profile_news_mail_notification', this.newNewsPostsNotify ? 'on' : 'off');
       data.set('profile_blog_mail_notification', this.newNewsPostsNotify ? 'on' : 'off');
+      data.set('profile_certificate_public', this.certificatePublic ? 'on' : 'off');
+      data.set('profile_personal_name', this.personalName);
       data.set('profile_profile', this.profile);
-      data.set('mail', this.email);
+      data.set('mail', this.mail);
       if (this.picture) data.append(`files[picture_upload]`, this.picture);
       data.set('type', 'edit');
 
@@ -137,21 +144,31 @@
       this.profile = text;
     }
 
-    setEmail(email: string) {
-      this.email = email;
+    setPersonalName(name: string) {
+      this.personalName = name;
+    }
+
+    setEmail(mail: string) {
+      this.mail = mail;
+    }
+
+    setCertificate(isPublic: boolean) {
+      this.certificatePublic = isPublic;
     }
 
     cancel() {
-      this.newAboutMeText = '';
+      this.profile = this.$vxm.user.userDetails != null ? this.$vxm.user.userDetails.Profile : '';
+      this.personalName = this.$vxm.user.userDetails != null && this.$vxm.user.userDetails['Personal Name'] ? this.$vxm.user.userDetails['Personal Name'] : '';
       this.newPassword = '';
-      this.privateMessagesNotify = false;
-      this.newNewsPostsNotify = false;
-      this.email = '';
+      this.privateMessagesNotify = this.$vxm.user.userDetails != null && this.$vxm.user.userDetails['Mail notification'] === 'on';
+      this.newNewsPostsNotify = this.$vxm.user.userDetails != null && this.$vxm.user.userDetails['News mail notification'] === 'on';
+      this.mail = this.$vxm.user.userDetails != null ? this.$vxm.user.userDetails.mail : '';
+      this.certificatePublic = this.$vxm.user.userDetails != null && this.$vxm.user.userDetails['Certificate public'] === 'on';
     }
 
-    private newAboutMeText: string = '';
+    private personalName: string = this.$vxm.user.userDetails != null && this.$vxm.user.userDetails['Personal Name'] ? this.$vxm.user.userDetails['Personal Name'] : '';
 
-    private profile: string = '';
+    private profile: string = this.$vxm.user.userDetails != null ? this.$vxm.user.userDetails.Profile : '';
 
     private picture: Blob | null = null;
 
@@ -161,11 +178,13 @@
 
     private newPassword: string = '';
 
-    private email: string = '';
+    private mail: string = this.$vxm.user.userDetails != null ? this.$vxm.user.userDetails.mail : '';
 
-    private privateMessagesNotify: boolean = false;
+    private privateMessagesNotify: boolean = this.$vxm.user.userDetails != null && this.$vxm.user.userDetails['Mail notification'] === 'on';
 
-    private newNewsPostsNotify: boolean = false;
+    private newNewsPostsNotify: boolean = this.$vxm.user.userDetails != null && this.$vxm.user.userDetails['News mail notification'] === 'on';
+
+    private certificatePublic: boolean = this.$vxm.user.userDetails != null && this.$vxm.user.userDetails['Certificate public'] === 'on';
 
     private options: Option[] = [
       { value: 'about', text: 'side-panel-options:about' },

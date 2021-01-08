@@ -2,7 +2,7 @@
   <div class="d-flex">
     <a
       :href="`${BASE_URL_PREFIX}/certificate/${user.uid}`"
-      v-if="isCurrentUser"
+      v-if="isCurrentUser || isPublicCertificate"
     >
       Certificate
     </a>
@@ -27,6 +27,10 @@
 
     get isCurrentUser() {
       return this.$vxm.user.uid && this.$vxm.user.uid.toString() === this.user.uid;
+    }
+
+    get isPublicCertificate() {
+      return this.$vxm.user.userDetails && this.$vxm.user.userDetails['Certificate public'] === 'on';
     }
 
     private BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;

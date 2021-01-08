@@ -3,13 +3,13 @@
     <LabDescription :lab="lab" style="margin-bottom: 52.5px;" />
     <b-tabs v-if="openRounds.length">
       <b-tab :title="$t('lab-view:open')" v-if="openRounds.length" class="tab">
-        <LabRound v-for="round in openRounds" :key="round.round" :round="round" />
+        <LabRound v-for="round in openRounds" :key="round.round" :round="round" closed="false" />
       </b-tab>
       <b-tab :title="$t('lab-view:closed')" v-if="closedRounds.length" class="tab">
         <LabRound v-for="round in closedRounds" :key="round.round" :round="round" closed="true" />
       </b-tab>
     </b-tabs>
-    <LabRound v-else v-for="round in closedRounds" :key="round.round" :round="round" />
+    <LabRound v-else v-for="round in closedRounds" :key="round.round" :round="round" closed="true" />
     <LabConclusion v-if="lab.conclusion" :conclusion="lab.conclusion" style="margin-bottom: 52.5px;" />
     <Comments
       :name="$t('lab-view:admin-comments')"

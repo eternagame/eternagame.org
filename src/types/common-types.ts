@@ -5,9 +5,11 @@ export interface UserData {
   created: string;
   picture: string;
   name: string;
+  ['Personal Name']: string;
   mail: string;
   ['News mail notification']: string;
   ['Mail notification']: string;
+  ['Certificate public']: string;
   Profile: string;
   is_lab_member_legacy: boolean;
   ten_tools_level: number;

@@ -4,6 +4,15 @@
       <!-- div class="col-md-8"-->
       <div class="col-md-12">
         <h4 class="about-me">{{ $t('player-view:about-me') }}</h4>
+        <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:personal-name') }}</p>
+        <input
+          style="color:#fff"
+          type="text"
+          :placeholder="$t('edit-profile:personal-name')"
+          v-model="personalName"
+          @change="setPersonalName()"
+        />
+        <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:bio') }}</p>
         <EditField :content="aboutMeText" @input="setProfile" />
         <!--EditPlayerNewSection v-show="addingSection" @set-section="setSection" />
         <b-button
@@ -33,6 +42,8 @@
   })
   export default class PlayerAboutMe extends Vue {
     private aboutMeText = this.$vxm.user.userDetails?.Profile;
+    
+    private personalName = this.$vxm.user.userDetails != null && this.$vxm.user.userDetails['Personal Name'] ? this.$vxm.user.userDetails['Personal Name'] : '';
 
     setProfile(text: string | undefined) {
       if (text) this.$emit('set-profile', text);
@@ -40,6 +51,10 @@
 
     setSection(section: object) {
       this.$emit('set-section', section);
+    }
+
+    setPersonalName() {
+      this.$emit('set-personal-name', this.personalName);
     }
 
     private addingSection: boolean = false;

@@ -12,11 +12,13 @@
         style="text-shadow: 1px 1px 2px #333;"
       >
         <template v-if="hasLabAccess">
+          <AnniversarySlide />
           <LabSlide v-for="lab in labCarouselLabs" v-bind="lab" :key="lab.nid" />
           <POTWSlide v-bind="potwSlideData" v-if="potwSlideData" />
         </template>
         <template v-else>
           <TutorialTeaserSlide />
+          <AnniversarySlide />
         </template>
       </b-carousel>
 
@@ -41,6 +43,7 @@
   import POTWSlide from './components/banner/POTWSlide.vue';
   import LabSlide from './components/banner/LabSlide.vue';
   import EternaconSlide from './components/banner/EternaconSlide.vue';
+  import AnniversarySlide from './components/banner/AnniversarySlide.vue';
   import QuestActivity from './components/activities/QuestActivity.vue';
   import TutorialActivity from './components/activities/TutorialActivity.vue';
 
@@ -54,7 +57,8 @@
       EternaconSlide,
       Preloader,
       QuestActivity,
-      TutorialActivity
+      TutorialActivity,
+      AnniversarySlide
     },
   })
   export default class PlayerHome extends Mixins(FetchMixin) {

@@ -128,7 +128,6 @@
 
     registerWithFacebook() {
       this.modal.hide();
-      this.$router.push('/');
     }
 
     async tryRegister(event: Event) {
@@ -181,7 +180,6 @@
         if (data.success) {
           this.loading = false;
           this.modal.hide();
-          this.$router.push('/');
         } else {
           this.errorMessage = data.data.error;
         }

@@ -9,8 +9,12 @@
   import { mixins } from 'vue-class-component';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
-
   import icon from '@/assets/Filter.svg';
+
+  export interface Filter {
+    value: string;
+    text: string;
+  }
 
   @Component({
     components: {
@@ -48,11 +52,6 @@
       }
       return query;
     }
-  }
-
-  export interface Filter {
-    value: string;
-    text: string;
   }
 </script>
 

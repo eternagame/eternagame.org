@@ -48,6 +48,23 @@ export interface ProfileGroup {
   founder: string;    
 }
 
+export interface FollowItem {
+  nid: string;
+  uid: string;
+  id: string;
+  updated_time: string;
+  expired_time: string | null;
+  type: string;
+}
+
+export interface ProfileAchievement {
+  level: string;
+  image: string;
+  title: string;
+  desc: string;
+  past: string;
+}
+
 export interface UserResponse {
   user: UserData;
   follow: FollowItem[];
@@ -64,15 +81,6 @@ export interface UserResponse {
   }
 }
 
-export interface FollowItem {
-  nid: string;
-  uid: string;
-  id: string;
-  updated_time: string;
-  expired_time: string | null;
-  type: string;
-}
-
 export interface CommentItem {
   cid: string;
   name: string;
@@ -80,14 +88,6 @@ export interface CommentItem {
   comment: string;
   created: string;
   picture: string;
-}
-
-export interface ProfileAchievement {
-  level: string;
-  image: string;
-  title: string;
-  desc: string;
-  past: string;
 }
 
 export interface RefreshAchievement {

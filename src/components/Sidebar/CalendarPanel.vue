@@ -1,6 +1,6 @@
 <template>
   <SidebarPanel :isInSidebar="isInSidebar" header="calendar" headerIcon="@/assets/calendar.svg">
-    <vc-date-picker mode="range" v-model="dates" color="yellow" is-dark is-inline />
+    <vc-date-picker is-range v-model="dates" color="yellow" is-dark is-inline />
   </SidebarPanel>
 </template>
 

@@ -19,6 +19,9 @@ module.exports = {
     'arrow-parens': 'off',
     'object-curly-newline': 'off',
     'no-underscore-dangle': ['error', { allow: ['__INITIAL_STATE__'] }],
+    // Why doesn't typescript-eslint do this for us? No idea!
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"]
   },
   parserOptions: {
     parser: '@typescript-eslint/parser',

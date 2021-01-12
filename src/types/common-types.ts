@@ -90,6 +90,14 @@ export interface ProfileAchievement {
   past: string;
 }
 
+export interface RefreshAchievement {
+  level: number;
+  image: string;
+  title: string;
+  desc: string;
+  past: string;
+}
+
 export interface RoadmapAchievement {
   key: string;
   level: number;

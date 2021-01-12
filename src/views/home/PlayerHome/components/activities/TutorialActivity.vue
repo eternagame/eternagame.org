@@ -7,8 +7,8 @@
         v-if="!$vxm.user.hasLabAccess"
       />
     </template>
-    <SwiperSlide v-for="(item, index) in tools" :key="index">
-      <QuestCard :key="item.title" v-bind="item" />
+    <SwiperSlide v-for="item in tools" :key="item.title">
+      <QuestCard v-bind="item" />
     </SwiperSlide>
   </BaseActivity>
 </template>

@@ -17,7 +17,7 @@
           <POTWSlide v-bind="potwSlideData" v-if="potwSlideData" />
         </template>
         <template v-else>
-          <TutorialTeaserSlide />
+          <TutorialTeaserSlide :nextPuzzleID="nextPuzzleID" />
           <AnniversarySlide />
         </template>
       </b-carousel>
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Prop, Mixins } from 'vue-property-decorator';
+  import { Component, Vue, Prop, Mixins, Watch } from 'vue-property-decorator';
   import axios, { AxiosInstance } from 'axios';
   import { RoadmapAchievement, ProcessedRoadmapAchievement } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
@@ -74,7 +74,7 @@
       const res = await Promise.all([
         this.$http.get('/get/?type=side_project_roadmap'),
         this.$http.get('/get/?type=carousel'),
-        this.$http.get('/get/?type=puzzle_of_the_week')
+        this.$http.get('/get/?type=puzzle_of_the_week'),
       ]);
 
       const roadmap = res[0].data.data.achievement_roadmap as RoadmapAchievement[];
@@ -93,10 +93,16 @@
         
       this.labCarouselLabs = res[1].data.data.labs;
       this.potwSlideData = res[2].data.data;
+
+      this.$vxm.user.refreshAchievements();
     }
 
     get hasLabAccess() {
       return this.$vxm.user.hasLabAccess;
+    }
+
+    get nextPuzzleID() {
+      return this.tenToolsAchievements[0].current_puzzle;
     }
   }
 </script>

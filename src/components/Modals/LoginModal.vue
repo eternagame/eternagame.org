@@ -243,7 +243,4 @@
       }
     }
   }
-  FacebookAuthentication {
-    
-  }
 </style>

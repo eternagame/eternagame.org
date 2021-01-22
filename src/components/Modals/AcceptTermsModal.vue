@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref, Mixins } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
   import axios from 'axios';
   import TermsAndConditionsText from '@/views/terms/TermsAndConditionsText.vue';
@@ -48,15 +48,17 @@
 
     private accepted: boolean = false;
 
-    mounted() {
-      const surveyValue = this.$vxm.user.loggedIn && this.$vxm.user.userDetails?.Survey;
-      if (surveyValue && !surveyValue.includes('EULA_Agree') && surveyValue !== 'Yes') {
+    async mounted() {
+      if (this.$vxm.user.loggedIn && !this.$vxm.user.surveyRecord.includes('EULA_Agree')) {
         this.modal.show();
       }
     }
 
-    acceptTerms() {
+    async acceptTerms() {
       if (this.accepted) {
+        // Note: $vxm.user.surveyRecord won't update until the next page RELOAD, since that's the
+        // only time it gets set. This should be fine though, as we only open this modal on mounted
+        // and that happens at page load
         axios.post(
           ROUTE,
           new URLSearchParams({

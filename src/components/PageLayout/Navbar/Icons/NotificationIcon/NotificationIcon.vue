@@ -124,7 +124,7 @@
     }
 
     private get uid() {
-      return this.$vxm.user.userDetails?.uid;
+      return this.$vxm.user.uid;
     }
 
     private isNewsItem(notification: NotificationItem) {

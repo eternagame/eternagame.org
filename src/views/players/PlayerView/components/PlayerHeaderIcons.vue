@@ -30,7 +30,7 @@
     }
 
     get isPublicCertificate() {
-      return this.$vxm.user.userDetails && this.$vxm.user.userDetails['Certificate public'] === 'on';
+      return this.user['Certificate public'] === 'on';
     }
 
     private BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;

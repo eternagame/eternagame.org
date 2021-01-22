@@ -9,18 +9,24 @@
           style="color:#fff"
           type="text"
           :placeholder="$t('edit-profile:personal-name')"
-          v-model="personalName"
-          @change="setPersonalName()"
+          :value="personalName"
+          @input="e => $emit('update:personalName', e.target.value)"
         />
         <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:bio') }}</p>
-        <EditField :content="aboutMeText" @input="setProfile" />
-        <!--EditPlayerNewSection v-show="addingSection" @set-section="setSection" />
+        <EditField :content="aboutMe" @input="text => $emit('update:aboutMe', text)" />
+        <!--
+        <EditPlayerNewSection
+          v-show="addingSection"
+          @set-section="section => $emit('set-section', section)"
+        />
         <b-button
           style="margin-top:19px;"
           @click="addingSection = !addingSection"
           v-show="!addingSection"
           variant="secondary"
-          >{{ $t('edit-profile:custom-section-add') }}</b-button
+        >
+          {{ $t('edit-profile:custom-section-add') }}
+        </b-button>
         -->
       </div>
       <!--div class="col-md-4">
@@ -33,7 +39,6 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
-  import { UserData } from '@/types/common-types';
   import EditPlayerFeaturedAchievement from './EditPlayerFeaturedAchievement.vue';
   import EditPlayerNewSection from './EditPlayerNewSection.vue';
 
@@ -41,21 +46,9 @@
     components: { EditPlayerFeaturedAchievement, EditField, EditPlayerNewSection },
   })
   export default class PlayerAboutMe extends Vue {
-    private aboutMeText = this.$vxm.user.userDetails?.Profile;
-    
-    private personalName = this.$vxm.user.userDetails != null && this.$vxm.user.userDetails['Personal Name'] ? this.$vxm.user.userDetails['Personal Name'] : '';
+    @Prop({required: true}) aboutMe!: string;
 
-    setProfile(text: string | undefined) {
-      if (text) this.$emit('set-profile', text);
-    }
-
-    setSection(section: object) {
-      this.$emit('set-section', section);
-    }
-
-    setPersonalName() {
-      this.$emit('set-personal-name', this.personalName);
-    }
+    @Prop({required: true}) personalName!: string;
 
     private addingSection: boolean = false;
   }

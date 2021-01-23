@@ -24,8 +24,9 @@
         :loadRecaptchaScript="true"
         @verify="captchaResponse = $event"
       />
-      <b-button type="submit" variant="primary" class="submit-button">
+      <b-button type="submit" variant="primary" class="submit-button" :disabled="loading">
         {{ $t('reset-password:main-action') }}
+        <b-spinner v-if="loading" small />
       </b-button>
     </b-form>
   </b-modal>
@@ -46,6 +47,8 @@
 
     captchaResponse = '';
 
+    loading = false;
+
     errorMessage = '';
 
     attemptNumber: number = 0;
@@ -55,6 +58,7 @@
     async resetPassword() {
       // $('#loader').modal('show');
       this.errorMessage = '';
+      this.loading = true;
       const response = await this.$http.post(
         '/login/',
         new URLSearchParams({
@@ -66,6 +70,7 @@
           headers: { 'Content-type': 'application/x-www-form-urlencoded' },
         },
       );
+      this.loading = false;
       // $('#loader').modal('hide');
       const { data } = response;
       if (data.data.success) {

@@ -116,6 +116,7 @@
   "edit-profile:change-password": "Change Password",
   "edit-profile:new-password": "New Password",
   "edit-profile:confirm-password": "Confirm Password",
+  "edit-profile:current-password": "Current Password",
   "edit-profile:personal-name": "Personal Name (optional, for use in certificate and publications)",
   "edit-profile:bio": "Bio",
   "edit-profile:email-address": "Email Address:",

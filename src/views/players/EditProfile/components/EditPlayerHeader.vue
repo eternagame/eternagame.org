@@ -3,7 +3,11 @@
     <div class="d-flex">
       <EditPlayerHeaderImage :picture="picture" />
       <div class="player-details">
-        <EditPlayerHeaderTopRow @submit="$emit('submit')" @update:picture="file => $emit('update:picture', file)" />
+        <EditPlayerHeaderTopRow
+          :loading="loading"
+          @submit="$emit('submit')"
+          @update:picture="file => $emit('update:picture', file)"
+        />
         <div class="d-none d-sm-block">
           <div class="d-flex justify-content-between">
             <p>{{ $t('edit-profile:replace-image-details') }}</p>
@@ -29,6 +33,8 @@
   })
   export default class PlayerHeader extends Vue {
     @Prop({required: true}) private picture!: File;
+
+    @Prop({required: true}) private loading!: boolean;
   }
 </script>
 

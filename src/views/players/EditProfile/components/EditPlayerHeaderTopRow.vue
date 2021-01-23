@@ -4,18 +4,21 @@
       {{$t('edit-profile:replace-image')}}
     </b-button>
     <input type="file" @change="handleFile" hidden ref="fileUpload" />
-    <b-button type="submit" style="margin-left:10px" variant="primary" @click="$emit('submit')">
+    <b-button type="submit" style="margin-left:10px" variant="primary" @click="$emit('submit')" :disabled="loading">
       {{$t('edit-profile:save')}}
+      <b-spinner v-if="loading" small />
     </b-button>
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Ref, Prop } from 'vue-property-decorator';
 
   @Component({})
   export default class PlayerHeaderTopRow extends Vue {
-    @Ref("fileUpload") fileUpload!: HTMLInputElement;
+    @Ref("fileUpload") private fileUpload!: HTMLInputElement;
+
+    @Prop({required: true}) private loading!: boolean;
 
     handleFile(event: Event) {
       const target = event.target as HTMLInputElement;

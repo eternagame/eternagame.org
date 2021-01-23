@@ -1,7 +1,13 @@
 <template>
   <EternaPage :title="`${$t('edit-profile:title')} ${username}`">
+    <notifications position="bottom center" width="50%"/>
     <div class="page-content" v-if="fetchState.firstFetchComplete">
-      <EditPlayerHeader @submit="submit" @update:picture="pic => newPicture = pic" :picture="picture" />
+      <EditPlayerHeader
+        :loading="loading"
+        @submit="submit"
+        @update:picture="pic => newPicture = pic"
+        :picture="picture"
+      />
       <hr class="top-border" />
       <EditPlayerAboutMe
         :aboutMe="oldAboutMe"
@@ -16,9 +22,18 @@
         :publicCertificate.sync="publicCertificate"
         @update:password="pass => newPassword = pass"
       />
-      <div class="flex" style="margin-top:10px">
-        <b-button type="submit" style="margin-left:10px" variant="primary" @click="submit">
+      <hr class="top-border" />
+      <p style="font-weight:bold">{{ $t('edit-profile:current-password') }}</p>
+      <input
+        style="color:#fff"
+        type="password"
+        :placeholder="$t('edit-profile:current-password')"
+        v-model="currentPassword"
+      />
+      <div class="flex" style="margin-top:20px">
+        <b-button type="submit" style="margin-left:10px" variant="primary" @click="submit" :disabled="loading">
           {{$t('edit-profile:save')}}
+          <b-spinner v-if="loading" small />
         </b-button>
         <b-button
           type="submit"
@@ -79,11 +94,15 @@
 
     private newPassword?: string;
 
-    private messagesNotify: boolean = false;
+    private currentPassword = "";
 
-    private newsNotify: boolean = false;
+    private messagesNotify = false;
 
-    private publicCertificate: boolean = false;
+    private newsNotify = false;
+
+    private publicCertificate = false;
+
+    private loading = false;
 
     async fetch() {
       const user = (await axios.get(`/get/?type=my_user&uid=${this.$vxm.user.uid}`)).data.data.user as UserData;
@@ -105,11 +124,13 @@
     }
 
     async submit() {
+      this.loading = true;
       const data = new FormData();
       if (this.newPassword) {
-        data.set('pass[pass1]', this.newPassword as string);
-        data.set('pass[pass2]', this.newPassword as string);
+        data.set('pass[pass1]', this.newPassword);
+        data.set('pass[pass2]', this.newPassword);
       }
+      data.set('pass[current]', this.currentPassword);
       data.set('profile_mail_notification', this.messagesNotify ? 'on' : 'off');
       data.set('profile_news_mail_notification', this.newsNotify ? 'on' : 'off');
       data.set('profile_blog_mail_notification', this.newsNotify ? 'on' : 'off');
@@ -121,16 +142,20 @@
       data.set('type', 'edit');
 
       try {
-        await this.$http.post(EDIT_PROFILE, data, {
+        const res = await this.$http.post(EDIT_PROFILE, data, {
           headers: {
             'Content-type': 'multipart/form-data',
           },
         });
+        this.loading = false;
+        const error = res?.data?.data?.error;
+        if (error) throw new Error(error);
         this.$router.push(`/players/${this.$vxm.user.uid}`);
       } catch (e) {
-        this.$notify({
-            title: 'Error',
-            text: e?.message,
+        const r = this.$notify({
+          type: 'error',
+          title: 'Error',
+          text: e.message,
         });
       }
     }
@@ -139,4 +164,13 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  input {
+    background-color: #0a223c;
+    border: 0px;
+    width: 90%;
+    padding: 10px;
+    margin-right: 5px;
+    margin-top: 5px;
+  }
 </style>

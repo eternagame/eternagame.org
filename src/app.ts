@@ -1,10 +1,13 @@
 import Vue from 'vue';
-import i18n from '@/plugins/i18n';
 import { sync } from 'vuex-router-sync';
 import BootstrapVue from 'bootstrap-vue';
 import VueDOMPurifyHTML from 'vue-dompurify-html';
 import DOMPurify from 'dompurify';
 import axios from 'axios';
+// If we get around to re-enabling SSR:
+// import Notifications from 'vue-notification/dist/ssr.js'
+import Notifications from 'vue-notification';
+import i18n from '@/plugins/i18n';
 import InitGlobalComponents from '@/components/global';
 import App from './App.vue';
 import createRouter from './router';
@@ -43,6 +46,8 @@ Vue.use(() => {
     });
   }
 });
+ 
+Vue.use(Notifications);
 
 InitGlobalComponents();
 

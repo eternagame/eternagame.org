@@ -13,7 +13,7 @@
           @input="e => $emit('update:personalName', e.target.value)"
         />
         <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:bio') }}</p>
-        <EditField :content="aboutMe" @input="text => $emit('update:aboutMe', text)" />
+        <EditField class="editor" :content="aboutMe" @input="text => $emit('update:aboutMe', text)" />
         <!--
         <EditPlayerNewSection
           v-show="addingSection"
@@ -65,7 +65,7 @@
     max-width: 710px;
   }
 
-  input {
+  input, .editor {
     background-color: #0a223c;
     border: 0px;
     width: 90%;

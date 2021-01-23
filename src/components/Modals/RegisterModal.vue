@@ -86,7 +86,6 @@
 <script lang="ts">
   import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
-  import axios from 'axios';
   import VueRecaptcha from 'vue-recaptcha';
   import FacebookAuthentication from './components/FacebookAuthentication.vue';
 

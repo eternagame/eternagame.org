@@ -29,7 +29,7 @@ export default function createUserStore($http: AxiosInstance) {
 
     public triedAuthenticating = false;
 
-    public promptSignAgreement = false;
+    public userDetailsLoaded = false;
 
     public newAchievements: RefreshAchievement[] = [];
     
@@ -38,6 +38,7 @@ export default function createUserStore($http: AxiosInstance) {
     @action() async logout() {
       this.loggedIn = false;
       const response = await $http.get('/eterna_logout.php');
+      window.localStorage.setItem('loggedIn', 'false');
       this.triedAuthenticating = false;
       await this.FB?.logout();
     }
@@ -49,6 +50,7 @@ export default function createUserStore($http: AxiosInstance) {
       ).data;
       if (data.success) {
         this.loggedIn = true;
+        window.localStorage.setItem('loggedIn', 'true');
       }
       await this.authenticate();
       return data;
@@ -63,6 +65,10 @@ export default function createUserStore($http: AxiosInstance) {
       };
 
       const { data, new_achievements } = (await $http.post('/login/', new URLSearchParams(loginParams))).data;
+      if (data.success) {
+        this.loggedIn = true;
+        window.localStorage.setItem('loggedIn', 'true');
+      }
       await this.authenticate();
       this.pushAchievements(new_achievements);
       return data;
@@ -84,6 +90,7 @@ export default function createUserStore($http: AxiosInstance) {
         const [match, username, uid] = matches;
         this.username = username;
         this.uid = Number(uid);
+        this.loggedIn = true;
         // BEFORE YOU ADD THINGS HERE: Beware that they will not be updated when a user navigates
         // within the website. So if the user performs any sort of action (either on this page
         // or another browser page) that invalidates something in my_user, it won't be reflected
@@ -97,7 +104,7 @@ export default function createUserStore($http: AxiosInstance) {
         );
         this.isAdmin = userDetails.is_admin;
         this.surveyRecord = userDetails.Survey;
-        this.loggedIn = true;
+        this.userDetailsLoaded = true;
       } else {
         throw new Error(`Authentication response malformed: ${data}`);
         // TODO: is throw the right action?

@@ -19,7 +19,7 @@
                 </a>
               </b-col>
               <b-col lg="2">
-                <a href="http://www.wired.com/wiredscience/2012/07/ff_rnagame/">
+                <a href="http://www.wired.com/wiredscience/2012/07/ff-rnagame/">
                   <img src="@/assets/front-page/img/logo_wired.svg" class="media-logo" alt />
                 </a>
               </b-col>

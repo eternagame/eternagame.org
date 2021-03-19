@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { sync } from 'vuex-router-sync';
 import BootstrapVue from 'bootstrap-vue';
+import VueScrollReveal from 'vue-scroll-reveal';
 import VueDOMPurifyHTML from 'vue-dompurify-html';
 import DOMPurify from 'dompurify';
 import axios from 'axios';
@@ -19,6 +20,8 @@ Vue.use(VueDOMPurifyHTML, {
     ADD_TAGS: ['iframe']
   }
 });
+Vue.use(VueScrollReveal);
+
 
 DOMPurify.addHook('uponSanitizeElement', (node, data) => {
   if (data.tagName === 'iframe') {

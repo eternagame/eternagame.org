@@ -156,7 +156,6 @@ export default function createRouter() {
 
   router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {
     const userStore = router.app.$vxm.user;
-    console.log("BEFORE: ", window.localStorage.getItem('loggedIn'), userStore.triedAuthenticating);
     if (window.localStorage.getItem('loggedIn') === 'true' && !userStore.triedAuthenticating) {
       await userStore.authenticate();
     }

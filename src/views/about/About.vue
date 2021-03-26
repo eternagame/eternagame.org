@@ -4,198 +4,46 @@
       <div class="about-page">
         <section class="problem-context">
           <b-container class="problem-context__container">
-            <b-row class="problem-context__row" no-gutters>
+            <b-row v-for="(section, i) in comicSections" :key="i" class="problem-context__row">
               <b-col
                 cols="12"
                 class="col-md-6 col-sm-12 problem-context__list-item"
               >
                 <div class="problem-context__list-item-container">
                   <h3
-                    class="problem-context__heading section-title-1"
-                    v-scroll-reveal="{
-                      delay: 300,
-                      distance: '10px',
-                      origin: 'left'
+                    :class="section.titleClass"
+                    v-scroll-reveal.reset="{
+                      origin: i % 2 ? 'right' : 'left'
                     }"
                   >
-                    {{ $t('about:section1-panel1-title') }}
+                    {{ $t(section.title) }}
                   </h3>
                   <p
+                    v-for="(commentary, j) in section.commentary"
+                    :key="j"
                     class="problem-context__list-item-container__commentary"
-                    v-scroll-reveal="{
-                      delay: 900,
-                      distance: '10px',
-                      origin: 'left'
+                    v-scroll-reveal.reset="{
+                      delay: 600,
+                      origin: i % 2 ? 'right' : 'left'
                     }"
                   >
-                    {{ $t('about:section1-panel1-commentary1') }}
-                  </p>
-                  <p
-                    class="problem-context__list-item-container__commentary"
-                    v-scroll-reveal="{
-                      delay: 900,
-                      distance: '10px',
-                      origin: 'left'
-                    }"
-                  >
-                    {{ $t('about:section1-panel1-commentary2') }}
+                    {{ $t(commentary) }}
                   </p>
                 </div>
               </b-col>
               <b-col
                 cols="12"
                 class="col-md-6 col-sm-12 problem-context__list-item"
-                v-scroll-reveal="{
-                  delay: 600,
-                  distance: '10px',
-                  origin: 'right'
+                v-scroll-reveal.reset="{
+                  delay: 300,
+                  viewFactor: 0.5,
+                  origin: i % 2 ? 'left' : 'right'
                 }"
               >
                 <div class="problem-context__list-item-container">
                   <img
-                    src="@/assets/about/about-page-comic-01.jpg"
-                    alt="eterna problem-context transcribed RNA"
-                    class="problem-context__list-item-container__panel-image"
-                  />
-                </div>
-              </b-col>
-            </b-row>
-            <b-row class="problem-context__row" no-gutters>
-              <b-col
-                cols="12"
-                class="col-md-6 col-sm-12 problem-context__list-item"
-                v-scroll-reveal
-              >
-                <div class="problem-context__list-item-container">
-                  <h3
-                    class="problem-context__heading section-title-3"
-                    v-scroll-reveal="{
-                      delay: 300,
-                      distance: '10px',
-                      origin: 'right'
-                    }"
-                  >
-                    {{ $t('about:section1-panel2-title') }}
-                  </h3>
-                  <p
-                    class="problem-context__list-item-container__commentary"
-                    v-scroll-reveal="{
-                      delay: 900,
-                      distance: '10px',
-                      origin: 'right'
-                    }"
-                  >
-                    {{ $t('about:section1-panel2-commentary') }}
-                  </p>
-                </div>
-              </b-col>
-              <b-col
-                cols="12"
-                class="col-md-6 col-sm-12 problem-context__list-item"
-                v-scroll-reveal="{
-                  delay: 600,
-                  distance: '10px',
-                  origin: 'left'
-                }"
-              >
-                <div class="problem-context__list-item-container">
-                  <img
-                    src="@/assets/about/about-page-comic-02.jpg"
-                    alt="eterna problem-context RNA secondary structure"
-                    class="problem-context__list-item-container__panel-image"
-                  />
-                </div>
-              </b-col>
-            </b-row>
-            <b-row class="problem-context__row" no-gutters>
-              <b-col
-                cols="12"
-                class="col-md-6 col-sm-12 problem-context__list-item"
-                v-scroll-reveal
-              >
-                <div class="problem-context__list-item-container">
-                  <h3
-                    class="problem-context__heading section-title-3"
-                    v-scroll-reveal="{
-                      delay: 300,
-                      distance: '10px',
-                      origin: 'left'
-                    }"
-                  >
-                    {{ $t('about:section1-panel3-title') }}
-                  </h3>
-                  <p
-                    class="problem-context__list-item-container__commentary"
-                    v-scroll-reveal="{
-                      delay: 900,
-                      distance: '10px',
-                      origin: 'left'
-                    }"
-                  >
-                    {{ $t('about:section1-panel3-commentary') }}
-                  </p>
-                </div>
-              </b-col>
-              <b-col
-                cols="12"
-                class="col-md-6 col-sm-12 problem-context__list-item"
-                v-scroll-reveal="{
-                  delay: 600,
-                  distance: '10px',
-                  origin: 'right'
-                }"
-              >
-                <div class="problem-context__list-item-container">
-                  <img
-                    src="@/assets/about/about-page-comic-03.jpg"
-                    alt="eterna problem-context solving eterna puzzle"
-                    class="problem-context__list-item-container__panel-image"
-                  />
-                </div>
-              </b-col>
-            </b-row>
-            <b-row class="problem-context__row" no-gutters>
-              <b-col
-                cols="12"
-                class="col-md-6 col-sm-12 problem-context__list-item"
-                v-scroll-reveal
-              >
-                <div class="problem-context__list-item-container">
-                  <h3
-                    class="problem-context__heading section-title-3"
-                    v-scroll-reveal="{
-                      delay: 300,
-                      distance: '10px',
-                      origin: 'right'
-                    }"
-                  >
-                    {{ $t('about:section1-panel4-title') }}
-                  </h3>
-                  <p
-                    class="problem-context__list-item-container__commentary"
-                    v-scroll-reveal="{
-                      delay: 900,
-                      distance: '10px',
-                      origin: 'right'
-                    }"
-                  >
-                    {{ $t('about:section1-panel4-commentary') }}
-                  </p>
-                </div>
-              </b-col>
-              <b-col
-                cols="12"
-                class="col-md-6 col-sm-12 problem-context__list-item"
-                v-scroll-reveal="{
-                  delay: 600,
-                  distance: '10px',
-                  origin: 'left'
-                }"
-              >
-                <div class="problem-context__list-item-container">
-                  <img
-                    src="@/assets/about/about-page-comic-04.jpg"
-                    alt="eterna problem-context eterna players beating puzzle while supercomputer stumped"
+                    :src="getImgUrl(section.imgRef)"
+                    :alt="section.imgAlt"
                     class="problem-context__list-item-container__panel-image"
                   />
                 </div>
@@ -209,63 +57,23 @@
           </h1>
           <b-container class="how-it-works__container">
             <b-row class="how-it-works__icons">
-              <b-col cols="12" class="col-md-3 col-sm-6 how-it-works__list-item">
+              <b-col
+                v-for="(block, index) in howItWorks"
+                :key="index"
+                cols="12"
+                class="col-md-3 col-sm-6 how-it-works__list-item"
+              >
                 <div class="how-it-works__list-item-container">
                   <img
-                    src="@/assets/about/solve-puzzles-icon.svg"
-                    alt="eterna how-it-works computer icon"
+                    :src="getImgUrl(block.imgRef)"
+                    :alt="block.imgAlt"
                     class="how-it-works__icon"
                   />
                   <p class="how-it-works__sub-text--bold">
-                    {{ $t('about:section2-header1') }}
+                    {{ $t(block.header) }}
                   </p>
                   <p class="how-it-works__sub-text">
-                    {{ $t('about:section2-description1') }}
-                  </p>
-                </div>
-              </b-col>
-              <b-col cols="12" class="col-md-3 col-sm-6 how-it-works__list-item">
-                <div class="how-it-works__list-item-container">
-                  <img
-                    src="@/assets/about/get-feedback-icon.svg"
-                    alt="eterna how-it-works microscope icon"
-                    class="how-it-works__icon"
-                  />
-                  <p class="how-it-works__sub-text--bold">
-                    {{ $t('about:section2-header2') }}
-                  </p>
-                  <p class="how-it-works__sub-text">
-                    {{ $t('about:section2-description2') }}
-                  </p>
-                </div>
-              </b-col>
-              <b-col cols="12" class="col-md-3 col-sm-6 how-it-works__list-item">
-                <div class="how-it-works__list-item-container">
-                  <img
-                    src="@/assets/about/write-papers-icon.svg"
-                    alt="eterna how-it-works paper icon"
-                    class="how-it-works__icon"
-                  />
-                  <p class="how-it-works__sub-text--bold">
-                    {{ $t('about:section2-header3') }}
-                  </p>
-                  <p class="how-it-works__sub-text">
-                    {{ $t('about:section2-description3') }}
-                  </p>
-                </div>
-              </b-col>
-              <b-col cols="12" class="col-md-3 col-sm-6 how-it-works__list-item">
-                <div class="how-it-works__list-item-container">
-                  <img
-                    src="@/assets/about/invent-medicine-icon.svg"
-                    alt="eterna how-it-works microscope icon"
-                    class="how-it-works__icon"
-                  />
-                  <p class="how-it-works__sub-text--bold">
-                    {{ $t('about:section2-header4') }}
-                  </p>
-                  <p class="how-it-works__sub-text">
-                    {{ $t('about:section2-description4') }}
+                    {{ $t(block.description) }}
                   </p>
                 </div>
               </b-col>
@@ -279,11 +87,16 @@
           </h1>
           <b-container>
             <b-row class="challenges__container">
-              <b-col cols="12" class="col-md-6 challenges__challenge-card">
+              <b-col
+                v-for="(challenge, index) in challenges"
+                :key="index"
+                cols="12"
+                class="col-md-6 challenges__challenge-card"
+              >
                 <div class="challenge-video-wrapper">
                   <iframe
                     class="challenges__video"
-                    src="https://www.youtube.com/embed/pGMu569jkEc"
+                    :src="challenge.youtubeUrl"
                     frameborder="0"
                     allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
@@ -291,51 +104,12 @@
                 </div>
                 <h1 class="challenges__heading">
                   <a href="/labs/10027854">
-                    {{ $t('about:section3-header2') }}
+                    {{ $t(challenge.header) }}
                   </a>
                 </h1>
                 <p class="challenges__sub-text">
-                  {{ $t('about:section3-description2') }}
+                  {{ $t(challenge.description) }}
                 </p>
-              </b-col>
-              <b-col cols="12" class="col-md-6 challenges__challenge-card">
-                <div class="challenge-video-wrapper">
-                  <iframe
-                    class="challenges__video"
-                    src="https://www.youtube.com/embed/gQgA8LkHJjY"
-                    frameborder="0"
-                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <h1 class="challenges__heading">
-                    <a href="/labs/8489876">
-                      {{ $t('about:section3-header3') }}
-                    </a>
-                  </h1>
-                  <p class="challenges__sub-text">
-                    {{ $t('about:section3-description3') }}
-                  </p>
-              </b-col>
-              <b-col cols="12" class="col-md-6 challenges__challenge-card">
-                <div class="challenge-video-wrapper">
-                  <iframe
-                    class="challenges__video"
-                    src="https://www.youtube.com/embed/IGYpu4BVnhA"
-                    frameborder="0"
-                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  >
-                  </iframe>
-                </div>
-                <h1 class="challenges__heading">
-                    <a href="/labs/8037883">
-                      {{ $t('about:section3-header4') }}
-                    </a>
-                  </h1>
-                  <p class="challenges__sub-text">
-                    {{ $t('about:section3-description4') }}
-                  </p>
               </b-col>
             </b-row>
           </b-container>
@@ -347,72 +121,7 @@
           </h1>
           <b-container>
             <b-row class="featured-publications__container">
-              <b-col cols="12" class="col-md-4 col-sm-6 featured-publications__list-item">
-                <a
-                  href="https://www.sciencedirect.com/science/article/pii/S0022283615006567?via%3Dihub"
-                  class="featured-publications__list-item-container"
-                  target="_blank"
-                >
-                  <img
-                    src="@/assets/about/about-section-3-1.jpg"
-                    alt="eterna featured-publications RNA structure design graphic"
-                    class="featured-publications__graphic"
-                  />
-                  <p class="featured-publications__year">
-                    {{ $t('about:section4-header1-year') }}
-                  </p>
-                  <h4 class="featured-publications__header">
-                    {{ $t('about:section4-header1') }}
-                  </h4>
-                  <p class="featured-publications__source">
-                    {{ $t('about:section4-header1-source') }}
-                  </p>
-                </a>
-              </b-col>
-              <b-col cols="12" class="col-md-4 col-sm-6 featured-publications__list-item">
-                <a
-                  href="http://www.sciencedirect.com/science/article/pii/S0968000414001455"
-                  class="featured-publications__list-item-container"
-                  target="_blank"
-                >
-                  <img
-                    src="@/assets/about/about-section-3-2.jpg"
-                    alt="eterna featured-publications videiganes graphic"
-                    class="featured-publications__graphic"
-                  />
-                  <p class="featured-publications__year">
-                    {{ $t('about:section4-header2-year') }}
-                  </p>
-                  <h4 class="featured-publications__header">
-                    {{ $t('about:section4-header2') }}
-                  </h4>
-                  <p class="featured-publications__source">
-                    {{ $t('about:section4-header2-source') }}
-                  </p>
-                </a>
-              </b-col>
-              <b-col cols="12" class="col-md-4 col-sm-6 featured-publications__list-item">
-                <a
-                  href="http://www.pnas.org/content/111/6/2122"
-                  class="featured-publications__list-item-container"
-                  target="_blank"
-                >
-                  <img
-                    src="@/assets/about/about-section-3-3.jpg"
-                    alt="eterna featured-publications paper graphic"
-                    class="featured-publications__graphic"
-                  />
-                  <p class="featured-publications__year">
-                    {{ $t('about:section4-header3-year') }}
-                  </p>
-                  <h4 class="featured-publications__header">
-                    {{ $t('about:section4-header3') }}
-                  </h4>
-                  <p class="featured-publications__source">
-                    {{ $t('about:section4-header3-source') }}
-                  </p>
-                </a>
-              </b-col>
+              <AboutPublicationCard v-for="(item, index) in publicationItems" :key="index" :item="item" />
             </b-row>
           </b-container>
           <b-button
@@ -431,172 +140,41 @@
           <p class="media-block__subtitle">
             {{ $t('about:section5-subtitle') }}
           </p>
-          <!-- <b-container>
-            <b-row class="media-block__container">
-              <b-col cols="12" class="col-md-4 col-sm-6 media-block__list-item">
-                <a
-                  href="https://www.sciencedirect.com/science/article/pii/S0022283615006567?via%3Dihub"
-                  class="media-block__list-item-container"
-                  target="_blank"
-                >
-                  <div class="media-block__download-button">
-                      <img
-                        src="@/assets/about/download-icon.svg"
-                        alt="eterna download icon"
-                        class="media-block__download-button__icon"
-                      />
-                  </div>
-                  <h4 class="media-block__header">
-                    {{ $t('about:section5-card1-title') }}
-                  </h4>
-                  <p class="media-block__description">
-                    {{ $t('about:section5-card1-description') }}
-                  </p>
-                </a>
-              </b-col>
-              <b-col cols="12" class="col-md-4 col-sm-6 media-block__list-item">
-                <a
-                  href="https://www.sciencedirect.com/science/article/pii/S0022283615006567?via%3Dihub"
-                  class="media-block__list-item-container"
-                  target="_blank"
-                >
-                  <div class="media-block__download-button">
-                      <img
-                        src="@/assets/about/download-icon.svg"
-                        alt="eterna download icon"
-                        class="media-block__download-button__icon"
-                      />
-                  </div>
-                  <h4 class="media-block__header">
-                    {{ $t('about:section5-card2-title') }}
-                  </h4>
-                  <p class="media-block__description">
-                    {{ $t('about:section5-card2-description') }}
-                  </p>
-                </a>
-              </b-col>
-              <b-col cols="12" class="col-md-4 col-sm-6 media-block__list-item">
-                <a
-                  href="https://www.sciencedirect.com/science/article/pii/S0022283615006567?via%3Dihub"
-                  class="media-block__list-item-container"
-                  target="_blank"
-                >
-                  <div class="media-block__download-button">
-                      <img
-                        src="@/assets/about/download-icon.svg"
-                        alt="eterna download icon"
-                        class="media-block__download-button__icon"
-                      />
-                  </div>
-                  <h4 class="media-block__header">
-                    {{ $t('about:section5-card3-title') }}
-                  </h4>
-                  <p class="media-block__description">
-                    {{ $t('about:section5-card3-description') }}
-                  </p>
-                </a>
-              </b-col>
-            </b-row>
-          </b-container> -->
           <b-container>
             <b-row class="media-block__container">
-              <b-col cols="12" class="col-md-12 col-sm-12 media-block__press">
+                <AboutMediaCard v-for="(item, index) in mediaItems" :key="index" :item="item" />
+            </b-row>
+          </b-container>
+          <b-container>
+            <b-row class="media-block__container">
+              <b-col
+                v-for="(media, index) in pressBlocks"
+                :key="index"
+                cols="12"
+                class="col-md-12 col-sm-12 media-block__press"
+              >
                 <div class="media-block__press__logo">
                   <img
-                    src="@/assets/front-page/img/logo_nyt.svg"
-                    alt="eterna download icon"
+                    :src="getImgUrl(media.imgRef)"
+                    :alt="media.imgAlt"
                   />
                 </div>
                 <div>
                   <p class="media-block__press__quote">
-                    {{ $t('about:section5-press1') }}
+                    {{ $t(media.press) }}
                   </p>
                   <a
-                    href="http://www.nytimes.com/2011/01/11/science/11rna.html?_r=0"
+                    :href="media.link"
                     class="media-block__press__read-more"
                     target="_blank"
                   >
                     Read More
-                  </a>
-                </div>
-              </b-col>
-              <b-col cols="12" class="col-md-12 col-sm-12 media-block__press">
-                <div class="media-block__press__logo">
-                  <img
-                    src="@/assets/front-page/img/logo_cnn.svg"
-                    alt="eterna download icon"
-                  />
-                </div>
-                <div>
-                  <p class="media-block__press__quote">
-                    {{ $t('about:section5-press2') }}
-                  </p>
-                  <a
-                    href="http://www.cnn.com/interactive/2012/08/tech/gaming.series/research.html"
-                    class="media-block__press__read-more"
-                    target="_blank"
-                  >
-                    Read More
-                  </a>
-                </div>
-              </b-col>
-              <b-col cols="12" class="col-md-12 col-sm-12 media-block__press">
-                <div class="media-block__press__logo">
-                  <img
-                    src="@/assets/front-page/img/logo_wired.svg"
-                    alt="eterna download icon"
-                  />
-                </div>
-                <div>
-                  <p class="media-block__press__quote">
-                    {{ $t('about:section5-press3') }}
-                  </p>
-                  <a
-                    href="http://www.wired.com/wiredscience/2012/07/ff-rnagame/"
-                    class="media-block__press__read-more"
-                    target="_blank"
-                  >
-                    Read More
-                  </a>
-                </div>
-              </b-col>
-              <b-col cols="12" class="col-md-12 col-sm-12 media-block__press">
-                <div class="media-block__press__logo">
-                  <img
-                    src="@/assets/front-page/img/logo_wsj.svg"
-                    alt="eterna download icon"
-                  />
-                </div>
-                <div>
-                  <p class="media-block__press__quote">
-                    {{ $t('about:section5-press4') }}
-                  </p>
-                  <a
-                    href="http://www.wsj.com/articles/videogamers-are-recruited-to-fight-tuberculosis-and-other-ills-1462290212"
-                    class="media-block__press__read-more"
-                    target="_blank"
-                  >
-                    Read More
-                  </a>
-                </div>
-              </b-col>
-              <b-col cols="12" class="col-md-12 col-sm-12 media-block__press">
-                <div class="media-block__press__logo">
-                  <img
-                    src="@/assets/front-page/img/logo_nova.svg"
-                    alt="eterna download icon"
-                  />
-                </div>
-                <div>
-                  <p class="media-block__press__quote">
-                    {{ $t('about:section5-press5') }}
-                  </p>
-                  <a
-                    href="https://www.pbs.org/wgbh/nova/video/decoding-covid-19/"
-                    class="media-block__press__read-more"
-                    target="_blank"
-                  >
-                    Read More
+                    <img
+                      v-if="isExternal(media.link)"
+                      class="media-block__press__read-more_icon"
+                      src="@/assets/about/ExternalLink.svg"
+                      :alt="$t('nav-bar:external-link')"
+                    />
                   </a>
                 </div>
               </b-col>
@@ -624,13 +202,13 @@
                   <p class="history__list-item-container__commentary">
                     {{ $t('about:section6-description') }}
                   </p>
-                  <!-- <b-button
+                  <b-button
                     to="/about/publications"
                     class="history__btn"
                     variant="secondary"
                     >
                     {{ $t('about:section6-learn-more') }}
-                  </b-button> -->
+                  </b-button>
                 </div>
               </b-col>
             </b-row>
@@ -643,60 +221,27 @@
           </h1>
           <b-container class="contribute-your-talents__container">
             <b-row class="contribute-your-talents__icons">
-              <b-col cols="12" class="col-md-4 col-sm-6 contribute-your-talents__list-item">
+              <b-col
+                v-for="(block, index) in talentBlocks"
+                :key="index"
+                cols="12"
+                class="col-md-4 col-sm-6 contribute-your-talents__list-item"
+              >
                 <div class="contribute-your-talents__list-item-container">
                   <router-link to="/puzzles">
                     <img
-                      src="@/assets/about/about-section-4-1.png"
-                      alt="eterna contribute-your-talents RNA structure design icon"
+                      :src="getImgUrl(block.imgRef)"
+                      :alt="block.imgAlt"
                       class="contribute-your-talents__icon"
                     />
                   </router-link>
                   <router-link to="/puzzles"
                     ><p class="contribute-your-talents__header">
-                      {{ $t('about:section7-header1') }}
+                      {{ $t(block.header) }}
                     </p>
                   </router-link>
                   <p class="contribute-your-talents__header-source">
-                    {{ $t('about:section7-header1-details') }}
-                  </p>
-                </div>
-              </b-col>
-              <b-col cols="12" class="col-md-4 col-sm-6 contribute-your-talents__list-item">
-                <div class="contribute-your-talents__list-item-container">
-                  <a :href="`${BASE_URL_PREFIX}/web/script/`">
-                    <img
-                      src="@/assets/about/about-section-4-2.png"
-                      alt="eterna contribute-your-talents videiganes icon"
-                      class="contribute-your-talents__icon"
-                    />
-                  </a>
-                  <a :href="`${BASE_URL_PREFIX}/web/script/`"
-                    ><p class="contribute-your-talents__header">
-                      {{ $t('about:section7-header2') }}
-                    </p></a
-                  >
-                  <p class="contribute-your-talents__header-source">
-                    {{ $t('about:section7-header2-details') }}
-                  </p>
-                </div>
-              </b-col>
-              <b-col cols="12" class="col-md-4 col-sm-6 contribute-your-talents__list-item">
-                <div class="contribute-your-talents__list-item-container">
-                  <router-link to="/news/6990398/">
-                    <img
-                      src="@/assets/about/about-section-4-3.png"
-                      alt="eterna contribute-your-talents paper icon"
-                      class="contribute-your-talents__icon"
-                    />
-                  </router-link>
-                  <router-link to="/news/6990398/">
-                    <p class="contribute-your-talents__header">
-                      {{ $t('about:section7-header3') }}
-                    </p>
-                  </router-link>
-                  <p class="contribute-your-talents__header-source">
-                    {{ $t('about:section7-header3-details') }}
+                    {{ $t(block.details) }}
                   </p>
                 </div>
               </b-col>
@@ -709,28 +254,16 @@
             {{ $t('about:section8-title1') }}
           </h1>
           <b-container>
-            <b-row class="contributors__container">
+            <b-row
+              v-for="(contributor, index) in currentContributors"
+              :key="index"
+              class="contributors__container"
+            >
               <h3 class="contributors__container_title section-title-3">
-                {{ $t('about:section8-subtitle1') }}
+                {{ $t(contributor.title) }}
               </h3>
               <p class="contributors__container_body">
-                {{ $t('about:section8-description1') }}
-              </p>
-            </b-row>
-            <b-row class="contributors__container">
-              <h3 class="contributors__container_title section-title-3">
-                {{ $t('about:section8-subtitle2') }}
-              </h3>
-              <p class="contributors__container_body">
-                {{ $t('about:section8-description2') }}
-              </p>
-            </b-row>
-            <b-row class="contributors__container">
-              <h3 class="contributors__container_title section-title-3">
-                {{ $t('about:section8-subtitle3') }}
-              </h3>
-              <p class="contributors__container_body">
-                {{ $t('about:section8-description3') }}
+                {{ $t(contributor.body) }}
               </p>
             </b-row>
           </b-container>
@@ -738,28 +271,16 @@
             {{ $t('about:section8-title2') }}
           </h1>
           <b-container>
-            <b-row class="contributors__container">
+            <b-row
+              v-for="(contributor, index) in pastContributors"
+              :key="index"
+              class="contributors__container"
+            >
               <h3 class="contributors__container_title section-title-3">
-                {{ $t('about:section8-subtitle4') }}
+                {{ $t(contributor.title) }}
               </h3>
               <p class="contributors__container_body">
-                {{ $t('about:section8-description4') }}
-              </p>
-            </b-row>
-            <b-row class="contributors__container">
-              <h3 class="contributors__container_title section-title-3">
-                {{ $t('about:section8-subtitle5') }}
-              </h3>
-              <p class="contributors__container_body">
-                {{ $t('about:section8-description5') }}
-              </p>
-            </b-row>
-            <b-row class="contributors__container">
-              <h3 class="contributors__container_title section-title-3">
-                {{ $t('about:section8-subtitle6') }}
-              </h3>
-              <p class="contributors__container_body">
-                {{ $t('about:section8-description6') }}
+                {{ $t(contributor.body) }}
               </p>
             </b-row>
           </b-container>
@@ -772,14 +293,234 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
+  import {AboutMediaItem, AboutPublicationItem} from '@/types/common-types';
+  import AboutMediaCard from '@/views/about/AboutMediaCard.vue';
+  import AboutPublicationCard from '@/views/about/AboutPublicationCard.vue';
+  import Utils from '@/utils/utils';
 
   @Component({
     components: {
       EternaPage,
+      AboutMediaCard,
+      AboutPublicationCard,
     },
   })
   export default class About extends Vue {
     private BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;
+
+    comicSections = [
+      {
+        title: "about:section1-panel1-title",
+        titleClass: "problem-context__heading section-title-1",
+        commentary: ["about:section1-panel1-commentary1", "about:section1-panel1-commentary2"],
+        imgRef: "about/about-page-comic-01.jpg",
+        imgAlt: "eterna problem-context transcribed RNA",
+      },
+      {
+        title: "about:section1-panel2-title",
+        titleClass: "problem-context__heading section-title-3",
+        commentary: ["about:section1-panel2-commentary"],
+        imgRef: "about/about-page-comic-02.jpg",
+        imgAlt: "eterna problem-context RNA secondary structure",
+      },
+      {
+        title: "about:section1-panel3-title",
+        titleClass: "problem-context__heading section-title-3",
+        commentary: ["about:section1-panel3-commentary"],
+        imgRef: "about/about-page-comic-03.jpg",
+        imgAlt: "eterna problem-context solving eterna puzzle",
+      },
+      {
+        title: "about:section1-panel4-title",
+        titleClass: "problem-context__heading section-title-3",
+        commentary: ["about:section1-panel4-commentary"],
+        imgRef: "about/about-page-comic-04.jpg",
+        imgAlt: "eterna problem-context eterna players beating puzzle while supercomputer stumped",
+      },
+    ];
+
+    howItWorks = [
+      {
+        header: "about:section2-header1",
+        description: "about:section2-description1",
+        imgRef: "about/solve-puzzles-icon.svg",
+        imgAlt: "eterna how-it-works computer icon"
+      },
+      {
+        header: "about:section2-header2",
+        description: "about:section2-description2",
+        imgRef: "about/get-feedback-icon.svg",
+        imgAlt: "eterna how-it-works microscope icon"
+      },
+      {
+        header: "about:section2-header3",
+        description: "about:section2-description3",
+        imgRef: "about/write-papers-icon.svg",
+        imgAlt: "eterna how-it-works paper icon"
+      },
+      {
+        header: "about:section2-header4",
+        description: "about:section2-description4",
+        imgRef: "about/invent-medicine-icon.svg",
+        imgAlt: "eterna how-it-works medicine icon"
+      }
+    ];
+
+    challenges = [
+      {
+        youtubeUrl: "https://www.youtube.com/embed/pGMu569jkEc",
+        header: "about:section3-header2",
+        description: "about:section3-description2"
+      },
+      {
+        youtubeUrl: "https://www.youtube.com/embed/gQgA8LkHJjY",
+        header: "about:section3-header3",
+        description: "about:section3-description3"
+      },
+      {
+        youtubeUrl: "https://www.youtube.com/embed/IGYpu4BVnhA",
+        header: "about:section3-header4",
+        description: "about:section3-description4"
+      }
+    ];
+
+    mediaItems: AboutMediaItem[] = [
+      {
+        link: "https://google.com",
+        title: "about:section5-card1-title",
+        description: "about:section5-card1-description",
+      },
+      {
+        link: "https://google.com",
+        title: "about:section5-card2-title",
+        description: "about:section5-card2-description",
+      },
+      {
+        link: "https://google.com",
+        title: "about:section5-card3-title",
+        description: "about:section5-card3-description",
+      }
+    ];
+
+    pressBlocks = [
+      {
+        imgRef: "front-page/img/logo_nyt.svg",
+        imgAlt: "eterna press new york times logo",
+        press: "about:section5-press1",
+        link: "http://www.nytimes.com/2011/01/11/science/11rna.html?_r=0"
+      },
+      {
+        imgRef: "front-page/img/logo_cnn.svg",
+        imgAlt: "eterna press cnn logo",
+        press: "about:section5-press2",
+        link: "http://www.cnn.com/interactive/2012/08/tech/gaming.series/research.html"
+      },
+      {
+        imgRef: "front-page/img/logo_wired.svg",
+        imgAlt: "eterna press wired logo",
+        press: "about:section5-press3",
+        link: "http://www.wired.com/wiredscience/2012/07/ff-rnagame/"
+      },
+      {
+        imgRef: "front-page/img/logo_wsj.svg",
+        imgAlt: "eterna press wall street journal logo",
+        press: "about:section5-press4",
+        link: "http://www.wsj.com/articles/videogamers-are-recruited-to-fight-tuberculosis-and-other-ills-1462290212"
+      },
+      {
+        imgRef: "front-page/img/logo_nova.svg",
+        imgAlt: "eterna press nova logo",
+        press: "about:section5-press5",
+        link: "https://www.pbs.org/wgbh/nova/video/decoding-covid-19/"
+      }
+    ];
+
+    publicationItems: AboutPublicationItem[] = [
+      {
+        link: "https://www.sciencedirect.com/science/article/pii/S0022283615006567?via%3Dihub",
+        imgRef: "about-section-3-1",
+        imgAlt: "eterna featured-publications RNA structure design graphic",
+        date: "about:section4-year1",
+        title: "about:section4-header1",
+        source: "about:section4-source1",
+      },
+      {
+        link: "http://www.sciencedirect.com/science/article/pii/S0968000414001455",
+        imgRef: "about-section-3-2",
+        imgAlt: "eterna featured-publications videogames graphic",
+        date: "about:section4-year2",
+        title: "about:section4-header2",
+        source: "about:section4-source2",
+      },
+      {
+        link: "http://www.pnas.org/content/111/6/2122",
+        imgRef: "about-section-3-3",
+        imgAlt: "eterna featured-publications paper graphic",
+        date: "about:section4-year3",
+        title: "about:section4-header3",
+        source: "about:section4-source3",
+      },
+    ];
+
+    talentBlocks = [
+      {
+        imgRef: "about/about-section-4-1.png",
+        imgAlt: "eterna contribute-your-talents RNA structure design icon",
+        header: "about:section7-header1",
+        details: "about:section7-header1-details"
+      },
+      {
+        imgRef: "about/about-section-4-2.png",
+        imgAlt: "eterna contribute-your-talents videiganes icon",
+        header: "about:section7-header2",
+        details: "about:section7-header2-details"
+      },
+      {
+        imgRef: "about/about-section-4-3.png",
+        imgAlt: "eterna contribute-your-talents paper icon",
+        header: "about:section7-header3",
+        details: "about:section7-header3-details"
+      },
+    ];
+
+    currentContributors = [
+      {
+        title: "about:section8-subtitle1",
+        body: "about:section8-description1"
+      },
+      {
+        title: "about:section8-subtitle2",
+        body: "about:section8-description2"
+      },
+      {
+        title: "about:section8-subtitle3",
+        body: "about:section8-description3"
+      },
+    ];
+
+    pastContributors = [
+      {
+        title: "about:section8-subtitle4",
+        body: "about:section8-description4"
+      },
+      {
+        title: "about:section8-subtitle5",
+        body: "about:section8-description5"
+      },
+      {
+        title: "about:section8-subtitle6",
+        body: "about:section8-description6"
+      },
+    ];
+    
+    isExternal(link: string): boolean {
+      return Utils.isExternal(link);
+    }
+
+    getImgUrl(path: string) {
+      const images = require.context('@/assets/', true);
+      return images(`./${  path}`);
+    }
   }
 </script>
 <style lang="scss" scoped>
@@ -830,9 +571,10 @@
   }
 
   .problem-context {
-    padding: 50px 118px;
+    padding: 10rem 2rem;
+    padding-top: 0px;
     width: 100%;
-    background-color: #043468;
+    background-color: #21508C;
     @media (max-width: $breakpoint-small) {
       padding: 50px 10px;
     }
@@ -840,23 +582,20 @@
     &__row {
       display: flex;
       flex-direction: row;
-      align-items: center;
-      margin: 50vh 0;
-      
-      &:first-child {
-        margin: calc(50vh - 220px) 0;
-      }
-
-      &:last-child {
-        margin: 0;
-        margin-top: 50vh;
-      }
+      height: calc(100vh - 120px);
 
       &:nth-child(2n) {
         flex-direction: row-reverse;
+        height: auto;
+        padding-left: 2rem;
+      }
+
+      &:nth-child(2n + 1) {
+        align-items: center;
       }
 
       @media (max-width: $breakpoint-small) {
+        height: auto;
         margin: 0;
         margin-top: 60px;
 
@@ -872,40 +611,47 @@
     }
 
     &__list-item {
-      padding-left: 50px;
-
+      &:nth-child(2n + 1) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        animation: transitionIn 300ms linear;
+      }
+      
       @media (max-width: $breakpoint-small) {
         padding-left: 0px;
         margin-top: 20px;
       }
-    }
 
-    &__list-item-container {
-      flex: 0.5;
+      &-container {
+        flex: 0.5;
 
-      .section-title-1 {
-        @media (max-width: $breakpoint-small) {
-          text-align: center;
+        .section-title-1 {
+          @media (max-width: $breakpoint-small) {
+            text-align: center;
+          }
         }
-      }
 
-      .section-title-3 {
-        margin-top: 20px;
+        .section-title-3 {
+          margin-top: 20px;
 
-        @media (max-width: $breakpoint-small) {
-          text-align: center;
+          @media (max-width: $breakpoint-small) {
+            text-align: center;
+          }
         }
-      }
 
-      &__panel-image {
-        width: 100%;
-        border-radius: 5px;
-        box-shadow: 1px 1px 0px 0px rgb(94 93 102 / 8%),
-          2px 5px 10px 0px rgb(94 93 102 / 10%);
-      }
+        &__panel-image {
+          width: 100%;
+          border-radius: 5px;
+          box-shadow: 1px 1px 0px 0px rgb(94 93 102 / 8%),
+            2px 5px 10px 0px rgb(94 93 102 / 10%);
+        }
 
-      &__commentary {
-        font-size: 0.8rem;
+        &__commentary {
+          font-size: 0.9rem;
+          max-width: 50ch;
+        }
       }
     }
   }
@@ -1011,53 +757,6 @@
       display: flex;
       justify-content: center;
     }
-    &__list-item {
-      display: flex;
-      justify-content: center;
-      padding: 0;
-      max-width: 300px;
-
-      &-container {
-        position: relative;
-        width: 100%;
-        margin: 0 10px;
-        background-color: #043468;
-        border-radius: 5px;
-        padding: 10px;
-        padding-bottom: 50px;
-        box-shadow: 1px 1px 0px 0px rgb(94 93 102 / 8%),
-          2px 2px 3px 0px rgb(94 93 102 / 10%);
-        transition: box-shadow 0.15s ease-in-out;
-
-        &:hover {
-          box-shadow: 1px 1px 0px 0px rgb(94 93 102 / 8%),
-          2px 5px 10px 0px rgb(94 93 102 / 10%);
-        }
-
-        @media (max-width: $breakpoint-small) {
-          margin-bottom: 3rem;
-        }
-      }
-    }
-    &__graphic {
-      width: 100%;
-      height: 167px;
-      border-radius: 2.5px;
-      margin-bottom: 0.69rem;
-    }
-    &__year {
-      font-size: 0.875rem;
-    }
-    &__header {
-      font-size: 1rem;
-      font-weight: bolder;
-    }
-    &__source {
-      position: absolute;
-      bottom: 0;
-      font-style: italic;
-      font-size: 0.875rem;
-    }
     &__btn {
       width: 25rem;
       height: 2.5rem;
@@ -1087,55 +786,6 @@
       justify-content: center;
       max-width: 900px;
       margin: 0 auto;
-    }
-    &__list-item {
-      display: flex;
-      justify-content: center;
-      padding: 0;
-      max-width: 300px;
-
-      &-container {
-        position: relative;
-        width: 100%;
-        margin: 0 10px;
-        background-color: #043468;
-        border-radius: 5px;
-        padding: 10px;
-        padding-top: 20px;
-        box-shadow: 1px 1px 0px 0px rgb(94 93 102 / 8%),
-          2px 2px 3px 0px rgb(94 93 102 / 10%);
-        transition: box-shadow 0.15s ease-in-out;
-
-        &:hover {
-          box-shadow: 1px 1px 0px 0px rgb(94 93 102 / 8%),
-          2px 5px 10px 0px rgb(94 93 102 / 10%);
-        }
-      }
-    }
-    &__download-button {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #ffffff;
-      width: 30px;
-      height: 30px;
-      border-radius: 15px;
-
-      &__icon {
-        width: 12px;
-        height: 12px;
-      }
-    }
-    &__header {
-      font-size: 1rem;
-      font-weight: bolder;
-      margin-bottom: 30px;
-    }
-    &__description {
-      font-size: 0.875rem;
     }
     &__press {
       display: flex;
@@ -1179,6 +829,13 @@
           position: absolute;
           left: 50%;
           transform: translateX(-50%);
+        }
+
+        &_icon {
+          height: 0.8rem;
+          margin-left: 5px;
+          position: relative;
+          top: -2.5px;
         }
       }
     }
@@ -1230,6 +887,7 @@
       height: 2rem;
       font-size: 0.875rem;
       display: block;
+      padding-top: 4px;
     }
   }
 
@@ -1240,6 +898,10 @@
     &__list-item-container {
       text-align: center;
       width: 12rem;
+
+      & a {
+        text-decoration-color: #F39C12;
+      }
     }
     &__list-item {
       display: flex;
@@ -1266,6 +928,8 @@
       color: #F39C12;
       font-weight: bolder;
       margin: 2px auto;
+      
+      
       &-source {
         font-size: 0.875rem;
         text-align: center;
@@ -1292,5 +956,10 @@
       margin-bottom: 1rem;
     }
 
+  }
+
+  @keyframes transitionIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 </style>

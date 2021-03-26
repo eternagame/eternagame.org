@@ -202,13 +202,13 @@
                   <p class="history__list-item-container__commentary">
                     {{ $t('about:section6-description') }}
                   </p>
-                  <b-button
+                  <!-- <b-button
                     to="/about/publications"
                     class="history__btn"
                     variant="secondary"
                     >
                     {{ $t('about:section6-learn-more') }}
-                  </b-button>
+                  </b-button> -->
                 </div>
               </b-col>
             </b-row>

@@ -6,7 +6,7 @@
           <b>{{ lab.title }}</b>
         </div>
       </template>
-      <b-img class="image" :src="image" />
+      <img class="image" :src="image" />
       <template #footer>
         <div class="lab-card-footer d-flex">
           <div

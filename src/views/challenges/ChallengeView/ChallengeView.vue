@@ -1,9 +1,9 @@
 <template>
   <EternaPage v-if="challenge">
-    <ChallengeDescription :lab="challenge" style="margin-bottom: 52.5px;" />
-    <ChallengePublications v-if="true" :challenge="challenge" />
-    <ChallengeUpdates v-if="true" :challenge="challenge" />
-    <div class="lab-container">
+    <ChallengeDescription :challenge="challenge" style="margin-bottom: 52.5px;" />
+    <ChallengePublications v-if="challenge.publications && challenge.publications.length > 0" :challenge="challenge" />
+    <ChallengeUpdates v-if="challenge.admin_updates && challenge.admin_updates.length > 0" :challenge="challenge" />
+    <div v-if="challenge.labs.length > 0" :class="`lab-container${challenge.donors && challenge.donors.length > 0 ? '' : ' without-border-bottom'}`">
       <tabs>
         <tab :title="`Open Labs (${openLabs.length})`">
           <div class="tab-container">
@@ -27,23 +27,19 @@
         </tab>
       </tabs>
     </div>
-    <ChallengeDonors v-if="true" :challenge="challenge" />
+    <ChallengeDonors v-if="challenge.donors" :challenge="challenge" />
     <template #sidebar="{ isInSidebar }">
-      <ChallengeInfoPanel :challenge="{
-        status: 'Round 4 accepting submissions',
-        affiliation: 'Stanford University'
-      }" :isInSidebar="isInSidebar" />
+      <ChallengeInfoPanel :challenge="challenge" :isInSidebar="isInSidebar" />
     </template>
   </EternaPage>
 </template>
 
 <script lang="ts">
-  import { Component, Mixins } from 'vue-property-decorator';
+  import { Watch, Component, Mixins } from 'vue-property-decorator';
   import { Tabs, Tab } from 'vue-slim-tabs';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FetchMixin from '@/mixins/FetchMixin';
-  import LabsExploreData, { LabCardData } from '@/views/labs/LabsExplore/types';
-  import LabViewData, { LabData } from '@/views/labs/LabView/types';
+  import { ChallengeData } from '@/views/challenges/ChallengeView/types';
   import LabCard from '@/views/labs/LabsExplore/components/LabCard.vue';
   import ChallengeDescription from './components/ChallengeDescription.vue';
   import ChallengeInfoPanel from './components/ChallengeInfoPanel.vue';
@@ -67,39 +63,29 @@
     },
   })
   export default class ChallengeView extends Mixins(FetchMixin) {
-    challenge: LabData | null = null;
-    
-    labs: LabCardData[] | null = null;
+    challenge: ChallengeData | null = null;
 
     async fetch() {
       const challengeResults = (
-        await this.$http.get(`/get/?type=project&nid=${this.$route.params.id}`)
-      ).data.data as LabViewData;
+        await this.$http.get(`/get/?type=challenge&nid=${this.$route.params.id}`)
+      ).data.data.challenge as ChallengeData;
       
-      this.challenge = challengeResults.lab;
+      this.challenge = {...challengeResults};
+      console.log("Challenge: ", challengeResults);
+    }
 
-      const {sort} = this.$route.query;
-      const labResults = (
-        await this.$http.get('/get/?type=get_labs_for_lab_cards', {
-          params: {
-            order: this.$route.query.sort,
-            filters: this.$route.query.filters ? this.$route.query.filters : '',
-            search: this.$route.query.search,
-            size: this.$route.query.size || INITIAL_NUMBER,
-          },
-        })
-      ).data.data as LabsExploreData;
-      this.labs = labResults.labs;
-
-      // TODO: Filter by Challenge
+    @Watch('challenge')
+    onChallengeChange(){
+      console.log("Watch that shit: ", this.challenge);
+      this.$forceUpdate();
     }
 
     get closedLabs() {
-      return this.labs?.filter(lab => !lab.is_active) || [];
+      return this.challenge?.labs.filter(lab => !lab.is_active) || [];
     }
 
     get openLabs() {
-      return this.labs?.filter(lab => lab.is_active) || [];
+      return this.challenge?.labs.filter(lab => lab.is_active) || [];
     }
   }
 </script>
@@ -117,6 +103,10 @@
   .lab-container {
     padding: 2rem 0;
     border-bottom: 1px solid #14467d;
+  }
+
+  .without-border-bottom {
+    border-bottom: 0px;
   }
 
   .empty-lab {

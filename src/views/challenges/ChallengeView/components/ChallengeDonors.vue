@@ -19,13 +19,13 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { LabData } from '@/views/labs/LabView/types';
+  import { ChallengeData } from '@/views/challenges/ChallengeView/types';
 
   @Component({
     components: {},
   })
   export default class ChallengeDonors extends Vue {
-    @Prop({ required: true }) readonly challenge!: LabData;
+    @Prop({ required: true }) readonly challenge!: ChallengeData;
 
     donors = [
       {

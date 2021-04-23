@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="challenge">
     <div class="challenge-updates">
       <h4 class="header">
         Challenge Updates
@@ -13,22 +13,20 @@
           :key="i"
           class="update card"
         >
-          <a href="item.link">
-            <div class="update-card-label">
-              Challenges
+          <div class="update-card-label">
+            Challenges
+          </div>
+          <div class="update-card-date">
+            {{ update.created }}
+          </div>
+          <div class="update-card-contents">
+            <div class="update-card-title">
+              {{ update.title }}
             </div>
-            <div class="update-card-date">
-              {{ update.date }}
+            <div class="update-card-body">
+              {{ update.body }}
             </div>
-            <div class="update-card-contents">
-              <div class="update-card-title">
-                {{ update.title }}
-              </div>
-              <div class="update-card-body">
-                {{ update.body }}
-              </div>
-            </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>
@@ -37,33 +35,21 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { LabData } from '@/views/labs/LabView/types';
+  import { ChallengeData } from '@/views/challenges/ChallengeView/types';
 
   @Component({
     components: {},
   })
   export default class ChallengeUpdates extends Vue {
-    @Prop({ required: true }) readonly challenge!: LabData;
+    @Prop({ required: true }) readonly challenge!: ChallengeData;
 
-    updates = [
-      {
-        date: "Apr 25 2019",
-        title: "New results posted: combination designs from Ribosome Challenge Rounds 1-2!",
-        body: "Hey, players-- Antje has just completed optimal and stress condition studies on a new set of ribosomes -- combinations of the best R1 and R2 16S and 23S designs! Check out the Round 2 conclusions for the exciting results!"
-      },
-      {
-        date: "Apr 25 2019",
-        title: "Town Hall Update: New schedule and new hosts starting March 1st!",
-        body: "Hello fellow Eterna Players. This Monday, March 1st, the EPA will be starting to host the Town Halls, with Jennifer Pearl running the event. We will have Town Halls every 1st and 3rd Monday of each month going forward. We’ll stick to that schedule to reduce confusion of whether the event will be happening or not. If there is nothing to discuss we may end early or do something for fun maybe… You can request a ticket…"
-      },
-      {
-        date: "Apr 25 2019",
-        title: "Town Hall Update: New schedule and new hosts starting March 1st!",
-        body: "Hello fellow Eterna Players. This Monday, March 1st, the EPA will be starting to host the Town Halls, with Jennifer Pearl running the event. We will have Town Halls every 1st and 3rd Monday of each month going forward. We’ll stick to that schedule to reduce confusion of whether the event will be happening or not. If there is nothing to discuss we may end early or do something for fun maybe… You can request a ticket…"
-      }
-    ];
+    get updates() {
+      return this.challenge.admin_updates.sort((a, b) => a.timestamp - b.timestamp);
+    }
 
-    summary = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    get summary() {
+      return this.challenge.update_summary;
+    }
   }
 </script>
 
@@ -89,18 +75,13 @@
   .update {
     position: relative;
     width: 100%;
-    padding: 0;
+    padding: 20px;
     margin-bottom: 20px;
     background-color: #043468;
     border-radius: 5px;
     box-shadow: 1px 1px 0px 0px rgb(94 93 102 / 8%),
     2px 2px 3px 0px rgb(94 93 102 / 10%);
     transition: box-shadow 0.15s ease-in-out;
-
-    & a {
-      position: relative;
-      padding: 20px;
-    }
 
     &:hover {
     box-shadow: 1px 1px 0px 0px rgb(94 93 102 / 8%),

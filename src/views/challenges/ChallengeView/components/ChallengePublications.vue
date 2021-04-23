@@ -1,17 +1,20 @@
 <template>
-  <div>
+  <div v-if="challenge">
     <div class="challenge-publications">
       <h4 class="header">
         Publications
       </h4>
       <div>
         <div
-          v-for="(publication, i) in publications"
+          v-for="(publication, i) in challenge.publications"
           :key="i"
           class="publication"
         >
           <div class="publication-image">
-            <img src="@/assets/badge_openvaccine_100.png" />
+            <img v-if="publication.image" :src="publication.image" />
+            <div v-else class="publication-image-placeholder">
+              <img class="publication-image-placeholder-image" src="@/assets/logomark_eterna.svg" />
+            </div>
           </div>
           <div class="publication-info">
             <h5 class="publication-title">
@@ -28,34 +31,13 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { LabData } from '@/views/labs/LabView/types';
+  import { ChallengeData } from '@/views/challenges/ChallengeView/types';
 
   @Component({
     components: {},
   })
   export default class ChallengePublications extends Vue {
-    @Prop({ required: true }) readonly challenge!: LabData;
-
-    publications = [
-      {
-        title: "Theoretical basis for stabilizing messenger RNA through secondary structure design",
-        journal: "bioRxiv",
-        pub_date: "August 2020",
-        authors: "Hannah K. Wayment-Steele, Do Soon Kim, Christian A. Choe, John J. Nicol, Roger Wellington-Oguri, R. Andres Parra Sperberg, Po-Ssu Huang, Eterna Participants, Rhiju Das"
-      },
-      {
-        title: "RNA secondary structure packages ranked and improved by high- throughput experiments",
-        journal: "bioRxiv",
-        pub_date: "May 2020",
-        authors: "Hannah K. Wayment-Steele, Wipapat Kladwang, Eterna Participants, Rhiju Das"
-      },
-      {
-        title: "Evidence of an Unusual Poly(A) RNA Signature Detected by High-throughput Chemical Mapping",
-        journal: "Biochemistry",
-        pub_date: "May 2020",
-        authors: "Roger Wellington-Oguri, Eli Fisker, Michelle Wiley, Mat Zada, Jill Townley, Eterna Players"
-      }
-    ];
+    @Prop({ required: true }) readonly challenge!: ChallengeData;
   }
 </script>
 
@@ -75,6 +57,7 @@
     margin-bottom: 2.5rem;
 
     &-image {
+      position: relative;
       text-align: center;
       flex-basis: 150px;
       flex-grow: 0;
@@ -82,6 +65,20 @@
 
       & > img {
         width: 100%;
+      }
+
+      &-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100px;
+        border-radius: 5px;
+        background-color: #041227;
+
+        &-image {
+          height: 50px;
+        }
       }
     }
 
@@ -105,6 +102,7 @@
 
     &-overview {
       font-size: 0.8rem;
+      margin-bottom: 0;
     }
   }
 </style>

@@ -10,7 +10,7 @@
       <h4 class="info-container-title">{{ $t('challenge-info:research-affiliation') }}</h4>
       <p class="info-container-body">{{ challenge.affiliation }}</p>
     </div>
-    <div class="sign-up-container">
+    <!-- <div class="sign-up-container">
       <h3 class="sign-up-container-title">{{ $t('challenge-sign-up:title') }}</h3>
       <p class="sign-up-container-subtitle">
         {{ $t('challenge-sign-up:subtitle') }}
@@ -22,7 +22,7 @@
       >
         {{ $t('challenge-sign-up:button') }}
       </b-button>
-    </div>
+    </div> -->
     <div class="support-container">
       <h3 class="support-container-title">{{ $t('challenge-support:title') }}</h3>
       <p class="support-container-subtitle">
@@ -31,6 +31,8 @@
       <b-button
         class="support-container-button"
         variant="secondary"
+        href="https://makeagift.stanford.edu/get/page/makeagift?pgnTPC=399&stp=163&olc=14209&cturl=close"
+        target="_blank"
       >
         {{ $t('challenge-support:button') }}
       </b-button>
@@ -44,7 +46,7 @@
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
   import Progress from '@/components/Common/Progress.vue';
-  import { LabData } from '@/views/labs/LabView/types';
+  import { ChallengeData } from '@/views/challenges/ChallengeView/types';
 
   @Component({
     components: {
@@ -53,7 +55,7 @@
     },
   })
   export default class ChallengeInfoPanel extends mixins(SidebarPanelMixin) {
-    @Prop({ required: true }) readonly challenge!: LabData;
+    @Prop({ required: true }) readonly challenge!: ChallengeData;
 
     created() {}
   }

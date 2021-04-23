@@ -2,31 +2,28 @@
   <div>
     <div class="banner">
       <div class="banner-hero-image">
-        <img src="@/assets/badge_openvaccine_100.png" />
+        <img :src="coverImage" />
       </div>
       <div class="banner-details">
         <h3>
-          OpenVaccine
+          {{ title }}
         </h3>
         <p>
-          With the onset of the COVID-19 pandemic, the Eterna project mobilized online gamers toward a solution.
-          Their mission? To develop mRNA vaccines stable enough to be deployed to everyone in the world,
-          and not just a privileged few.
+          {{ abstract }}
         </p>
       </div>
     </div>
     <div class="card" style="width:100; border: none;">
-      <div class="body">
-        <div class="challenge-body">
+      <div :class="readMore? 'body expanded' : 'body'">
+        <div class="challenge-body-video">
           <iframe
-            class="biomedicine-challenges__video"
-            src="https://www.youtube.com/embed/gQgA8LkHJjY"
+            :src="video"
             frameborder="0"
             allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>
         </div>
-        <div ref="content" style="margin-bottom: 10px;" v-dompurify-html="descriptionToShow"></div>
+        <div ref="content" class="challenge-body-description" v-dompurify-html="descriptionToShow"></div>
         <ReadMore v-model="readMore" v-if="readMoreNeeded"></ReadMore>
       </div>
     </div>
@@ -34,29 +31,42 @@
 </template>
 
 <script lang="ts">
-  import { Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
   import DefaultHero from '@/assets/home/hero-lab-default.png';
-  import { LabData } from '@/views/labs/LabView/types';
+  import { ChallengeData } from '@/views/challenges/ChallengeView/types';
 
   const MAX_CHARS = 1000;
 
+  @Component({
+    components: {},
+  })
   export default class ChallengeDescription extends Vue {
-    @Prop({ required: true }) readonly challenge!: LabData;
+    @Prop({ required: true }) readonly challenge!: ChallengeData;
 
     private readMore = false;
 
     get readMoreNeeded() {
-      return true;
-      // return this.challenge.body.length > MAX_CHARS;
+      return this.challenge?.body && this.challenge?.body?.length > MAX_CHARS;
     }
 
     get descriptionToShow() {
-      return "Here at Eterna, games hold a special place in our hearts, it’s part of who we are and what we do. It doesn’t matter where we’re sitting or on what device we’re playing, we get online, sign on, and become part of a community. Yet, this community goes beyond just playing video games and has had some impressive accomplishments. Here at Eterna, games hold a special place in our hearts, it’s part of who we are and what we do. It doesn’t matter where we’re sitting or on what device we’re playing, we get online, sign on, and become part of a community. Yet, this community goes beyond just playing video games and has had some impressive accomplishments. ";
-      // return this.readMore ? this.challenge.body : this.challenge.body.substr(0, MAX_CHARS);
+      return this.readMore ? this.challenge?.body : this.challenge?.body.substr(0, MAX_CHARS);
     }
 
-    get heroImage() {
-      return this.challenge.banner_image || DefaultHero;
+    get title() {
+      return this.challenge?.title || "";
+    }
+
+    get abstract() {
+      return this.challenge?.abstract || "";
+    }
+
+    get video() {
+      return this.challenge?.video || "";
+    }
+
+    get coverImage() {
+      return this.challenge?.cover_image || DefaultHero;
     }
   }
 </script>
@@ -84,13 +94,20 @@
     align-items: center;
     margin-bottom: 2rem;
 
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
+    @include media-breakpoint-down(xs) {
+      flex-direction: column;
+    }
+
     &-hero-image {
       flex-basis: 200px;
       flex-grow: 0;
       flex-shrink: 0;
       
       & > img {
-        width: 100%;
+        width: 200px;
       }
     }
 
@@ -99,17 +116,70 @@
 
       & > h3 {
         margin-bottom: 1.5rem;
+
+        @include media-breakpoint-down(md) {
+          text-align: center;
+        }
+        @include media-breakpoint-down(xs) {
+          text-align: center;
+        }
+      }
+
+      & > p {
+        @include media-breakpoint-down(md) {
+          text-align: center;
+        }
+        @include media-breakpoint-down(xs) {
+          text-align: center;
+        }
+      }
+
+      @include media-breakpoint-down(md) {
+        margin-left: 0px;
+        margin-top: 20px;
+      }
+      @include media-breakpoint-down(xs) {
+        margin-left: 0px;
+        margin-top: 20px;
       }
     }
   }
 
   .body {
-    padding: 40px 30px 5px;
+    padding: 40px 30px 20px;
 
-    & .challenge-body {
+    &.expanded {
+      padding: 40px 30px 5px;
+    }
+
+    & .challenge-body-video {
       float: right;
       margin-left: 30px;
       margin-bottom: 20px;
+
+      @include media-breakpoint-down(md) {
+        float: none;
+        display: flex;
+        justify-content: center;
+        margin-left: 0;
+      }
+      @include media-breakpoint-down(xs) {
+        float: none;
+        display: flex;
+        justify-content: center;
+        margin-left: 0;
+      }
+    }
+
+    & .challenge-body-description {
+      margin-bottom: 10px;
+
+      @include media-breakpoint-down(md) {
+        text-align: center;
+      }
+      @include media-breakpoint-down(xs) {
+        text-align: center;
+      }
     }
   }
 </style>

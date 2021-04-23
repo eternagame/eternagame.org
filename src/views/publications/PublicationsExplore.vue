@@ -2,9 +2,8 @@
   <EternaPage :title="$t('publications:title')">
     <div v-if="fetchState.firstFetchComplete">
       <p class="overview-text">
-        {{ $t('publications:overview') }}
+        {{ $t('publications:overview') }} {{totalPapers}} {{$t('publications:overview:tag')}}
       </p>
-
       <a name="player-publications" class="anchor-link"></a>
       <h2>{{ $t('publications:player-title') }}</h2>
       <Gallery :sm="12" :md="12">
@@ -24,7 +23,7 @@
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
         v-if="isInSidebar"
-        :placeholder="$t('search:publications')"
+        :placeholder="('search:publications')"
         :isInSidebar="isInSidebar"
       />
       <DropdownSidebarPanel
@@ -50,7 +49,7 @@
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
-  import { Publication, Publications } from '@/types/common-types';
+  import { Publication, Publications} from '@/types/common-types';
   import PublicationsCard from './PublicationsCard.vue';
 
   const ROUTE = '/get/?type=pubslist';
@@ -68,12 +67,16 @@
   export default class PublicationsExplore extends Mixins(FetchMixin) {
     private options: Option[] = [
       { value: 'all', text: 'publications:player-title', link: '#player-publications' },
-      { value: 'all', text: 'publications:researcher-title', link: '#researcher-publications' },
+      { value: 'all', text: 'publications:researcher-title', link: '#researcher-publications' }
     ];
+
 
     playerPublications: Publication[] = [];
 
     researcherPublications: Publication[] = [];
+
+    totalPapers: number = 0;
+
 
     async fetch() {
       const res = (
@@ -83,9 +86,10 @@
           },
         })
       ).data.data as Publications;
-
+      
       this.playerPublications = res.playerpubslist;
-      this.researcherPublications = res.researcherpubslist;
+      this.researcherPublications = res.researcherpubslist; 
+      this.totalPapers = this.playerPublications.length + this.researcherPublications.length;
     }
   }
 </script>

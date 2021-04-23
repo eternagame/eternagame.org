@@ -211,6 +211,7 @@ export interface PuzzleResponse {
   puzzle: Puzzle;
   nid: string;
   comments: CommentItem[];
+  cleared?: ClearedPuzzle[];
 }
 
 export interface NewsArticle {

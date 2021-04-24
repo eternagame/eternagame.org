@@ -380,5 +380,5 @@ export function isPMNotiItem(notification: NotificationItem): notification is Pr
 }
 
 export function isCommentNotiItem(notification: NotificationItem): notification is CommentNotificationItem {
-  return isNotiNotiItem(notification) && ( notification.message[0].type === NotificationMessageType.COMMENT);
+  return isDirectedNotificationItem(notification) && ( notification.message[0].type === NotificationMessageType.COMMENT);
 }

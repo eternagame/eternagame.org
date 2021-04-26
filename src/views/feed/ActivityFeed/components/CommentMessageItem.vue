@@ -7,7 +7,10 @@
       :message="message.content.body"
     >
       <template>
-          {{ notification.target2_name + ' ' }} {{ $t('activity-feed:commented-on') + ' ' }}
+          <router-link :to="`/players/` + message.sender">
+            {{ notification.target2_name }} 
+          </router-link>
+          {{ ' ' + $t('activity-feed:commented-on') + ' ' }}
           <a :href="link">
               {{ message.content.node.title }}
           </a>

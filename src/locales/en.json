@@ -96,7 +96,6 @@
   "player-view:featured-achievement-details": "View Badges",
   "player-view:global-rank": "Global Rank:",
   "player-view:about-me": "About Me",
-
   "player-view:synthesized-rnas": "Synthesized RNAs",
   "player-view:rna-title": "RNA Title",
   "player-view:score": "Score",
@@ -104,6 +103,7 @@
   "player-view:created-puzzles": "Created Puzzles",
   "player-view:latest-played-puzzles": "Latest Played Puzzles",
   "player-view:cleared-puzzles": "Cleared Puzzles",
+  "player-view:joined-groups": "Groups",
   "news-view:comments": "Comments",
   "news-view:enter-comments": "Enter your comments here.",
   "edit-profile:custom-section-remove": "Remove",
@@ -227,6 +227,7 @@
   "side-panel-options:latest": "Latest Activity",
   "side-panel-options:created": "Created Puzzles",
   "side-panel-options:cleared": "Cleared Puzzles",
+  "side-panel-options:groups": "Groups",
   "side-panel-options:about": "About",
   "side-panel-options:about-eterna": "About Eterna",
   "side-panel-options:publications": "Publications",

@@ -1,30 +1,37 @@
 <template>
   <b-col cols="12" class="col-md-4 col-sm-6 list-item-container card">
-    <a href="item.link" target="_blank">
+    <a :href="pub.link" target="_blank">
       <img
-        :src="getImgUrl(item.imgRef)"
-        :alt="item.imgAlt"
+        v-if="pub.image"
+        :src="pub.image"
+        :alt="`${pub.title} image`"
         class="graphic"
       />
+      <div v-else class="no-graphic">
+        <img
+          src="@/assets/logomark_eterna.svg"
+          alt="eterna logomark"
+        />
+      </div>
       <p class="year">
-        {{ $t(item.date) }}
+        {{ pub.pub_date }}
       </p>
       <h4 class="header">
-        {{ $t(item.title) }}
+        {{ $t(pub.title) }}
       </h4>
       <p class="source">
-        {{ $t(item.source) }}
+        {{ $t(pub.journal) }}
       </p>
     </a>
   </b-col>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import {AboutPublicationItem} from '@/types/common-types';
+  import { Publication } from '@/types/common-types';
 
   @Component({})
   export default class AboutPublicationCard extends Vue {
-    @Prop({ required: true }) readonly item!: AboutPublicationItem;
+    @Prop({ required: true }) readonly pub!: Publication;
 
     getImgUrl(path: string) {
       const images = require.context('@/assets/about', false, /\.jpg$/);
@@ -67,6 +74,22 @@
     height: 167px;
     border-radius: 2.5px;
     margin-bottom: 0.69rem;
+  }
+
+  .no-graphic {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 167px;
+    background: #071225;
+    border-radius: 2.5px;
+    padding: 10px;
+    margin-bottom: 0.69rem;
+
+    & > img {
+      height: 50%;
+    }
   }
   .year {
     font-size: 0.875rem;

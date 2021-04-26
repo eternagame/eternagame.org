@@ -96,7 +96,7 @@
                 <div class="challenge-video-wrapper">
                   <iframe
                     class="challenges__video"
-                    :src="challenge.youtubeUrl"
+                    :src="challenge.video"
                     frameborder="0"
                     allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
@@ -104,11 +104,11 @@
                 </div>
                 <h1 class="challenges__heading">
                   <a href="/labs/10027854">
-                    {{ $t(challenge.header) }}
+                    {{ challenge.title }}
                   </a>
                 </h1>
                 <p class="challenges__sub-text">
-                  {{ $t(challenge.description) }}
+                  {{ challenge.blurb }}
                 </p>
               </b-col>
             </b-row>
@@ -121,7 +121,7 @@
           </h1>
           <b-container>
             <b-row class="featured-publications__container">
-              <AboutPublicationCard v-for="(item, index) in publicationItems" :key="index" :item="item" />
+              <AboutPublicationCard v-for="(pub, index) in publications" :key="index" :pub="pub" />
             </b-row>
           </b-container>
           <b-button
@@ -291,9 +291,12 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+  import { Component, Mixins } from 'vue-property-decorator';
+  import FetchMixin from '@/mixins/FetchMixin';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import {AboutMediaItem, AboutPublicationItem} from '@/types/common-types';
+  import {AboutMediaItem, Publications, Publication } from '@/types/common-types';
+  
+  // import {ChallengeData} from '@/views/challenge/ChallengeView/types';
   import AboutMediaCard from '@/views/about/AboutMediaCard.vue';
   import AboutPublicationCard from '@/views/about/AboutPublicationCard.vue';
   import Utils from '@/utils/utils';
@@ -305,7 +308,7 @@
       AboutPublicationCard,
     },
   })
-  export default class About extends Vue {
+  export default class About extends Mixins(FetchMixin) {
     private BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;
 
     comicSections = [
@@ -366,23 +369,7 @@
       }
     ];
 
-    challenges = [
-      {
-        youtubeUrl: "https://www.youtube.com/embed/pGMu569jkEc",
-        header: "about:section3-header2",
-        description: "about:section3-description2"
-      },
-      {
-        youtubeUrl: "https://www.youtube.com/embed/gQgA8LkHJjY",
-        header: "about:section3-header3",
-        description: "about:section3-description3"
-      },
-      {
-        youtubeUrl: "https://www.youtube.com/embed/IGYpu4BVnhA",
-        header: "about:section3-header4",
-        description: "about:section3-description4"
-      }
-    ];
+    challenges = [];
 
     mediaItems: AboutMediaItem[] = [
       {
@@ -435,32 +422,7 @@
       }
     ];
 
-    publicationItems: AboutPublicationItem[] = [
-      {
-        link: "https://www.sciencedirect.com/science/article/pii/S0022283615006567?via%3Dihub",
-        imgRef: "about-section-3-1",
-        imgAlt: "eterna featured-publications RNA structure design graphic",
-        date: "about:section4-year1",
-        title: "about:section4-header1",
-        source: "about:section4-source1",
-      },
-      {
-        link: "http://www.sciencedirect.com/science/article/pii/S0968000414001455",
-        imgRef: "about-section-3-2",
-        imgAlt: "eterna featured-publications videogames graphic",
-        date: "about:section4-year2",
-        title: "about:section4-header2",
-        source: "about:section4-source2",
-      },
-      {
-        link: "http://www.pnas.org/content/111/6/2122",
-        imgRef: "about-section-3-3",
-        imgAlt: "eterna featured-publications paper graphic",
-        date: "about:section4-year3",
-        title: "about:section4-header3",
-        source: "about:section4-source3",
-      },
-    ];
+    publications: Publication[] = [];
 
     talentBlocks = [
       {
@@ -512,6 +474,21 @@
         body: "about:section8-description6"
       },
     ];
+
+    async fetch() {
+      const {sort} = this.$route.query;
+      const {challenges} = (
+        await this.$http.get('/get/?type=challenges')
+      ).data.data;
+      console.log("Challenges: ", challenges);
+      this.challenges = challenges;
+
+      const publications = (
+        await this.$http.get('/get/?type=pubslist')
+      ).data.data as Publications;
+      console.log("Publications: ", publications);
+      this.publications = publications.researcherpubslist.slice(0, 3);
+    }
     
     isExternal(link: string): boolean {
       return Utils.isExternal(link);

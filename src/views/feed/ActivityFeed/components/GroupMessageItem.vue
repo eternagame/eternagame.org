@@ -7,7 +7,7 @@
       :avatar="avatar"
     >
       <template>
-          {{ notification.target2_name + ' ' }} {{ isInvite ? $t('activity-feed:invite') : $t('activity-feed:broadcast') + ' ' }}{{ title }}
+          {{ notification.target2_name + ' ' }} {{ isInvite ? $t('activity-feed:invite') + ' ' : $t('activity-feed:broadcast') + ' ' }}{{ title }}
       </template>
     </MessageItem>
   </div>

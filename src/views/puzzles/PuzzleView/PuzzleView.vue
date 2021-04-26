@@ -60,6 +60,9 @@
           <li v-if="puzzle.created">
             <img src="@/assets/calendar.svg" class="icon" />{{ puzzle.created }}
           </li>
+          <li v-if="clearedThisPuzzle">
+            <img src="@/assets/noun_check.svg" class="icon" />Cleared
+          </li>
         </ul>
       </SidebarPanel>
       <!-- <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" /> -->
@@ -80,7 +83,7 @@
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
   import FetchMixin from '@/mixins/FetchMixin';
-  import { PuzzleResponse, Puzzle, CommentItem } from '@/types/common-types';
+  import { PuzzleResponse, Puzzle, CommentItem, ClearedPuzzle } from '@/types/common-types';
 
   @Component({
     components: {
@@ -100,6 +103,8 @@
 
     comments: CommentItem[] = [];
 
+    clearedPuzzles: ClearedPuzzle[] = [];
+
     async fetch() {
       const res = (
         await this.$http.get(`/get/?type=puzzle&nid=${this.$route.params.id}&script=-1`, {
@@ -112,10 +117,15 @@
       this.puzzle = res.puzzle;
       this.nid = res.nid;
       this.comments = res.comments;
+      this.clearedPuzzles = res.cleared || [];
     }
 
     get madeByPlayer() {
       return this.puzzle && this.puzzle['made-by-player'] !== '0';
+    }
+
+    get clearedThisPuzzle() {
+      return this.puzzle && this.clearedPuzzles.some(puzzle => this.nid === puzzle.id);
     }
 
     get imageURL() {

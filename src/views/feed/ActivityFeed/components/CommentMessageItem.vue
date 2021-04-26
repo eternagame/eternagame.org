@@ -8,9 +8,9 @@
     >
       <template>
           <router-link :to="`/players/` + message.sender">
-            {{ notification.target2_name + ' ' }} 
+            {{ notification.target2_name }} 
           </router-link>
-          {{ $t('activity-feed:commented-on') + ' ' }}
+          {{ ' ' + $t('activity-feed:commented-on') + ' ' }}
           <a :href="link">
               {{ message.content.node.title }}
           </a>
@@ -48,7 +48,7 @@
           return `/news/${id}`;
         case 'group':
         case 'eterna_group':
-          return `${process.env.VUE_APP_API_BASE_URL}/group/${id}/`;
+          return `${process.env.VUE_APP_API_BASE_URL}/web/group/${id}/`;
         case 'solution': {
           const pid = (this.message.content.node as any).puzzle_id;
           return `${process.env.VUE_APP_API_BASE_URL}/game/browse/${pid}/?filter1=Id&filter1_arg1=${id}&filter1_arg2=${id}`;

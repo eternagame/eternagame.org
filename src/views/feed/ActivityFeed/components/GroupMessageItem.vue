@@ -8,12 +8,9 @@
     >
       <template>
           <router-link :to="`/players/` + message.sender">
-            {{ notification.target2_name + ' ' }} 
+            {{ notification.target2_name }} 
           </router-link>
-          {{ isInvite ? $t('activity-feed:invite') : $t('activity-feed:broadcast') + ' ' }}
-          <router-link :to="`/groups/${nid}`">
-              {{ title }}
-          </router-link>
+          {{ ' ' + (isInvite ? $t('activity-feed:invite') + ' ' : $t('activity-feed:broadcast') + ' ') }}{{ title }}
       </template>
     </MessageItem>
   </div>

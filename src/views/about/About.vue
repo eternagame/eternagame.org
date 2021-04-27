@@ -373,17 +373,17 @@
 
     mediaItems: AboutMediaItem[] = [
       {
-        link: "https://google.com",
+        link: "https://eterna.s3.amazonaws.com/about-page/eterna-logos.zip",
         title: "about:section5-card1-title",
         description: "about:section5-card1-description",
       },
       {
-        link: "https://google.com",
+        link: "https://eterna.s3.amazonaws.com/about-page/eterna-background-information.pdf",
         title: "about:section5-card2-title",
         description: "about:section5-card2-description",
       },
       {
-        link: "https://google.com",
+        link: "https://eterna.s3.amazonaws.com/about-page/eterna-screenshots.zip",
         title: "about:section5-card3-title",
         description: "about:section5-card3-description",
       }

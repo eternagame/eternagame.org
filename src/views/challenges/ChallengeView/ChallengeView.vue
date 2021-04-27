@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-  import { Watch, Component, Mixins } from 'vue-property-decorator';
+  import { Component, Mixins } from 'vue-property-decorator';
   import { Tabs, Tab } from 'vue-slim-tabs';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FetchMixin from '@/mixins/FetchMixin';
@@ -71,13 +71,8 @@
       ).data.data.challenge as ChallengeData;
       
       this.challenge = {...challengeResults};
+      
       console.log("Challenge: ", challengeResults);
-    }
-
-    @Watch('challenge')
-    onChallengeChange(){
-      console.log("Watch that shit: ", this.challenge);
-      this.$forceUpdate();
     }
 
     get closedLabs() {

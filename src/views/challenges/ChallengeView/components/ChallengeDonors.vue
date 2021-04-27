@@ -6,11 +6,11 @@
       </h4>
       <div class="donors">
         <div
-          v-for="(donor, i) in donors"
+          v-for="(donor, i) in getDonors()"
           :key="i"
           class="donor"
         >
-          <img :src="getImgUrl(donor.img)" />
+          <img :src="donor.image" />
         </div>
       </div>
     </div>
@@ -27,21 +27,14 @@
   export default class ChallengeDonors extends Vue {
     @Prop({ required: true }) readonly challenge!: ChallengeData;
 
-    donors = [
-      {
-        img: "badge_openvaccine_100.png"
-      },
-      {
-        img: "badge_openvaccine_100.png"
-      },
-      {
-        img: "badge_openvaccine_100.png"
-      }
-    ];
+    donors: object[] = [];
 
-    getImgUrl(path: string) {
-      const images = require.context('@/assets/', true);
-      return images(`./${path}`);
+    mounted() {
+      this.donors = JSON.parse(this.challenge.donors);
+    }
+
+    getDonors() {
+      return this.donors;
     }
   }
 </script>

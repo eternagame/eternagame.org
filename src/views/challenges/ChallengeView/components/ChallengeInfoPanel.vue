@@ -6,7 +6,7 @@
   >
     <div class="info-container">
       <h4 class="info-container-title">{{ $t('challenge-info:status') }}</h4>
-      <p class="info-container-body">{{ challenge.status }}</p>
+      <p class="info-container-body">{{ challenge.challenge_status }}</p>
       <h4 class="info-container-title">{{ $t('challenge-info:research-affiliation') }}</h4>
       <p class="info-container-body">{{ challenge.affiliation }}</p>
     </div>

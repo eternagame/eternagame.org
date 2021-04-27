@@ -71,8 +71,6 @@
       ).data.data.challenge as ChallengeData;
       
       this.challenge = {...challengeResults};
-      
-      console.log("Challenge: ", challengeResults);
     }
 
     get closedLabs() {

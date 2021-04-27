@@ -34,8 +34,8 @@
 
       <b-container class="hero-content">
         <b-row class="row">
-          <b-col lg="3" md="1" sm="1" />
-          <b-col lg="6" md="10" sm="10" >
+          <b-col lg="3" md="2" sm="1" />
+          <b-col lg="6" md="8" sm="10" >
             <div style="text-align: center;">
               <h2 class="content-heading">
                 {{ $t('hero-section:heading') }}
@@ -59,7 +59,7 @@
               <a href="https://play.google.com/store/apps/details?id=org.eternagame.mob" target="_blank"><img src="@/assets/front-page/img/btn_download_play.png" style="width:135px" /></a>
             </div>
           </b-col>
-          <b-col lg="3" md="1" sm="1" />
+          <b-col lg="3" md="2" sm="1" />
         </b-row>
       </b-container>
     </div>
@@ -92,6 +92,14 @@
 
     &-tiles {
       width: 1500px;
+
+      @include media-breakpoint-only(md) {
+        width: 1800px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        width: 1900px;
+      }
     }
   }
 
@@ -107,38 +115,38 @@
     pointer-events: none;
 
     @include media-breakpoint-up(xs) {
-      height: 100px;
-    }
-
-    @include media-breakpoint-up(sm) {
       height: 130px;
     }
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(sm) {
       height: 170px;
     }
 
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       height: 200px;
     }
 
+    @include media-breakpoint-up(lg) {
+      height: 230px;
+    }
+
     @include media-breakpoint-up(xl) {
-      height: 220px;
+      height: 250px;
     }
 
     &.design-scene {
-      top: 10px;
-      left: 20px;
+      top: 4vh;
+      left: 6vw;
     }
 
     &.vote-scene {
-      top: 10px;
-      right: 20px;
+      top: 4vh;
+      right: 6vw;
     }
 
     &.analyze-scene {
-      bottom: 10px;
-      left: 20px;
+      bottom: 4vh;
+      left: 6vw;
 
       @include media-breakpoint-down(sm) {
         display: none;
@@ -154,8 +162,8 @@
     }
 
     &.test-scene {
-      bottom: 10px;
-      right: 20px;
+      bottom: 4vh;
+      right: 6vw;
 
       @include media-breakpoint-down(sm) {
         display: none;

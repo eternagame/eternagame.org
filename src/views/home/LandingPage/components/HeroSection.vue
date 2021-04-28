@@ -91,7 +91,10 @@
     background: #21508C;
 
     &-tiles {
+      position: relative;
+      left: 50%;
       width: 1500px;
+      transform: translateX(-50%);
 
       @include media-breakpoint-only(md) {
         width: 1800px;

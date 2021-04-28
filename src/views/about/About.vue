@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="publications.length > 0 && challenges.length > 0">
     <EternaPage header_date="Last updated: March 19, 2021">
       <div class="about-page">
         <section class="problem-context">
@@ -480,13 +480,13 @@
       const {challenges} = (
         await this.$http.get('/get/?type=challenges')
       ).data.data;
-      console.log("Challenges: ", challenges);
+
       this.challenges = challenges;
 
       const publications = (
         await this.$http.get('/get/?type=pubslist')
       ).data.data as Publications;
-      console.log("Publications: ", publications);
+
       this.publications = publications.researcherpubslist.slice(0, 3);
     }
     

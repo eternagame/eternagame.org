@@ -353,7 +353,7 @@ export interface BlogItem {
   sticky: string;
   body: string;
   filepath: string | null;
-  timestamp: string
+  timestamp: string;
   comments: CommentItem[];
 }
 

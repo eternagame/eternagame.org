@@ -17,10 +17,10 @@
         {{ pub.pub_date }}
       </p>
       <h4 class="header">
-        {{ $t(pub.title) }}
+        {{ pub.title }}
       </h4>
       <p class="source">
-        {{ $t(pub.journal) }}
+        {{ pub.journal }}
       </p>
     </a>
   </b-col>

@@ -184,6 +184,7 @@
       margin: 10px;
       padding: 10px;
       border-radius: 5px;
+      box-shadow: 1px 1px 0px 0px rgb(94 93 102 / 8%), 2px 2px 3px 0px rgb(94 93 102 / 10%);
     
       .stat-number {
         font-size: 2rem;

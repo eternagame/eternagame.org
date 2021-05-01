@@ -5,11 +5,11 @@
         Challenge Updates
       </h4>
       <p class="challenge-summary">
-        {{ summary }}
+        {{ summary() }}
       </p> 
       <div>
         <div
-          v-for="(update, i) in updates"
+          v-for="(update, i) in updates()"
           :key="i"
           class="update card"
         >
@@ -23,9 +23,7 @@
             <div class="update-card-title">
               {{ update.title }}
             </div>
-            <div class="update-card-body">
-              {{ update.body }}
-            </div>
+            <div class="update-card-body" v-dompurify-html="update.body"></div>
           </div>
         </div>
       </div>
@@ -35,7 +33,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { ChallengeData } from '@/views/challenges/ChallengeView/types';
+  import { ChallengeData, ChallengeAdminUpdate } from '@/views/challenges/ChallengeView/types';
 
   @Component({
     components: {},
@@ -43,11 +41,16 @@
   export default class ChallengeUpdates extends Vue {
     @Prop({ required: true }) readonly challenge!: ChallengeData;
 
-    get updates() {
-      return this.challenge.admin_updates.sort((a, b) => a.timestamp - b.timestamp);
+    updates() {
+      const updates: ChallengeAdminUpdate[] = [
+        ...this.challenge.admin_updates,
+        ...this.challenge.news_posts
+      ];
+
+      return updates.sort((a, b) => b.timestamp - a.timestamp);
     }
 
-    get summary() {
+    summary() {
       return this.challenge.update_summary;
     }
   }
@@ -127,7 +130,6 @@
   .card {
     color: #FFFFFF;
     margin-bottom: 1.5rem;
-    max-height: 600px;
     transition: background-color 0.5s ease;
   }
 

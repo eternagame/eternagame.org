@@ -1,7 +1,7 @@
 import { LabCardData } from "@/views/labs/LabsExplore/types";
 import { Publication } from '@/types/common-types';
 
-interface ChallengeAdminUpdate {
+export interface ChallengeAdminUpdate {
   nid: string;
   timestamp: number;
   created: string;
@@ -12,14 +12,17 @@ interface ChallengeAdminUpdate {
 export interface ChallengeData {
   nid: string;
   title: string;
-  abstract: string;
   body: string;
   donors: string;
-  cover_image: string;
-  video: string;
   affiliation: string;
-  admin_updates: ChallengeAdminUpdate[];
+  video: string;
+  cover_image: string;
+  abstract: string;
   update_summary: string;
-  labs: LabCardData[];
+  challenge_status: string;
+  blurb: string;
   publications: Publication[];
+  labs: LabCardData[];
+  admin_updates: ChallengeAdminUpdate[];
+  news_posts: ChallengeAdminUpdate[];
 }

@@ -2,9 +2,9 @@
   <EternaPage v-if="challenge">
     <ChallengeDescription :challenge="challenge" style="margin-bottom: 52.5px;" />
     <ChallengePublications v-if="challenge.publications && challenge.publications.length > 0" :challenge="challenge" />
-    <ChallengeUpdates v-if="challenge.admin_updates && challenge.admin_updates.length > 0" :challenge="challenge" />
+    <ChallengeUpdates v-if="(challenge.admin_updates || challenges.news_posts) && (challenge.admin_updates.length > 0 || challenge.news_posts.length > 0)" :challenge="challenge" />
     <div v-if="challenge.labs.length > 0" :class="`lab-container${challenge.donors && challenge.donors.length > 0 ? '' : ' without-border-bottom'}`">
-      <tabs>
+      <tabs :defaultIndex="openLabs.length > 0 ? 0: 1">
         <tab :title="`Open Labs (${openLabs.length})`">
           <div class="tab-container">
             <Gallery>
@@ -68,7 +68,7 @@
     async fetch() {
       const challengeResults = (
         await this.$http.get(`/get/?type=challenge&nid=${this.$route.params.id}`)
-      ).data.data.challenge as ChallengeData;
+      ).data.data.challenge as ChallengeData;  
       
       this.challenge = {...challengeResults};
     }

@@ -226,12 +226,26 @@
       width: 400px;
       height: 250px;
       border-radius: 5px;
+
+      @include media-breakpoint-down(sm) {
+        width: 100%;
+      }
     }
 
     & img {
       width: 400px;
       border-radius: 5px;
       margin-bottom: 10px;
+
+      @include media-breakpoint-down(sm) {
+        width: 100%;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      float: none;
+      width: 100%;
+      margin-left: 0px;
     }
   }
 
@@ -266,8 +280,12 @@
 
         @include media-breakpoint-down(sm) {
           margin-right: 0px;
-          width: 50%;
+          width: 100%;
         }
+      }
+
+      @include media-breakpoint-down(sm) {
+        width: 100%;
       }
     
       .stat-number {

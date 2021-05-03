@@ -5,8 +5,8 @@
     headerIcon="@/assets/info.svg"
   >
     <ul class="page-sections-container">
-      <li class="page-section" v-for="section in sections" :key="`#${section.id}`">
-        <a :href="section.href">
+      <li class="page-section" v-for="section in sections" :key="section.id">
+        <a :href="`#${section.href}`">
           {{ section.title }}
         </a>
       </li>

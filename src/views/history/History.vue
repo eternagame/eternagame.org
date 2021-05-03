@@ -5,7 +5,7 @@
         {{ $t('history:origins-header') }}
       </h4>
       <div class="history-paragraph">
-        <section class="history-media-asset">
+        <section class="history-media-asset responsive">
           <iframe
             src="https://www.youtube.com/embed/bTlNNFQxs_A"
             frameborder="0"
@@ -13,7 +13,7 @@
             allowfullscreen
           ></iframe>
           <p class="history-media-asset-description">
-            Eterna's founders were featured in this video from PBS NOVA about innovations in citizen science.
+            {{ $t('history:origins-media-caption')}}
           </p>
         </section>
         {{ $t('history:origins-body-1') }}
@@ -59,10 +59,10 @@
         {{ $t('history:science-header') }}
       </h4>
       <div class="history-paragraph">
-        <section class="history-media-asset">
+        <section class="history-media-asset responsive">
           <img src="@/assets/history/science.png" />
           <p class="history-media-asset-description">
-            Eterna designs are tested experimentally and scored by reactivity, then compared to algorithmically designed structures.
+            {{ $t('history:origins-media-caption') }}
           </p>
         </section>
         {{ $t('history:science-body-1') }}
@@ -99,7 +99,7 @@
         <section class="history-media-asset">
           <img src="@/assets/history/software.png" />
           <p class="history-media-asset-description">
-            Eterna designs are tested experimentally and scored by reactivity, then compared to algorithmically designed structures.
+            {{ $t('history:software-media-caption') }}
           </p>
         </section>
         {{ $t('history:software-body-1') }}
@@ -113,10 +113,10 @@
         {{ $t('history:community-header') }}
       </h4>
       <div class="history-paragraph">
-        <section class="history-media-asset">
+        <section class="history-media-asset responsive">
           <img src="@/assets/history/community.png" />
           <p class="history-media-asset-description">
-            Eterna players, developers, and researchers gather at Stanford University for Eternacon, an annual player-organized conference.
+            {{ $t('history:community-media-caption') }}
           </p>
         </section>
         {{ $t('history:community-body-1') }}
@@ -243,9 +243,22 @@
     }
 
     @include media-breakpoint-down(sm) {
-      float: none;
-      width: 100%;
-      margin-left: 0px;
+      &.responsive {
+        float: none;
+        width: 100%;
+        margin-left: 0px;
+      }
+
+      &:not(.responsive) {
+        width: 200px;
+        & img {
+          width: 200px;
+        }
+
+        & iframe {
+          width: 200px;
+        }
+      }
     }
   }
 

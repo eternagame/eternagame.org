@@ -2,14 +2,34 @@
   <div class="page">
     <VideoSection />
 
-    <!-- 10 Year Anniversary Promo (TODO: localize?)-->
+    <!-- Covid-19 Promo (TODO: localize?)-->
     <div class="container bs-docs-section mt-5">
       <div class="media row">
         <img
-          src="~@/assets/front-page/img/eterna_10yr-transp.png"
+          src="https://eternagame.org/puzzle-progression/badges/badge_openvaccine_100.png"
           class="align-self-center mr-3 mb-3 col-sm-12 col-lg-4"
-          alt="Eterna 10th anniversary"
+          alt="Fight COVID-19 with Eterna"
         />
+        <div class="media-body p-4">
+          <h3 class="mt-0" style="font-weight: bold;">OpenVaccine: Eterna takes on COVID-19</h3>
+          <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
+          <p style="font-size: 22px;">
+            With the onset of the COVID-19 pandemic in 2020, the Eterna project harnessed online
+            gamers toward a solution the OpenVaccine challenge. Their mission? To develop mRNA vaccines
+            stable enough to be deployed to everyone in the world and not just a privileged few. By the
+            end of 2020, we did it! Check out this <router-link to="/news/10799462">announcement</router-link> and
+            <a href="https://www.youtube.com/watch?v=lvvbsoyVCKU">video</a> for a description of our
+            accomplishments.
+          </p>
+          <p class="mb-0"></p>
+        </div>
+      </div>
+    </div>
+    <!-- End Promo -->
+
+    <!-- 10 Year Anniversary Promo (TODO: localize?)-->
+    <div class="container bs-docs-section mt-5">
+      <div class="media row">
         <div class="media-body p-4">
           <h3 class="mt-0" style="font-weight: bold;">10 Years of Discovery</h3>
           <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
@@ -22,34 +42,14 @@
           </p>
           <p class="mb-0"></p>
         </div>
-      </div>
-    </div>
-    <!-- End Promo -->
-
-    <!-- Covid-19 Promo (TODO: localize?)-->
-    <div class="container bs-docs-section mt-5">
-      <div class="media row">
-        <div class="media-body p-4">
-          <h3 class="mt-0" style="font-weight: bold;">OpenVaccine: Eterna takes on COVID-19</h3>
-          <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
-          <p style="font-size: 22px;">
-            With the onset of the COVID-19 pandemic, the Eterna project is looking to harness online
-            gamers toward a solution. Their mission? To develop mRNA vaccines stable enough to be
-            deployed to everyone in the world and not just a privileged few. For more info, see
-            the <router-link to="/news/9804036/">announcement</router-link> and
-            <a href="https://challenges.eternagame.org/">crowdfunding campaign</a>.
-          </p>
-          <p class="mb-0"></p>
-        </div>
         <img
-          src="https://eternagame.org/puzzle-progression/badges/badge_openvaccine_100.png"
+          src="~@/assets/front-page/img/eterna_10yr-transp.png"
           class="align-self-center mr-3 mb-3 col-sm-12 col-lg-4"
-          alt="Fight COVID-19 with Eterna"
+          alt="Eterna 10th anniversary"
         />
       </div>
     </div>
     <!-- End Promo -->
-
 
     <!-- NOVA Promo (TODO: localize?)-->
     <div class="container bs-docs-section mt-5">

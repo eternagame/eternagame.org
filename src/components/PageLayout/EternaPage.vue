@@ -95,6 +95,7 @@
     justify-content: space-between;
     align-items: center;
     font-size: 33.75px;
+    max-width: 74.5%;
   }
   .sidebar {
     font-size: 13.125px;

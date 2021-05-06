@@ -2,7 +2,7 @@
   <EternaPage :title="$t('publications:title')">
     <div v-if="fetchState.firstFetchComplete">
       <p class="overview-text">
-        {{ $t('publications:overview') }} {{totalPapers.total}} {{ $t('publications:overview:tag') }}
+        {{ $t('publications:overview') }} {{totalPapers}} {{ $t('publications:overview:tag') }}
       </p>
 
       <a name="player-publications" class="anchor-link"></a>
@@ -75,13 +75,9 @@
 
     researcherPublications: Publication[] = [];
 
-    totalPapers = {
-      researcherPublications: 0,
-      playerPublications: 0,
-      get total(){
-        return this.researcherPublications + this.playerPublications;
-      }
-    };
+    get totalPapers(){
+      return this.researcherPublications.length + this.playerPublications.length;
+    }
 
     async fetch() {
       const res = (
@@ -93,9 +89,6 @@
       ).data.data as Publications;
       this.playerPublications = res.playerpubslist;
       this.researcherPublications = res.researcherpubslist;
-      
-      this.totalPapers.researcherPublications = this.researcherPublications.length;
-      this.totalPapers.playerPublications = this.playerPublications.length;
     }
 
     

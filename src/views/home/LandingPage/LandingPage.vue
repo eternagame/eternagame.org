@@ -17,9 +17,10 @@
             With the onset of the COVID-19 pandemic in 2020, the Eterna project harnessed online
             gamers toward a solution the OpenVaccine challenge. Their mission? To develop mRNA vaccines
             stable enough to be deployed to everyone in the world and not just a privileged few. By the
-            end of 2020, we did it! Check out this <router-link to="/news/10799462">announcement</router-link> and
+            end of 2020, we did it! Check out the <router-link to="/news/10799462">announcement</router-link> and
             <a href="https://www.youtube.com/watch?v=lvvbsoyVCKU">video</a> for a description of our
-            accomplishments.
+            accomplishments, and the <a href="https://eternagame.org/news/10811812">announcement</a> of our
+            B.1.617 mRNA vaccine challenge to focus on the variant emerging in India.
           </p>
           <p class="mb-0"></p>
         </div>

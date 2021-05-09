@@ -12,15 +12,13 @@
         style="text-shadow: 1px 1px 2px #333;"
       >
         <template v-if="hasLabAccess">
-          <AnniversarySlide />
-          <IdeaJamSlide />
           <LabSlide v-for="lab in labCarouselLabs" v-bind="lab" :key="lab.nid" />
           <POTWSlide v-bind="potwSlideData" v-if="potwSlideData" />
+          <AnniversarySlide />
         </template>
         <template v-else>
           <TutorialTeaserSlide :nextPuzzleID="nextPuzzleID" />
           <AnniversarySlide />
-          <IdeaJamSlide />
         </template>
       </b-carousel>
 

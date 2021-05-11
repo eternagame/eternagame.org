@@ -1,10 +1,14 @@
 <template>
   <div class="page">
-    <img
-      src="~@/assets/front-page/img/covid-india-banner.jpg"
-      class="india-openvaccine-banner"
-      alt="Open Vaccine India Sprint"
-    />
+    <div style="text-align:center;background:#110a29;">
+      <a href="/news/10811812">
+        <img
+          src="~@/assets/front-page/img/covid-india-banner.jpg"
+          class="india-openvaccine-banner"
+          alt="Open Vaccine India Sprint"
+        />
+      </a>
+    </div>
     <VideoSection />
 
     <!-- Covid-19 Promo (TODO: localize?)-->
@@ -112,5 +116,6 @@
 
   .india-openvaccine-banner {
     width: 100%;
+    max-width: 1200px;
   }
 </style>

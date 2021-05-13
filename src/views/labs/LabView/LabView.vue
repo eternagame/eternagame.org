@@ -11,6 +11,32 @@
     </b-tabs>
     <LabRound v-else v-for="round in closedRounds" :key="round.round" :round="round" closed="true" />
     <LabConclusion v-if="lab.conclusion" :conclusion="lab.conclusion" style="margin-bottom: 52.5px;" />
+    {{$t('lab-view-leaderboard:leaderboard')}}
+    <div>
+      <table style="width:100%">
+        <th>
+          {{$t('lab-view-leaderboard:rank')}}
+        </th>
+        <th>
+          {{$t('lab-view-leaderboard:user')}}
+        </th>
+        <th> 
+          {{$t('lab-view-leaderboard:name')}}
+        </th>
+        <th>
+          {{$t('lab-view-leaderboard:puzzle')}}
+        </th>
+        <th>
+          {{$t('lab-view-leaderboard:solution')}}
+        </th>
+        <th>
+          {{$t('lab-view-leaderboard:score')}}
+        </th>
+        <tbody>
+          <LabLeaderboard v-for="(player, rank) in lab.synthesized_solutions" :key="player.id" :player="player" :rank="rank"/>
+        </tbody>
+      </table>
+    </div>
     <Comments
       :name="$t('lab-view:admin-comments')"
       :comments="adminUpdates"
@@ -37,6 +63,7 @@
   import LabConclusion from './components/LabConclusion.vue';
   import LabInfoPanel from './components/LabInfoPanel.vue';
   import LabRound from './components/LabRound.vue';
+  import LabLeaderboard from './components/LabLeaderboard.vue';
   import LabViewData, { LabData } from './types';
 
   @Component({
@@ -48,6 +75,7 @@
       LabRound,
       TagsPanel,
       Comments,
+      LabLeaderboard,
     },
   })
   export default class LabView extends Mixins(FetchMixin) {

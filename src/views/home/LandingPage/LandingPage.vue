@@ -1,7 +1,12 @@
 <template>
   <div class="page">
+    <img
+      src="~@/assets/front-page/img/covid-india-banner.jpg"
+      class="india-openvaccine-banner"
+      alt="Open Vaccine India Sprint"
+    />
     <HeroSection />
-
+    
     <!-- Covid-19 Promo (TODO: localize?)-->
     <div class="container bs-docs-section mt-5">
       <div class="media row">
@@ -102,5 +107,9 @@
 <style lang="scss" scoped>
   .page {
     margin-top: 120px;
+  }
+
+  .india-openvaccine-banner {
+    width: 100%;
   }
 </style>

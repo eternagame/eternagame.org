@@ -103,6 +103,25 @@
             </tr>
           </template>
         </PlayerTable>
+
+        <PlayerTable
+          v-if="$route.query.tab_type == 'groups'"
+          :title="$t('player-view:joined-groups')"
+          :entries="joinedGroups"
+        >
+          <template v-slot:theader>
+            <tr class="table-primary">
+              <th scope="col">{{ $t('player-view:joined-groups') }}</th>
+            </tr>
+          </template>
+          <template v-slot:trow="slotProps">
+            <tr>
+              <td class="puzzle-link">
+                <a :href="`/web/group/${slotProps.item.group_nid}/`">{{ slotProps.item.group_title }}</a>
+              </td>
+            </tr>
+          </template>
+        </PlayerTable>
       </div>
     </div>
     <div v-else>
@@ -135,7 +154,8 @@
     ClearedPuzzle,
     CreatedPuzzle,
     SynthesizedDesign,
-    ProfileAchievement
+    ProfileAchievement,
+    ProfileGroup
   } from '@/types/common-types';
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
@@ -163,6 +183,7 @@
       { value: 'created', text: 'side-panel-options:created' },
       { value: 'latest', text: 'side-panel-options:latest' },
       { value: 'cleared', text: 'side-panel-options:cleared' },
+      { value: 'groups', text: 'side-panel-options:groups' }
     ];
 
     user: UserData | null = null;
@@ -179,10 +200,12 @@
 
     achievements: {[name: string]: ProfileAchievement} = {};
 
+    joinedGroups: ProfileGroup[] = [];
+
     async fetch() {
       const ROUTE = `/get/?type=user&uid=${this.$route.params.uid}`;
-      // Achievements are provided when no tab_type is specified.
-      const tab_type = this.$route.query.tab_type === 'achievements' ? 'about' : this.$route.query.tab_type;
+      // Achievements and Groups are provided when no tab_type is specified.
+      const tab_type = (this.$route.query.tab_type === ('achievements') || this.$route.query.tab_type === ('groups')) ? 'about' : this.$route.query.tab_type;
       const res = (await this.$http.get(ROUTE, { params: { tab_type } })).data.data as UserResponse;
       this.user = res.user;
       this.follow = res.follow;
@@ -191,6 +214,7 @@
       this.clearedPuzzles = res.cleared_puzzles || [];
       this.synthesized = res.synthesized || [];
       this.achievements = res.achievements || {};
+      this.joinedGroups = res.my_group || [];
     }
   }
 </script>

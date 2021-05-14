@@ -82,8 +82,8 @@
   .player-image {
     object-fit: scale-down;
     margin-right: 1rem;
-    width: 61.58px;
-    height: 61.58px;
+    width: 55px;
+    height: 55px;
     @include media-breakpoint-down(xs) {
       width: 52px;
       height: 52px;

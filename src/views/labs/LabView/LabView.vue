@@ -11,25 +11,27 @@
     </b-tabs>
     <LabRound v-else v-for="round in closedRounds" :key="round.round" :round="round" closed="true" />
     <LabConclusion v-if="lab.conclusion" :conclusion="lab.conclusion" style="margin-bottom: 52.5px;" />
-    {{$t('lab-view-leaderboard:leaderboard')}}
+    <p></p>
+    <p></p>
+    <h3>{{$t('lab-view-leaderboard:leaderboard')}}</h3>
     <div>
       <table style="width:100%">
-        <th>
+        <th class="leaderboard-header">
           {{$t('lab-view-leaderboard:rank')}}
         </th>
-        <th>
+        <th class="leaderboard-header">
           {{$t('lab-view-leaderboard:user')}}
         </th>
-        <th> 
+        <th class="leaderboard-header">
           {{$t('lab-view-leaderboard:name')}}
         </th>
-        <th>
+        <th class="leaderboard-header">
           {{$t('lab-view-leaderboard:puzzle')}}
         </th>
-        <th>
+        <th class="leaderboard-header">
           {{$t('lab-view-leaderboard:solution')}}
         </th>
-        <th>
+        <th class="leaderboard-header">
           {{$t('lab-view-leaderboard:score')}}
         </th>
         <tbody>
@@ -130,7 +132,9 @@
     border: 0px;
     margin-top: -1px;
   }
-
+  .leaderboard-header{
+    background-color: #103e85;
+  }
   ::v-deep .nav-tabs {
     color: white;
 

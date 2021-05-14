@@ -91,7 +91,7 @@
                 v-for="(challenge, index) in challenges"
                 :key="index"
                 cols="12"
-                class="col-md-6 challenges__challenge-card"
+                class="col-md-4 challenges__challenge-card"
               >
                 <div class="challenge-video-wrapper">
                   <iframe

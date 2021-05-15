@@ -31,13 +31,13 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
   .button + .button {
-    margin-left: 7.5px;
+    margin-left: 0.25rem;
   }
   .button {
-    width: 129px;
     font-size: 18px;
+    margin-top: 0.3rem;
+    padding: 0.3rem 1rem 0.3rem 1rem;
     @include media-breakpoint-up(xs) {
-      width: 90px;
       font-size: 12px;
     }
   }

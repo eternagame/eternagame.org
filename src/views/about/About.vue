@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="publications.length > 0 && challenges.length > 0">
     <EternaPage header_date="Last updated: March 19, 2021">
       <div class="about-page">
         <section class="problem-context">
@@ -91,7 +91,7 @@
                 v-for="(challenge, index) in challenges"
                 :key="index"
                 cols="12"
-                class="col-md-6 challenges__challenge-card"
+                class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 challenges__challenge-card"
               >
                 <div class="challenge-video-wrapper">
                   <iframe
@@ -373,17 +373,17 @@
 
     mediaItems: AboutMediaItem[] = [
       {
-        link: "https://google.com",
+        link: "https://eterna.s3.amazonaws.com/about-page/eterna-logos.zip",
         title: "about:section5-card1-title",
         description: "about:section5-card1-description",
       },
       {
-        link: "https://google.com",
+        link: "https://eterna.s3.amazonaws.com/about-page/eterna-background-information.pdf",
         title: "about:section5-card2-title",
         description: "about:section5-card2-description",
       },
       {
-        link: "https://google.com",
+        link: "https://eterna.s3.amazonaws.com/about-page/eterna-screenshots.zip",
         title: "about:section5-card3-title",
         description: "about:section5-card3-description",
       }
@@ -480,13 +480,13 @@
       const {challenges} = (
         await this.$http.get('/get/?type=challenges')
       ).data.data;
-      console.log("Challenges: ", challenges);
+
       this.challenges = challenges;
 
       const publications = (
         await this.$http.get('/get/?type=pubslist')
       ).data.data as Publications;
-      console.log("Publications: ", publications);
+
       this.publications = publications.researcherpubslist.slice(0, 3);
     }
     
@@ -672,7 +672,7 @@
     padding-top: 3.45rem;
 
     &__container {
-      max-width: 900px;
+      max-width: 1500px;
       margin: 0 auto;
       &:not(:first-child) {
         margin-top: 3.25rem;

@@ -12,6 +12,15 @@
     >
     <br />
     <br />
+    <div v-if="challenge">
+        <span class="gray-header">{{ $t('lab-info:lab-challenge') }}</span>
+        <br />
+        <a :href="`/challenges/${challenge.nid}`">
+          <b>{{ challenge.title }}</b>
+        </a>
+        <br />
+        <br />
+    </div>
     <span class="gray-header">{{ $t('lab-info:research-affiliation') }}</span
     ><br />
     <b>{{ lab.affiliation }}</b
@@ -33,6 +42,7 @@
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
   import Progress from '@/components/Common/Progress.vue';
+  import { ChallengeData } from '@/views/challenges/ChallengeView/types';
   import { LabData } from '../types';
 
   @Component({
@@ -43,6 +53,8 @@
   })
   export default class LabInfoPanel extends mixins(SidebarPanelMixin) {
     @Prop({ required: true }) readonly lab!: LabData;
+
+    @Prop({ required: true }) readonly challenge!: ChallengeData;
 
     progressCircles = [
       {

@@ -1,6 +1,6 @@
 <template>
-  <b-col class="page-content card list-item-container">
-    <a href="item.link">
+  <b-col class="col-lg-3 col-md-3 col-sm-12 col-12 page-content card list-item-container">
+    <a target="_blank" :href="item.link">
       <div>
         <div class="download-button">
             <img

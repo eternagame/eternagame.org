@@ -5,7 +5,14 @@
     :avatar="avatar"
     :message="message.content"
   >
-    {{ senderName }} > {{ recieverName }}:
+    <router-link :to="`/players/` + senderID">
+      {{ senderName }} 
+    </router-link>
+    > 
+    <router-link :to="`/players/` + receiverID">
+      {{ receiverName }}
+    </router-link>
+    :
   </MessageItem>
 </template>
 <script lang="ts">
@@ -22,13 +29,25 @@
     
     @Prop({ required: true }) readonly message!: PrivateNotificationMessage;
 
+    get senderID() {
+      return this.message.sender === this.notification.target_uid
+        ? this.notification.target_uid
+        : this.notification.target2_uid;
+    }
+
+    get receiverID() {
+      return this.message.sender === this.notification.target_uid
+        ? this.notification.target2_uid
+        : this.notification.target_uid;
+    }
+
     get senderName() {
       return this.message.sender === this.notification.target_uid
         ? this.notification.target_name
         : this.notification.target2_name;
     }
 
-    get recieverName() {
+    get receiverName() {
       return this.message.sender === this.notification.target_uid
         ? this.notification.target2_name
         : this.notification.target_name;

@@ -211,6 +211,7 @@ export interface PuzzleResponse {
   puzzle: Puzzle;
   nid: string;
   comments: CommentItem[];
+  cleared?: ClearedPuzzle[];
 }
 
 export interface NewsArticle {
@@ -353,8 +354,14 @@ export interface BlogItem {
   sticky: string;
   body: string;
   filepath: string | null;
-  timestamp: string
+  timestamp: string;
   comments: CommentItem[];
+}
+
+export interface AboutMediaItem {
+  link: string;
+  title: string;
+  description: string;
 }
 
 // The combined news and blogs list uses the same logic and creates the same fields
@@ -380,5 +387,5 @@ export function isPMNotiItem(notification: NotificationItem): notification is Pr
 }
 
 export function isCommentNotiItem(notification: NotificationItem): notification is CommentNotificationItem {
-  return isNotiNotiItem(notification) && ( notification.message[0].type === NotificationMessageType.COMMENT);
+  return isDirectedNotificationItem(notification) && ( notification.message[0].type === NotificationMessageType.COMMENT);
 }

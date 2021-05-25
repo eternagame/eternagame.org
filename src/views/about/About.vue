@@ -139,6 +139,9 @@
           </h1>
           <p class="media-block__subtitle">
             {{ $t('about:section5-subtitle') }}
+            <a :href="`mailto:${$t('about:section5-contact')}`" target="_blank">
+              {{ $t('about:section5-contact') }}
+            </a>
           </p>
           <b-container>
             <b-row class="media-block__container">
@@ -757,6 +760,10 @@
       max-width: 50ch;
       margin: 0 auto;
       margin-bottom: 2rem;
+
+      & a {
+        color: #fac244;
+      }
     }
     &__container {
       display: flex;

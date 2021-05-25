@@ -1,10 +1,14 @@
 <template>
   <div class="page">
-    <img
-      src="~@/assets/front-page/img/covid-india-banner.jpg"
-      class="india-openvaccine-banner"
-      alt="Open Vaccine India Sprint"
-    />
+    <div style="text-align:center;background:#110a29;">
+      <a href="/news/10811812">
+        <img
+          src="~@/assets/front-page/img/covid-india-banner.jpg"
+          class="india-openvaccine-banner"
+          alt="Open Vaccine India Sprint"
+        />
+      </a>
+    </div>
     <HeroSection />
     
     <!-- Covid-19 Promo (TODO: localize?)-->
@@ -18,13 +22,14 @@
         <div class="media-body p-4">
           <h3 class="mt-0" style="font-weight: bold;">OpenVaccine: Eterna takes on COVID-19</h3>
           <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
-          <p style="font-size: 22px;">
+          <p style="font-size: 1.2rem;">
             With the onset of the COVID-19 pandemic in 2020, the Eterna project harnessed online
-            gamers toward a solution the OpenVaccine challenge. Their mission? To develop mRNA vaccines
+            gamers toward a solution: the OpenVaccine challenge. Their mission? To develop mRNA vaccines
             stable enough to be deployed to everyone in the world and not just a privileged few. By the
-            end of 2020, we did it! Check out this <router-link to="/news/10799462">announcement</router-link> and
-            <a target="_blank" href="https://www.youtube.com/watch?v=lvvbsoyVCKU">video</a> for a description of our
-            accomplishments.
+            end of 2020, we did it! Check out the <router-link to="/news/10799462">announcement</router-link> and
+            <a href="https://www.youtube.com/watch?v=lvvbsoyVCKU">video</a> for a description of our
+            accomplishments, and the launch of our
+            <a href="https://eternagame.org/news/10811812">B.1.617 mRNA vaccine challenge</a> to focus on the variant emerging in India.
           </p>
           <p class="mb-0"></p>
         </div>
@@ -38,7 +43,7 @@
         <div class="media-body p-4">
           <h3 class="mt-0" style="font-weight: bold;">10 Years of Discovery</h3>
           <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
-          <p style="font-size: 22px;">
+          <p style="font-size: 1.2rem;">
             This year we celebrate 10 years of citizen science through Eterna. Together we've
             synthesized thousands of player-designed molecules, published over 20 academic papers
             tackling fundamental RNA design questions, and pioneered the open development of RNA
@@ -67,7 +72,7 @@
         <div class="media-body p-4">
           <h3 class="mt-0" style="font-weight: bold;">Learn more about RNA</h3>
           <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
-          <p style="font-size: 22px;">
+          <p style="font-size: 1.2rem;">
             Eterna is proud to partner with NOVA Labs to help accelerate the fight against the
             coronavirus. Learn about RNA vaccines and viruses from
             <a href="https://www.pbs.org/wgbh/nova/video/decoding-covid-19/" target="_blank">NOVA</a>.
@@ -111,5 +116,6 @@
 
   .india-openvaccine-banner {
     width: 100%;
+    max-width: 1200px;
   }
 </style>

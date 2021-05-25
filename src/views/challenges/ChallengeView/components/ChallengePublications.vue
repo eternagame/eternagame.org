@@ -11,16 +11,39 @@
           class="publication"
         >
           <div class="publication-image">
-            <img v-if="publication.image" :src="publication.image" />
+            <img v-if="publication.image" :src="`/sites/default/files/${publication.image}`" />
             <div v-else class="publication-image-placeholder">
               <img class="publication-image-placeholder-image" src="@/assets/logomark_eterna.svg" />
             </div>
           </div>
           <div class="publication-info">
             <h5 class="publication-title">
-              {{ publication.title }}
+              <a
+                v-if="publication.link"
+                :href="publication.link"
+                target="_blank"
+              >
+                {{ publication.title }}
+              </a>
+              <span v-else>{{ publication.title }}</span>
             </h5>
-            <p class="publication-details"><span class="publication-details-journal">{{ publication.journal }}</span> - {{ publication.pub_date }}</p>
+            <p class="publication-details">
+              <a
+                v-if="publication.pdf_link"
+                class="publication-details-journal"
+                :href="publication.pdf_link"
+                target="_blank"
+              >
+                {{ publication.journal }}
+              </a>
+              <span
+                v-else
+                class="publication-details-journal"
+              >
+                {{ publication.journal }}
+              </span>
+              - {{ publication.pub_date }}
+            </p>
             <p class="publication-overview">{{ publication.authors }}</p>
           </div>
         </div>
@@ -89,6 +112,10 @@
     &-title {
       font-size: 1rem;
       font-weight: 700;
+      
+      & a {
+        color: #ffffff;
+      }
     }
 
     &-details {

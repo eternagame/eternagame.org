@@ -494,7 +494,7 @@
         ...publications.researcherpubslist,
         ...publications.playerpubslist
       ]
-      .sort((a, b) => parseInt(b.pub_date, 10) - parseInt(a.pub_date, 10))
+      .sort((a, b) => b.timestamp - a.timestamp)
       .slice(0, 3);
     }
     

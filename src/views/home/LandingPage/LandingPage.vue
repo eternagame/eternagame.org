@@ -5,8 +5,8 @@
       class="india-openvaccine-banner"
       alt="Open Vaccine India Sprint"
     />
-    <VideoSection />
-
+    <HeroSection />
+    
     <!-- Covid-19 Promo (TODO: localize?)-->
     <div class="container bs-docs-section mt-5">
       <div class="media row">
@@ -23,7 +23,7 @@
             gamers toward a solution the OpenVaccine challenge. Their mission? To develop mRNA vaccines
             stable enough to be deployed to everyone in the world and not just a privileged few. By the
             end of 2020, we did it! Check out this <router-link to="/news/10799462">announcement</router-link> and
-            <a href="https://www.youtube.com/watch?v=lvvbsoyVCKU">video</a> for a description of our
+            <a target="_blank" href="https://www.youtube.com/watch?v=lvvbsoyVCKU">video</a> for a description of our
             accomplishments.
           </p>
           <p class="mb-0"></p>
@@ -89,12 +89,12 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import DocsSection from './components/DocsSection.vue';
-  import VideoSection from './components/VideoSection.vue';
+  import HeroSection from './components/HeroSection.vue';
   
   @Component({
     components: {
       DocsSection,
-      VideoSection,
+      HeroSection,
     },
   })
   export default class LandingPage extends Vue {

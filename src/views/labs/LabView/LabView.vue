@@ -18,7 +18,7 @@
     />
     <Comments :comments="comments" :nid="lab.nid" />
     <template #sidebar="{ isInSidebar }">
-      <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />
+      <LabInfoPanel :lab="lab" :challenge="challenge" :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
@@ -33,6 +33,7 @@
   import Comments from '@/components/PageLayout/Comments.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import FetchMixin from '@/mixins/FetchMixin';
+  import { ChallengeData } from '@/views/challenges/ChallengeView/types';
   import LabDescription from './components/LabDescription.vue';
   import LabConclusion from './components/LabConclusion.vue';
   import LabInfoPanel from './components/LabInfoPanel.vue';
@@ -57,11 +58,21 @@
 
     adminUpdates: CommentItem[] | null = null;
 
+    challenge: ChallengeData | null = null;
+
     async fetch() {
       const res = (
         await this.$http.get(`/get/?type=project&nid=${this.$route.params.id}`)
       ).data.data as LabViewData;
-      
+
+      if (res.lab.challenge) {
+        const challengeResults = (
+          await this.$http.get(`/get/?type=challenge&nid=${res.lab.challenge}`)
+        ).data.data.challenge as ChallengeData;
+        
+        this.challenge = {...challengeResults};
+      }
+
       this.lab = res.lab;
       this.comments = res.comments;
       this.adminUpdates = res.supercomments;

@@ -9,8 +9,8 @@
         />
       </a>
     </div>
-    <VideoSection />
-
+    <HeroSection />
+    
     <!-- Covid-19 Promo (TODO: localize?)-->
     <div class="container bs-docs-section mt-5">
       <div class="media row">
@@ -94,12 +94,12 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import DocsSection from './components/DocsSection.vue';
-  import VideoSection from './components/VideoSection.vue';
+  import HeroSection from './components/HeroSection.vue';
   
   @Component({
     components: {
       DocsSection,
-      VideoSection,
+      HeroSection,
     },
   })
   export default class LandingPage extends Vue {

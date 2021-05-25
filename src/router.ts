@@ -22,6 +22,11 @@ export default function createRouter() {
         component: () => import('./views/labs/LabView/LabView.vue'),
       },
       {
+        path: '/challenges/:id',
+        name: 'challenge-view',
+        component: () => import('./views/challenges/ChallengeView/ChallengeView.vue'),
+      },
+      {
         path: '/quests',
         name: 'quests-list',
         component: () => import('./views/quests/QuestsExplore/QuestsExplore.vue'),
@@ -55,6 +60,11 @@ export default function createRouter() {
         path: '/about',
         name: 'about',
         component: () => import('./views/about/About.vue'),
+      },
+      {
+        path: '/history',
+        name: 'history',
+        component: () => import('./views/history/History.vue'),
       },
       {
         path: '/help',

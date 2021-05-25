@@ -103,7 +103,7 @@
                   ></iframe>
                 </div>
                 <h1 class="challenges__heading">
-                  <a href="/labs/10027854">
+                  <a :href="`/challenges/${challenge.nid}`">
                     {{ challenge.title }}
                   </a>
                 </h1>

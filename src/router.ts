@@ -57,6 +57,11 @@ export default function createRouter() {
         component: () => import('./views/about/About.vue'),
       },
       {
+        path: '/history',
+        name: 'history',
+        component: () => import('./views/history/History.vue'),
+      },
+      {
         path: '/help',
         name: 'quick-help',
         component: () => import('./views/help/QuickHelp.vue'),

@@ -91,7 +91,7 @@
                 v-for="(challenge, index) in challenges"
                 :key="index"
                 cols="12"
-                class="col-md-4 challenges__challenge-card"
+                class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 challenges__challenge-card"
               >
                 <div class="challenge-video-wrapper">
                   <iframe
@@ -672,7 +672,7 @@
     padding-top: 3.45rem;
 
     &__container {
-      max-width: 900px;
+      max-width: 1500px;
       margin: 0 auto;
       &:not(:first-child) {
         margin-top: 3.25rem;

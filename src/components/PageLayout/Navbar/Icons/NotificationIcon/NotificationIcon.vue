@@ -106,13 +106,11 @@
       // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
       const res = response.data.data.entries as NotificationItem[];
 
-      if (res) {
-        this.notifications = res
+      this.notifications = res
         .map(this.splitMessageThreads)
         .flat()
         .sort((a, b) => this.getCreated(b) - this.getCreated(a))
         .slice(0, NUMBER_NOTIFICATIONS_TO_SHOW);
-      }
     }
 
     splitMessageThreads(notification: NotificationItem) {

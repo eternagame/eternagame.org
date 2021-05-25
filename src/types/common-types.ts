@@ -130,6 +130,7 @@ export interface Publication {
   title: string;
   journal: string;
   pub_date: string;
+  timestamp: number;
   link: string;
   has_player_authors: boolean;
   authors: string;

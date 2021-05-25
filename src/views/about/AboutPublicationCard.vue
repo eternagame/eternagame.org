@@ -3,7 +3,7 @@
     <a :href="pub.link" target="_blank">
       <img
         v-if="pub.image"
-        :src="pub.image"
+        :src="`/sites/default/files/${pub.image}`"
         :alt="`${pub.title} image`"
         class="graphic"
       />

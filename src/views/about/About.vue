@@ -490,7 +490,12 @@
         await this.$http.get('/get/?type=pubslist')
       ).data.data as Publications;
 
-      this.publications = publications.researcherpubslist.slice(0, 3);
+      this.publications = [
+        ...publications.researcherpubslist,
+        ...publications.playerpubslist
+      ]
+      .sort((a, b) => parseInt(b.pub_date, 10) - parseInt(a.pub_date, 10))
+      .slice(0, 3);
     }
     
     isExternal(link: string): boolean {

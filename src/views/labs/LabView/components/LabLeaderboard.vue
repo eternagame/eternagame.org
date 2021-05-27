@@ -1,7 +1,9 @@
 <template>
     <tr class="player-card">
       <td>
-        <p class="rank">#{{ rank + 1 }}</p>
+        <p class="rank">
+          #{{ rank + 1 }}
+        </p>
       </td>
       <td style="shrink">
         <img v-if="imageLink" class="rounded-circle player-image" :src="imageLink" />
@@ -15,12 +17,16 @@
         </div>
        </td>
       <td>
+        <top>
         <a v-bind:href="puzzleLink">
-          {{player.puztitle}}
+          {{ player.puztitle }}
         </a>
+        </top>
       </td>
       <td>
-        <a v-bind:href="solutionLink"> {{player.title}} </a>
+        <a v-bind:href="solutionLink"> 
+          {{ player.title }} 
+        </a>
       </td>
       <td>
         <div class="score">
@@ -53,7 +59,7 @@
     }
 
     get solutionLink(){
-      return `${PUZZLE_ROUTE_BROWSE_PREFIX}${this.player.puznid}/?filter1=Id&filter1_arg1=${this.player.id}"&filter1_arg2="${this.player.id}`;
+      return `${PUZZLE_ROUTE_BROWSE_PREFIX}${this.player.puznid}/?filter1=Id&filter1_arg1=${this.player.id}&filter1_arg2=${this.player.id}`;
     }
 
     get imageLink() {
@@ -107,6 +113,7 @@
 
   .rank {
     font-weight: bold;
+    font-size: 1rem;
     margin-top: 20px;
     margin-right: 1rem;
     @include media-breakpoint-down(xs) {
@@ -133,10 +140,12 @@
   }
   .score{
     margin-right: 10%;
+    font-weight: bold;
   }
   td {
-    padding-top: 1rem;
+    font-size: 1rem;
     padding-bottom: 1rem;
+    padding-top: 1rem;
     border-bottom: 1px solid $light-blue;
   }
 
@@ -144,4 +153,10 @@
     width: 0.1%;
     white-space: nowrap;
   }
+
+  .top{
+      padding-top: 0rem;
+  }
+
+
 </style>

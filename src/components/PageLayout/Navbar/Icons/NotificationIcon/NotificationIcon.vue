@@ -1,8 +1,10 @@
 <template>
   <NavbarIcon @shown="onShown">
     <template #icon>
-      <div class="unread" v-if="notificationsCount > 0"></div>
-      <img class="icon" src="@/assets/navbar/Bell.svg" />
+      <div>
+        <div class="unread" v-if="notificationsCount > 0"></div>
+        <img class="icon" src="@/assets/navbar/Bell.svg" />
+      </div>
     </template>
     <template #text>{{ $t('nav-bar:notifications') }}</template>
     <template v-slot="slotProp">
@@ -32,19 +34,15 @@
   </NavbarIcon>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
+  import { Component, Mixins } from 'vue-property-decorator';
   import {
     NotificationItem,
-    isNotiNotiItem,
     isDirectedNotificationItem,
-    NotificationMessage,
     isPMNotiItem,
     NotificationType,
     isCommentNotiItem
   } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
-  import Utils from '@/utils/utils';
   import NavbarIcon from '../NavbarIcon.vue';
   import NewsNotification from './NewsNotification.vue';
   import PrivateMessageNotification from './PrivateMessageNotification.vue';
@@ -54,8 +52,6 @@
   const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user';
 
   const NEWS_FEED_ROUTE = '/get/?type=newsfeed&combined=true&filter=all';
-
-  const USER_ROUTE = '/get/?type=user&uid=';
 
   const NUMBER_NOTIFICATIONS_TO_SHOW = 5;
 

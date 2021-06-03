@@ -1,6 +1,6 @@
 <template>
   <!-- TODO: Consider making this a NavIcon instead for consistent styling and behavior. -->
-  <li style="text-decoration: none; padding-left: 10px; padding-right: 10px;">
+  <li style="list-style: none; padding-left: 10px; padding-right: 10px;">
     <div class="clickable mt-2" @click="goToChat()">
       <img src="@/assets/navbar/Chat.svg" />
       <span class="d-md-none font-weight-bold">

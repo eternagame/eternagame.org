@@ -84,12 +84,16 @@
     position: relative;
     min-width: 100%;
     min-height: 100%;
+    background: #21508C;
   }
-  
+
   .hero-background {
     position: relative;
     background: #21508C;
-
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    
     &-tiles {
       position: relative;
       left: 50%;
@@ -138,18 +142,20 @@
     }
 
     &.design-scene {
-      top: 4vh;
-      left: 6vw;
+      // margin-left: auto;
+      // margin-right: auto;
+      top: 1vh;
+      left: 1vw;
     }
 
     &.vote-scene {
-      top: 4vh;
-      right: 6vw;
+      top: 2vh;
+      right: 2vw;
     }
 
     &.analyze-scene {
-      bottom: 4vh;
-      left: 6vw;
+      bottom: 1vh;
+      left: 2vw;
 
       @include media-breakpoint-down(sm) {
         display: none;
@@ -165,8 +171,8 @@
     }
 
     &.test-scene {
-      bottom: 4vh;
-      right: 6vw;
+      bottom: 1vh;
+      right: 2vw;
 
       @include media-breakpoint-down(sm) {
         display: none;

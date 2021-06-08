@@ -1,50 +1,12 @@
 <template>
   <EternaPage title="">
-    <section class="hero">
-      <img src="~@/assets/home/hero-eternacon-2020.png" class="bg" />
-      <div class="hero-description">
-        <h2>Learn. Play. <i>Connect</i>.</h2>
-
-        <p class="explain">
-          Tune in on July 25-26 to exciting talks and activities from Eterna researchers, developers,
-          players, and other world-class experts.
-        </p>
-        <b-button
-          class="button mt-3"
-          variant="primary"
-          size="lg"
-          href="https://stanford.zoom.us/webinar/register/WN_papHzTJQRs2_-u0U_yhYIw"
-        >
-          Register
-        </b-button>
-      </div>
-    </section>
-    <section class="row conference-areas">
-      <div class="col-md-3 col-sm-6">
-        <b-card>
-          <img src="~@/assets/about/icon_about_2.png" />
-          <p>Research</p>
-        </b-card>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <b-card>
-          <img src="~@/assets/about/icon_about_1.png" />
-          <p>Gameplay</p>
-        </b-card>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <b-card>
-          <img src="~@/assets/about/about-section-4-3.png" />
-          <p>Development</p>
-        </b-card>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <b-card>
-          <img src="~@/assets/about/about-community.svg" />
-          <p>Community</p>
-        </b-card>
-      </div>
-    </section>
+    <HeroSection
+      backgroundImage="@/assets/home/hero-eternacon-2020.png"
+    >
+      Tune in on July 25-26 to exciting talks and activities from Eterna researchers, developers,
+      players, and other world-class experts.
+    </HeroSection>
+    <ConferenceAreasSection />
     <section>
       <h3 class="mt-2">Attendance</h3>
       <p>
@@ -65,54 +27,7 @@
         Additional questions? Contact <a href="mailto:events@eternagame.org">events@eternagame.org</a>.
       </p>
     </section>
-    <section class="schedule">
-      <h3>Schedule</h3>
-      <template v-for="(sessions, day) in speakers">
-        <h4 :key="day">{{day}}</h4>
-        <ul :key="day">
-          <template v-for="session in sessions">
-            <li :key="`${session.topic}-${session.time}`" class="row">
-              <div class="col-sm-3">
-                <div class="session-time">{{session.time}}</div>
-                <div class="font-weight-bold">{{session.speaker}}</div>
-                <div class="text-muted">{{session.affiliation}}</div>
-              </div>
-              <b-card class="col-sm-9" v-if="session.topic !== 'Break'">
-                <h5>{{session.topic}}</h5>
-                <p v-dompurify-html="session.abstract" v-if="session.abstract"></p>
-                <template v-if="session.privateLink && $vxm.user.hasLabAccess">
-                  <p class="video-info">
-                    This video may contain confidential information such as upublished research. Please do not share
-                    its contents, and limit discussion to the lab categories on the forum and Discord.
-                  </p>
-                  <div class="embed-responsive embed-responsive-16by9 mt-2">
-                    <iframe :src="session.privateLink" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                  </div>
-                </template>
-                <p class="video-info" v-else-if="session.privateLink">
-                  A recording for this session is available to lab members.
-                  <template v-if="$vxm.user.loggedIn">
-                    Finish the tutorials to gain access.
-                  </template>
-                  <template v-else>
-                    Log in to watch.
-                  </template>
-                </p>
-                <template v-if="session.publicLink">
-                  <div class="embed-responsive embed-responsive-16by9 mt-2">
-                    <iframe :src="session.publicLink" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                  </div>
-                </template>
-              </b-card>
-              <div class="col-sm-9 text-center" v-else>
-                <h5 class="d-inline m-0">Break</h5> - join us on
-                <a href="https://discord.gg/KYeTwux">Discord</a> and <a href="https://twitch.tv/eternagame">Twitch</a>!
-              </div>
-            </li>
-          </template>
-        </ul>
-      </template>
-    </section>
+    <ScheduleSection :sessions="sessions" />
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"
@@ -128,18 +43,19 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
-  import logo from '@/assets/about/logo_eternacon.svg';
-  import bgImage from '@/assets/home/hero-blue-bg.png';
+  import DropdownSidebarPanel from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import HeroSection from './components/HeroSection.vue';
+  import ScheduleSection from './components/ScheduleSection.vue';
+  import ConferenceAreasSection from './components/ConferenceAreasSection.vue';
   import { options } from './AboutEternacon.vue'; 
-  import speakers from './speakers-2020.json';
+  import sessions from './speakers-2020.json';
 
   @Component({
-    components: { EternaPage, DropdownSidebarPanel },
+    components: { EternaPage, HeroSection, ScheduleSection, ConferenceAreasSection, DropdownSidebarPanel },
   })
   export default class Eternacon2020 extends Vue {
-    get speakers() {
-      return speakers;
+    get sessions() {
+      return sessions;
     }
 
     get options() {
@@ -147,117 +63,3 @@
     };
   }
 </script>
-
-<style lang="scss" scoped>
-  @import '@/styles/global.scss';
-  
-  .hero {
-    height: 350px;
-    position: relative;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
-
-    .logowrap {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      top: 0;
-      padding: 2rem;
-    }
-
-    .logo {
-      position: relative;
-      top: -3rem;
-    }
-
-    .bg {
-      object-fit: cover;
-    }
-  }
-
-  .hero::after {
-    z-index: 1;
-    display: block;
-    position: relative;
-    background-image: linear-gradient(
-      to bottom,
-      transparent 40%,
-      rgba(0, 0, 0, 0.6) 70%,
-      rgba(0, 0, 0, 0.9) 100%
-    );
-    margin-top: -400px;
-    height: 400px;
-    width: 100%;
-    content: '';
-  }
-
-  .hero-description {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: 2rem;
-    z-index: 2;
-  }
-
-  .explain {
-    max-width: 482px;
-    margin: 0;
-  }
-
-  .conference-areas {
-    margin: 0 -.5rem;
-    text-align: center;
-
-    & > div {
-      padding: .5rem .5rem;
-    }
-
-    img {
-      height: 8rem;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      font-size: 1.4rem;
-      font-weight: bold;
-      margin: 0;
-
-      @include media-breakpoint-only(lg) {
-        font-size: 1rem;
-      }
-
-      @include media-breakpoint-only(md) {
-        font-size: 1rem;
-      }
-    }
-  }
-
-  .schedule ul {
-    padding: 0;
-
-    li {
-      margin: .5rem 0;
-    }
-
-    li > * {
-      padding: .5rem;
-      height: min-content;
-    }
-
-    .session-time {
-      color: $yellow;
-    }
-
-    .video-info {
-      color: $yellow;
-      font-weight: bold;
-    }
-
-    p {
-      margin: 0;
-    }
-  }
-</style>

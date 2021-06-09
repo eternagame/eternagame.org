@@ -11,42 +11,7 @@
     </b-tabs>
     <LabRound v-else v-for="round in closedRounds" :key="round.round" :round="round" closed="true" />
     <LabConclusion v-if="lab.conclusion" :conclusion="lab.conclusion" style="margin-bottom: 52.5px;" />
-    <p></p>
-    <p></p>
-    <h3>{{$t('lab-view-leaderboard:leaderboard')}}</h3>
-    <div>
-      <table style="width:100%">
-        <colgroup>
-          <col span="1" style="width:5%">
-          <col span="1" style="width:5%">
-          <col span="1" style="width:10%">
-          <col span="1" style="width:15%">
-          <col span="1" style="width:20%">
-          <col span="1" style="width:1%">
-        </colgroup>
-        <th class="leaderboard-header">
-          {{$t('lab-view-leaderboard:rank')}}
-        </th>
-        <th class="leaderboard-header">
-          {{$t('lab-view-leaderboard:user')}}
-        </th>
-        <th class="leaderboard-header">
-          {{$t('lab-view-leaderboard:name')}}
-        </th>
-        <th class="leaderboard-header">
-          {{$t('lab-view-leaderboard:puzzle')}}
-        </th>
-        <th class="leaderboard-header">
-          {{$t('lab-view-leaderboard:solution')}}
-        </th>
-        <th class="leaderboard-header">
-          {{$t('lab-view-leaderboard:score')}}
-        </th>
-        <tbody>
-          <LabLeaderboard v-for="(player, rank) in lab.synthesized_solutions" :key="player.id" :player="player" :rank="rank"/>
-        </tbody>
-      </table>
-    </div>
+    <LabLeaderboardCard :labData="lab.synthesized_solutions" />
     <Comments
       :name="$t('lab-view:admin-comments')"
       :comments="adminUpdates"
@@ -73,7 +38,7 @@
   import LabConclusion from './components/LabConclusion.vue';
   import LabInfoPanel from './components/LabInfoPanel.vue';
   import LabRound from './components/LabRound.vue';
-  import LabLeaderboard from './components/LabLeaderboard.vue';
+  import LabLeaderboardCard from './components/LabLeaderboardCard.vue';
   import LabViewData, { LabData } from './types';
 
   @Component({
@@ -85,7 +50,7 @@
       LabRound,
       TagsPanel,
       Comments,
-      LabLeaderboard,
+      LabLeaderboardCard,
     },
   })
   export default class LabView extends Mixins(FetchMixin) {
@@ -99,7 +64,7 @@
       const res = (
         await this.$http.get(`/get/?type=project&nid=${this.$route.params.id}`)
       ).data.data as LabViewData;
-      
+      console.log(res.lab.synthesized_solutions);
       this.lab = res.lab;
       this.comments = res.comments;
       this.adminUpdates = res.supercomments;

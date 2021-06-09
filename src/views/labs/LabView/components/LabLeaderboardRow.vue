@@ -1,4 +1,5 @@
 <template>
+
     <tr class="player-card">
       <td>
         <p class="rank">
@@ -11,29 +12,28 @@
       </td>
       <td>
         <div class="player-name">
-          <a v-bind:href="'/players/' + player.uid">
-            {{ player.name }}
+          <a v-bind:href="'/players/' + rankedSolution.uid">
+            {{ rankedSolution.name }}
           </a>
         </div>
        </td>
       <td>
-        <top>
         <a v-bind:href="puzzleLink">
-          {{ player.puztitle }}
+          {{ rankedSolution.puztitle }}
         </a>
-        </top>
       </td>
       <td>
         <a v-bind:href="solutionLink"> 
-          {{ player.title }} 
+          {{ rankedSolution.title }} 
         </a>
       </td>
       <td>
         <div class="score">
-          {{player["synthesis-score"]}}
+          {{rankedSolution["synthesis-score"]}}
         </div>
       </td>
     </tr>
+
 </template>
 
 <script lang="ts">
@@ -48,22 +48,22 @@
 @Component({
     components: {},
 })
-  export default class LabLeaderboard extends Vue {
-
-    @Prop({required: true}) readonly player!: any;
+  export default class LabLeaderboardRow extends Vue {
+    
+    @Prop({required: true}) readonly rankedSolution!: any;
 
     @Prop({required: true}) readonly rank!: number;
 
     get puzzleLink(){
-        return `${PUZZLE_ROUTE_PREFIX}${this.player.puznid}/`;
+        return `${PUZZLE_ROUTE_PREFIX}${this.rankedSolution.puznid}/`;
     }
 
     get solutionLink(){
-      return `${PUZZLE_ROUTE_BROWSE_PREFIX}${this.player.puznid}/?filter1=Id&filter1_arg1=${this.player.id}&filter1_arg2=${this.player.id}`;
+      return `${PUZZLE_ROUTE_BROWSE_PREFIX}${this.rankedSolution.puznid}/?filter1=Id&filter1_arg1=${this.rankedSolution.id}&filter1_arg2=${this.rankedSolution.id}`;
     }
 
     get imageLink() {
-      return this.player.picture && `${process.env.VUE_APP_API_BASE_URL}/${this.player.picture}`;
+      return this.rankedSolution.picture && `${process.env.VUE_APP_API_BASE_URL}/${this.rankedSolution.picture}`;
     }
   }
 </script>
@@ -75,9 +75,7 @@
     border: 0px;
     color: $white;
     transition: background-color 0.3s ease;
-    padding-right: 2rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+
   }
   a:link{
     color:$white;
@@ -88,11 +86,11 @@
   .player-image {
     object-fit: scale-down;
     margin-right: 1rem;
-    width: 55px;
-    height: 55px;
+    width: 40px;
+    height: 40px;
     @include media-breakpoint-down(xs) {
-      width: 52px;
-      height: 52px;
+      width: 35px;
+      height: 35px;
       margin-right: 0.5rem;
     }
   }
@@ -114,7 +112,7 @@
   .rank {
     font-weight: bold;
     font-size: 1rem;
-    margin-top: 20px;
+    margin-top: 1rem;
     margin-right: 1rem;
     @include media-breakpoint-down(xs) {
       margin-right: 0.3rem;
@@ -143,9 +141,9 @@
     font-weight: bold;
   }
   td {
-    font-size: 1rem;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
+    font-size: .75rem;
+    padding-bottom: .25rem;
+    padding-top: .25rem;
     border-bottom: 1px solid $light-blue;
   }
 
@@ -157,6 +155,9 @@
   .top{
       padding-top: 0rem;
   }
-
+  .leaderboard-header
+  {
+    background-color: #103e85;
+  }
 
 </style>

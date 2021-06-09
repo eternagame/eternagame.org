@@ -64,7 +64,7 @@
       const res = (
         await this.$http.get(`/get/?type=project&nid=${this.$route.params.id}`)
       ).data.data as LabViewData;
-      console.log(res.lab.synthesized_solutions);
+
       this.lab = res.lab;
       this.comments = res.comments;
       this.adminUpdates = res.supercomments;

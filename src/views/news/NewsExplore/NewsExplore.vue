@@ -73,17 +73,22 @@
 
     async fetch() {
       const { sort, end_date, start_date, size, search } = this.$route.query;
+      
 
       const res = (
         await this.$http.get(ROUTE, {
           params: {
             search,
             size: size || INITIAL_NUMBER,
-            from_created: start_date && new Date(start_date as string).getTime() / 1000,
-            to_created: end_date && new Date(end_date as string).getTime() / 1000,
+            from_created: start_date && new Date(String(start_date).replace(/-/g, '/')).getTime() / 1000,
+            to_created: end_date && (new Date(String(end_date).replace(/-/g, '/')).getTime() / 1000),
           },
         })
       ).data.data.entries as NewsItem[];
+      
+
+      // incosistent behaviour with different date ranges
+
       // TODO https://github.com/eternagame/eternagame.org/issues/157 move filtering to backend
       switch (sort) {
         case 'news':

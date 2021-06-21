@@ -1,15 +1,18 @@
 <template>
   <EternaPage v-if="lab" title="Lab Details">
     <LabDescription :lab="lab" style="margin-bottom: 52.5px;" />
-    <b-tabs v-if="openRounds.length">
-      <b-tab :title="$t('lab-view:open')" v-if="openRounds.length" class="tab">
-        <LabRound v-for="round in openRounds" :key="round.round" :round="round" closed="false" />
+    <b-tabs v-if="openRounds.length && closedRounds.length">
+      <b-tab :title="$t('lab-view:open')" class="tab">
+        <LabRound v-for="round in openRounds" :key="round.round" :round="round"/>
       </b-tab>
-      <b-tab :title="$t('lab-view:closed')" v-if="closedRounds.length" class="tab">
-        <LabRound v-for="round in closedRounds" :key="round.round" :round="round" closed="true" />
+      <b-tab :title="$t('lab-view:closed')" class="tab">
+        <LabRound v-for="round in closedRounds" :key="round.round" :round="round" />
       </b-tab>
     </b-tabs>
-    <LabRound v-else v-for="round in closedRounds" :key="round.round" :round="round" closed="true" />
+    <template v-else>
+      <LabRound v-for="round in openRounds" :key="round.round" :round="round" />
+      <LabRound v-for="round in closedRounds" :key="round.round" :round="round" />
+    </template>
     <LabConclusion v-if="lab.conclusion" :conclusion="lab.conclusion" style="margin-bottom: 52.5px;" />
     <LabLeaderboardCard :labData="lab.synthesized_solutions" />
     <Comments
@@ -17,23 +20,22 @@
       :comments="adminUpdates"
       v-if="adminUpdates.length"
     />
-    <Comments :comments="comments" :nid="lab.nid" />
+    <Comments :comments="comments" :nid="lab.nid" v-if="comments.length || $vxm.user.loggedIn" />
     <template #sidebar="{ isInSidebar }">
-      <LabInfoPanel :lab="lab" :isInSidebar="isInSidebar" />
+      <LabInfoPanel :lab="lab" :challenge="challenge" :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Mixins } from 'vue-property-decorator';
   import { CommentItem } from '@/types/common-types';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import FetchMixin from '@/mixins/FetchMixin';
+  import { ChallengeData } from '@/views/challenges/ChallengeView/types';
   import LabDescription from './components/LabDescription.vue';
   import LabConclusion from './components/LabConclusion.vue';
   import LabInfoPanel from './components/LabInfoPanel.vue';
@@ -56,34 +58,44 @@
   export default class LabView extends Mixins(FetchMixin) {
     lab: LabData | null = null;
 
-    comments: CommentItem[] | null = null;
+    comments: CommentItem[] = [];
 
-    adminUpdates: CommentItem[] | null = null;
+    adminUpdates: CommentItem[] = [];
+
+    challenge: ChallengeData | null = null;
 
     async fetch() {
       const res = (
         await this.$http.get(`/get/?type=project&nid=${this.$route.params.id}`)
       ).data.data as LabViewData;
 
+      if (res.lab.challenge) {
+        const challengeResults = (
+          await this.$http.get(`/get/?type=challenge&nid=${res.lab.challenge}`)
+        ).data.data.challenge as ChallengeData;
+        
+        this.challenge = {...challengeResults};
+      }
+
       this.lab = res.lab;
       this.comments = res.comments;
       this.adminUpdates = res.supercomments;
     }
 
-    roundClosed(round: { round: number }) {
+    roundClosed(roundtoCheck: { round: number }) {
       return (
-        round.round < Number(this.lab?.puzzles?.length) ||
+        roundtoCheck.round < Math.max(...(this.lab?.puzzles || []).map(round => round.round)) ||
         this.lab?.exp_phase == null ||
-        Number(this.lab?.exp_phase) >= 1
+        Number(this.lab?.exp_phase) > 1
       );
     }
 
     get closedRounds() {
-      return this.lab?.puzzles.filter(round => this.roundClosed(round));
+      return this.lab?.puzzles.filter(round => this.roundClosed(round)) || [];
     }
 
     get openRounds() {
-      return this.lab?.puzzles.filter(round => !this.roundClosed(round));
+      return this.lab?.puzzles.filter(round => !this.roundClosed(round)) || [];
     }
   }
 </script>

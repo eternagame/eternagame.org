@@ -15,9 +15,14 @@
 <style lang="scss" scoped>
   @import '~bootstrap/scss/bootstrap.scss';
   img {
-    width: 187px;
+    width: 150px;
   }
   @include media-breakpoint-up(md) {
+    img {
+      width: 200px;
+    }
+  }
+  @include media-breakpoint-up(lg) {
     img {
       width: 275px;
     }

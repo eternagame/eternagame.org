@@ -26,9 +26,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Mixins } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
@@ -53,7 +51,7 @@
     },
   })
   export default class LabsExplore extends Mixins(FetchMixin) {
-    labs: LabCardData[] | null = null;
+    labs: LabCardData[] = [];
 
     private filters: Filter[] = [
       { value: 'active', text: 'Active' },

@@ -37,8 +37,8 @@
     <section>
       <h3 class="mt-2">Sponsor</h3>
       <p>
-         in prior years, we are actively seeking partnerships with commercial and other organizations to sponsor
-         Eternacon each year to provide funding for facilities, materials, and player support. In return, we are working
+         We are actively seeking partnerships with commercial and other organizations to sponsor Eternacon each year to
+         provide funding for facilities, materials, and player support. In return, we are working
          on developing various mechanisms for sponsors to be recognized. Please contact
          <a href="mailto:events@eternagame.org">events@eternagame.org</a> for more information.
       </p>
@@ -61,8 +61,9 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
 
   export const options: Option[] = [
-    { value: '2020', text: 'side-panel-options:eternacon-2020', link: '/eternacon/2020' },
     { value: 'about', text: 'side-panel-options:about-eternacon', link: '/eternacon/about' },
+    { value: '2021', text: 'side-panel-options:eternacon-2021', link: '/eternacon/2021' },
+    { value: '2020', text: 'side-panel-options:eternacon-2020', link: '/eternacon/2020' },
   ];
 
   @Component({

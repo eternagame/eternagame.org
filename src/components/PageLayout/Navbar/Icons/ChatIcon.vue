@@ -1,8 +1,8 @@
 <template>
   <!-- TODO: Consider making this a NavIcon instead for consistent styling and behavior. -->
-  <div>
+  <li style="list-style: none; padding-left: 10px; padding-right: 10px;">
     <div class="clickable mt-2" @click="goToChat()">
-      <img class="mr-1" src="@/assets/navbar/Chat.svg" />
+      <img src="@/assets/navbar/Chat.svg" />
       <span class="d-md-none font-weight-bold">
         {{ $t('nav-bar:chat') }}
       </span>
@@ -18,7 +18,7 @@
     >
       <div ref="chatContainer"></div>
     </b-popover>
-  </div>
+  </li>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue, Mixins, Ref } from 'vue-property-decorator';

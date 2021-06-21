@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow:hidden; margin-top: 120px;">
+  <div style="overflow:hidden; margin-top: 5rem;">
     <b-container class="page-container">
       <b-col class="sub-heading" cols="12" lg="9" v-if="header_title && header_date">
         <h3 class="text-uppercase">{{ header_title }}</h3>

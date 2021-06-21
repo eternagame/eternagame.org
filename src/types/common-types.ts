@@ -130,6 +130,7 @@ export interface Publication {
   title: string;
   journal: string;
   pub_date: string;
+  timestamp: number;
   link: string;
   has_player_authors: boolean;
   authors: string;
@@ -354,8 +355,14 @@ export interface BlogItem {
   sticky: string;
   body: string;
   filepath: string | null;
-  timestamp: string
+  timestamp: string;
   comments: CommentItem[];
+}
+
+export interface AboutMediaItem {
+  link: string;
+  title: string;
+  description: string;
 }
 
 // The combined news and blogs list uses the same logic and creates the same fields

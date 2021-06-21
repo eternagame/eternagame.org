@@ -22,6 +22,11 @@ export default function createRouter() {
         component: () => import('./views/labs/LabView/LabView.vue'),
       },
       {
+        path: '/challenges/:id',
+        name: 'challenge-view',
+        component: () => import('./views/challenges/ChallengeView/ChallengeView.vue'),
+      },
+      {
         path: '/quests',
         name: 'quests-list',
         component: () => import('./views/quests/QuestsExplore/QuestsExplore.vue'),
@@ -55,6 +60,11 @@ export default function createRouter() {
         path: '/about',
         name: 'about',
         component: () => import('./views/about/About.vue'),
+      },
+      {
+        path: '/history',
+        name: 'history',
+        component: () => import('./views/history/History.vue'),
       },
       {
         path: '/help',
@@ -123,12 +133,17 @@ export default function createRouter() {
       },
       {
         path: '/eternacon',
-        redirect: { name: 'eternacon-2020' }
+        redirect: { name: 'eternacon-2021' }
       },
       {
         path: '/eternacon/2020',
         name: 'eternacon-2020',
         component: () => import('./views/eternacon/Eternacon2020.vue'),
+      },
+      {
+        path: '/eternacon/2021',
+        name: 'eternacon-2021',
+        component: () => import('./views/eternacon/Eternacon2021.vue'),
       },
       {
         path: '/eternacon/about',

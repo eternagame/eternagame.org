@@ -66,6 +66,7 @@
       },
       learn: {
         'quick-help': '/help',
+        'gamer-guide': '/gamerguide',
         guides: 'http://eternawiki.org/wiki/index.php5/Player-Created_Guides',
         wiki: 'http://eternawiki.org',
       },
@@ -79,6 +80,7 @@
       news: '/news',
       about: {
         overview: '/about',
+        challenges: '/about/challenges',
         publications: '/about/publications',
         software: '/about/software',
         eternacon: `/eternacon`,

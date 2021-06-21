@@ -142,20 +142,23 @@
     }
 
     &.design-scene {
-      // margin-left: auto;
-      // margin-right: auto;
-      top: 1vh;
-      left: 1vw;
+      top: 2vh;
+      left: 1vh;
     }
 
     &.vote-scene {
-      top: 2vh;
-      right: 2vw;
+      top: 3vh;
+      right: 3vh;
+
+      @include media-breakpoint-down(sm) {
+        top: 3vh;
+        right: 3vh;
+      }
     }
 
     &.analyze-scene {
-      bottom: 1vh;
-      left: 2vw;
+      bottom: 2vh;
+      left: 2vh;
 
       @include media-breakpoint-down(sm) {
         display: none;
@@ -166,13 +169,15 @@
 
         @include media-breakpoint-down(sm) {
           display: block;
+          bottom: 3vh;
+          left: 3vh;
         }
       }
     }
 
     &.test-scene {
       bottom: 1vh;
-      right: 2vw;
+      right: 2vh;
 
       @include media-breakpoint-down(sm) {
         display: none;
@@ -183,6 +188,9 @@
 
         @include media-breakpoint-down(sm) {
           display: block;
+          bottom: 3vh;
+          right: 3vh;
+
         }
       }
     }

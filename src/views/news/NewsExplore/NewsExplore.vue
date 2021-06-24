@@ -18,7 +18,7 @@
         replace
         :isInSidebar="isInSidebar"
       />
-      <CalendarPanel  v-if="isInSidebar" @page-update="monthFetch" :notableDates="calendarItems" :isInSidebar="isInSidebar"/>
+      <CalendarPanel @page-update="monthFetch" :notableDates="calendarItems" :isInSidebar="isInSidebar"/>
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
     </template>
     <template #mobileSearchbar>
@@ -72,14 +72,9 @@
 
     private newsItems: (NewsItem|BlogItem)[] = [];
 
-    private calendarItems:{} = {};
+    private calendarItems:{selectAttribute: { dot: string; dates: string; }[]} = {selectAttribute: []} ;
 
-    private defaultDate!: DateItem;
-
-    async monthFetch(monthData = this.defaultDate){
-
-      let i = 0;
-      const totalDates = [];
+    async monthFetch(monthData: DateItem){
 
       const res = (
           await this.$http.get(ROUTE, {
@@ -92,21 +87,11 @@
           ).data.data.entries as NewsItem[];
       
       // Timezone in UTC, calendar dates parsing is incorrect
-      
-      for(; i < res.length; i += 1){
 
-        totalDates.push(
-          {
-            dot: 'blue',
-            dates: new Date(Number(res[i].timestamp) * 1000).toLocaleString('en-US', {timeZone: 'UTC'}),
-          }
-        );
-      }
-
-
-      this.calendarItems = {
-        selectAttribute: totalDates,
-        };
+      this.calendarItems.selectAttribute = res.map((element) =>({
+              dot: 'blue',
+              dates: new Date(Number(element.timestamp) * 1000).toLocaleString('en-US', {timeZone: 'UTC'}),
+        }));
     }
 
     async fetch() {

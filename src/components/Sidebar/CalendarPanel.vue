@@ -1,6 +1,6 @@
 <template>
-  <SidebarPanel v-if="notableDates" :isInSidebar="isInSidebar" header="calendar" headerIcon="@/assets/calendar.svg">
-    <vc-date-picker is-range v-model="dates" color="yellow" :attributes="notableDates.selectAttribute" @update:from-page="changePage" is-dark is-inline />
+  <SidebarPanel :isInSidebar="isInSidebar" header="calendar" headerIcon="@/assets/calendar.svg">
+    <vc-date-picker is-range v-model="dates" color="yellow" :attributes="highlightDates" @update:from-page="changePage" is-dark is-inline />
   </SidebarPanel>
 </template>
 
@@ -25,17 +25,20 @@
   })
   export default class CalendarPanel extends mixins(SidebarPanelMixin) {
 
-    @Prop({required: false}) readonly notableDates!: any;
+    @Prop({required: false}) readonly notableDates!: {selectAttribute: { dot: string; dates: string; }[]} ;
 
     private dates: {
       start?: Date;
       end?: Date;
     } = {};
 
-    private defaultDate!: DateItem;
 
-    private changePage(shownMonth = this.defaultDate){
+    private changePage(shownMonth : DateItem){
       this.$emit('page-update', shownMonth);
+    }
+
+    get highlightDates(){
+      return this.notableDates? this.notableDates.selectAttribute: [];
     }
 
     mounted() {

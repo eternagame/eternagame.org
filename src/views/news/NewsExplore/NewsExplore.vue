@@ -18,7 +18,7 @@
         replace
         :isInSidebar="isInSidebar"
       />
-      <CalendarPanel :isInSidebar="isInSidebar" />
+      <CalendarPanel  v-if="isInSidebar" @page-update="monthFetch" :notableDates="calendarItems" :isInSidebar="isInSidebar"/>
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
     </template>
     <template #mobileSearchbar>
@@ -39,7 +39,7 @@
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import { NewsItem, BlogItem } from '@/types/common-types';
+  import { NewsItem, BlogItem, DateItem } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import NewsCard from './components/NewsCard.vue';
 
@@ -60,6 +60,7 @@
       Preloader,
     },
   })
+
   export default class NewsExplore extends Mixins(FetchMixin) {
     private tags: string[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
 
@@ -71,6 +72,43 @@
 
     private newsItems: (NewsItem|BlogItem)[] = [];
 
+    private calendarItems:{} = {};
+
+    private defaultDate!: DateItem;
+
+    async monthFetch(monthData = this.defaultDate){
+
+      let i = 0;
+      const totalDates = [];
+
+      const res = (
+          await this.$http.get(ROUTE, {
+              params: {
+                size: INITIAL_NUMBER,
+                from_created: new Date(monthData.year, monthData.month - 1, 1).getTime() / 1000,
+                to_created: new Date(monthData.year, monthData.month, 1).getTime() / 1000,
+                }
+            })
+          ).data.data.entries as NewsItem[];
+      
+      // Timezone in UTC, calendar dates parsing is incorrect
+      
+      for(; i < res.length; i += 1){
+
+        totalDates.push(
+          {
+            dot: 'blue',
+            dates: new Date(Number(res[i].timestamp) * 1000).toLocaleString('en-US', {timeZone: 'UTC'}),
+          }
+        );
+      }
+
+
+      this.calendarItems = {
+        selectAttribute: totalDates,
+        };
+    }
+
     async fetch() {
       const { sort, end_date, start_date, size, search } = this.$route.query;
       
@@ -80,14 +118,11 @@
           params: {
             search,
             size: size || INITIAL_NUMBER,
-            from_created: start_date && new Date(String(start_date).replace(/-/g, '/')).getTime() / 1000,
-            to_created: end_date && (new Date(String(end_date).replace(/-/g, '/')).getTime() / 1000),
+            from_created: start_date && new Date(start_date.toString().replace(/-/g, '/')).getTime() / 1000,
+            to_created: end_date && (new Date(end_date.toString().replace(/-/g, '/')).getTime() / 1000),
           },
         })
       ).data.data.entries as NewsItem[];
-      
-
-      // incosistent behaviour with different date ranges
 
       // TODO https://github.com/eternagame/eternagame.org/issues/157 move filtering to backend
       switch (sort) {

@@ -1,6 +1,6 @@
 <template>
-  <SidebarPanel :isInSidebar="isInSidebar" header="calendar" headerIcon="@/assets/calendar.svg">
-    <vc-date-picker is-range v-model="dates" color="yellow" :attributes="selectAttribute" is-dark is-inline @update:from-page="fetch"/>
+  <SidebarPanel v-if="notableDates" :isInSidebar="isInSidebar" header="calendar" headerIcon="@/assets/calendar.svg">
+    <vc-date-picker is-range v-model="dates" color="yellow" :attributes="notableDates.selectAttribute" @update:from-page="changePage" is-dark is-inline />
   </SidebarPanel>
 </template>
 
@@ -9,7 +9,7 @@
   import { mixins } from 'vue-class-component';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
-  import { NewsItem, DateItem } from '@/types/common-types';
+  import { DateItem } from '@/types/common-types';
   
   // @ts-ignore
   import VCalendar from 'v-calendar';
@@ -18,22 +18,25 @@
     componentPrefix: 'vc',
   });
 
-  const INITIAL_NUMBER = 18;
-
-  const ROUTE = '/get/?type=newsandblogslist';
-
   @Component({
     components: {
       SidebarPanel,
     },
   })
   export default class CalendarPanel extends mixins(SidebarPanelMixin) {
+
+    @Prop({required: false}) readonly notableDates!: any;
+
     private dates: {
       start?: Date;
       end?: Date;
     } = {};
 
     private defaultDate!: DateItem;
+
+    private changePage(shownMonth = this.defaultDate){
+      this.$emit('page-update', shownMonth);
+    }
 
     mounted() {
       const { start_date, end_date } = this.$route.query;
@@ -46,50 +49,6 @@
         };
       }
     }
-
-
-    async fetch(shownMonth = this.defaultDate){
-      
-      let i = 0;
-      // go from first day of month to first day of next month
-
-      // means data is not already loaded, string matching
-      if(!this.$data.months.includes(`${shownMonth.month}${shownMonth.year}`)){
-
-        this.$data.months.push(`${shownMonth.month}${shownMonth.year}`);
-
-        const res = (
-          await this.$http.get(ROUTE, {
-              params: {
-                size: INITIAL_NUMBER,
-                from_created: new Date(shownMonth.year, shownMonth.month - 1, 1).getTime() / 1000,
-                to_created: new Date(shownMonth.year, shownMonth.month, 1).getTime() / 1000,
-                }
-            })
-          ).data.data.entries as NewsItem[];
-
-        // not sure about adjusting for timezones, is setting the locale to en us okay?
-        // it's only being used to parse dates, which is already being printed in UTC Time
-
-        for(; i < res.length; i += 1){
-
-          this.$data.selectAttribute.push({
-            dot:'blue',
-            dates: new Date(Number(res[i].timestamp) * 1000).toLocaleString('en-US', {timeZone: 'UTC'}),
-          });
-        }
-      }
-
-    }
-
-    data(){
-      return {
-        selectAttribute:[],
-        months:[]
-      };
-
-    }
-
 
     @Watch('dates')
     onSearch(event: KeyboardEvent) {

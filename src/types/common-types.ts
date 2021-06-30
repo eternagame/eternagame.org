@@ -359,6 +359,11 @@ export interface BlogItem {
   comments: CommentItem[];
 }
 
+export interface DateItem{
+  month: number;
+  year: number;
+}
+
 export interface AboutMediaItem {
   link: string;
   title: string;

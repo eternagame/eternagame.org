@@ -23,11 +23,11 @@
 
     mounted() {
       window.onscroll = () => {
-        const bottomOfWindow =
+        const scrollTrigger =
           document.documentElement.scrollTop + window.innerHeight + 1 >=
-          document.documentElement.offsetHeight;
-
-        if (bottomOfWindow) {
+          document.documentElement.offsetHeight * 3/4;
+          
+        if (scrollTrigger) {
           const length = this.$vnode.key;
           const querySize = Number(this.$route.query.size || this.initial);
           const newSize = querySize + this.increment;

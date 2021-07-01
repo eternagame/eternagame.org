@@ -1,15 +1,9 @@
 <template>
-  <EternaPage >
+  <EternaPage :title="$t('challenge-explore:title')">
 
     <ChallengeCard v-for="challenge in challenges" :key="challenge.nid" :challenge="challenge"/> 
-
     <template #sidebar="{ isInSidebar }">
-        NOT DONE ADD ACTUAL OPTIONS TO sort
-      <SearchPanel
-        v-if="isInSidebar"
-        :placeholder="$t('search:challenges')"
-        :isInSidebar="isInSidebar"
-      />
+
       <DropdownSidebarPanel
         :options="options"
         paramName="sort"
@@ -31,6 +25,7 @@
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
+  import { NewsItem, BlogItem, ChallengeItem } from '@/types/common-types';
   import ChallengeCard from './ChallengeCard.vue';
 
 
@@ -44,17 +39,37 @@
       ChallengeCard,
     },
   })
-  export default class PublicationsExplore extends Mixins(FetchMixin) {
-    
-    challenges = [];
+  export default class ChallengeExplore extends Mixins(FetchMixin) {
+
+    private options: Option[] = [
+      { value: 'all', text: 'side-panel-options:all' },
+      { value: 'active', text: 'challenge-explore:active'},
+      { value: 'inactive', text: 'challenge-explore:inactive'},
+      
+    ];
+
+    challenges: ChallengeItem[]= [];
 
     async fetch() {
 
-        const {challenges} = (
-        await this.$http.get('/get/?type=challenges')
-        ).data.data;
-        this.challenges = challenges;
-        console.log(this.challenges);
+      const{sort} = this.$route.query;
+
+      const res = (
+      await this.$http.get('/get/?type=challenges')
+      ).data.data.challenges as ChallengeItem[];
+
+      switch(sort){
+        
+        case 'active':
+          this.challenges = res.filter( entry => entry.challenge_status === "Active");
+          break;
+        case 'inactive':
+          this.challenges = res.filter( entry => entry.challenge_status !== "Active");
+          break;
+        case 'all':
+        default:
+          this.challenges = res;
+      }
     }
     
   }

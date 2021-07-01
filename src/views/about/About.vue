@@ -297,7 +297,7 @@
   import { Component, Mixins } from 'vue-property-decorator';
   import FetchMixin from '@/mixins/FetchMixin';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import {AboutMediaItem, Publications, Publication } from '@/types/common-types';
+  import {AboutMediaItem, Publications, Publication, ChallengeItem } from '@/types/common-types';
   
   // import {ChallengeData} from '@/views/challenge/ChallengeView/types';
   import AboutMediaCard from '@/views/about/AboutMediaCard.vue';
@@ -372,7 +372,7 @@
       }
     ];
 
-    challenges = [];
+    challenges: ChallengeItem[] = [];
 
     mediaItems: AboutMediaItem[] = [
       {
@@ -480,9 +480,10 @@
 
     async fetch() {
       const {sort} = this.$route.query;
-      const {challenges} = (
+      
+      const challenges = (
         await this.$http.get('/get/?type=challenges')
-      ).data.data;
+      ).data.data.challenges as ChallengeItem[];
 
       this.challenges = challenges;
 

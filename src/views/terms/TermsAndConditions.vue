@@ -30,15 +30,13 @@
   import TermsAndConditionsText from './TermsAndConditionsText.vue';
 
   export const options: Option[] = [
-    { value: 'about', text: 'side-panel-options:about-eterna', link: '/about' },
-    { value: 'publications', text: 'side-panel-options:publications', link: '/about/publications' },
-    {
-      value: 'software',
-      text: 'side-panel-options:software',
-      link: 'https://software.eternagame.org/',
-    },
-    { value: 'terms', text: 'side-panel-options:terms', link: '/about/terms' },
-    { value: 'code_conduct', text: 'side-panel-options:code_conduct', link: '/about/conduct' },
+    { value: 'leaderboard', text: 'side-panel-options:leaderboard', link: '/players' },
+    { value: 'forum', text: 'side-panel-options:forum', link: 'https://forum.eternagame.org' },
+    { value: 'discord', text: 'side-panel-options:discord', link: 'https://discord.gg/KYeTwux' },
+    { value: 'wiki', text: 'side-panel-options:wiki', link: 'http://eternawiki.org' },
+    { value: 'groups', text: 'side-panel-options:groups', link: `${process.env.VUE_APP_API_BASE_URL}/web/group/` },
+    { value: 'terms', text: 'side-panel-options:terms', link: '/community/terms' },
+    { value: 'code_conduct', text: 'side-panel-options:code_conduct', link: '/community/conduct' },
   ];
 
   @Component({

@@ -76,6 +76,8 @@
         discord: 'https://discord.gg/KYeTwux',
         wiki: 'http://eternawiki.org',
         groups: `${process.env.VUE_APP_API_BASE_URL}/web/group/`,
+        terms: '/community/terms',
+        'code-of-conduct': '/communtiy/conduct',
       },
       news: '/news',
       about: {
@@ -86,8 +88,6 @@
         eternacon: `/eternacon`,
         merch: `https://www.redbubble.com/people/eternagame/explore`,
         donate: 'https://challenges.eternagame.org/',
-        terms: '/about/terms',
-        'code-of-conduct': '/about/conduct',
       },
     };
   }

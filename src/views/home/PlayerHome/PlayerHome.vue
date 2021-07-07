@@ -12,12 +12,14 @@
         style="text-shadow: 1px 1px 2px #333;"
       >
         <template v-if="hasLabAccess">
+          <EternaconSlide />
           <LabSlide v-for="lab in labCarouselLabs" v-bind="lab" :key="lab.nid" />
           <POTWSlide v-bind="potwSlideData" v-if="potwSlideData" />
           <AnniversarySlide />
         </template>
         <template v-else>
           <TutorialTeaserSlide :nextPuzzleID="nextPuzzleID" />
+          <EternaconSlide />
           <AnniversarySlide />
         </template>
       </b-carousel>
@@ -31,8 +33,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Prop, Mixins, Watch } from 'vue-property-decorator';
-  import axios, { AxiosInstance } from 'axios';
+  import { Component, Mixins} from 'vue-property-decorator';
   import { RoadmapAchievement, ProcessedRoadmapAchievement } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';

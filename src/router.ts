@@ -92,7 +92,7 @@ export default function createRouter() {
         component: () => import('./views/terms/TermsAndConditions.vue'),
       },
       {
-        path: '/community/conduct',
+        path: '/about/conduct',
         name: 'code-of-conduct',
         component: () => import('./views/conduct/CodeOfConduct.vue'),
       },

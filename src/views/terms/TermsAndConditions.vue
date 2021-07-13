@@ -12,11 +12,31 @@
       <template #sidebar="{ isInSidebar }">
         <DropdownSidebarPanel
           :options="options"
-          :defaultIndex="-1"
-          paramName="sort"
-          replace
           :isInSidebar="isInSidebar"
         />
+        <div style="font-weight: bold; font-size: 1rem;">
+          {{ $t('terms-sidebar:section-1') }}
+        </div>
+        <div>
+          {{ $t('terms-sidebar:section-2') }}
+        </div>
+        <ul>
+          {{ $t('terms-sidebar:section-3-start') }}
+          <a href="https://forum.eternagame.org/">
+            {{ $t('terms-sidebar:section-3-forum') }}
+          </a>
+          {{ $t('terms-sidebar:section-3-end') }}
+        </ul>
+        <ul>
+          {{ $t('terms-sidebar:section-4-start') }}
+          <a href="https://discord.com/invite/KYeTwux">
+            {{ $t('terms-sidebar:section-4-discord') }}
+          </a>
+          {{ $t('terms-sidebar:section-4-end') }}
+        </ul>
+        <ul>
+          {{ $t('terms-sidebar:section-5') }}
+        </ul>
       </template>
     </EternaPage>
   </div>
@@ -29,15 +49,7 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import TermsAndConditionsText from './TermsAndConditionsText.vue';
 
-  export const options: Option[] = [
-    { value: 'leaderboard', text: 'side-panel-options:leaderboard', link: '/players' },
-    { value: 'forum', text: 'side-panel-options:forum', link: 'https://forum.eternagame.org' },
-    { value: 'discord', text: 'side-panel-options:discord', link: 'https://discord.gg/KYeTwux' },
-    { value: 'wiki', text: 'side-panel-options:wiki', link: 'http://eternawiki.org' },
-    { value: 'groups', text: 'side-panel-options:groups', link: `${process.env.VUE_APP_API_BASE_URL}/web/group/` },
-    { value: 'terms', text: 'side-panel-options:terms', link: '/community/terms' },
-    { value: 'code_conduct', text: 'side-panel-options:code_conduct', link: '/community/conduct' },
-  ];
+  export const options: Option[] = [];
 
   @Component({
     components: {
@@ -64,5 +76,8 @@
   h2 {
     font-size: 10.72rem;
     font-weight: bold;
+  }
+  ul{
+    padding: 0;
   }
 </style>

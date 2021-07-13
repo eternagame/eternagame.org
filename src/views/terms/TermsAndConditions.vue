@@ -12,11 +12,31 @@
       <template #sidebar="{ isInSidebar }">
         <DropdownSidebarPanel
           :options="options"
-          :defaultIndex="-1"
-          paramName="sort"
-          replace
           :isInSidebar="isInSidebar"
         />
+        <div style="font-weight: bold; font-size: 1rem;">
+          {{ $t('terms-sidebar:section-1') }}
+        </div>
+        <div>
+          {{ $t('terms-sidebar:section-2') }}
+        </div>
+        <ul>
+          {{ $t('terms-sidebar:section-3-start') }}
+          <a href="https://forum.eternagame.org/">
+            {{ $t('terms-sidebar:section-3-forum') }}
+          </a>
+          {{ $t('terms-sidebar:section-3-end') }}
+        </ul>
+        <ul>
+          {{ $t('terms-sidebar:section-4-start') }}
+          <a href="https://discord.com/invite/KYeTwux">
+            {{ $t('terms-sidebar:section-4-discord') }}
+          </a>
+          {{ $t('terms-sidebar:section-4-end') }}
+        </ul>
+        <ul>
+          {{ $t('terms-sidebar:section-5') }}
+        </ul>
       </template>
     </EternaPage>
   </div>
@@ -29,17 +49,7 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import TermsAndConditionsText from './TermsAndConditionsText.vue';
 
-  export const options: Option[] = [
-    { value: 'about', text: 'side-panel-options:about-eterna', link: '/about' },
-    { value: 'publications', text: 'side-panel-options:publications', link: '/about/publications' },
-    {
-      value: 'software',
-      text: 'side-panel-options:software',
-      link: 'https://software.eternagame.org/',
-    },
-    { value: 'terms', text: 'side-panel-options:terms', link: '/about/terms' },
-    { value: 'code_conduct', text: 'side-panel-options:code_conduct', link: '/about/conduct' },
-  ];
+  export const options: Option[] = [];
 
   @Component({
     components: {
@@ -66,5 +76,8 @@
   h2 {
     font-size: 10.72rem;
     font-weight: bold;
+  }
+  ul{
+    padding: 0;
   }
 </style>

@@ -359,6 +359,18 @@ export interface BlogItem {
   comments: CommentItem[];
 }
 
+export interface ChallengeItem{
+  abstract: string;
+  affiliation: string;
+  blurb: string;
+  body: string;
+  challenge_status: string;
+  cover_image: string;
+  donors: string | null; // no current challenges have donors
+  nid: string;
+  update_summary: string | null;
+  video: string;
+}
 export interface DateItem{
   month: number;
   year: number;

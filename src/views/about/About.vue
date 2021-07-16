@@ -389,6 +389,11 @@
         link: "https://eterna.s3.amazonaws.com/about-page/eterna-screenshots.zip",
         title: "about:section5-card3-title",
         description: "about:section5-card3-description",
+      },
+      {
+        link: "https://drive.google.com/file/d/1ZoiG3VCb44B6fbZN2c3XY4GO7HykHPYH/view?usp=sharing",
+        title: "Video",
+        description: "Download video b-roll footage of Eterna gameplay and lab activities.",
       }
     ];
 
@@ -559,7 +564,7 @@
     padding: 10rem 2rem;
     padding-top: 0px;
     width: 100%;
-    background-color: #21508C;
+    background: linear-gradient(#21508c, #043468);;
     @media (max-width: $breakpoint-small) {
       padding: 50px 10px;
     }

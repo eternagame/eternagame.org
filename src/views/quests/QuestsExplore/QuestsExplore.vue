@@ -59,7 +59,7 @@
   import { BIconArrowUp, BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
   import Carousel from '@/components/Common/Carousel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
-  import 'swiper/css/swiper.css';
+  import 'swiper/swiper-bundle.css';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
 

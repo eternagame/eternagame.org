@@ -2,8 +2,8 @@
   <section class="schedule">
     <h3>Schedule</h3>
     <template v-for="(sessions, day) in sessions">
-      <h4 :key="day">{{day}}</h4>
-      <ul :key="day">
+      <h4 :key="day + '-h'">{{day}}</h4>
+      <ul :key="day + '-l'">
         <template v-for="session in sessions">
           <li :key="`${session.topic}-${session.time}`" class="row">
             <div class="col-sm-3">
@@ -39,8 +39,7 @@
               </template>
             </b-card>
             <div class="col-sm-9 text-center" v-else>
-              <h5 class="d-inline m-0">Break</h5> - join us on
-              <a href="https://discord.gg/KYeTwux">Discord</a> and <a href="https://twitch.tv/eternagame">Twitch</a>!
+              <h5 class="d-inline m-0">Break</h5><slot name="break"></slot>
             </div>
           </li>
         </template>

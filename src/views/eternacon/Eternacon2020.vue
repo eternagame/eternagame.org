@@ -27,7 +27,12 @@
         Additional questions? Contact <a href="mailto:events@eternagame.org">events@eternagame.org</a>.
       </p>
     </section>
-    <ScheduleSection :sessions="sessions" />
+    <ScheduleSection :sessions="sessions">
+      <template #break>
+        - join us on
+        <a href="https://discord.gg/KYeTwux">Discord</a> and <a href="https://twitch.tv/eternagame">Twitch</a>
+      </template>
+    </ScheduleSection>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"

@@ -20,10 +20,7 @@
         Additional questions? Contact <a href="mailto:events@eternagame.org">events@eternagame.org</a>.
       </p>
     </section>
-    <section class="schedule">
-      <h3>Schedule</h3>
-      <p>TBA - want to present? <a href="https://forms.gle/RifWTEzYjzPV2tRQ6">Let us know!</a></p>
-    </section>
+    <ScheduleSection :sessions="sessions" />
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"
@@ -42,12 +39,18 @@
   import DropdownSidebarPanel from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import HeroSection from './components/HeroSection.vue';
   import ConferenceAreasSection from './components/ConferenceAreasSection.vue';
+  import ScheduleSection from './components/ScheduleSection.vue';
   import { options } from './AboutEternacon.vue'; 
+  import sessions from './speakers-2021.json';
 
   @Component({
-    components: { EternaPage, HeroSection, ConferenceAreasSection, DropdownSidebarPanel },
+    components: { EternaPage, HeroSection, ConferenceAreasSection, ScheduleSection, DropdownSidebarPanel },
   })
   export default class Eternacon2020 extends Vue {
+    get sessions() {
+      return sessions;
+    }
+
     get options() {
       return options;
     };

@@ -1,16 +1,18 @@
 <template>
   <div class="page">
-    <div style="text-align:center;background:#110a29;">
-      <a href="/news/10811812">
+    
+    <HeroSection />
+    
+    <div style="text-align:center;background:#0a142a;">
+      <a href="/eternacon/2021">
         <img
-          src="~@/assets/front-page/img/covid-india-banner.jpg"
-          class="india-openvaccine-banner"
-          alt="Open Vaccine India Sprint"
+          src="~@/assets/front-page/img/eternacon2021-banner.png"
+          class="eternacon-banner"
+          alt="Eternacon 2021 Registration and Information"
         />
       </a>
     </div>
-    <HeroSection />
-    
+
     <!-- Covid-19 Promo (TODO: localize?)-->
     <div class="container bs-docs-section mt-5">
       <div class="media row">
@@ -114,7 +116,7 @@
     margin-top: 120px;
   }
 
-  .india-openvaccine-banner {
+  .eternacon-banner {
     width: 100%;
     max-width: 1200px;
   }

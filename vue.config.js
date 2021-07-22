@@ -34,7 +34,10 @@ module.exports = {
       .use('vue-loader')
       .loader('vue-loader')
       .tap(options => {
-        options.transformAssetUrls = { SidebarPanel: ['headerIcon'] };
+        options.transformAssetUrls = {
+          SidebarPanel: ['headerIcon'],
+          HeroSection: ['backgroundImage']
+        };
         return options;
       });
 

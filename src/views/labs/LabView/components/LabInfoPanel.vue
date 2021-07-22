@@ -21,7 +21,7 @@
     
     <template v-if="lab.affiliation">
       <span class="gray-header">{{ $t('lab-info:research-affiliation') }}</span><br />
-      <span stlye="font-weight: bold;">{{ lab.affiliation }}</span><br />
+      <span style="font-weight: bold;">{{ lab.affiliation }}</span><br />
       <br />
     </template>
     <!-- <span class="gray-header">{{ $t('lab-info:currently-active') }}</span -->

@@ -1,18 +1,8 @@
 <template>
   <EternaPage title="">
-    <section class="hero">
-      <img src="~@/assets/home/hero-blue-bg.png" class="bg" />
-      <div class="logowrap">
-        <img src="@/assets/about/logo_eternacon.svg" class="logo" />
-      </div>
-      <div class="hero-description">
-        <h2>Learn. Play. <i>Connect</i>.</h2>
-
-        <p class="explain">
-          Talks and activities from Eterna researchers, developers, players, and other world-class experts.
-        </p>
-      </div>
-    </section>
+    <HeroSection>
+      Talks and activities from Eterna researchers, developers, players, and other world-class experts.
+    </HeroSection>
     <section>
       <h3 class="mt-2">What is Eternacon?</h3>
       <p>
@@ -37,8 +27,8 @@
     <section>
       <h3 class="mt-2">Sponsor</h3>
       <p>
-         in prior years, we are actively seeking partnerships with commercial and other organizations to sponsor
-         Eternacon each year to provide funding for facilities, materials, and player support. In return, we are working
+         We are actively seeking partnerships with commercial and other organizations to sponsor Eternacon each year to
+         provide funding for facilities, materials, and player support. In return, we are working
          on developing various mechanisms for sponsors to be recognized. Please contact
          <a href="mailto:events@eternagame.org">events@eternagame.org</a> for more information.
       </p>
@@ -59,14 +49,16 @@
   import { Component, Vue } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import HeroSection from './components/HeroSection.vue';
 
   export const options: Option[] = [
-    { value: '2020', text: 'side-panel-options:eternacon-2020', link: '/eternacon/2020' },
     { value: 'about', text: 'side-panel-options:about-eternacon', link: '/eternacon/about' },
+    { value: '2021', text: 'side-panel-options:eternacon-2021', link: '/eternacon/2021' },
+    { value: '2020', text: 'side-panel-options:eternacon-2020', link: '/eternacon/2020' },
   ];
 
   @Component({
-    components: { EternaPage, DropdownSidebarPanel },
+    components: { EternaPage, HeroSection, DropdownSidebarPanel },
   })
   export default class AboutEternacon extends Vue {
     get options() {
@@ -74,63 +66,3 @@
     };
   }
 </script>
-
-<style lang="scss" scoped>
-  @import '@/styles/global.scss';
-  
-  .hero {
-    height: 350px;
-    position: relative;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
-
-    .logowrap {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      top: 0;
-      padding: 2rem;
-    }
-
-    .logo {
-      position: relative;
-      top: -3rem;
-    }
-
-    .bg {
-      object-fit: cover;
-    }
-  }
-
-  .hero::after {
-    z-index: 1;
-    display: block;
-    position: relative;
-    background-image: linear-gradient(
-      to bottom,
-      transparent 40%,
-      rgba(0, 0, 0, 0.6) 70%,
-      rgba(0, 0, 0, 0.9) 100%
-    );
-    margin-top: -400px;
-    height: 400px;
-    width: 100%;
-    content: '';
-  }
-
-  .hero-description {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: 2rem;
-    z-index: 2;
-  }
-
-  .explain {
-    max-width: 482px;
-    margin: 0;
-  }
-</style>

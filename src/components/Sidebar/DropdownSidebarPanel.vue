@@ -41,7 +41,6 @@
   import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
-  import Utils from '@/utils/utils';
   import SmartLink from '../Common/SmartLink.vue';
 
   export interface Option {
@@ -70,6 +69,9 @@
       const data = this.$route.query[this.paramName];
       if (data && typeof data === 'string') {
         this.selectedIndex = this.options.map(option => option.value).indexOf(data);
+      } else {
+        const idx = this.options.map(option => option.link).indexOf(window.location.pathname);
+        if (idx !== -1) this.selectedIndex = idx;
       }
     }
 

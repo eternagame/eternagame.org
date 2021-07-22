@@ -5,12 +5,12 @@
         <h3 class="text-uppercase">{{ header_title }}</h3>
         <p>{{ header_date }}</p>
       </b-col>
-      <h2 class="page-title" v-if="title">
-        <b>{{ title }}</b>
-        <div class="d-lg-none">
+      <div class="page-title">
+        <h2 v-if="title">{{ title }}</h2>
+        <div class="d-lg-none title-sidebar">
           <slot name="sidebar" :isInSidebar="false"></slot>
         </div>
-      </h2>
+      </div>
       <div class="d-lg-none">
         <slot name="mobileSearchbar"></slot>
       </div>
@@ -94,8 +94,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 33.75px;
-    max-width: 74.5%;
+    h2 {
+      font-size: 33.75px;
+      max-width: 74.5%;
+    }
+    .title-sidebar {
+      position: relative;
+      z-index: $zindex-dropdown;
+      margin-left: auto;
+    }
   }
   .sidebar {
     font-size: 13.125px;

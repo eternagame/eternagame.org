@@ -14,6 +14,7 @@
       <LabRound v-for="round in closedRounds" :key="round.round" :round="round" />
     </template>
     <LabConclusion v-if="lab.conclusion" :conclusion="lab.conclusion" style="margin-bottom: 52.5px;" />
+    <LabLeaderboardCard :labData="lab.synthesized_solutions" />
     <Comments
       :name="$t('lab-view:admin-comments')"
       :comments="adminUpdates"
@@ -39,6 +40,7 @@
   import LabConclusion from './components/LabConclusion.vue';
   import LabInfoPanel from './components/LabInfoPanel.vue';
   import LabRound from './components/LabRound.vue';
+  import LabLeaderboardCard from './components/LabLeaderboardCard.vue';
   import LabViewData, { LabData } from './types';
 
   @Component({
@@ -50,6 +52,7 @@
       LabRound,
       TagsPanel,
       Comments,
+      LabLeaderboardCard,
     },
   })
   export default class LabView extends Mixins(FetchMixin) {
@@ -114,7 +117,9 @@
     border: 0px;
     margin-top: -1px;
   }
-
+  .leaderboard-header{
+    background-color: #103e85;
+  }
   ::v-deep .nav-tabs {
     color: white;
 

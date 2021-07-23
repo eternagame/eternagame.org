@@ -13,14 +13,19 @@
   </div>
 </template>
 <script lang="ts">
+
+  import 'swiper/swiper-bundle.min.css';
+  import {Swiper as SwiperClass} from 'swiper';
+  import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter';
   import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
-  import { Swiper, SwiperRef, directive } from 'vue-awesome-swiper';
+  import { Swiper, SwiperRef } from 'vue-awesome-swiper';
   import { BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
-  import 'swiper/css/swiper.css';
 
   @Component({
     components: { Swiper, BIconChevronRight, BIconChevronLeft },
-    directives: { swiper: directive },
+    directives: {
+      swiper: getAwesomeSwiper(SwiperClass).directive
+    },
   })
   export default class Carousel extends Vue {
     @Prop({required: true}) readonly slideTo?: number;

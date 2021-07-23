@@ -15,7 +15,7 @@
 <script lang="ts">
 
   import 'swiper/swiper-bundle.min.css';
-  import {Swiper as SwiperClass, Pagination, Navigation} from 'swiper/swiper.esm';
+  import {Swiper as SwiperClass} from 'swiper';
   import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter';
   import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { Swiper, SwiperRef } from 'vue-awesome-swiper';
@@ -23,8 +23,9 @@
 
   @Component({
     components: { Swiper, BIconChevronRight, BIconChevronLeft },
-    directives: { swiper: getAwesomeSwiper(SwiperClass.use([Pagination, Navigation])).directive},
-    
+    directives: {
+      swiper: getAwesomeSwiper(SwiperClass).directive
+    },
   })
   export default class Carousel extends Vue {
     @Prop({required: true}) readonly slideTo?: number;

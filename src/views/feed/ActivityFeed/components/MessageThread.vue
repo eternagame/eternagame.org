@@ -41,7 +41,9 @@
 
     private showCompose = false;
 
-    private messages = this.notification.message;
+    get messages() {
+      return this.notification.message;
+    }
 
     get replyUID() {
       return String(this.notification.target_uid) !== String(this.$vxm.user.uid)

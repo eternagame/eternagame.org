@@ -14,7 +14,7 @@
       <LabRound v-for="round in closedRounds" :key="round.round" :round="round" />
     </template>
     <LabConclusion v-if="lab.conclusion" :conclusion="lab.conclusion" style="margin-bottom: 52.5px;" />
-    <LabLeaderboardCard :labData="lab.synthesized_solutions" />
+    <LabLeaderboardCard v-if="lab.synthesized_solutions.length" :labData="lab.synthesized_solutions" />
     <Comments
       :name="$t('lab-view:admin-comments')"
       :comments="adminUpdates"

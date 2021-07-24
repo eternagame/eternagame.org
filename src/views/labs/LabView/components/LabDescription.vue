@@ -17,8 +17,8 @@
             {{ lab.title }}
           </h3>
           <div class="banner-progress d-lg-none">
-            <Progress v-bind="progressCircles[0]" color="#2f94d1" />
-            <Progress v-bind="progressCircles[1]" color="#fac244" />
+            <Progress v-bind="totalProgressCircle" color="#2f94d1" />
+            <Progress v-if="$vxm.user.loggedIn" v-bind="userProgressCircle" color="#fac244" />
           </div>
         </div>
       </div>
@@ -33,7 +33,6 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import defaultImage from '@/assets/ribosome_challenge_bg.png';
   import DefaultHero from '@/assets/home/hero-lab-default.png';
   import Progress from '@/components/Common/Progress.vue';
   import { LabData } from '../types';
@@ -48,18 +47,21 @@
 
     private readMore = false;
 
-    progressCircles = [
-      {
+    get totalProgressCircle() {
+      return {
         name: 'progress-circle:designs-submissions',
         progress: this.lab.total_submitted_solutions,
         total: this.lab.total_designs,
-      },
-      {
+      };
+    }
+
+    get userProgressCircle() {
+      return {
         name: 'progress-circle:my-submissions',
         progress: this.lab.total_submitted_solutions_of_user,
         total: this.lab.max_designs,
-      },
-    ];
+      };
+    }
 
     get readMoreNeeded() {
       return this.lab.body.length > MAX_CHARS;

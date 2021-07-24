@@ -54,17 +54,21 @@
 
     @Prop({ required: true }) readonly challenge!: ChallengeData;
 
-    totalProgressCircle = {
-      name: 'progress-circle:designs-submissions',
-      progress: this.lab.total_submitted_solutions,
-      total: this.lab.total_designs,
-    };
+    get totalProgressCircle() {
+      return {
+        name: 'progress-circle:designs-submissions',
+        progress: this.lab.total_submitted_solutions,
+        total: this.lab.total_designs,
+      };
+    }
 
-    userProgressCircle = {
-      name: 'progress-circle:my-submissions',
-      progress: this.lab.total_submitted_solutions_of_user,
-      total: this.lab.max_designs,
-    };
+    get userProgressCircle() {
+      return {
+        name: 'progress-circle:my-submissions',
+        progress: this.lab.total_submitted_solutions_of_user,
+        total: this.lab.max_designs,
+      };
+    }
   }
 </script>
 

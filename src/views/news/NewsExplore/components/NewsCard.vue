@@ -23,25 +23,25 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
 
-@Component({
-  components: {},
-})
+  @Component({
+    components: {},
+  })
   export default class NewsCard extends Vue {
-  @Prop({ required: true }) readonly created!: string;
+    @Prop({ required: true }) readonly created!: string;
 
-  @Prop({ required: true }) readonly title!: string;
+    @Prop({ required: true }) readonly title!: string;
 
-  @Prop({ required: true }) readonly body!: string;
+    @Prop({ required: true }) readonly body!: string;
 
-  @Prop({ required: true }) readonly nid!: string;
+    @Prop({ required: true }) readonly nid!: string;
 
-  @Prop({ default: 'blogs' }) readonly type!: string;
+    @Prop({ default: 'blogs' }) readonly type!: string;
 
-  private formattedType = Utils.formattedType;
+    private formattedType = Utils.formattedType;
 
-  private strippedBody = Utils.strippedBody;
+    private strippedBody = Utils.strippedBody;
 
-  private typeColor = Utils.typeColor;
+    private typeColor = Utils.typeColor;
   }
 </script>
 

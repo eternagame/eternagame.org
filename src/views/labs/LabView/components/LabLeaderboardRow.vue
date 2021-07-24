@@ -45,9 +45,9 @@
     PUZZLE_ROUTE_SOLUTIONS_PREFIX,
   } from '@/utils/constants';
 
-@Component({
+  @Component({
     components: {},
-})
+  })
   export default class LabLeaderboardRow extends Vue {
     
     @Prop({required: true}) readonly rankedSolution!: any;
@@ -55,7 +55,7 @@
     @Prop({required: true}) readonly rank!: number;
 
     get puzzleLink(){
-        return `${PUZZLE_ROUTE_PREFIX}${this.rankedSolution.puznid}/`;
+      return `${PUZZLE_ROUTE_PREFIX}${this.rankedSolution.puznid}/`;
     }
 
     get solutionLink(){

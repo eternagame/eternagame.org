@@ -39,22 +39,22 @@
     get link() {
       const { node_type, id } = this.message.content.node;
       switch (node_type) {
-        case 'puzzle':
-          return `/puzzles/${id}`;
-        case 'lab':
-          return `/labs/${id}`;
-        case 'news':
-        case 'blog':
-          return `/news/${id}`;
-        case 'group':
-        case 'eterna_group':
-          return `${process.env.VUE_APP_API_BASE_URL}/web/group/${id}/`;
-        case 'solution': {
-          const pid = (this.message.content.node as any).puzzle_id;
-          return `${process.env.VUE_APP_API_BASE_URL}/game/browse/${pid}/?filter1=Id&filter1_arg1=${id}&filter1_arg2=${id}`;
-        }
-        default:
-          return '#';
+      case 'puzzle':
+        return `/puzzles/${id}`;
+      case 'lab':
+        return `/labs/${id}`;
+      case 'news':
+      case 'blog':
+        return `/news/${id}`;
+      case 'group':
+      case 'eterna_group':
+        return `${process.env.VUE_APP_API_BASE_URL}/web/group/${id}/`;
+      case 'solution': {
+        const pid = (this.message.content.node as any).puzzle_id;
+        return `${process.env.VUE_APP_API_BASE_URL}/game/browse/${pid}/?filter1=Id&filter1_arg1=${id}&filter1_arg2=${id}`;
+      }
+      default:
+        return '#';
       }
     }
   }

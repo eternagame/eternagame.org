@@ -77,21 +77,21 @@
     async monthFetch(monthData: DateItem){
 
       const res = (
-          await this.$http.get(ROUTE, {
-              params: {
-                size: INITIAL_NUMBER,
-                from_created: new Date(monthData.year, monthData.month - 1, 1).getTime() / 1000,
-                to_created: new Date(monthData.year, monthData.month, 1).getTime() / 1000,
-                }
-            })
-          ).data.data.entries as NewsItem[];
+        await this.$http.get(ROUTE, {
+          params: {
+            size: INITIAL_NUMBER,
+            from_created: new Date(monthData.year, monthData.month - 1, 1).getTime() / 1000,
+            to_created: new Date(monthData.year, monthData.month, 1).getTime() / 1000,
+          }
+        })
+      ).data.data.entries as NewsItem[];
       
       // Timezone in UTC, calendar dates parsing is incorrect
 
       this.calendarItems.selectAttribute = res.map((element) =>({
-              dot: 'blue',
-              dates: new Date(Number(element.timestamp) * 1000).toLocaleString('en-US', {timeZone: 'UTC'}),
-        }));
+        dot: 'blue',
+        dates: new Date(Number(element.timestamp) * 1000).toLocaleString('en-US', {timeZone: 'UTC'}),
+      }));
     }
 
     async fetch() {
@@ -111,12 +111,12 @@
 
       // TODO https://github.com/eternagame/eternagame.org/issues/157 move filtering to backend
       switch (sort) {
-        case 'news':
-        case 'blogs':
-          this.newsItems = res.filter(entry => entry.type === sort);
-          break;
-        default:
-          this.newsItems = res;
+      case 'news':
+      case 'blogs':
+        this.newsItems = res.filter(entry => entry.type === sort);
+        break;
+      default:
+        this.newsItems = res;
       }
     }
   }

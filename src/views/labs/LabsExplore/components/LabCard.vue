@@ -47,17 +47,17 @@
     // TODO: Use SCSS constant colors instead of hardcoded HTML colors
     get labStatusColor() {
       switch (this.lab.exp_phase) {
-        case '1':
-          return 'lime';
-        case '2':
-          return 'yellow';
-        case '3':
-          return 'purple';
-        case '4':
-          return 'blue';
-        case '5':
-        default:
-          return 'red';
+      case '1':
+        return 'lime';
+      case '2':
+        return 'yellow';
+      case '3':
+        return 'purple';
+      case '4':
+        return 'blue';
+      case '5':
+      default:
+        return 'red';
       }
     }
 

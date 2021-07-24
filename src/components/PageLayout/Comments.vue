@@ -39,51 +39,51 @@
 
   const ADD_COMMENT_ROUTE = '/post/';
 
-@Component({
-  components: { Comment },
-})
+  @Component({
+    components: { Comment },
+  })
   export default class Comments extends Vue {
-  @Prop({ default: [] }) readonly comments!: CommentItem[];
+    @Prop({ default: [] }) readonly comments!: CommentItem[];
 
-  @Prop({ required: true }) readonly nid!: string;
+    @Prop({ required: true }) readonly nid!: string;
 
-  @Prop() readonly name?: string;
+    @Prop() readonly name?: string;
 
-  private newComments: CommentItem[] | null = null;
+    private newComments: CommentItem[] | null = null;
 
-  private commentText: string = '';
+    private commentText: string = '';
 
-  private submitting = false;
+    private submitting = false;
 
-  get loggedIn() {
-    return this.$vxm.user.loggedIn;
-  }
+    get loggedIn() {
+      return this.$vxm.user.loggedIn;
+    }
 
-  get newestComments() {
-    return this.newComments || this.comments;
-  }
+    get newestComments() {
+      return this.newComments || this.comments;
+    }
 
-  onDeleted(comment: CommentItem) {
-    this.newComments = this.newestComments.filter(c => c !== comment);
-  }
+    onDeleted(comment: CommentItem) {
+      this.newComments = this.newestComments.filter(c => c !== comment);
+    }
 
-  submit() {
-    this.submitting = true;
-    axios
-      .post(
-        ADD_COMMENT_ROUTE,
-        new URLSearchParams({
-          type: 'post_comment',
-          body: this.commentText,
-          nid: this.nid,
-        }),
-      )
-      .then(res => {
-        this.newComments = res.data.data.comments;
-        this.submitting = false;
-        this.commentText = '';
-      });
-  }
+    submit() {
+      this.submitting = true;
+      axios
+        .post(
+          ADD_COMMENT_ROUTE,
+          new URLSearchParams({
+            type: 'post_comment',
+            body: this.commentText,
+            nid: this.nid,
+          }),
+        )
+        .then(res => {
+          this.newComments = res.data.data.comments;
+          this.submitting = false;
+          this.commentText = '';
+        });
+    }
   }
 </script>
 

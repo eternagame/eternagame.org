@@ -35,7 +35,7 @@
     @Prop({ required: false }) registerLink?: string;
 
     get bgImage() {
-        return this.backgroundImage ?? BlueBG;
+      return this.backgroundImage ?? BlueBG;
     }
   }
 </script>

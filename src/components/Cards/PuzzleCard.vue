@@ -172,14 +172,14 @@
       if (this.$attrs['num-cleared']){
         return this.$attrs['num-cleared'];
       }
-        return 0;
+      return 0;
     }
 
     get numSolutions() {
       if (this.mySolutions !== 0){
         return this.mySolutions;
       }
-        return '0';
+      return '0';
     }
 
     get imageURL() {

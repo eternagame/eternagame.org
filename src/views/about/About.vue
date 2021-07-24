@@ -499,8 +499,8 @@
         ...publications.researcherpubslist,
         ...publications.playerpubslist
       ]
-      .sort((a, b) => b.timestamp - a.timestamp)
-      .slice(0, 3);
+        .sort((a, b) => b.timestamp - a.timestamp)
+        .slice(0, 3);
     }
     
     isExternal(link: string): boolean {

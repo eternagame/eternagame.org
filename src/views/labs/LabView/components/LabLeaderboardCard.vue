@@ -43,11 +43,11 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import LabLeaderboardRow from './LabLeaderboardRow.vue';
   
-@Component({
+  @Component({
     components: {
       LabLeaderboardRow
     },
-})
+  })
   export default class LabLeaderboardCard extends Vue {
 
     @Prop({required: true}) readonly labData!: any;

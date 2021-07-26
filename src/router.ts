@@ -77,7 +77,7 @@ export default function createRouter() {
         component: () => import('./views/help/GamerGuide.vue'),
       },
       {
-        path: '/about/challenges',
+        path: '/challenges',
         name: 'challenge-list',
         component: () => import('./views/challenges/ChallengeExplore/ChallengeExplore.vue'),
       },
@@ -87,12 +87,12 @@ export default function createRouter() {
         component: () => import('./views/software/SoftwareExplore.vue'),
       },
       {
-        path: '/community/terms',
+        path: '/about/terms',
         name: 'terms-and-conditions',
         component: () => import('./views/terms/TermsAndConditions.vue'),
       },
       {
-        path: '/about/conduct',
+        path: '/conduct',
         name: 'code-of-conduct',
         component: () => import('./views/conduct/CodeOfConduct.vue'),
       },

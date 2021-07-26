@@ -1,13 +1,12 @@
 <template>
 
-  <div class=" card">
+  <div class="card">
+  <router-link :to="`/challenges/${challenge.nid}`">
       <div class="media row">
         <img :src="coverImage"/>
         <div class="media-body p-4">
           <h3 class="mt-0" style="font-weight: bold;">
-            <a v-bind:href="'/challenges/' + challenge.nid">
-                        {{ challenge.title }}
-            </a>
+            {{ challenge.title }}
           </h3>
           <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
           <p style="font-size: 1rem;">
@@ -21,6 +20,7 @@
           </p>
         </div>
       </div>
+      </router-link>
     </div>
   
 </template>
@@ -69,15 +69,21 @@
 
   a{
     color:white;
+    text-decoration: none;
   }
 
   img {
       max-width:230px;
       max-height:400px;
       margin: auto;
-      margin-left: 1.5rem;
+      margin-left: 2rem;
   }
   .card{
     margin-top: 1rem;
+    color: $white;
+    transition: background-color 0.5s ease;
   }
+  .card:hover {
+  background-color: #21508c;
+}
 </style>

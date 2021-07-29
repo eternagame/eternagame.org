@@ -49,8 +49,6 @@
   }
 
   .panel {
-    padding-top: 43px;
-    margin-bottom: 40px;
     width: 100%;
     .sidebar-panel-header {
       width: 100%;

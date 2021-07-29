@@ -58,6 +58,7 @@
       play: {
         puzzles: '/puzzles',
         labs: '/labs',
+        challenges: '/challenges',
         data: `${process.env.VUE_APP_API_BASE_URL}/web/labs/data-browser/`,
         'puzzle-maker': `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`,
         'puzzle-maker-2-states': `${process.env.VUE_APP_API_BASE_URL}/game/switchmaker/2/`,
@@ -66,26 +67,27 @@
       },
       learn: {
         'quick-help': '/help',
+        'gamer-guide': '/gamerguide',
         guides: 'http://eternawiki.org/wiki/index.php5/Player-Created_Guides',
         wiki: 'http://eternawiki.org',
       },
       community: {
         leaderboards: '/players',
+        eternacon: `/eternacon`,
         forum: 'https://forum.eternagame.org',
         discord: 'https://discord.gg/KYeTwux',
         wiki: 'http://eternawiki.org',
         groups: `${process.env.VUE_APP_API_BASE_URL}/web/group/`,
+        'code-of-conduct': '/conduct',
       },
       news: '/news',
       about: {
         overview: '/about',
         publications: '/about/publications',
         software: '/about/software',
-        eternacon: `/eternacon`,
         merch: `https://www.redbubble.com/people/eternagame/explore`,
         donate: 'https://challenges.eternagame.org/',
         terms: '/about/terms',
-        'code-of-conduct': '/about/conduct',
       },
     };
   }

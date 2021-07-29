@@ -1,7 +1,7 @@
 <template>
   <NavbarIcon @shown="onShown">
     <template #icon>
-      <div>
+      <div class="d-inline-block">
         <div class="unread" v-if="notificationsCount > 0"></div>
         <img class="icon" src="@/assets/navbar/Bell.svg" />
       </div>

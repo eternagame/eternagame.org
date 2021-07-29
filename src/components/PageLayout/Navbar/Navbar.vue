@@ -87,7 +87,7 @@
         software: '/about/software',
         merch: `https://www.redbubble.com/people/eternagame/explore`,
         donate: 'https://challenges.eternagame.org/',
-        terms: '/community/terms',
+        terms: '/about/terms',
       },
     };
   }

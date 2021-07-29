@@ -1,6 +1,5 @@
 <template>
   <EternaPage>
-    
     <div>
         <h2>
           {{$t('help:gamer-guide-title')}}
@@ -40,7 +39,6 @@
                 <img src="@/assets/help/gamer_guide_cover.svg" />
       </a>
     </template>
-    
   </EternaPage>
 </template>
 

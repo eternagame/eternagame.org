@@ -108,6 +108,10 @@
     font-size: 13.125px;
   }
 
+  .sidebar > * {
+    margin-bottom: 20px;
+  }
+
   .sub-heading {
     display: flex;
     justify-content: space-between;

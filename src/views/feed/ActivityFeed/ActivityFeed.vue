@@ -30,17 +30,15 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins, Watch } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import axios, { AxiosInstance } from 'axios';
+  import { Component, Mixins } from 'vue-property-decorator';
+  import axios from 'axios';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
+  import FiltersPanel from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import Utils from '@/utils/utils';
   import FetchMixin from '@/mixins/FetchMixin';
   import { NotificationItem, RewardNotificationItem, NotificationType } from '@/types/common-types';
   import ActivityCard from './components/ActivityCard.vue';

@@ -5,6 +5,7 @@ import BootstrapVue from 'bootstrap-vue';
 import VueScrollReveal from 'vue-scroll-reveal'; // Module has no declaration file
 import VueDOMPurifyHTML from 'vue-dompurify-html';
 import DOMPurify from 'dompurify';
+import {Swiper as SwiperClass, Pagination, Navigation} from 'swiper';
 import axios from 'axios';
 // If we get around to re-enabling SSR:
 // import Notifications from 'vue-notification/dist/ssr.js'
@@ -34,6 +35,8 @@ DOMPurify.addHook('uponSanitizeElement', (node, data) => {
     if (!validSrc) node.remove();
   }
 });
+
+SwiperClass.use([Pagination, Navigation]);
 
 // Types for properties added to Vue (prototype) are in types/vue.d.ts
 // Make sure to update that if you change what is included here!

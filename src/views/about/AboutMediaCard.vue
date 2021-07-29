@@ -1,5 +1,5 @@
 <template>
-  <b-col class="col-lg-3 col-md-3 col-sm-12 col-12 page-content card list-item-container">
+  <b-col class="col-lg-4 col-md-4 col-sm-12 col-12 page-content card list-item-container">
     <a target="_blank" :href="item.link">
       <div>
         <div class="download-button">

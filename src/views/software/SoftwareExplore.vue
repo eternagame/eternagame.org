@@ -19,10 +19,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import axios from 'axios';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import { Component, Vue } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
 
   import SoftwareCard from './components/SoftwareCard.vue';

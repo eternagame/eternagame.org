@@ -145,7 +145,7 @@
             "affiliation": "Eterna Player",
             "time": "8:30 - 9:00PM UTC",
             "topic": "There's Plenty More Room at the Bottom",
-            "abstract": "In this talk I'll explore RNA design diversity as well as the questions and challenges which are raised by doing so.  "
+            "abstract": "In this talk I'll explore RNA design diversity as well as the questions and challenges which are raised by doing so."
         },
         {
             "speaker": "Akira Bowler",
@@ -170,14 +170,16 @@
             "affiliation": "Eterna Players",
             "time": "10:15 - 11:00PM UTC",
             "topic": "OpenVaccine Designer Presentation",
-            "abstract": "The OpenVaccine Designer Presentation will include navigation around the current OpenVaccine labs, OpenVaccine lab design strategies, a guide to jnicol's amino codon booster, current OpenVaccine robot designs, and much more, with frequent Q&A's to answer viewers' questions."
+            "abstract": "The OpenVaccine Designer Presentation will include navigation around the current OpenVaccine labs, OpenVaccine lab design strategies, a guide to jnicol's amino codon booster, current OpenVaccine robot designs, and much more, with frequent Q&A's to answer viewers' questions.",
+            "publicLink": "https://player.vimeo.com/video/581284670?title=0&byline=0&portrait=0"
         },
         {
             "speaker": "Hannah Wayment-Steele, PhD",
             "affiliation": "Stanford University",
             "time": "11:00 - 11:30PM UTC",
             "topic": "OpenVaccine Updates: How Eterna players designed superfolder mRNAs and how Stanford researchers tested them",
-            "abstract": "The first authorized COVID-19 vaccines were based on messenger RNA molecules that promote translation of SARS-CoV-2 antigen proteins. However, these vaccines have been logistically problematic for delivery to developing countries and to rural populations in developed countries. We will talk about how Eterna players designed \"superfolder\" mRNAs that were predicted to be more resistant to degradation, how researchers at the Das and Barna groups at Stanford validated their increased stability and translation, and what the next frontiers are for designing improved RNA vaccines."
+            "abstract": "The first authorized COVID-19 vaccines were based on messenger RNA molecules that promote translation of SARS-CoV-2 antigen proteins. However, these vaccines have been logistically problematic for delivery to developing countries and to rural populations in developed countries. We will talk about how Eterna players designed \"superfolder\" mRNAs that were predicted to be more resistant to degradation, how researchers at the Das and Barna groups at Stanford validated their increased stability and translation, and what the next frontiers are for designing improved RNA vaccines.",
+            "publicLink": "https://player.vimeo.com/video/579555493?title=0&byline=0&portrait=0"
         },
         {
             "time": "11:30 - 12:00PM UTC",

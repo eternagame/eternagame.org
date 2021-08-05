@@ -76,7 +76,7 @@
       return (
         this.puzzleLink
         || (this.current_puzzle && `${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`)
-        || '#'
+        || this.toQuest
       );
     }
 

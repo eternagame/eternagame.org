@@ -105,6 +105,8 @@
   "player-view:joined-groups": "Groups",
   "news-view:comments": "Comments",
   "news-view:enter-comments": "Enter your comments here.",
+  "edit-puzzle-title-description": "Edit Title and Description",
+  "edit-puzzle-tutorial": "Edit Tutorial",
   "edit-profile:custom-section-remove": "Remove",
   "edit-profile:section-title": "Section Title",
   "edit-profile:new-section-placeholder": "Enter text",

@@ -176,29 +176,9 @@ export default function createRouter() {
 
   router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {
     const userStore = router.app.$vxm.user;
-    // console.log("User", JSON.stringify(router.app.$vxm));
-    // console.log("User", router.app.$vxm);
-    // console.log("window local storage", window.localStorage);
+
     if (window.localStorage.getItem('loggedIn') === 'true' && !userStore.triedAuthenticating) {
       await userStore.authenticate();
-    }
-    if (to.matched.some(record => record.meta.requiresAuth)){
-      // puzzle edit
-      console.log("http router", router);
-      // console.log("total url", `/get/?type=puzzle&nid=${router.app.$route.params.id}&script=-1`);
-      // console.log("route params", router.app.$route);
-      // console.log("to", to);
-      // could add res type, would be odd to have in the router file
-
-      // const res = (
-      //   await router.app.$http.get(`/get/?type=puzzle&nid=${to.params.id}&script=-1`)
-      // ).data.data;
-
-      // if( res.puzzle.username === router.app.$vxm.user){
-      //   console.log("yeah we're good");
-      // }
-      // console.log("res", res.puzzle);
-      
     }
     if (!to.matched.length) {
       next('/lost');

@@ -15,8 +15,9 @@
             variant="primary"
             class="submit-button"
             @click="submit"
+            :disabled="!puzzBody || !puzzTitle || !access"
           >
-          SUBMIT EDIT ADD TL LATER
+          {{ $t('edit-submit') }}
           </b-button>
         </div>
 
@@ -101,11 +102,11 @@
   export default class PuzzleView extends Mixins(FetchMixin) {
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
-    private tutorialRoute: string = `${process.env.VUE_APP_API_BASE_URL}/post/`;
+    private tutorialRoute: string = PUZZLE_ROUTE_TUTORIAL_PREFIX;
 
     puzzle: Puzzle | null = null;
 
-    nid: string | null = null;
+    nid: string = "";
 
     comments: CommentItem[] = [];
 
@@ -113,105 +114,27 @@
     
     access: boolean = false;
 
-    puzzTitle: string | null = null;
+    puzzTitle: string = "";
 
-    puzzBody: string | null = null;
+    puzzBody: string = "";
 
     async submit(){
 
       if(this.access && this.puzzTitle && this.puzzBody){
-        // new URLSearchParams({
-        //   type: 'post_comment',
-        //   body: this.commentText,
-        //   nid: this.nid,
-        // }),
-        // const x = new URLSearchParams({
-        //   type: 'edit_puzzle',
-        //   nid: this.puzzle.id!.toString(),
-        //   title: this.puzzTitle,
-        //   description: this.puzzBody,
-        // });
-        // const y = x.getAll();
-        // console.log(y);
 
-        // axios({
-        //   method: 'post',
-        //   url: this.tutorialRoute,
-        //   // params: {
-        //   //   type: 'edit_puzzle',
-        //   //   nid: this.puzzle.id!.toString(),
-        //   //   title: this.puzzTitle,
-        //   //   description: this.puzzBody,
-        //   // },
-        //   // paramsSerializer: function(params) {
-        //   //   console.log("YEAHHHHHHHHHH");
-        //   //   // console.log(params.type);
-        //   //   // return "test=12&nine=99999999999"
-        //   //   return `type=edit_puzzle&nid=${params.nid}&title=NEW%20LMAO&description=TESTING%20TESTING`;
-        //   // },
-        //   data: `type=edit_puzzle&nid=10382491&title=NEW%20LMAO&description=TESTING%20TESTING`,
-        //   headers: {
-        //     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        //     'Referer': 'http://localhost:8080/puzzles/10382491/edit/'
-        //    },
-        //   transformRequest: [function (data, headers){
-
-        //     return data;
-        //   }],
-        // }).then(res => console.log(res));
-        // var instance = axios.create({
-        //   paramsSerializer: function(params) {
-        //       return {type: "KLJSDFBNDSLKJFBSDF"}
-        //   }
-        // });
-        // const x = {
-        //   test: 123
-        // }
-        // const res = await axios.post(
-        //   this.tutorialRoute,
-        //   {
-        //     params: {
-        //       type: 'edit_puzzle',
-        //       nid: this.puzzle.id!.toString(),
-        //       title: this.puzzTitle,
-        //       description: this.puzzBody,
-            
-        //     }
-        //   }  
-        // )
-        // .then(res => {
-        //   console.log(res);
-        // })
-        
-        
-        // axios.defaults.paramsSerializer: params  => {
-        //   return Object.entries(params).map(x => `${encodeURIComponent(x[0])}=${encodeURIComponent(x[1])}`).join('&')
-        // }
-
-        // axios
-        // .post(
-        //   this.tutorialRoute, 
-        //   params)
-        // .then(res => {
-        //   console.log(res);
-        // })
-        
-
-        // const encodeDescrption = this.puzzBody.replace(/ /g, "%");
-        // const encodeTitle = this.puzzTitle.replace(/ /g, "%");
         axios
         .post(
-          this.tutorialRoute,
+          "/post/",
           new URLSearchParams({
             type: 'edit_puzzle',
-            nid: this.puzzle.id!.toString(),
+            nid: this.nid,
             title: this.puzzTitle,
             description: this.puzzBody,
           }),
           {withCredentials: true},
         )
         .then(res => {
-          console.log(res);
+          this.$router.push({path: `/puzzles/${this.nid}/`});
         });
        }
     }
@@ -225,9 +148,9 @@
           },
         })
       ).data.data as PuzzleResponse;
+
       if(this.$vxm.user.username !== res.puzzle.username){
-        // redirect back to puzzle page
-        this.$router.push({path: `/puzzles/${res.nid}`});
+        this.$router.push({path: `/puzzles/${res.nid}/`});
       }
       this.access = true;
       this.puzzle = res.puzzle;

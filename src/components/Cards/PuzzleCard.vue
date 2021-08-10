@@ -1,5 +1,5 @@
 <template>
-  <SmartLink :link="backgroundLink ? `/puzzles/${nid}` : ''">
+  <SmartLink :link="backgroundLink ? `/puzzles/${nid}/` : ''">
     <AspectRatioCard :aspectRatio="aspectRatio" :id="`popover-target-${nid}`" class="card">
       <template #header>
         <div class="puzzle-card-title" v-if="title">

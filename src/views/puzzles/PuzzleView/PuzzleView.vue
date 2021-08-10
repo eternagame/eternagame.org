@@ -68,7 +68,7 @@
             type="submit"
             variant="primary"
             class="submit-button"
-            :href="`${nid}/edit`"
+            :href="`edit`"
           >
           {{ $t('edit-puzzle-title-description') }}
           </b-button>

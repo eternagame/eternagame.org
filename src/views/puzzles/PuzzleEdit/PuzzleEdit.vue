@@ -90,6 +90,8 @@
   import FetchMixin from '@/mixins/FetchMixin';
   import { PuzzleResponse, Puzzle, CommentItem, ClearedPuzzle } from '@/types/common-types';
 
+  const EDIT_PUZZLE_ROUTE = '/post/';
+
   @Component({
     components: {
       EternaPage,
@@ -103,7 +105,7 @@
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
     private tutorialRoute: string = PUZZLE_ROUTE_TUTORIAL_PREFIX;
-
+    
     puzzle: Puzzle | null = null;
 
     nid: string = "";
@@ -123,20 +125,20 @@
       if(this.access && this.puzzTitle && this.puzzBody){
 
         axios
-        .post(
-          "/post/",
-          new URLSearchParams({
-            type: 'edit_puzzle',
-            nid: this.nid,
-            title: this.puzzTitle,
-            description: this.puzzBody,
-          }),
-          {withCredentials: true},
-        )
-        .then(res => {
-          this.$router.push({path: `/puzzles/${this.nid}/`});
-        });
-       }
+          .post(
+            EDIT_PUZZLE_ROUTE,
+            new URLSearchParams({
+              type: 'edit_puzzle',
+              nid: this.nid,
+              title: this.puzzTitle,
+              description: this.puzzBody,
+            }),
+            {withCredentials: true},
+          )
+          .then(res => {
+            this.$router.push({path: `/puzzles/${this.nid}/`});
+          });
+      }
     }
 
     async fetch() {

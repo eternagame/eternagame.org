@@ -90,6 +90,8 @@
   import FetchMixin from '@/mixins/FetchMixin';
   import { PuzzleResponse, Puzzle, CommentItem, ClearedPuzzle } from '@/types/common-types';
 
+  const EDIT_PUZZLE_ROUTE = '/post/';
+
   @Component({
     components: {
       EternaPage,
@@ -103,7 +105,7 @@
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
     private tutorialRoute: string = PUZZLE_ROUTE_TUTORIAL_PREFIX;
-
+    
     puzzle: Puzzle | null = null;
 
     nid: string = "";

@@ -119,38 +119,28 @@
     puzzBody: string = "";
 
     async submit(){
-
+      
       if(this.access && this.puzzTitle && this.puzzBody){
-
-        axios
-        .post(
-          "/post/",
-          new URLSearchParams({
-            type: 'edit_puzzle',
-            nid: this.nid,
-            title: this.puzzTitle,
-            description: this.puzzBody,
-          }),
-          {withCredentials: true},
-        )
-        .then(res => {
-          this.$router.push({path: `/puzzles/${this.nid}/`});
-        });
-       }
+ 
+        this.$http.post('/post/', new URLSearchParams({
+          type: 'edit_puzzle',
+          nid: this.nid,
+          title: this.puzzTitle,
+          description: this.puzzBody,
+        }))
+          .then(res => {
+            this.$router.push({path: `/puzzles/${this.nid}`});
+          });
+      }
     }
 
     async fetch() {
       const res = (
-        await this.$http.get(`/get/?type=puzzle&nid=${this.$route.params.id}&script=-1`, {
-          params: {
-            order: this.$route.query.sort,
-            filters: this.$route.query.filters && (this.$route.query.filters as string).split(','),
-          },
-        })
+        await this.$http.get(`/get/?type=puzzle&nid=${this.$route.params.id}`)
       ).data.data as PuzzleResponse;
 
       if(this.$vxm.user.username !== res.puzzle.username){
-        this.$router.push({path: `/puzzles/${res.nid}/`});
+        this.$router.push({path: `/puzzles/${res.nid}`});
       }
       this.access = true;
       this.puzzle = res.puzzle;

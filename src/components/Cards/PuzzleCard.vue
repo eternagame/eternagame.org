@@ -1,5 +1,5 @@
 <template>
-  <SmartLink :link="backgroundLink ? `/puzzles/${nid}/` : ''">
+  <SmartLink :link="backgroundLink ? `/puzzles/${nid}` : ''">
     <AspectRatioCard :aspectRatio="aspectRatio" :id="`popover-target-${nid}`" class="card">
       <template #header>
         <div class="puzzle-card-title" v-if="title">
@@ -172,14 +172,14 @@
       if (this.$attrs['num-cleared']){
         return this.$attrs['num-cleared'];
       }
-        return 0;
+      return 0;
     }
 
     get numSolutions() {
       if (this.mySolutions !== 0){
         return this.mySolutions;
       }
-        return '0';
+      return '0';
     }
 
     get imageURL() {

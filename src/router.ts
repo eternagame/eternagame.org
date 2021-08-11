@@ -53,7 +53,7 @@ export default function createRouter() {
       },
       {
         path: '/puzzles/:id/edit',
-        name: 'puzzle-view',
+        name: 'puzzle-edit',
         component: () => import('./views/puzzles/PuzzleEdit/PuzzleEdit.vue'),
       },
       {

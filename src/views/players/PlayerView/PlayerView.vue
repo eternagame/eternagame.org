@@ -78,7 +78,7 @@
           <template v-slot:trow="slotProps">
             <tr>
               <td class="puzzle-link">
-                <a :href="`/puzzles/${slotProps.item.id}/`">{{ slotProps.item.title }}</a>
+                <a :href="`/puzzles/${slotProps.item.id}`">{{ slotProps.item.title }}</a>
               </td>
             </tr>
           </template>

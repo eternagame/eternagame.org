@@ -62,25 +62,27 @@
           <li v-if="clearedThisPuzzle">
             <img src="@/assets/noun_check.svg" class="icon" />Cleared
           </li>
-          <div v-show="editRights"> 
-          <li>
-            <b-button
-            type="submit"
-            variant="primary"
-            class="submit-button"
-            :href="`edit`"
-          >
-          {{ $t('edit-puzzle-title-description') }}
-          </b-button>
-          <b-button
-            type="submit"
-            variant="primary"
-            class="submit-button"
-            :href="`${tutorialRoute}${nid}`"
-          >
-          {{ $t('edit-puzzle-tutorial') }}
-          </b-button>
-          </li>
+          <div v-if="editRights">
+            <li>  
+              <b-button
+              type="submit"
+              variant="primary"
+              class="submit-button"
+              :href="`/puzzles/${nid}/edit`"
+              >
+                {{ $t('edit-puzzle-title-description') }}
+              </b-button>
+            </li>
+            <li>  
+              <b-button
+                type="submit"
+                variant="primary"
+                class="submit-button"
+                :href="`${tutorialRoute}${nid}`"
+              >
+                {{ $t('edit-puzzle-tutorial') }}
+              </b-button>
+            </li>
           </div>
         </ul>
       </SidebarPanel>

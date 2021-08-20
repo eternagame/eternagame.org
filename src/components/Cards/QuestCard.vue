@@ -1,5 +1,5 @@
 <template>
-  <div :id="popoverId">
+  <div ref="root">
     <AspectRatioCard>
       <template #header>
         <!-- <div class="quest-card-title" v-if="title">
@@ -31,13 +31,13 @@
         </div>
       </template>
     </AspectRatioCard>
-    <b-popover :target="popoverId" triggers="hover" placement="top">
+    <b-popover :target="() => root" triggers="hover" placement="top">
       <div v-dompurify-html="desc"></div>
     </b-popover>
   </div>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Ref, Vue } from 'vue-property-decorator';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import SmartLink from '@/components/Common/SmartLink.vue';
@@ -68,6 +68,8 @@
 
     @Prop() readonly current_puzzle?: string;
 
+    @Ref('root') readonly root!: HTMLDivElement;
+
     get nav() {
       return Utils.isLinkInternal(this.toGame) ? 'to' : 'href';
     }
@@ -89,8 +91,6 @@
     private started = this.to_next > 0 && !this.locked;
 
     private completed = this.to_next >= 1 && !this.locked;
-
-    private popoverId: string = `popover-target-${this.title}`;
   }
 </script>
 

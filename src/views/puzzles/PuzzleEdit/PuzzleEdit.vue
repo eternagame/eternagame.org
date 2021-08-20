@@ -1,9 +1,8 @@
 <template>
-  <!--
-    Tacking on the `&& puzzle` just to make our lives easier with typing,
-    as TS doesn't know that fetchState.firstFetchComplete correlates to it being filled out
-  -->
-  <EternaPage v-if="fetchState.firstFetchComplete && puzzle" :title="puzzle.title">
+
+  <EternaPage v-if="fetchState.firstFetchComplete && puzzle">
+
+    <b-form-input v-model="puzzTitle" no-resize size="lg"></b-form-input>
     <div class="page-content">
       <h2>About the Puzzle</h2>
       <div class="d-flex flex-wrap justify-content-between" xs="12" sm="8">
@@ -15,23 +14,21 @@
             type="submit"
             variant="primary"
             class="submit-button"
-            :href="`${puzzleRoute}${puzzle.id}/`"
+            @click="submit"
+            :disabled="!puzzBody || !puzzTitle || !access"
           >
-            {{ $t('puzzle-view:main-action') }}
+          {{ $t('edit-submit') }}
           </b-button>
         </div>
 
         <div class="order-sm-1 description-col">
           <hr class="top-border d-sm-none" />
-          <div
-            class="puzzle-description"
-            style="overflow-wrap: break-word;"
-            v-dompurify-html="puzzle.body"
-          />
+          <b-textarea v-model="puzzBody" rows="12" max-rows="12" no-resize></b-textarea>
+          <div/>
         </div>
       </div>
     </div>
-    <Comments :comments="comments" :nid="puzzle.id" />
+
 
     <template #sidebar="{ isInSidebar }">
       <SidebarPanel
@@ -62,31 +59,18 @@
           <li v-if="clearedThisPuzzle">
             <img src="@/assets/noun_check.svg" class="icon" />Cleared
           </li>
-          <div v-if="editRights">
-            <li>  
-              <b-button
-              type="submit"
-              variant="primary"
-              class="submit-button"
-              :href="`/puzzles/${nid}/edit`"
-              >
-                {{ $t('edit-puzzle-title-description') }}
-              </b-button>
-            </li>
-            <li>  
-              <b-button
-                type="submit"
-                variant="primary"
-                class="submit-button"
-                :href="`${tutorialRoute}${nid}`"
-              >
-                {{ $t('edit-puzzle-tutorial') }}
-              </b-button>
-            </li>
-          </div>
+          <li>
+          <b-button
+            type="submit"
+            variant="primary"
+            class="submit-button"
+            :href="`${tutorialRoute}${nid}`"
+          >
+          {{ $t('edit-puzzle-tutorial') }}
+          </b-button>
+          </li>
         </ul>
       </SidebarPanel>
-      <!-- <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
   <Preloader v-else style="margin-top: 10rem;" />
@@ -95,7 +79,7 @@
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import axios from 'axios';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
@@ -106,45 +90,68 @@
   import FetchMixin from '@/mixins/FetchMixin';
   import { PuzzleResponse, Puzzle, CommentItem, ClearedPuzzle } from '@/types/common-types';
 
+  const EDIT_PUZZLE_ROUTE = '/post/';
+
   @Component({
     components: {
       EternaPage,
       TagsPanel,
       SidebarPanel,
       Preloader,
-      Comments,
+
     },
   })
   export default class PuzzleView extends Mixins(FetchMixin) {
-
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
     private tutorialRoute: string = PUZZLE_ROUTE_TUTORIAL_PREFIX;
-
-    private editRights: boolean = false; 
-
+    
     puzzle: Puzzle | null = null;
 
-    nid: string | null = null;
+    nid: string = "";
 
     comments: CommentItem[] = [];
 
     clearedPuzzles: ClearedPuzzle[] = [];
+    
+    access: boolean = false;
+
+    puzzTitle: string = "";
+
+    puzzBody: string = "";
+
+    async submit(){
+      
+      if(this.access && this.puzzTitle && this.puzzBody){
+ 
+        this.$http.post('/post/', new URLSearchParams({
+          type: 'edit_puzzle',
+          nid: this.nid,
+          title: this.puzzTitle,
+          description: this.puzzBody,
+        }))
+          .then(res => {
+            this.$router.push({path: `/puzzles/${this.nid}`});
+          });
+      }
+    }
 
     async fetch() {
       const res = (
-        await this.$http.get(`/get/?type=puzzle&nid=${this.$route.params.id}&script=-1`, {
-          params: {
-            order: this.$route.query.sort,
-            filters: this.$route.query.filters && (this.$route.query.filters as string).split(','),
-          },
-        })
+        await this.$http.get(`/get/?type=puzzle&nid=${this.$route.params.id}`)
       ).data.data as PuzzleResponse;
+
+      if(this.$vxm.user.username !== res.puzzle.username){
+        this.$router.push({path: `/puzzles/${res.nid}`});
+      }
+      this.access = true;
       this.puzzle = res.puzzle;
       this.nid = res.nid;
       this.comments = res.comments;
       this.clearedPuzzles = res.cleared || [];
-      if(this.puzzle.username === this.$vxm.user.username) this.editRights = true;
+      this.puzzTitle = res.puzzle.title;
+      this.puzzBody = res.puzzle.body;
+
     }
 
     get madeByPlayer() {
@@ -167,6 +174,7 @@
 
 <style scoped lang="scss">
   @import '@/styles/global.scss';
+
 
   .description-col {
     width: calc(60% - 15px);

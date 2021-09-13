@@ -14,7 +14,24 @@
         />
         <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:bio') }}</p>
         <EditField class="editor" :content="aboutMe" @input="text => $emit('update:aboutMe', text)" />
+        <!--
+        <EditPlayerNewSection
+          v-show="addingSection"
+          @set-section="section => $emit('set-section', section)"
+        />
+        <b-button
+          style="margin-top:19px;"
+          @click="addingSection = !addingSection"
+          v-show="!addingSection"
+          variant="secondary"
+        >
+          {{ $t('edit-profile:custom-section-add') }}
+        </b-button>
+        -->
       </div>
+      <!--div class="col-md-4">
+        <EditPlayerFeaturedAchievement />
+      </div-->
     </div>
   </div>
 </template>

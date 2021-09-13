@@ -24,6 +24,9 @@
       <span style="font-weight: bold;">{{ lab.affiliation }}</span><br />
       <br />
     </template>
+    <!-- <span class="gray-header">{{ $t('lab-info:currently-active') }}</span -->
+    <!-- ><br /> -->
+    <!-- <b>{{ $t('lab-info:round-number') }} 4</b> -->
     <div class="banner-progress d-none d-lg-block">
       <Progress v-bind="totalProgressCircle" color="#2f94d1" />
       <Progress v-if="$vxm.user.loggedIn" v-bind="userProgressCircle" color="#fac244" />

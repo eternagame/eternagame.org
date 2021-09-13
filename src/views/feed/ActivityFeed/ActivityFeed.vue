@@ -15,6 +15,7 @@
       <Preloader />
     </div>
     <template #sidebar="{ isInSidebar }">
+      <!--SearchPanel v-if="isInSidebar" :isInSidebar="isInSidebar" /-->
       <DropdownSidebarPanel
         :options="options"
         paramName="filter"

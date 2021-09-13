@@ -4,13 +4,6 @@
       <h4>
         <b>{{ $t('lab-view:round') }} {{ round.round }}</b>
       </h4>
-      <!--span>
-        <b
-          ><span class="gray-header">Status:</span>&nbsp;{{
-            $t(closed ? 'lab-round:results-posted' : 'lab-round:accepting-submissions')
-          }}</b
-        >
-      </!span-->
     </div>
     <Gallery>
       <LabPuzzleCard

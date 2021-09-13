@@ -1,14 +1,5 @@
 <template>
   <div class="d-flex">
-    <!-- <b-form-checkbox
-      class="mt-1 mr-3"
-      id="checkbox-1"
-      name="checkbox-1"
-      @change="toggleFollow"
-      v-model="follows"
-      >{{ $t('player-view:following') }}
-    </b-form-checkbox> -->
-
     <b-button
       type="submit"
       style="margin-left:10px; padding: 5px 30px;"
@@ -38,11 +29,6 @@
     private follows: boolean = this.followList
       .map((u: UserData) => u.uid)
       .includes(String(this.$vxm.user.uid));
-
-    // toggleFollow() {
-    //   const route = this.follows ? UNFOLLOW_ROUTE : FOLLOW_ROUTE;
-    //   axios.post(route + this.user.uid);
-    // }
 
     messageUser() {
       this.$router.push(`/feed?message=${this.user.name}`);

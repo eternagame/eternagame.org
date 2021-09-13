@@ -10,19 +10,6 @@
       <h4 class="info-container-title">{{ $t('challenge-info:research-affiliation') }}</h4>
       <p class="info-container-body">{{ challenge.affiliation }}</p>
     </div>
-    <!-- <div class="sign-up-container">
-      <h3 class="sign-up-container-title">{{ $t('challenge-sign-up:title') }}</h3>
-      <p class="sign-up-container-subtitle">
-        {{ $t('challenge-sign-up:subtitle') }}
-      </p>
-      <b-input class="sign-up-container-input" placeholder="Sign up" />
-      <b-button
-        class="sign-up-container-button"
-        variant="primary"
-      >
-        {{ $t('challenge-sign-up:button') }}
-      </b-button>
-    </div> -->
     <div class="support-container">
       <h3 class="support-container-title">{{ $t('challenge-support:title') }}</h3>
       <p class="support-container-subtitle">
@@ -100,7 +87,7 @@
       border: none;
       font-size: 0.8rem;
       margin: 1rem 0;
-      
+
       &::placeholder {
         color: #ffffff;
         opacity: 0.5;

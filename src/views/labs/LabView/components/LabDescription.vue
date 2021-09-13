@@ -123,14 +123,4 @@
     background-position: center;
     height: 250px;
   }
-
-  /*.lab-header::after {
-    display: block;
-    position: relative;
-    background-image:
-    margin-top: -300px;
-    height: 300px;
-    width: 100%;
-    content: '';
-  }*/
 </style>

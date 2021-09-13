@@ -61,7 +61,6 @@
 
     padding: 1rem 2rem;
     margin-bottom: 1.5rem;
-    // cursor: pointer;
     transition: background-color 0.5s ease;
   }
 </style>

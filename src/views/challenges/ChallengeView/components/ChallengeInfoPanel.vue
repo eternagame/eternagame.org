@@ -100,7 +100,7 @@
       border: none;
       font-size: 0.8rem;
       margin: 1rem 0;
-      
+
       &::placeholder {
         color: #ffffff;
         opacity: 0.5;

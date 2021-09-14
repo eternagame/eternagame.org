@@ -97,11 +97,6 @@
   }
 
   .text {
-    // white-space: nowrap;
-    // overflow: hidden;
-    // text-overflow: ellipsis;
-    // max-height: 100px;
-
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

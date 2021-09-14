@@ -139,7 +139,7 @@
         this.errorMessage = 'register-modal:error-password-match';
         return;
       }
-      
+
       this.loading = true;
       await this.register();
     }
@@ -188,15 +188,6 @@
 </script>
 
 <style scoped lang="scss">
-  // .submit-button {
-  //   margin-top: 22.5px;
-  // }
-
-  // .modal-register {
-  //   margin: 0 auto;
-  //   text-align: center;
-  // }
-
   /* Following styles are copied from LoginModal */
   .custom-input-group {
     position: relative;

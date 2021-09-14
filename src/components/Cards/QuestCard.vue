@@ -2,9 +2,6 @@
   <div ref="root">
     <AspectRatioCard>
       <template #header>
-        <!-- <div class="quest-card-title" v-if="title">
-          <b>{{ title }}</b>
-        </div> -->
       </template>
       <SmartLink :link="toQuest">
         <img :src="image" style="width: 80%; margin: auto;" class="scalable" />

@@ -46,7 +46,7 @@
     @Prop({ required: true }) readonly image!: string;
 
     get showEdit() {
-      return this.$vxm.user.userDetails?.is_admin;
+      return this.$vxm.user.isAdmin;
     }
 
     get editURL() {

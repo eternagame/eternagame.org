@@ -1,0 +1,190 @@
+{
+    "Saturday, July 24": [
+        {
+            "speaker": "Jonathan Romano (LFP6)",
+            "affiliation": "Lead Developer, Eterna; Eternacon Coordinator",
+            "time": "4:00 - 4:15 PM UTC",
+            "topic": "Opening Remarks",
+            "abstract": "Welcome to Eternacon 2021 and logistics."
+        },
+        {
+            "speaker": "Rhiju Das, PhD",
+            "affiliation": "Principal Investigator, Eterna; Das Lab, Stanford University",
+            "time": "4:15 - 4:30 PM UTC",
+            "topic": "Welcome",
+            "abstract": "Introductory remarks from Eterna's principal investigator."
+        },
+        {
+            "speaker": "Williams, Karmen, Ph.D. and Lorenzo, Ronald, Ph.D.",
+            "affiliation": "CUNY and Prairie View A&M University",
+            "time": "4:30 - 5:00 PM UTC",
+            "topic": "Eterna as a STEM Education Tool: A Case Study of a Genomics Class at PVAMU",
+            "abstract": "During Fall 2020, Stanford University and Prairie View A&M University instructors collaborated to incorporate Eterna as a teaching tool.  Instructors selected a senior seminar in genomics at PVAMU, a Historically Black University.  Students in the class were mostly women and African American.  Guest lecturers, all of whom were women or minority, from different universities presented subject specific lectures for the course.  At the end of the semester, students used Eterna for their class projects.  We evaluated the impact of Eterna as an educational tool on career choices and increased interest in STEM careers."
+        },
+        {
+            "speaker": "Divya Hegde & Goutham Dindukurthi",
+            "affiliation": "The Integrated Penguin; Holy Cow Productions",
+            "time": "5:00 - 5:30 PM UTC",
+            "topic": "Games for Good: Challenging gender role bias through video games.",
+            "abstract": "We discuss the making of Reality Check. A gender equality video game that aims to challenge fixed gender role bias from early childhood. It has won a UN women award and received a grant from the Karnataka State Govt. Can games be a force for good?"
+        },
+        {
+            "time": "5:30 - 6:15 PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Karmen S. Williams, DrPH, MBA",
+            "time": "6:15 - 6:45PM UTC",
+            "topic": "Representation Matters",
+            "abstract": "In the last 60 years, only 27% of research published in Science, Technology, Engineering, and Math (STEM) fields were by females, even less from underrepresented minorities. Acknowledging barriers and filling gaps to success for underrepresented populations in STEM is pertinent. This presentation explores best practices and ideas for improving representation for improved innovation in STEM fields."
+        },
+        {
+            "time": "6:45 - 7:15PM UTC",
+            "topic": "Discussion: Sociology, Representation, and Outreach",
+            "abstract": "Roundtable discussion and additional Q&A on topics related to the Sociology, Representation, and Outreach block of sessions."
+        },
+        {
+            "time": "7:15 - 8:15PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Kate Adamala",
+            "affiliation": "University of Minnesota",
+            "time": "8:15 - 8:45PM UTC",
+            "topic": "Build-a-Cell for society, biotechnology and for fun",
+            "abstract": "Synthetic minimal cells are liposome bioreactors expressing proteins from synthetic genomes. They are programmable systems that exhibit some, but not all, properties of living organisms. This technology is combining flexibility of cell-free protein expression with the ability to mimic life-like complex biochemical pathways, creating a versatile chassis for developing different types of biotech and research tools.<br/>Engineering synthetic live cells is one of the biggest challenges of science. To make life from non-living components, we built a collaboration of researchers, policymakers, ethicists, philosophers and social scientists, with citizen science advocates, educators and funding agencies from couple dozen countries.<br/>Build-a-Cell is an open community considering & advancing the construction of synthetic cells.<br/>We facilitate collaborations between groups in different areas of synthetic cell research, we engage with scientists in other disciplines to promote use of synthetic cell tools, and we provide information for the general public.<br/>We model a distributed science approach to solving large research questions, advancing the field we're all interested in and bringing applications to other disciplines and to the general public."
+        },
+        {
+            "speaker": "Jill Townley (DigitalEmbrace)",
+            "affiliation": "Eterna Player",
+            "time": "8:45 - 9:15PM UTC",
+            "topic": "The Ribosome Challenge: A Survey of Results",
+            "abstract": "The Jewett Lab has tested 68 16S and 68 23S designs created by Eterna players that make adjustments to the wild-type E. coli sequence with the goal of finding a synthetic ribosome that will produce a higher level of protein in the laboratory environment. Players have been quite inventive coming up with ideas for encouraging the ribosome to fold besides our standard lower energy approach. While the challenge was introduced with the presumption that ribosome folding was the issue we needed to improve on, there is gathering evidence that other aspects (e.g. minimizing the energy lost in the transcription step) may also make a significant contribution to increased protein production.<br/><br/>This survey will look back on what we learned in each lab round and outline where we might be heading in Round 4."
+        },
+        {
+            "speaker": "Antje Kruger",
+            "affiliation": "Northwestern University",
+            "time": "9:15 - 9:45PM UTC",
+            "topic": "Community science awakes the ribosome",
+            "abstract": "For two years, we have been on an extraordinary adventure at Eterna; we re-designed two of the largest RNA molecules in nature which make up one of the cell’s most important biomolecular machines – the ribosome. Over the course of only three rounds, we have discovered 16S and 23S rRNA designs that assemble into ribosomes with incredible phenotypes: Some make more protein in the test tube, several can cope with folding stress conditions, and others even let whole cells grow faster than cells with wild type ribosomes.  These accomplishments make a new challenge possible; one in which we will expand the ribosome’s capabilities to make new types of materials and therapeutics. In this talk, I will summarize our previous accomplishments, describe the ongoing final round of our first challenge and introduce the new ribosome challenge"
+        },
+        {
+            "time": "9:15 - 10:15PM UTC",
+            "topic": "Discussion: Ribosome Design",
+            "abstract": "Roundtable discussion and additional Q&A on topics related to the Ribosome Design block of sessions."
+        },
+        {
+            "time": "10:15 - 11:00PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "William Dunlap (Astromon)",
+            "affiliation": "Eterna Player",
+            "time": "11:00 PM UTC",
+            "topic": "Eternacon Puzzle Challenge 2021",
+            "abstract": "Join in our annual challenge to solve a puzzle specifically designed for Eternacon 2021"
+        }
+    ],
+    "Sunday, July 25": [
+        {
+            "speaker": "Jonathan Romano (LFP6)",
+            "affiliation": "Lead Developer, Eterna; Eternacon Coordinator",
+            "time": "4:00 PM UTC",
+            "topic": "Opening Remarks (Reminders)",
+            "abstract": "Welcome and logistical reminders."
+        },
+        {
+            "speaker": "Joseph Yesselman",
+            "affiliation": "University of Nebraska-Lincoln",
+            "time": "4:00 - 4:30PM UTC",
+            "topic": "High-throughput development of RNA 3D ensembles",
+            "abstract": "TBA"
+        },
+        {
+            "speaker": "Sharif Ezzat",
+            "affiliation": "Vital Mind Media",
+            "time": "4:30 - 5:00PM UTC",
+            "topic": "Eterna3D and Beyond",
+            "abstract": "Motivated by the need to prepare for more complex lab challenges and reach new mobile players, the development team has pursued a new approach to Eterna's UX and UI design. Learn more about new features and enhancements coming soon to Eterna!"
+        },
+        {
+            "time": "5:00 - 5:30PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Afika Ayanda Nyati",
+            "affiliation": "Developer, Eterna",
+            "time": "5:30 - 6:15PM UTC",
+            "topic": "Using Story to Enhance the Eterna Tutorial Experience",
+            "abstract": "In this talk, members of the Eterna development team will share progress made on improving the Eterna tutorial experience, as well as share thinking behind design decisions made to the effort, including the decision to leverage storytelling as a means of grounding tutorial activity to clear story-driven goals that are both fun and informative."
+        },
+        {
+            "speaker": "Josh Aaron Miller",
+            "affiliation": "Northeastern University",
+            "time": "6:15 - 6:45PM UTC",
+            "topic": "State of Play: Data and Recommendations on the Game and Gamification of Eterna",
+            "abstract": "As part of my dissertation on citizen science games, I have surveyed the experiences of Eterna players and developers on a range of topics. This brief talk will summarize the praises and pain points that are worth noting for future development of Eterna: what should scientists and developers be focusing on to efficiently improve the game and gamification of Eterna? The talk will be followed by a Q&A and open discussion. Attendees are welcome to ask questions about my findings for other citizen science games as well."
+        },
+        {
+            "time": "6:45 - 7:15PM UTC",
+            "topic": "Discussion: Gamification, Eterna3D, and Eterna Development",
+            "abstract": "Roundtable discussion and additional Q&A on topics related to the Gamification, Eterna3D, and Eterna Development block of sessions."
+        },
+        {
+            "time": "7:15 - 8:15PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Arnuv Modh (arnuvmodh)",
+            "time": "8:15 - 8:30PM UTC",
+            "topic": "Eterna Art Show",
+            "abstract": "The 2021 Eternacon Art Show is a collection of art various players have submitted over the past few months. Some made creative puzzles, and some took Eterna puzzles and added their own creative touches to them! The Art Show will be a brief event celebrating 10 years of research, mixed with a pinch of humor!"
+        },
+        {
+            "speaker": "Joseph McLaughlin",
+            "affiliation": "Eterna Player",
+            "time": "8:30 - 9:00PM UTC",
+            "topic": "There's Plenty More Room at the Bottom",
+            "abstract": "In this talk I'll explore RNA design diversity as well as the questions and challenges which are raised by doing so."
+        },
+        {
+            "speaker": "Akira Bowler",
+            "affiliation": "Twitch Streamer, Eterna",
+            "time": "9:00 - 9:15PM UTC",
+            "topic": "Twitch Update",
+            "abstract": "A brief in depth look at streaming on twitch for a full calendar year."
+        },
+        {
+            "time": "9:15 - 9:45PM UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Jonathan Romano (LFP6)",
+            "affiliation": "Lead Developer, Eterna",
+            "time": "9:45 - 10:15PM UTC",
+            "topic": "Highly-Scalable Compute for mRNA Design and Analysis",
+            "abstract": "As part of the OpenVaccine initiative, an initial foray was made into developing highly-scalable server-side compute infrastructure for Eterna. This talk will give an overview of the rationale, design, implementation, and potential future work for this system."
+        },
+        {
+            "speaker": "Arnuv Modh (arnuvmodh) and William Dunlap (Astromon)",
+            "affiliation": "Eterna Players",
+            "time": "10:15 - 11:00PM UTC",
+            "topic": "OpenVaccine Designer Presentation",
+            "abstract": "The OpenVaccine Designer Presentation will include navigation around the current OpenVaccine labs, OpenVaccine lab design strategies, a guide to jnicol's amino codon booster, current OpenVaccine robot designs, and much more, with frequent Q&A's to answer viewers' questions.",
+            "publicLink": "https://player.vimeo.com/video/581284670?title=0&byline=0&portrait=0"
+        },
+        {
+            "speaker": "Hannah Wayment-Steele, PhD",
+            "affiliation": "Stanford University",
+            "time": "11:00 - 11:30PM UTC",
+            "topic": "OpenVaccine Updates: How Eterna players designed superfolder mRNAs and how Stanford researchers tested them",
+            "abstract": "The first authorized COVID-19 vaccines were based on messenger RNA molecules that promote translation of SARS-CoV-2 antigen proteins. However, these vaccines have been logistically problematic for delivery to developing countries and to rural populations in developed countries. We will talk about how Eterna players designed \"superfolder\" mRNAs that were predicted to be more resistant to degradation, how researchers at the Das and Barna groups at Stanford validated their increased stability and translation, and what the next frontiers are for designing improved RNA vaccines.",
+            "publicLink": "https://player.vimeo.com/video/579555493?title=0&byline=0&portrait=0"
+        },
+        {
+            "time": "11:30 - 12:00PM UTC",
+            "topic": "Discussion: mRNA Design",
+            "abstract": "Roundtable discussion and additional Q&A on topics related to the mRNA Design block of sessions."
+        }
+    ]
+}

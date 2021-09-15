@@ -4,13 +4,13 @@
       <h4>
         <b>{{ $t('lab-view:round') }} {{ round.round }}</b>
       </h4>
-      <span>
+      <!--span>
         <b
           ><span class="gray-header">Status:</span>&nbsp;{{
-            $t(round.status || 'lab-round:accepting-submissions')
+            $t(closed ? 'lab-round:results-posted' : 'lab-round:accepting-submissions')
           }}</b
         >
-      </span>
+      </!span-->
     </div>
     <Gallery>
       <LabPuzzleCard
@@ -36,6 +36,7 @@
   export default class LabRound extends Vue {
     @Prop({ required: true }) readonly round!: RoundData;
 
+    // we don't currently track status by round, but we currently don't use rounds and all old projects with multiple rounds should already be closed
     @Prop({ default: false }) closed!: boolean;
   }
 </script>

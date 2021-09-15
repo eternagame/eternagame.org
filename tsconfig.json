@@ -28,7 +28,8 @@
       "dom.iterable",
       "scripthost",
       "es2018"
-    ]
+    ],
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*.ts",

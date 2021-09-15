@@ -1,6 +1,6 @@
 <template>
   <SidebarPanel :isInSidebar="isInSidebar" header="calendar" headerIcon="@/assets/calendar.svg">
-    <vc-date-picker mode="range" v-model="dates" color="yellow" is-dark is-inline />
+    <vc-date-picker is-range v-model="dates" color="yellow" :attributes="highlightDates" @update:from-page="changePage" is-dark is-inline />
   </SidebarPanel>
 </template>
 
@@ -9,6 +9,8 @@
   import { mixins } from 'vue-class-component';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
+  import { DateItem } from '@/types/common-types';
+  
   // @ts-ignore
   import VCalendar from 'v-calendar';
 
@@ -22,19 +24,33 @@
     },
   })
   export default class CalendarPanel extends mixins(SidebarPanelMixin) {
+
+    @Prop({required: false}) readonly notableDates!: {selectAttribute: { dot: string; dates: string; }[]} ;
+
     private dates: {
       start?: Date;
       end?: Date;
     } = {};
 
+
+    private changePage(shownMonth : DateItem){
+      this.$emit('page-update', shownMonth);
+    }
+
+    get highlightDates(){
+      return this.notableDates? this.notableDates.selectAttribute: [];
+    }
+
     mounted() {
       const { start_date, end_date } = this.$route.query;
 
-      if (start_date && end_date)
+      if (start_date && end_date){
+
         this.dates = {
           start: new Date(start_date as string),
           end: new Date(end_date as string),
         };
+      }
     }
 
     @Watch('dates')

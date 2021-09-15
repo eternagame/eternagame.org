@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align: center;">
+  <div class="read-more" style="text-align: center;">
     <span>
       <b-button @click="$emit('input', !value)" variant="outline-info" size="sm" class="text-uppercase">
         {{ value ? $t('read-more:read-less') : $t('read-more:read-more') }}
@@ -20,11 +20,17 @@
 </script>
 
 <style scoped lang="scss">
+  .read-more {
+    margin: 20px 0px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
   span:after,
   span:before {
     content: '';
     display: inline-block;
-    width: 100px;
+    width: calc(50% - 50px);
     height: 1px;
     background: var(--med-blue);
     vertical-align: 25%;

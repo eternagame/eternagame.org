@@ -69,7 +69,7 @@
 
     @Prop({ required: true }) readonly total_submitted_solutions!: number;
 
-   @Prop({ required: true }) readonly project_closes!: number | null;
+    @Prop({ required: true }) readonly project_closes!: number | null;
 
     @Prop({ required: true }) readonly nid!: number;
 

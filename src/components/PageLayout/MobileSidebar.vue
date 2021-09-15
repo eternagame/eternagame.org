@@ -1,14 +1,12 @@
 <template>
   <transition name="slide">
     <div ref="mobileSidebar" class="mobile-sidebar  d-lg-none" v-show="isOpen">
-      <nav>
-        <div class="d-flex justify-content-end">
-          <button class="btn p-0" @click="isOpen = false">
-            <img src="@/assets/sidebar/Cross.svg" class="cross-icon" />
-          </button>
-        </div>
-        <slot></slot>
-      </nav>
+      <div class="d-flex justify-content-end">
+        <button class="btn p-0" @click="isOpen = false">
+          <img src="@/assets/sidebar/Cross.svg" class="cross-icon" />
+        </button>
+      </div>
+      <slot></slot>
     </div>
   </transition>
 </template>
@@ -62,6 +60,9 @@
     width: 250px;
     padding: 15px 22.5px;
     z-index: 2000;
+  }
+  .mobile-sidebar > ::v-deep * {
+    margin-bottom: 20px;
   }
   .slide-enter-active,
   .slide-leave-active {

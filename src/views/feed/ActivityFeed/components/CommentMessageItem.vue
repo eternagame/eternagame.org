@@ -7,8 +7,11 @@
       :message="message.content.body"
     >
       <template>
-          {{ notification.target2_name + ' ' }} {{ $t('activity-feed:commented-on') + ' ' }}
-          <a :href="`/${nodeType}/${message.content.node.id}`">
+          <router-link :to="`/players/` + message.sender">
+            {{ notification.target2_name }}
+          </router-link>
+          {{ ' ' + $t('activity-feed:commented-on') + ' ' }}
+          <a :href="link">
               {{ message.content.node.title }}
           </a>
       </template>
@@ -26,32 +29,45 @@
   })
   export default class CommentMessageItem extends Vue {
     @Prop({ required: true }) readonly notification!: CommentNotificationItem;
-    
+
     @Prop({ required: true }) readonly message!: CommentNotificationMessage;
 
     get avatar() {
       return Utils.getAvatar(this.notification.target2_picture);
     }
 
-    get nodeType() {
-      const { node_type } = this.message.content.node;
-      if (node_type === 'puzzle') return 'puzzles';
-      if (node_type === 'solution') return 'solutions';
-      if (node_type === 'group') return 'groups';
-      return `${node_type}s`;
+    get link() {
+      const { node_type, id } = this.message.content.node;
+      switch (node_type) {
+      case 'puzzle':
+        return `/puzzles/${id}`;
+      case 'lab':
+        return `/labs/${id}`;
+      case 'news':
+      case 'blog':
+        return `/news/${id}`;
+      case 'group':
+      case 'eterna_group':
+        return `${process.env.VUE_APP_API_BASE_URL}/web/group/${id}/`;
+      case 'solution': {
+        const pid = (this.message.content.node as any).puzzle_id;
+        return `${process.env.VUE_APP_API_BASE_URL}/game/browse/${pid}/?filter1=Id&filter1_arg1=${id}&filter1_arg2=${id}`;
+      }
+      default:
+        return '#';
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
-  
+
   .card {
     color: $white;
     padding: 1rem 2rem;
     margin-bottom: 1.5rem;
     max-height: 600px;
-    // cursor: pointer;
     transition: background-color 0.5s ease;
   }
 </style>

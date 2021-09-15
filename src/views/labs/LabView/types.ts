@@ -1,13 +1,28 @@
 import { CommentItem } from '@/types/common-types';
 
-export default interface LabViewData {
-  lab: LabData;
-  comments: CommentItem[];
-  supercomments: []; // ?
-  follow: []; // ?
-  sum_picks: null;
+export interface PuzzleData {
+  nid: string;
+  title: string;
+  secstruct: string;
+  sequence: string;
+  rna_type: string;
+  object: string;
+  constraint: string;
+  cover_image: null;
+  num_slots: number;
+  constraints: string;
+  switch_struct?: string[];
+  synthesized_solutions: [];
+  num_solutions: number;
   my_votes: number;
-  uid: string;
+  submitted: number;
+  num_synthesized: number;
+}
+
+export interface RoundData {
+  puzzles: PuzzleData[];
+  round: number;
+  is_playable: boolean;
 }
 
 // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
@@ -44,29 +59,16 @@ export interface LabData {
   total_designs: number;
   total_submitted_solutions_of_user: number;
   max_designs: number;
+  challenge: string;
 }
 
-export interface PuzzleData {
-  nid: string;
-  title: string;
-  secstruct: string;
-  sequence: string;
-  rna_type: string;
-  object: string;
-  constraint: string;
-  cover_image: null;
-  num_slots: number;
-  constraints: string;
-  switch_struct?: string[];
-  synthesized_solutions: [];
-  num_solutions: number;
+export default interface LabViewData {
+  lab: LabData;
+  comments: CommentItem[];
+  supercomments: []; // ?
+  follow: []; // ?
+  sum_picks: null;
   my_votes: number;
-  submitted: number;
-  num_synthesized: number;
+  uid: string;
 }
 
-export interface RoundData {
-  puzzles: PuzzleData[];
-  round: number;
-  is_playable: boolean;
-}

@@ -12,6 +12,16 @@
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
 
+  interface EditorParams {
+    isActive: {
+      [name: string]: (args: object) => boolean;
+    };
+    
+    commands: {
+      [name: string]: (args: object) => void;
+    };
+  }
+
   Component.registerHooks(['beforeDestroy']);
 
   @Component({
@@ -35,16 +45,6 @@
     get iconClass() {
       return `fa-${this.icon ? this.icon : this.command}`;
     }
-  }
-
-  interface EditorParams {
-    isActive: {
-      [name: string]: (args: object) => boolean;
-    };
-    
-    commands: {
-      [name: string]: (args: object) => void;
-    };
   }
 </script>
 

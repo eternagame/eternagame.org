@@ -6,7 +6,7 @@
         <h4 class="about-me">
           {{ $t('player-view:about-me') }}
         </h4>
-        <p v-dompurify-html="user.Profile" class="about-me-text" style="word-wrap: break-word;"></p>
+        <p v-dompurify-html="user.Profile" class="about-me-text" style="overflow-wrap: break-word;"></p>
       </div>
       <PlayerFeaturedAchievement v-if="user.featuredAchievement" :user="user" />
     </div>

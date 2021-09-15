@@ -71,6 +71,7 @@
   .puzzle-image {
     width: 100%;
     z-index: 50;
+    max-height: 90%;
   }
 
   @include media-breakpoint-down(md) {

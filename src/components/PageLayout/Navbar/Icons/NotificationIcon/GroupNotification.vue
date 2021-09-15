@@ -14,9 +14,9 @@
   import BaseNotification from './BaseNotification.vue';
 
   @Component({
-      components: {
-        BaseNotification
-      },
+    components: {
+      BaseNotification
+    },
   })
   export default class GroupNotification extends Vue {
     @Prop({ required: true }) readonly group!: GroupNotificationItem;

@@ -86,7 +86,6 @@
 <script lang="ts">
   import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
-  import axios from 'axios';
   import VueRecaptcha from 'vue-recaptcha';
   import FacebookAuthentication from './components/FacebookAuthentication.vue';
 
@@ -128,7 +127,6 @@
 
     registerWithFacebook() {
       this.modal.hide();
-      this.$router.push('/');
     }
 
     async tryRegister(event: Event) {
@@ -141,7 +139,7 @@
         this.errorMessage = 'register-modal:error-password-match';
         return;
       }
-      
+
       this.loading = true;
       await this.register();
     }
@@ -181,7 +179,6 @@
         if (data.success) {
           this.loading = false;
           this.modal.hide();
-          this.$router.push('/');
         } else {
           this.errorMessage = data.data.error;
         }
@@ -191,15 +188,6 @@
 </script>
 
 <style scoped lang="scss">
-  // .submit-button {
-  //   margin-top: 22.5px;
-  // }
-
-  // .modal-register {
-  //   margin: 0 auto;
-  //   text-align: center;
-  // }
-
   /* Following styles are copied from LoginModal */
   .custom-input-group {
     position: relative;

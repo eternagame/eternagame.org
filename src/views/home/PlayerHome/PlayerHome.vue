@@ -14,9 +14,11 @@
         <template v-if="hasLabAccess">
           <LabSlide v-for="lab in labCarouselLabs" v-bind="lab" :key="lab.nid" />
           <POTWSlide v-bind="potwSlideData" v-if="potwSlideData" />
+          <AnniversarySlide />
         </template>
         <template v-else>
-          <TutorialTeaserSlide />
+          <TutorialTeaserSlide :nextPuzzleID="nextPuzzleID" />
+          <AnniversarySlide />
         </template>
       </b-carousel>
 
@@ -29,8 +31,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Prop, Mixins } from 'vue-property-decorator';
-  import axios, { AxiosInstance } from 'axios';
+  import { Component, Mixins} from 'vue-property-decorator';
   import { RoadmapAchievement, ProcessedRoadmapAchievement } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
@@ -41,6 +42,8 @@
   import POTWSlide from './components/banner/POTWSlide.vue';
   import LabSlide from './components/banner/LabSlide.vue';
   import EternaconSlide from './components/banner/EternaconSlide.vue';
+  import AnniversarySlide from './components/banner/AnniversarySlide.vue';
+  import IdeaJamSlide from './components/banner/IdeaJamSlide.vue';
   import QuestActivity from './components/activities/QuestActivity.vue';
   import TutorialActivity from './components/activities/TutorialActivity.vue';
 
@@ -54,7 +57,9 @@
       EternaconSlide,
       Preloader,
       QuestActivity,
-      TutorialActivity
+      TutorialActivity,
+      AnniversarySlide,
+      IdeaJamSlide
     },
   })
   export default class PlayerHome extends Mixins(FetchMixin) {
@@ -70,7 +75,7 @@
       const res = await Promise.all([
         this.$http.get('/get/?type=side_project_roadmap'),
         this.$http.get('/get/?type=carousel'),
-        this.$http.get('/get/?type=puzzle_of_the_week')
+        this.$http.get('/get/?type=puzzle_of_the_week'),
       ]);
 
       const roadmap = res[0].data.data.achievement_roadmap as RoadmapAchievement[];
@@ -89,10 +94,16 @@
         
       this.labCarouselLabs = res[1].data.data.labs;
       this.potwSlideData = res[2].data.data;
+
+      this.$vxm.user.refreshAchievements();
     }
 
     get hasLabAccess() {
       return this.$vxm.user.hasLabAccess;
+    }
+
+    get nextPuzzleID() {
+      return this.tenToolsAchievements[0].current_puzzle;
     }
   }
 </script>

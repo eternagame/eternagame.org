@@ -4,42 +4,25 @@
       <img
         class="d-block d-sm-none rounded-circle player-image"
         :src="picture"
-        alt="player-image"
+        alt="avatar"
       />
       <img
         class="d-none d-sm-block rounded-circle player-image-large"
         :src="picture"
-        alt="player-image"
+        alt="avatar"
       />
     </div>
-    <img
-      v-else
-      class="d-none d-sm-block rounded-circle player-image-large"
-      src="@/assets/front-page/img/icon_user.png"
-    />
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
-  import Utils from '@/utils/utils';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
 
   @Component({
     components: {},
   })
   export default class PlayerHeaderImage extends Vue {
-    @Prop({ required: true }) readonly uploadedPicture!: File | null;
-
-    get user() {
-      return this.$vxm.user.userDetails;
-    }
-
-    get picture() {
-      return (
-        (this.uploadedPicture && URL.createObjectURL(this.uploadedPicture)) ||
-        (Utils.getAvatar(this.user?.picture || null))
-      );
-    }
+    @Prop({ required: true }) readonly picture!: File;
   }
 </script>
 
@@ -54,9 +37,9 @@
   }
 
   .player-image-large {
-    width: 115.93px;
-    height: 115.93px;
     object-fit: scale-down;
     margin-right: 20px;
+    width: 115.93px;
+    height: 115.93px;
   }
 </style>

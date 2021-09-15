@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { createModule, mutation, action } from 'vuex-class-component';
 import axios, { AxiosInstance } from 'axios';
-import { UserData } from '@/types/common-types';
+import { RefreshAchievement, UserData } from '@/types/common-types';
 
 const VuexModule = createModule({
   strict: false,
@@ -23,11 +23,15 @@ export default function createUserStore($http: AxiosInstance) {
 
     public hasLabAccess: boolean = false;
 
-    public userDetails: UserData | null = null;
+    public isAdmin: boolean = false;
+
+    public surveyRecord: string = "";
 
     public triedAuthenticating = false;
 
-    public promptSignAgreement = false;
+    public userDetailsLoaded = false;
+
+    public newAchievements: RefreshAchievement[] = [];
     
     @mutation showResetCompleteModal() {}
 
@@ -60,12 +64,13 @@ export default function createUserStore($http: AxiosInstance) {
         workbranch: 'localhost:8080',
       };
 
-      const { data } = (await $http.post('/login/', new URLSearchParams(loginParams))).data;
+      const { data, new_achievements } = (await $http.post('/login/', new URLSearchParams(loginParams))).data;
       if (data.success) {
         this.loggedIn = true;
         window.localStorage.setItem('loggedIn', 'true');
       }
       await this.authenticate();
+      this.pushAchievements(new_achievements);
       return data;
     }
 
@@ -86,16 +91,34 @@ export default function createUserStore($http: AxiosInstance) {
         this.username = username;
         this.uid = Number(uid);
         this.loggedIn = true;
+        // BEFORE YOU ADD THINGS HERE: Beware that they will not be updated when a user navigates
+        // within the website. So if the user performs any sort of action (either on this page
+        // or another browser page) that invalidates something in my_user, it won't be reflected
+        // until a page RELOAD. That is: If you actually want up-to-date information, don't rely
+        // on this call. I'm not even sure if we want some of these to be here!
         const userDataResponse = (await axios.get(`/get/?type=my_user&uid=${uid}`)).data.data;
-        this.userDetails = userDataResponse.user;
+        const userDetails: UserData = userDataResponse.user;
         this.hasLabAccess = Boolean(
-          Number((this.userDetails as UserData).ten_tools_level) >= 8 ||
-            Number((this.userDetails as UserData).is_lab_member_legacy),
+          Number(userDetails.ten_tools_level) >= 8 ||
+            Number(userDetails.is_lab_member_legacy),
         );
+        this.isAdmin = userDetails.is_admin;
+        this.surveyRecord = userDetails.Survey;
+        this.userDetailsLoaded = true;
       } else {
         throw new Error(`Authentication response malformed: ${data}`);
         // TODO: is throw the right action?
       }
+    }
+
+    @action async refreshAchievements() {
+      const res = await $http.post('/post/', new URLSearchParams({ type: 'refresh_achievements'}));
+      const {new_achievements} = res.data;
+      this.pushAchievements(new_achievements);
+    }
+
+    @mutation private pushAchievements(achievements?: Record<string, RefreshAchievement>) {
+      if (achievements) this.newAchievements.push(...Object.entries(achievements).map(([key, val]) => val));
     }
   }
 

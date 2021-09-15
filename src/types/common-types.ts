@@ -5,9 +5,11 @@ export interface UserData {
   created: string;
   picture: string;
   name: string;
+  ['Personal Name']: string;
   mail: string;
   ['News mail notification']: string;
   ['Mail notification']: string;
+  ['Certificate public']: string;
   Profile: string;
   is_lab_member_legacy: boolean;
   ten_tools_level: number;
@@ -46,6 +48,23 @@ export interface ProfileGroup {
   founder: string;    
 }
 
+export interface FollowItem {
+  nid: string;
+  uid: string;
+  id: string;
+  updated_time: string;
+  expired_time: string | null;
+  type: string;
+}
+
+export interface ProfileAchievement {
+  level: string;
+  image: string;
+  title: string;
+  desc: string;
+  past: string;
+}
+
 export interface UserResponse {
   user: UserData;
   follow: FollowItem[];
@@ -62,15 +81,6 @@ export interface UserResponse {
   }
 }
 
-export interface FollowItem {
-  nid: string;
-  uid: string;
-  id: string;
-  updated_time: string;
-  expired_time: string | null;
-  type: string;
-}
-
 export interface CommentItem {
   cid: string;
   name: string;
@@ -80,8 +90,8 @@ export interface CommentItem {
   picture: string;
 }
 
-export interface ProfileAchievement {
-  level: string;
+export interface RefreshAchievement {
+  level: number;
   image: string;
   title: string;
   desc: string;
@@ -120,6 +130,7 @@ export interface Publication {
   title: string;
   journal: string;
   pub_date: string;
+  timestamp: number;
   link: string;
   has_player_authors: boolean;
   authors: string;
@@ -201,6 +212,7 @@ export interface PuzzleResponse {
   puzzle: Puzzle;
   nid: string;
   comments: CommentItem[];
+  cleared?: ClearedPuzzle[];
 }
 
 export interface NewsArticle {
@@ -343,8 +355,31 @@ export interface BlogItem {
   sticky: string;
   body: string;
   filepath: string | null;
-  timestamp: string
+  timestamp: string;
   comments: CommentItem[];
+}
+
+export interface ChallengeItem{
+  abstract: string;
+  affiliation: string;
+  blurb: string;
+  body: string;
+  challenge_status: string;
+  cover_image: string;
+  donors: string | null; // no current challenges have donors
+  nid: string;
+  update_summary: string | null;
+  video: string;
+}
+export interface DateItem{
+  month: number;
+  year: number;
+}
+
+export interface AboutMediaItem {
+  link: string;
+  title: string;
+  description: string;
 }
 
 // The combined news and blogs list uses the same logic and creates the same fields
@@ -370,5 +405,5 @@ export function isPMNotiItem(notification: NotificationItem): notification is Pr
 }
 
 export function isCommentNotiItem(notification: NotificationItem): notification is CommentNotificationItem {
-  return (isNotiNotiItem(notification) || isDirectedNotificationItem(notification)) && ( notification.message[0].type === NotificationMessageType.COMMENT);
+  return isDirectedNotificationItem(notification) && ( notification.message[0].type === NotificationMessageType.COMMENT);
 }

@@ -10,13 +10,28 @@
         <hr class="top-border" />
       </div>
       <template #sidebar="{ isInSidebar }">
-        <DropdownSidebarPanel
-          :options="options"
-          :defaultIndex="-1"
-          paramName="sort"
-          replace
-          :isInSidebar="isInSidebar"
-        />
+        <SidebarPanel :isInSidebar="isInSidebar" :header="$t('terms-sidebar:section-1')" headerIcon="@/assets/sidebar/question.svg">
+          <div>
+            {{ $t('terms-sidebar:section-2') }}
+          </div>
+          <ul>
+            {{ $t('terms-sidebar:section-3-start') }}
+            <a href="https://forum.eternagame.org/">
+              {{ $t('terms-sidebar:section-3-forum') }}
+            </a>
+            {{ $t('terms-sidebar:section-3-end') }}
+          </ul>
+          <ul>
+            {{ $t('terms-sidebar:section-4-start') }}
+            <a href="https://discord.com/invite/KYeTwux">
+              {{ $t('terms-sidebar:section-4-discord') }}
+            </a>
+            {{ $t('terms-sidebar:section-4-end') }}
+          </ul>
+          <ul>
+            {{ $t('terms-sidebar:section-5') }}
+          </ul>
+        </SidebarPanel>
       </template>
     </EternaPage>
   </div>
@@ -25,32 +40,17 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import axios from 'axios';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import TermsAndConditionsText from './TermsAndConditionsText.vue';
-
-  export const options: Option[] = [
-    { value: 'about', text: 'side-panel-options:about-eterna', link: '/about' },
-    { value: 'publications', text: 'side-panel-options:publications', link: '/about/publications' },
-    {
-      value: 'software',
-      text: 'side-panel-options:software',
-      link: 'https://software.eternagame.org/',
-    },
-    { value: 'terms', text: 'side-panel-options:terms', link: '/about/terms' },
-    { value: 'code_conduct', text: 'side-panel-options:code_conduct', link: '/about/conduct' },
-  ];
 
   @Component({
     components: {
       EternaPage,
-      DropdownSidebarPanel,
       TermsAndConditionsText,
+      SidebarPanel
     },
   })
-  export default class TermsAndConditions extends Vue {
-    private options: Option[] = options;
-  }
+  export default class TermsAndConditions extends Vue {}
 </script>
 <style lang="scss" scoped>
   h3,
@@ -66,5 +66,8 @@
   h2 {
     font-size: 10.72rem;
     font-weight: bold;
+  }
+  ul{
+    padding: 0;
   }
 </style>

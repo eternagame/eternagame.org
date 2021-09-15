@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <nav>
     <b-navbar-nav v-if="loggedIn">
       <div class="w-100">
         <NavbarIcons class="d-inline d-md-none" :isInSideBar="true" />
@@ -16,7 +16,7 @@
         accordion="navbar-sidebar-accordion"
       />
     </b-navbar-nav>
-  </div>
+  </nav>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';

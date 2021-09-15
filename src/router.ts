@@ -22,6 +22,11 @@ export default function createRouter() {
         component: () => import('./views/labs/LabView/LabView.vue'),
       },
       {
+        path: '/challenges/:id',
+        name: 'challenge-view',
+        component: () => import('./views/challenges/ChallengeView/ChallengeView.vue'),
+      },
+      {
         path: '/quests',
         name: 'quests-list',
         component: () => import('./views/quests/QuestsExplore/QuestsExplore.vue'),
@@ -47,6 +52,11 @@ export default function createRouter() {
         component: () => import('./views/puzzles/PuzzleView/PuzzleView.vue'),
       },
       {
+        path: '/puzzles/:id/edit',
+        name: 'puzzle-edit',
+        component: () => import('./views/puzzles/PuzzleEdit/PuzzleEdit.vue'),
+      },
+      {
         path: '/',
         name: 'home',
         component: () => import('./views/home/Home.vue'),
@@ -57,9 +67,24 @@ export default function createRouter() {
         component: () => import('./views/about/About.vue'),
       },
       {
+        path: '/history',
+        name: 'history',
+        component: () => import('./views/history/History.vue'),
+      },
+      {
         path: '/help',
         name: 'quick-help',
         component: () => import('./views/help/QuickHelp.vue'),
+      },
+      {
+        path:'/gamerguide',
+        name:'gamer-guide',
+        component: () => import('./views/help/GamerGuide.vue'),
+      },
+      {
+        path: '/challenges',
+        name: 'challenge-list',
+        component: () => import('./views/challenges/ChallengeExplore/ChallengeExplore.vue'),
       },
       {
         path: '/about/software',
@@ -72,7 +97,7 @@ export default function createRouter() {
         component: () => import('./views/terms/TermsAndConditions.vue'),
       },
       {
-        path: '/about/conduct',
+        path: '/conduct',
         name: 'code-of-conduct',
         component: () => import('./views/conduct/CodeOfConduct.vue'),
       },
@@ -123,12 +148,17 @@ export default function createRouter() {
       },
       {
         path: '/eternacon',
-        redirect: { name: 'eternacon-2020' }
+        redirect: { name: 'eternacon-2021' }
       },
       {
         path: '/eternacon/2020',
         name: 'eternacon-2020',
         component: () => import('./views/eternacon/Eternacon2020.vue'),
+      },
+      {
+        path: '/eternacon/2021',
+        name: 'eternacon-2021',
+        component: () => import('./views/eternacon/Eternacon2021.vue'),
       },
       {
         path: '/eternacon/about',

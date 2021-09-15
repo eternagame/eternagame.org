@@ -34,7 +34,10 @@ module.exports = {
       .use('vue-loader')
       .loader('vue-loader')
       .tap(options => {
-        options.transformAssetUrls = { SidebarPanel: ['headerIcon'] };
+        options.transformAssetUrls = {
+          SidebarPanel: ['headerIcon'],
+          HeroSection: ['backgroundImage']
+        };
         return options;
       });
 
@@ -97,7 +100,7 @@ module.exports = {
 
         // Change caching directories so client- and server-side webpack instances
         // don't share one cache – otherwise the client build would use cached SSR
-        // code (and vice versa) and break thye build in some cases.
+        // code (and vice versa) and break the build in some cases.
         config.module
           .rule('vue')
           .use('cache-loader')

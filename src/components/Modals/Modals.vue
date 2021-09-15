@@ -5,6 +5,7 @@
     <ResetPasswordModal />
     <AcceptTermsModal />
     <LoginModal />
+    <AchievementModal />
   </div>
 </template>
 
@@ -15,6 +16,7 @@
   import ResetCompleteModal from './ResetCompleteModal.vue';
   import ResetPasswordModal from './ResetPasswordModal.vue';
   import LoginModal from './LoginModal.vue';
+  import AchievementModal from './AchievementModal.vue';
 
   @Component({
     components: {
@@ -23,6 +25,7 @@
       ResetPasswordModal,
       LoginModal,
       AcceptTermsModal,
+      AchievementModal
     },
   })
   export default class Modals extends Vue {}

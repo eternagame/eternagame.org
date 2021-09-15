@@ -43,11 +43,11 @@
 
     mounted() {
       window.onscroll = () => {
-        const bottomOfWindow =
+        const scrollTrigger =
           document.documentElement.scrollTop + window.innerHeight + 1 >=
-          document.documentElement.offsetHeight;
-
-        if (bottomOfWindow && !this.pagesEnabled) {
+          document.documentElement.offsetHeight * 3/4;
+          
+        if (scrollTrigger && !this.pagesEnabled) {
           const length = this.$vnode.key;
           const { skip } = this.$route.query;
           let skipped = +skip || this.initial;

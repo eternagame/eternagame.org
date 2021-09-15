@@ -1,7 +1,7 @@
 /**
  * Augment the typings of Vue.js
  */
-
+import Vue from 'vue';
 import VueRouter, { Route, RawLocation, RouteCallback } from 'vue-router';
 import { AxiosInstance, AxiosStatic } from 'axios';
 import { ProxyWatchers } from 'vuex-class-component/dist/interfaces';

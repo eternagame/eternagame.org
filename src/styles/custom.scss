@@ -69,3 +69,39 @@
 .page-item.disabled > .page-link {
   background-color: lighten($blue, 15%);
 }
+
+.vue-tablist {
+  list-style: none;
+  display: flex;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.vue-tab {
+  padding: 7.5px 20px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 3px 3px 0 0;
+  position: relative;
+  bottom: -1px;
+  color: rgba(255, 255, 255, 0.5);
+  background: #043468;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.vue-tab[aria-selected="true"] {
+  border-color: #e2e2e2;
+  border-bottom-color: transparent;
+  color: #FFFFFF;
+  background: #041227;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.vue-tab[aria-disabled="true"] {
+  cursor: not-allowed;
+  color: #999;
+}

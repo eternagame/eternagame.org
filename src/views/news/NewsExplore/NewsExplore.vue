@@ -26,10 +26,10 @@
         replace
         :isInSidebar="isInSidebar"
       />
-      <CalendarPanel :isInSidebar="isInSidebar" class="mb-0 pt-3"/>
-      <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" class="pt-3 mb-0"/> -->
+      <CalendarPanel @page-update="monthFetch" :notableDates="calendarItems" :isInSidebar="isInSidebar"/>
       <p v-if="isInSidebar" class="ml-1 mt-0 d-inline-block custom-control-label no-before no-after">{{ total }} results</p><br>
       <button v-if="isInSidebar" class="btn btn-primary mt-1 ml-1" @click="refresh">Refresh</button>
+      <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
     </template>
     <template #mobileSearchbar>
       <SearchPanel :placeholder="$t('search:news')" :isInSidebar="false" />
@@ -49,7 +49,7 @@
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import { NewsItem, BlogItem } from '@/types/common-types';
+  import { NewsItem, BlogItem, DateItem } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import ChooseView from '@/components/Sidebar/ChooseView.vue';
   import { navigationModes } from '@/store/pagination.vuex';
@@ -74,6 +74,7 @@
       ChooseView,
     },
   })
+
   export default class NewsExplore extends Mixins(FetchMixin) {
     private tags: string[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
 
@@ -85,14 +86,36 @@
 
     private newsItems: (NewsItem|BlogItem)[] = [];
 
-    async fetch (refresh = false) {
-      const { sort, end_date, start_date, size, search , skip} = this.$route.query;
+    private calendarItems:{selectAttribute: { dot: string; dates: string; }[]} = {selectAttribute: []} ;
 
+    async monthFetch(monthData: DateItem){
+
+      const res = (
+        await this.$http.get(ROUTE, {
+          params: {
+            size: INITIAL_NUMBER,
+            from_created: new Date(monthData.year, monthData.month - 1, 1).getTime() / 1000,
+            to_created: new Date(monthData.year, monthData.month, 1).getTime() / 1000,
+          }
+        })
+      ).data.data.entries as NewsItem[];
+      
+      // Timezone in UTC, calendar dates parsing is incorrect
+
+      this.calendarItems.selectAttribute = res.map((element) =>({
+        dot: 'blue',
+        dates: new Date(Number(element.timestamp) * 1000).toLocaleString('en-US', {timeZone: 'UTC'}),
+      }));
+    }
+
+    async fetch(refresh = false) {
+      const { sort, end_date, start_date, size, search, skip } = this.$route.query;
+      
       const params = {
         search,
         size: size || INITIAL_NUMBER,
-        from_created: start_date && new Date(start_date as string).getTime() / 1000,
-        to_created: end_date && new Date(end_date as string).getTime() / 1000,
+        from_created: start_date && new Date(start_date.toString().replace(/-/g, '/')).getTime() / 1000,
+        to_created: end_date && (new Date(end_date.toString().replace(/-/g, '/')).getTime() / 1000),
         skip
       };
 
@@ -139,7 +162,7 @@
     currentPage: number = 1;
 
     loading = true;
-
+    
     total = 0;
 
     get displayedNewsItems() {
@@ -151,13 +174,15 @@
     }
 
     get filteredNewsItems() {
+      // TODO https://github.com/eternagame/eternagame.org/issues/157 move filtering to backend
       const { sort } = this.$route.query;
+      
       switch (sort) {
-        case 'news':
-        case 'blogs':
-          return this.displayedNewsItems.filter(entry => entry.type === sort);
-        default:
-          return this.displayedNewsItems;
+      case 'news':
+      case 'blogs':
+        return this.displayedNewsItems.filter(entry => entry.type === sort);
+      default:
+        return this.displayedNewsItems;
       }
     }
 

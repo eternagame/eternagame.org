@@ -8,6 +8,7 @@
           :nid="puzzle.id"
           v-bind="puzzle"
           :cleared="puzzleCleared(puzzle.id)"
+          :madeByPlayer="puzzle['made-by-player'] !== '0'"
         />
       </Gallery>
     </div>
@@ -54,19 +55,15 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins, Watch } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import axios, { AxiosInstance } from 'axios';
+  import { Component, Mixins, Watch } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import VueAxios from 'vue-axios';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import { VXM } from '@/types/vue.d';
   import { PuzzleList, ClearedPuzzle, PuzzleItem } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import ChooseView from '@/components/Sidebar/ChooseView.vue';

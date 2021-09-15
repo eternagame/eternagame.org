@@ -23,25 +23,25 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
 
-@Component({
-  components: {},
-})
+  @Component({
+    components: {},
+  })
   export default class NewsCard extends Vue {
-  @Prop({ required: true }) readonly created!: string;
+    @Prop({ required: true }) readonly created!: string;
 
-  @Prop({ required: true }) readonly title!: string;
+    @Prop({ required: true }) readonly title!: string;
 
-  @Prop({ required: true }) readonly body!: string;
+    @Prop({ required: true }) readonly body!: string;
 
-  @Prop({ required: true }) readonly nid!: string;
+    @Prop({ required: true }) readonly nid!: string;
 
-  @Prop({ default: 'blogs' }) readonly type!: string;
+    @Prop({ default: 'blogs' }) readonly type!: string;
 
-  private formattedType = Utils.formattedType;
+    private formattedType = Utils.formattedType;
 
-  private strippedBody = Utils.strippedBody;
+    private strippedBody = Utils.strippedBody;
 
-  private typeColor = Utils.typeColor;
+    private typeColor = Utils.typeColor;
   }
 </script>
 
@@ -75,7 +75,6 @@
   padding: 1rem 2rem;
   margin-bottom: 1.5rem;
   max-height: 600px;
-  // cursor: pointer;
   transition: background-color 0.5s ease;
 }
 
@@ -88,11 +87,6 @@ a:hover {
 }
 
 .text {
-  // white-space: nowrap;
-  // overflow: hidden;
-  // text-overflow: ellipsis;
-  // max-height: 100px;
-
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

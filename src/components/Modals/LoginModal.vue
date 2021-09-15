@@ -96,7 +96,6 @@
       this.form.password = '';
       if (data.success) {
         this.modal.hide();
-        this.$router.push('/');
       } else {
         this.errorMessage = data.error;
       }
@@ -113,7 +112,6 @@
         if (data.success) {
           this.form.username = '';
           this.modal.hide();
-          this.$router.push('/');
         } else {
           this.errorMessage = data.error;
         }
@@ -242,8 +240,5 @@
         }
       }
     }
-  }
-  FacebookAuthentication {
-    
   }
 </style>

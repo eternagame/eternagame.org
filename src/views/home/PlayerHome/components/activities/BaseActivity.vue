@@ -18,9 +18,9 @@
     }
   })
   export default class BaseActivity extends Vue {
-      @Prop({ required: true }) readonly heading!: string;
+    @Prop({ required: true }) readonly heading!: string;
 
-      @Prop() readonly slideTo?: number;
+    @Prop() readonly slideTo?: number;
   }
 </script>
 

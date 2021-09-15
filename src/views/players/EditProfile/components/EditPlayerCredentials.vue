@@ -6,26 +6,30 @@
       type="password"
       :placeholder="$t('edit-profile:new-password')"
       v-model="password"
-      @change="sendPassword()"
+      @input="sendPassword"
     />
     <input
       style="color:#fff"
       type="password"
       :placeholder="$t('edit-profile:confirm-password')"
       v-model="passwordConfirm"
-      @change="sendPassword()"
+      @input="sendPassword"
     />
-    <p v-show="!passwordsMatch">Please make sure passwords match!</p>
+    <p v-show="!passwordsMatch">Please make sure your password and confirmation match!</p>
 
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-address') }}</p>
-    <input type="email" style="color:#fff" v-model="email" @change="sendEmail()" required />
+    <input type="email" style="color:#fff" :value="email" @input="sendEmail" required />
     <p style="margin-top:13px">{{ $t('edit-profile:email-details') }}</p>
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-notifications') }}</p>
-    <b-form-checkbox v-model="messagesNotify" @change="sendMessages()">
+    <b-form-checkbox :checked="messagesNotify" @change="toggleMessages">
       <b>{{ $t('edit-profile:email-private-messages') }}</b>
     </b-form-checkbox>
-    <b-form-checkbox style="margin-top:15px" v-model="newsNotify" @change="sendNews()">
+    <b-form-checkbox style="margin-top:15px" :checked="newsNotify" @change="toggleNews">
       <b>{{ $t('edit-profile:email-news-posts') }}</b>
+    </b-form-checkbox>
+    <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:permissions') }}</p>
+    <b-form-checkbox style="margin-top:15px" :checked="publicCertificate" @change="toggleCertificate">
+      <b>{{ $t('edit-profile:certificate-public') }}</b>
     </b-form-checkbox>
   </div>
 </template>
@@ -33,65 +37,45 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
-  import { UserData } from '@/types/common-types';
 
   @Component({
     components: { EditField },
   })
   export default class PlayerEditCredentials extends Vue {
-    get user(): UserData {
-      return {
-        ...(this.$vxm.user.userDetails as UserData),
-      };
-    }
-
-    private addingSection: boolean = false;
-
     private password: string = '';
 
     private passwordConfirm: string = '';
 
-    private email: string = '';
+    @Prop({ required: true }) private email!: string;
 
-    private newsNotify: boolean = false;
+    @Prop({ required: true }) private messagesNotify!: boolean;
 
-    private messagesNotify: boolean = false;
+    @Prop({ required: true }) private newsNotify!: boolean;
 
-    mounted() {
-      this.email = this.user.mail;
-      // HACK: Because this is backwards in the checkboxes for some reason...
-      this.newsNotify = String(this.user['News mail notification']) !== 'on';
-      this.messagesNotify = this.user['Mail notification'] !== 'on';
-
-      this.sendMessages();
-      this.sendNews();
-
-      this.newsNotify = !this.newsNotify;
-      this.messagesNotify = !this.messagesNotify;
-
-      this.sendEmail();
-    }
+    @Prop({ required: true }) private publicCertificate!: boolean;
 
     get passwordsMatch() {
       return this.passwordConfirm === this.password;
     }
 
     sendPassword() {
-      if (this.passwordsMatch) this.$emit('set-password', this.password);
+      if (this.passwordsMatch) this.$emit('update:password', this.password);
     }
 
-    sendNews() {
-      // Why is this backwards???
-      this.$emit('set-news', !this.newsNotify);
+    sendEmail(e: InputEvent) {
+      this.$emit('update:email', (e.target as HTMLInputElement).value);
     }
 
-    sendMessages() {
-      // Why is this backwards???
-      this.$emit('set-messages', !this.messagesNotify);
+    toggleNews(checked: boolean) {
+      this.$emit('update:newsNotify', checked);
     }
 
-    sendEmail() {
-      this.$emit('set-email', this.email);
+    toggleMessages(checked: InputEvent) {
+      this.$emit('update:messagesNotify', checked);
+    }
+
+    toggleCertificate(checked: InputEvent) {
+      this.$emit('update:publicCertificate', checked);
     }
   }
 </script>

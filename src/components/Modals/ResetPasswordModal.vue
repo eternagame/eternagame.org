@@ -17,16 +17,24 @@
     </transition>
     <b-form @submit.prevent="resetPassword" class="pb-3">
       <b-input placeholder="username or email" v-model="usernameOrEmail" required />
-      <b-button type="submit" variant="primary" class="submit-button">{{
-        $t('reset-password:main-action')
-      }}</b-button>
+      <vue-recaptcha
+        :key="attemptNumber"
+        ref="recaptcha"
+        sitekey="6LcFwUsUAAAAAOQ9szhauSNv2bJuBOUtw_pGrRnd"
+        :loadRecaptchaScript="true"
+        @verify="captchaResponse = $event"
+      />
+      <b-button type="submit" variant="primary" class="submit-button" :disabled="loading">
+        {{ $t('reset-password:main-action') }}
+        <b-spinner v-if="loading" small />
+      </b-button>
     </b-form>
   </b-modal>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
-  import { BModal, BFormInput } from 'bootstrap-vue';
+  import { Component, Vue, Ref } from 'vue-property-decorator';
+  import { BModal } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
 
   @Component({
@@ -37,23 +45,32 @@
   export default class ResetPasswordModal extends Vue {
     usernameOrEmail = '';
 
+    captchaResponse = '';
+
+    loading = false;
+
     errorMessage = '';
+
+    attemptNumber: number = 0;
 
     @Ref() readonly modal!: BModal;
 
     async resetPassword() {
       // $('#loader').modal('show');
       this.errorMessage = '';
+      this.loading = true;
       const response = await this.$http.post(
         '/login/',
         new URLSearchParams({
-          resetID: this.usernameOrEmail,
           type: 'sendreset',
+          resetID: this.usernameOrEmail,
+          captchaResponse: this.captchaResponse,
         }),
         {
           headers: { 'Content-type': 'application/x-www-form-urlencoded' },
         },
       );
+      this.loading = false;
       // $('#loader').modal('hide');
       const { data } = response;
       if (data.data.success) {

@@ -1,38 +1,29 @@
 <template>
   <div class="d-flex justify-content-between">
-    <b-button type="secondary" style="margin-left:10px" @click="chooseFiles()">{{
-      $t('edit-profile:replace-image')
-    }}</b-button>
-    <input id="fileUpload" type="file" hidden />
-    <b-button type="submit" style="margin-left:10px" variant="primary" @click="submit">{{
-      $t('edit-profile:save')
-    }}</b-button>
+    <b-button type="secondary" style="margin-left:10px" @click="fileUpload.click()">
+      {{$t('edit-profile:replace-image')}}
+    </b-button>
+    <input type="file" @change="handleFile" hidden ref="fileUpload" />
+    <b-button type="submit" style="margin-left:10px" variant="primary" @click="$emit('submit')" :disabled="loading">
+      {{$t('edit-profile:save')}}
+      <b-spinner v-if="loading" small />
+    </b-button>
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Ref, Prop } from 'vue-property-decorator';
 
   @Component({})
   export default class PlayerHeaderTopRow extends Vue {
-    submit() {
-      this.$emit('submit-data');
-    }
+    @Ref("fileUpload") private fileUpload!: HTMLInputElement;
 
-    chooseFiles() {
-      const item = document.getElementById('fileUpload');
-      if (item) item.click();
-    }
+    @Prop({required: true}) private loading!: boolean;
 
     handleFile(event: Event) {
       const target = event.target as HTMLInputElement;
       const file: File = (target.files as FileList)[0];
-      this.$emit('set-picture', file);
-    }
-
-    mounted() {
-      const item = document.getElementById('fileUpload');
-      if (item) item.addEventListener('change', this.handleFile, false);
+      this.$emit('update:picture', file);
     }
   }
 </script>

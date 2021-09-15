@@ -41,7 +41,9 @@
 
     private showCompose = false;
 
-    private messages = this.notification.message;
+    get messages() {
+      return this.notification.message;
+    }
 
     get replyUID() {
       return String(this.notification.target_uid) !== String(this.$vxm.user.uid)
@@ -59,7 +61,6 @@
 
     padding: 1rem 2rem;
     margin-bottom: 1.5rem;
-    // cursor: pointer;
     transition: background-color 0.5s ease;
   }
 </style>

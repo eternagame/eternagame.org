@@ -43,17 +43,6 @@
         headerIcon="@/assets/info.svg"
       >
         <br />
-        <!-- <span class="gray-header">{{ $t('quest-info-sidebar:created') }}</span>
-        <ul style="padding: 0; list-style-type:none;margin-top:10px">
-          <li>
-            <img src="@/assets/navbar/DefaultIcon.svg" style="margin-right:5px" /><b
-              style="color: var(--yellow);"
-              >{{ 'Eli Fisher' }}</b
-            >
-          </li>
-          <li><img src="@/assets/group.svg" class="icon" />{{ audience }}</li>
-          <li><img src="@/assets/calendar.svg" class="icon" />{{ 'Sept 2019' }}</li>
-        </ul>-->
       </SidebarPanel>
     </template>
   </EternaPage>

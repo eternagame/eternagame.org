@@ -1,54 +1,67 @@
 <template>
-  <EternaPage :title="`${$t('edit-profile:title')} ${user.name}`">
-    <div class="page-content" v-if="loaded">
-      <EditPlayerHeader @submit-data="submit" @set-picture="setPicture" />
+  <EternaPage :title="`${$t('edit-profile:title')} ${username}`">
+    <notifications position="bottom center" width="50%"/>
+    <div class="page-content" v-if="fetchState.firstFetchComplete">
+      <EditPlayerHeader
+        :loading="loading"
+        @submit="submit"
+        @update:picture="pic => newPicture = pic"
+        :picture="picture"
+      />
       <hr class="top-border" />
-      <EditPlayerAboutMe @set-profile="setProfile" @set-section="setSection" />
+      <EditPlayerAboutMe
+        :aboutMe="oldAboutMe"
+        @update:aboutMe="text => newAboutMe = text"
+        :personalName.sync="personalName"
+      />
       <hr class="top-border" />
       <EditPlayerCredentials
-        @set-password="setPassword"
-        @set-news="setNews"
-        @set-messages="setMessages"
-        @set-email="setEmail"
+        :email.sync="email"
+        :messagesNotify.sync="messagesNotify"
+        :newsNotify.sync="newsNotify"
+        :publicCertificate.sync="publicCertificate"
+        @update:password="pass => newPassword = pass"
       />
-      <div class="flex" style="margin-top:10px">
-        <b-button type="submit" style="margin-left:10px" variant="primary" @click="submit">{{
-          $t('edit-profile:save')
-        }}</b-button>
+      <hr class="top-border" />
+      <p style="font-weight:bold">{{ $t('edit-profile:current-password') }}</p>
+      <input
+        style="color:#fff"
+        type="password"
+        :placeholder="$t('edit-profile:current-password')"
+        v-model="currentPassword"
+      />
+      <div class="flex" style="margin-top:20px">
+        <b-button type="submit" style="margin-left:10px" variant="primary" @click="submit" :disabled="loading">
+          {{$t('edit-profile:save')}}
+          <b-spinner v-if="loading" small />
+        </b-button>
         <b-button
           type="submit"
           style="margin-left:10px"
           variant="outline-secondary"
-          @click="cancel"
-          >{{ $t('edit-profile:cancel') }}</b-button
+          :to="`/players/${$vxm.user.uid}`"
         >
+          {{ $t('edit-profile:cancel') }}
+        </b-button>
       </div>
     </div>
     <Preloader v-else />
-
-    <template #sidebar="{ isInSidebar }">
-      <DropdownSidebarPanel
-        :options="options"
-        paramName="sort"
-        replace
-        :isInSidebar="isInSidebar"
-      />
-    </template>
   </EternaPage>
 </template>
 
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import axios, { AxiosInstance } from 'axios';
+  import axios from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Notifications from 'vue-notification';
   import Preloader from '@/components/PageLayout/Preloader.vue';
+  import { UserData } from '@/types/common-types';
+  import FetchMixin from '@/mixins/FetchMixin';
+  import Utils from "@/utils/utils";
   import EditPlayerHeader from './components/EditPlayerHeader.vue';
   import EditPlayerAboutMe from './components/EditPlayerAboutMe.vue';
   import EditPlayerCredentials from './components/EditPlayerCredentials.vue';
-  import { Section } from './types';
 
   const EDIT_PROFILE = '/login/';
 
@@ -64,119 +77,100 @@
       Preloader,
     },
   })
-  export default class EditProfile extends Vue {
-    get user() {
-      return this.$vxm.user.userDetails;
+  export default class EditProfile extends Mixins(FetchMixin) {
+    private username = "";
+
+    private personalName: string = "";
+
+    private oldAboutMe = "";
+
+    private newAboutMe: string | null = null;
+
+    private currentPicture?: string;
+
+    private newPicture: File | null = null;
+
+    private email = "";
+
+    private newPassword?: string;
+
+    private currentPassword = "";
+
+    private messagesNotify = false;
+
+    private newsNotify = false;
+
+    private publicCertificate = false;
+
+    private loading = false;
+
+    async fetch() {
+      const user = (await axios.get(`/get/?type=my_user&uid=${this.$vxm.user.uid}`)).data.data.user as UserData;
+      this.username = user.name;
+      this.personalName = user['Personal Name'];
+      this.oldAboutMe = user.Profile;
+      this.currentPicture = user.picture;
+      this.email = user.mail;
+      this.messagesNotify = user['Mail notification'] === 'on';
+      this.newsNotify = user['News mail notification'] === 'on';
+      this.publicCertificate = user['Certificate public'] === 'on';
     }
 
-    get follows() {
-      return this.$vxm.user.userDetails;
+    get picture() {
+      if (this.newPicture) {
+        return URL.createObjectURL(this.newPicture);
+      }
+      return Utils.getAvatar(this.currentPicture || null);
     }
-
-    async beforeMount() {
-      // HACK: Update the current user object
-      await this.$vxm.user.authenticate();
-      this.loaded = true;
-    }
-
-    private loaded = false;
 
     async submit() {
+      this.loading = true;
       const data = new FormData();
       if (this.newPassword) {
-        data.set('pass[pass1]', this.newPassword as string);
-        data.set('pass[pass2]', this.newPassword as string);
+        data.set('pass[pass1]', this.newPassword);
+        data.set('pass[pass2]', this.newPassword);
       }
-      data.set('profile_mail_notification', this.privateMessagesNotify ? 'on' : 'off');
-      data.set('profile_news_mail_notification', this.newNewsPostsNotify ? 'on' : 'off');
-      data.set('profile_blog_mail_notification', this.newNewsPostsNotify ? 'on' : 'off');
-      data.set('profile_profile', this.profile);
+      data.set('pass[current]', this.currentPassword);
+      data.set('profile_mail_notification', this.messagesNotify ? 'on' : 'off');
+      data.set('profile_news_mail_notification', this.newsNotify ? 'on' : 'off');
+      data.set('profile_blog_mail_notification', this.newsNotify ? 'on' : 'off');
+      data.set('profile_certificate_public', this.publicCertificate ? 'on' : 'off');
+      data.set('profile_personal_name', this.personalName);
+      data.set('profile_profile', this.newAboutMe === null ? this.oldAboutMe : this.newAboutMe);
       data.set('mail', this.email);
-      if (this.picture) data.append(`files[picture_upload]`, this.picture);
+      if (this.newPicture) data.append(`files[picture_upload]`, this.newPicture);
       data.set('type', 'edit');
 
-      this.$http.post(EDIT_PROFILE, data, {
-        headers: {
-          'Content-type': 'multipart/form-data',
-        },
-      })
-        .then(() => {
-          /* his.$router.push(`/players/${this.$vxm.user.uid}`) */
-          window.location.reload();
-        })
-        .catch(error =>
-          this.$notify({
-            title: 'Error',
-            text: error?.message,
-          }),
-        );
+      try {
+        const res = await this.$http.post(EDIT_PROFILE, data, {
+          headers: {
+            'Content-type': 'multipart/form-data',
+          },
+        });
+        this.loading = false;
+        const error = res?.data?.data?.error;
+        if (error) throw new Error(error);
+        this.$router.push(`/players/${this.$vxm.user.uid}`);
+      } catch (e) {
+        const r = this.$notify({
+          type: 'error',
+          title: 'Error',
+          text: e.message,
+        });
+      }
     }
-
-    setPicture(picture: Blob) {
-      this.picture = picture;
-    }
-
-    setPassword(password: string) {
-      this.newPassword = password;
-    }
-
-    setSection(section: Section) {
-      this.sectionTitle = section.title;
-      this.sectionText = section.text;
-    }
-
-    setNews(notify: boolean) {
-      this.newNewsPostsNotify = notify;
-    }
-
-    setMessages(notify: boolean) {
-      this.privateMessagesNotify = notify;
-    }
-
-    setProfile(text: string) {
-      this.profile = text;
-    }
-
-    setEmail(email: string) {
-      this.email = email;
-    }
-
-    cancel() {
-      this.newAboutMeText = '';
-      this.newPassword = '';
-      this.privateMessagesNotify = false;
-      this.newNewsPostsNotify = false;
-      this.email = '';
-    }
-
-    private newAboutMeText: string = '';
-
-    private profile: string = '';
-
-    private picture: Blob | null = null;
-
-    private sectionTitle: string = '';
-
-    private sectionText: string = '';
-
-    private newPassword: string = '';
-
-    private email: string = '';
-
-    private privateMessagesNotify: boolean = false;
-
-    private newNewsPostsNotify: boolean = false;
-
-    private options: Option[] = [
-      { value: 'about', text: 'side-panel-options:about' },
-      { value: 'achievements', text: 'side-panel-options:achievements' },
-      { value: 'synthesized', text: 'side-panel-options:synthesized' },
-      { value: 'latest', text: 'side-panel-options:latest' },
-      { value: 'created', text: 'side-panel-options:created' },
-    ];
   }
 </script>
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
+
+  input {
+    background-color: #0a223c;
+    border: 0px;
+    width: 90%;
+    padding: 10px;
+    margin-right: 5px;
+    margin-top: 5px;
+  }
 </style>

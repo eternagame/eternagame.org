@@ -4,6 +4,8 @@
     body-class="py-0"
     header-border-variant="primary"
     footer-border-variant="primary"
+    v-model="shown"
+    @hide="handleHide"
   >
     <template #modal-title>
       <b class="text-uppercase">{{ $t('terms:title-short') }}</b>
@@ -31,7 +33,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref, Mixins } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
   import axios from 'axios';
   import TermsAndConditionsText from '@/views/terms/TermsAndConditionsText.vue';
@@ -42,22 +44,24 @@
     components: { TermsAndConditionsText },
   })
   export default class AcceptTermsModal extends Vue {
-    errorMessage: string = '';
-
     @Ref() readonly modal!: BModal;
 
     private accepted: boolean = false;
 
-    mounted() {
-      const surveyValue = this.$vxm.user.loggedIn && this.$vxm.user.userDetails?.Survey;
-      if (surveyValue && !surveyValue.includes('EULA_Agree') && surveyValue !== 'Yes') {
-        this.modal.show();
-      }
+    get shown() {
+      return this.$vxm.user.userDetailsLoaded && !this.$vxm.user.surveyRecord.match(/EULA_AGREE/i);
     }
 
-    acceptTerms() {
+    handleHide(e: Event) {
+      if (!this.accepted) e.preventDefault();
+    }
+
+    async acceptTerms() {
       if (this.accepted) {
-        axios.post(
+        // Note: $vxm.user.surveyRecord won't update until the next page RELOAD, since that's the
+        // only time it gets set. This should be fine though, as we only open this modal on mounted
+        // and that happens at page load
+        await axios.post(
           ROUTE,
           new URLSearchParams({
             type: 'survey',
@@ -66,8 +70,9 @@
             uid: String(this.$vxm.user.uid),
           }),
         );
+        // To reload user profile
+        await this.$vxm.user.authenticate();
       }
-      this.modal.hide();
     }
   }
 </script>

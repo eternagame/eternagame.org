@@ -7,10 +7,10 @@
       :avatar="avatar"
     >
       <template>
-          {{ notification.target2_name + ' ' }} {{ isInvite ? $t('activity-feed:invite') : $t('activity-feed:broadcast') + ' ' }}
-          <router-link :to="`/groups/${nid}`">
-              {{ title }}
+          <router-link :to="`/players/` + message.sender">
+            {{ notification.target2_name }}
           </router-link>
+          {{ ' ' + (isInvite ? $t('activity-feed:invite') + ' ' : $t('activity-feed:broadcast') + ' ') }}{{ title }}
       </template>
     </MessageItem>
   </div>
@@ -26,7 +26,7 @@
   })
   export default class GroupMessageItem extends Vue {
     @Prop({ required: true }) readonly notification!: GroupNotificationItem;
-    
+
     @Prop({ required: true }) readonly message!: GroupNotificationMessage;
 
     get nid() {
@@ -53,13 +53,12 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
-  
+
   .card {
     color: $white;
     padding: 1rem 2rem;
     margin-bottom: 1.5rem;
     max-height: 600px;
-    // cursor: pointer;
     transition: background-color 0.5s ease;
   }
 </style>

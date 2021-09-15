@@ -22,12 +22,12 @@
   import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
   import { BIcon, BIconFileEarmarkPlus, BIconArrowDown } from 'bootstrap-vue';
 
-@Component({
-  components: {
-    BIconFileEarmarkPlus,
-    BIconArrowDown,
-  }
-})
+  @Component({
+    components: {
+      BIconFileEarmarkPlus,
+      BIconArrowDown,
+    }
+  })
   export default class ChooseView extends Vue {
     options= [
       { value: 0, text: 'Pages' },

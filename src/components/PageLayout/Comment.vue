@@ -1,15 +1,15 @@
 <template>
   <div class="d-flex align-items-start">
     <img :src="avatar" style="width: 40px; flex-shrink: 0;" />
-    <div class="ml-2 mb-4">
+    <div class="ml-2 mb-4" style="min-width: 0px;">
       <router-link :to="`/players/${uid}`">
         <p class="commenter-name mb-0">
           {{ name }}
         </p></router-link
       >
       <p style="font-size: 0.6rem">{{ created }}</p>
-      <p v-dompurify-html="comment" style="word-wrap: break-word;">{{ comment }}</p>
-      <button @click="deleteComment()" v-if="canDelete" style="cursor:pointer" class="btn btn-danger" :disabled="deleting">
+      <p v-dompurify-html="comment" style="overflow-wrap: break-word;">{{ comment }}</p>
+      <button @click="deleteComment()" v-if="canDelete" style="cursor:pointer" class="btn btn-danger btn-sm" :disabled="deleting">
         {{ $t('page:comments-delete') }}
         <b-spinner v-if="deleting" small></b-spinner>
       </button>

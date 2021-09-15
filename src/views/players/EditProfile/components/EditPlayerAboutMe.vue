@@ -4,14 +4,29 @@
       <!-- div class="col-md-8"-->
       <div class="col-md-12">
         <h4 class="about-me">{{ $t('player-view:about-me') }}</h4>
-        <EditField :content="aboutMeText" @input="setProfile" />
-        <!--EditPlayerNewSection v-show="addingSection" @set-section="setSection" />
+        <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:personal-name') }}</p>
+        <input
+          style="color:#fff"
+          type="text"
+          :placeholder="$t('edit-profile:personal-name')"
+          :value="personalName"
+          @input="e => $emit('update:personalName', e.target.value)"
+        />
+        <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:bio') }}</p>
+        <EditField class="editor" :content="aboutMe" @input="text => $emit('update:aboutMe', text)" />
+        <!--
+        <EditPlayerNewSection
+          v-show="addingSection"
+          @set-section="section => $emit('set-section', section)"
+        />
         <b-button
           style="margin-top:19px;"
           @click="addingSection = !addingSection"
           v-show="!addingSection"
           variant="secondary"
-          >{{ $t('edit-profile:custom-section-add') }}</b-button
+        >
+          {{ $t('edit-profile:custom-section-add') }}
+        </b-button>
         -->
       </div>
       <!--div class="col-md-4">
@@ -24,7 +39,6 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
-  import { UserData } from '@/types/common-types';
   import EditPlayerFeaturedAchievement from './EditPlayerFeaturedAchievement.vue';
   import EditPlayerNewSection from './EditPlayerNewSection.vue';
 
@@ -32,15 +46,9 @@
     components: { EditPlayerFeaturedAchievement, EditField, EditPlayerNewSection },
   })
   export default class PlayerAboutMe extends Vue {
-    private aboutMeText = this.$vxm.user.userDetails?.Profile;
+    @Prop({required: true}) aboutMe!: string;
 
-    setProfile(text: string | undefined) {
-      if (text) this.$emit('set-profile', text);
-    }
-
-    setSection(section: object) {
-      this.$emit('set-section', section);
-    }
+    @Prop({required: true}) personalName!: string;
 
     private addingSection: boolean = false;
   }
@@ -57,7 +65,7 @@
     max-width: 710px;
   }
 
-  input {
+  input, .editor {
     background-color: #0a223c;
     border: 0px;
     width: 90%;

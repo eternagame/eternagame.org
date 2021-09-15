@@ -25,13 +25,12 @@
           <hr class="top-border d-sm-none" />
           <div
             class="puzzle-description"
-            style="word-wrap: break-word;"
+            style="overflow-wrap: break-word;"
             v-dompurify-html="puzzle.body"
           />
         </div>
       </div>
     </div>
-
     <Comments :comments="comments" :nid="puzzle.id" />
 
     <template #sidebar="{ isInSidebar }">
@@ -44,7 +43,7 @@
           <img src="@/assets/info.svg" />
         </template>
         <ul style="padding: 0; list-style-type:none" v-if="puzzle">
-          <li v-if="puzzle['made-by-player']">
+          <li v-if="madeByPlayer">
             <img :src="avatar" class="icon" />{{ puzzle.username }}
           </li>
           <li v-if="puzzle.folder">
@@ -60,6 +59,31 @@
           <li v-if="puzzle.created">
             <img src="@/assets/calendar.svg" class="icon" />{{ puzzle.created }}
           </li>
+          <li v-if="clearedThisPuzzle">
+            <img src="@/assets/noun_check.svg" class="icon" />Cleared
+          </li>
+          <div v-if="editRights">
+            <li>  
+              <b-button
+              type="submit"
+              variant="primary"
+              class="submit-button"
+              :href="`/puzzles/${nid}/edit`"
+              >
+                {{ $t('edit-puzzle-title-description') }}
+              </b-button>
+            </li>
+            <li>  
+              <b-button
+                type="submit"
+                variant="primary"
+                class="submit-button"
+                :href="`${tutorialRoute}${nid}`"
+              >
+                {{ $t('edit-puzzle-tutorial') }}
+              </b-button>
+            </li>
+          </div>
         </ul>
       </SidebarPanel>
       <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" />
@@ -76,11 +100,11 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Utils from '@/utils/utils';
-  import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
+  import { PUZZLE_ROUTE_PREFIX, PUZZLE_ROUTE_TUTORIAL_PREFIX } from '@/utils/constants';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
   import FetchMixin from '@/mixins/FetchMixin';
-  import { PuzzleResponse, Puzzle, CommentItem } from '@/types/common-types';
+  import { PuzzleResponse, Puzzle, CommentItem, ClearedPuzzle } from '@/types/common-types';
 
   @Component({
     components: {
@@ -92,13 +116,20 @@
     },
   })
   export default class PuzzleView extends Mixins(FetchMixin) {
+
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
+
+    private tutorialRoute: string = PUZZLE_ROUTE_TUTORIAL_PREFIX;
+
+    private editRights: boolean = false; 
 
     puzzle: Puzzle | null = null;
 
     nid: string | null = null;
 
     comments: CommentItem[] = [];
+
+    clearedPuzzles: ClearedPuzzle[] = [];
 
     async fetch() {
       const res = (
@@ -112,6 +143,16 @@
       this.puzzle = res.puzzle;
       this.nid = res.nid;
       this.comments = res.comments;
+      this.clearedPuzzles = res.cleared || [];
+      if(this.puzzle.username === this.$vxm.user.username) this.editRights = true;
+    }
+
+    get madeByPlayer() {
+      return this.puzzle && this.puzzle['made-by-player'] !== '0';
+    }
+
+    get clearedThisPuzzle() {
+      return this.puzzle && this.clearedPuzzles.some(puzzle => this.nid === puzzle.id);
     }
 
     get imageURL() {

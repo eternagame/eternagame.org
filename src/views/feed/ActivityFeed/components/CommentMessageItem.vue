@@ -8,7 +8,7 @@
     >
       <template>
           <router-link :to="`/players/` + message.sender">
-            {{ notification.target2_name }} 
+            {{ notification.target2_name }}
           </router-link>
           {{ ' ' + $t('activity-feed:commented-on') + ' ' }}
           <a :href="link">
@@ -29,7 +29,7 @@
   })
   export default class CommentMessageItem extends Vue {
     @Prop({ required: true }) readonly notification!: CommentNotificationItem;
-    
+
     @Prop({ required: true }) readonly message!: CommentNotificationMessage;
 
     get avatar() {
@@ -62,13 +62,12 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
-  
+
   .card {
     color: $white;
     padding: 1rem 2rem;
     margin-bottom: 1.5rem;
     max-height: 600px;
-    // cursor: pointer;
     transition: background-color 0.5s ease;
   }
 </style>

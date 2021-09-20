@@ -60,9 +60,10 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
+  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
 
   @Component({
-    components: { EternaPage },
+    components: { EternaPage, SidebarPanel },
   })
   export default class CodeOfConduct extends Vue {
 

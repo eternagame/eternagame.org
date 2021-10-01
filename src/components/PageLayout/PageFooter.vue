@@ -53,6 +53,10 @@
         </div>
       </b-col>
     </b-row>
+
+    <div class="text-center my-3">
+      <router-link to="/terms">Terms of Use/Privacy Policy</router-link>
+    </div>
     <!--
     <div class="mt-3 language-bar">
       <div @click="setLanguage('en')" :class="{ active: isLanguage('en') }">

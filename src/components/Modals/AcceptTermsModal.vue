@@ -8,10 +8,10 @@
     @hide="handleHide"
   >
     <template #modal-title>
-      <b class="text-uppercase">{{ $t('terms:title-short') }}</b>
+      <b class="text-uppercase">{{ $t('terms-modal:title') }}</b>
     </template>
     <div class="content">
-      <h3 class="p-2 mt-3 mb-0">{{ $t('terms-modal:eula') }}</h3>
+      <p class="p-2 mt-3 mb-0 text-center">{{ $t('terms-modal:info') }}</p>
       <TermsAndConditionsText />
     </div>
     <template #modal-footer>
@@ -49,7 +49,7 @@
     private accepted: boolean = false;
 
     get shown() {
-      return this.$vxm.user.userDetailsLoaded && !this.$vxm.user.surveyRecord.match(/EULA_AGREE/i);
+      return this.$vxm.user.userDetailsLoaded && !this.$vxm.user.surveyRecord.match(/EULA_AGREE_2021-10-02/i);
     }
 
     handleHide(e: Event) {
@@ -66,7 +66,7 @@
           new URLSearchParams({
             type: 'survey',
             action: 'update',
-            value: 'EULA_AGREE',
+            value: 'EULA_AGREE_2021-10-02',
             uid: String(this.$vxm.user.uid),
           }),
         );

@@ -2,7 +2,7 @@
   <EternaPage
     :title="$t('code-of-conduct:section1-title')"
     :header_title="$t('code-of-conduct:title')"
-    :header_date="$t('terms:header-date')"
+    header_date="Last updated: October 2, 2021"
   >
     <!-- Note: If you make meaningful updates this page, make sure to update the header date -->
     <div class="page-content mt-2">

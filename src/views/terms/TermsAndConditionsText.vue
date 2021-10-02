@@ -121,7 +121,7 @@
       which ensures that others can use, modify, and share your code. You may develop other software
       related to Eterna not using EternaScript. Of course, how you license that software is up to you.
     </p>
-    <h5>Other Intillectual Property</h5>
+    <h5>Other Intellectual Property</h5>
     <p>
       To support itself, Eterna licenses RNA-related software commercially, in part by using design
       strategies and solutions contributed by the community.
@@ -420,7 +420,7 @@
 
     <h3>Changelog</h3>
     <ul>
-      <li>October 2, 2021: Rewritten to improve clarity, consistency, and thuroughness. Added Privacy Policy.</li>
+      <li>October 2, 2021: Rewritten to improve clarity, consistency, and thoroughness. Added Privacy Policy.</li>
       <li>February 27, 2016: Initial version</li>
     </ul>
   </div>

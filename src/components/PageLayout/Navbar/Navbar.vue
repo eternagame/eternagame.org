@@ -83,11 +83,10 @@
       news: '/news',
       about: {
         overview: '/about',
-        publications: '/about/publications',
-        software: '/about/software',
+        publications: '/publications',
+        software: '/software',
         merch: `https://www.redbubble.com/people/eternagame/explore`,
         donate: 'https://challenges.eternagame.org/',
-        terms: '/about/terms',
       },
     };
   }

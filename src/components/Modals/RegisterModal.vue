@@ -65,7 +65,7 @@
         <b-checkbox class="mr-1" v-model="accepted">
           {{ $t('register-modal:disclaimer-accept') }}
         </b-checkbox>
-        <b-link size="sm" to="/about/terms" @click="modal.hide()">{{
+        <b-link size="sm" to="/terms" @click="modal.hide()">{{
           $t('register-modal:disclaimer')
         }}</b-link>
       </div>
@@ -235,7 +235,7 @@
   }
 
   ::v-deep .modal-dialog {
-    max-width: 375px;
+    max-width: 400px;
     width: 100%;
     height: 100%;
     margin: 0 auto;

@@ -87,12 +87,12 @@ export default function createRouter() {
         component: () => import('./views/challenges/ChallengeExplore/ChallengeExplore.vue'),
       },
       {
-        path: '/about/software',
+        path: '/software',
         name: 'software',
         component: () => import('./views/software/SoftwareExplore.vue'),
       },
       {
-        path: '/about/terms',
+        path: '/terms',
         name: 'terms-and-conditions',
         component: () => import('./views/terms/TermsAndConditions.vue'),
       },
@@ -112,7 +112,7 @@ export default function createRouter() {
         component: () => import('./views/news/NewsView/NewsView.vue'),
       },
       {
-        path: '/about/publications',
+        path: '/publications',
         name: 'publications-list',
         component: () => import('./views/publications/PublicationsExplore.vue'),
       },
@@ -164,7 +164,22 @@ export default function createRouter() {
         path: '/eternacon/about',
         name: 'about-eternacon',
         component: () => import('./views/eternacon/AboutEternacon.vue'),
-      }
+      },
+      // Maintaining these old routes in case they're actively linked from anywhere
+      // important - at some point we should audit if we can remove these, or we may need a
+      // dedicated section of legacy routes anyways
+      {
+        path: '/about/software',
+        redirect: '/software'
+      },
+      {
+        path: '/about/terms',
+        redirect: '/terms'
+      },
+      {
+        path: '/about/publications',
+        redirect: '/publications'
+      },
     ],
     scrollBehavior(to, from, savedPosition) {
       // Navigate to previous scroll position, or else top of page

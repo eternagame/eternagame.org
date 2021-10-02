@@ -1,9 +1,9 @@
 <template>
   <div>
     <EternaPage
-      :title="$t('terms:title')"
-      :header_title="$t('terms:title-short')"
-      :header_date="$t('terms:header-date')"
+      title="Eterna Terms of Use and Privacy Policy"
+      header_title="Terms of Use/Privacy Policy"
+      header_date="Last updated: October 2, 2021"
     >
       <div class="page-content mt-2">
         <TermsAndConditionsText />

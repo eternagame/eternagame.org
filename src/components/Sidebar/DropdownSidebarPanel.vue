@@ -77,6 +77,7 @@
 
     created() {
       this.readFromQuery();
+      this.selectedIndex = this.defaultIndex;
     }
 
     routeSelected(index: number, link?: string) {

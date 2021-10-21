@@ -215,6 +215,30 @@ export interface PuzzleResponse {
   cleared?: ClearedPuzzle[];
 }
 
+export interface GroupItem {  
+  nid: string;
+  name: string;
+  founder_picture: string;
+  founder_name: string;
+  founder_uid: string;
+  is_private: boolean;
+  group_members: string;
+  created: string;
+  picture: string;
+  num_members: string;
+}
+
+export interface JoinedGroup {
+  name: string;
+  nid: string;
+}
+
+export interface GroupList {
+  groups: GroupItem[];
+  num_groups: string;
+  joined?: JoinedGroup[];
+}
+
 export interface NewsArticle {
   title: string;
   nid: string;

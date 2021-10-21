@@ -92,6 +92,11 @@ export default function createRouter() {
         component: () => import('./views/software/SoftwareExplore.vue'),
       },
       {
+        path: '/groups',
+        name: 'groups',
+        component: () => import('./views/groups/GroupsExplore/GroupsExplore.vue'),
+      },
+      {
         path: '/terms',
         name: 'terms-and-conditions',
         component: () => import('./views/terms/TermsAndConditions.vue'),

@@ -74,6 +74,7 @@
         extensions: [
           new HardBreak(),
           new HardBreak(),
+          new Link(),
           new Heading({ levels: [1, 2, 3] }),
           new BulletList(),
           new OrderedList(),
@@ -81,7 +82,6 @@
           new Bold(),
           new Code(),
           new Italic(),
-          new Link(),
           new Strike(),
           new Underline(),
           new History(),

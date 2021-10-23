@@ -59,7 +59,7 @@
             class="submit-button"
             :href="`${tutorialRoute}${group.nid}`"
           >
-          {{ $t('edit-group-tutorial') }}
+          {{ $t('edit-group-delete') }}
           </b-button>
           </li>
         </ul>

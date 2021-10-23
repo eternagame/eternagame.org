@@ -72,7 +72,7 @@
                 class="submit-button"
                 :href="`${tutorialRoute}${nid}`"
               >
-                {{ $t('edit-group-tutorial') }}
+                {{ $t('edit-group-delete') }}
               </b-button>
             </li>
           </div>

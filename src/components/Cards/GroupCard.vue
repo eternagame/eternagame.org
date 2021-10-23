@@ -10,8 +10,8 @@
           <b>{{ name }}</b>
         </div>
       </template>
-      <img :src="picture" v-if="picture != null" style="width: 80%; margin: auto;" class="scalable" />
-      <img src="@/assets/group.svg" v-if="picture == null" style="width: 100%; margin: auto;" class="scalable" />
+      <img :src="picture" v-if="picture != null" style="width: 100%; margin: auto; max-height: 400px" class="scalable" />
+      <img src="@/assets/group.svg" v-if="picture == null" style="width: 100%; margin: auto; max-height: 400px" class="scalable" />
       <img src="@/assets/noun_lock.svg" v-if="is_private == 'true'" class="inner" />
       <template #footer>
         <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">

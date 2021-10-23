@@ -111,15 +111,16 @@
 
     private options: Option[] = [
       { value: 'date', text: 'side-panel-options:desc' },
-      { value: 'date_asc', text: 'side-panel-options:asc' },
-      { value: 'size', text: 'side-panel-options:size' },
+      { value: 'title', text: 'side-panel-options:Alphabetical' },
+      // { value: 'date_asc', text: 'side-panel-options:asc' },
+      // { value: 'size', text: 'side-panel-options:size' },
     ];
 
     private filters: Filter[] = [
-      { value: 'joined', text: 'Joined' },
-      { value: 'unjoined', text: 'Not Joined'},
-      { value: 'public', text: 'Public' },
-      { value: 'private', text: 'Private'}
+      // { value: 'joined', text: 'Joined' },
+      // { value: 'unjoined', text: 'Not Joined'},
+      // { value: 'public', text: 'Public' },
+      // { value: 'private', text: 'Private'}
     ];
 
   // private tags: string[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];

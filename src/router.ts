@@ -97,6 +97,16 @@ export default function createRouter() {
         component: () => import('./views/groups/GroupsExplore/GroupsExplore.vue'),
       },
       {
+        path: '/groups/:id',
+        name: 'group-view',
+        component: () => import('./views/groups/GroupView/GroupView.vue'),
+      },
+      {
+        path: '/groups/:id/edit',
+        name: 'group-edit',
+        component: () => import('./views/groups/GroupEdit/GroupEdit.vue'),
+      },
+      {
         path: '/terms',
         name: 'terms-and-conditions',
         component: () => import('./views/terms/TermsAndConditions.vue'),

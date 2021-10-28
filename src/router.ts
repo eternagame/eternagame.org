@@ -107,6 +107,11 @@ export default function createRouter() {
         component: () => import('./views/groups/GroupEdit/GroupEdit.vue'),
       },
       {
+        path: '/newgroup',
+        name: 'group-create',
+        component: () => import('./views/groups/GroupEdit/GroupCreate.vue'),
+      },
+      {
         path: '/terms',
         name: 'terms-and-conditions',
         component: () => import('./views/terms/TermsAndConditions.vue'),

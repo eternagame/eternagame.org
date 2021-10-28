@@ -1,5 +1,5 @@
 <template>
-  <EternaPage :title="`Edit Group`">
+  <EternaPage :title="`Create New Group`">
     <notifications position="bottom center" width="50%"/>
     <div class="page-content" v-if="fetchState.firstFetchComplete">
       <EditGroupHeader
@@ -32,10 +32,6 @@
         >
           {{ $t('edit-group:cancel') }}
         </b-button>
-        <b-button type="submit" style="margin-left:10px" variant="primary" @click="deleteGroup">
-          {{$t('edit-group:delete')}}
-          <b-spinner v-if="loading" small />
-        </b-button>
       </div>
     </div>
     <Preloader v-else />
@@ -49,7 +45,7 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Notifications from 'vue-notification';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import { Group, GroupResponse } from '@/types/common-types';
+  import { Group } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import Utils from "@/utils/utils";
   import EditGroupHeader from './components/EditGroupHeader.vue';
@@ -77,6 +73,8 @@
 
     private is_private = "";
 
+    private group_type = "";
+
     private newBody: string | null = null;
 
     private currentPicture?: string;
@@ -98,7 +96,7 @@
     private loading = false;
 
     async fetch() {
-      const group = (await axios.get(`/get/?type=group&nid=${this.$route.params.id}`)).data.data.group as Group;
+      const group = (await axios.get(`/get/?type=group&nid=${this.$route.params.id}`)).data.data.user as Group;
       this.nid = group.nid;
       this.body = group.body;
       this.name = group.name;
@@ -113,21 +111,11 @@
       return Utils.getAvatar(this.currentPicture || null);
     }
 
-    async deleteGroup() {
-      this.$http.post('/post/', new URLSearchParams({
-        type: 'delete_group',
-        nid: this.nid,
-      }))
-        .then(res => {
-          this.$router.push({path: `/groups`});
-        });
-    }
-
     async submit() {
       this.loading = true;
       try {
         const res = await this.$http.post('/post/', new URLSearchParams({
-          type: 'edit_group',
+          type: 'create_group',
           'group-title-input': this.name,
           'group-description-input': this.newBody === null ? this.body : this.newBody,
           'group-type': this.is_private? "private" : "public",

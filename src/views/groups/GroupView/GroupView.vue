@@ -65,16 +65,6 @@
                 {{ $t('edit-group-title-description') }}
               </b-button>
             </li>
-            <li>  
-              <b-button
-                type="submit"
-                variant="primary"
-                class="submit-button"
-                :href="`${tutorialRoute}${nid}`"
-              >
-                {{ $t('edit-group-delete') }}
-              </b-button>
-            </li>
           </div>
         </ul>
       </SidebarPanel>
@@ -107,6 +97,8 @@
     },
   })
   export default class GroupView extends Mixins(FetchMixin) {
+
+    private deleteRoute: string = "";
 
     private editRights: boolean = false; 
 

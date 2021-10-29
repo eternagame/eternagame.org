@@ -88,6 +88,24 @@
               </b-button>
             </li>
           </div>
+          <div>
+            Admins:
+            <li v-for="player in admins" :key="player.name">
+              <img :src="player.picture" class="icon" />
+              <router-link :to="`/players/${player.uid}/`">
+                {{player.name}}
+              </router-link>
+            </li>
+          </div>
+          <div>
+            Members:
+            <li v-for="player in members" :key="player.name">
+              <img :src="player.picture" class="icon" />
+              <router-link :to="`/players/${player.uid}/`">
+                {{player.name}}
+              </router-link>
+            </li>
+          </div>
         </ul>
       </SidebarPanel>
       <!-- <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" /> -->
@@ -107,7 +125,7 @@
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
   import FetchMixin from '@/mixins/FetchMixin';
-  import { GroupResponse, Group, CommentItem } from '@/types/common-types';
+  import { GroupResponse, Group, CommentItem, UserData } from '@/types/common-types';
 
   @Component({
     components: {
@@ -128,6 +146,10 @@
 
     nid: string = "";
 
+    admins: UserData[] = [];
+
+    members: UserData[] = [];
+
     is_private: string = "false";
 
     comments: CommentItem[] = [];
@@ -143,6 +165,8 @@
       ).data.data as GroupResponse;
       this.group = res.group;
       this.nid = res.group.nid;
+      this.admins = res.group_admins;
+      this.members = res.group_members;
       this.is_private = res.group.is_private;
       this.comments = res.comments;
       if(this.group.founder_name === this.$vxm.user.username) this.editRights = true;

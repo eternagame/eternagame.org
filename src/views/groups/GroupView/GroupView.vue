@@ -19,6 +19,9 @@
           />
         </div>
       </div>
+      <div v-if="editRights">
+        <GroupMessageCompose @submit-message="sentMessage" :parentNID="group.nid"/>
+      </div>
     </div>
     <Comments :comments="comments" :nid="group.nid" />
 
@@ -118,6 +121,7 @@
   import Comments from '@/components/PageLayout/Comments.vue';
   import FetchMixin from '@/mixins/FetchMixin';
   import { GroupResponse, Group, CommentItem, UserData } from '@/types/common-types';
+  import GroupMessageCompose from './components/GroupMessageCompose.vue';
 
   @Component({
     components: {
@@ -126,6 +130,7 @@
       SidebarPanel,
       Preloader,
       Comments,
+      GroupMessageCompose,
     },
   })
   export default class GroupView extends Mixins(FetchMixin) {
@@ -205,6 +210,10 @@
           text: e.message,
         });
       }
+    }
+
+    sentMessage() {
+      this.$fetch();
     }
   }
 </script>

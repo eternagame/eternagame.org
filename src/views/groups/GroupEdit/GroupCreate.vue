@@ -1,7 +1,7 @@
 <template>
   <EternaPage :title="`Create New Group`">
     <notifications position="bottom center" width="50%"/>
-    <div class="page-content" v-if="fetchState.firstFetchComplete">
+    <div class="page-content">
       <EditGroupHeader
         :loading="loading"
         @submit="submit"
@@ -34,7 +34,6 @@
         </b-button>
       </div>
     </div>
-    <Preloader v-else />
   </EternaPage>
 </template>
 
@@ -94,15 +93,6 @@
     private publicCertificate = false;
 
     private loading = false;
-
-    async fetch() {
-      const group = (await axios.get(`/get/?type=group&nid=${this.$route.params.id}`)).data.data.user as Group;
-      this.nid = group.nid;
-      this.body = group.body;
-      this.name = group.name;
-      this.is_private = group.is_private;
-      this.currentPicture = group.picture;
-    }
 
     get picture() {
       if (this.newPicture) {

@@ -8,14 +8,6 @@
             <img v-if="group.picture" :src="group.picture" />
             <img v-if="!group.picture" src="@/assets/group.svg" />
           </div>
-          <b-button
-            type="submit"
-            variant="primary"
-            class="submit-button"
-            :href="`${groupRoute}${group.nid}/`"
-          >
-            {{ $t('group-view:main-action') }}
-          </b-button>
         </div>
 
         <div class="order-sm-1 description-col">
@@ -62,7 +54,7 @@
               class="submit-button"
               :href="`/groups/${nid}/edit`"
               >
-                {{ $t('edit-group-title-description') }}
+                {{ $t('edit-group-title:description') }}
               </b-button>
             </li>
           </div>

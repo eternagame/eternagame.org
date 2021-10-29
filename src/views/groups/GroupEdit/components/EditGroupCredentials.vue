@@ -19,12 +19,6 @@
 
     private passwordConfirm: string = '';
 
-    @Prop({ required: true }) private email!: string;
-
-    @Prop({ required: true }) private messagesNotify!: boolean;
-
-    @Prop({ required: true }) private newsNotify!: boolean;
-
     @Prop({ required: true }) private publicCertificate!: boolean;
 
     get passwordsMatch() {

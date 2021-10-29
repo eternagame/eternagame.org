@@ -66,6 +66,28 @@
               </b-button>
             </li>
           </div>
+          <div v-if="!editRights">
+            <li>  
+              <b-button
+              type="submit"
+              variant="primary"
+              class="submit-button"
+              @click="follow"
+              >
+                {{ $t('group-view:follow') }}
+              </b-button>
+            </li>
+            <li>  
+              <b-button
+              type="submit"
+              variant="primary"
+              class="submit-button"
+              @click="subscribe"
+              >
+                {{ $t('group-view:subscribe') }}
+              </b-button>
+            </li>
+          </div>
         </ul>
       </SidebarPanel>
       <!-- <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" /> -->
@@ -104,7 +126,9 @@
 
     group: Group | null = null;
 
-    nid: string | null = null;
+    nid: string = "";
+
+    is_private: string = "false";
 
     comments: CommentItem[] = [];
 
@@ -119,12 +143,52 @@
       ).data.data as GroupResponse;
       this.group = res.group;
       this.nid = res.group.nid;
+      this.is_private = res.group.is_private;
       this.comments = res.comments;
       if(this.group.founder_name === this.$vxm.user.username) this.editRights = true;
     }
 
     get avatar() {
       return Utils.getAvatar(this.group?.founder_picture || null);
+    }
+
+    async subscribe() {
+      try {
+        const res = await this.$http.post('/post/', new URLSearchParams({
+          type: 'subscribe',
+          'uid': (this.$vxm.user.uid === null ? 0 : this.$vxm.user.uid).toString(),
+          'nid': this.nid,
+          'is_private': this.is_private,
+        }));
+        const error = res?.data?.data?.error;
+        if (error) throw new Error(error);
+        this.$router.push(`/groups/`);
+      } catch (e) {
+        const r = this.$notify({
+          type: 'error',
+          title: 'Error',
+          text: e.message,
+        });
+      }
+    }
+
+    async follow() {
+      try {
+        const res = await this.$http.post('/post/', new URLSearchParams({
+          type: 'follow_group',
+          'uid': (this.$vxm.user.uid === null ? 0 : this.$vxm.user.uid).toString(),
+          'nid': this.nid,
+        }));
+        const error = res?.data?.data?.error;
+        if (error) throw new Error(error);
+        this.$router.push(`/groups/`);
+      } catch (e) {
+        const r = this.$notify({
+          type: 'error',
+          title: 'Error',
+          text: e.message,
+        });
+      }
     }
   }
 </script>

@@ -41,7 +41,7 @@
         </template>
         <ul style="padding: 0; list-style-type:none" v-if="group">
         <li>
-            <img :src="group.founder_picture" class="icon" />{{ group.founder_name }}
+            <img :src="`../${group.founder_picture}`" class="icon" />{{ group.founder_name }}
         </li>
         <li>
             <img src="@/assets/dollar.svg" class="icon" />{{ group.score }}
@@ -91,7 +91,7 @@
           <div>
             Admins:
             <li v-for="player in admins" :key="player.name">
-              <img :src="player.picture" class="icon" />
+              <img :src="`../${player.picture}`" class="icon" />
               <router-link :to="`/players/${player.uid}/`">
                 {{player.name}}
               </router-link>
@@ -100,7 +100,7 @@
           <div>
             Members:
             <li v-for="player in members" :key="player.name">
-              <img :src="player.picture" class="icon" />
+              <img :src="`../${player.picture}`" class="icon" />
               <router-link :to="`/players/${player.uid}/`">
                 {{player.name}}
               </router-link>

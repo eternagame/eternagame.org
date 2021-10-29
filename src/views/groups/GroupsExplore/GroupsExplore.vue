@@ -66,7 +66,8 @@
   const INITIAL_SORT = 'date';
   const INITIAL_NUMBER = 18;
 
-  const ROUTE = '/get/?type=groups';
+  const MAINROUTE = '/get/?type=groups';
+  const JOINEDROUTE = '/get/?type=my_groups';
 
   interface GroupExploreParams {
     group_type: string;
@@ -98,11 +99,19 @@
     async fetch() {
       const { filters, sort, search, size } = this.$route.query;
       const params = {
-        joined: filters && filters.includes('joined') && 'true',
         sort: sort || INITIAL_SORT,
         size: size || INITIAL_NUMBER,
         search,
       } as GroupExploreParams;
+
+      let ROUTE: string = "";
+
+      if (filters && filters.includes('joined') && 'true')
+      {
+        ROUTE = JOINEDROUTE;
+      } else {
+        ROUTE = MAINROUTE;
+      }
 
       if (this.$vxm.user.loggedIn) params.uid = this.$vxm.user.uid;
 
@@ -125,7 +134,7 @@
     ];
 
     private filters: Filter[] = [
-      // { value: 'joined', text: 'Joined' },
+      { value: 'joined', text: 'Joined' },
       // { value: 'unjoined', text: 'Not Joined'},
       // { value: 'public', text: 'Public' },
       // { value: 'private', text: 'Private'}

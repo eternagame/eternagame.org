@@ -241,7 +241,7 @@
 
   .group-image {
     width: 100%;
-    background-color: #041227;
+    //background-color: #041227;
     border-radius: 5px;
     padding: 1.6rem 2.2rem;
     img {

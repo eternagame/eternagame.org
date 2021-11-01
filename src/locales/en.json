@@ -509,5 +509,7 @@
   "edit-group:private": "Private (Invite Only)",
   "edit-group:save": "Save",
   "edit-group:cancel": "Cancel",
-  "edit-group:delete": "Delete"
+  "edit-group:delete": "Delete",
+  "edit-group:add-members": "Invite Members",
+  "edit-group:add-admins": "Add Admins"
 }

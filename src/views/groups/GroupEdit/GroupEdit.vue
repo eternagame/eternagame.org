@@ -19,6 +19,10 @@
         :publicCertificate.sync="is_private"
       />
       <hr class="top-border" />
+      <EditGroupMembers
+        :parentNID="nid"
+      />
+      <hr class="top-border" />
       <div class="flex" style="margin-top:20px">
         <b-button type="submit" style="margin-left:10px" variant="primary" @click="submit" :disabled="loading">
           {{$t('edit-group:save')}}
@@ -55,6 +59,7 @@
   import EditGroupHeader from './components/EditGroupHeader.vue';
   import EditGroupDiscription from './components/EditGroupDiscription.vue';
   import EditGroupCredentials from './components/EditGroupCredentials.vue';
+  import EditGroupMembers from './components/EditGroupMembers.vue';
 
   Vue.use(Notifications);
 
@@ -65,6 +70,7 @@
       EditGroupHeader,
       EditGroupDiscription,
       EditGroupCredentials,
+      EditGroupMembers,
       Preloader,
     },
   })

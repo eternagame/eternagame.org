@@ -21,7 +21,7 @@
             end of 2020, we did it! Check out the <router-link to="/news/10799462">announcement</router-link> and
             <a href="https://www.youtube.com/watch?v=lvvbsoyVCKU">video</a> for a description of our
             accomplishments, and the launch of our
-            <a href="https://eternagame.org/news/10811812">B.1.617 mRNA vaccine challenge</a> to focus on the variant emerging in India.
+            <a href="https://eternagame.org/news/10811812">Delta variant mRNA vaccine challenge</a> to focus on the variant emerging in India.
           </p>
           <p class="mb-0"></p>
         </div>

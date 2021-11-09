@@ -503,6 +503,8 @@
   "group-view:side-bar-header": "Group Info",
   "group-view:group-info": "Group Info",
   "group-view:message": "Message Group Members",
+  "group-view:follow": "Follow",
+  "group-view:subscribe": "Subscribe",
   "edit-group:group-name": "Group Name",
   "edit-group:discription": "Group Description",
   "edit-group:privacy": "Group Privacy",

@@ -2,12 +2,12 @@
   <div>
     <div v-if="picture">
       <img
-        class="d-block d-sm-none rounded-circle player-image"
+        class="d-block d-sm-none player-image"
         :src="picture"
         alt="avatar"
       />
       <img
-        class="d-none d-sm-block rounded-circle player-image-large"
+        class="d-none d-sm-block player-image-large"
         :src="picture"
         alt="avatar"
       />

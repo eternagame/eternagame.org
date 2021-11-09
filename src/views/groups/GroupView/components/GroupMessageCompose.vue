@@ -60,7 +60,7 @@
         type: 'messages',
         action: 'add',
         notification_type: 'message',
-        group_nid: this.parentNID?.toString(),
+        group_nid: (this.parentNID? this.parentNID : 'null').toString(),
         body: message,
       };
 
@@ -75,7 +75,7 @@
       try {
         await this.postMessage(this.commentText);
       } catch (e) {
-        // TODO: Differentiate errors (no username? post issue?), use a better UI
+        // eslint-disable-next-line
         alert(`Error posting message.\n${e}`);
       }
       this.isSending = false;

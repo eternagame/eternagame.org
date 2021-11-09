@@ -135,7 +135,7 @@
     async postMemberInvite(targetUid: string, message: string) {
       const params = {
         type: 'invite_member',
-        group_nid: this.parentNID?.toString(),
+        group_nid: (this.parentNID? this.parentNID : 'null').toString(),
         action: 'add',
         target_names: this.targetName,
       };
@@ -149,7 +149,7 @@
     async postAdminInvite(targetUid: string, message: string) {
       const params = {
         type: 'add_admin',
-        group_nid: this.parentNID?.toString(),
+        group_nid: (this.parentNID? this.parentNID : 'null').toString(),
         action: 'add',
         target_names: this.targetName,
       };
@@ -166,7 +166,7 @@
         const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
         await this.postMemberInvite(targetUid, this.commentText);
       } catch (e) {
-        // TODO: Differentiate errors (no username? post issue?), use a better UI
+        // eslint-disable-next-line
         alert(`Error posting message.\n${e}`);
       }
       this.isSending = false;
@@ -181,7 +181,7 @@
         const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
         await this.postAdminInvite(targetUid, this.commentText);
       } catch (e) {
-        // TODO: Differentiate errors (no username? post issue?), use a better UI
+        // eslint-disable-next-line
         alert(`Error posting message.\n${e}`);
       }
       this.isSending = false;

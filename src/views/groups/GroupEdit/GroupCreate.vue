@@ -100,17 +100,23 @@
       }
       return Utils.getAvatar(this.currentPicture || null);
     }
-
+    
     async submit() {
       this.loading = true;
+      const data = new FormData();
+      data.set('nid', this.nid);
+      data.set('group-title-input', this.name);
+      data.set('group-description-input', this.newBody === null ? this.body : this.newBody);
+      data.set('group-type', this.is_private? "private" : "public");
+      if (this.newPicture) data.append(`files[picture_upload]`, this.newPicture);
+      data.set('type', 'create_group');
+
       try {
-        const res = await this.$http.post('/post/', new URLSearchParams({
-          type: 'create_group',
-          'group-title-input': this.name,
-          'group-description-input': this.newBody === null ? this.body : this.newBody,
-          'group-type': this.is_private? "private" : "public",
-          'files[picture_upload]': this.newPicture? this.picture : this.newPicture,
-        }));
+        const res = await this.$http.post("/post/", data, {
+          headers: {
+            'Content-type': 'multipart/form-data',
+          },
+        });
         this.loading = false;
         const error = res?.data?.data?.error;
         if (error) throw new Error(error);

@@ -4,10 +4,6 @@
       {{$t('edit-profile:replace-image')}}
     </b-button>
     <input type="file" @change="handleFile" hidden ref="fileUpload" />
-    <b-button type="submit" style="margin-left:10px" variant="primary" @click="$emit('submit')" :disabled="loading">
-      {{$t('edit-profile:save')}}
-      <b-spinner v-if="loading" small />
-    </b-button>
   </div>
 </template>
 

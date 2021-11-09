@@ -1,8 +1,9 @@
 <template>
+<div>
   <div class="page-content card">
     <div class="container">
+      <h4 class="mt-3 mr-3">{{ $t('edit-group:add-members') }}</h4>
       <div class="d-flex">
-        <h4 class="mt-3 mr-3">{{ $t('edit-group:add-members') }}</h4>
         <vue-bootstrap-typeahead
           ref="typeahead"
           :placeholder="$t('activity-feed:add-recipient')"
@@ -38,9 +39,11 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="page-content card">
     <div class="container">
+      <h4 class="mt-3 mr-3">{{ $t('edit-group:add-admins') }}</h4>
       <div class="d-flex">
-        <h4 class="mt-3 mr-3">{{ $t('edit-group:add-admins') }}</h4>
         <vue-bootstrap-typeahead
           ref="typeahead"
           :placeholder="$t('activity-feed:add-recipient')"
@@ -77,6 +80,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 <script lang="ts">
   import axios, { AxiosInstance } from 'axios';

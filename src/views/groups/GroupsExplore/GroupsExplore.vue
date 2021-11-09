@@ -1,14 +1,6 @@
 <template>
   <EternaPage :title="$t('nav-bar:groups')">
     <div v-if="fetchState.firstFetchComplete">
-      <b-button
-       type="submit"
-        variant="primary"
-        class="submit-button"
-        :href="`/newgroup`"
-      >
-      {{ $t('group-explore:create-group') }}
-      </b-button>
       <Gallery>
         <GroupCard
           v-for="group in groups"
@@ -30,6 +22,14 @@
         :placeholder="$t('search:groups')"
         :isInSidebar="isInSidebar"
       />
+      <b-button
+       type="submit"
+        variant="primary"
+        class="submit-button"
+        :href="`/newgroup`"
+      >
+      {{ $t('group-explore:create-group') }}
+      </b-button>
       <FiltersPanel
         :filters="filters"
         paramName="filters"

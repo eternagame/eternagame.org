@@ -1,11 +1,9 @@
 <template>
 <div>
-  <div class="page-content card">
     <div class="container">
       <h4 class="mt-3 mr-3">{{ $t('edit-group:add-members') }}</h4>
       <div class="d-flex">
         <vue-bootstrap-typeahead
-          ref="typeahead"
           :placeholder="$t('activity-feed:add-recipient')"
           v-model="targetName"
           :data="usernames"
@@ -38,9 +36,7 @@
             </b-button>
         </div>
       </div>
-    </div>
   </div>
-  <div class="page-content card">
     <div class="container">
       <h4 class="mt-3 mr-3">{{ $t('edit-group:add-admins') }}</h4>
       <div class="d-flex">
@@ -80,7 +76,6 @@
       </div>
     </div>
   </div>
-</div>
 </template>
 <script lang="ts">
   import axios, { AxiosInstance } from 'axios';
@@ -143,10 +138,7 @@
         action: 'add',
         target_names: this.targetName,
       };
-
-      // @ts-ignore
-      if (this.parentNID) params.parent_nid = this.parentNID;
-
+    
       await axios.post('/post/?type=message', new URLSearchParams(params));
     }
 
@@ -157,9 +149,6 @@
         action: 'add',
         target_names: this.targetName,
       };
-
-      // @ts-ignore
-      if (this.parentNID) params.parent_nid = this.parentNID;
 
       await axios.post('/post/?type=message', new URLSearchParams(params));
     }

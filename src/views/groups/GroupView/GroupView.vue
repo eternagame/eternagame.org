@@ -63,7 +63,7 @@
           </div>
           <div v-if="!editRights">
             <li>  
-              <b-button
+              <b-button v-if="!following"
               type="submit"
               variant="primary"
               class="submit-button"
@@ -71,15 +71,31 @@
               >
                 {{ $t('group-view:follow') }}
               </b-button>
+              <b-button v-if="following"
+              type="submit"
+              variant="primary"
+              class="submit-button"
+              @click="unfollow"
+              >
+                {{ $t('group-view:unfollow') }}
+              </b-button>
             </li>
             <li>  
-              <b-button
+              <b-button v-if="!subscribed"
               type="submit"
               variant="primary"
               class="submit-button"
               @click="subscribe"
               >
                 {{ $t('group-view:subscribe') }}
+              </b-button>
+              <b-button v-if="subscribed"
+              type="submit"
+              variant="primary"
+              class="submit-button"
+              @click="unsubscribe"
+              >
+                {{ $t('group-view:unsubscribe') }}
               </b-button>
             </li>
           </div>
@@ -137,7 +153,11 @@
 
     private deleteRoute: string = "";
 
-    private editRights: boolean = false; 
+    private editRights: boolean = false;
+    
+    private following: boolean = false;
+
+    private subscribed: boolean = false;
 
     group: Group | null = null;
 
@@ -165,8 +185,10 @@
       this.admins = res.group_admins;
       this.members = res.group_members;
       this.is_private = res.group.is_private;
+      this.following = res.is_following;
+      this.subscribed = res.is_memeber;
       this.comments = res.comments;
-      if(this.group.founder_name === this.$vxm.user.username) this.editRights = true;
+      if(this.group.founder_name === this.$vxm.user.username || res.is_admin) this.editRights = true;
     }
 
     get avatar() {
@@ -183,7 +205,8 @@
         }));
         const error = res?.data?.data?.error;
         if (error) throw new Error(error);
-        this.$router.push(`/groups/`);
+        else this.subscribed = true;
+        this.$router.go(0);
       } catch (e) {
         const r = this.$notify({
           type: 'error',
@@ -202,7 +225,49 @@
         }));
         const error = res?.data?.data?.error;
         if (error) throw new Error(error);
-        this.$router.push(`/groups/`);
+        else this.following = true;
+        this.$router.go(0);
+      } catch (e) {
+        const r = this.$notify({
+          type: 'error',
+          title: 'Error',
+          text: e.message,
+        });
+      }
+    }
+
+    async unsubscribe() {
+      try {
+        const res = await this.$http.post('/post/', new URLSearchParams({
+          type: 'unsubscribe',
+          'uid': (this.$vxm.user.uid === null ? 0 : this.$vxm.user.uid).toString(),
+          'nid': this.nid,
+          'is_private': this.is_private,
+        }));
+        const error = res?.data?.data?.error;
+        if (error) throw new Error(error);
+        else this.subscribed = false;
+        this.$router.go(0);
+      } catch (e) {
+        const r = this.$notify({
+          type: 'error',
+          title: 'Error',
+          text: e.message,
+        });
+      }
+    }
+
+    async unfollow() {
+      try {
+        const res = await this.$http.post('/post/', new URLSearchParams({
+          type: 'unfollow_group',
+          'uid': (this.$vxm.user.uid === null ? 0 : this.$vxm.user.uid).toString(),
+          'nid': this.nid,
+        }));
+        const error = res?.data?.data?.error;
+        if (error) throw new Error(error);
+        else this.following = false;
+        this.$router.go(0);
       } catch (e) {
         const r = this.$notify({
           type: 'error',

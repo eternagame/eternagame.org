@@ -15,8 +15,8 @@
         :personalName.sync="name"
       />
       <hr class="top-border" />
-      <EditGroupCredentials
-        :publicCertificate.sync="is_private"
+      <EditGroupVisibility
+        :isPrivate.sync="is_private"
       />
       <hr class="top-border" />
       <EditGroupMembers
@@ -36,9 +36,8 @@
         >
           {{ $t('edit-group:cancel') }}
         </b-button>
-        <b-button type="submit" style="margin-left:10px" variant="primary" @click="deleteGroup">
+        <b-button type="submit" style="margin-left:10px" variant="danger" @click="deleteGroup">
           {{$t('edit-group:delete')}}
-          <b-spinner v-if="loading" small />
         </b-button>
       </div>
     </div>
@@ -58,7 +57,7 @@
   import Utils from "@/utils/utils";
   import EditGroupHeader from './components/EditGroupHeader.vue';
   import EditGroupDiscription from './components/EditGroupDiscription.vue';
-  import EditGroupCredentials from './components/EditGroupCredentials.vue';
+  import EditGroupVisibility from './components/EditGroupVisibility.vue';
   import EditGroupMembers from './components/EditGroupMembers.vue';
 
   Vue.use(Notifications);
@@ -69,7 +68,7 @@
       DropdownSidebarPanel,
       EditGroupHeader,
       EditGroupDiscription,
-      EditGroupCredentials,
+      EditGroupVisibility,
       EditGroupMembers,
       Preloader,
     },
@@ -104,7 +103,7 @@
       if (this.newPicture) {
         return URL.createObjectURL(this.newPicture);
       }
-      return this.currentPicture;
+      return Utils.getGroupAvatar(this.currentPicture || null);
     }
 
     async deleteGroup() {

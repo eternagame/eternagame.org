@@ -77,7 +77,7 @@
         forum: 'https://forum.eternagame.org',
         discord: 'https://discord.gg/KYeTwux',
         wiki: 'http://eternawiki.org',
-        groups: `/groups/`,
+        groups: `/groups`,
         'code-of-conduct': '/conduct',
       },
       news: '/news',

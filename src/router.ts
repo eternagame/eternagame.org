@@ -107,7 +107,7 @@ export default function createRouter() {
         component: () => import('./views/groups/GroupEdit/GroupEdit.vue'),
       },
       {
-        path: '/newgroup',
+        path: '/groups/create',
         name: 'group-create',
         component: () => import('./views/groups/GroupEdit/GroupCreate.vue'),
       },

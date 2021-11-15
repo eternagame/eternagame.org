@@ -22,14 +22,6 @@
         :placeholder="$t('search:groups')"
         :isInSidebar="isInSidebar"
       />
-      <b-button
-       type="submit"
-        variant="primary"
-        class="submit-button"
-        :href="`/newgroup`"
-      >
-      {{ $t('group-explore:create-group') }}
-      </b-button>
       <FiltersPanel
         :filters="filters"
         paramName="filters"
@@ -43,6 +35,14 @@
         replace
         :isInSidebar="isInSidebar"
       />
+      <b-button
+       type="submit"
+        variant="primary"
+        class="submit-button"
+        :href="`/groups/create`"
+      >
+      {{ $t('group-explore:create-group') }}
+      </b-button>
     </template>
     <template #mobileSearchbar>
       <SearchPanel :placeholder="$t('search:groups')" :isInSidebar="false" />

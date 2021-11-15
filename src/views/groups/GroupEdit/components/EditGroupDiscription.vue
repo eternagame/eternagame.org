@@ -14,24 +14,7 @@
         />
         <p style="font-weight:bold;margin-top:10px">{{ $t('edit-group:discription') }}</p>
         <EditField class="editor" :content="aboutMe" @input="text => $emit('update:aboutMe', text)" />
-        <!--
-        <EditPlayerNewSection
-          v-show="addingSection"
-          @set-section="section => $emit('set-section', section)"
-        />
-        <b-button
-          style="margin-top:19px;"
-          @click="addingSection = !addingSection"
-          v-show="!addingSection"
-          variant="secondary"
-        >
-          {{ $t('edit-profile:custom-section-add') }}
-        </b-button>
-        -->
       </div>
-      <!--div class="col-md-4">
-        <EditPlayerFeaturedAchievement />
-      </div-->
     </div>
   </div>
 </template>
@@ -39,11 +22,9 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
-  import EditGroupFeaturedPuzzles from './EditGroupFeaturedPuzzles.vue';
-  import EditGroupNewSection from './EditGroupNewSection.vue';
 
   @Component({
-    components: { EditGroupFeaturedPuzzles, EditField, EditGroupNewSection },
+    components: { EditField },
   })
   export default class GroupDescription extends Vue {
     @Prop({required: true}) aboutMe!: string;

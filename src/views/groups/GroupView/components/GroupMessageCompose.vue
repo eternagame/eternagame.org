@@ -64,9 +64,6 @@
         body: message,
       };
 
-      // @ts-ignore
-      if (this.parentNID) params.parent_nid = this.parentNID;
-
       await axios.post('/post/?type=message', new URLSearchParams(params));
     }
 

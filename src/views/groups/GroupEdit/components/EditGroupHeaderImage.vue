@@ -30,14 +30,14 @@
   @import '@/styles/global.scss';
 
   .player-image {
-    object-fit: scale-down;
+    object-fit: cover;
     margin-right: 20px;
     width: 61.58px;
     height: 61.58px;
   }
 
   .player-image-large {
-    object-fit: scale-down;
+    object-fit: cover;
     margin-right: 20px;
     width: 115.93px;
     height: 115.93px;

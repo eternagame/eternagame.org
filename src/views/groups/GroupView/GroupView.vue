@@ -20,7 +20,10 @@
         </div>
       </div>
       <div v-if="editRights">
+        <b-button v-b-modal.modal-1>Message Members</b-button>
+        <b-modal id="modal-1" title="Message Group Members">
         <GroupMessageCompose @submit-message="sentMessage" :parentNID="group.nid"/>
+        </b-modal>
       </div>
     </div>
     <Comments :comments="comments" :nid="group.nid" />

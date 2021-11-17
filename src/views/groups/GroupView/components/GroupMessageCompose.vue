@@ -1,9 +1,5 @@
 <template>
-  <div class="page-content card">
-    <div class="container">
-      <div class="d-flex">
-        <h4 class="mt-3 mr-3">{{ $t('group-view:message') }}</h4>
-      </div>
+<div>
       <EditField @input="setCommentText" :key="messagesSent" />
 
       <b-button
@@ -16,7 +12,6 @@
         {{ $t('activity-feed:send') }}
         <b-spinner v-if="isSending" small></b-spinner>
       </b-button>
-    </div>
   </div>
 </template>
 <script lang="ts">

@@ -67,10 +67,10 @@
                 type="submit"
                 variant="primary"
                 @click="inviteAdmin"
-                :disabled="isSending || !targetName.length"
+                :disabled="isSendingAdmin || !targetName.length"
             >
                 {{ $t('activity-feed:send') }}
-                <b-spinner v-if="isSending" small></b-spinner>
+                <b-spinner v-if="isSendingAdmin" small></b-spinner>
             </b-button>
         </div>
       </div>
@@ -97,6 +97,8 @@
     targetName = '';
 
     isSending: boolean = false;
+
+    isSendingAdmin: boolean = false;
 
     usernames = [];
 
@@ -169,7 +171,7 @@
     }
 
     async inviteAdmin() {
-      this.isSending = true;
+      this.isSendingAdmin = true;
       try {
         const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
         await this.postAdminInvite(targetUid, this.commentText);
@@ -177,7 +179,7 @@
         // eslint-disable-next-line
         alert(`Error posting message.\n${e}`);
       }
-      this.isSending = false;
+      this.isSendingAdmin = false;
       this.$emit('submit-message');
       this.messagesSent += 1;
       this.targetName = '';

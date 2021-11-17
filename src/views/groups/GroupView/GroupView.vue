@@ -19,9 +19,30 @@
           />
         </div>
       </div>
-      <div v-if="editRights">
-        <b-button v-b-modal.modal-1>Message Members</b-button>
-        <b-modal id="modal-1" title="Message Group Members">
+      <div class="flex" style="margin-top:20px">
+        <b-button v-b-modal.modal-members style="margin-left:10px">View Members</b-button>
+        <b-modal id="modal-members" title="Group Members">
+        <div>
+            Admins:
+            <li v-for="player in admins" :key="player.name">
+              <img :src="`../${player.picture}`" class="icon" />
+              <router-link :to="`/players/${player.uid}/`">
+                {{player.name}}
+              </router-link>
+            </li>
+          </div>
+          <div>
+            Members:
+            <li v-for="player in members" :key="player.name">
+              <img :src="`../${player.picture}`" class="icon" />
+              <router-link :to="`/players/${player.uid}/`">
+                {{player.name}}
+              </router-link>
+            </li>
+          </div>   
+        </b-modal>
+        <b-button v-if="editRights" v-b-modal.modal-message style="margin-left:10px">Message Members</b-button>
+        <b-modal id="modal-message" title="Message Group Members">
         <GroupMessageCompose @submit-message="sentMessage" :parentNID="group.nid"/>
         </b-modal>
       </div>
@@ -100,24 +121,6 @@
               >
                 {{ $t('group-view:unsubscribe') }}
               </b-button>
-            </li>
-          </div>
-          <div>
-            Admins:
-            <li v-for="player in admins" :key="player.name">
-              <img :src="`../${player.picture}`" class="icon" />
-              <router-link :to="`/players/${player.uid}/`">
-                {{player.name}}
-              </router-link>
-            </li>
-          </div>
-          <div>
-            Members:
-            <li v-for="player in members" :key="player.name">
-              <img :src="`../${player.picture}`" class="icon" />
-              <router-link :to="`/players/${player.uid}/`">
-                {{player.name}}
-              </router-link>
             </li>
           </div>
         </ul>

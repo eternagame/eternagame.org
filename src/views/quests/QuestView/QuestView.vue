@@ -90,9 +90,23 @@
     async fetch() {
       const me = (await this.$http.get('/get/?type=me')).data.data as MeQueryResponse;
       const puzzles = (
-        await this.$http.get(`/get/?type=puzzles&puzzle_type=Progression&search=${this.$route.params.id}`)
+        await this.$http.get(`/get/?type=puzzles&puzzle_type=Progression&tags=${this.$route.params.id}`)
       ).data.data as PuzzleList;
-      this.puzzles = puzzles.puzzles;
+
+      // Sort such that puzzle A which specifies its next puzzle is puzzle B is sorted before puzzle A
+      // The first puzzle is the one that has no other puzzle pointing to it
+      this.puzzles = [];
+      let puzzle = puzzles.puzzles.find(
+        candidatePuzzle => !puzzles.puzzles.some(otherPuzzle => otherPuzzle['next-puzzle'] === candidatePuzzle.id)
+      );
+      while (puzzle) {
+        this.puzzles.push(puzzle);
+        const nextPuzzle = puzzle['next-puzzle'];
+        puzzle = this.puzzles.find(candidatePuzzle => candidatePuzzle.id === nextPuzzle);
+      }
+      // Add any additional puzzles not part of the next puzzle "chain"
+      this.puzzles.push(...puzzles.puzzles.filter(candidatePuzzle => !this.puzzles.includes(candidatePuzzle)));
+      
       this.cleared = puzzles.cleared || [];
       this.quest = me.achievement_roadmap.find(p => p.title === this.$route.params.id) || null;
     }

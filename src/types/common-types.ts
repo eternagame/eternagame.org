@@ -161,6 +161,7 @@ export interface PuzzleItem {
   "made-for-lab": string | null;
   folder: string;
   number_of_states: number;
+  'next-puzzle': string;
 }
 
 export interface PuzzleList {

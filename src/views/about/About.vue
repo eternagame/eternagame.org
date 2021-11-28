@@ -231,21 +231,23 @@
                 class="col-md-4 col-sm-6 contribute-your-talents__list-item"
               >
                 <div class="contribute-your-talents__list-item-container">
-                  <router-link to="/puzzles">
+                  <SmartLink :link="block.link">
                     <img
                       :src="getImgUrl(block.imgRef)"
                       :alt="block.imgAlt"
                       class="contribute-your-talents__icon"
                     />
-                  </router-link>
-                  <router-link to="/puzzles"
-                    ><p class="contribute-your-talents__header">
+                  </SmartLink>
+                  <SmartLink :link="block.link">
+                    <p class="contribute-your-talents__header">
                       {{ $t(block.header) }}
                     </p>
-                  </router-link>
-                  <p class="contribute-your-talents__header-source">
-                    {{ $t(block.details) }}
-                  </p>
+                  </SmartLink>
+                  <SmartLink :link="block.link">
+                    <p class="contribute-your-talents__header-source">
+                      {{ $t(block.details) }}
+                    </p>
+                  </SmartLink>
                 </div>
               </b-col>
             </b-row>
@@ -298,17 +300,17 @@
   import FetchMixin from '@/mixins/FetchMixin';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import {AboutMediaItem, Publications, Publication, ChallengeItem } from '@/types/common-types';
-  
-  // import {ChallengeData} from '@/views/challenge/ChallengeView/types';
   import AboutMediaCard from '@/views/about/AboutMediaCard.vue';
   import AboutPublicationCard from '@/views/about/AboutPublicationCard.vue';
   import Utils from '@/utils/utils';
+  import SmartLink from '@/components/Common/SmartLink.vue';
 
   @Component({
     components: {
       EternaPage,
       AboutMediaCard,
       AboutPublicationCard,
+      SmartLink,
     },
   })
   export default class About extends Mixins(FetchMixin) {
@@ -435,21 +437,24 @@
     talentBlocks = [
       {
         imgRef: "about/about-section-4-1.png",
-        imgAlt: "eterna contribute-your-talents RNA structure design icon",
+        imgAlt: "RNA puzzle",
         header: "about:section7-header1",
-        details: "about:section7-header1-details"
+        details: "about:section7-header1-details",
+        link: "/puzzles"
       },
       {
         imgRef: "about/about-section-4-2.png",
-        imgAlt: "eterna contribute-your-talents videiganes icon",
+        imgAlt: "lightning bolt",
         header: "about:section7-header2",
-        details: "about:section7-header2-details"
+        details: "about:section7-header2-details",
+        link: `${process.env.VUE_APP_API_BASE_URL}/web/script/`
       },
       {
         imgRef: "about/about-section-4-3.png",
-        imgAlt: "eterna contribute-your-talents paper icon",
+        imgAlt: "source code",
         header: "about:section7-header3",
-        details: "about:section7-header3-details"
+        details: "about:section7-header3-details",
+        link: "https://github.com/eternagame"
       },
     ];
 

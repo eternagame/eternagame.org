@@ -16,12 +16,12 @@
           <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
           <p style="font-size: 1.2rem;">
             With the onset of the COVID-19 pandemic in 2020, the Eterna project harnessed online
-            gamers toward a solution: the OpenVaccine challenge. Their mission? To develop mRNA vaccines
-            stable enough to be deployed to everyone in the world and not just a privileged few. By the
-            end of 2020, we did it! Check out the <router-link to="/news/10799462">announcement</router-link> and
-            <a href="https://www.youtube.com/watch?v=lvvbsoyVCKU">video</a> for a description of our
-            accomplishments, and the launch of our
-            <a href="https://eternagame.org/news/10811812">Delta variant mRNA vaccine challenge</a> to focus on the variant emerging in India.
+            gamers toward a solution: the OpenVaccine challenge. Their mission? To develop mRNA
+            vaccines stable enough to be deployed to everyone in the world and not just a privileged
+            few. Check out the <router-link to="/challenges/10845741">challenge page</router-link>
+            for a description of our accomplishments and publications, including special sequences
+            for the Delta variant and our newest challenge to design a stable mRNA vaccine for the
+            Omicron variant.
           </p>
           <p class="mb-0"></p>
         </div>

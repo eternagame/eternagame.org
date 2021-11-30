@@ -35,9 +35,11 @@
 
     @Prop({ required: true }) readonly followList!: UserData[];
 
-    private follows: boolean = this.followList
-      .map((u: UserData) => u.uid)
-      .includes(String(this.$vxm.user.uid));
+    get follows(): boolean {
+      return this.followList
+        .map((u: UserData) => u.uid)
+        .includes(String(this.$vxm.user.uid));
+    }
 
     // toggleFollow() {
     //   const route = this.follows ? UNFOLLOW_ROUTE : FOLLOW_ROUTE;

@@ -84,8 +84,8 @@
         .filter(p => p.key.includes('side_quest'))
         .map(p => ({
           ...p,
-          prereqSatisfied: roadmap.some(
-            ach => ach.prereq === undefined || (
+          prereqSatisfied: p.prereq === undefined || roadmap.some(
+            ach => (
               `${ach.key}${ach.level}` === ach.prereq
               && Number(ach.current_level) >= ach.level
             )

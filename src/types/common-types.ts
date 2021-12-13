@@ -11,8 +11,7 @@ export interface UserData {
   ['Mail notification']: string;
   ['Certificate public']: string;
   Profile: string;
-  is_lab_member_legacy: boolean;
-  ten_tools_level: number;
+  is_lab_member: boolean;
   Survey: string;
   is_admin: boolean;
 }

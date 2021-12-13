@@ -22,9 +22,8 @@
         </template>
       </b-carousel>
 
-      <TutorialActivity :tools="tenToolsAchievements" v-if="!hasLabAccess" />
-      <QuestActivity :sideQuests="masteringEternaAchievements" />
-      <TutorialActivity :tools="tenToolsAchievements" v-if="hasLabAccess" />
+      <QuestActivity :sideQuests="masteringEternaAchievements" v-if="hasLabAccess"/>
+      <TutorialActivity :tools="tenToolsAchievements" />
     </template>
     <Preloader v-else />
   </EternaPage>

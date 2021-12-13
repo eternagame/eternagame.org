@@ -83,11 +83,17 @@
       return this.questLink || (this.title && `/quests/${this.title}`);
     }
 
-    private locked = Number(this.level) - 1 > Number(this.current_level);
+    get locked() {
+      return Number(this.level) - 1 > Number(this.current_level);
+    }
 
-    private started = this.to_next > 0 && !this.locked;
+    get started() {
+      return this.to_next > 0 && !this.locked;
+    }
 
-    private completed = this.to_next >= 1 && !this.locked;
+    get completed() {
+      return this.to_next >= 1 && !this.locked;
+    }
   }
 </script>
 

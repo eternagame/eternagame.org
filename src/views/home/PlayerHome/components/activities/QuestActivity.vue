@@ -1,8 +1,7 @@
 <template>
   <BaseActivity :heading="$t('player-home:section1')" v-if="quests.length > 0">
-    <SwiperSlide v-for="(item, index) in quests" :key="index">
+    <SwiperSlide v-for="item in quests" :key="item.title">
         <QuestCard
-          :key="item.title"
           v-bind="item"
           :imageLink="item.questLink"
           :buttonLink="item.puzzleLink"
@@ -32,7 +31,6 @@
     get quests() {
       return this.sideQuests
         .filter(p => p.level === Number(p.current_level) + 1)
-        .filter(p => p.prereqSatisfied)
         .map(p => ({
           ...p,
           questLink: Utils.getQuestLink(p.key),

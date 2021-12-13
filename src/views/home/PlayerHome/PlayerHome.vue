@@ -124,7 +124,7 @@
     }
 
     get nextPuzzleID() {
-      return this.tenToolsAchievements[0].current_puzzle;
+      return this.eternaEssentialsAchievements[0].current_puzzle;
     }
   }
 </script>

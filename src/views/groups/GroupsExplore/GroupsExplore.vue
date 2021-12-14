@@ -39,7 +39,7 @@
        type="submit"
         variant="primary"
         class="submit-button"
-        :href="`/groups/create`"
+        to="/groups/create"
       >
       {{ $t('group-explore:create-group') }}
       </b-button>

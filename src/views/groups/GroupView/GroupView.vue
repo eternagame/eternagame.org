@@ -24,21 +24,25 @@
         <b-modal id="modal-members" title="Group Members">
         <div>
             Admins:
-            <li v-for="player in admins" :key="player.name">
-              <img :src="`../${player.picture}`" class="icon" />
-              <router-link :to="`/players/${player.uid}/`">
-                {{player.name}}
-              </router-link>
-            </li>
+            <ul>
+              <li v-for="player in admins" :key="player.name">
+                <img :src="`../${player.picture}`" class="icon" />
+                <router-link :to="`/players/${player.uid}/`">
+                  {{player.name}}
+                </router-link>
+              </li>
+            </ul>
           </div>
           <div>
             Members:
-            <li v-for="player in members" :key="player.name">
-              <img :src="`../${player.picture}`" class="icon" />
-              <router-link :to="`/players/${player.uid}/`">
-                {{player.name}}
-              </router-link>
-            </li>
+            <ul>
+              <li v-for="player in members" :key="player.name">
+                <img :src="`../${player.picture}`" class="icon" />
+                <router-link :to="`/players/${player.uid}/`">
+                  {{player.name}}
+                </router-link>
+              </li>
+            </ul>
           </div>   
         </b-modal>
         <b-button v-if="editRights" v-b-modal.modal-message style="margin-left:10px">Message Members</b-button>
@@ -79,7 +83,7 @@
               type="submit"
               variant="primary"
               class="submit-button"
-              :href="`/groups/${nid}/edit`"
+              :to="`/groups/${nid}/edit`"
               >
                 {{ $t('edit-group-title:description') }}
               </b-button>
@@ -351,5 +355,15 @@
 
   li {
     margin-bottom: 20px;
+  }
+
+  #modal-members ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+      margin: 10px;
+    }
   }
 </style>

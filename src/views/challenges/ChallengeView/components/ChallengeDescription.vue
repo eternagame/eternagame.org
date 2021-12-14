@@ -127,10 +127,10 @@
 
       & > p {
         @include media-breakpoint-down(md) {
-          text-align: center;
+          text-align: left;
         }
         @include media-breakpoint-down(xs) {
-          text-align: center;
+          text-align: left;
         }
       }
 
@@ -175,10 +175,10 @@
       margin-bottom: 10px;
 
       @include media-breakpoint-down(md) {
-        text-align: center;
+        text-align: left;
       }
       @include media-breakpoint-down(xs) {
-        text-align: center;
+        text-align: left;
       }
     }
   }

@@ -91,6 +91,7 @@
     position: relative;
     background: #21508C;
     max-width: 1140px;
+    min-height: 700px;
     margin-left: auto;
     margin-right: auto;
     
@@ -101,11 +102,11 @@
       transform: translateX(-50%);
 
       @include media-breakpoint-only(md) {
-        width: 1800px;
+        width: 100%;
       }
 
       @include media-breakpoint-down(sm) {
-        width: 1900px;
+        width: 100%;
       }
     }
   }

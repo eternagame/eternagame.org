@@ -86,7 +86,7 @@
       { value: 'all', text: 'side-panel-options:all-activity' },
       { value: 'groups', text: 'side-panel-options:my-groups' },
       { value: 'notifications', text: 'side-panel-options:my-messages' },
-      { value: 'news', text: 'side-panel-options:news' },
+      { value: 'newsandblogs', text: 'side-panel-options:news' },
       { value: 'rewards', text: 'side-panel-options:labs'},
     ];
   }

@@ -12,12 +12,12 @@
 
     <template #sidebar="{ isInSidebar }">
       <SearchPanel v-if="isInSidebar" :placeholder="$t('search:news')" :isInSidebar="isInSidebar" />
-      <DropdownSidebarPanel
+      <!-- <DropdownSidebarPanel
         :options="options"
         paramName="sort"
         replace
         :isInSidebar="isInSidebar"
-      />
+      /> -->
       <CalendarPanel @page-update="monthFetch" :notableDates="calendarItems" :isInSidebar="isInSidebar"/>
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
     </template>

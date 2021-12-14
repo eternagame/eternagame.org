@@ -25,7 +25,7 @@ export default {
     const formatted = notification.type.toUpperCase();
     if (formatted === 'BLOGS') {
       // Unpluralize, since it sounds better
-      return 'BLOG';
+      return 'NEWS';
     }
     return formatted;
   },
@@ -33,7 +33,7 @@ export default {
     if (!notification) return null;
     switch (notification.type.toLowerCase()) {
       case 'blogs':
-        return '#53b64e';
+        return '#f39c12';
       case 'labs':
         return '#50b2dc';
       case 'announcements':

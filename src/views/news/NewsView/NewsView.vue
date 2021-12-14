@@ -13,12 +13,12 @@
     </div>
 
     <template #sidebar="{ isInSidebar }">
-      <DropdownSidebarPanel
+      <!-- <DropdownSidebarPanel
         :options="options"
         paramName="sort"
         replace
         :isInSidebar="isInSidebar"
-      />
+      /> -->
       <CalendarPanel :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="['#Ribosome', '#Eternacon', '#Chat']" :isInSidebar="isInSidebar" /> -->
     </template>

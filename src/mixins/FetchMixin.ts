@@ -40,7 +40,7 @@ export default class FetchMixin extends Vue {
       if (process.env.NODE_ENV === 'development') {
         console.error('Error in fetch():', err);
       }
-      this.fetchState.error = err;
+      this.fetchState.error = err as Error;
     }
 
     this.fetchState.pending = false;

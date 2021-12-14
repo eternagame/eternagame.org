@@ -2,6 +2,7 @@
   <!-- TODO: i18nify all content -->
   <!-- TODO: De-duplicate the editfield and submit button -->
   <div v-if="parentNID">
+    <notifications position="top center" width="50%"/>
     <EditField @input="setCommentText" :key="messagesSent" />
 
     <b-button
@@ -19,6 +20,7 @@
     </b-button>
   </div>
   <div class="page-content card" v-else>
+    <notifications position="top center" width="50%"/>
     <div class="container">
       <div class="d-flex">
         <h4 class="mt-3 mr-3">{{ $t('activity-feed:to') }}</h4>
@@ -64,9 +66,9 @@
   // @ts-ignore
   import debounce from 'lodash.debounce';
   import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
+  import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import EditField from '@/components/Common/EditField.vue';
   // @ts-ignore
-  import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
 
   @Component({ components: { EditField, VueBootstrapTypeahead } })
   export default class MessageCompose extends Vue {
@@ -84,7 +86,9 @@
 
     messagesSent = 0;
 
-    async fetchData() {
+    fetchData: () => Promise<void> | undefined = async () => {};
+
+    async doFetchData() {
       const res = await axios.get(
         `/get/?type=usernames&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );
@@ -92,7 +96,7 @@
     }
 
     created() {
-      this.fetchData = debounce(this.fetchData, 200);
+      this.fetchData = debounce(this.doFetchData, 200);
     }
 
     @Watch('targetName', { immediate: true, deep: true })
@@ -133,9 +137,13 @@
       try {
         const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
         await this.postMessage(targetUid, this.commentText);
-      } catch (e) {
-        // TODO: Differentiate errors (no username? post issue?), use a better UI
-        alert(`Error posting message.\n${e}`);
+      } catch (e: any) {
+        // TODO: Differentiate errors (no username? post issue?)
+        this.$notify({
+          type: 'error',
+          title: 'Error sending message',
+          text: e.message,
+        });
       }
       this.isSending = false;
       this.$emit('submit-message');

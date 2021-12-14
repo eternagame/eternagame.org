@@ -218,7 +218,7 @@
         if (resData?.follow_success !== undefined && resData.follow_success) this.following = true;
         if (resData?.subscribe_success !== undefined && resData.subscribe_success) this.subscribed = true;
         if (resData?.error) this.$notify({text: resData.error});
-      } catch (e) {
+      } catch (e: any) {
         const r = this.$notify({
           type: 'error',
           title: 'Error',
@@ -237,7 +237,7 @@
         const resData = res?.data?.data;
         if (resData?.success !== undefined && resData.success) this.following = true;
         if (resData?.error) this.$notify({text: resData.error});
-      } catch (e) {
+      } catch (e: any) {
         const r = this.$notify({
           type: 'error',
           title: 'Error',
@@ -258,7 +258,7 @@
         if (resData?.unfollow_success !== undefined && resData.unfollow_success) this.following = false;
         if (resData?.unsubscribe_success !== undefined && resData.unsubscribe_success) this.subscribed = false;
         if (resData?.error) this.$notify({text: resData.error});
-      } catch (e) {
+      } catch (e: any) {
         this.$notify({
           type: 'error',
           title: 'Error',
@@ -277,7 +277,7 @@
         const resData = res?.data?.data;
         if (resData?.success !== undefined && resData.success) this.following = false;
         if (resData?.error) this.$notify({text: resData.error});
-      } catch (e) {
+      } catch (e: any) {
         this.$notify({
           type: 'error',
           title: 'Error',

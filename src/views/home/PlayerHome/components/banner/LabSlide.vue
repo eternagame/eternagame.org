@@ -38,14 +38,11 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import FlipCountdown from 'vue2-flip-countdown';
   import DefaultHero from '@/assets/home/hero-lab-default.png';
   import Progress from '@/components/Common/Progress.vue';
   // @ts-ignore
-  import FlipCountdown from 'vue2-flip-countdown';
   // @ts-ignore
-  import VueMq from 'vue-mq';
 
   @Component({
     components: { Progress, FlipCountdown },

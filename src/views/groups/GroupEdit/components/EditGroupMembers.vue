@@ -82,9 +82,9 @@
   // @ts-ignore
   import debounce from 'lodash.debounce';
   import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
+  import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import EditField from '@/components/Common/EditField.vue';
   // @ts-ignore
-  import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
 
   @Component({ components: { EditField, VueBootstrapTypeahead } })
   export default class EditGroupMembers extends Vue {
@@ -104,7 +104,9 @@
 
     messagesSent = 0;
 
-    async fetchData() {
+    fetchData: () => Promise<void> | undefined = async () => {};
+
+    async doFetchData() {
       const res = await axios.get(
         `/get/?type=usernames&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );
@@ -112,7 +114,7 @@
     }
 
     created() {
-      this.fetchData = debounce(this.fetchData, 200);
+      this.fetchData = debounce(this.doFetchData, 200);
     }
 
     @Watch('targetName', { immediate: true, deep: true })

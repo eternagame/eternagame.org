@@ -47,14 +47,14 @@
 </template>
 
 <script lang="ts">
+  import { BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
+  import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
   import { Component, Vue } from 'vue-property-decorator';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
   import QuestCard from '@/components/Cards/QuestCard.vue';
-  import { BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
   import Carousel from '@/components/Common/Carousel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';

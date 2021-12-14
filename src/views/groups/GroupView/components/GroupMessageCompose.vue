@@ -16,14 +16,10 @@
 </template>
 <script lang="ts">
   import axios, { AxiosInstance } from 'axios';
-  // @ts-ignore
-  import debounce from 'lodash.debounce';
   import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
-  // @ts-ignore
-  import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
 
-  @Component({ components: { EditField, VueBootstrapTypeahead } })
+  @Component({ components: { EditField } })
   export default class MessageCompose extends Vue {
     @Prop() readonly parentNID?: number;
 
@@ -37,11 +33,8 @@
 
     messagesSent = 0;
 
-    @Ref('typeahead') readonly typeahead!: { inputValue: string };
-
     mounted() {
       if (this.$route.query.message) {
-        this.typeahead.inputValue = String(this.$route.query.message);
         this.targetName = String(this.$route.query.message);
       }
     }

@@ -100,7 +100,7 @@
       while (puzzle) {
         this.puzzles.push(puzzle);
         const nextPuzzle = puzzle['next-puzzle'];
-        puzzle = this.puzzles.find(candidatePuzzle => candidatePuzzle.id === nextPuzzle);
+        puzzle = puzzles.puzzles.find(candidatePuzzle => candidatePuzzle.id === nextPuzzle);
       }
       // Add any additional puzzles not part of the next puzzle "chain"
       this.puzzles.push(...puzzles.puzzles.filter(candidatePuzzle => !this.puzzles.includes(candidatePuzzle)));

@@ -21,7 +21,7 @@
     "@typescript-eslint/parser": "^4.26.0",
     "@voerro/vue-tagsinput": "github:voerro/vue-tagsinput",
     "add": "^2.0.6",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.2",
     "chromedriver": "^87.0.5",

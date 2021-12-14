@@ -215,6 +215,58 @@ export interface PuzzleResponse {
   cleared?: ClearedPuzzle[];
 }
 
+export interface Group {
+  nid: string;
+  body: string;
+  name: string;
+  group_members: UserData[];
+  founder_uid: string;
+  is_private: string;
+  created: string;
+  picture: string;
+  score: number;
+  founder_name: string;
+  founder_picture: string;
+  num_members: number;
+}
+
+export interface GroupResponse {
+  group: Group;
+  comments: CommentItem[];
+  total_num_comments: number;
+  group_members: UserData[];
+  group_admins: UserData[];
+  uid: string;
+  is_member: boolean;
+  is_pending: boolean;
+  is_admin: boolean;
+  is_following: boolean;
+}
+
+export interface GroupItem {  
+  nid: string;
+  name: string;
+  founder_picture: string;
+  founder_name: string;
+  founder_uid: string;
+  is_private: string;
+  group_members: string;
+  created: string;
+  picture: string;
+  num_members: string;
+}
+
+export interface JoinedGroup {
+  name: string;
+  nid: string;
+}
+
+export interface GroupList {
+  groups: GroupItem[];
+  num_groups: string;
+  joined?: JoinedGroup[];
+}
+
 export interface NewsArticle {
   title: string;
   nid: string;

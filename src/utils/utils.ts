@@ -1,4 +1,5 @@
 import DefaultAvatar from '@/assets/navbar/DefaultIcon.svg';
+import DefaultGroupAvatar from '@/assets/group.svg';
 import { NotificationItem } from '@/types/common-types';
 
 export default {
@@ -151,5 +152,9 @@ export default {
   getAvatar(uri: string | null) {
     if (uri) return /^http/i.exec(uri) ? uri : `/${uri}`;
     return DefaultAvatar;
+  },
+  getGroupAvatar(uri: string | null) {
+    if (uri) return uri;
+    return DefaultGroupAvatar;
   },
 };

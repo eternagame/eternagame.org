@@ -57,6 +57,7 @@
     text-align: center;
     min-height: 0;
     flex: 1;
+    width: 100%;
   }
 
   .scalable-container ::v-deep .scalable {

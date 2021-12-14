@@ -16,16 +16,22 @@
 
     <b-row class="mt-3">
       <b-col lg="8" sm="12">
-        <div style="text-align:center;">
+        <div style="text-align:center; padding:10px;">
           <b-row>
             <b-col md="4" sm="4">
               <img src="@/assets/front-page/img/logo_gates.png" class="sponsor-logo" alt="" />
             </b-col>
             <b-col md="3" sm="4">
-              <img src="@/assets/front-page/img/logo_stanford.png" class="sponsor-logo" alt="" />
+              <img src="@/assets/front-page/img/logo_stanford.png" class="sponsor-logo" style="max-width:220px;" alt="" />
             </b-col>
             <b-col md="5" sm="4">
               <img src="@/assets/front-page/img/logo_NIH.png" class="sponsor-logo" alt="" />
+            </b-col>
+            <b-col md="5" sm="4">
+              <img src="@/assets/front-page/img/logo_fastgrants.png" class="sponsor-logo" alt="" />
+            </b-col>
+            <b-col md="2" sm="2">
+              <img src="@/assets/front-page/img/logo_nsf.png" class="sponsor-logo" style="max-width:100px;" alt="" />
             </b-col>
           </b-row>
         </div>
@@ -129,7 +135,11 @@
 
   .sponsor-logo {
     width: 85%;
-    padding: 10px;
+    padding: 1em;
+    max-width: 100px;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
   }
 
   .icon {

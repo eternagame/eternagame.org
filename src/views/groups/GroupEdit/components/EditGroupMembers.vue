@@ -25,7 +25,7 @@
         </vue-bootstrap-typeahead>
         <div>
             <b-button
-                class="btn-lg mt-2"
+                class="btn-lg mt-1 ml-2"
                 type="submit"
                 variant="primary"
                 @click="inviteMember"
@@ -63,7 +63,7 @@
         </vue-bootstrap-typeahead>
         <div>
             <b-button
-                class="btn-lg mt-2"
+                class="btn-lg mt-1 ml-2"
                 type="submit"
                 variant="primary"
                 @click="inviteAdmin"

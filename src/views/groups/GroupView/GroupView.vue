@@ -1,5 +1,6 @@
 <template>
   <EternaPage v-if="fetchState.firstFetchComplete && group" :title="group.name">
+    <notifications position="top center" width="50%"/>
     <div class="page-content">
       <h2>About the Group</h2>
       <div class="d-flex flex-wrap justify-content-between" xs="12" sm="8">
@@ -196,7 +197,7 @@
       this.members = res.group_members;
       this.is_private = res.group.is_private;
       this.following = res.is_following;
-      this.subscribed = res.is_memeber;
+      this.subscribed = res.is_member;
       this.comments = res.comments;
       if(this.group.founder_name === this.$vxm.user.username || res.is_admin) this.editRights = true;
     }
@@ -213,10 +214,10 @@
           'nid': this.nid,
           'is_private': this.is_private,
         }));
-        const error = res?.data?.data?.error;
-        if (error) throw new Error(error);
-        else this.subscribed = true;
-        this.$router.go(0);
+        const resData = res?.data?.data;
+        if (resData?.follow_success !== undefined && resData.follow_success) this.following = true;
+        if (resData?.subscribe_success !== undefined && resData.subscribe_success) this.subscribed = true;
+        if (resData?.error) this.$notify({text: resData.error});
       } catch (e) {
         const r = this.$notify({
           type: 'error',
@@ -233,10 +234,9 @@
           'uid': (this.$vxm.user.uid === null ? 0 : this.$vxm.user.uid).toString(),
           'nid': this.nid,
         }));
-        const error = res?.data?.data?.error;
-        if (error) throw new Error(error);
-        else this.following = true;
-        this.$router.go(0);
+        const resData = res?.data?.data;
+        if (resData?.success !== undefined && resData.success) this.following = true;
+        if (resData?.error) this.$notify({text: resData.error});
       } catch (e) {
         const r = this.$notify({
           type: 'error',
@@ -254,12 +254,12 @@
           'nid': this.nid,
           'is_private': this.is_private,
         }));
-        const error = res?.data?.data?.error;
-        if (error) throw new Error(error);
-        else this.subscribed = false;
-        this.$router.go(0);
+        const resData = res?.data?.data;
+        if (resData?.unfollow_success !== undefined && resData.unfollow_success) this.following = false;
+        if (resData?.unsubscribe_success !== undefined && resData.unsubscribe_success) this.subscribed = false;
+        if (resData?.error) this.$notify({text: resData.error});
       } catch (e) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,
@@ -274,12 +274,11 @@
           'uid': (this.$vxm.user.uid === null ? 0 : this.$vxm.user.uid).toString(),
           'nid': this.nid,
         }));
-        const error = res?.data?.data?.error;
-        if (error) throw new Error(error);
-        else this.following = false;
-        this.$router.go(0);
+        const resData = res?.data?.data;
+        if (resData?.success !== undefined && resData.success) this.following = false;
+        if (resData?.error) this.$notify({text: resData.error});
       } catch (e) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,

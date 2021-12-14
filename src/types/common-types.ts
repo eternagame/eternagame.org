@@ -237,7 +237,7 @@ export interface GroupResponse {
   group_members: UserData[];
   group_admins: UserData[];
   uid: string;
-  is_memeber: boolean;
+  is_member: boolean;
   is_pending: boolean;
   is_admin: boolean;
   is_following: boolean;

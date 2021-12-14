@@ -22,9 +22,27 @@
         </template>
       </b-carousel>
 
-      <TutorialActivity :tools="tenToolsAchievements" v-if="!hasLabAccess" />
-      <QuestActivity :sideQuests="masteringEternaAchievements" />
-      <TutorialActivity :tools="tenToolsAchievements" v-if="hasLabAccess" />
+      <template v-if="hasLabAccess">
+        <QuestActivity :sideQuests="masteringEternaAchievements"/>
+        <TutorialActivity
+          :stages="tenToolsAchievements"
+          :heading="$t('player-home:advanced-tutorials')"
+        />
+        <TutorialActivity
+          :stages="eternaEssentialsAchievements"
+          :heading="$t('player-home:eterna-essentials-completed')"
+        />
+      </template>
+      <template v-else>
+        <TutorialActivity
+          :stages="eternaEssentialsAchievements"
+          :heading="$t('player-home:eterna-essentials')"
+        />
+        <TutorialActivity
+          :stages="tenToolsAchievements"
+          :heading="$t('player-home:advanced-tutorials')"
+        />
+      </template>
     </template>
     <Preloader v-else />
   </EternaPage>
@@ -69,6 +87,8 @@
 
     tenToolsAchievements: RoadmapAchievement[] = [];
 
+    eternaEssentialsAchievements: RoadmapAchievement[] = [];
+
     masteringEternaAchievements: ProcessedRoadmapAchievement[] = [];
 
     async fetch() {
@@ -80,12 +100,13 @@
 
       const roadmap = res[0].data.data.achievement_roadmap as RoadmapAchievement[];
       this.tenToolsAchievements = roadmap.filter(p => p.key === 'ten_tools');
+      this.eternaEssentialsAchievements = roadmap.filter(p => p.key === 'eterna_essentials');
       this.masteringEternaAchievements = roadmap
         .filter(p => p.key.includes('side_quest'))
         .map(p => ({
           ...p,
-          prereqSatisfied: roadmap.some(
-            ach => ach.prereq === undefined || (
+          prereqSatisfied: p.prereq === undefined || roadmap.some(
+            ach => (
               `${ach.key}${ach.level}` === ach.prereq
               && Number(ach.current_level) >= ach.level
             )
@@ -103,7 +124,7 @@
     }
 
     get nextPuzzleID() {
-      return this.tenToolsAchievements[0].current_puzzle;
+      return this.eternaEssentialsAchievements[0].current_puzzle;
     }
   }
 </script>

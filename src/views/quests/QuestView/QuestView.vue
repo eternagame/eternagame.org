@@ -1,5 +1,5 @@
 <template>
-  <EternaPage :title="$t('quest-info:title')" v-if="fetchState.firstFetchComplete && quest">
+  <EternaPage :title="quest.title" v-if="fetchState.firstFetchComplete && quest">
     <div class="quest-description">
       <div class="row">
         <div class="col-lg-7">
@@ -51,15 +51,13 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import QuestCard from '@/components/Cards/QuestCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import { MeQueryResponse, PuzzleList, PuzzleItem, ClearedPuzzle, RoadmapAchievement } from '@/types/common-types';
+  import { PuzzleList, PuzzleItem, ClearedPuzzle, RoadmapAchievement } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
 
   @Component({
@@ -88,13 +86,27 @@
     }
 
     async fetch() {
-      const me = (await this.$http.get('/get/?type=me')).data.data as MeQueryResponse;
+      const achievement_roadmap = (await this.$http.get('/get/?type=side_project_roadmap')).data.data.achievement_roadmap as RoadmapAchievement[];
       const puzzles = (
-        await this.$http.get(`/get/?type=puzzles&puzzle_type=Progression&search=${this.$route.params.id}`)
+        await this.$http.get(`/get/?type=puzzles&puzzle_type=Progression&tags=${this.$route.params.id}`)
       ).data.data as PuzzleList;
-      this.puzzles = puzzles.puzzles;
+
+      // Sort such that puzzle A which specifies its next puzzle is puzzle B is sorted before puzzle A
+      // The first puzzle is the one that has no other puzzle pointing to it
+      this.puzzles = [];
+      let puzzle = puzzles.puzzles.find(
+        candidatePuzzle => !puzzles.puzzles.some(otherPuzzle => otherPuzzle['next-puzzle'] === candidatePuzzle.id)
+      );
+      while (puzzle) {
+        this.puzzles.push(puzzle);
+        const nextPuzzle = puzzle['next-puzzle'];
+        puzzle = puzzles.puzzles.find(candidatePuzzle => candidatePuzzle.id === nextPuzzle);
+      }
+      // Add any additional puzzles not part of the next puzzle "chain"
+      this.puzzles.push(...puzzles.puzzles.filter(candidatePuzzle => !this.puzzles.includes(candidatePuzzle)));
+      
       this.cleared = puzzles.cleared || [];
-      this.quest = me.achievement_roadmap.find(p => p.title === this.$route.params.id) || null;
+      this.quest = achievement_roadmap.find(p => p.title === this.$route.params.id) || null;
     }
 
     puzzleCleared(id: string) {

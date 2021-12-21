@@ -11,8 +11,7 @@ export interface UserData {
   ['Mail notification']: string;
   ['Certificate public']: string;
   Profile: string;
-  is_lab_member_legacy: boolean;
-  ten_tools_level: number;
+  is_lab_member: boolean;
   Survey: string;
   is_admin: boolean;
 }
@@ -161,6 +160,7 @@ export interface PuzzleItem {
   "made-for-lab": string | null;
   folder: string;
   number_of_states: number;
+  'next-puzzle': string;
 }
 
 export interface PuzzleList {
@@ -213,6 +213,58 @@ export interface PuzzleResponse {
   nid: string;
   comments: CommentItem[];
   cleared?: ClearedPuzzle[];
+}
+
+export interface Group {
+  nid: string;
+  body: string;
+  name: string;
+  group_members: UserData[];
+  founder_uid: string;
+  is_private: string;
+  created: string;
+  picture: string;
+  score: number;
+  founder_name: string;
+  founder_picture: string;
+  num_members: number;
+}
+
+export interface GroupResponse {
+  group: Group;
+  comments: CommentItem[];
+  total_num_comments: number;
+  group_members: UserData[];
+  group_admins: UserData[];
+  uid: string;
+  is_member: boolean;
+  is_pending: boolean;
+  is_admin: boolean;
+  is_following: boolean;
+}
+
+export interface GroupItem {  
+  nid: string;
+  name: string;
+  founder_picture: string;
+  founder_name: string;
+  founder_uid: string;
+  is_private: string;
+  group_members: string;
+  created: string;
+  picture: string;
+  num_members: string;
+}
+
+export interface JoinedGroup {
+  name: string;
+  nid: string;
+}
+
+export interface GroupList {
+  groups: GroupItem[];
+  num_groups: string;
+  joined?: JoinedGroup[];
 }
 
 export interface NewsArticle {

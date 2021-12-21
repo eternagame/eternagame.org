@@ -52,9 +52,9 @@
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   import axios from 'axios';
+  import Notifications from 'vue-notification';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
-  import Notifications from 'vue-notification';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { UserData } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
@@ -151,7 +151,7 @@
         const error = res?.data?.data?.error;
         if (error) throw new Error(error);
         this.$router.push(`/players/${this.$vxm.user.uid}`);
-      } catch (e) {
+      } catch (e: any) {
         const r = this.$notify({
           type: 'error',
           title: 'Error',

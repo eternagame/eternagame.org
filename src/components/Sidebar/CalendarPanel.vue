@@ -7,12 +7,12 @@
 <script lang="ts">
   import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
+  import VCalendar from 'v-calendar';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
   import { DateItem } from '@/types/common-types';
   
   // @ts-ignore
-  import VCalendar from 'v-calendar';
 
   Vue.use(VCalendar, {
     componentPrefix: 'vc',

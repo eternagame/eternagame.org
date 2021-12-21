@@ -2,7 +2,6 @@
   <EternaPage v-if="challenge">
     <ChallengeDescription :challenge="challenge" style="margin-bottom: 52.5px;" />
     <ChallengePublications v-if="challenge.publications && challenge.publications.length > 0" :challenge="challenge" />
-    <ChallengeUpdates v-if="(challenge.admin_updates || challenges.news_posts) && (challenge.admin_updates.length > 0 || challenge.news_posts.length > 0)" :challenge="challenge" />
     <div v-if="challenge.labs.length > 0" :class="`lab-container${challenge.donors && challenge.donors.length > 0 ? '' : ' without-border-bottom'}`">
       <tabs :defaultIndex="openLabs.length > 0 ? 0: 1">
         <tab :title="`Open Labs (${openLabs.length})`">
@@ -27,6 +26,7 @@
         </tab>
       </tabs>
     </div>
+    <ChallengeUpdates v-if="(challenge.admin_updates || challenges.news_posts) && (challenge.admin_updates.length > 0 || challenge.news_posts.length > 0)" :challenge="challenge" />
     <ChallengeDonors v-if="challenge.donors" :challenge="challenge" />
     <template #sidebar="{ isInSidebar }">
       <ChallengeInfoPanel :challenge="challenge" :isInSidebar="isInSidebar" />

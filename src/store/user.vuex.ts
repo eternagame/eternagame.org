@@ -98,10 +98,7 @@ export default function createUserStore($http: AxiosInstance) {
         // on this call. I'm not even sure if we want some of these to be here!
         const userDataResponse = (await axios.get(`/get/?type=my_user&uid=${uid}`)).data.data;
         const userDetails: UserData = userDataResponse.user;
-        this.hasLabAccess = Boolean(
-          Number(userDetails.ten_tools_level) >= 8 ||
-            Number(userDetails.is_lab_member_legacy),
-        );
+        this.hasLabAccess = Boolean(Number(userDetails.is_lab_member));
         this.isAdmin = userDetails.is_admin;
         this.surveyRecord = userDetails.Survey;
         this.userDetailsLoaded = true;

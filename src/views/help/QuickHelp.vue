@@ -47,9 +47,9 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
+  import { BIconArrowUp, BIconCommand } from 'bootstrap-vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
-  import { BIconArrowUp, BIconCommand } from 'bootstrap-vue';
 
   @Component({
     components: {
@@ -84,6 +84,7 @@
       'help:energy': 'help:energy-text',
       'help:switch-puzzles': 'help:switch-puzzles-text',
       'help:highlighting-bases': 'help:highlighting-bases-text',
+      'help:glossary': 'help:glossary-text'
     };
 
     get column1Keys(): string[] {

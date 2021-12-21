@@ -8,12 +8,11 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
+  import VueBootstrapBreakpointIndicator from 'vue-bootstrap-breakpoint-indicator';
   import Navbar from '@/components/PageLayout/Navbar/Navbar.vue';
   import Modals from '@/components/Modals/Modals.vue';
   import { LANGUAGES, DEFAULT_LANGUAGE, LANGUAGE_KEY_NAME } from '@/plugins/i18n';
   // @ts-ignore
-  import browserLanguage from 'in-browser-language';
-  import VueBootstrapBreakpointIndicator from 'vue-bootstrap-breakpoint-indicator';
 
   @Component({
     components: {

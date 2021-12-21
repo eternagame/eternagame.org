@@ -1,29 +1,45 @@
 <template>
-  <!-- TODO: i18nify all content -->
-  <!-- TODO: De-duplicate the editfield and submit button -->
-  <div v-if="parentNID">
-    <notifications position="top center" width="50%"/>
-    <EditField @input="setCommentText" :key="messagesSent" />
-
-    <b-button
-      class="mt-2"
-      type="submit"
-      variant="primary"
-      @click="sendMessage"
-      :disabled="isSending || !commentText"
-    >
-      {{ $t('activity-feed:send') }}
-      <b-spinner v-if="isSending" small></b-spinner>
-    </b-button>
-    <b-button class="mt-2 ml-2" variant="secondary" @click="$emit('cancel')">
-      {{ $t('activity-feed:cancel') }}
-    </b-button>
-  </div>
-  <div class="page-content card" v-else>
-    <notifications position="top center" width="50%"/>
+<div>
     <div class="container">
+      <h4 class="mt-3 mr-3">{{ $t('edit-group:add-members') }}</h4>
       <div class="d-flex">
-        <h4 class="mt-3 mr-3">{{ $t('activity-feed:to') }}</h4>
+        <vue-bootstrap-typeahead
+          :placeholder="$t('activity-feed:add-recipient')"
+          v-model="targetName"
+          :data="usernames"
+          :serializer="user => user.username"
+          :key="messagesSent"
+        >
+          <template slot="suggestion" slot-scope="{ data, htmlText }">
+            <div class="d-flex align-items-center">
+              <img
+                v-if="data.userpicture"
+                class="rounded-circle"
+                :src="`/${data.userpicture}`"
+                style="width: 40px; height: 40px;margin-right:10px"
+              />
+
+              <span v-dompurify-html="htmlText" style="color: white"></span>
+            </div>
+          </template>
+        </vue-bootstrap-typeahead>
+        <div>
+            <b-button
+                class="btn-lg mt-1 ml-2"
+                type="submit"
+                variant="primary"
+                @click="inviteMember"
+                :disabled="isSending || !targetName.length"
+            >
+                {{ $t('activity-feed:send') }}
+                <b-spinner v-if="isSending" small></b-spinner>
+            </b-button>
+        </div>
+      </div>
+  </div>
+    <div class="container">
+      <h4 class="mt-3 mr-3">{{ $t('edit-group:add-admins') }}</h4>
+      <div class="d-flex">
         <vue-bootstrap-typeahead
           ref="typeahead"
           :placeholder="$t('activity-feed:add-recipient')"
@@ -45,19 +61,19 @@
             </div>
           </template>
         </vue-bootstrap-typeahead>
+        <div>
+            <b-button
+                class="btn-lg mt-1 ml-2"
+                type="submit"
+                variant="primary"
+                @click="inviteAdmin"
+                :disabled="isSendingAdmin || !targetName.length"
+            >
+                {{ $t('activity-feed:send') }}
+                <b-spinner v-if="isSendingAdmin" small></b-spinner>
+            </b-button>
+        </div>
       </div>
-      <EditField @input="setCommentText" :key="messagesSent" />
-
-      <b-button
-        class="btn-lg mt-2"
-        type="submit"
-        variant="primary"
-        @click="sendMessage"
-        :disabled="isSending || !targetName.length || !commentText"
-      >
-        {{ $t('activity-feed:send') }}
-        <b-spinner v-if="isSending" small></b-spinner>
-      </b-button>
     </div>
   </div>
 </template>
@@ -71,7 +87,7 @@
   // @ts-ignore
 
   @Component({ components: { EditField, VueBootstrapTypeahead } })
-  export default class MessageCompose extends Vue {
+  export default class EditGroupMembers extends Vue {
     @Prop() readonly parentNID?: number;
 
     @Prop() readonly uid?: number;
@@ -81,6 +97,8 @@
     targetName = '';
 
     isSending: boolean = false;
+
+    isSendingAdmin: boolean = false;
 
     usernames = [];
 
@@ -117,35 +135,53 @@
       this.commentText = text;
     }
 
-    async postMessage(targetUid: string, message: string) {
+    async postMemberInvite(targetUid: string, message: string) {
       const params = {
-        type: 'message',
+        type: 'invite_member',
+        group_nid: (this.parentNID? this.parentNID : 'null').toString(),
         action: 'add',
-        notification_type: 'message',
-        target_uid: targetUid,
-        body: message,
+        target_names: this.targetName,
       };
+    
+      await axios.post('/post/?type=message', new URLSearchParams(params));
+    }
 
-      // @ts-ignore
-      if (this.parentNID) params.parent_nid = this.parentNID;
+    async postAdminInvite(targetUid: string, message: string) {
+      const params = {
+        type: 'add_admin',
+        group_nid: (this.parentNID? this.parentNID : 'null').toString(),
+        action: 'add',
+        target_names: this.targetName,
+      };
 
       await axios.post('/post/?type=message', new URLSearchParams(params));
     }
 
-    async sendMessage() {
+    async inviteMember() {
       this.isSending = true;
       try {
         const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
-        await this.postMessage(targetUid, this.commentText);
-      } catch (e: any) {
-        // TODO: Differentiate errors (no username? post issue?)
-        this.$notify({
-          type: 'error',
-          title: 'Error sending message',
-          text: e.message,
-        });
+        await this.postMemberInvite(targetUid, this.commentText);
+      } catch (e) {
+        // eslint-disable-next-line
+        alert(`Error posting message.\n${e}`);
       }
       this.isSending = false;
+      this.$emit('submit-message');
+      this.messagesSent += 1;
+      this.targetName = '';
+    }
+
+    async inviteAdmin() {
+      this.isSendingAdmin = true;
+      try {
+        const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
+        await this.postAdminInvite(targetUid, this.commentText);
+      } catch (e) {
+        // eslint-disable-next-line
+        alert(`Error posting message.\n${e}`);
+      }
+      this.isSendingAdmin = false;
       this.$emit('submit-message');
       this.messagesSent += 1;
       this.targetName = '';

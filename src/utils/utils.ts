@@ -1,4 +1,5 @@
 import DefaultAvatar from '@/assets/navbar/DefaultIcon.svg';
+import DefaultGroupAvatar from '@/assets/group.svg';
 import { NotificationItem } from '@/types/common-types';
 
 export default {
@@ -25,7 +26,7 @@ export default {
     const formatted = notification.type.toUpperCase();
     if (formatted === 'BLOGS') {
       // Unpluralize, since it sounds better
-      return 'BLOG';
+      return 'NEWS';
     }
     return formatted;
   },
@@ -33,7 +34,7 @@ export default {
     if (!notification) return null;
     switch (notification.type.toLowerCase()) {
       case 'blogs':
-        return '#53b64e';
+        return '#f39c12';
       case 'labs':
         return '#50b2dc';
       case 'announcements':
@@ -151,5 +152,9 @@ export default {
   getAvatar(uri: string | null) {
     if (uri) return /^http/i.exec(uri) ? uri : `/${uri}`;
     return DefaultAvatar;
+  },
+  getGroupAvatar(uri: string | null) {
+    if (uri) return uri;
+    return DefaultGroupAvatar;
   },
 };

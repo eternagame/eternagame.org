@@ -55,20 +55,20 @@
       const{sort} = this.$route.query;
 
       const res = (
-      await this.$http.get('/get/?type=challenges')
+        await this.$http.get('/get/?type=challenges')
       ).data.data.challenges as ChallengeItem[];
 
       switch(sort){
         
-        case 'active':
-          this.challenges = res.filter( entry => entry.challenge_status === "Active");
-          break;
-        case 'inactive':
-          this.challenges = res.filter( entry => entry.challenge_status !== "Active");
-          break;
-        case 'all':
-        default:
-          this.challenges = res;
+      case 'active':
+        this.challenges = res.filter( entry => entry.challenge_status === "Active");
+        break;
+      case 'inactive':
+        this.challenges = res.filter( entry => entry.challenge_status !== "Active");
+        break;
+      case 'all':
+      default:
+        this.challenges = res;
       }
     }
     

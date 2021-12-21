@@ -85,9 +85,9 @@
   import { Component, Vue, Mixins, Watch, Ref } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import axios, { AxiosInstance } from 'axios';
+  import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import LabViewData, { LabData } from './types';
   // @ts-ignore
   @Component({
@@ -103,7 +103,9 @@
 
     puzzlenames = [];
 
-    async fetchData() {
+    fetchData: () => Promise<void> | undefined = async () => {};
+
+    async dofetchData() {
       const res = await axios.get(
         `/get/?type=usernames&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );

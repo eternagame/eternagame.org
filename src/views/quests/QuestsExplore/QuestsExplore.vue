@@ -43,10 +43,10 @@
         :isInSidebar="isInSidebar"
       />
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
-      <TagsPanel
+      <!-- <TagsPanel
       :tags="['#Switch', '#Ribozyme', '#XOR', '#MS2', '#FMN', '#Telomerase']"
         :isInSidebar="isInSidebar"
-      />
+      /> -->
       <b-button
        type="submit"
         variant="primary"

@@ -21,8 +21,8 @@
             }}</span>
           </h3>
           <div class="input-group">
-            <input :placeholder="$t('create-quest:quest-info:image-description')" />
-            <button type="button" class="btn secondary">
+            <input type="file" @change="handleFile" hidden ref="fileUpload" />
+            <button type="button" class="btn secondary" @click="fileUpload.click()">
               {{ $t('create-quest:quest-info:image-button-text') }}
             </button>
           </div>
@@ -42,37 +42,34 @@
 
           <h3>{{ $t('create-quest:puzzle-info:add-puzzle') }}</h3>
            <vue-bootstrap-typeahead
-          ref="typeahead"
-          :placeholder="$t('create-quest:puzzle-info:add-puzzle-description')"
-          v-model="targetName"
-          :data="puzzlenames"
-          :serializer="user => user.username"
-          :key="messagesSent"
-        >
-          <template slot="suggestion" slot-scope="{ data, htmlText }">
-            <div class="d-flex align-items-center">
-              <img
-                v-if="data.userpicture"
-                class="rounded-circle"
-                :src="`/${data.userpicture}`"
-                style="width: 40px; height: 40px;margin-right:10px"
-              />
-
-              <span v-dompurify-html="htmlText" style="color: white"></span>
+            ref="typeahead"
+            :placeholder="$t('create-quest:puzzle-info:add-puzzle-description')"
+            v-model="targetName"
+            :data="puzzlenames"
+            :serializer="puzzle => puzzle.title"
+          >
+            <template slot="suggestion" slot-scope="{ htmlText }">
+              <div class="d-flex align-items-center">
+                <span v-dompurify-html="htmlText" style="color: white"></span>
+              </div>
+            </template>
+          </vue-bootstrap-typeahead>
+            <div class="input-group">
+              <button type="button" class="btn secondary" @click="addPuzzle">
+                {{ $t('create-quest:puzzle-info:secondary-action') }}
+              </button>
             </div>
-          </template>
-        </vue-bootstrap-typeahead>
-          <div class="input-group">
-            <button type="button" class="btn secondary">
-              {{ $t('create-quest:puzzle-info:secondary-action') }}
-            </button>
-          </div>
-          <h3>
-            {{ $t('create-quest:puzzle-info:puzzle-list') }}
+            <h3>
+              {{ $t('create-quest:puzzle-info:puzzle-list') }}
             <span style="font-weight:normal">
               {{ $t('create-quest:puzzle-info:puzzle-list-tip') }}
             </span>
           </h3>
+          <draggable v-model="puzzlelist" group="people" @start="drag=true" @end="drag=false">
+            <transition-group>
+              <div v-for="element in puzzlelist" :key="element.id">{{element.title}} by {{element.username}} </div>
+            </transition-group>
+          </draggable>
         </div>
       </div>
     </div>
@@ -82,42 +79,52 @@
 <script lang="ts">
   // @ts-ignore
   import debounce from 'lodash.debounce';
-  import { Component, Vue, Mixins, Watch, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Mixins, Watch, Ref, Prop } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import axios, { AxiosInstance } from 'axios';
+  // @ts-ignore
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
+  import draggable from 'vuedraggable';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import LabViewData, { LabData } from './types';
-  // @ts-ignore
+  import Utils from "@/utils/utils";
+
   @Component({
     components: {
       EternaPage,
       TagsPanel,
       VueBootstrapTypeahead,
+      draggable,
     },
   })
   export default class CreateQuest extends Vue 
   {
-    targetName = '';
+    private targetName = '';
 
-    puzzlenames = [];
+    private puzzlenames = [];
+
+    private puzzlelist = [];
+
+    private currentPicture?: string;
+
+    private newPicture: File | null = null;
 
     fetchData: () => Promise<void> | undefined = async () => {};
 
     async dofetchData() {
       const res = await axios.get(
-        `/get/?type=usernames&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
+        `/get/?type=puzzles&puzzle_type=All&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );
-      this.puzzlenames = res.data.data.usernames;
+      this.puzzlenames = res.data.data.puzzles;
     }
 
     created() {
-      this.fetchData = debounce(this.fetchData, 200);
+      this.fetchData = debounce(this.dofetchData, 200);
     }
 
     @Watch('targetName', { immediate: true, deep: true })
-    getUserNames() {
+    getPuzzleNames() {
       this.fetchData();
     }
 
@@ -128,6 +135,30 @@
         this.typeahead.inputValue = String(this.$route.query.message);
         this.targetName = String(this.$route.query.message);
       }
+    }
+
+    addPuzzle() {
+      this.getPuzzleNames();
+      if (this.puzzlenames.length === 1){
+        this.puzzlelist.push(this.puzzlenames[0]);
+      }
+    }
+
+    get picture() {
+      if (this.newPicture) {
+        return URL.createObjectURL(this.newPicture);
+      }
+      return Utils.getGroupAvatar(this.currentPicture || null);
+    }
+
+    @Ref("fileUpload") private fileUpload!: HTMLInputElement;
+
+    @Prop({required: true}) private loading!: boolean;
+
+    handleFile(event: Event) {
+      const target = event.target as HTMLInputElement;
+      const file: File = (target.files as FileList)[0];
+      this.$emit('update:picture', file);
     }
   }
 </script>

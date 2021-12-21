@@ -41,7 +41,27 @@
           </h2>
 
           <h3>{{ $t('create-quest:puzzle-info:add-puzzle') }}</h3>
-          <input :placeholder="$t('create-quest:puzzle-info:add-puzzle-description')" />
+           <vue-bootstrap-typeahead
+          ref="typeahead"
+          :placeholder="$t('create-quest:puzzle-info:add-puzzle-description')"
+          v-model="targetName"
+          :data="puzzlenames"
+          :serializer="user => user.username"
+          :key="messagesSent"
+        >
+          <template slot="suggestion" slot-scope="{ data, htmlText }">
+            <div class="d-flex align-items-center">
+              <img
+                v-if="data.userpicture"
+                class="rounded-circle"
+                :src="`/${data.userpicture}`"
+                style="width: 40px; height: 40px;margin-right:10px"
+              />
+
+              <span v-dompurify-html="htmlText" style="color: white"></span>
+            </div>
+          </template>
+        </vue-bootstrap-typeahead>
           <div class="input-group">
             <button type="button" class="btn secondary">
               {{ $t('create-quest:puzzle-info:secondary-action') }}
@@ -60,20 +80,54 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
+  // @ts-ignore
+  import debounce from 'lodash.debounce';
+  import { Component, Vue, Mixins, Watch, Ref } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import axios, { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
+  import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import LabViewData, { LabData } from './types';
-
+  // @ts-ignore
   @Component({
     components: {
       EternaPage,
       TagsPanel,
+      VueBootstrapTypeahead,
     },
   })
-  export default class CreateQuest extends Vue {}
+  export default class CreateQuest extends Vue 
+  {
+    targetName = '';
+
+    puzzlenames = [];
+
+    async fetchData() {
+      const res = await axios.get(
+        `/get/?type=usernames&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
+      );
+      this.puzzlenames = res.data.data.usernames;
+    }
+
+    created() {
+      this.fetchData = debounce(this.fetchData, 200);
+    }
+
+    @Watch('targetName', { immediate: true, deep: true })
+    getUserNames() {
+      this.fetchData();
+    }
+
+    @Ref('typeahead') readonly typeahead!: { inputValue: string };
+
+    mounted() {
+      if (this.$route.query.message) {
+        this.typeahead.inputValue = String(this.$route.query.message);
+        this.targetName = String(this.$route.query.message);
+      }
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -94,6 +148,7 @@
 
   input {
     background-color: rgba(16, 16, 16, 0.5);
+    color: white;
     border: solid 0.6px $dark-blue;
     padding: 13px;
     width: 370px;

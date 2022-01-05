@@ -28,9 +28,9 @@
       </h4>
 
       <Gallery>
-        <QuestCard v-for="(item, index) in section3" :key="index" v-bind="item" />
+        <QuestCard v-for="(item, index) in fetch" :key="index" v-bind="item" />
       </Gallery>
-      <Pagination :key="section3.length" />
+      <Pagination :key="fetch.length" />
     </div>
     <div v-else>
       <Preloader/>
@@ -72,9 +72,21 @@
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
+  import { CreatedQuest, QuestItem, QuestList } from '@/types/common-types';
 
 
+  const INITIAL_SORT = 'date';
   const INITIAL_NUMBER = 18;
+
+  interface QuestExploreParams {
+    quest_type: string;
+    single: string;
+    joined: string;
+    sort: string;
+    search: string;
+    size: string;
+    uid: number | null;
+  }
 
   @Component({
     components: {
@@ -94,6 +106,30 @@
     },
   })
   export default class QuestsExplore extends Vue {
+
+    quests: QuestItem[] = [];
+
+    created: CreatedQuest[] = [];
+    
+    async fetch() {
+      const { filters, sort, search, size } = this.$route.query;
+      const params = {
+        sort: sort || INITIAL_SORT,
+        size: size || INITIAL_NUMBER,
+        search,
+      } as QuestExploreParams;
+
+      const ROUTE: string = "/get/?type=quests";
+
+      if (this.$vxm.user.loggedIn) params.uid = this.$vxm.user.uid;
+
+      const res = (await this.$http.get(ROUTE, {
+        params,
+      })).data.data as QuestList;
+      this.quests = res.quests;
+      this.created = res.created || [];
+    }
+
     get section1() {
       return [
         {

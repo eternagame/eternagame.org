@@ -6,12 +6,13 @@
           <h2>{{ $t('create-quest:quest-info:header') }}</h2>
 
           <h3>{{ $t('create-quest:quest-info:title') }}</h3>
-          <input :placeholder="$t('create-quest:quest-info:title-description')" />
+          <input :placeholder="$t('create-quest:quest-info:title-description')" v-model="title" />
 
           <h3>{{ $t('create-quest:quest-info:description') }}</h3>
           <input
             :placeholder="$t('create-quest:quest-info:description-description')"
             :style="{ paddingBottom: '120px' }"
+            v-model="body"
           />
 
           <h3>
@@ -30,7 +31,7 @@
             {{ $t('create-quest:quest-info:image-tip') }}
           </p>
 
-          <button type="button" class="btn btn-primary save">
+          <button type="button" class="btn btn-primary save" @click="submit()">
             {{ $t('create-quest:quest-info:main-action') }}
           </button>
         </div>
@@ -100,6 +101,14 @@
   })
   export default class CreateQuest extends Vue 
   {
+    private nid = '';
+
+    private title = '';
+
+    private body = '';
+
+    private newBody: string | null = null;
+
     private targetName = '';
 
     private puzzlenames = [];
@@ -159,6 +168,35 @@
       const target = event.target as HTMLInputElement;
       const file: File = (target.files as FileList)[0];
       this.$emit('update:picture', file);
+    }
+
+    async submit() {
+      this.loading = true;
+      const data = new FormData();
+      data.set('nid', this.nid);
+      data.set('quest-title-input', this.title);
+      data.set('quest-description-input', this.newBody === null ? this.body : this.newBody);
+      data.set('quest-puzzles', this.puzzlelist[0].id);
+      if (this.newPicture) data.append(`files[picture_upload]`, this.newPicture);
+      data.set('type', 'create_quest');
+
+      try {
+        const res = await this.$http.post("/post/", data, {
+          headers: {
+            'Content-type': 'multipart/form-data',
+          },
+        });
+        this.loading = false;
+        const error = res?.data?.data?.error;
+        if (error) throw new Error(error);
+        this.$router.push(`/quests/`);
+      } catch (e: any) {
+        const r = this.$notify({
+          type: 'error',
+          title: 'Error',
+          text: e.message,
+        });
+      }
     }
   }
 </script>

@@ -168,7 +168,7 @@ export default function createRouter() {
       },
       {
         path: '/eternacon',
-        redirect: { name: 'eternacon-2021' }
+        redirect: { name: 'eternacon-2022' }
       },
       {
         path: '/eternacon/2020',
@@ -179,6 +179,11 @@ export default function createRouter() {
         path: '/eternacon/2021',
         name: 'eternacon-2021',
         component: () => import('./views/eternacon/Eternacon2021.vue'),
+      },
+      {
+        path: '/eternacon/2022',
+        name: 'eternacon-2022',
+        component: () => import('./views/eternacon/Eternacon2022.vue'),
       },
       {
         path: '/eternacon/about',

@@ -26,11 +26,12 @@
       <h4 :style="{ fontSize: '16px', fontWeight: 'bold', textTransform: 'uppercase' }">
         {{ $t('quests-view:section3') }}
       </h4>
-
-      <Gallery>
-        <QuestCard v-for="(item, index) in fetch" :key="index" v-bind="item" />
-      </Gallery>
-      <Pagination :key="fetch.length" />
+      <div v-if="fetchState.firstFetchComplete">
+        <Gallery>
+          <QuestCard v-for="(item, index) in quests" :key="index" v-bind="item" />
+        </Gallery>
+        <Pagination :key="fetch.length" />
+      </div>
     </div>
     <div v-else>
       <Preloader/>
@@ -62,7 +63,7 @@
 <script lang="ts">
   import { BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
   import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
-  import { Component, Vue } from 'vue-property-decorator';
+  import { Component, Mixins, Vue } from 'vue-property-decorator';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
@@ -73,6 +74,7 @@
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import { CreatedQuest, QuestItem, QuestList } from '@/types/common-types';
+  import FetchMixin from '@/mixins/FetchMixin';
 
 
   const INITIAL_SORT = 'date';
@@ -105,7 +107,7 @@
       SearchPanel,
     },
   })
-  export default class QuestsExplore extends Vue {
+  export default class QuestsExplore extends Mixins(FetchMixin) {
 
     quests: QuestItem[] = [];
 

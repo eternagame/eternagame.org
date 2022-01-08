@@ -90,6 +90,7 @@
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import LabViewData, { LabData } from './types';
   import Utils from "@/utils/utils";
+  import { PuzzleItem } from '@/types/common-types';
 
   @Component({
     components: {
@@ -113,7 +114,7 @@
 
     private puzzlenames = [];
 
-    private puzzlelist = [];
+    private puzzlelist: PuzzleItem[] = [];
 
     private currentPicture?: string;
 
@@ -176,7 +177,9 @@
       data.set('nid', this.nid);
       data.set('quest-title-input', this.title);
       data.set('quest-description-input', this.newBody === null ? this.body : this.newBody);
-      data.set('quest-puzzles', this.puzzlelist[0].id);
+      const puzzleids: String[] = [];
+      this.puzzlelist.forEach(e => puzzleids.push(e.id));
+      data.set('quest-puzzles', puzzleids.toString());
       if (this.newPicture) data.append(`files[picture_upload]`, this.newPicture);
       data.set('type', 'create_quest');
 

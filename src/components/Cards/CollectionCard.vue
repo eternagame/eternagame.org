@@ -3,7 +3,7 @@
     <AspectRatioCard>
       <template #header>
       </template>
-      <SmartLink :link="toQuest">
+      <SmartLink :link="toCollection">
         <img :src="image" style="width: 80%; margin: auto;" class="scalable" />
       </SmartLink>
       <template #footer>
@@ -13,12 +13,12 @@
             <p v-if="completed">
               <SmartLink :link="toGame">
                 <img src="@/assets/noun_check.svg" />
-                <b style="text-transform: uppercase;">{{ $t('quest:completed') }}</b>
+                <b style="text-transform: uppercase;">{{ $t('collection:completed') }}</b>
               </SmartLink>
             </p>
             <div v-else>
               <b-button variant="primary" style="margin:10px 0" :[nav]="toGame">
-                {{ $t('quest-card:play') }}
+                {{ $t('collection-card:play') }}
               </b-button>
               <SmartLink v-if="started" :link="toGame">
                 <b-progress :value="to_next" max="1"></b-progress>
@@ -46,7 +46,7 @@
       SmartLink,
     },
   })
-  export default class QuestCard extends Vue {
+  export default class CollectionCard extends Vue {
     @Prop({required: true}) readonly image!: string;
 
     @Prop({required: true}) readonly to_next!: number;
@@ -57,7 +57,7 @@
 
     @Prop({required: true}) readonly level!: string;
 
-    @Prop() readonly questLink?: string;
+    @Prop() readonly collectionLink?: string;
 
     @Prop() readonly puzzleLink?: string;
 
@@ -75,12 +75,12 @@
       return (
         this.puzzleLink
         || (this.current_puzzle && `${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`)
-        || this.toQuest
+        || this.toCollection
       );
     }
 
-    get toQuest() {
-      return this.questLink || (this.title && `/quests/${this.title}`);
+    get toCollection() {
+      return this.collectionLink || (this.title && `/collections/${this.title}`);
     }
 
     get locked() {
@@ -118,7 +118,7 @@
     background-color: $blue;
   }
 
-  .quest-card-title {
+  .collection-card-title {
     height: 30px;
     text-align: center;
   }

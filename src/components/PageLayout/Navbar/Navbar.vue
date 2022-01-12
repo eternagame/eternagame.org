@@ -59,7 +59,7 @@
         puzzles: '/puzzles',
         labs: '/labs',
         challenges: '/challenges',
-        quests: '/quests',
+        collections: '/collections',
         data: `${process.env.VUE_APP_API_BASE_URL}/web/labs/data-browser/`,
         'puzzle-maker': `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`,
         'puzzle-maker-2-states': `${process.env.VUE_APP_API_BASE_URL}/game/switchmaker/2/`,

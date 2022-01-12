@@ -2,33 +2,33 @@
   <EternaPage>
     <div v-if="true">
       <h3 :style="{ fontSize: '16px', fontWeight: 'bold' }">
-        {{ $t('quests-view:top-tip') }}
+        {{ $t('collections-view:top-tip') }}
       </h3>
 
       <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
-        {{ $t('quests-view:section1') }}
+        {{ $t('collections-view:section1') }}
       </h1>
       <Carousel>
         <swiper-slide v-for="(item, index) in section1" :key="index">
-          <QuestCard v-bind="item" />
+          <CollectionCard v-bind="item" />
         </swiper-slide>
       </Carousel>
 
       <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
-        {{ $t('quests-view:section2') }}
+        {{ $t('collections-view:section2') }}
       </h1>
       <Carousel>
         <swiper-slide v-for="(item, index) in section2" :key="index">
-          <QuestCard v-bind="item" />
+          <CollectionCard v-bind="item" />
         </swiper-slide>
       </Carousel>
 
       <h4 :style="{ fontSize: '16px', fontWeight: 'bold', textTransform: 'uppercase' }">
-        {{ $t('quests-view:section3') }}
+        {{ $t('collections-view:section3') }}
       </h4>
       <div v-if="fetchState.firstFetchComplete">
         <Gallery>
-          <QuestCard v-for="(item, index) in quests" :key="index" v-bind="item" />
+          <CollectionCard v-for="(item, index) in collections" :key="index" v-bind="item" />
         </Gallery>
         <Pagination :key="fetch.length" />
       </div>
@@ -40,7 +40,7 @@
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
         v-if="isInSidebar"
-        :placeholder="$t('Search Quests')"
+        :placeholder="$t('Search Collectionss')"
         :isInSidebar="isInSidebar"
       />
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />
@@ -52,9 +52,9 @@
        type="submit"
         variant="primary"
         class="submit-button"
-        to="/create/quest"
+        to="/create/collection"
       >
-      {{ $t('Create a Quest')}}
+      {{ $t('Create a Collection')}}
       </b-button>
     </template>
   </EternaPage>
@@ -68,20 +68,20 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  import QuestCard from '@/components/Cards/QuestCard.vue';
+  import CollectionCard from '@/components/Cards/CollectionCard.vue';
   import Carousel from '@/components/Common/Carousel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
-  import { CreatedQuest, QuestItem, QuestList } from '@/types/common-types';
+  import { CreatedCollection, CollectionItem, CollectionList } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
 
 
   const INITIAL_SORT = 'date';
   const INITIAL_NUMBER = 18;
 
-  interface QuestExploreParams {
-    quest_type: string;
+  interface CollectionExploreParams {
+    collection_type: string;
     single: string;
     joined: string;
     sort: string;
@@ -96,7 +96,7 @@
       TagsPanel,
       FiltersPanel,
       PuzzleCard,
-      QuestCard,
+      CollectionCard,
       Swiper,
       SwiperSlide,
       BIconChevronRight,
@@ -107,11 +107,11 @@
       SearchPanel,
     },
   })
-  export default class QuestsExplore extends Mixins(FetchMixin) {
+  export default class CollectionsExplore extends Mixins(FetchMixin) {
 
-    quests: QuestItem[] = [];
+    collections: CollectionItem[] = [];
 
-    created: CreatedQuest[] = [];
+    created: CreatedCollection[] = [];
     
     async fetch() {
       const { filters, sort, search, size } = this.$route.query;
@@ -119,16 +119,16 @@
         sort: sort || INITIAL_SORT,
         size: size || INITIAL_NUMBER,
         search,
-      } as QuestExploreParams;
+      } as CollectionExploreParams;
 
-      const ROUTE: string = "/get/?type=quests";
+      const ROUTE: string = "/get/?type=collections";
 
       if (this.$vxm.user.loggedIn) params.uid = this.$vxm.user.uid;
 
       const res = (await this.$http.get(ROUTE, {
         params,
-      })).data.data as QuestList;
-      this.quests = res.quests;
+      })).data.data as CollectionList;
+      this.collections = res.collections;
       this.created = res.created || [];
     }
 

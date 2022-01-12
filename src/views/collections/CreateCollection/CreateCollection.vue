@@ -1,50 +1,50 @@
 <template>
-  <EternaPage :title="$t('nav-bar:create-quest')">
+  <EternaPage :title="$t('nav-bar:create-collection')">
     <div class="page-content">
       <div class="d-flex">
         <div>
-          <h2>{{ $t('create-quest:quest-info:header') }}</h2>
+          <h2>{{ $t('create-collection:collection-info:header') }}</h2>
 
-          <h3>{{ $t('create-quest:quest-info:title') }}</h3>
-          <input :placeholder="$t('create-quest:quest-info:title-description')" v-model="title" />
+          <h3>{{ $t('create-collection:collection-info:title') }}</h3>
+          <input :placeholder="$t('create-collection:collection-info:title-description')" v-model="title" />
 
-          <h3>{{ $t('create-quest:quest-info:description') }}</h3>
+          <h3>{{ $t('create-collection:collection-info:description') }}</h3>
           <input
-            :placeholder="$t('create-quest:quest-info:description-description')"
+            :placeholder="$t('create-collection:collection-info:description-description')"
             :style="{ paddingBottom: '120px' }"
             v-model="body"
           />
 
           <h3>
-            {{ $t('create-quest:quest-info:image') }}
+            {{ $t('create-collection:collection-info:image') }}
             <span style="font-weight:normal">{{
-              $t('create-quest:quest-info:image-optional')
+              $t('create-collection:collection-info:image-optional')
             }}</span>
           </h3>
           <div class="input-group">
             <input type="file" @change="handleFile" hidden ref="fileUpload" />
             <button type="button" class="btn secondary" @click="fileUpload.click()">
-              {{ $t('create-quest:quest-info:image-button-text') }}
+              {{ $t('create-collection:collection-info:image-button-text') }}
             </button>
           </div>
           <p>
-            {{ $t('create-quest:quest-info:image-tip') }}
+            {{ $t('create-collection:collection-info:image-tip') }}
           </p>
 
           <button type="button" class="btn btn-primary save" @click="submit()">
-            {{ $t('create-quest:quest-info:main-action') }}
+            {{ $t('create-collection:collection-info:main-action') }}
           </button>
         </div>
 
         <div>
           <h2>
-            {{ $t('create-quest:puzzle-info:header') }}
+            {{ $t('create-collection:puzzle-info:header') }}
           </h2>
 
-          <h3>{{ $t('create-quest:puzzle-info:add-puzzle') }}</h3>
+          <h3>{{ $t('create-collection:puzzle-info:add-puzzle') }}</h3>
            <vue-bootstrap-typeahead
             ref="typeahead"
-            :placeholder="$t('create-quest:puzzle-info:add-puzzle-description')"
+            :placeholder="$t('create-collection:puzzle-info:add-puzzle-description')"
             v-model="targetName"
             :data="puzzlenames"
             :serializer="puzzle => puzzle.title"
@@ -57,13 +57,13 @@
           </vue-bootstrap-typeahead>
             <div class="input-group">
               <button type="button" class="btn secondary" @click="addPuzzle">
-                {{ $t('create-quest:puzzle-info:secondary-action') }}
+                {{ $t('create-collection:puzzle-info:secondary-action') }}
               </button>
             </div>
             <h3>
-              {{ $t('create-quest:puzzle-info:puzzle-list') }}
+              {{ $t('create-collection:puzzle-info:puzzle-list') }}
             <span style="font-weight:normal">
-              {{ $t('create-quest:puzzle-info:puzzle-list-tip') }}
+              {{ $t('create-collection:puzzle-info:puzzle-list-tip') }}
             </span>
           </h3>
           <draggable v-model="puzzlelist" group="people" @start="drag=true" @end="drag=false">
@@ -100,7 +100,7 @@
       draggable,
     },
   })
-  export default class CreateQuest extends Vue 
+  export default class CreateCollection extends Vue 
   {
     private nid = '';
 
@@ -175,13 +175,13 @@
       this.loading = true;
       const data = new FormData();
       data.set('nid', this.nid);
-      data.set('quest-title-input', this.title);
-      data.set('quest-description-input', this.newBody === null ? this.body : this.newBody);
+      data.set('collection-title-input', this.title);
+      data.set('collection-description-input', this.newBody === null ? this.body : this.newBody);
       const puzzleids: String[] = [];
       this.puzzlelist.forEach(e => puzzleids.push(e.id));
-      data.set('quest-puzzles', puzzleids.toString());
+      data.set('collection-puzzles', puzzleids.toString());
       if (this.newPicture) data.append(`files[picture_upload]`, this.newPicture);
-      data.set('type', 'create_quest');
+      data.set('type', 'create_collection');
 
       try {
         const res = await this.$http.post("/post/", data, {
@@ -192,7 +192,7 @@
         this.loading = false;
         const error = res?.data?.data?.error;
         if (error) throw new Error(error);
-        this.$router.push(`/quests/`);
+        this.$router.push(`/collections/`);
       } catch (e: any) {
         const r = this.$notify({
           type: 'error',

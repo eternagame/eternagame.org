@@ -1,7 +1,7 @@
 <template>
   <BaseActivity :heading="heading" :slideTo="level">
     <SwiperSlide v-for="item in stages" :key="item.title">
-      <QuestCard v-bind="item" />
+      <CollectionCard v-bind="item" />
     </SwiperSlide>
   </BaseActivity>
 </template>
@@ -10,14 +10,14 @@
   import {Vue, Component, Prop} from 'vue-property-decorator';
   import { SwiperSlide } from 'vue-awesome-swiper';
   import {RoadmapAchievement} from '@/types/common-types';
-  import QuestCard from '@/components/Cards/QuestCard.vue';
+  import CollectionCard from '@/components/Cards/CollectionCard.vue';
   import BaseActivity from './BaseActivity.vue';
 
   @Component({
     components: {
       SwiperSlide,
       BaseActivity,
-      QuestCard
+      CollectionCard
     }
   })
   export default class TutorialActivity extends Vue {

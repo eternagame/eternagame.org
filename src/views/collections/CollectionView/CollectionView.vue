@@ -1,21 +1,21 @@
 <template>
-  <EternaPage :title="quest.title" v-if="fetchState.firstFetchComplete && quest">
-    <div class="quest-description">
+  <EternaPage :title="collection.title" v-if="fetchState.firstFetchComplete && collection">
+    <div class="collection-description">
       <div class="row">
         <div class="col-lg-7">
           <h2>
-            {{ $t('quest-view:banner-title') }}
+            {{ $t('collection-view:banner-title') }}
           </h2>
-          <p v-dompurify-html="quest.desc"></p>
+          <p v-dompurify-html="collection.desc"></p>
         </div>
         <div class="col-lg-5 d-flex justify-content-center">
           <div>
-            <img :src="quest.image" class="m-3 quest-badge" />
+            <img :src="collection.image" class="m-3 collection-badge" />
             <div v-if="completed">
               <img src="@/assets/noun_check.svg" class="mr-2" />
-              <b class="text-uppercase">{{ $t('quest:completed') }}</b>
+              <b class="text-uppercase">{{ $t('collection:completed') }}</b>
             </div>
-            <b-progress :value="quest.to_next" max="1" v-else></b-progress>
+            <b-progress :value="collection.to_next" max="1" v-else></b-progress>
           </div>
         </div>
       </div>
@@ -39,7 +39,7 @@
     <template #sidebar="{ isInSidebar }">
       <SidebarPanel
         :isInSidebar="isInSidebar"
-        :header="$t('quest-info-sidebar:title')"
+        :header="$t('collection-info-sidebar:title')"
         headerIcon="@/assets/info.svg"
       >
         <br />
@@ -54,7 +54,7 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  import QuestCard from '@/components/Cards/QuestCard.vue';
+  import CollectionCard from '@/components/Cards/CollectionCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { PuzzleList, PuzzleItem, ClearedPuzzle, RoadmapAchievement } from '@/types/common-types';
@@ -65,24 +65,24 @@
       EternaPage,
       TagsPanel,
       PuzzleCard,
-      QuestCard,
+      CollectionCard,
       SidebarPanel,
       Preloader,
     },
   })
-  export default class QuestView extends Mixins(FetchMixin) {
+  export default class CollectionView extends Mixins(FetchMixin) {
     puzzles: PuzzleItem[] = [];
 
     cleared: ClearedPuzzle[] = [];
 
-    quest: RoadmapAchievement | null = null;
+    collection: RoadmapAchievement | null = null;
 
     get locked() {
-      return this.quest? Number(this.quest.level) - 1 > Number(this.quest.current_level) : true;
+      return this.collection? Number(this.collection.level) - 1 > Number(this.collection.current_level) : true;
     }
 
     get completed() {
-      return this.quest ? this.quest.to_next >= 1 && !this.locked : false;
+      return this.collection ? this.collection.to_next >= 1 && !this.locked : false;
     }
 
     async fetch() {
@@ -106,7 +106,7 @@
       this.puzzles.push(...puzzles.puzzles.filter(candidatePuzzle => !this.puzzles.includes(candidatePuzzle)));
       
       this.cleared = puzzles.cleared || [];
-      this.quest = achievement_roadmap.find(p => p.title === this.$route.params.id) || null;
+      this.collection = achievement_roadmap.find(p => p.title === this.$route.params.id) || null;
     }
 
     puzzleCleared(id: string) {
@@ -118,11 +118,11 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  .quest-badge {
+  .collection-badge {
     max-width: 270px;
   }
 
-  .quest-description {
+  .collection-description {
     background-color: $med-dark-blue;
     object-fit: contain;
     padding: 2rem;

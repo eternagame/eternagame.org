@@ -267,27 +267,27 @@ export interface GroupList {
   joined?: JoinedGroup[];
 }
 
-export interface QuestItem {
+export interface CollectionItem {
   nid: string;
   name: string;
   creator_picture: string;
   creator_name: string;
   creator_uid: string;
-  quest_completers: string;
+  collection_completers: string;
   created: string;
   picture: string;
   num_completers: string;
 }
 
-export interface CreatedQuest {
+export interface CreatedCollection {
   name: string;
   nid: string;
 }
 
-export interface QuestList {
-  quests: QuestItem[];
-  num_quests: string;
-  created?: CreatedQuest[];
+export interface CollectionList {
+  collections: CollectionItem[];
+  num_collections: string;
+  created?: CreatedCollection[];
 }
 
 export interface NewsArticle {

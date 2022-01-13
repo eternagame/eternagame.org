@@ -439,6 +439,8 @@
   "register-modal:disclaimer-accept": "I accept the ",
   "register-modal:error-password-match": "Password Must Match.",
   "register-modal:error-accept-terms": "Please accept the Terms of Use and Privacy Policy",
+  "register-modal-fb:title": "Almost done...",
+  "register-modal-fb:register-explanation": "Please fill out the form below to complete your registration",
   "quest-info:title": "Best Lab Practices",
   "lab-info:title": "Lab Info",
   "lab-info:admin": "Admin:",

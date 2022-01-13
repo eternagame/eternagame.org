@@ -1,15 +1,15 @@
 <template>
   <b-modal
-    id="modal-register"
+    id="modal-register-fb"
     ref="modal"
     body-class="py-0"
     header-border-variant="primary"
     hide-footer
   >
     <template #modal-title>
-      <b class="text-uppercase">{{ $t('register-modal:title') }}</b>
+      <b class="text-uppercase">{{ $t('register-modal-fb:title') }}</b>
     </template>
-    {{ $t('register-modal:register-explanation') }}
+    {{ $t('register-modal-fb:register-explanation') }}
     <transition name="fade">
       <b-alert class="mt-3" show variant="danger" v-if="errorMessage">
         {{ $t(errorMessage) }}
@@ -78,7 +78,6 @@
         {{ $t('register-modal:main-action') }}
         <b-spinner v-if="loading" small />
       </b-button>
-      <FacebookAuthentication @fb-verify="registerWithFacebook" class="btn"></FacebookAuthentication>
     </b-form>
   </b-modal>
 </template>
@@ -87,9 +86,6 @@
   import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
-  import FacebookAuthentication from './components/FacebookAuthentication.vue';
-
-  const FB_LOGIN_ROUTE = '/login/?type=login&method=facebook';
 
   const INITIAL_FORM = {
     username: '',
@@ -101,13 +97,10 @@
   @Component({
     components: {
       VueRecaptcha,
-      FacebookAuthentication,
     },
   })
-  export default class RegisterModal extends Vue {
+  export default class RegisterFBModal extends Vue {
     form = INITIAL_FORM;
-
-    private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
     private loading = false;
 
@@ -119,24 +112,10 @@
 
     attemptNumber: number = 0;
 
-    FB = null;
-
     @Ref() readonly modal!: BModal;
 
     @Ref() readonly rePassword!: BFormInput;
 
-    registerWithFacebook(data: { success: boolean; error: string }) {
-      this.form.password = '';
-      if (data.success) {
-        this.modal.hide();
-      } else if (data.error === 'NEEDS_REGISTRATION') {
-        this.modal.hide();
-        this.$bvModal.show('modal-register-fb');
-      } else {
-        this.errorMessage = data.error;
-      }
-    }
-    
     async tryRegister(event: Event) {
       this.errorMessage = '';
       if (!this.accepted) {
@@ -161,6 +140,7 @@
           pass: this.form.password,
           mail: this.form.email,
           type: 'create',
+          method: 'facebook',
           captcha_response: this.captchaResponse,
         }),
         {

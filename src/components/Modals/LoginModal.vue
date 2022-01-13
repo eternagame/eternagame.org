@@ -96,6 +96,9 @@
       this.form.password = '';
       if (data.success) {
         this.modal.hide();
+      } else if (data.error === 'NEEDS_REGISTRATION') {
+        this.modal.hide();
+        this.$bvModal.show('modal-register-fb');
       } else {
         this.errorMessage = data.error;
       }

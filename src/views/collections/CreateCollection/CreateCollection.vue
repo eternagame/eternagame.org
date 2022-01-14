@@ -21,8 +21,8 @@
               $t('create-collection:collection-info:image-optional')
             }}</span>
           </h3>
+            <img :src="picture" class="collection-image"/>
           <div class="input-group">
-            <image :src="picture" />
             <input type="file" @change="handleFile" hidden ref="fileUpload" />
             <button type="button" class="btn secondary" @click="fileUpload.click()">
               {{ $t('create-collection:collection-info:image-button-text') }}
@@ -157,7 +157,7 @@
       if (this.newPicture) {
         return URL.createObjectURL(this.newPicture);
       }
-      return Utils.getGroupAvatar(this.currentPicture || null);
+      return Utils.getCollectionAvatar(this.currentPicture || null);
     }
 
     @Ref("fileUpload") private fileUpload!: HTMLInputElement;
@@ -168,7 +168,6 @@
       const target = event.target as HTMLInputElement;
       const file: File = (target.files as FileList)[0];
       this.newPicture = file;
-      console.log(this.newPicture);
     }
 
     async submit() {
@@ -244,5 +243,12 @@
     margin: 50px 0px;
     font-size: 20px;
     font-weight: bold;
+  }
+
+  .collection-image {
+    object-fit: contain;
+    margin-right: 20px;
+    width: 100px;
+    height: 100px;
   }
 </style>

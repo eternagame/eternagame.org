@@ -2,6 +2,9 @@
   <div ref="root">
     <AspectRatioCard>
       <template #header>
+        <div class="collection-card-title">
+          {{name}}
+        </div>
       </template>
       <SmartLink :link="toCollection">
         <img :src="image" style="width: 80%; margin: auto;" class="scalable" />
@@ -51,7 +54,7 @@
 
     @Prop({required: true}) readonly to_next!: number;
 
-    @Prop({required: true}) readonly title!: string;
+    @Prop({required: true}) readonly name!: string;
 
     @Prop({required: true}) readonly desc!: string;
 
@@ -80,7 +83,7 @@
     }
 
     get toCollection() {
-      return this.collectionLink || (this.title && `/collections/${this.title}`);
+      return this.collectionLink || (this.name && `/collections/${this.name}`);
     }
 
     get locked() {

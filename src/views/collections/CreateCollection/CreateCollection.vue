@@ -22,6 +22,7 @@
             }}</span>
           </h3>
           <div class="input-group">
+            <image :src="picture" />
             <input type="file" @change="handleFile" hidden ref="fileUpload" />
             <button type="button" class="btn secondary" @click="fileUpload.click()">
               {{ $t('create-collection:collection-info:image-button-text') }}
@@ -102,8 +103,6 @@
   })
   export default class CreateCollection extends Vue 
   {
-    private nid = '';
-
     private title = '';
 
     private body = '';
@@ -168,13 +167,13 @@
     handleFile(event: Event) {
       const target = event.target as HTMLInputElement;
       const file: File = (target.files as FileList)[0];
-      this.$emit('update:picture', file);
+      this.newPicture = file;
+      console.log(this.newPicture);
     }
 
     async submit() {
       this.loading = true;
       const data = new FormData();
-      data.set('nid', this.nid);
       data.set('collection-title-input', this.title);
       data.set('collection-description-input', this.newBody === null ? this.body : this.newBody);
       const puzzleids: String[] = [];

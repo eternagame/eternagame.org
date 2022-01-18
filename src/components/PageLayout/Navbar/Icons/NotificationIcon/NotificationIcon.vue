@@ -25,6 +25,7 @@
           <PrivateMessageNotification v-else-if="isPM(item)" :key="getCreated(item)" :pm="item" />
           <CommentNotification v-else-if="isComment(item)" :key="getCreated(item)" :comment="item" />
           <GroupNotificationItem v-else-if="isGroup(item)" :key="getCreated(item)" :group="item" />
+          <RewardNotificationItem v-else-if="isReward(item)" :key="getCreated(item)" :reward="item" />
         </template>
         <b-dropdown-item v-if="notifications.length == 0">
           {{$t('activity-feed:empty')}}
@@ -48,6 +49,7 @@
   import PrivateMessageNotification from './PrivateMessageNotification.vue';
   import CommentNotification from './CommentNotification.vue';
   import GroupNotificationItem from './GroupNotification.vue';
+  import RewardNotificationItem from './RewardNotification.vue';
 
   const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user';
 
@@ -63,7 +65,8 @@
       NewsNotification,
       PrivateMessageNotification,
       CommentNotification,
-      GroupNotificationItem
+      GroupNotificationItem,
+      RewardNotificationItem
     },
   })
   export default class NotificationIcon extends Mixins(FetchMixin) {
@@ -139,6 +142,10 @@
 
     private isGroup(notification: NotificationItem) {
       return isDirectedNotificationItem(notification);
+    }
+
+    private isReward(notification: NotificationItem) {
+      return notification.type === NotificationType.REWARD;
     }
   }
 </script>

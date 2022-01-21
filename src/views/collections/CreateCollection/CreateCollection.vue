@@ -89,9 +89,9 @@
   import draggable from 'vuedraggable';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import LabViewData, { LabData } from './types';
   import Utils from "@/utils/utils";
   import { PuzzleItem } from '@/types/common-types';
+  import LabViewData, { LabData } from './types';
 
   @Component({
     components: {

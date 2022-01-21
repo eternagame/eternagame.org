@@ -270,6 +270,7 @@ export interface GroupList {
 export interface CollectionItem {
   nid: string;
   name: string;
+  body: string;
   creator_picture: string;
   creator_name: string;
   creator_uid: string;

@@ -69,7 +69,10 @@
           </h3>
           <draggable v-model="puzzlelist" group="people" @start="drag=true" @end="drag=false">
             <transition-group>
-              <div v-for="element in puzzlelist" :key="element.id">{{element.title}} by {{element.username}} </div>
+              <div v-for="element in puzzlelist" :key="element.id"> 
+                <b>{{element.title}}</b> by {{element.username}}
+                <button/>
+              </div>
             </transition-group>
           </draggable>
         </div>
@@ -148,9 +151,14 @@
 
     addPuzzle() {
       this.getPuzzleNames();
-      if (this.puzzlenames.length === 1){
+      if (this.puzzlenames.length === 1 ){
         this.puzzlelist.push(this.puzzlenames[0]);
       }
+      this.targetName = "";
+    }
+
+    removePuzzle(puzzle: PuzzleItem) {
+      this.puzzlelist.splice(this.puzzlelist.indexOf(puzzle), 1);
     }
 
     get picture() {

@@ -1,12 +1,12 @@
 <template>
-  <EternaPage :title="collection.title" v-if="fetchState.firstFetchComplete && collection">
+  <EternaPage :title="collection.collection.name" v-if="fetchState.firstFetchComplete && collection">
     <div class="collection-description">
       <div class="row">
         <div class="col-lg-7">
           <h2>
             {{ $t('collection-view:banner-title') }}
           </h2>
-          <p v-dompurify-html="collection.desc"></p>
+          <p v-dompurify-html="collection.collection.body"></p>
         </div>
         <div class="col-lg-5 d-flex justify-content-center">
           <div>
@@ -57,7 +57,7 @@
   import CollectionCard from '@/components/Cards/CollectionCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import { PuzzleList, PuzzleItem, ClearedPuzzle, RoadmapAchievement } from '@/types/common-types';
+  import { PuzzleList, PuzzleItem, ClearedPuzzle, RoadmapAchievement, CollectionItem } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
 
   @Component({
@@ -75,15 +75,15 @@
 
     cleared: ClearedPuzzle[] = [];
 
-    collection: RoadmapAchievement | null = null;
+    collection: CollectionItem | null = null;
 
-    get locked() {
+    /* get locked() {
       return this.collection? Number(this.collection.level) - 1 > Number(this.collection.current_level) : true;
     }
 
     get completed() {
       return this.collection ? this.collection.to_next >= 1 && !this.locked : false;
-    }
+    } */
 
     /* async fetch() {
       const achievement_roadmap = (await this.$http.get('/get/?type=side_project_roadmap')).data.data.achievement_roadmap as RoadmapAchievement[];
@@ -110,7 +110,7 @@
     } */
 
     async fetch(){
-      this.collection = (await this.$http.get(`/get/?type=collection?nid=${this.$route.params.id}`)).data.data as RoadmapAchievement;
+      this.collection = (await this.$http.get(`/get/?type=collection&nid=${this.$route.params.id}`)).data.data as CollectionItem;
       console.log(this.collection);
     }
 

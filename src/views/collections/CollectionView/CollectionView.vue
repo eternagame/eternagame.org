@@ -85,7 +85,7 @@
       return this.collection ? this.collection.to_next >= 1 && !this.locked : false;
     }
 
-    async fetch() {
+    /* async fetch() {
       const achievement_roadmap = (await this.$http.get('/get/?type=side_project_roadmap')).data.data.achievement_roadmap as RoadmapAchievement[];
       const puzzles = (
         await this.$http.get(`/get/?type=puzzles&puzzle_type=Progression&tags=${this.$route.params.id}`)
@@ -107,6 +107,11 @@
       
       this.cleared = puzzles.cleared || [];
       this.collection = achievement_roadmap.find(p => p.title === this.$route.params.id) || null;
+    } */
+
+    async fetch(){
+      this.collection = (await this.$http.get(`/get/?type=collection?nid=${this.$route.params.id}`)).data.data as RoadmapAchievement;
+      console.log(this.collection);
     }
 
     puzzleCleared(id: string) {

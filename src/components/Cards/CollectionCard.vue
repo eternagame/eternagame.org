@@ -60,6 +60,8 @@
 
     @Prop({required: true}) readonly level!: string;
 
+    @Prop({required: true}) readonly nid!: string;
+
     @Prop() readonly collectionLink?: string;
 
     @Prop() readonly puzzleLink?: string;
@@ -83,7 +85,7 @@
     }
 
     get toCollection() {
-      return this.collectionLink || (this.name && `/collections/${this.name}`);
+      return this.collectionLink || (this.name && `/collections/${this.nid}`);
     }
 
     get locked() {

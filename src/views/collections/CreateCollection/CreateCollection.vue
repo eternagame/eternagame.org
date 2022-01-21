@@ -69,9 +69,10 @@
           </h3>
           <draggable v-model="puzzlelist" group="people" @start="drag=true" @end="drag=false">
             <transition-group>
-              <div v-for="element in puzzlelist" :key="element.id"> 
+              <div v-for="element in puzzlelist" :key="element.id">
+                <img :src="getImage(element.id)" style="width: 5%; margin: auto;" class="scalable" /> 
                 <b>{{element.title}}</b> by {{element.username}}
-                <button/>
+                <button @click="removePuzzle(element)"/>
               </div>
             </transition-group>
           </draggable>
@@ -150,11 +151,12 @@
     }
 
     addPuzzle() {
+      console.log(this.puzzlenames);
       this.getPuzzleNames();
+      console.log(this.puzzlenames);
       if (this.puzzlenames.length === 1 ){
         this.puzzlelist.push(this.puzzlenames[0]);
       }
-      this.targetName = "";
     }
 
     removePuzzle(puzzle: PuzzleItem) {
@@ -176,6 +178,11 @@
       const target = event.target as HTMLInputElement;
       const file: File = (target.files as FileList)[0];
       this.newPicture = file;
+    }
+
+    getImage(nid: string) {
+      const image = Utils.getPuzzleMiddleThumbnail(nid);
+      return image;
     }
 
     async submit() {

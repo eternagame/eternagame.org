@@ -277,6 +277,7 @@ export interface CollectionItem {
   collection_completers: string;
   created: string;
   picture: string;
+  puzzles: string;
   num_completers: string;
 }
 

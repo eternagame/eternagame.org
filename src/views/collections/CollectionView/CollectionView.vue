@@ -1,12 +1,12 @@
 <template>
-  <EternaPage :title="collection.collection.name" v-if="fetchState.firstFetchComplete && collection">
+  <EternaPage :title="collection.name" v-if="fetchState.firstFetchComplete && collection">
     <div class="collection-description">
       <div class="row">
         <div class="col-lg-7">
           <h2>
             {{ $t('collection-view:banner-title') }}
           </h2>
-          <p v-dompurify-html="collection.collection.body"></p>
+          <p v-dompurify-html="collection.body"></p>
         </div>
         <div class="col-lg-5 d-flex justify-content-center">
           <div>
@@ -27,10 +27,10 @@
     <Gallery sm="4" md="3" v-if="puzzles">
       <PuzzleCard
         v-for="puzzle in puzzles"
-        :key="puzzle.id"
-        :nid="puzzle.id"
-        v-bind="puzzle"
-        :cleared="puzzleCleared(puzzle.id)"
+        :key="puzzle.puzzle.id"
+        :nid="puzzle.puzzle.id"
+        v-bind="puzzle.puzzle"
+        :cleared="puzzleCleared(puzzle.puzzle.id)"
       />
     </Gallery>
     <div v-else>
@@ -110,8 +110,9 @@
     } */
 
     async fetch(){
-      this.collection = (await this.$http.get(`/get/?type=collection&nid=${this.$route.params.id}`)).data.data as CollectionItem;
-      console.log(this.collection);
+      this.collection = (await this.$http.get(`/get/?type=collection&nid=${this.$route.params.id}`)).data.data.collection as CollectionItem;
+      const puzzlelist = this.collection.puzzles.split(", ");
+      Object.values(puzzlelist).forEach(async puzz => this.puzzles.push((await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)).data.data as PuzzleItem));
     }
 
     puzzleCleared(id: string) {

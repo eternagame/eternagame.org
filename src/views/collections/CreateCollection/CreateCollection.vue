@@ -115,7 +115,7 @@
 
     private targetName = '';
 
-    private puzzlenames = [];
+    private puzzlenames: PuzzleItem[] = [];
 
     private puzzlelist: PuzzleItem[] = [];
 
@@ -126,10 +126,18 @@
     fetchData: () => Promise<void> | undefined = async () => {};
 
     async dofetchData() {
-      const res = await axios.get(
+      let res = await axios.get(
         `/get/?type=puzzles&puzzle_type=All&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );
-      this.puzzlenames = res.data.data.puzzles;
+      // this.puzzlenames = res.data.data.puzzles;
+      this.puzzlenames = [];
+      res = await axios.get(
+        `/get/?type=puzzle${this.targetName ? `&nid=${this.targetName}` : ''}`,
+      );
+      if (res.data.data.puzzle.title != null){
+        this.puzzlenames.push(res.data.data.puzzle);
+      }
+      console.log(this.puzzlenames);
     }
 
     created() {
@@ -151,9 +159,7 @@
     }
 
     addPuzzle() {
-      console.log(this.puzzlenames);
       this.getPuzzleNames();
-      console.log(this.puzzlenames);
       if (this.puzzlenames.length === 1 ){
         this.puzzlelist.push(this.puzzlenames[0]);
       }

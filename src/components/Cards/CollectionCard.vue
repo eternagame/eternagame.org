@@ -7,7 +7,7 @@
         </div>
       </template>
       <SmartLink :link="toCollection">
-        <img :src="image" style="width: 80%; margin: auto;" class="scalable" />
+        <img :src="picture" style="width: 80%; margin: auto;" class="scalable" />
       </SmartLink>
       <template #footer>
         <div style="text-align:center; margin-bottom:0px">
@@ -50,7 +50,7 @@
     },
   })
   export default class CollectionCard extends Vue {
-    @Prop({required: true}) readonly image!: string;
+    @Prop({required: true}) readonly picture!: string;
 
     @Prop({required: true}) readonly to_next!: number;
 

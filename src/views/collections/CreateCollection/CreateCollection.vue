@@ -52,6 +52,7 @@
           >
             <template slot="suggestion" slot-scope="{ htmlText }">
               <div class="d-flex align-items-center">
+                <img :src="getImage(puzzle.nid)" />
                 <span v-dompurify-html="htmlText" style="color: white"></span>
               </div>
             </template>
@@ -129,8 +130,7 @@
       let res = await axios.get(
         `/get/?type=puzzles&puzzle_type=All&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );
-      // this.puzzlenames = res.data.data.puzzles;
-      this.puzzlenames = [];
+      this.puzzlenames = res.data.data.puzzles;
       res = await axios.get(
         `/get/?type=puzzle${this.targetName ? `&nid=${this.targetName}` : ''}`,
       );

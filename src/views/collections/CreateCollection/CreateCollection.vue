@@ -52,8 +52,10 @@
           >
             <template slot="suggestion" slot-scope="{ htmlText }">
               <div class="d-flex align-items-center">
-                <img class="rounded-circle" :src="getImage(puzzle.nid)" style="width: 40px; height: 40px;margin-right:10px"/>
+                <img class="rounded-circle" :src="getImage(data.nid)" style="width: 40px; height: 40px;margin-right:10px"/>
                 <span v-dompurify-html="htmlText" style="color: white"></span>
+                <button />
+                <button />
               </div>
             </template>
           </vue-bootstrap-typeahead>

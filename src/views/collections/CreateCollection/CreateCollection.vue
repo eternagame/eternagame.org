@@ -50,19 +50,21 @@
             :data="puzzlenames"
             :serializer="puzzle => puzzle.title"
           >
-            <template slot="suggestion" slot-scope="{ htmlText }">
+            <template slot="suggestion" slot-scope="{ data, htmlText }">
               <div class="d-flex align-items-center">
-                <img class="rounded-circle" :src="getImage(data.nid)" style="width: 40px; height: 40px;margin-right:10px"/>
+                <img class="rounded-circle" :src="getImage(data.id)" style="width: 40px; height: 40px;margin-right:10px"/>
                 <span v-dompurify-html="htmlText" style="color: white"></span>
-                <button />
-                <button />
+                by {{data.username}}
+                <button type="button" class="btn secondary" @click="addPuzzle(data.id)">
+                {{ $t('create-collection:puzzle-info:secondary-action') }}
+                </button>
+                <button type="button" class="btn secondary" @click="viewPuzzle(data.id)">
+                View Puzzle
+                </button>
               </div>
             </template>
           </vue-bootstrap-typeahead>
             <div class="input-group">
-              <button type="button" class="btn secondary" @click="addPuzzle">
-                {{ $t('create-collection:puzzle-info:secondary-action') }}
-              </button>
             </div>
             <h3>
               {{ $t('create-collection:puzzle-info:puzzle-list') }}
@@ -75,7 +77,9 @@
               <div v-for="element in puzzlelist" :key="element.id">
                 <img :src="getImage(element.id)" style="width: 5%; margin: auto;" class="scalable" /> 
                 <b>{{element.title}}</b> by {{element.username}}
-                <button @click="removePuzzle(element)"/>
+                <button type="button" class="btn secondary" @click="removePuzzle(element)">
+                  Remove
+                </button>
               </div>
             </transition-group>
           </draggable>
@@ -160,11 +164,8 @@
       }
     }
 
-    addPuzzle() {
-      this.getPuzzleNames();
-      if (this.puzzlenames.length === 1 ){
-        this.puzzlelist.push(this.puzzlenames[0]);
-      }
+    async addPuzzle(nid: String) {
+      this.puzzlelist.push(await (await axios.get(`/get/?type=puzzle&nid=${nid}`)).data.data.puzzle as PuzzleItem);
     }
 
     removePuzzle(puzzle: PuzzleItem) {
@@ -191,6 +192,11 @@
     getImage(nid: string) {
       const image = Utils.getPuzzleMiddleThumbnail(nid);
       return image;
+    }
+
+    viewPuzzle(nid: string){
+      const route = this.$router.resolve({path: `/puzzles/${nid}`});
+      window.open(route.href);
     }
 
     async submit() {

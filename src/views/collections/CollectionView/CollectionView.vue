@@ -111,8 +111,10 @@
 
     async fetch(){
       this.collection = (await this.$http.get(`/get/?type=collection&nid=${this.$route.params.id}`)).data.data.collection as CollectionItem;
-      const puzzlelist = this.collection.puzzles.split(", ");
+      const puzzlelist = this.collection.puzzles.split(",");
       Object.values(puzzlelist).forEach(async puzz => this.puzzles.push((await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)).data.data as PuzzleItem));
+      // this code sucks but I'll fix it later
+      this.cleared = await (await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)).data.data.cleared;
     }
 
     puzzleCleared(id: string) {

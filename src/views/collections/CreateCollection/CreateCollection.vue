@@ -43,6 +43,13 @@
           </h2>
 
           <h3>{{ $t('create-collection:puzzle-info:add-puzzle') }}</h3>
+          <input
+            placeholder="Enter ID"
+            v-model="idInput"
+          />
+          <button type="button" class="btn secondary" @click="addPuzzle(idInput)">
+            Submit Id
+          </button>
            <vue-bootstrap-typeahead
             ref="typeahead"
             :placeholder="$t('create-collection:puzzle-info:add-puzzle-description')"
@@ -129,6 +136,8 @@
     private currentPicture?: string;
 
     private newPicture: File | null = null;
+
+    private idInput: String = "";
 
     fetchData: () => Promise<void> | undefined = async () => {};
 

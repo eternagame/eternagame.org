@@ -133,17 +133,10 @@
     fetchData: () => Promise<void> | undefined = async () => {};
 
     async dofetchData() {
-      let res = await axios.get(
+      const res = await axios.get(
         `/get/?type=puzzles&puzzle_type=All&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );
-      this.puzzlenames = res.data.data.puzzles;
-      res = await axios.get(
-        `/get/?type=puzzle${this.targetName ? `&nid=${this.targetName}` : ''}`,
-      );
-      if (res.data.data.puzzle.title != null){
-        this.puzzlenames.push(res.data.data.puzzle);
-      }
-      console.log(this.puzzlenames);
+      this.puzzlenames = res.data.data.puzzles as PuzzleItem[];
     }
 
     created() {

@@ -90,6 +90,9 @@
       <div class="history-paragraph">
         {{ $t('history:science-body-16') }}
       </div>
+      <div class="history-paragraph">
+        {{ $t('history:science-body-17') }}
+      </div>
     </div>
     <div class="software-container" :id="sections[2].href">
       <h4 class="header">
@@ -135,7 +138,7 @@
   import FetchMixin from '@/mixins/FetchMixin';
   import HistoryInfoPanel from './components/HistoryInfoPanel.vue';
   import HistoryData from './types';
-  
+
 
   @Component({
     components: {
@@ -174,7 +177,7 @@
       const historyResults = (
         await this.$http.get(`/get/?type=history`)
       ).data.data.history as HistoryData;
-      
+
       this.data = historyResults;
     }
 
@@ -266,7 +269,7 @@
     display: inline-block;
     font-size: 0.7rem;
   }
-  
+
   .history-paragraph {
     margin-bottom: 20px;
   }
@@ -283,7 +286,7 @@
       width: 50%;
       background-color: #043468;
       margin-bottom: 10px;
-      
+
       padding: 15px;
       border-radius: 5px;
 
@@ -300,7 +303,7 @@
       @include media-breakpoint-down(sm) {
         width: 100%;
       }
-    
+
       .stat-number {
         font-size: 2rem;
         font-weight: 700;

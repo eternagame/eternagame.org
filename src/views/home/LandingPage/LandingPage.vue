@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    
+
     <HeroSection />
 
     <!-- Covid-19 Promo (TODO: localize?)-->
@@ -20,8 +20,7 @@
             vaccines stable enough to be deployed to everyone in the world and not just a privileged
             few. Check out the <router-link to="/challenges/10845741">challenge page</router-link>
             for a description of our accomplishments and publications, including special sequences
-            for the Delta variant and our newest challenge to design a stable mRNA vaccine for the
-            Omicron variant.
+            for fighting the Delta and Omicron variants.
           </p>
           <p class="mb-0"></p>
         </div>
@@ -36,11 +35,11 @@
           <h3 class="mt-0" style="font-weight: bold;">10 Years of Discovery</h3>
           <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
           <p style="font-size: 1.2rem;">
-            This year we celebrate 10 years of citizen science through Eterna. Together we've
+            Eterna has led over 10 years of citizen science. Together we've
             synthesized thousands of player-designed molecules, published over 20 academic papers
             tackling fundamental RNA design questions, and pioneered the open development of RNA
-            medicines. Over the course of the year we'll be rolling out new features and game
-            mechanics as we continue to build the future of Eterna.
+            medicines. We will continue to roll out new features, game
+            mechanics, and lab challenges as we expand the future of Eterna.
           </p>
           <p class="mb-0"></p>
         </div>
@@ -69,7 +68,7 @@
             coronavirus. Learn about RNA vaccines and viruses from
             <a href="https://www.pbs.org/wgbh/nova/video/decoding-covid-19/" target="_blank">NOVA</a>.
             Check out the <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/" target="_blank">RNA VirtuaLab</a>
-            to get a crash course on what you can do to help. Then, unlock lab access to join the OpenVaccine challenge!
+            to get a crash course on what you can do to help. Then, unlock lab access to join our lab challenges!
           </p>
           <p class="mb-0"></p>
         </div>
@@ -87,7 +86,7 @@
   import { AxiosInstance } from 'axios';
   import DocsSection from './components/DocsSection.vue';
   import HeroSection from './components/HeroSection.vue';
-  
+
   @Component({
     components: {
       DocsSection,

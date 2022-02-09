@@ -35,6 +35,9 @@
           <button type="button" class="btn btn-primary save" @click="submit()">
             {{ $t('create-collection:collection-info:main-action') }}
           </button>
+          <b-button type="submit" style="margin-left:10px" variant="danger" @click="deleteCollection">
+          {{"Delete"}}
+        </b-button>
         </div>
 
         <div>
@@ -239,6 +242,16 @@
           text: e.message,
         });
       }
+    }
+
+    async deleteCollection(){
+      this.$http.post('/post/', new URLSearchParams({
+        type: 'delete_collection',
+        nid: this.$route.params.id,
+      }))
+        .then(res => {
+          this.$router.push({path: `/collections`});
+        });
     }
   }
 </script>

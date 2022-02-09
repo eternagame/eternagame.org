@@ -43,6 +43,14 @@
         headerIcon="@/assets/info.svg"
       >
         <br />
+        <b-button
+              type="submit"
+              variant="primary"
+              class="submit-button"
+              :to="`/collections/${nid}/edit`"
+              >
+                {{ "Edit" }}
+        </b-button>
       </SidebarPanel>
     </template>
   </EternaPage>
@@ -76,6 +84,8 @@
     cleared: ClearedPuzzle[] = [];
 
     collection: CollectionItem | null = null;
+
+    nid = this.$route.params.id;
 
     /* get locked() {
       return this.collection? Number(this.collection.level) - 1 > Number(this.collection.current_level) : true;
@@ -113,7 +123,6 @@
       this.collection = (await this.$http.get(`/get/?type=collection&nid=${this.$route.params.id}`)).data.data.collection as CollectionItem;
       const puzzlelist = this.collection.puzzles.split(",");
       Object.values(puzzlelist).forEach(async puzz => this.puzzles.push((await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)).data.data as PuzzleItem));
-      // this code sucks but I'll fix it later
       this.cleared = await (await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)).data.data.cleared;
     }
 

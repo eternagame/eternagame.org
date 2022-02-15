@@ -14,11 +14,9 @@
         <template v-if="hasLabAccess">
           <LabSlide v-for="lab in labCarouselLabs" v-bind="lab" :key="lab.nid" />
           <POTWSlide v-bind="potwSlideData" v-if="potwSlideData" />
-          <AnniversarySlide />
         </template>
         <template v-else>
           <TutorialTeaserSlide :nextPuzzleID="nextPuzzleID" />
-          <AnniversarySlide />
         </template>
       </b-carousel>
 
@@ -60,7 +58,6 @@
   import POTWSlide from './components/banner/POTWSlide.vue';
   import LabSlide from './components/banner/LabSlide.vue';
   import EternaconSlide from './components/banner/EternaconSlide.vue';
-  import AnniversarySlide from './components/banner/AnniversarySlide.vue';
   import IdeaJamSlide from './components/banner/IdeaJamSlide.vue';
   import QuestActivity from './components/activities/QuestActivity.vue';
   import TutorialActivity from './components/activities/TutorialActivity.vue';
@@ -76,7 +73,6 @@
       Preloader,
       QuestActivity,
       TutorialActivity,
-      AnniversarySlide,
       IdeaJamSlide
     },
   })
@@ -112,7 +108,7 @@
             )
           )
         }));
-        
+
       this.labCarouselLabs = res[1].data.data.labs;
       this.potwSlideData = res[2].data.data;
 

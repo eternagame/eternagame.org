@@ -12,6 +12,11 @@ export default function createRouter() {
     base: process.env.BASE_URL,
     routes: [
       {
+        path: '/calendar',
+        name: 'calendar',
+        component: () => import('./views/calendar/Calendar.vue'),
+      },
+      {
         path: '/labs',
         name: 'labs-list',
         component: () => import('./views/labs/LabsExplore/LabsExplore.vue'),

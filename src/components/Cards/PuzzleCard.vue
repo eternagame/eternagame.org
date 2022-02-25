@@ -4,8 +4,8 @@
       <template #header>
         <div class="puzzle-card-title" v-if="title">
           <img src="@/assets/noun_check.svg" v-if="cleared" style="float:right" />
-          
-          <SmartLink :link="`/puzzles/${nid}`"><img src="@/assets/info.svg" v-if="rightNumber" style="float:right" /></SmartLink>
+
+          <SmartLink :link="`/puzzles/${nid}`"><img src="@/assets/info.svg" v-if="!backgroundLink" style="float:right" /></SmartLink>
 
           <b>{{ title }}</b>
         </div>
@@ -13,102 +13,75 @@
       <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable" />
       <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
       <template #footer>
-        <b-row class="mb-2" style="margin-top:10px">
-          <b-col cols="4">
-            <div class="left-col" v-if="folder">
-              <slot name="left-icon">
-                <img src="@/assets/chemical_bond.svg" alt="folder" class="icon" />
-              </slot>
+        <!-- Puzzle gameplay info -->
+        <div class="meta-row meta-gameplay" v-if="folder || stateCount > 1 || is3d">
+          <div v-if="folder">
+            <template>
+              <img src="@/assets/chemical_bond.svg" alt="folder" />
               {{ folder }}
-            </div>
-          </b-col>
-          <b-col cols="4">
-            <div class="text-center" v-if="number_of_states > 1">
-              <StateCounter :value="number_of_states" style="position:relative;top:-5px" />
-            </div>
-            <div class="text-center" v-if="states > 1">
-              <StateCounter :value="states" style="position:relative;top:-5px" />
-            </div>
-          </b-col>
-          <b-col cols="4">
-            <div class="right-col" v-if="reward">
-              <slot name="right-icon">
-                <img src="@/assets/dollar.svg" alt="reward" class="icon" />
-              </slot>
-              {{ reward }}
-            </div>
-          </b-col>
-        </b-row>
-        <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
-          <slot name="buttons" />
+            </template>
+          </div>
+          <div v-if="stateCount > 1 || is3d">
+            <template>
+              <StateCounter :value="stateCount"/>
+            </template>
+            <template v-if="is3d">
+              <img src="@/assets/3D.svg" alt="3D" />
+            </template>
+          </div>
         </div>
 
-
-        <b-row class="mb-2" style="margin-top:10px">
-          <b-col cols="6">
-            <div class="left-col" v-if="username && madeByPlayer">
-              <slot name="left-icon">
-                <img :src="avatar" id="avatarimage" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMy45OTkiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyMy45OTkgMjQiPg0KICA8cGF0aCBpZD0iU2hhcGUiIGQ9Ik0xMiwyNEExMiwxMiwwLDEsMSwyNCwxMiwxMi4wMTMsMTIuMDEzLDAsMCwxLDEyLDI0Wk04LjE4NSwxMi44NzJhLjQ5LjQ5LDAsMCwxLC4xMzQuMDIuNDczLjQ3MywwLDAsMSwuMzE5LjMxOCw2LjEsNi4xLDAsMCwwLDEuMTA4LDIuMjE5LjQ3Mi40NzIsMCwwLDEsLjExMS4zdjEuMzM3YS45NjMuOTYzLDAsMCwxLS40OTEuODEyLjQ3Ny40NzcsMCwwLDEtLjExOC4wNDMsMTUuNTU0LDE1LjU1NCwwLDAsMC00Ljg0MiwyLjEsMTEuMDMsMTEuMDMsMCwwLDAsMTUuMTkxLDAsMTUuNCwxNS40LDAsMCwwLTQuODQxLTIuMS40NDMuNDQzLDAsMCwxLS4xMTctLjA0Mi45NTEuOTUxLDAsMCwxLS40OTItLjgxM1YxNS43MzJhLjQ2OS40NjksMCwwLDEsLjExMS0uMyw2LjEsNi4xLDAsMCwwLDEuMTA3LTIuMjE5LjQ2Ni40NjYsMCwwLDEsLjMxOS0uMzE5LjQ3OS40NzksMCwwLDEsLjEzNC0uMDIuNDY5LjQ2OSwwLDAsMSwuMjkyLjEsNi45NTgsNi45NTgsMCwwLDAsLjI0Ni0xLjgybC0uMDEzLDBoLS4wMzRhLjQ2OS40NjksMCwwLDEtLjQ2OC0uNTRjLjEyNS0uODI4LjMtMi44OTItLjgtNC4xNzFBMy44MTMsMy44MTMsMCwwLDAsMTIsNS4zMDksMy44MSwzLjgxLDAsMCwwLDguOTYyLDYuNDQ4Yy0xLjEsMS4yNzgtLjkyNiwzLjM0Mi0uOCw0LjE3YS40NjkuNDY5LDAsMCwxLS40NjguNTQuNDA3LjQwNywwLDAsMS0uMDQ3LDAsNi45MjUsNi45MjUsMCwwLDAsLjI0NSwxLjgyQS40NzEuNDcxLDAsMCwxLDguMTg1LDEyLjg3MlpNMTYuMSwxMy45NzdBNi43NSw2Ljc1LDAsMCwxLDE1LjA4NiwxNS45djEuMTM3YTE1LjgsMTUuOCwwLDAsMSw1LjE4LDIuMywxMS4wNTgsMTEuMDU4LDAsMSwwLTE2LjUzMywwLDE1Ljk4NiwxNS45ODYsMCwwLDEsNS4xODEtMi4zVjE1LjlBNi43Nyw2Ljc3LDAsMCwxLDcuOSwxMy45NzdsLS4wNjQsMGEuOC44LDAsMCwxLS42NTMtLjM1Miw1LjI0NSw1LjI0NSwwLDAsMS0uMzM4LTMuMTg3LjYxNi42MTYsMCwwLDEsLjMyMS0uMjQ4QTUuODg4LDUuODg4LDAsMCwxLDguMjQ5LDUuODM0LDQuNyw0LjcsMCwwLDEsMTIsNC4zNjlhNC43LDQuNywwLDAsMSwzLjc1MSwxLjQ2NCw1Ljg4OSw1Ljg4OSwwLDAsMSwxLjA4Niw0LjM2LjYyMy42MjMsMCwwLDEsLjMyMi4yNDgsNS4yNTIsNS4yNTIsMCwwLDEtLjMzOCwzLjE4Ni44LjgsMCwwLDEtLjY1NC4zNTNsLS4wNjQsMFoiIGZpbGw9IiNmZmYiLz4NCjwvc3ZnPg0K'" class="icon">
-              </slot>
-              <div v-if="madeByPlayer"> {{ username }} </div>
-            </div>
-
-
-            <div class="left-col" v-if="numSynths">
-              <slot name="left-icon">
-                <img src="@/assets/test-tube.svg" alt="actual synthesized" class="icon" />
-              </slot>
+        <!-- Lab puzzle metadata -->
+        <b-row class="meta-row" v-if="numSynths || numSlots || numSubmitted !== undefined || mySolutions !== undefined || maxSubmissions">
+          <div v-if="numSynths || numSlots">
+            <div v-if="numSynths">
+              <img src="@/assets/test-tube.svg" alt="Number synthesized"/>
               {{ numSynths }}
             </div>
-
-            <div v-else>
-              <div class="left-col" v-if="leftNumber">
-                <slot name="left-icon">
-                  <img src="@/assets/test-tube.svg" alt="synthesis slots" class="icon" />
-                </slot>
-                {{ leftNumber }}
-              </div>
+            <div v-else-if="numSlots">
+              <img src="@/assets/test-tube.svg" alt="Number to be synthesized"/>
+              {{ numSlots }}
             </div>
-
-          </b-col>
-          <b-col cols="6">
-            <div class="right-col" v-if="numCleared">
-              <slot name="right-icon">
-                <img src="@/assets/people.svg" alt="players cleared" class="icon" />
-              </slot>
-              {{ numCleared }}
-            </div>
-
-            <div class="right-col" v-if="rightNumber">
-              <slot name="right-icon">
-                <img src="@/assets/noun_globe.svg" alt="total solutions submitted" class="icon" />
-              </slot>
-              {{ rightNumber }}
-            </div>
-          </b-col>
+          </div>
+          <div v-if="numSubmitted !== undefined">
+            <template>
+              <img src="@/assets/noun_globe.svg" alt="Total solutions submitted" />
+              {{ numSubmitted }}
+            </template>
+          </div>
+          <div v-if="mySolutions !== undefined || maxSubmissions">
+            <template>
+              <img src="@/assets/noun_max.svg" alt="My solutions submitted">
+              {{mySolutions || 0}}<template v-if="maxSubmissions">/{{maxSubmissions}}</template>
+            </template>
+          </div>
         </b-row>
 
-        <b-row class="mb-2" style="margin-top:10px">
-          <b-col cols="6">
-            <div class="left-col" v-if="numSolutions">
-              <slot name="left-icon">
-                <img src="@/assets/noun_puzzle.svg" alt="my solutions" class="icon" />
-              </slot>
-              {{ numSolutions }}
-            </div>
-
-          </b-col>
-
-          <b-col cols="6">
-            <div class="right-col" v-if="maxSubmissions">
-              <slot name="right-icon">
-                <img src="@/assets/noun_max.svg" alt="maximum submissions" class="icon" />
-              </slot>
-              {{ maxSubmissions }}
-            </div>
-          </b-col>
+        <!-- Challenge puzzle metadata -->
+        <b-row class="meta-row" v-if="reward || (username && madeByPlayer) || numCleared !== undefined">
+          <div v-if="username && madeByPlayer">
+            <template>
+              <img :src="avatar" id="avatarimage" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMy45OTkiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyMy45OTkgMjQiPg0KICA8cGF0aCBpZD0iU2hhcGUiIGQ9Ik0xMiwyNEExMiwxMiwwLDEsMSwyNCwxMiwxMi4wMTMsMTIuMDEzLDAsMCwxLDEyLDI0Wk04LjE4NSwxMi44NzJhLjQ5LjQ5LDAsMCwxLC4xMzQuMDIuNDczLjQ3MywwLDAsMSwuMzE5LjMxOCw2LjEsNi4xLDAsMCwwLDEuMTA4LDIuMjE5LjQ3Mi40NzIsMCwwLDEsLjExMS4zdjEuMzM3YS45NjMuOTYzLDAsMCwxLS40OTEuODEyLjQ3Ny40NzcsMCwwLDEtLjExOC4wNDMsMTUuNTU0LDE1LjU1NCwwLDAsMC00Ljg0MiwyLjEsMTEuMDMsMTEuMDMsMCwwLDAsMTUuMTkxLDAsMTUuNCwxNS40LDAsMCwwLTQuODQxLTIuMS40NDMuNDQzLDAsMCwxLS4xMTctLjA0Mi45NTEuOTUxLDAsMCwxLS40OTItLjgxM1YxNS43MzJhLjQ2OS40NjksMCwwLDEsLjExMS0uMyw2LjEsNi4xLDAsMCwwLDEuMTA3LTIuMjE5LjQ2Ni40NjYsMCwwLDEsLjMxOS0uMzE5LjQ3OS40NzksMCwwLDEsLjEzNC0uMDIuNDY5LjQ2OSwwLDAsMSwuMjkyLjEsNi45NTgsNi45NTgsMCwwLDAsLjI0Ni0xLjgybC0uMDEzLDBoLS4wMzRhLjQ2OS40NjksMCwwLDEtLjQ2OC0uNTRjLjEyNS0uODI4LjMtMi44OTItLjgtNC4xNzFBMy44MTMsMy44MTMsMCwwLDAsMTIsNS4zMDksMy44MSwzLjgxLDAsMCwwLDguOTYyLDYuNDQ4Yy0xLjEsMS4yNzgtLjkyNiwzLjM0Mi0uOCw0LjE3YS40NjkuNDY5LDAsMCwxLS40NjguNTQuNDA3LjQwNywwLDAsMS0uMDQ3LDAsNi45MjUsNi45MjUsMCwwLDAsLjI0NSwxLjgyQS40NzEuNDcxLDAsMCwxLDguMTg1LDEyLjg3MlpNMTYuMSwxMy45NzdBNi43NSw2Ljc1LDAsMCwxLDE1LjA4NiwxNS45djEuMTM3YTE1LjgsMTUuOCwwLDAsMSw1LjE4LDIuMywxMS4wNTgsMTEuMDU4LDAsMSwwLTE2LjUzMywwLDE1Ljk4NiwxNS45ODYsMCwwLDEsNS4xODEtMi4zVjE1LjlBNi43Nyw2Ljc3LDAsMCwxLDcuOSwxMy45NzdsLS4wNjQsMGEuOC44LDAsMCwxLS42NTMtLjM1Miw1LjI0NSw1LjI0NSwwLDAsMS0uMzM4LTMuMTg3LjYxNi42MTYsMCwwLDEsLjMyMS0uMjQ4QTUuODg4LDUuODg4LDAsMCwxLDguMjQ5LDUuODM0LDQuNyw0LjcsMCwwLDEsMTIsNC4zNjlhNC43LDQuNywwLDAsMSwzLjc1MSwxLjQ2NCw1Ljg4OSw1Ljg4OSwwLDAsMSwxLjA4Niw0LjM2LjYyMy42MjMsMCwwLDEsLjMyMi4yNDgsNS4yNTIsNS4yNTIsMCwwLDEtLjMzOCwzLjE4Ni44LjgsMCwwLDEtLjY1NC4zNTNsLS4wNjQsMFoiIGZpbGw9IiNmZmYiLz4NCjwvc3ZnPg0K'" class="icon">
+              {{ username }}
+            </template>
+          </div>
+          <div v-if="reward">
+            <template>
+              <img src="@/assets/dollar.svg" alt="reward">
+              {{ reward }}
+            </template>
+          </div>
+          <div>
+            <template>
+              <img src="@/assets/people.svg" alt="players cleared" class="icon" />
+              {{ numCleared || 0 }}
+            </template>
+          </div>
         </b-row>
 
+        <div style="width: 100%;" class="d-flex mt-2 justify-content-between" v-if="$slots.buttons">
+          <slot name="buttons" />
+        </div>
 
       </template>
     </AspectRatioCard>
@@ -143,9 +116,9 @@
 
     @Prop() readonly number_of_states?: number;
 
-    @Prop() readonly leftNumber?: number;
+    @Prop() readonly numSlots?: number;
 
-    @Prop() readonly rightNumber?: number;
+    @Prop() readonly numSubmitted?: number;
 
     @Prop() readonly numSynths?: number;
 
@@ -165,21 +138,13 @@
 
     @Prop({ default: false }) readonly madeByPlayer!: boolean;
 
+    @Prop({ default: false }) readonly is3d?: boolean;
+
     // Whether clicking on the card background should link to the puzzle.
     @Prop({ default: true }) readonly backgroundLink!: boolean;
 
     get numCleared() {
-      if (this.$attrs['num-cleared']){
-        return this.$attrs['num-cleared'];
-      }
-      return 0;
-    }
-
-    get numSolutions() {
-      if (this.mySolutions !== 0){
-        return this.mySolutions;
-      }
-      return '0';
+      return this.$attrs['num-cleared'] ?? undefined;
     }
 
     get imageURL() {
@@ -190,6 +155,10 @@
 
     get avatar() {
       return Utils.getAvatar(this.userpicture || null);
+    }
+
+    get stateCount() {
+      return this.states ?? this.number_of_states ?? 1;
     }
   }
 </script>
@@ -212,43 +181,27 @@
     text-align: center;
   }
 
-  .middle-num {
-    position: absolute;
-    top: Calc(50%);
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #21508c;
-    font-size: 8px;
-    font-weight: 900;
-  }
-
-  .icon {
-    width: 19px;
-    margin-right: 5px;
-  }
-
-  .left-col,
-  .right-col {
+  .meta-row {
     font-size: 11px;
+    font-weight: bold;
+    margin: 10px 0;
     display: flex;
     align-items: center;
-    font-weight: bold;
+    justify-content: space-between;
 
-    & > .icon {
-      width: 12.57px;
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
     }
-  }
 
-  .right-col {
-    justify-content: flex-end;
-  }
-
-  .inner {
-    left: 50%;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    position: absolute;
-    z-index: 1;
+    img {
+      object-fit: contain;
+      width: 14px;
+      max-height: 14px;
+      margin: 0 5px;
+    }
   }
 
   .card {

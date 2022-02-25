@@ -9,6 +9,7 @@
           v-bind="puzzle"
           :cleared="puzzleCleared(puzzle.id)"
           :madeByPlayer="puzzle['made-by-player'] !== '0'"
+          :is3d="puzzle['has3d'] === '1'"
         />
       </Gallery>
       <Pagination :key="puzzles && puzzles.length" />
@@ -68,6 +69,7 @@
     search: string;
     size: string;
     uid: number | null;
+    '3d': boolean;
   }
 
   @Component({
@@ -101,6 +103,7 @@
         ),
         single: filters && filters.includes('single') && 'checked',
         notcleared: filters && filters.includes('notcleared') && 'true',
+        '3d': filters && filters.includes('3d') && 'true',
         sort: sort || INITIAL_SORT,
         size: size || INITIAL_NUMBER,
         search,
@@ -140,6 +143,7 @@
       // { value: 'inforna', text: 'Inforna' },
       // { value: 'switch', text: 'Switch' },
       { value: 'notcleared', text: 'Uncleared' },
+      { value: '3d', text: '3D' },
     ];
 
   // private tags: string[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];

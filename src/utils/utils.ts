@@ -106,7 +106,7 @@ export default {
         // return 'https://eternagame.org/web/playerpuzzles/?search=:COVID19&sort=solved';
         return '/puzzles/?search=:COVID19&sort=solved';
       case 'side_quest_eterna3d_expo':
-        return '/puzzles/?search=:Eterna3D Expo&sort=solved';
+        return '/puzzles/?search=:Eterna3D Expo&sort=date_asc';
       default:
         return null;
     }
@@ -139,7 +139,7 @@ export default {
         // return 'https://eternagame.org/web/playerpuzzles/?search=:COVID19&sort=solved';
         return '/puzzles/?search=:COVID19&sort=solved';
       case 'side_quest_eterna3d_expo':
-        return '/puzzles/?search=:Eterna3D Expo&sort=solved';
+        return '/puzzles/?search=:Eterna3D Expo&sort=date_asc';
       default:
         return null;
     }

@@ -15,67 +15,54 @@
       <template #footer>
         <!-- Puzzle gameplay info -->
         <div class="meta-row meta-gameplay" v-if="folder || stateCount > 1 || is3d">
-          <div v-if="folder">
-            <template>
-              <img src="@/assets/chemical_bond.svg" alt="folder" />
-              {{ folder }}
-            </template>
+          <div v-if="folder" v-b-tooltip.hover title="Folding engine">
+            <img src="@/assets/chemical_bond.svg" alt="Folding engine" />
+            {{ folder }}
           </div>
           <div v-if="stateCount > 1 || is3d">
-            <template>
-              <StateCounter :value="stateCount"/>
+            <template v-if="stateCount > 1">
+              <StateCounter :value="stateCount" v-b-tooltip.hover :title="`${stateCount} state switch`"/>
             </template>
             <template v-if="is3d">
-              <img src="@/assets/3D.svg" alt="3D" />
+              <img src="@/assets/3D.svg" alt="3D puzzle" v-b-tooltip.hover title="3D puzzle"/>
             </template>
           </div>
         </div>
 
         <!-- Lab puzzle metadata -->
         <b-row class="meta-row" v-if="numSynths || numSlots || numSubmitted !== undefined || mySolutions !== undefined || maxSubmissions">
-          <div v-if="numSynths || numSlots">
-            <div v-if="numSynths">
-              <img src="@/assets/test-tube.svg" alt="Number synthesized"/>
-              {{ numSynths }}
-            </div>
-            <div v-else-if="numSlots">
-              <img src="@/assets/test-tube.svg" alt="Number to be synthesized"/>
-              {{ numSlots }}
-            </div>
+          <div v-if="numSynths" v-b-tooltip.hover title="Number synthesized">
+            <img src="@/assets/test-tube.svg" alt="Number synthesized"/>
+            {{ numSynths }}
           </div>
-          <div v-if="numSubmitted !== undefined">
-            <template>
-              <img src="@/assets/noun_globe.svg" alt="Total solutions submitted" />
-              {{ numSubmitted }}
-            </template>
+          <div v-else-if="numSlots" v-b-tooltip.hover title="Number to be synthesized">
+            <img src="@/assets/test-tube.svg" alt="Number to be synthesized"/>
+            {{ numSlots }}
           </div>
-          <div v-if="mySolutions !== undefined || maxSubmissions">
-            <template>
-              <img src="@/assets/noun_max.svg" alt="My solutions submitted">
-              {{mySolutions || 0}}<template v-if="maxSubmissions">/{{maxSubmissions}}</template>
-            </template>
+
+          <div v-if="numSubmitted !== undefined" v-b-tooltip.hover title="Total solutions submitted">
+            <img src="@/assets/noun_globe.svg" alt="Total solutions submitted" />
+            {{ numSubmitted }}
+          </div>
+          <div v-if="mySolutions !== undefined || maxSubmissions" v-b-tooltip.hover title="My solutions submitted">
+            <img src="@/assets/noun_max.svg" alt="My solutions submitted">
+            {{mySolutions || 0}}<template v-if="maxSubmissions">/{{maxSubmissions}}</template>
           </div>
         </b-row>
 
         <!-- Challenge puzzle metadata -->
         <b-row class="meta-row" v-if="reward || (username && madeByPlayer) || numCleared !== undefined">
-          <div v-if="username && madeByPlayer">
-            <template>
-              <img :src="avatar" id="avatarimage" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMy45OTkiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyMy45OTkgMjQiPg0KICA8cGF0aCBpZD0iU2hhcGUiIGQ9Ik0xMiwyNEExMiwxMiwwLDEsMSwyNCwxMiwxMi4wMTMsMTIuMDEzLDAsMCwxLDEyLDI0Wk04LjE4NSwxMi44NzJhLjQ5LjQ5LDAsMCwxLC4xMzQuMDIuNDczLjQ3MywwLDAsMSwuMzE5LjMxOCw2LjEsNi4xLDAsMCwwLDEuMTA4LDIuMjE5LjQ3Mi40NzIsMCwwLDEsLjExMS4zdjEuMzM3YS45NjMuOTYzLDAsMCwxLS40OTEuODEyLjQ3Ny40NzcsMCwwLDEtLjExOC4wNDMsMTUuNTU0LDE1LjU1NCwwLDAsMC00Ljg0MiwyLjEsMTEuMDMsMTEuMDMsMCwwLDAsMTUuMTkxLDAsMTUuNCwxNS40LDAsMCwwLTQuODQxLTIuMS40NDMuNDQzLDAsMCwxLS4xMTctLjA0Mi45NTEuOTUxLDAsMCwxLS40OTItLjgxM1YxNS43MzJhLjQ2OS40NjksMCwwLDEsLjExMS0uMyw2LjEsNi4xLDAsMCwwLDEuMTA3LTIuMjE5LjQ2Ni40NjYsMCwwLDEsLjMxOS0uMzE5LjQ3OS40NzksMCwwLDEsLjEzNC0uMDIuNDY5LjQ2OSwwLDAsMSwuMjkyLjEsNi45NTgsNi45NTgsMCwwLDAsLjI0Ni0xLjgybC0uMDEzLDBoLS4wMzRhLjQ2OS40NjksMCwwLDEtLjQ2OC0uNTRjLjEyNS0uODI4LjMtMi44OTItLjgtNC4xNzFBMy44MTMsMy44MTMsMCwwLDAsMTIsNS4zMDksMy44MSwzLjgxLDAsMCwwLDguOTYyLDYuNDQ4Yy0xLjEsMS4yNzgtLjkyNiwzLjM0Mi0uOCw0LjE3YS40NjkuNDY5LDAsMCwxLS40NjguNTQuNDA3LjQwNywwLDAsMS0uMDQ3LDAsNi45MjUsNi45MjUsMCwwLDAsLjI0NSwxLjgyQS40NzEuNDcxLDAsMCwxLDguMTg1LDEyLjg3MlpNMTYuMSwxMy45NzdBNi43NSw2Ljc1LDAsMCwxLDE1LjA4NiwxNS45djEuMTM3YTE1LjgsMTUuOCwwLDAsMSw1LjE4LDIuMywxMS4wNTgsMTEuMDU4LDAsMSwwLTE2LjUzMywwLDE1Ljk4NiwxNS45ODYsMCwwLDEsNS4xODEtMi4zVjE1LjlBNi43Nyw2Ljc3LDAsMCwxLDcuOSwxMy45NzdsLS4wNjQsMGEuOC44LDAsMCwxLS42NTMtLjM1Miw1LjI0NSw1LjI0NSwwLDAsMS0uMzM4LTMuMTg3LjYxNi42MTYsMCwwLDEsLjMyMS0uMjQ4QTUuODg4LDUuODg4LDAsMCwxLDguMjQ5LDUuODM0LDQuNyw0LjcsMCwwLDEsMTIsNC4zNjlhNC43LDQuNywwLDAsMSwzLjc1MSwxLjQ2NCw1Ljg4OSw1Ljg4OSwwLDAsMSwxLjA4Niw0LjM2LjYyMy42MjMsMCwwLDEsLjMyMi4yNDgsNS4yNTIsNS4yNTIsMCwwLDEtLjMzOCwzLjE4Ni44LjgsMCwwLDEtLjY1NC4zNTNsLS4wNjQsMFoiIGZpbGw9IiNmZmYiLz4NCjwvc3ZnPg0K'" class="icon">
-              {{ username }}
-            </template>
+          <div v-if="username && madeByPlayer" v-b-tooltip.hover title="Author">
+            <img :src="avatar" alt="Author" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMy45OTkiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyMy45OTkgMjQiPg0KICA8cGF0aCBpZD0iU2hhcGUiIGQ9Ik0xMiwyNEExMiwxMiwwLDEsMSwyNCwxMiwxMi4wMTMsMTIuMDEzLDAsMCwxLDEyLDI0Wk04LjE4NSwxMi44NzJhLjQ5LjQ5LDAsMCwxLC4xMzQuMDIuNDczLjQ3MywwLDAsMSwuMzE5LjMxOCw2LjEsNi4xLDAsMCwwLDEuMTA4LDIuMjE5LjQ3Mi40NzIsMCwwLDEsLjExMS4zdjEuMzM3YS45NjMuOTYzLDAsMCwxLS40OTEuODEyLjQ3Ny40NzcsMCwwLDEtLjExOC4wNDMsMTUuNTU0LDE1LjU1NCwwLDAsMC00Ljg0MiwyLjEsMTEuMDMsMTEuMDMsMCwwLDAsMTUuMTkxLDAsMTUuNCwxNS40LDAsMCwwLTQuODQxLTIuMS40NDMuNDQzLDAsMCwxLS4xMTctLjA0Mi45NTEuOTUxLDAsMCwxLS40OTItLjgxM1YxNS43MzJhLjQ2OS40NjksMCwwLDEsLjExMS0uMyw2LjEsNi4xLDAsMCwwLDEuMTA3LTIuMjE5LjQ2Ni40NjYsMCwwLDEsLjMxOS0uMzE5LjQ3OS40NzksMCwwLDEsLjEzNC0uMDIuNDY5LjQ2OSwwLDAsMSwuMjkyLjEsNi45NTgsNi45NTgsMCwwLDAsLjI0Ni0xLjgybC0uMDEzLDBoLS4wMzRhLjQ2OS40NjksMCwwLDEtLjQ2OC0uNTRjLjEyNS0uODI4LjMtMi44OTItLjgtNC4xNzFBMy44MTMsMy44MTMsMCwwLDAsMTIsNS4zMDksMy44MSwzLjgxLDAsMCwwLDguOTYyLDYuNDQ4Yy0xLjEsMS4yNzgtLjkyNiwzLjM0Mi0uOCw0LjE3YS40NjkuNDY5LDAsMCwxLS40NjguNTQuNDA3LjQwNywwLDAsMS0uMDQ3LDAsNi45MjUsNi45MjUsMCwwLDAsLjI0NSwxLjgyQS40NzEuNDcxLDAsMCwxLDguMTg1LDEyLjg3MlpNMTYuMSwxMy45NzdBNi43NSw2Ljc1LDAsMCwxLDE1LjA4NiwxNS45djEuMTM3YTE1LjgsMTUuOCwwLDAsMSw1LjE4LDIuMywxMS4wNTgsMTEuMDU4LDAsMSwwLTE2LjUzMywwLDE1Ljk4NiwxNS45ODYsMCwwLDEsNS4xODEtMi4zVjE1LjlBNi43Nyw2Ljc3LDAsMCwxLDcuOSwxMy45NzdsLS4wNjQsMGEuOC44LDAsMCwxLS42NTMtLjM1Miw1LjI0NSw1LjI0NSwwLDAsMS0uMzM4LTMuMTg3LjYxNi42MTYsMCwwLDEsLjMyMS0uMjQ4QTUuODg4LDUuODg4LDAsMCwxLDguMjQ5LDUuODM0LDQuNyw0LjcsMCwwLDEsMTIsNC4zNjlhNC43LDQuNywwLDAsMSwzLjc1MSwxLjQ2NCw1Ljg4OSw1Ljg4OSwwLDAsMSwxLjA4Niw0LjM2LjYyMy42MjMsMCwwLDEsLjMyMi4yNDgsNS4yNTIsNS4yNTIsMCwwLDEtLjMzOCwzLjE4Ni44LjgsMCwwLDEtLjY1NC4zNTNsLS4wNjQsMFoiIGZpbGw9IiNmZmYiLz4NCjwvc3ZnPg0K'">
+            {{ username }}
           </div>
-          <div v-if="reward">
-            <template>
-              <img src="@/assets/dollar.svg" alt="reward">
-              {{ reward }}
-            </template>
+          <div v-if="reward" v-b-tooltip.hover title="Reward">
+            <img src="@/assets/dollar.svg" alt="Reward">
+            {{ reward }}
           </div>
-          <div>
-            <template>
-              <img src="@/assets/people.svg" alt="players cleared" class="icon" />
-              {{ numCleared || 0 }}
-            </template>
+          <div v-b-tooltip.hover title="Players cleared">
+            <img src="@/assets/people.svg" alt="Players cleared" />
+            {{ numCleared || 0 }}
           </div>
         </b-row>
 

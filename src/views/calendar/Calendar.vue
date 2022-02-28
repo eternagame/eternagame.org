@@ -26,16 +26,16 @@
         calendarOptions: {
           plugins: [ dayGridPlugin, interactionPlugin, googleCalendarPlugin ],
           initialView: 'dayGridMonth',
-          dateClick: this.handleDateClick,
+          // dateClick: this.handleDateClick,
+          googleCalendarApiKey: process.env.VUE_APP_GOOGLE_API_ID,
           events: {
-            googleCalendarId: "https://calendar.google.com/calendar/u/3?cid=ZjhjdHMxcGVlc2ppdWptdXZ2MTA0NmM4bDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ"
+            googleCalendarId: process.env.VUE_APP_GOOGLE_CALENDAR_ID
           }
         }
       };
     }
   
     handleDateClick(arg: { dateStr: string; }) {
-      console.log("Click!!!");
       alert(`date click! ${  arg.dateStr}`);
     }
   } 

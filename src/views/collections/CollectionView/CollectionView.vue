@@ -36,6 +36,7 @@
     <div v-else>
       <Preloader />
     </div>
+    <Comments :comments="comments" :nid="collection.id" />
     <template #sidebar="{ isInSidebar }">
       <SidebarPanel
         :isInSidebar="isInSidebar"
@@ -65,8 +66,9 @@
   import CollectionCard from '@/components/Cards/CollectionCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import { PuzzleList, PuzzleItem, ClearedPuzzle, RoadmapAchievement, CollectionItem } from '@/types/common-types';
+  import { PuzzleList, PuzzleItem, ClearedPuzzle, RoadmapAchievement, CollectionItem, CollectionResponse, CommentItem } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
+  import Comments from '@/components/PageLayout/Comments.vue';
 
   @Component({
     components: {
@@ -76,6 +78,7 @@
       CollectionCard,
       SidebarPanel,
       Preloader,
+      Comments,
     },
   })
   export default class CollectionView extends Mixins(FetchMixin) {
@@ -84,6 +87,8 @@
     cleared: ClearedPuzzle[] = [];
 
     collection: CollectionItem | null = null;
+
+    comments: CommentItem[] = [];
 
     nid = this.$route.params.id;
 
@@ -120,7 +125,12 @@
     } */
 
     async fetch(){
-      this.collection = (await this.$http.get(`/get/?type=collection&nid=${this.$route.params.id}`)).data.data.collection as CollectionItem;
+      const res = (
+        await this.$http.get(`/get/?type=collection&nid=${this.$route.params.id}`)
+      ).data.data as CollectionResponse;
+      this.collection = res.collection;
+      this.comments = res.comments;
+      this.nid = res.collection.nid;
       const puzzlelist = this.collection.puzzles.split(",");
       Object.values(puzzlelist).forEach(async puzz => this.puzzles.push((await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)).data.data as PuzzleItem));
       this.cleared = await (await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)).data.data.cleared;

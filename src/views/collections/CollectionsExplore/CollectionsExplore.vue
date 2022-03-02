@@ -5,23 +5,27 @@
         {{ $t('collections-view:top-tip') }}
       </h3>
 
-      <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
-        {{ $t('collections-view:section1') }}
-      </h1>
-      <Carousel>
-        <swiper-slide v-for="(item, index) in section1" :key="index">
-          <CollectionCard v-bind="item" />
-        </swiper-slide>
-      </Carousel>
-
-      <h1 :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }">
-        {{ $t('collections-view:section2') }}
-      </h1>
-      <Carousel>
-        <swiper-slide v-for="(item, index) in section2" :key="index">
-          <CollectionCard v-bind="item" />
-        </swiper-slide>
-      </Carousel>
+      <template v-if="hasLabAccess">
+        <QuestActivity :sideQuests="masteringEternaAchievements"/>
+        <TutorialActivity
+          :stages="tenToolsAchievements"
+          :heading="$t('player-home:advanced-tutorials')"
+        />
+        <TutorialActivity
+          :stages="eternaEssentialsAchievements"
+          :heading="$t('player-home:eterna-essentials-completed')"
+        />
+      </template>
+      <template v-else>
+        <TutorialActivity
+          :stages="eternaEssentialsAchievements"
+          :heading="$t('player-home:eterna-essentials')"
+        />
+        <TutorialActivity
+          :stages="tenToolsAchievements"
+          :heading="$t('player-home:advanced-tutorials')"
+        />
+      </template>
 
       <h4 :style="{ fontSize: '16px', fontWeight: 'bold', textTransform: 'uppercase' }">
         {{ $t('collections-view:section3') }}
@@ -73,8 +77,10 @@
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
-  import { CreatedCollection, CollectionItem, CollectionList } from '@/types/common-types';
+  import { CreatedCollection, CollectionItem, CollectionList, RoadmapAchievement, ProcessedRoadmapAchievement } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
+  import QuestActivity from '@/views/home/PlayerHome/components/activities/QuestActivity.vue';
+  import TutorialActivity from '@/views/home/PlayerHome/components/activities/TutorialActivity.vue';
 
 
   const INITIAL_SORT = 'date';
@@ -105,6 +111,8 @@
       Pagination,
       Preloader,
       SearchPanel,
+      QuestActivity,
+      TutorialActivity,
     },
   })
   export default class CollectionsExplore extends Mixins(FetchMixin) {
@@ -112,6 +120,12 @@
     collections: CollectionItem[] = [];
 
     created: CreatedCollection[] = [];
+
+    tenToolsAchievements: RoadmapAchievement[] = [];
+
+    eternaEssentialsAchievements: RoadmapAchievement[] = [];
+
+    masteringEternaAchievements: ProcessedRoadmapAchievement[] = [];
     
     async fetch() {
       const { filters, sort, search, size } = this.$route.query;
@@ -130,171 +144,31 @@
       })).data.data as CollectionList;
       this.collections = res.collections;
       this.created = res.created || [];
-      console.log(this.collections);
+
+      const res2 = await Promise.all([
+        this.$http.get('/get/?type=side_project_roadmap'),
+      ]);
+
+      const roadmap = res2[0].data.data.achievement_roadmap as RoadmapAchievement[];
+      this.tenToolsAchievements = roadmap.filter(p => p.key === 'ten_tools');
+      this.eternaEssentialsAchievements = roadmap.filter(p => p.key === 'eterna_essentials');
+      this.masteringEternaAchievements = roadmap
+        .filter(p => p.key.includes('side_quest'))
+        .map(p => ({
+          ...p,
+          prereqSatisfied: p.prereq === undefined || roadmap.some(
+            ach => (
+              `${ach.key}${ach.level}` === ach.prereq
+              && Number(ach.current_level) >= ach.level
+            )
+          )
+        }));
+
+      this.$vxm.user.refreshAchievements();
     }
 
-    get section1() {
-      return [
-        {
-          progress: 'NOT_STARTED',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/653E5870-777B-4DC6-852E-41DDFBB2EFF4.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-        {
-          progress: '10',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/16AAD8FC-B5DF-4FB9-A864-72AB72F1A11B.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-        {
-          progress: '60',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/B810FFE7-B74B-40AF-8B0A-24ACD37B2E4B.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-        {
-          progress: '80',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/B7157DB3-77E3-4715-B14C-510F21A882DF.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-        {
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/AD1E3A4A-352B-49BF-A95A-1F15015EE1C5.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-      ];
-    }
-
-    get section2() {
-      return [
-        {
-          completed: 'COMPLETED',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/AD1E3A4A-352B-49BF-A95A-1F15015EE1C5.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-        {
-          progress: '10',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/DD8C4AA4-03E0-4BA4-8D95-8BAE98DFB188.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-        {
-          progress: 'NOT_STARTED',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/8838E8FF-526E-43B2-9075-4393909F031A.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-        {
-          progress: 'NOT_STARTED',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/6E8256FC-2BC3-449B-A275-46FA347DA721.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-        {
-          progress: 'NOT_STARTED',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/AD1E3A4A-352B-49BF-A95A-1F15015EE1C5.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-      ];
-    }
-
-    get section3() {
-      return [
-        {
-          completed: 'COMPLETED',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/AD1E3A4A-352B-49BF-A95A-1F15015EE1C5.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-        {
-          progress: '10',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/DD8C4AA4-03E0-4BA4-8D95-8BAE98DFB188.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-        {
-          progress: 'NOT_STARTED',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/8838E8FF-526E-43B2-9075-4393909F031A.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-        {
-          progress: 'NOT_STARTED',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/6E8256FC-2BC3-449B-A275-46FA347DA721.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-        {
-          progress: 'NOT_STARTED',
-          picture:
-            'https://cdn.zeplin.io/5e88563a3843011f95808b2f/assets/AD1E3A4A-352B-49BF-A95A-1F15015EE1C5.png',
-          to_next: "",
-          name: "Goose",
-          desc: "Goose",
-          level: "1",
-          current_level: "10",
-        },
-      ];
+    get hasLabAccess() {
+      return this.$vxm.user.hasLabAccess;
     }
 
     private filters: Filter[] = [

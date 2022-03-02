@@ -32,7 +32,7 @@
       </template>
     </AspectRatioCard>
     <b-popover :target="() => root" triggers="hover" placement="top">
-      <div v-dompurify-html="desc"></div>
+      <div v-dompurify-html="body"></div>
     </b-popover>
   </div>
 </template>
@@ -52,13 +52,13 @@
   export default class CollectionCard extends Vue {
     @Prop({required: true}) readonly picture!: string;
 
-    @Prop({required: true}) readonly to_next!: number;
+    @Prop({required: false}) readonly to_next!: number;
 
     @Prop({required: true}) readonly name!: string;
 
-    @Prop({required: true}) readonly desc!: string;
+    @Prop({required: true}) readonly body!: string;
 
-    @Prop({required: true}) readonly level!: string;
+    @Prop({required: false}) readonly level!: string;
 
     @Prop({required: true}) readonly nid!: string;
 
@@ -66,7 +66,7 @@
 
     @Prop() readonly puzzleLink?: string;
 
-    @Prop({required: true}) readonly current_level!: string;
+    @Prop({required: false}) readonly current_level!: string;
 
     @Prop() readonly current_puzzle?: string;
 

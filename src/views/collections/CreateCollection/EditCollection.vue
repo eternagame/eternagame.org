@@ -162,8 +162,11 @@
 
     async fetch(){
       const collection = (await this.$http.get(`/get/?type=collection&nid=${this.$route.params.id}`)).data.data.collection as CollectionItem;
-      const puzzlelist = collection.puzzles.split(",");
-      Object.values(puzzlelist).forEach(async puzz => this.puzzlelist.push((await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)).data.data as PuzzleItem));
+      if (collection.puzzles != null) {
+        const puzzlelist = collection.puzzles.split(",");
+        Object.values(puzzlelist).forEach(async puzz => this.puzzlelist.push(await (await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)).data.data.puzzle as PuzzleItem));
+      }
+      this.currentPicture = collection.picture;
       this.title = collection.name;
       this.body = collection.body;
       this.currentPicture = collection.picture;

@@ -281,6 +281,13 @@ export interface CollectionItem {
   num_completers: string;
 }
 
+export interface CollectionResponse {
+  collection: CollectionItem;
+  comments: CommentItem[];
+  total_num_comments: number;
+  uid: string;
+}
+
 export interface CreatedCollection {
   name: string;
   nid: string;

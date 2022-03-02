@@ -26,7 +26,7 @@
         calendarOptions: {
           plugins: [ dayGridPlugin, interactionPlugin, googleCalendarPlugin ],
           initialView: 'dayGridMonth',
-          // dateClick: this.handleDateClick,
+          eventClick: this.handleEventClick,
           googleCalendarApiKey: process.env.VUE_APP_GOOGLE_API_ID,
           events: {
             googleCalendarId: process.env.VUE_APP_GOOGLE_CALENDAR_ID
@@ -34,9 +34,13 @@
         }
       };
     }
-  
-    handleDateClick(arg: { dateStr: string; }) {
-      alert(`date click! ${  arg.dateStr}`);
+    
+    handleEventClick(info: { jsEvent: { preventDefault: () => void; }; event: { url: string|URL|undefined; }; }) {
+      info.jsEvent.preventDefault(); // don't let the browser navigate
+
+      if (info.event.url) {
+        window.open(info.event.url);
+      }    
     }
   } 
 

@@ -17,6 +17,8 @@
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/google-calendar": "^5.10.1",
     "@fullcalendar/interaction": "^5.10.1",
+    "@fullcalendar/list": "^5.10.1",
+    "@fullcalendar/timegrid": "^5.10.1",
     "@fullcalendar/vue": "^5.10.1",
     "@johmun/vue-tags-input": "^2.1.0",
     "@types/dompurify": "^2.2.1",

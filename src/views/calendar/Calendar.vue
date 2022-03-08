@@ -1,7 +1,7 @@
 <template>
-    <EternaPage>
-        <FullCalendar :options="calendarOptions" />
-    </EternaPage>
+  <EternaPage>
+    <FullCalendar :options="calendarOptions" />
+  </EternaPage>
 </template>
 
 <script lang="ts">
@@ -12,7 +12,7 @@
   import dayGridPlugin from '@fullcalendar/daygrid';
   import interactionPlugin from '@fullcalendar/interaction';
   import googleCalendarPlugin from '@fullcalendar/google-calendar';
-
+  import listPlugin from '@fullcalendar/list';
 
   @Component({
     components: {
@@ -24,24 +24,39 @@
     data() {
       return {
         calendarOptions: {
-          plugins: [ dayGridPlugin, interactionPlugin, googleCalendarPlugin ],
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,listMonth',
+          },
+          plugins: [
+            dayGridPlugin,
+            interactionPlugin,
+            googleCalendarPlugin,
+            listPlugin,
+          ],
+          views: {
+            dayGridMonth: { buttonText: 'month' },
+          },
           initialView: 'dayGridMonth',
           eventClick: this.handleEventClick,
           googleCalendarApiKey: process.env.VUE_APP_GOOGLE_API_ID,
           events: {
-            googleCalendarId: process.env.VUE_APP_GOOGLE_CALENDAR_ID
-          }
-        }
+            googleCalendarId: process.env.VUE_APP_GOOGLE_CALENDAR_ID,
+          },
+        },
       };
     }
-    
-    handleEventClick(info: { jsEvent: { preventDefault: () => void; }; event: { url: string|URL|undefined; }; }) {
+
+    handleEventClick(info: {
+      jsEvent: { preventDefault: () => void };
+      event: { url: string | URL | undefined };
+    }) {
       info.jsEvent.preventDefault(); // don't let the browser navigate
 
       if (info.event.url) {
         window.open(info.event.url);
-      }    
+      }
     }
-  } 
-
+  }
 </script>

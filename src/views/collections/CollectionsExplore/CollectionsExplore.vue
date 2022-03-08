@@ -54,7 +54,7 @@
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
         v-if="isInSidebar"
-        :placeholder="$t('Search Collectionss')"
+        :placeholder="$t('collections-view:search')"
         :isInSidebar="isInSidebar"
       />
       <FiltersPanel
@@ -72,7 +72,7 @@
         class="submit-button"
         to="/create/collection"
       >
-        {{ $t('Create a Collection') }}
+        {{ $t('collections-view:create') }}
       </b-button>
     </template>
   </EternaPage>
@@ -167,6 +167,7 @@
 
       const res2 = await Promise.all([
         this.$http.get('/get/?type=side_project_roadmap'),
+        this.$http.get('/get/?type=puzzle_of_the_week'),
       ]);
 
       const roadmap = res2[0].data.data
@@ -189,11 +190,6 @@
         }));
 
       this.$vxm.user.refreshAchievements();
-
-      console.log(this.tenToolsAchievements);
-      console.log(this.eternaEssentialsAchievements);
-      console.log(this.masteringEternaAchievements);
-      console.log(this.collections);
     }
 
     get hasLabAccess() {

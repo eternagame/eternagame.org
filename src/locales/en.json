@@ -66,6 +66,8 @@
   "collections-view:section1": "Mastering Eterna",
   "collections-view:section2": "Complete Your Lab",
   "collections-view:section3": "Player Created Collections",
+  "collections-view:search": "Search Collections",
+  "collections-view:create": "Create Collection",
   "puzzle-view:main-header": "About the Puzzle",
   "puzzle-view:auxiliary-header-one": "the science",
   "puzzle-view:auxiliary-header-two": "your mission",

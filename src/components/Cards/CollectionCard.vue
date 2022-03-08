@@ -21,7 +21,7 @@
             </p>
             <div v-else>
               <b-button variant="primary" style="margin:10px 0" :[nav]="toGame">
-                {{ $t('Play') }}
+                {{ $t('quest-card:play') }}
               </b-button>
               <SmartLink v-if="started" :link="toGame">
                 <b-progress :value="to_next" max="1"></b-progress>

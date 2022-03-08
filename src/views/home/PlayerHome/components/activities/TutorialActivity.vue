@@ -26,6 +26,8 @@
     @Prop({ required: true }) readonly heading!: string;
 
     get level() {
+      console.log(this.stages);
+      console.log(this.heading);
       return Number(this.stages[0].current_level);
     }
   }

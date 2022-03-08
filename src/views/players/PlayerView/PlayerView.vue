@@ -198,7 +198,7 @@
 
     synthesized: SynthesizedDesign[] = [];
 
-    myAchievements: {[name: string]: ProfileAchievement} = {};
+    achievements: {[name: string]: ProfileAchievement} = {};
 
     allAchievements: {[name: string]: ProfileAchievement} = {};
 
@@ -215,7 +215,7 @@
       this.createdPuzzles = res.created_puzzles || [];
       this.clearedPuzzles = res.cleared_puzzles || [];
       this.synthesized = res.synthesized || [];
-      this.myAchievements = res.achievements || {};
+      this.achievements = res.achievements || {};
       this.joinedGroups = res.my_group || [];
     }
   }

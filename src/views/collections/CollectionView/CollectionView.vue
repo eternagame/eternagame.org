@@ -63,7 +63,7 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  import CollectionCard from '@/components/Cards/CollectionCard.vue';
+  import CollectionCard from '@/components/Cards/QuestCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { PuzzleList, PuzzleItem, ClearedPuzzle, RoadmapAchievement, CollectionItem, CollectionResponse, CommentItem } from '@/types/common-types';

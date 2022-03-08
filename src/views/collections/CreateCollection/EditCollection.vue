@@ -126,7 +126,7 @@
   {
     private title = '';
 
-    private body = '';
+    private desc = '';
 
     private newBody: string | null = null;
 
@@ -166,10 +166,10 @@
         const puzzlelist = collection.puzzles.split(",");
         Object.values(puzzlelist).forEach(async puzz => this.puzzlelist.push(await (await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)).data.data.puzzle as PuzzleItem));
       }
-      this.currentPicture = collection.picture;
-      this.title = collection.name;
-      this.body = collection.body;
-      this.currentPicture = collection.picture;
+      this.currentPicture = collection.image;
+      this.title = collection.title;
+      this.desc = collection.desc;
+      this.currentPicture = collection.image;
     }
 
     @Ref('typeahead') readonly typeahead!: { inputValue: string };
@@ -221,7 +221,7 @@
       this.loading = true;
       const data = new FormData();
       data.set('collection-title-input', this.title);
-      data.set('collection-description-input', this.newBody === null ? this.body : this.newBody);
+      data.set('collection-description-input', this.newBody === null ? this.desc : this.newBody);
       const puzzleids: String[] = [];
       this.puzzlelist.forEach(e => puzzleids.push(e.id));
       data.set('collection-puzzles', puzzleids.toString());

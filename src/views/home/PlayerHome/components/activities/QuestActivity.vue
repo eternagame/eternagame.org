@@ -15,7 +15,7 @@
   import { SwiperSlide } from 'vue-awesome-swiper';
   import {ProcessedRoadmapAchievement} from '@/types/common-types';
   import Utils from '@/utils/utils';
-  import CollectionCard from '@/components/Cards/CollectionCard.vue';
+  import CollectionCard from '@/components/Cards/QuestCard.vue';
   import BaseActivity from './BaseActivity.vue';
 
   @Component({

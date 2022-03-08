@@ -10,7 +10,7 @@
   import {Vue, Component, Prop} from 'vue-property-decorator';
   import { SwiperSlide } from 'vue-awesome-swiper';
   import {RoadmapAchievement} from '@/types/common-types';
-  import CollectionCard from '@/components/Cards/CollectionCard.vue';
+  import CollectionCard from '@/components/Cards/QuestCard.vue';
   import BaseActivity from './BaseActivity.vue';
 
   @Component({

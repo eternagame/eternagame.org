@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-5 d-flex justify-content-center">
           <div>
-            <img :src="collection.picture" class="m-3 collection-badge" />
+            <img :src="collection.image" class="m-3 collection-badge" />
             <div v-if="completed">
               <img src="@/assets/noun_check.svg" class="mr-2" />
               <b class="text-uppercase">{{ $t('collection:completed') }}</b>

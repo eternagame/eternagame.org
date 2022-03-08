@@ -44,7 +44,7 @@ export interface SynthesizedDesign {
 export interface ProfileGroup {
   group_nid: string;
   group_title: string;
-  founder: string;    
+  founder: string;
 }
 
 export interface FollowItem {
@@ -161,6 +161,7 @@ export interface PuzzleItem {
   folder: string;
   number_of_states: number;
   'next-puzzle': string;
+  'has3d': string;
 }
 
 export interface PuzzleList {
@@ -243,7 +244,7 @@ export interface GroupResponse {
   is_following: boolean;
 }
 
-export interface GroupItem {  
+export interface GroupItem {
   nid: string;
   name: string;
   founder_picture: string;

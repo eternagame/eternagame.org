@@ -17,6 +17,8 @@ export interface PuzzleData {
   my_votes: number;
   submitted: number;
   num_synthesized: number;
+  player_max_submissions: number;
+  has3d: string;
 }
 
 export interface RoundData {

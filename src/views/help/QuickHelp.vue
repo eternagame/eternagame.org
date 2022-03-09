@@ -84,7 +84,8 @@
       'help:energy': 'help:energy-text',
       'help:switch-puzzles': 'help:switch-puzzles-text',
       'help:highlighting-bases': 'help:highlighting-bases-text',
-      'help:glossary': 'help:glossary-text'
+      'help:glossary': 'help:glossary-text',
+      'help:3D-puzzles': 'help:3D-puzzles-text'
     };
 
     get column1Keys(): string[] {

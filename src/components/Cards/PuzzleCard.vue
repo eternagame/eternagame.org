@@ -188,7 +188,7 @@
 
     .icon-3d {
       background-color: $med-blue;
-      padding: 2px;
+      padding: 1px 3px;
       border-radius: 2px;
       margin: 0 5px;
     }

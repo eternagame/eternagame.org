@@ -20,7 +20,7 @@
             {{ folder }}
           </div>
           <div v-if="stateCount > 1 || is3d">
-            <StateCounter :value="stateCount" v-b-tooltip.hover :title="`${stateCount} state switch`"/>
+            <StateCounter v-if="stateCount > 1" :value="stateCount" v-b-tooltip.hover :title="`${stateCount} state switch`"/>
             <div v-if="is3d" class="icon-3d" v-b-tooltip.hover title="3D puzzle">3D</div>
           </div>
         </div>

@@ -20,12 +20,8 @@
             {{ folder }}
           </div>
           <div v-if="stateCount > 1 || is3d">
-            <template v-if="stateCount > 1">
-              <StateCounter :value="stateCount" v-b-tooltip.hover :title="`${stateCount} state switch`"/>
-            </template>
-            <template v-if="is3d">
-              <img src="@/assets/3D.svg" alt="3D puzzle" v-b-tooltip.hover title="3D puzzle"/>
-            </template>
+            <StateCounter :value="stateCount" v-b-tooltip.hover :title="`${stateCount} state switch`"/>
+            <div v-if="is3d" class="icon-3d" v-b-tooltip.hover title="3D puzzle">3D</div>
           </div>
         </div>
 
@@ -187,6 +183,13 @@
       object-fit: contain;
       width: 14px;
       max-height: 14px;
+      margin: 0 5px;
+    }
+
+    .icon-3d {
+      background-color: $med-blue;
+      padding: 2px;
+      border-radius: 2px;
       margin: 0 5px;
     }
   }

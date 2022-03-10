@@ -78,6 +78,9 @@ export interface UserResponse {
   achievements?: {
     [name: string]: ProfileAchievement
   }
+  all_achievements?: {
+    [name: string]: ProfileAchievement
+  }
 }
 
 export interface CommentItem {

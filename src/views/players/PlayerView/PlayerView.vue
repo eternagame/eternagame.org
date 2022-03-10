@@ -216,7 +216,9 @@
       this.clearedPuzzles = res.cleared_puzzles || [];
       this.synthesized = res.synthesized || [];
       this.achievements = res.achievements || {};
+      this.allAchievements = res.all_achievements || {};
       this.joinedGroups = res.my_group || [];
+      console.log(this.allAchievements);
     }
   }
 </script>

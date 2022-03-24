@@ -45,7 +45,7 @@
               </span>
               - {{ publication.pub_date }}
             </p>
-            <p class="publication-overview">{{ publication.authors }}</p>
+            <p class="publication-overview" v-dompurify-html="publication.authors"></p>
           </div>
         </div>
         </div>
@@ -116,7 +116,7 @@
     &-title {
       font-size: 1rem;
       font-weight: 700;
-      
+
       & a {
         color: #ffffff;
       }

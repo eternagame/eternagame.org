@@ -58,6 +58,7 @@
         :key="attemptNumber"
         ref="recaptcha"
         sitekey="6LcFwUsUAAAAAOQ9szhauSNv2bJuBOUtw_pGrRnd"
+        recaptchaHost="www.recaptcha.net"
         :loadRecaptchaScript="true"
         @verify="captchaResponse = $event"
       />
@@ -136,7 +137,7 @@
         this.errorMessage = data.error;
       }
     }
-    
+
     async tryRegister(event: Event) {
       this.errorMessage = '';
       if (!this.accepted) {

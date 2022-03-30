@@ -21,6 +21,8 @@
           :placeholder="$t('register-modal:username')" 
           v-model="form.username" 
           required 
+          name="username"
+          autocomplete="username"
           data-form-type="username" 
         />
         <span class="input-group-append">
@@ -32,6 +34,8 @@
         :placeholder="$t('register-modal:email')"
         v-model="form.email"
         required
+        name="email"
+        autocomplete="email"
         data-form-type="email"
       />
       <div class="custom-input-group">
@@ -40,6 +44,8 @@
           :placeholder="$t('register-modal:password')"
           v-model="form.password"
           required
+          name="password"
+          autocomplete="new-password"
           data-form-type="password"
         />
         <span class="input-group-append">
@@ -55,6 +61,8 @@
           required
           ref="rePassword"
           :state="form.password === form.rePassword"
+          name="rePassword"
+          autocomplete="new-password"
           data-form-type="password,confirmation"
         />
         <span class="input-group-append">

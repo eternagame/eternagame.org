@@ -22,6 +22,8 @@
           :placeholder="$t('login-modal:username')" 
           v-model="form.username" 
           required 
+          name="username"
+          autocomplete="username"
           data-form-type="username" 
         />
         <span class="input-group-append">
@@ -34,6 +36,8 @@
           :placeholder="$t('login-modal:password')"
           v-model="form.password"
           required
+          name="password"
+          autocomplete="current-password"
           data-form-type="password"
         />
         <span class="input-group-append">

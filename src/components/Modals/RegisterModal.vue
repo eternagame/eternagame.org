@@ -15,9 +15,14 @@
         {{ $t(errorMessage) }}
       </b-alert>
     </transition>
-    <b-form @submit.prevent="tryRegister" class="pb-3">
+    <b-form @submit.prevent="tryRegister" class="pb-3" data-form-type="register">
       <div class="custom-input-group">
-        <b-input :placeholder="$t('register-modal:username')" v-model="form.username" required />
+        <b-input 
+          :placeholder="$t('register-modal:username')" 
+          v-model="form.username" 
+          required 
+          data-form-type="username" 
+        />
         <span class="input-group-append">
           <img src="@/assets/front-page/img/user.svg" />
         </span>
@@ -27,6 +32,7 @@
         :placeholder="$t('register-modal:email')"
         v-model="form.email"
         required
+        data-form-type="email"
       />
       <div class="custom-input-group">
         <b-input
@@ -34,6 +40,7 @@
           :placeholder="$t('register-modal:password')"
           v-model="form.password"
           required
+          data-form-type="password"
         />
         <span class="input-group-append">
           <img src="@/assets/front-page/img/lock.svg" />
@@ -48,6 +55,7 @@
           required
           ref="rePassword"
           :state="form.password === form.rePassword"
+          data-form-type="password,confirmation"
         />
         <span class="input-group-append">
           <img src="@/assets/front-page/img/lock.svg" />

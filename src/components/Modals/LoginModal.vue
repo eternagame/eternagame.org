@@ -16,9 +16,14 @@
         {{ errorMessage }}
       </b-alert>
     </transition>
-    <b-form @submit.prevent="login" class="login_modal_content">
+    <b-form @submit.prevent="login" class="login_modal_content" data-form-type="login">
       <div class="custom-input-group">
-        <b-input :placeholder="$t('login-modal:username')" v-model="form.username" required />
+        <b-input 
+          :placeholder="$t('login-modal:username')" 
+          v-model="form.username" 
+          required 
+          data-form-type="username" 
+        />
         <span class="input-group-append">
           <img src="@/assets/front-page/img/user.svg" />
         </span>
@@ -29,6 +34,7 @@
           :placeholder="$t('login-modal:password')"
           v-model="form.password"
           required
+          data-form-type="password"
         />
         <span class="input-group-append">
           <img src="@/assets/front-page/img/lock.svg" />

@@ -148,6 +148,7 @@ export interface Publications {
 
 export interface PuzzleItem {
   id: string;
+  nid: string;
   title: string;
   created: string;
   username: string;

@@ -37,11 +37,13 @@
   </div>
 </template>
 <script lang="ts">
-  import { Component, Prop, Ref, Vue } from 'vue-property-decorator';
+  import { Component, Mixins, Prop, Ref, Vue } from 'vue-property-decorator';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import SmartLink from '@/components/Common/SmartLink.vue';
   import Utils from '@/utils/utils';
+  import { ClearedPuzzle, CollectionResponse, PuzzleItem } from '@/types/common-types';
+  import FetchMixin from '@/mixins/FetchMixin';
 
   @Component({
     components: {
@@ -49,10 +51,10 @@
       SmartLink,
     },
   })
-  export default class CollectionCard extends Vue {
+  export default class CollectionCard extends Mixins(FetchMixin) {
     @Prop({required: true}) readonly image!: string;
 
-    @Prop({required: false}) readonly to_next!: number;
+    @Prop({required: false}) to_next!: number;
 
     @Prop({required: true}) readonly title!: string;
 
@@ -71,6 +73,10 @@
     @Prop() readonly current_puzzle?: string;
 
     @Ref('root') readonly root!: HTMLDivElement;
+
+    puzzles: PuzzleItem[] = [];
+
+    cleared: ClearedPuzzle[] = [];
 
     get nav() {
       return Utils.isLinkInternal(this.toGame) ? 'to' : 'href';
@@ -98,6 +104,17 @@
 
     get completed() {
       return this.to_next >= 1 && !this.locked;
+    }
+
+    async fetch(){
+      const res = (
+        await this.$http.get(`/get/?type=collection&nid=${this.nid}`)
+      ).data.data as CollectionResponse;
+      const puzzlelist = res.collection.puzzles.split(",");
+      Object.values(puzzlelist).forEach(async puzz => this.puzzles.push((await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)).data.data as PuzzleItem));
+      this.cleared = await (await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)).data.data.cleared;
+      this.cleared = this.cleared.filter(x => this.puzzles.map(y => y.nid).includes(x.nid));
+      this.to_next = this.cleared.length / this.puzzles.length;
     }
   }
 </script>

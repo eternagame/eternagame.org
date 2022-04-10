@@ -1,7 +1,7 @@
 <template>
   <BaseActivity :heading="$t('player-home:section1')" v-if="quests.length > 0">
     <SwiperSlide v-for="item in quests" :key="item.title">
-        <CollectionCard
+        <QuestCard
           v-bind="item"
           :imageLink="item.questLink"
           :buttonLink="item.puzzleLink"
@@ -15,14 +15,14 @@
   import { SwiperSlide } from 'vue-awesome-swiper';
   import {ProcessedRoadmapAchievement} from '@/types/common-types';
   import Utils from '@/utils/utils';
-  import CollectionCard from '@/components/Cards/QuestCard.vue';
+  import QuestCard from '@/components/Cards/QuestCard.vue';
   import BaseActivity from './BaseActivity.vue';
 
   @Component({
     components: {
       SwiperSlide,
       BaseActivity,
-      CollectionCard
+      QuestCard
     }
   })
   export default class QuestActivity extends Vue {

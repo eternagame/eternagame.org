@@ -12,7 +12,7 @@
           <input
             :placeholder="$t('create-collection:collection-info:description-description')"
             :style="{ paddingBottom: '120px' }"
-            v-model="body"
+            v-model="desc"
           />
 
           <h3>
@@ -136,7 +136,7 @@
 
     private puzzlelist: PuzzleItem[] = [];
 
-    private currentPicture?: string;
+    private picture: string = "";
 
     private newPicture: File | null = null;
 
@@ -166,10 +166,9 @@
         const puzzlelist = collection.puzzles.split(",");
         Object.values(puzzlelist).forEach(async puzz => this.puzzlelist.push(await (await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)).data.data.puzzle as PuzzleItem));
       }
-      this.currentPicture = collection.image;
       this.title = collection.title;
       this.desc = collection.desc;
-      this.currentPicture = collection.image;
+      this.picture = collection.image;
     }
 
     @Ref('typeahead') readonly typeahead!: { inputValue: string };
@@ -190,21 +189,15 @@
       this.puzzlelist.splice(this.puzzlelist.indexOf(puzzle), 1);
     }
 
-    get picture() {
-      if (this.newPicture) {
-        return URL.createObjectURL(this.newPicture);
-      }
-      return Utils.getCollectionAvatar(this.currentPicture || null);
-    }
-
     @Ref("fileUpload") private fileUpload!: HTMLInputElement;
 
-    @Prop({required: true}) private loading!: boolean;
+    @Prop() private loading!: boolean;
 
     handleFile(event: Event) {
       const target = event.target as HTMLInputElement;
       const file: File = (target.files as FileList)[0];
       this.newPicture = file;
+      this.picture = URL.createObjectURL(this.newPicture);
     }
 
     getImage(nid: string) {
@@ -221,13 +214,14 @@
       this.loading = true;
       const data = new FormData();
       data.set('collection-title-input', this.title);
+      data.set('nid', this.$route.params.id);
       data.set('collection-description-input', this.newBody === null ? this.desc : this.newBody);
       const puzzleids: String[] = [];
       this.puzzlelist.forEach(e => puzzleids.push(e.id));
       data.set('collection-puzzles', puzzleids.toString());
       if (this.newPicture) data.append(`files[picture_upload]`, this.newPicture);
       data.set('type', 'edit_collection');
-
+      
       try {
         const res = await this.$http.post("/post/", data, {
           headers: {
@@ -237,7 +231,7 @@
         this.loading = false;
         const error = res?.data?.data?.error;
         if (error) throw new Error(error);
-        this.$router.push(`/collections/`);
+        this.$router.push(`/collections/${  this.$route.params.id}`);
       } catch (e: any) {
         const r = this.$notify({
           type: 'error',

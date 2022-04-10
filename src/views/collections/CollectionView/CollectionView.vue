@@ -1,26 +1,24 @@
 <template>
-  <EternaPage :title="collection.name" v-if="fetchState.firstFetchComplete && collection">
-    <div class="collection-description">
-      <div class="row">
-        <div class="col-lg-7">
-          <h2>
-            {{ $t('collection-view:banner-title') }}
-          </h2>
-          <p v-dompurify-html="collection.body"></p>
-        </div>
-        <div class="col-lg-5 d-flex justify-content-center">
-          <div>
-            <img :src="collection.image" class="m-3 collection-badge" />
-            <div v-if="completed">
-              <img src="@/assets/noun_check.svg" class="mr-2" />
-              <b class="text-uppercase">{{ $t('collection:completed') }}</b>
-            </div>
-            <b-progress :value="collection.to_next" max="1" v-else></b-progress>
+  <EternaPage :title="collection.title" v-if="fetchState.firstFetchComplete && collection">
+    <div class="page-content">
+      <h2>About the Collection</h2>
+      <div class="d-flex flex-wrap justify-content-between" xs="12" sm="8">
+        <div style="text-align:center" class="order-sm-2 image-col">
+          <div class="puzzle-image">
+            <img v-if="collection.image" :src="collection.image" />
           </div>
+        </div>
+
+        <div class="order-sm-1 description-col">
+          <hr class="top-border d-sm-none" />
+          <div
+            class="puzzle-description"
+            style="overflow-wrap: break-word;"
+            v-dompurify-html="collection.desc"
+          />
         </div>
       </div>
     </div>
-
     <h2>
       {{ $t('nav-bar:puzzles') }}
     </h2>
@@ -36,22 +34,37 @@
     <div v-else>
       <Preloader />
     </div>
-    <Comments :comments="comments" :nid="collection.id" />
+    <Comments :comments="comments" :nid="collection.nid" />
+
     <template #sidebar="{ isInSidebar }">
       <SidebarPanel
         :isInSidebar="isInSidebar"
-        :header="$t('collection-info-sidebar:title')"
+        :header="$t('collection-info:side-bar-header')"
         headerIcon="@/assets/info.svg"
       >
-        <br />
-        <b-button
+        <template #header-icon>
+          <img src="@/assets/info.svg" />
+        </template>
+        <ul style="padding: 0; list-style-type:none" v-if="collection">
+          <li>
+            <img :src="collection.founder_picture" class="icon" />{{ collection.founder_name }}
+          </li>
+          <li>
+            <img src="@/assets/calendar.svg" class="icon" />{{ collection.created }}
+          </li>
+          <div v-if="editRights">
+            <li>  
+              <b-button
               type="submit"
               variant="primary"
               class="submit-button"
-              :to="`/collections/${nid}/edit`"
+              :href="`/collections/${nid}/edit`"
               >
                 {{ "Edit" }}
-        </b-button>
+              </b-button>
+            </li>
+          </div>
+        </ul>
       </SidebarPanel>
     </template>
   </EternaPage>
@@ -90,39 +103,9 @@
 
     comments: CommentItem[] = [];
 
+    editRights: Boolean = false;
+
     nid = this.$route.params.id;
-
-    /* get locked() {
-      return this.collection? Number(this.collection.level) - 1 > Number(this.collection.current_level) : true;
-    }
-
-    get completed() {
-      return this.collection ? this.collection.to_next >= 1 && !this.locked : false;
-    } */
-
-    /* async fetch() {
-      const achievement_roadmap = (await this.$http.get('/get/?type=side_project_roadmap')).data.data.achievement_roadmap as RoadmapAchievement[];
-      const puzzles = (
-        await this.$http.get(`/get/?type=puzzles&puzzle_type=Progression&tags=${this.$route.params.id}`)
-      ).data.data as PuzzleList;
-
-      // Sort such that puzzle A which specifies its next puzzle is puzzle B is sorted before puzzle A
-      // The first puzzle is the one that has no other puzzle pointing to it
-      this.puzzles = [];
-      let puzzle = puzzles.puzzles.find(
-        candidatePuzzle => !puzzles.puzzles.some(otherPuzzle => otherPuzzle['next-puzzle'] === candidatePuzzle.id)
-      );
-      while (puzzle) {
-        this.puzzles.push(puzzle);
-        const nextPuzzle = puzzle['next-puzzle'];
-        puzzle = puzzles.puzzles.find(candidatePuzzle => candidatePuzzle.id === nextPuzzle);
-      }
-      // Add any additional puzzles not part of the next puzzle "chain"
-      this.puzzles.push(...puzzles.puzzles.filter(candidatePuzzle => !this.puzzles.includes(candidatePuzzle)));
-      
-      this.cleared = puzzles.cleared || [];
-      this.collection = achievement_roadmap.find(p => p.title === this.$route.params.id) || null;
-    } */
 
     async fetch(){
       const res = (
@@ -134,6 +117,7 @@
       const puzzlelist = this.collection.puzzles.split(",");
       Object.values(puzzlelist).forEach(async puzz => this.puzzles.push((await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)).data.data as PuzzleItem));
       this.cleared = await (await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)).data.data.cleared;
+      if(this.collection.founder_name === this.$vxm.user.username) this.editRights = true;
     }
 
     puzzleCleared(id: string) {

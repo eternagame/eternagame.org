@@ -15,14 +15,15 @@
             />
 
             <h3>{{ $t('create-collection:collection-info:description') }}</h3>
-            <input
+            <b-textarea
               :placeholder="
                 $t('create-collection:collection-info:description-description')
               "
-              :style="{ paddingBottom: '120px' }"
-              v-model="desc"
-            />
-
+              v-model="body"
+              rows="12"
+              max-rows="12"
+              no-resize
+            ></b-textarea>
             <h3>
               {{ $t('create-collection:collection-info:image') }}
               <span style="font-weight: normal">{{

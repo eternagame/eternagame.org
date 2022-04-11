@@ -14,9 +14,10 @@
           <h4 class="title mb-4">{{ $t('side-panel-options:achievements') }}</h4>
           <Gallery :xs="6" :sm="4" :md="2">
             <AchievementCard
-              v-for="(achievement, key) in achievements"
+              v-for="(achievement, key) in allAchievements"
               :key="key"
               v-bind="achievement"
+              :achievements="achievements"
             />
           </Gallery>
         </div>
@@ -218,7 +219,6 @@
       this.achievements = res.achievements || {};
       this.allAchievements = res.all_achievements || {};
       this.joinedGroups = res.my_group || [];
-      console.log(this.allAchievements);
     }
   }
 </script>

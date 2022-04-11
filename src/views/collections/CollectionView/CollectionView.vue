@@ -114,10 +114,10 @@
       this.collection = res.collection;
       this.comments = res.comments;
       this.nid = res.collection.nid;
+      if(this.collection.founder_name === this.$vxm.user.username) this.editRights = true;
       const puzzlelist = this.collection.puzzles.split(",");
       Object.values(puzzlelist).forEach(async puzz => this.puzzles.push((await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)).data.data as PuzzleItem));
       this.cleared = await (await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)).data.data.cleared;
-      if(this.collection.founder_name === this.$vxm.user.username) this.editRights = true;
     }
 
     puzzleCleared(id: string) {

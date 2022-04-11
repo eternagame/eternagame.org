@@ -19,7 +19,7 @@
               :placeholder="
                 $t('create-collection:collection-info:description-description')
               "
-              v-model="body"
+              v-model="desc"
               rows="12"
               max-rows="12"
               no-resize

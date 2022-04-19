@@ -12,7 +12,10 @@
             />
           </div>
           <div class="col-md-6">
-            <CollectionPuzzles :puzzlelist="puzzlelist" :puzzlenames="puzzlenames" />
+            <CollectionPuzzles
+              :puzzlelist="puzzlelist"
+              :puzzlenames="puzzlenames"
+            />
           </div>
         </div>
         <div class="row">
@@ -65,13 +68,13 @@
     },
   })
   export default class EditCollection extends Vue {
+    @Prop({ required: true }) private loading!: boolean;
+
     private title = '';
 
     private desc = '';
 
     private newBody: string | null = null;
-
-    private targetName = '';
 
     private puzzlenames: PuzzleItem[] = [];
 
@@ -84,19 +87,6 @@
     private idInput: String = '';
 
     fetchData: () => Promise<void> | undefined = async () => {};
-
-    async dofetchData() {
-      const res = await axios.get(
-        `/get/?type=puzzles&puzzle_type=All&size=10${
-          this.targetName ? `&search=${this.targetName}` : ''
-        }`,
-      );
-      this.puzzlenames = res.data.data.puzzles as PuzzleItem[];
-    }
-
-    created() {
-      this.fetchData = debounce(this.dofetchData, 200);
-    }
 
     @Watch('targetName', { immediate: true, deep: true })
     getPuzzleNames() {
@@ -120,49 +110,6 @@
       this.title = collection.title;
       this.desc = collection.desc;
       this.picture = collection.image;
-    }
-
-    @Ref('typeahead') readonly typeahead!: { inputValue: string };
-
-    mounted() {
-      this.fetch();
-      if (this.$route.query.message) {
-        this.typeahead.inputValue = String(this.$route.query.message);
-        this.targetName = String(this.$route.query.message);
-      }
-    }
-
-    async addPuzzle(nid: String) {
-      this.puzzlelist.push(
-        (await (
-          await axios.get(`/get/?type=puzzle&nid=${nid}`)
-        ).data.data.puzzle) as PuzzleItem,
-      );
-    }
-
-    removePuzzle(puzzle: PuzzleItem) {
-      this.puzzlelist.splice(this.puzzlelist.indexOf(puzzle), 1);
-    }
-
-    @Ref('fileUpload') private fileUpload!: HTMLInputElement;
-
-    @Prop() private loading!: boolean;
-
-    handleFile(event: Event) {
-      const target = event.target as HTMLInputElement;
-      const file: File = (target.files as FileList)[0];
-      this.newPicture = file;
-      this.picture = URL.createObjectURL(this.newPicture);
-    }
-
-    getImage(nid: string) {
-      const image = Utils.getPuzzleMiddleThumbnail(nid);
-      return image;
-    }
-
-    viewPuzzle(nid: string) {
-      const route = this.$router.resolve({ path: `/puzzles/${nid}` });
-      window.open(route.href);
     }
 
     async submit() {

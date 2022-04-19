@@ -85,10 +85,12 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Mixins, Prop, Ref } from 'vue-property-decorator';
   import draggable from 'vuedraggable';
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
-  import { PuzzleItem } from '@/types/common-types';
+  import { CollectionItem, PuzzleItem } from '@/types/common-types';
+  import axios from 'axios';
+  import { debounce } from 'lodash';
 
 
   @Component({
@@ -102,6 +104,69 @@
     @Prop() puzzlenames: PuzzleItem[] = [];
 
     @Prop() puzzlelist: PuzzleItem[] = [];
+
+    private targetName = '';
+
+    fetchData: () => Promise<void> | undefined = async () => {};
+
+
+    async dofetchData() {
+      const res = await axios.get(
+        `/get/?type=puzzles&puzzle_type=All&size=10${
+          this.targetName ? `&search=${this.targetName}` : ''
+        }`,
+      );
+      this.puzzlenames = res.data.data.puzzles as PuzzleItem[];
+    }
+
+    created() {
+      this.fetchData = debounce(this.dofetchData, 200);
+    }
+
+    @Ref('typeahead') readonly typeahead!: { inputValue: string };
+
+    mounted() {
+      this.fetch();
+      if (this.$route.query.message) {
+        this.typeahead.inputValue = String(this.$route.query.message);
+        this.targetName = String(this.$route.query.message);
+      }
+    }
+
+    async fetch() {
+      const collection = (
+        await this.$http.get(`/get/?type=collection&nid=${this.$route.params.id}`)
+      ).data.data.collection as CollectionItem;
+      if (collection.puzzles != null) {
+        const puzzlelist = collection.puzzles.split(',');
+        Object.values(puzzlelist).forEach(async (puzz) =>
+          this.puzzlelist.push(
+            (await (
+              await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)
+            ).data.data.puzzle) as PuzzleItem,
+          ),
+        );
+      }
+    }
+
+    async addPuzzle(nid: String) {
+      this.puzzlelist.push(
+        (await (
+          await axios.get(`/get/?type=puzzle&nid=${nid}`)
+        ).data.data.puzzle) as PuzzleItem,
+      );
+    }
+
+    removePuzzle(puzzle: PuzzleItem) {
+      this.puzzlelist.splice(this.puzzlelist.indexOf(puzzle), 1);
+    }
+
+    @Ref('fileUpload') private fileUpload!: HTMLInputElement;
+
+    viewPuzzle(nid: string) {
+      const route = this.$router.resolve({ path: `/puzzles/${nid}` });
+      window.open(route.href);
+    }
   }
 </script>
 

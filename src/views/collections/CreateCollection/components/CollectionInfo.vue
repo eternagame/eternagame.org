@@ -41,11 +41,31 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import Utils from '@/utils/utils';
+
 
   export default class CollectionInfo extends Vue {
     @Prop() title!: string;
 
     @Prop() body!: string;
+
+    private currentPicture?: string;
+
+    private newPicture: File | null = null;
+
+    private picture: string = '';
+
+    handleFile(event: Event) {
+      const target = event.target as HTMLInputElement;
+      const file: File = (target.files as FileList)[0];
+      this.newPicture = file;
+      this.picture = URL.createObjectURL(this.newPicture);
+    }
+
+    getImage(nid: string) {
+      const image = Utils.getPuzzleMiddleThumbnail(nid);
+      return image;
+    }
   }
 </script>
 

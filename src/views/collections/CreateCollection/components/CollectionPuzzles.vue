@@ -107,6 +107,8 @@
 
     private targetName = '';
 
+    private idInput: String = '';
+
     fetchData: () => Promise<void> | undefined = async () => {};
 
 
@@ -126,26 +128,9 @@
     @Ref('typeahead') readonly typeahead!: { inputValue: string };
 
     mounted() {
-      this.fetch();
       if (this.$route.query.message) {
         this.typeahead.inputValue = String(this.$route.query.message);
         this.targetName = String(this.$route.query.message);
-      }
-    }
-
-    async fetch() {
-      const collection = (
-        await this.$http.get(`/get/?type=collection&nid=${this.$route.params.id}`)
-      ).data.data.collection as CollectionItem;
-      if (collection.puzzles != null) {
-        const puzzlelist = collection.puzzles.split(',');
-        Object.values(puzzlelist).forEach(async (puzz) =>
-          this.puzzlelist.push(
-            (await (
-              await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)
-            ).data.data.puzzle) as PuzzleItem,
-          ),
-        );
       }
     }
 

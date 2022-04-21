@@ -5,8 +5,8 @@
     <h3>{{ $t('create-collection:collection-info:title') }}</h3>
     <input
       :placeholder="$t('create-collection:collection-info:title-description')"
-      :value="title"
-      @input="(e) => $emit('update:title', e.target.value)"
+      v-model="title"
+      @input="$emit('update:title', title)"
     />
 
     <h3>{{ $t('create-collection:collection-info:description') }}</h3>
@@ -14,8 +14,8 @@
       :placeholder="
         $t('create-collection:collection-info:description-description')
       "
-      :value="body"
-      @input="(e) => $emit('update:body', e.target.value)"
+      v-model="body"
+      @input="$emit('update:body', body)"
       rows="12"
       max-rows="12"
       no-resize
@@ -43,6 +43,7 @@
   import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
 
+  @Component({})
 
   export default class CollectionInfo extends Vue {
     @Prop() title!: string;

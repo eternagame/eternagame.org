@@ -8,7 +8,7 @@
               :title="title"
               :body="desc"
               @update:title="(text) => (title = text)"
-              @update:body="(text) => (newBody = text)"
+              @update:body="(text) => (desc = text)"
             />
           </div>
           <div class="col-md-6">
@@ -74,8 +74,6 @@
 
     private desc = '';
 
-    private newBody: string | null = null;
-
     private puzzlenames: PuzzleItem[] = [];
 
     private puzzlelist: PuzzleItem[] = [];
@@ -84,13 +82,17 @@
 
     private newPicture: File | null = null;
 
-    private idInput: String = '';
+    private data: boolean = false;
 
     fetchData: () => Promise<void> | undefined = async () => {};
 
     @Watch('targetName', { immediate: true, deep: true })
     getPuzzleNames() {
       this.fetchData();
+    }
+
+    mounted() {
+      this.fetch();
     }
 
     async fetch() {
@@ -119,7 +121,7 @@
       data.set('nid', this.$route.params.id);
       data.set(
         'collection-description-input',
-        this.newBody === null ? this.desc : this.newBody,
+        this.desc
       );
       const puzzleids: String[] = [];
       this.puzzlelist.forEach((e) => puzzleids.push(e.id));

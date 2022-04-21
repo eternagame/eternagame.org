@@ -8,6 +8,7 @@
               :picture="picture"
               @update:title="(text) => (title = text)"
               @update:body="(text) => (body = text)"
+              @update:image="(file) => (newPicture = file)"
             />
           </div>
           <div class="col-md-6">

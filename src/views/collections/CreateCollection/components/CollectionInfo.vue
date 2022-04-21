@@ -63,6 +63,7 @@
       const file: File = (target.files as FileList)[0];
       this.newPicture = file;
       this.picture = URL.createObjectURL(this.newPicture);
+      this.$emit('update:image', this.newPicture);
     }
 
     getImage(nid: string) {

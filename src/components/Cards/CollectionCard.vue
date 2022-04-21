@@ -49,9 +49,6 @@
         </div>
       </template>
     </AspectRatioCard>
-    <b-popover :target="() => root" triggers="hover" placement="top">
-      <div v-dompurify-html="desc"></div>
-    </b-popover>
   </div>
 </template>
 <script lang="ts">

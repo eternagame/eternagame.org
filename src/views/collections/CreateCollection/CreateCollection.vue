@@ -5,8 +5,9 @@
         <div class="row">
           <div class="col-md-6">
             <CollectionInfo
+              :picture="picture"
               @update:title="(text) => (title = text)"
-              @update:body="(text) => (newBody = text)"
+              @update:body="(text) => (body = text)"
             />
           </div>
           <div class="col-md-6">
@@ -62,8 +63,6 @@
 
     private body = '';
 
-    private newBody: string | null = null;
-
     private targetName = '';
 
     private puzzlenames: PuzzleItem[] = [];
@@ -91,32 +90,6 @@
       this.fetchData = debounce(this.dofetchData, 200);
     }
 
-    @Watch('targetName', { immediate: true, deep: true })
-    getPuzzleNames() {
-      this.fetchData();
-    }
-
-    @Ref('typeahead') readonly typeahead!: { inputValue: string };
-
-    mounted() {
-      if (this.$route.query.message) {
-        this.typeahead.inputValue = String(this.$route.query.message);
-        this.targetName = String(this.$route.query.message);
-      }
-    }
-
-    async addPuzzle(nid: String) {
-      this.puzzlelist.push(
-        (await (
-          await axios.get(`/get/?type=puzzle&nid=${nid}`)
-        ).data.data.puzzle) as PuzzleItem,
-      );
-    }
-
-    removePuzzle(puzzle: PuzzleItem) {
-      this.puzzlelist.splice(this.puzzlelist.indexOf(puzzle), 1);
-    }
-
     get picture() {
       if (this.newPicture) {
         return URL.createObjectURL(this.newPicture);
@@ -124,25 +97,7 @@
       return Utils.getCollectionAvatar(this.currentPicture || null);
     }
 
-    @Ref('fileUpload') private fileUpload!: HTMLInputElement;
-
     @Prop({ required: true }) private loading!: boolean;
-
-    handleFile(event: Event) {
-      const target = event.target as HTMLInputElement;
-      const file: File = (target.files as FileList)[0];
-      this.newPicture = file;
-    }
-
-    getImage(nid: string) {
-      const image = Utils.getPuzzleMiddleThumbnail(nid);
-      return image;
-    }
-
-    viewPuzzle(nid: string) {
-      const route = this.$router.resolve({ path: `/puzzles/${nid}` });
-      window.open(route.href);
-    }
 
     async submit() {
       this.loading = true;
@@ -150,7 +105,7 @@
       data.set('collection-title-input', this.title);
       data.set(
         'collection-description-input',
-        this.newBody === null ? this.body : this.newBody,
+        this.body
       );
       const puzzleids: String[] = [];
       this.puzzlelist.forEach((e) => puzzleids.push(e.id));

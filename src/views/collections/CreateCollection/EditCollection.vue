@@ -7,6 +7,7 @@
             <CollectionInfo
               :title="title"
               :body="desc"
+              :picture="picture"
               @update:title="(text) => (title = text)"
               @update:body="(text) => (desc = text)"
             />

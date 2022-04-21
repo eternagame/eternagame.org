@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Mixins, Prop, Ref } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
 
   @Component({})
@@ -50,11 +50,13 @@
 
     @Prop() body!: string;
 
+    @Prop() picture!: string;
+
     private currentPicture?: string;
 
     private newPicture: File | null = null;
 
-    private picture: string = '';
+    @Ref('fileUpload') private fileUpload!: HTMLInputElement;
 
     handleFile(event: Event) {
       const target = event.target as HTMLInputElement;

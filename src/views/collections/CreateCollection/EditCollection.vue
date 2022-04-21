@@ -16,7 +16,7 @@
           <div class="col-md-6">
             <CollectionPuzzles
               :puzzlelist="puzzlelist"
-              :puzzlenames="puzzlenames"
+              @update:puzzle="(puzzles) => (puzzlelist = puzzles)"
             />
           </div>
         </div>
@@ -87,11 +87,6 @@
     private data: boolean = false;
 
     fetchData: () => Promise<void> | undefined = async () => {};
-
-    @Watch('targetName', { immediate: true, deep: true })
-    getPuzzleNames() {
-      this.fetchData();
-    }
 
     mounted() {
       this.fetch();

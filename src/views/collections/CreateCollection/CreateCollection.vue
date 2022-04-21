@@ -12,7 +12,10 @@
             />
           </div>
           <div class="col-md-6">
-            <CollectionPuzzles />
+            <CollectionPuzzles
+                          :puzzlelist="puzzlelist"
+              @update:puzzle="(puzzles) => (puzzlelist = puzzles)"
+            />
           </div>
         </div>
         <div class="row">
@@ -76,21 +79,6 @@
 
     private idInput: String = '';
 
-    fetchData: () => Promise<void> | undefined = async () => {};
-
-    async dofetchData() {
-      const res = await axios.get(
-        `/get/?type=puzzles&puzzle_type=All&size=10${
-          this.targetName ? `&search=${this.targetName}` : ''
-        }`,
-      );
-      this.puzzlenames = res.data.data.puzzles as PuzzleItem[];
-    }
-
-    created() {
-      this.fetchData = debounce(this.dofetchData, 200);
-    }
-
     get picture() {
       if (this.newPicture) {
         return URL.createObjectURL(this.newPicture);
@@ -104,10 +92,7 @@
       this.loading = true;
       const data = new FormData();
       data.set('collection-title-input', this.title);
-      data.set(
-        'collection-description-input',
-        this.body
-      );
+      data.set('collection-description-input', this.body);
       const puzzleids: String[] = [];
       this.puzzlelist.forEach((e) => puzzleids.push(e.id));
       data.set('collection-puzzles', puzzleids.toString());

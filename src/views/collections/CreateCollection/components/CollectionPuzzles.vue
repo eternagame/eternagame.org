@@ -54,6 +54,7 @@
       group="people"
       @start="drag = true"
       @end="drag = false"
+      @input="$emit('update:puzzles', puzzlelis)"
     >
       <transition-group>
         <div v-for="element in puzzlelist" :key="element.id">
@@ -85,13 +86,20 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop, Ref } from 'vue-property-decorator';
+  import {
+    Component,
+    Vue,
+    Mixins,
+    Prop,
+    Ref,
+    Watch,
+  } from 'vue-property-decorator';
   import draggable from 'vuedraggable';
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import { CollectionItem, PuzzleItem } from '@/types/common-types';
   import axios from 'axios';
   import { debounce } from 'lodash';
-
+  import Utils from '@/utils/utils';
 
   @Component({
     components: {
@@ -100,8 +108,7 @@
     },
   })
   export default class CollectionPuzzles extends Vue {
-
-    @Prop() puzzlenames: PuzzleItem[] = [];
+    private puzzlenames: PuzzleItem[] = [];
 
     @Prop() puzzlelist: PuzzleItem[] = [];
 
@@ -110,7 +117,6 @@
     private idInput: String = '';
 
     fetchData: () => Promise<void> | undefined = async () => {};
-
 
     async dofetchData() {
       const res = await axios.get(
@@ -134,6 +140,11 @@
       }
     }
 
+    @Watch('targetName', { immediate: true, deep: true })
+    getPuzzleNames() {
+      this.fetchData();
+    }
+
     async addPuzzle(nid: String) {
       this.puzzlelist.push(
         (await (
@@ -151,6 +162,11 @@
     viewPuzzle(nid: string) {
       const route = this.$router.resolve({ path: `/puzzles/${nid}` });
       window.open(route.href);
+    }
+
+    getImage(nid: string) {
+      const image = Utils.getPuzzleMiddleThumbnail(nid);
+      return image;
     }
   }
 </script>

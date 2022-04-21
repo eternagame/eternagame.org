@@ -41,7 +41,6 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Prop, Ref } from 'vue-property-decorator';
-  import Utils from '@/utils/utils';
 
   @Component({})
 
@@ -64,11 +63,6 @@
       this.newPicture = file;
       this.picture = URL.createObjectURL(this.newPicture);
       this.$emit('update:image', this.newPicture);
-    }
-
-    getImage(nid: string) {
-      const image = Utils.getPuzzleMiddleThumbnail(nid);
-      return image;
     }
   }
 </script>

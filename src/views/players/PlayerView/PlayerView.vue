@@ -17,7 +17,8 @@
               v-for="(achievement, key) in allAchievements"
               :key="key"
               v-bind="achievement"
-              :achievements="achievements"
+              :achievements="myAchievements"
+              :isAchieved="isAchieved(achievement)"
             />
           </Gallery>
         </div>
@@ -199,7 +200,7 @@
 
     synthesized: SynthesizedDesign[] = [];
 
-    achievements: {[name: string]: ProfileAchievement} = {};
+    myAchievements: {[name: string]: ProfileAchievement} = {};
 
     allAchievements: {[name: string]: ProfileAchievement} = {};
 
@@ -216,9 +217,19 @@
       this.createdPuzzles = res.created_puzzles || [];
       this.clearedPuzzles = res.cleared_puzzles || [];
       this.synthesized = res.synthesized || [];
-      this.achievements = res.achievements || {};
+      this.myAchievements = res.achievements || {};
       this.allAchievements = res.all_achievements || {};
       this.joinedGroups = res.my_group || [];
+    }
+
+    isAchieved(a: ProfileAchievement): boolean {
+      let b = true;
+      Object.values(this.myAchievements).forEach( (value) => {
+        if (value.title === a.title) {
+          b = false;
+        }
+      });
+      return b;
     }
   }
 </script>

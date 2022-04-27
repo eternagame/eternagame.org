@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="center">
-      <img v-if="isAchieved()" :src="image" :alt="title" />
-      <img v-if="!isAchieved()" class="gray" :src="image" :alt="title" />
+      <img :src="image" :alt="title" :class="{ 'achievement--thumbnail__grayscale': isAchieved }" />
     </div>
     <p class="caption">{{ title }}</p>
   </div>
@@ -10,8 +9,7 @@
 
 <script lang="ts">
   import { ProfileAchievement } from '@/types/common-types';
-  import { values } from 'lodash';
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
 
   @Component({
     components: {},
@@ -25,22 +23,13 @@
       [name: string]: ProfileAchievement;
     };
 
-    isAchieved(): boolean {
-      let b = false;
-      Object.values(this.achievements).forEach( (value) => {
-        if (value.title === this.title) {
-          b = true;
-        }
-      });
-      return b;
-    }
+    @Prop({required: true}) readonly isAchieved!: boolean;
   }
 </script>
 
 <style lang="scss" scoped>
 @import '@/styles/global.scss';
 img {
-  filter: greyscale(100%);
   max-width: 80%;
   width: 200px;
   margin: 1rem auto;
@@ -85,7 +74,7 @@ img {
   visibility: visible;
   opacity: 1;
 }
-.gray {
+.achievement--thumbnail__grayscale {
   filter: grayscale(100%);
 }
 </style>

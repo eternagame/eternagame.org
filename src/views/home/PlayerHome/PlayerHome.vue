@@ -135,7 +135,7 @@
         this.$http.get('/get/?type=side_project_roadmap'),
         this.$http.get('/get/?type=carousel'),
         this.$http.get('/get/?type=puzzle_of_the_week'),
-        this.$http.get('/get/?type=newsfeed&combined=true&filter=news&size=3'),
+        this.$http.get('/get/?type=newsandblogslist&size=3'),
       ]);
 
       const roadmap = res[0].data.data

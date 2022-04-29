@@ -68,9 +68,9 @@
   }
 
   .card-title {
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: bold;
-    margin: 0.4rem 0;
+    margin: 0.1rem 0;
     color: $white;
   }
 
@@ -84,7 +84,7 @@
   .card {
     color: $white;
     padding: 1rem 2rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.1rem;
     max-height: 600px;
     // cursor: pointer;
     transition: background-color 0.5s ease;

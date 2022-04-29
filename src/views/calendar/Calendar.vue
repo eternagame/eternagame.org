@@ -60,3 +60,14 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+@import '@/styles/global.scss';
+
+.fc {
+  --fc-list-event-hover-bg-color: #21508c;
+  --fc-page-bg-color: #21508c;
+  --fc-border-color: #21508c;
+  --fc-neutral-bg-color: #21508c ;
+}
+</style>

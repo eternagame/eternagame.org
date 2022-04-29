@@ -190,6 +190,7 @@
               listDayAltFormat: 'dddd',
             },
           },
+          height: 'auto',
           eventClick: this.handleEventClick,
           googleCalendarApiKey: process.env.VUE_APP_GOOGLE_API_ID,
           events: {
@@ -221,6 +222,13 @@
 
 ::v-deep .player-progress-bar {
   max-width: 100%;
+}
+
+.fc {
+  --fc-list-event-hover-bg-color: #21508c;
+  --fc-page-bg-color: #21508c;
+  --fc-border-color: #21508c;
+  --fc-neutral-bg-color: #21508c ;
 }
 
 #header-carousel {

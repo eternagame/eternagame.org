@@ -27,6 +27,7 @@
       <div class="flex">
         <div class="row">
           <div class="col-md-6">
+            <h3>Latest News</h3>
             <Gallery :sm="12" :md="12">
               <NewsActivity
                 v-for="article in newsItems"
@@ -38,6 +39,7 @@
           </div>
 
           <div class="col-md-6">
+            <h3>Upcoming Events</h3>
             <FullCalendar :options="calendarOptions" />
           </div>
         </div>

@@ -65,9 +65,9 @@
 @import '@/styles/global.scss';
 
 .fc {
-  --fc-list-event-hover-bg-color: #21508c;
-  --fc-page-bg-color: #21508c;
-  --fc-border-color: #21508c;
-  --fc-neutral-bg-color: #21508c ;
+  --fc-list-event-hover-bg-color: #043468;
+  --fc-page-bg-color: #043468;
+  --fc-border-color: #043468;
+  --fc-neutral-bg-color: #043468 ;
 }
 </style>

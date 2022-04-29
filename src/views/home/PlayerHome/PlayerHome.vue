@@ -28,13 +28,13 @@
         <div class="row">
           <div class="col-md-6">
             <Gallery :sm="12" :md="12">
-              <ActivityCard
-                v-for="notification in notifications"
-                :key="notification.nid"
-                :notification="notification"
+              <NewsActivity
+                v-for="article in newsItems"
+                :key="article.nid"
+                :article="article"
               />
             </Gallery>
-            <Pagination :key="notifications.length" />
+            <Pagination :key="newsItems.length" />
           </div>
 
           <div class="col-md-6">
@@ -77,6 +77,7 @@
     NewsItem as NewsItemType,
     BlogItem,
     NotificationItem,
+    NewsItem,
   } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
@@ -87,7 +88,6 @@
   import googleCalendarPlugin from '@fullcalendar/google-calendar';
   import listPlugin from '@fullcalendar/list';
   import dayGridPlugin from '@fullcalendar/daygrid';
-  import ActivityCard from '@/views/feed/ActivityFeed/components/ActivityCard.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import { LabData } from '../../labs/LabView/types';
   import TutorialTeaserSlide from './components/banner/TutorialTeaserSlide.vue';
@@ -98,6 +98,7 @@
   import QuestActivity from './components/activities/QuestActivity.vue';
   import TutorialActivity from './components/activities/TutorialActivity.vue';
   import '@fullcalendar/core/vdom'; // solves problem with Vite
+  import NewsActivity from './components/activities/NewsActivity.vue';
 
   @Component({
     components: {
@@ -111,9 +112,9 @@
       QuestActivity,
       TutorialActivity,
       IdeaJamSlide,
-      ActivityCard,
       Pagination,
       FullCalendar,
+      NewsActivity,
     },
   })
   export default class PlayerHome extends Mixins(FetchMixin) {
@@ -127,7 +128,7 @@
 
     masteringEternaAchievements: ProcessedRoadmapAchievement[] = [];
 
-    notifications: NotificationItem[] = [];
+    newsItems: (NewsItem|BlogItem)[] = [];
 
     async fetch() {
       const res = await Promise.all([
@@ -158,7 +159,7 @@
 
       this.labCarouselLabs = res[1].data.data.labs;
       this.potwSlideData = res[2].data.data;
-      this.notifications = res[3].data.data.entries;
+      this.newsItems = res[3].data.data.entries;
 
       this.$vxm.user.refreshAchievements();
     }

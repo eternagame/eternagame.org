@@ -9,19 +9,42 @@
         background="#05224b"
         img-width="1024"
         img-height="480"
-        style="text-shadow: 1px 1px 2px #333;"
+        style="text-shadow: 1px 1px 2px #333"
       >
         <template v-if="hasLabAccess">
-          <LabSlide v-for="lab in labCarouselLabs" v-bind="lab" :key="lab.nid" />
+          <LabSlide
+            v-for="lab in labCarouselLabs"
+            v-bind="lab"
+            :key="lab.nid"
+          />
           <POTWSlide v-bind="potwSlideData" v-if="potwSlideData" />
         </template>
         <template v-else>
           <TutorialTeaserSlide :nextPuzzleID="nextPuzzleID" />
         </template>
       </b-carousel>
+      <br/>
+      <div class="flex">
+        <div class="row">
+          <div class="col-md-6">
+            <Gallery :sm="12" :md="12">
+              <ActivityCard
+                v-for="notification in notifications"
+                :key="notification.nid"
+                :notification="notification"
+              />
+            </Gallery>
+            <Pagination :key="notifications.length" />
+          </div>
+
+          <div class="col-md-6">
+            <FullCalendar :options="calendarOptions" />
+          </div>
+        </div>
+      </div>
 
       <template v-if="hasLabAccess">
-        <QuestActivity :sideQuests="masteringEternaAchievements"/>
+        <QuestActivity :sideQuests="masteringEternaAchievements" />
         <TutorialActivity
           :stages="tenToolsAchievements"
           :heading="$t('player-home:advanced-tutorials')"
@@ -47,12 +70,25 @@
 </template>
 
 <script lang="ts">
-  import { Component, Mixins} from 'vue-property-decorator';
-  import { RoadmapAchievement, ProcessedRoadmapAchievement } from '@/types/common-types';
+  import { Component, Mixins } from 'vue-property-decorator';
+  import {
+    RoadmapAchievement,
+    ProcessedRoadmapAchievement,
+    NewsItem as NewsItemType,
+    BlogItem,
+    NotificationItem,
+  } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import Carousel from '@/components/Common/Carousel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
+  import FullCalendar from '@fullcalendar/vue';
+  import interactionPlugin from '@fullcalendar/interaction';
+  import googleCalendarPlugin from '@fullcalendar/google-calendar';
+  import listPlugin from '@fullcalendar/list';
+  import dayGridPlugin from '@fullcalendar/daygrid';
+  import ActivityCard from '@/views/feed/ActivityFeed/components/ActivityCard.vue';
+  import Pagination from '@/components/PageLayout/Pagination.vue';
   import { LabData } from '../../labs/LabView/types';
   import TutorialTeaserSlide from './components/banner/TutorialTeaserSlide.vue';
   import POTWSlide from './components/banner/POTWSlide.vue';
@@ -61,6 +97,7 @@
   import IdeaJamSlide from './components/banner/IdeaJamSlide.vue';
   import QuestActivity from './components/activities/QuestActivity.vue';
   import TutorialActivity from './components/activities/TutorialActivity.vue';
+  import '@fullcalendar/core/vdom'; // solves problem with Vite
 
   @Component({
     components: {
@@ -73,11 +110,14 @@
       Preloader,
       QuestActivity,
       TutorialActivity,
-      IdeaJamSlide
+      IdeaJamSlide,
+      ActivityCard,
+      Pagination,
+      FullCalendar,
     },
   })
   export default class PlayerHome extends Mixins(FetchMixin) {
-    potwSlideData: object| null = null;
+    potwSlideData: object | null = null;
 
     labCarouselLabs: LabData[] = [];
 
@@ -87,30 +127,38 @@
 
     masteringEternaAchievements: ProcessedRoadmapAchievement[] = [];
 
+    notifications: NotificationItem[] = [];
+
     async fetch() {
       const res = await Promise.all([
         this.$http.get('/get/?type=side_project_roadmap'),
         this.$http.get('/get/?type=carousel'),
         this.$http.get('/get/?type=puzzle_of_the_week'),
+        this.$http.get('/get/?type=newsfeed&combined=true&filter=news&size=3'),
       ]);
 
-      const roadmap = res[0].data.data.achievement_roadmap as RoadmapAchievement[];
-      this.tenToolsAchievements = roadmap.filter(p => p.key === 'ten_tools');
-      this.eternaEssentialsAchievements = roadmap.filter(p => p.key === 'eterna_essentials');
+      const roadmap = res[0].data.data
+        .achievement_roadmap as RoadmapAchievement[];
+      this.tenToolsAchievements = roadmap.filter((p) => p.key === 'ten_tools');
+      this.eternaEssentialsAchievements = roadmap.filter(
+        (p) => p.key === 'eterna_essentials',
+      );
       this.masteringEternaAchievements = roadmap
-        .filter(p => p.key.includes('side_quest'))
-        .map(p => ({
+        .filter((p) => p.key.includes('side_quest'))
+        .map((p) => ({
           ...p,
-          prereqSatisfied: p.prereq === undefined || roadmap.some(
-            ach => (
-              `${ach.key}${ach.level}` === ach.prereq
-              && Number(ach.current_level) >= ach.level
-            )
-          )
+          prereqSatisfied:
+            p.prereq === undefined ||
+            roadmap.some(
+              (ach) =>
+                `${ach.key}${ach.level}` === ach.prereq &&
+                Number(ach.current_level) >= ach.level,
+            ),
         }));
 
       this.labCarouselLabs = res[1].data.data.labs;
       this.potwSlideData = res[2].data.data;
+      this.notifications = res[3].data.data.entries;
 
       this.$vxm.user.refreshAchievements();
     }
@@ -122,38 +170,76 @@
     get nextPuzzleID() {
       return this.eternaEssentialsAchievements[0].current_puzzle;
     }
+
+    data() {
+      return {
+        calendarOptions: {
+          initialView: 'upcoming',
+          headerToolbar: false,
+          plugins: [
+            dayGridPlugin,
+            interactionPlugin,
+            googleCalendarPlugin,
+            listPlugin,
+          ],
+          views: {
+            upcoming: {
+              type: 'list',
+              duration: { days: 3 },
+              listDayAltFormat: 'dddd',
+            },
+          },
+          eventClick: this.handleEventClick,
+          googleCalendarApiKey: process.env.VUE_APP_GOOGLE_API_ID,
+          events: {
+            googleCalendarId: process.env.VUE_APP_GOOGLE_CALENDAR_ID,
+          },
+        },
+      };
+    }
+
+    handleEventClick(info: {
+      jsEvent: { preventDefault: () => void };
+      event: { url: string | URL | undefined };
+    }) {
+      info.jsEvent.preventDefault(); // don't let the browser navigate
+
+      if (info.event.url) {
+        window.open(info.event.url);
+      }
+    }
   }
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/global.scss';
+@import '@/styles/global.scss';
 
-  ::v-deep section {
-    text-align:center;
-  }
+::v-deep section {
+  text-align: center;
+}
 
-  ::v-deep .player-progress-bar {
-    max-width: 100%;
-  }
+::v-deep .player-progress-bar {
+  max-width: 100%;
+}
 
-  #header-carousel {
-    // Overflow page margins as a hero element.
-    margin-top: -$page-margin-top;
-    margin-left: -$page-margin-side;
-    margin-right: -$page-margin-side;
-  }
+#header-carousel {
+  // Overflow page margins as a hero element.
+  margin-top: -$page-margin-top;
+  margin-left: -$page-margin-side;
+  margin-right: -$page-margin-side;
+}
 
-  #header-carousel ::v-deep .carousel-inner {
-    min-height: 300px;
-  }
+#header-carousel ::v-deep .carousel-inner {
+  min-height: 300px;
+}
 
-  #header-carousel ::v-deep .carousel-control-prev,
-  ::v-deep .carousel-control-next {
-    max-width: 100px;
-  }
+#header-carousel ::v-deep .carousel-control-prev,
+::v-deep .carousel-control-next {
+  max-width: 100px;
+}
 
-  #header-carousel ::v-deep .carousel-caption {
-    left: min(100px, 15%) !important;
-    right: min(100px, 15%) !important;
-  }
+#header-carousel ::v-deep .carousel-caption {
+  left: min(100px, 15%) !important;
+  right: min(100px, 15%) !important;
+}
 </style>

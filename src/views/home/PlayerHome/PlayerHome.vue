@@ -36,11 +36,13 @@
               />
             </Gallery>
             <Pagination :key="newsItems.length" />
+            <p class="text-right"><a href="/news">View All ></a></p>
           </div>
 
           <div class="col-md-6">
             <h3>Upcoming Events</h3>
             <FullCalendar :options="calendarOptions" />
+            <p class="text-right"><a href="/calendar">View All ></a></p>
           </div>
         </div>
       </div>

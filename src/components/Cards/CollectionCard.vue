@@ -8,7 +8,7 @@
       </template>
       <SmartLink :link="toCollection">
         <img
-          :src="getImage(puzzles[0].nid)"
+          :src="getImage(puzzleList[0].nid)"
           style="width: 80%; margin: auto"
           class="scalable"
         />
@@ -27,7 +27,7 @@
                   class="icon"
                 />
               </slot>
-              {{ puzzles.length }}
+              {{ puzzleList.length }}
             </div>
           </b-col>
           <b-col cols="6">
@@ -113,6 +113,8 @@
 
     @Prop({ required: true }) readonly founder_name!: string;
 
+    @Prop({ required: true }) readonly puzzles!: string;
+
     @Prop() readonly collectionLink?: string;
 
     @Prop() readonly puzzleLink?: string;
@@ -123,7 +125,7 @@
 
     @Ref('root') readonly root!: HTMLDivElement;
 
-    puzzles: PuzzleItem[] = [];
+    puzzleList: PuzzleItem[] = [];
 
     cleared: ClearedPuzzle[] = [];
 
@@ -157,11 +159,9 @@
     }
 
     async fetch() {
-      const res = (await this.$http.get(`/get/?type=collection&nid=${this.nid}`))
-        .data.data as CollectionResponse;
-      const puzzlelist = res.collection.puzzles.split(',');
+      const puzzlelist = this.puzzles.split(',');
       Object.values(puzzlelist).forEach(async (puzz) =>
-        this.puzzles.push(
+        this.puzzleList.push(
           (await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`))
             .data.data as PuzzleItem,
         ),
@@ -170,9 +170,9 @@
         await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)
       ).data.data.cleared;
       this.cleared = this.cleared.filter((x) =>
-        this.puzzles.map((y) => y.nid).includes(x.nid),
+        this.puzzleList.map((y) => y.nid).includes(x.nid),
       );
-      this.to_next = this.cleared.length / this.puzzles.length;
+      this.to_next = this.cleared.length / this.puzzleList.length;
     }
 
     getImage(nid: string) {

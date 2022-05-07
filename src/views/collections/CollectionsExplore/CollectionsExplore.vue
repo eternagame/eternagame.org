@@ -198,13 +198,7 @@
     }
 
     private filters: Filter[] = [
-      { value: 'single_state', text: 'Single state' },
-      { value: 'switches', text: 'Switches' },
-      { value: 'boosting', text: 'Boosting' },
-      { value: 'energy_traps', text: 'Energy Traps' },
-      { value: 'bulges', text: 'Bulges' },
-      { value: 'multiloops', text: 'Multiloops' },
-      { value: 'riboswitches', text: 'Riboswitches' },
+      { value: 'cleared', text: 'Cleared' },
       { value: 'uncleared', text: 'Uncleared' },
     ];
   }

@@ -8,15 +8,7 @@
       </template>
       <SmartLink :link="toCollection">
         <img
-          v-if="image"
-          :src="image"
-          style="width: 80%; margin: auto"
-          class="scalable"
-        />
-
-        <img
-          v-if="!image"
-          src="@/assets/logo.svg"
+          :src="getImage(puzzles[0].nid)"
           style="width: 80%; margin: auto"
           class="scalable"
         />
@@ -143,6 +135,11 @@
         this.puzzles.map((y) => y.nid).includes(x.nid),
       );
       this.to_next = this.cleared.length / this.puzzles.length;
+    }
+
+    getImage(nid: string) {
+      const image = Utils.getPuzzleMiddleThumbnail(nid);
+      return image;
     }
   }
 </script>

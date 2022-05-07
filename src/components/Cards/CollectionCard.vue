@@ -14,31 +14,65 @@
         />
       </SmartLink>
       <template #footer>
-        <div style="text-align: center; margin-bottom: 0px">
-          <img src="@/assets/noun_lock.svg" v-if="locked" />
-          <div v-else>
-            <p v-if="completed">
-              <SmartLink :link="toGame">
-                <img src="@/assets/noun_check.svg" />
-                <b style="text-transform: uppercase">{{
-                  $t('collection:completed')
-                }}</b>
-              </SmartLink>
-            </p>
-            <div v-else>
-              <b-button
-                variant="primary"
-                style="margin: 10px 0"
-                :[nav]="toGame"
-              >
-                {{ $t('quest-card:play') }}
-              </b-button>
-              <SmartLink v-if="started" :link="toGame">
-                <b-progress :value="to_next" max="1"></b-progress>
-              </SmartLink>
-            </div>
-          </div>
+        <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
+          <slot name="buttons" />
         </div>
+        <b-row class="mb-2" style="margin-top: 10px">
+          <b-col cols="6">
+            <div class="left-col">
+              <slot name="left-icon">
+                <img
+                  src="@/assets/chemical_bond.svg"
+                  alt="collection size"
+                  class="icon"
+                />
+              </slot>
+              {{ puzzles.length }}
+            </div>
+          </b-col>
+          <b-col cols="6">
+            <div class="right-col">
+              <slot name="right-icon">
+                <img
+                  :src="founder_picture"
+                  alt="founder image"
+                  class="icon"
+                  id="avatarimage"
+                />
+              </slot>
+              {{ founder_name }}
+            </div>
+          </b-col>
+        </b-row>
+        <b-row class="mb-2" style="margin-top: 10px">
+          <b-col>
+            <div style="text-align: center; margin-bottom: 0px">
+              <img src="@/assets/noun_lock.svg" v-if="locked" />
+              <div v-else>
+                <p v-if="completed">
+                  <SmartLink :link="toGame">
+                    <img src="@/assets/noun_check.svg" />
+                    <b style="text-transform: uppercase">{{
+                      $t('collection:completed')
+                    }}</b>
+                  </SmartLink>
+                </p>
+                <div v-else>
+                  <b-button
+                    variant="primary"
+                    style="margin: 10px 0"
+                    :[nav]="toGame"
+                  >
+                    {{ $t('quest-card:play') }}
+                  </b-button>
+                  <SmartLink v-if="started" :link="toGame">
+                    <b-progress :value="to_next" max="1"></b-progress>
+                  </SmartLink>
+                </div>
+              </div>
+            </div>
+          </b-col>
+        </b-row>
       </template>
     </AspectRatioCard>
   </div>
@@ -74,6 +108,10 @@
     @Prop({ required: false }) readonly level!: string;
 
     @Prop({ required: true }) readonly nid!: string;
+
+    @Prop({ required: true }) readonly founder_picture!: string;
+
+    @Prop({ required: true }) readonly founder_name!: string;
 
     @Prop() readonly collectionLink?: string;
 
@@ -169,4 +207,21 @@
   height: 30px;
   text-align: center;
 }
+
+  .icon {
+    width: 19px;
+    margin-right: 5px;
+  }
+
+  .left-col,
+  .right-col {
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+
+    & > .icon {
+      width: 12.57px;
+    }
+  }
 </style>

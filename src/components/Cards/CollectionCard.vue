@@ -1,18 +1,16 @@
 <template>
-  <div ref="root">
-    <AspectRatioCard>
+  <SmartLink :link="toCollection">
+    <AspectRatioCard :aspectRatio="aspectRatio" :id="`popover-target-${nid}`" class="card">
       <template #header>
         <div class="collection-card-title">
           {{ title }}
         </div>
       </template>
-      <SmartLink :link="toCollection">
         <img
           :src="getImage(puzzleList[0])"
           style="width: 80%; margin: auto"
           class="scalable"
         />
-      </SmartLink>
       <template #footer>
         <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
           <slot name="buttons" />
@@ -22,18 +20,6 @@
             <div class="left-col">
               <slot name="left-icon">
                 <img
-                  src="@/assets/noun_puzzle.svg"
-                  alt="collection size"
-                  class="icon"
-                />
-              </slot>
-              {{ puzzleList.length }}
-            </div>
-          </b-col>
-          <b-col cols="6">
-            <div class="right-col">
-              <slot name="right-icon">
-                <img
                   :src="founder_picture"
                   alt="founder image"
                   class="icon"
@@ -41,6 +27,18 @@
                 />
               </slot>
               {{ founder_name }}
+            </div>
+          </b-col>
+          <b-col cols="6">
+            <div class="right-col">
+              <slot name="right-icon">
+                <img
+                  src="@/assets/noun_puzzle.svg"
+                  alt="collection size"
+                  class="icon"
+                />
+              </slot>
+              {{ puzzleList.length }}
             </div>
           </b-col>
         </b-row>
@@ -75,7 +73,8 @@
         </b-row>
       </template>
     </AspectRatioCard>
-  </div>
+
+  </SmartLink>
 </template>
 <script lang="ts">
   import { Component, Mixins, Prop, Ref, Vue } from 'vue-property-decorator';
@@ -116,6 +115,8 @@
     @Prop({ required: true }) readonly puzzles!: string;
 
     @Prop({ required: true }) readonly cleared!: PuzzleItem[];
+
+    @Prop({ default: 1 }) readonly aspectRatio!: number;
 
     @Prop() readonly collectionLink?: string;
 
@@ -159,7 +160,6 @@
     }
 
     async fetch() {
-      console.log(this.cleared);
       this.puzzleList = this.puzzles.split(',');
       const cleared = this.cleared.filter((x) =>
         this.puzzleList.map((y) => y).includes(x.nid),
@@ -187,16 +187,8 @@
   padding: 11.25px !important;
 }
 
-.card {
-  background-color: $input-bg;
-  transition: 0.3s ease;
-}
-.card:hover {
-  background-color: $blue;
-}
-
 .collection-card-title {
-  height: 30px;
+  height: 50px;
   text-align: center;
 }
 
@@ -215,5 +207,41 @@
     & > .icon {
       width: 12.57px;
     }
+  }
+
+  .middle-num {
+    position: absolute;
+    top: Calc(50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #21508c;
+    font-size: 8px;
+    font-weight: 900;
+  }
+
+
+  .right-col {
+    justify-content: flex-end;
+  }
+
+  .inner {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .card {
+    transition: 0.3s ease;
+    color: $white;
+  }
+
+  .card:hover {
+    border: 1px solid gold;
+  }
+
+  .card:active {
+    background-color: #01010188;
   }
 </style>

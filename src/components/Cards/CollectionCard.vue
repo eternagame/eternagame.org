@@ -64,7 +64,7 @@
                     {{ $t('quest-card:play') }}
                   </b-button>
                   <SmartLink v-if="started" :link="toGame">
-                    <b-progress :value="to_next" max="1"></b-progress>
+                    <b-progress :value="to_next()" max="1"></b-progress>
                   </SmartLink>
                 </div>
               </div>
@@ -97,8 +97,6 @@
   })
   export default class CollectionCard extends Mixins(FetchMixin) {
     @Prop({ required: true }) readonly image!: string;
-
-    @Prop({ required: false }) to_next!: number;
 
     @Prop({ required: true }) readonly title!: string;
 
@@ -152,19 +150,22 @@
     }
 
     get started() {
-      return this.to_next > 0 && !this.locked;
+      return this.to_next() > 0 && !this.locked;
     }
 
     get completed() {
-      return this.to_next >= 1 && !this.locked;
+      return this.to_next() >= 1 && !this.locked;
+    }
+
+    to_next() {
+      const cleared = this.cleared.filter((x) =>
+        this.puzzleList.map((y) => y).includes(x.nid),
+      );
+      return cleared.length / this.puzzleList.length;
     }
 
     async fetch() {
       this.puzzleList = this.puzzles.split(',');
-      const cleared = this.cleared.filter((x) =>
-        this.puzzleList.map((y) => y).includes(x.nid),
-      );
-      this.to_next = cleared.length / this.puzzleList.length;
     }
 
     getImage(nid: string) {

@@ -15,8 +15,9 @@
             </div>
           </div>
         </div>
-
-        <h3 class="card-title" v-if="article.title">{{ article.title }}</h3>
+        <div class="row justify-content-between">
+          <h3 class="card-title" v-if="article.title">{{ article.title }}</h3>
+        </div>
       </div>
     </div>
   </SmartLink>

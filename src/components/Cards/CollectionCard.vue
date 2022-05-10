@@ -22,7 +22,7 @@
             <div class="left-col">
               <slot name="left-icon">
                 <img
-                  src="@/assets/chemical_bond.svg"
+                  src="@/assets/noun_puzzle.svg"
                   alt="collection size"
                   class="icon"
                 />

@@ -71,7 +71,8 @@
   .card-title {
     font-size: 1rem;
     font-weight: bold;
-    margin: 0.1rem 0;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
     color: $white;
   }
 

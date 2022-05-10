@@ -23,7 +23,7 @@
           <TutorialTeaserSlide :nextPuzzleID="nextPuzzleID" />
         </template>
       </b-carousel>
-      <br/>
+      <br />
       <div class="flex">
         <div class="row">
           <div class="col-md-6">
@@ -132,7 +132,7 @@
 
     masteringEternaAchievements: ProcessedRoadmapAchievement[] = [];
 
-    newsItems: (NewsItem|BlogItem)[] = [];
+    newsItems: (NewsItem | BlogItem)[] = [];
 
     async fetch() {
       const res = await Promise.all([
@@ -218,41 +218,41 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/global.scss';
+  @import '@/styles/global.scss';
 
-::v-deep section {
-  text-align: center;
-}
+  ::v-deep section {
+    text-align: center;
+  }
 
-::v-deep .player-progress-bar {
-  max-width: 100%;
-}
+  ::v-deep .player-progress-bar {
+    max-width: 100%;
+  }
 
-.fc {
-  --fc-list-event-hover-bg-color: #043468;
-  --fc-page-bg-color: #043468;
-  --fc-border-color: #043468;
-  --fc-neutral-bg-color: #043468 ;
-}
+  .fc {
+    --fc-list-event-hover-bg-color: #043468;
+    --fc-page-bg-color: #043468;
+    --fc-border-color: #043468;
+    --fc-neutral-bg-color: #043468;
+  }
 
-#header-carousel {
-  // Overflow page margins as a hero element.
-  margin-top: -$page-margin-top;
-  margin-left: -$page-margin-side;
-  margin-right: -$page-margin-side;
-}
+  #header-carousel {
+    // Overflow page margins as a hero element.
+    margin-top: -$page-margin-top;
+    margin-left: -$page-margin-side;
+    margin-right: -$page-margin-side;
+  }
 
-#header-carousel ::v-deep .carousel-inner {
-  min-height: 300px;
-}
+  #header-carousel ::v-deep .carousel-inner {
+    min-height: 300px;
+  }
 
-#header-carousel ::v-deep .carousel-control-prev,
-::v-deep .carousel-control-next {
-  max-width: 100px;
-}
+  #header-carousel ::v-deep .carousel-control-prev,
+  ::v-deep .carousel-control-next {
+    max-width: 100px;
+  }
 
-#header-carousel ::v-deep .carousel-caption {
-  left: min(100px, 15%) !important;
-  right: min(100px, 15%) !important;
-}
+  #header-carousel ::v-deep .carousel-caption {
+    left: min(100px, 15%) !important;
+    right: min(100px, 15%) !important;
+  }
 </style>

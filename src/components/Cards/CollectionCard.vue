@@ -8,7 +8,7 @@
       </template>
       <SmartLink :link="toCollection">
         <img
-          :src="getImage(puzzleList[0].nid)"
+          :src="getImage(puzzleList[0])"
           style="width: 80%; margin: auto"
           class="scalable"
         />
@@ -115,6 +115,8 @@
 
     @Prop({ required: true }) readonly puzzles!: string;
 
+    @Prop({ required: true }) readonly cleared!: PuzzleItem[];
+
     @Prop() readonly collectionLink?: string;
 
     @Prop() readonly puzzleLink?: string;
@@ -125,9 +127,7 @@
 
     @Ref('root') readonly root!: HTMLDivElement;
 
-    puzzleList: PuzzleItem[] = [];
-
-    cleared: ClearedPuzzle[] = [];
+    puzzleList: String[] = [];
 
     get nav() {
       return Utils.isLinkInternal(this.toGame) ? 'to' : 'href';
@@ -159,20 +159,12 @@
     }
 
     async fetch() {
-      const puzzlelist = this.puzzles.split(',');
-      Object.values(puzzlelist).forEach(async (puzz) =>
-        this.puzzleList.push(
-          (await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`))
-            .data.data as PuzzleItem,
-        ),
+      console.log(this.cleared);
+      this.puzzleList = this.puzzles.split(',');
+      const cleared = this.cleared.filter((x) =>
+        this.puzzleList.map((y) => y).includes(x.nid),
       );
-      this.cleared = await (
-        await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)
-      ).data.data.cleared;
-      this.cleared = this.cleared.filter((x) =>
-        this.puzzleList.map((y) => y.nid).includes(x.nid),
-      );
-      this.to_next = this.cleared.length / this.puzzleList.length;
+      this.to_next = cleared.length / this.puzzleList.length;
     }
 
     getImage(nid: string) {

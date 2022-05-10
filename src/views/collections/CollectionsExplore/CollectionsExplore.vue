@@ -41,6 +41,7 @@
           <CollectionCard
             v-for="item in collections"
             :key="item.name"
+            :cleared="cleared"
             v-bind="item"
           />
         </Gallery>
@@ -97,6 +98,7 @@
     CollectionList,
     RoadmapAchievement,
     ProcessedRoadmapAchievement,
+    PuzzleItem,
   } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import QuestActivity from '@/views/home/PlayerHome/components/activities/QuestActivity.vue';
@@ -145,6 +147,8 @@
 
     masteringEternaAchievements: ProcessedRoadmapAchievement[] = [];
 
+    cleared: PuzzleItem[] = [];
+
     async fetch() {
       const { filters, sort, search, size } = this.$route.query;
       const params = {
@@ -157,21 +161,17 @@
 
       if (this.$vxm.user.loggedIn) params.uid = this.$vxm.user.uid;
 
-      const res = (
-        await this.$http.get(ROUTE, {
-          params,
-        })
-      ).data.data as CollectionList;
-      
-      this.collections = res.collections;
-      this.created = res.created || [];
-
-      const res2 = await Promise.all([
+      const res = await Promise.all([
+        this.$http.get(ROUTE, { params,}),
         this.$http.get('/get/?type=side_project_roadmap'),
         this.$http.get('/get/?type=puzzle_of_the_week'),
+        this.$http.get('/get/?type=puzzles')
       ]);
+      
+      this.collections = res[0].data.data.collections;
+      this.created = res[0].data.data.created || [];
 
-      const roadmap = res2[0].data.data
+      const roadmap = res[1].data.data
         .achievement_roadmap as RoadmapAchievement[];
       this.tenToolsAchievements = roadmap.filter((p) => p.key === 'ten_tools');
       this.eternaEssentialsAchievements = roadmap.filter(
@@ -191,6 +191,8 @@
         }));
 
       this.$vxm.user.refreshAchievements();
+
+      this.cleared = res[3].data.data.cleared;
     }
 
     get hasLabAccess() {

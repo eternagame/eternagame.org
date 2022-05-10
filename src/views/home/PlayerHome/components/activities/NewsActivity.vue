@@ -74,13 +74,6 @@
     color: $white;
   }
 
-  .icon-text {
-    margin-left: 7px;
-    position: relative;
-    top: 7px;
-    font-weight: bold;
-  }
-
   .card {
     color: $white;
     padding: 1rem 2rem;

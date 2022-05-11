@@ -14,9 +14,11 @@
           <h4 class="title mb-4">{{ $t('side-panel-options:achievements') }}</h4>
           <Gallery :xs="6" :sm="4" :md="2">
             <AchievementCard
-              v-for="(achievement, key) in achievements"
+              v-for="(achievement, key) in allAchievements"
               :key="key"
               v-bind="achievement"
+              :achievements="myAchievements"
+              :isAchieved="isAchieved(achievement)"
             />
           </Gallery>
         </div>
@@ -198,7 +200,9 @@
 
     synthesized: SynthesizedDesign[] = [];
 
-    achievements: {[name: string]: ProfileAchievement} = {};
+    myAchievements: {[name: string]: ProfileAchievement} = {};
+
+    allAchievements: {[name: string]: ProfileAchievement} = {};
 
     joinedGroups: ProfileGroup[] = [];
 
@@ -213,8 +217,19 @@
       this.createdPuzzles = res.created_puzzles || [];
       this.clearedPuzzles = res.cleared_puzzles || [];
       this.synthesized = res.synthesized || [];
-      this.achievements = res.achievements || {};
+      this.myAchievements = res.achievements || {};
+      this.allAchievements = res.all_achievements || {};
       this.joinedGroups = res.my_group || [];
+    }
+
+    isAchieved(a: ProfileAchievement): boolean {
+      let b = true;
+      Object.values(this.myAchievements).forEach( (value) => {
+        if (value.title === a.title) {
+          b = false;
+        }
+      });
+      return b;
     }
   }
 </script>

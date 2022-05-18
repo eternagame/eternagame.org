@@ -1,6 +1,8 @@
 <template>
   <EternaPage title="">
-    <HeroSection>
+    <HeroSection
+      backgroundImage="@/assets/home/hero-eternacon-2022.jpg"
+    >
       Tune in on July 23-24 to exciting talks and activities from Eterna researchers, developers,
       players, and other world-class experts.
     </HeroSection>
@@ -38,7 +40,7 @@
   import HeroSection from './components/HeroSection.vue';
   import ConferenceAreasSection from './components/ConferenceAreasSection.vue';
   import ScheduleSection from './components/ScheduleSection.vue';
-  import { options } from './AboutEternacon.vue'; 
+  import { options } from './AboutEternacon.vue';
 
   @Component({
     components: { EternaPage, HeroSection, ConferenceAreasSection, ScheduleSection, DropdownSidebarPanel },

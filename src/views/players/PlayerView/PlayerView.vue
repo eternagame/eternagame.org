@@ -10,11 +10,6 @@
         />
 
         <div class="m-3" v-if="$route.query.tab_type == 'achievements'">
-          <hr class="top-border" />
-          <h4 class="title mb-4">
-            {{ $t('side-panel-options:achievements') }}
-          </h4>
-
           <b-modal id="submodal">
             <Gallery :xs="6" :sm="4" :md="2">
               <AchievementCard
@@ -27,9 +22,30 @@
               </AchievementCard>
             </Gallery>
           </b-modal>
+          <hr class="top-border" />
+          <h4 class="title mb-4">
+            {{ $t('side-panel-options:achievements') }}
+          </h4>
+
           <Gallery :xs="6" :sm="4" :md="2">
             <AchievementCard
-              v-for="(achievement, key) in allAchievements"
+              v-for="(achievement, key) in filter(allAchievements, 'earnable')"
+              :key="key"
+              v-bind="computeAchievement(achievement)"
+              :isAchieved="isAchieved(achievement)"
+              :achievement="achievement"
+              @handler="handler(achievement)"
+            >
+            </AchievementCard>
+          </Gallery>
+          <hr class="top-border" />
+          <h4 class="title mb-4">
+            {{ "Limited Achievements" }}
+          </h4>
+
+          <Gallery :xs="6" :sm="4" :md="2">
+            <AchievementCard
+              v-for="(achievement, key) in filter(allAchievements, 'limited')"
               :key="key"
               v-bind="computeAchievement(achievement)"
               :isAchieved="isAchieved(achievement)"
@@ -280,16 +296,29 @@
     computeAchievement(a: ProfileAchievement): ProfileAchievement {
       if (!Object.prototype.hasOwnProperty.call(a, 'title')) {
         return Object.values(a)[0];
-      } 
+      }
       return a;
-    
     }
 
     handler(a: ProfileAchievement[]) {
       if (!Object.prototype.hasOwnProperty.call(a, 'title')) {
         this.subAchievements = a;
-        this.$bvModal.show("submodal");
+        this.$bvModal.show('submodal');
       }
+    }
+
+    filter(aList: ProfileAchievement[], filter: string) {
+      const returnArray: ProfileAchievement[] = [];
+      Object.values(aList).forEach((a) => {
+        if (!Object.prototype.hasOwnProperty.call(a, 'title')) {
+          if (Object.values(a)[0].type === filter) {
+            returnArray.push(a);
+          }
+        } else if (a.type === filter) {
+          returnArray.push(a);
+        }
+      });
+      return returnArray;
     }
   }
 </script>

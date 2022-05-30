@@ -11,15 +11,31 @@
 
         <div class="m-3" v-if="$route.query.tab_type == 'achievements'">
           <hr class="top-border" />
-          <h4 class="title mb-4">{{ $t('side-panel-options:achievements') }}</h4>
+          <h4 class="title mb-4">
+            {{ $t('side-panel-options:achievements') }}
+          </h4>
+
+          <b-modal id="submodal">
+            <Gallery :xs="6" :sm="4" :md="2">
+              <AchievementCard
+                v-for="(achievement, key) in subAchievements"
+                :key="key"
+                v-bind="achievement"
+                :achievement="achievement"
+                :isAchieved="isAchieved(achievement)"
+              >
+              </AchievementCard>
+            </Gallery>
+          </b-modal>
           <Gallery :xs="6" :sm="4" :md="2">
             <AchievementCard
               v-for="(achievement, key) in allAchievements"
               :key="key"
-              v-bind="achievement"
-              :achievements="myAchievements"
+              v-bind="computeAchievement(achievement)"
               :isAchieved="isAchieved(achievement)"
-            />
+              @handler="handler(achievement)"
+            >
+            </AchievementCard>
           </Gallery>
         </div>
 
@@ -39,11 +55,15 @@
               <td>
                 <!-- TODO: need to include filters e.g. https://eternagame.org/game/browse/6296743/?filter1=Id&filter1_arg1=6348941&filter1_arg2=6348941 -->
                 <!--eslint-disable-next-line max-len-->
-                <a :href="`${BASE_URL_PREFIX}/game/browse/${slotProps.item.puznid}/`">
+                <a
+                  :href="`${BASE_URL_PREFIX}/game/browse/${slotProps.item.puznid}/`"
+                >
                   {{ slotProps.item.title }}
                 </a>
               </td>
-              <td class="font-weight-bold">{{ slotProps.item.score || 'Waiting' }}</td>
+              <td class="font-weight-bold">
+                {{ slotProps.item.score || 'Waiting' }}
+              </td>
             </tr>
           </template>
         </PlayerTable>
@@ -61,7 +81,9 @@
           <template v-slot:trow="slotProps">
             <tr>
               <td class="puzzle-link">
-                <a :href="`/puzzles/${slotProps.item.puznid}/`">{{ slotProps.item.title }}</a>
+                <a :href="`/puzzles/${slotProps.item.puznid}/`">{{
+                  slotProps.item.title
+                }}</a>
               </td>
             </tr>
           </template>
@@ -80,7 +102,9 @@
           <template v-slot:trow="slotProps">
             <tr>
               <td class="puzzle-link">
-                <a :href="`/puzzles/${slotProps.item.id}`">{{ slotProps.item.title }}</a>
+                <a :href="`/puzzles/${slotProps.item.id}`">{{
+                  slotProps.item.title
+                }}</a>
               </td>
             </tr>
           </template>
@@ -100,7 +124,9 @@
           <template v-slot:trow="slotProps">
             <tr>
               <td class="puzzle-link">
-                <a :href="`/puzzles/${slotProps.item.id}/`">{{ slotProps.item.title }}</a>
+                <a :href="`/puzzles/${slotProps.item.id}/`">{{
+                  slotProps.item.title
+                }}</a>
               </td>
             </tr>
           </template>
@@ -119,7 +145,9 @@
           <template v-slot:trow="slotProps">
             <tr>
               <td class="puzzle-link">
-                <a :href="`/web/group/${slotProps.item.group_nid}/`">{{ slotProps.item.group_title }}</a>
+                <a :href="`/web/group/${slotProps.item.group_nid}/`">{{
+                  slotProps.item.group_title
+                }}</a>
               </td>
             </tr>
           </template>
@@ -145,7 +173,9 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import DropdownSidebarPanel, {
+    Option,
+    } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
   import {
@@ -157,8 +187,9 @@
     CreatedPuzzle,
     SynthesizedDesign,
     ProfileAchievement,
-    ProfileGroup
+    ProfileGroup,
   } from '@/types/common-types';
+  import { isArray, isMap, isObject } from 'lodash';
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
   import PlayerTable from './components/PlayerTable.vue';
@@ -185,7 +216,7 @@
       { value: 'created', text: 'side-panel-options:created' },
       { value: 'latest', text: 'side-panel-options:latest' },
       { value: 'cleared', text: 'side-panel-options:cleared' },
-      { value: 'groups', text: 'side-panel-options:groups' }
+      { value: 'groups', text: 'side-panel-options:groups' },
     ];
 
     user: UserData | null = null;
@@ -200,17 +231,24 @@
 
     synthesized: SynthesizedDesign[] = [];
 
-    myAchievements: {[name: string]: ProfileAchievement} = {};
+    myAchievements: { [name: string]: ProfileAchievement } = {};
 
-    allAchievements: {[name: string]: ProfileAchievement} = {};
+    allAchievements: { [name: string]: ProfileAchievement } = {};
 
     joinedGroups: ProfileGroup[] = [];
+
+    subAchievements: ProfileAchievement[] = [];
 
     async fetch() {
       const ROUTE = `/get/?type=user&uid=${this.$route.params.uid}`;
       // Achievements and Groups are provided when no tab_type is specified.
-      const tab_type = (this.$route.query.tab_type === ('achievements') || this.$route.query.tab_type === ('groups')) ? 'about' : this.$route.query.tab_type;
-      const res = (await this.$http.get(ROUTE, { params: { tab_type } })).data.data as UserResponse;
+      const tab_type =
+        this.$route.query.tab_type === 'achievements' ||
+        this.$route.query.tab_type === 'groups'
+          ? 'about'
+          : this.$route.query.tab_type;
+      const res = (await this.$http.get(ROUTE, { params: { tab_type } })).data
+        .data as UserResponse;
       this.user = res.user;
       this.follow = res.follow;
       this.latestPuzzles = res.latest_puzzles || [];
@@ -224,16 +262,37 @@
 
     isAchieved(a: ProfileAchievement): boolean {
       let b = true;
-      Object.values(this.myAchievements).forEach( (value) => {
-        if (value.title === a.title) {
+      Object.values(this.myAchievements).forEach((value) => {
+        if (!Object.prototype.hasOwnProperty.call(a, 'title')) {
+          Object.values(a).forEach((value2) => {
+            if (value.title === value2.title) {
+              b = false;
+            }
+          });
+        } else if (value.title === a.title) {
           b = false;
         }
       });
       return b;
     }
+
+    computeAchievement(a: ProfileAchievement): ProfileAchievement {
+      if (!Object.prototype.hasOwnProperty.call(a, 'title')) {
+        return Object.values(a)[0];
+      } 
+      return a;
+    
+    }
+
+    handler(a: ProfileAchievement[]) {
+      if (!Object.prototype.hasOwnProperty.call(a, 'title')) {
+        this.subAchievements = a;
+        this.$bvModal.show("submodal");
+      }
+    }
   }
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/global.scss';
+@import '@/styles/global.scss';
 </style>

@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="center">
-      <img :src="image" :alt="title" :class="{ 'achievement--thumbnail__grayscale': isAchieved }" />
+      <img
+        :src="image"
+        :alt="title"
+        :class="{ 'achievement--thumbnail__grayscale': isAchieved }"
+        @click="$emit('handler')"
+      />
     </div>
     <p class="caption">{{ title }}</p>
   </div>
@@ -11,6 +16,7 @@
   import { ProfileAchievement } from '@/types/common-types';
   import { Component, Vue, Prop } from 'vue-property-decorator';
 
+
   @Component({
     components: {},
   })
@@ -19,11 +25,8 @@
 
     @Prop({ required: true }) readonly title!: string;
 
-    @Prop({ required: true }) readonly achievements!: {
-      [name: string]: ProfileAchievement;
-    };
+    @Prop({ required: true }) readonly isAchieved!: boolean;
 
-    @Prop({required: true}) readonly isAchieved!: boolean;
   }
 </script>
 

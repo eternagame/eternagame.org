@@ -7,6 +7,9 @@
         :class="{ 'achievement--thumbnail__grayscale': isAchieved }"
         @click="$emit('handler')"
       />
+      <div v-if="getLevels() != 0">
+        {{getLevels()}}
+      </div>
     </div>
     <p class="caption">{{ title }}</p>
   </div>
@@ -26,6 +29,16 @@
     @Prop({ required: true }) readonly title!: string;
 
     @Prop({ required: true }) readonly isAchieved!: boolean;
+
+    @Prop({required: false}) readonly achievement!: ProfileAchievement;
+
+    getLevels(): number {
+      if (!Object.prototype.hasOwnProperty.call(this.achievement, 'title')) {
+        return Object.values(this.achievement).length;
+      } 
+      return 0;
+    
+    }
 
   }
 </script>

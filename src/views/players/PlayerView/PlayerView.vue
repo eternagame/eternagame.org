@@ -33,6 +33,7 @@
               :key="key"
               v-bind="computeAchievement(achievement)"
               :isAchieved="isAchieved(achievement)"
+              :achievement="achievement"
               @handler="handler(achievement)"
             >
             </AchievementCard>

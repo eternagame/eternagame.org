@@ -10,7 +10,13 @@
         />
 
         <div class="m-3" v-if="$route.query.tab_type == 'achievements'">
-          <b-modal id="submodal" hide-footer size="xl" centered header-border-variant="primary">
+          <b-modal
+            id="submodal"
+            hide-footer
+            size="xl"
+            centered
+            header-border-variant="primary"
+          >
             <Gallery :xs="6" :sm="4" :md="2">
               <AchievementCard
                 v-for="(achievement, key) in subAchievements"
@@ -34,6 +40,7 @@
               v-bind="computeAchievement(achievement)"
               :isAchieved="isAchieved(achievement)"
               :achievement="achievement"
+              :completed="completed(achievement)"
               @handler="handler(achievement)"
             >
             </AchievementCard>
@@ -50,6 +57,7 @@
               v-bind="computeAchievement(achievement)"
               :isAchieved="isAchieved(achievement)"
               :achievement="achievement"
+              :completed="completed(achievement)"
               @handler="handler(achievement)"
             >
             </AchievementCard>
@@ -293,9 +301,27 @@
       return b;
     }
 
+    completed(a: ProfileAchievement[]): number {
+      let b = 0;
+      Object.values(this.myAchievements).forEach((value) => {
+        if (!Object.prototype.hasOwnProperty.call(a, 'title')) {
+          Object.values(a).forEach((value2) => {
+            if (value.title === value2.title) {
+              b += 1;
+            }
+          });
+        }
+      });
+      return b;
+    }
+
     computeAchievement(a: ProfileAchievement): ProfileAchievement {
       if (!Object.prototype.hasOwnProperty.call(a, 'title')) {
-        return Object.values(a)[0];
+        let highest = this.completed(Object.values(a));
+        if (highest === 0){
+          highest = 1;
+        }
+        return Object.values(a)[highest-1];
       }
       return a;
     }

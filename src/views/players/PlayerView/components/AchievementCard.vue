@@ -7,9 +7,10 @@
         :class="{ 'achievement--thumbnail__grayscale': isAchieved }"
         @click="$emit('handler')"
       />
-      <div v-if="getLevels() != 0">
-        {{getLevels()}}
-      </div>
+
+        <div v-if="getLevels() != 0">
+          <b-badge class="completion-badge" pill href="#" @click="$emit('handler')">{{completed}}/{{ getLevels() }}</b-badge>
+        </div>
     </div>
     <p class="caption">{{ title }}</p>
   </div>
@@ -18,7 +19,6 @@
 <script lang="ts">
   import { ProfileAchievement } from '@/types/common-types';
   import { Component, Vue, Prop } from 'vue-property-decorator';
-
 
   @Component({
     components: {},
@@ -30,16 +30,16 @@
 
     @Prop({ required: true }) readonly isAchieved!: boolean;
 
-    @Prop({required: false}) readonly achievement!: ProfileAchievement;
+    @Prop({ required: false }) readonly achievement!: ProfileAchievement;
+
+    @Prop({ required: false}) readonly completed!: number;
 
     getLevels(): number {
       if (!Object.prototype.hasOwnProperty.call(this.achievement, 'title')) {
         return Object.values(this.achievement).length;
-      } 
+      }
       return 0;
-    
     }
-
   }
 </script>
 
@@ -92,5 +92,15 @@ img {
 }
 .achievement--thumbnail__grayscale {
   filter: grayscale(100%);
+}
+
+.completion-badge{
+    position: absolute;
+    right:10px;
+    top:10px;
+    text-align: center;
+    border-radius: 30px 30px 30px 30px;
+    padding:5px 10px;
+    font-size:10px;
 }
 </style>

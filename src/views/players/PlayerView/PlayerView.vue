@@ -10,7 +10,7 @@
         />
 
         <div class="m-3" v-if="$route.query.tab_type == 'achievements'">
-          <b-modal id="submodal">
+          <b-modal id="submodal" hide-footer size="xl" centered header-border-variant="primary">
             <Gallery :xs="6" :sm="4" :md="2">
               <AchievementCard
                 v-for="(achievement, key) in subAchievements"
@@ -40,7 +40,7 @@
           </Gallery>
           <hr class="top-border" />
           <h4 class="title mb-4">
-            {{ "Limited Achievements" }}
+            {{ 'Limited Achievements' }}
           </h4>
 
           <Gallery :xs="6" :sm="4" :md="2">

@@ -9,7 +9,7 @@
       />
 
         <div v-if="getLevels() != 0">
-          <b-badge class="completion-badge" pill href="#" @click="$emit('handler')">{{completed}}/{{ getLevels() }}</b-badge>
+          <b-badge class="completion-badge" :class="{ 'achievement--thumbnail__grayscale': isAchieved }" pill href="#" @click="$emit('handler')">{{completed}}/{{ getLevels() }}</b-badge>
         </div>
     </div>
     <p class="caption">{{ title }}</p>

@@ -45,6 +45,7 @@
             >
             </AchievementCard>
           </Gallery>
+          <div v-if="filter(myAchievements, 'limited').length != 0">
           <hr class="top-border" />
           <h4 class="title mb-4">
             {{ 'Special Achievements' }}
@@ -52,7 +53,7 @@
 
           <Gallery :xs="6" :sm="4" :md="2">
             <AchievementCard
-              v-for="(achievement, key) in filter(allAchievements, 'limited')"
+              v-for="(achievement, key) in filter(myAchievements, 'limited')"
               :key="key"
               v-bind="computeAchievement(achievement)"
               :isAchieved="isAchieved(achievement)"
@@ -62,6 +63,7 @@
             >
             </AchievementCard>
           </Gallery>
+          </div>
         </div>
 
         <PlayerTable

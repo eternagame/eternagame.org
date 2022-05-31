@@ -47,7 +47,7 @@
           </Gallery>
           <hr class="top-border" />
           <h4 class="title mb-4">
-            {{ 'Limited Achievements' }}
+            {{ 'Special Achievements' }}
           </h4>
 
           <Gallery :xs="6" :sm="4" :md="2">

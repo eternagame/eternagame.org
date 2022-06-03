@@ -272,9 +272,9 @@ export interface CollectionItem {
   nid: string;
   title: string;
   desc: string;
-  founder_picture: string;
-  founder_name: string;
-  founder_uid: string;
+  userpicture: string;
+  username: string;
+  uid: string;
   created: string;
   image: string;
   puzzles: string;

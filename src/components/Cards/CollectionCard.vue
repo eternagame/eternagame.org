@@ -20,13 +20,13 @@
             <div class="left-col">
               <slot name="left-icon">
                 <img
-                  :src="founder_picture"
-                  alt="founder image"
+                  :src="userpicture"
+                  alt="user image"
                   class="icon"
                   id="avatarimage"
                 />
               </slot>
-              {{ founder_name }}
+              {{ username }}
             </div>
           </b-col>
           <b-col cols="6">
@@ -106,9 +106,9 @@
 
     @Prop({ required: true }) readonly nid!: string;
 
-    @Prop({ required: true }) readonly founder_picture!: string;
+    @Prop({ required: true }) readonly userpicture!: string;
 
-    @Prop({ required: true }) readonly founder_name!: string;
+    @Prop({ required: true }) readonly username!: string;
 
     @Prop({ required: true }) readonly puzzles!: string;
 

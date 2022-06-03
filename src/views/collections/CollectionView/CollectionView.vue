@@ -47,7 +47,7 @@
         </template>
         <ul style="padding: 0; list-style-type:none" v-if="collection">
           <li>
-            <img :src="collection.founder_picture" class="icon" />{{ collection.founder_name }}
+            <img :src="collection.userpicture" class="icon" />{{ collection.username }}
           </li>
           <li>
             <img src="@/assets/calendar.svg" class="icon" />{{ collection.created }}
@@ -114,7 +114,7 @@
       this.collection = res.collection;
       this.comments = res.comments;
       this.nid = res.collection.nid;
-      if(this.collection.founder_name === this.$vxm.user.username) this.editRights = true;
+      if(this.collection.username === this.$vxm.user.username) this.editRights = true;
       const puzzlelist = this.collection.puzzles.split(",");
       Object.values(puzzlelist).forEach(async puzz => this.puzzles.push((await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)).data.data as PuzzleItem));
       this.cleared = await (await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)).data.data.cleared;

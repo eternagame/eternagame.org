@@ -114,10 +114,10 @@
     async submit() {
       this.loading = true;
       const data = new FormData();
-      data.set('collection-title-input', this.title);
+      data.set('collection-title', this.title);
       data.set('nid', this.$route.params.id);
       data.set(
-        'collection-description-input',
+        'collection-description',
         this.desc
       );
       const puzzleids: String[] = [];

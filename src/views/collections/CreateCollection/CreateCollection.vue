@@ -91,8 +91,8 @@
     async submit() {
       this.loading = true;
       const data = new FormData();
-      data.set('collection-title-input', this.title);
-      data.set('collection-description-input', this.body);
+      data.set('collection-title', this.title);
+      data.set('collection-description', this.body);
       const puzzleids: String[] = [];
       this.puzzlelist.forEach((e) => puzzleids.push(e.id));
       data.set('collection-puzzles', puzzleids.toString());

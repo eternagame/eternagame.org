@@ -51,6 +51,13 @@
           Delete Account
           <b-spinner v-if="loading" small />
         </b-btn>
+        <b-button
+          style="margin-left:10px"
+          variant="secondary"
+          @click="$bvModal.hide('account-delete')"
+        >
+          Cancel
+        </b-button>
       </b-form>
     </b-modal>
   </div>

@@ -279,6 +279,7 @@ export interface CollectionItem {
   image: string;
   puzzles: string;
   num_completers: string;
+  quest: boolean;
 }
 
 export interface CollectionResponse {

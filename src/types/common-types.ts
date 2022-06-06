@@ -62,6 +62,7 @@ export interface ProfileAchievement {
   title: string;
   desc: string;
   past: string;
+  type: string;
 }
 
 export interface UserResponse {

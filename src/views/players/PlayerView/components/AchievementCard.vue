@@ -1,7 +1,16 @@
 <template>
   <div>
     <div class="center">
-      <img :src="image" :alt="title" :class="{ 'achievement--thumbnail__grayscale': isAchieved }" />
+      <img
+        :src="image"
+        :alt="title"
+        :class="{ 'achievement--thumbnail__grayscale': isAchieved }"
+        @click="$emit('expand')"
+      />
+
+        <div v-if="getLevels() != 1 && achievement.type != 'limited' && showLevels">
+          <b-badge class="completion-badge" :class="{ 'achievement--thumbnail__grayscale': isAchieved }" pill href="#" @click="$emit('expand')">{{completed}}/{{ getLevels() }}</b-badge>
+        </div>
     </div>
     <p class="caption">{{ title }}</p>
   </div>
@@ -19,11 +28,17 @@
 
     @Prop({ required: true }) readonly title!: string;
 
-    @Prop({ required: true }) readonly achievements!: {
-      [name: string]: ProfileAchievement;
-    };
+    @Prop({ required: true }) readonly isAchieved!: boolean;
 
-    @Prop({required: true}) readonly isAchieved!: boolean;
+    @Prop({ required: true }) readonly achievement!: ProfileAchievement;
+
+    @Prop({ required: false, default: 0 }) readonly completed!: number;
+
+    @Prop({ required: false, default: true }) readonly showLevels!: boolean;
+
+    getLevels(): number {
+      return Object.values(this.achievement).length;
+    }
   }
 </script>
 
@@ -76,5 +91,15 @@ img {
 }
 .achievement--thumbnail__grayscale {
   filter: grayscale(100%);
+}
+
+.completion-badge{
+    position: absolute;
+    right:10px;
+    top:10px;
+    text-align: center;
+    border-radius: 30px 30px 30px 30px;
+    padding:5px 10px;
+    font-size:10px;
 }
 </style>

@@ -15,7 +15,7 @@
         :personalName.sync="personalName"
       />
       <hr class="top-border" />
-      <EditPlayerCredentials
+      <EditPlayerAccountSettings
         :email.sync="email"
         :messagesNotify.sync="messagesNotify"
         :newsNotify.sync="newsNotify"
@@ -23,7 +23,9 @@
         @update:password="pass => newPassword = pass"
       />
       <hr class="top-border" />
-      <p style="font-weight:bold">{{ $t('edit-profile:current-password') }}</p>
+      <EditPlayerDanger />
+      <hr class="top-border" />
+      <h4 style="font-weight:bold">{{ $t('edit-profile:current-password') }}</h4>
       <input
         style="color:#fff"
         type="password"
@@ -61,7 +63,8 @@
   import Utils from "@/utils/utils";
   import EditPlayerHeader from './components/EditPlayerHeader.vue';
   import EditPlayerAboutMe from './components/EditPlayerAboutMe.vue';
-  import EditPlayerCredentials from './components/EditPlayerCredentials.vue';
+  import EditPlayerAccountSettings from './components/EditPlayerAccountSettings.vue';
+  import EditPlayerDanger from './components/EditPlayerDanger.vue';
 
   const EDIT_PROFILE = '/login/';
 
@@ -73,7 +76,8 @@
       DropdownSidebarPanel,
       EditPlayerHeader,
       EditPlayerAboutMe,
-      EditPlayerCredentials,
+      EditPlayerAccountSettings,
+      EditPlayerDanger,
       Preloader,
     },
   })

@@ -93,8 +93,7 @@
       const data = new FormData();
       data.set('collection-title', this.title);
       data.set('collection-description', this.body);
-      const puzzleids: String[] = [];
-      this.puzzlelist.forEach((e) => puzzleids.push(e.id));
+      const puzzleids: String[] = this.puzzlelist.map(e => e.id);
       data.set('collection-puzzles', puzzleids.toString());
       if (this.newPicture) data.append(`files[picture_upload]`, this.newPicture);
       data.set('type', 'create_collection');
@@ -108,7 +107,8 @@
         this.loading = false;
         const error = res?.data?.data?.error;
         if (error) throw new Error(error);
-        this.$router.push(`/collections/`);
+        console.log(res.data);
+        this.$router.push(`/collections/${res.data.data.nid}`);
       } catch (e: any) {
         const r = this.$notify({
           type: 'error',

@@ -23,13 +23,37 @@
         <div class="row">
           <div class="col-md-6">
             <b-button type="submit" variant="primary" @click="submit()">
-              {{ $t('create-collection:collection-info:main-action') }}
+              {{ $t('update-collection:collection-info:main-action') }}
             </b-button>
+            <b-modal id="delete" title="Delete Collection?" hide-footer>
+              <div class="d-block text-center">
+                Warning: This will permanently delete the collection!
+              </div>
+
+              <b-button
+                class="mt-3"
+                type="submit"
+                style="margin-left: 10px"
+                variant="primary"
+                @click="$bvModal.hide('delete')"
+              >
+                {{ 'Cancel' }}
+              </b-button>
+              <b-button
+                class="mt-3"
+                type="submit"
+                style="margin-left: 10px"
+                variant="danger"
+                @click="deleteCollection()"
+              >
+                {{ 'Delete' }}
+              </b-button>
+            </b-modal>
             <b-button
               type="submit"
               style="margin-left: 10px"
               variant="danger"
-              @click="deleteCollection"
+              v-b-modal.delete
             >
               {{ 'Delete' }}
             </b-button>
@@ -58,6 +82,7 @@
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Utils from '@/utils/utils';
   import { CollectionItem, PuzzleItem } from '@/types/common-types';
+  import FetchMixin from '@/mixins/FetchMixin';
   import CollectionInfo from './components/CollectionInfo.vue';
   import CollectionPuzzles from './components/CollectionPuzzles.vue';
 
@@ -69,7 +94,7 @@
       CollectionPuzzles,
     },
   })
-  export default class EditCollection extends Vue {
+  export default class EditCollection extends Mixins(FetchMixin) {
     @Prop({ required: true }) private loading!: boolean;
 
     private title = '';
@@ -88,23 +113,18 @@
 
     fetchData: () => Promise<void> | undefined = async () => {};
 
-    mounted() {
-      this.fetch();
-    }
-
     async fetch() {
       const collection = (
         await this.$http.get(`/get/?type=collection&nid=${this.$route.params.id}`)
       ).data.data.collection as CollectionItem;
       if (collection.puzzles != null) {
         const puzzlelist = collection.puzzles.split(',');
-        Object.values(puzzlelist).forEach(async (puzz) =>
-          this.puzzlelist.push(
-            (await (
-              await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)
-            ).data.data.puzzle) as PuzzleItem,
+        const res = await Promise.all(
+          Object.values(puzzlelist).map((puzz) =>
+            this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`),
           ),
         );
+        this.puzzlelist = res.map((puzz) => puzz.data.data.puzzle as PuzzleItem);
       }
       this.title = collection.title;
       this.desc = collection.desc;
@@ -116,12 +136,8 @@
       const data = new FormData();
       data.set('collection-title', this.title);
       data.set('nid', this.$route.params.id);
-      data.set(
-        'collection-description',
-        this.desc
-      );
-      const puzzleids: String[] = [];
-      this.puzzlelist.forEach((e) => puzzleids.push(e.id));
+      data.set('collection-description', this.desc);
+      const puzzleids: String[] = this.puzzlelist.map((e) => e.id);
       data.set('collection-puzzles', puzzleids.toString());
       if (this.newPicture) data.append(`files[picture_upload]`, this.newPicture);
       data.set('type', 'edit_collection');

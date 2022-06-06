@@ -1,44 +1,56 @@
 <template>
   <SmartLink :link="toCollection">
-    <AspectRatioCard :aspectRatio="aspectRatio" :id="`popover-target-${nid}`" class="card">
+    <AspectRatioCard
+      :aspectRatio="aspectRatio"
+      :id="`popover-target-${nid}`"
+      class="card"
+    >
       <template #header>
         <div class="collection-card-title">
           {{ title }}
         </div>
       </template>
-        <img
-          :src="getImage(puzzleList[0])"
-          style="width: 80%; margin: auto"
-          class="scalable"
-        />
+      <img
+        :src="getImage()"
+        style="width: 80%; margin: auto"
+        class="scalable"
+      />
       <template #footer>
-        <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
+        <div
+          style="width: 100%"
+          class="d-flex justify-content-between"
+          v-if="$slots.buttons"
+        >
           <slot name="buttons" />
         </div>
         <b-row class="mb-2" style="margin-top: 10px">
           <b-col cols="6">
             <div class="left-col">
-              <slot name="left-icon">
-                <img
-                  :src="userpicture"
-                  alt="user image"
-                  class="icon"
-                  id="avatarimage"
-                />
-              </slot>
-              {{ username }}
+              <div v-b-tooltip.hover title="Author">
+                <slot name="left-icon">
+                  <img
+                    :src="userpicture"
+                    alt="user image"
+                    class="icon"
+                    id="avatarimage"
+                  />
+                </slot>
+                {{ username }}
+              </div>
             </div>
           </b-col>
           <b-col cols="6">
             <div class="right-col">
-              <slot name="right-icon">
-                <img
-                  src="@/assets/noun_puzzle.svg"
-                  alt="collection size"
-                  class="icon"
-                />
-              </slot>
-              {{ puzzleList.length }}
+              <div v-b-tooltip.hover title="Number of puzzles">
+                <slot name="right-icon">
+                  <img
+                    src="@/assets/noun_puzzle.svg"
+                    alt="number of puzzles"
+                    class="icon"
+                  />
+                </slot>
+                {{ puzzleList.length }}
+              </div>
             </div>
           </b-col>
         </b-row>
@@ -73,7 +85,6 @@
         </b-row>
       </template>
     </AspectRatioCard>
-
   </SmartLink>
 </template>
 <script lang="ts">
@@ -124,9 +135,7 @@
 
     @Prop() readonly current_puzzle?: string;
 
-    @Ref('root') readonly root!: HTMLDivElement;
-
-    puzzleList: String[] = [];
+    puzzleList: string[] = [];
 
     get nav() {
       return Utils.isLinkInternal(this.toGame) ? 'to' : 'href';
@@ -168,9 +177,8 @@
       this.puzzleList = this.puzzles.split(',');
     }
 
-    getImage(nid: string) {
-      const image = Utils.getPuzzleMiddleThumbnail(nid);
-      return image;
+    getImage() {
+      return Utils.getPuzzleMiddleThumbnail(this.puzzleList[0]);
     }
   }
 </script>
@@ -193,56 +201,55 @@
   text-align: center;
 }
 
-  .icon {
-    width: 19px;
-    margin-right: 5px;
+.icon {
+  width: 19px;
+  margin-right: 5px;
+}
+
+.left-col,
+.right-col {
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+
+  & > .icon {
+    width: 12.57px;
   }
+}
 
-  .left-col,
-  .right-col {
-    font-size: 11px;
-    display: flex;
-    align-items: center;
-    font-weight: bold;
+.middle-num {
+  position: absolute;
+  top: Calc(50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #21508c;
+  font-size: 8px;
+  font-weight: 900;
+}
 
-    & > .icon {
-      width: 12.57px;
-    }
-  }
+.right-col {
+  justify-content: flex-end;
+}
 
-  .middle-num {
-    position: absolute;
-    top: Calc(50%);
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #21508c;
-    font-size: 8px;
-    font-weight: 900;
-  }
+.inner {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  position: absolute;
+  z-index: 1;
+}
 
+.card {
+  transition: 0.3s ease;
+  color: $white;
+}
 
-  .right-col {
-    justify-content: flex-end;
-  }
+.card:hover {
+  border: 1px solid gold;
+}
 
-  .inner {
-    left: 50%;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    position: absolute;
-    z-index: 1;
-  }
-
-  .card {
-    transition: 0.3s ease;
-    color: $white;
-  }
-
-  .card:hover {
-    border: 1px solid gold;
-  }
-
-  .card:active {
-    background-color: #01010188;
-  }
+.card:active {
+  background-color: #01010188;
+}
 </style>

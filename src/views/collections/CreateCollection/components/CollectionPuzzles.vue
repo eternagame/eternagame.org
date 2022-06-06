@@ -7,7 +7,7 @@
     <h3>{{ $t('create-collection:puzzle-info:add-puzzle') }}</h3>
     <input placeholder="Enter ID" v-model="idInput" />
     <button type="button" class="btn secondary" @click="addPuzzle(idInput)">
-      Submit Id
+      Add By ID
     </button>
     <vue-bootstrap-typeahead
       ref="typeahead"
@@ -161,7 +161,7 @@
 
     viewPuzzle(nid: string) {
       const route = this.$router.resolve({ path: `/puzzles/${nid}` });
-      window.open(route.href);
+      window.open(route.href, "_blank");
     }
 
     getImage(nid: string) {

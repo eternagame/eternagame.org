@@ -32,6 +32,11 @@ export default function createRouter() {
         component: () => import('./views/collections/CollectionsExplore/CollectionsExplore.vue'),
       },
       {
+        path: '/collections/create',
+        name: 'create-collection',
+        component: () => import('./views/collections/CreateCollection/CreateCollection.vue'),
+      },
+      {
         path: '/collections/:id',
         name: 'collections-view',
         component: () => import('./views/collections/CollectionView/CollectionView.vue'),
@@ -40,11 +45,6 @@ export default function createRouter() {
         path: '/collections/:id/edit',
         name: 'collections-view',
         component: () => import('./views/collections/CreateCollection/EditCollection.vue'),
-      },
-      {
-        path: '/create/collection',
-        name: 'create-collection',
-        component: () => import('./views/collections/CreateCollection/CreateCollection.vue'),
       },
       {
         path: '/puzzles',

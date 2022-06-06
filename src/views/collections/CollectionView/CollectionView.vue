@@ -105,7 +105,7 @@
 
     editRights: Boolean = false;
 
-    nid = this.$route.params.id;
+    nid: string|undefined;
 
     async fetch(){
       const res = (

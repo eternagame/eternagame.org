@@ -71,7 +71,7 @@
         type="submit"
         variant="primary"
         class="submit-button"
-        to="/create/collection"
+        to="/collections/create"
       >
         {{ $t('collections-view:create') }}
       </b-button>
@@ -164,7 +164,6 @@
       const res = await Promise.all([
         this.$http.get(ROUTE, { params,}),
         this.$http.get('/get/?type=side_project_roadmap'),
-        this.$http.get('/get/?type=puzzle_of_the_week'),
         this.$http.get('/get/?type=puzzles')
       ]);
       
@@ -192,7 +191,7 @@
 
       this.$vxm.user.refreshAchievements();
 
-      this.cleared = res[3].data.data.cleared;
+      this.cleared = res[2].data.data.cleared;
     }
 
     get hasLabAccess() {

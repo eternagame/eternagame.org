@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h4 style="font-weight:bold">{{ $t('edit-profile:account-settings') }}</h4>
     <p style="font-weight:bold">{{ $t('edit-profile:change-password') }}</p>
     <input
       style="color:#fff"
@@ -41,7 +42,7 @@
   @Component({
     components: { EditField },
   })
-  export default class PlayerEditCredentials extends Vue {
+  export default class EditPlayerAccountSettings extends Vue {
     private password: string = '';
 
     private passwordConfirm: string = '';

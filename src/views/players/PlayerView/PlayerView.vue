@@ -11,7 +11,7 @@
 
         <div class="m-3" v-if="$route.query.tab_type == 'achievements'">
           <b-modal
-            id="submodal"
+            id="subachievement-modal"
             hide-footer
             size="xl"
             centered
@@ -24,6 +24,7 @@
                 v-bind="achievement"
                 :achievement="achievement"
                 :isAchieved="isAchieved(achievement)"
+                :showLevels="false"
               >
               </AchievementCard>
             </Gallery>
@@ -41,28 +42,28 @@
               :isAchieved="isAchieved(achievement)"
               :achievement="achievement"
               :completed="completed(achievement)"
-              @handler="handler(achievement)"
+              @expand="expand(achievement)"
             >
             </AchievementCard>
           </Gallery>
           <div v-if="filter(myAchievements, 'limited').length != 0">
-          <hr class="top-border" />
-          <h4 class="title mb-4">
-            {{ 'Special Achievements' }}
-          </h4>
+            <hr class="top-border" />
+            <h4 class="title mb-4">
+              {{ 'Special Achievements' }}
+            </h4>
 
-          <Gallery :xs="6" :sm="4" :md="2">
-            <AchievementCard
-              v-for="(achievement, key) in filter(myAchievements, 'limited')"
-              :key="key"
-              v-bind="computeAchievement(achievement)"
-              :isAchieved="isAchieved(achievement)"
-              :achievement="achievement"
-              :completed="completed(achievement)"
-              @handler="handler(achievement)"
-            >
-            </AchievementCard>
-          </Gallery>
+            <Gallery :xs="6" :sm="4" :md="2">
+              <AchievementCard
+                v-for="(achievement, key) in filter(myAchievements, 'limited')"
+                :key="key"
+                v-bind="achievement"
+                :isAchieved="isAchieved(achievement)"
+                :achievement="achievement"
+                :completed="completed(achievement)"
+                @expand="expand(achievement)"
+              >
+              </AchievementCard>
+            </Gallery>
           </div>
         </div>
 
@@ -288,64 +289,37 @@
     }
 
     isAchieved(a: ProfileAchievement): boolean {
-      let b = true;
-      Object.values(this.myAchievements).forEach((value) => {
-        if (!Object.prototype.hasOwnProperty.call(a, 'title')) {
-          Object.values(a).forEach((value2) => {
-            if (value.title === value2.title) {
-              b = false;
-            }
-          });
-        } else if (value.title === a.title) {
-          b = false;
-        }
-      });
-      return b;
+      return !Object.values(this.myAchievements).some(
+        (value) =>
+          Object.values(a).some((value2) => value.title === value2.title) ||
+          value.title === a.title,
+      );
     }
 
     completed(a: ProfileAchievement[]): number {
       let b = 0;
       Object.values(this.myAchievements).forEach((value) => {
-        if (!Object.prototype.hasOwnProperty.call(a, 'title')) {
-          Object.values(a).forEach((value2) => {
-            if (value.title === value2.title) {
-              b += 1;
-            }
-          });
-        }
+        b += Object.values(a).filter(
+          (value2) => value.title === value2.title,
+        ).length;
       });
       return b;
     }
 
     computeAchievement(a: ProfileAchievement): ProfileAchievement {
-      if (!Object.prototype.hasOwnProperty.call(a, 'title')) {
-        let highest = this.completed(Object.values(a));
-        if (highest === 0){
-          highest = 1;
-        }
-        return Object.values(a)[highest-1];
-      }
-      return a;
+      const highest = this.completed(Object.values(a)) || 1;
+      return Object.values(a)[highest - 1];
     }
 
-    handler(a: ProfileAchievement[]) {
-      if (!Object.prototype.hasOwnProperty.call(a, 'title')) {
-        this.subAchievements = a;
-        this.$bvModal.show('submodal');
-      }
+    expand(a: ProfileAchievement[]) {
+      this.subAchievements = a;
+      this.$bvModal.show('subachievement-modal');
     }
 
     filter(aList: ProfileAchievement[], filter: string) {
-      const returnArray: ProfileAchievement[] = [];
-      Object.values(aList).forEach((a) => {
-        if (!Object.prototype.hasOwnProperty.call(a, 'title')) {
-          if (Object.values(a)[0].type === filter) {
-            returnArray.push(a);
-          }
-        } else if (a.type === filter) {
-          returnArray.push(a);
-        }
-      });
+      const returnArray: ProfileAchievement[] = Object.values(aList).filter(
+        (a) => Object.values(a)[0].type === filter || a.type === filter,
+      );
       return returnArray;
     }
   }

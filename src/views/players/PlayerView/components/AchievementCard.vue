@@ -5,11 +5,11 @@
         :src="image"
         :alt="title"
         :class="{ 'achievement--thumbnail__grayscale': isAchieved }"
-        @click="$emit('handler')"
+        @click="$emit('expand')"
       />
 
-        <div v-if="getLevels() != 0">
-          <b-badge class="completion-badge" :class="{ 'achievement--thumbnail__grayscale': isAchieved }" pill href="#" @click="$emit('handler')">{{completed}}/{{ getLevels() }}</b-badge>
+        <div v-if="getLevels() != 1 && achievement.type != 'limited' && showLevels">
+          <b-badge class="completion-badge" :class="{ 'achievement--thumbnail__grayscale': isAchieved }" pill href="#" @click="$emit('expand')">{{completed}}/{{ getLevels() }}</b-badge>
         </div>
     </div>
     <p class="caption">{{ title }}</p>
@@ -30,15 +30,14 @@
 
     @Prop({ required: true }) readonly isAchieved!: boolean;
 
-    @Prop({ required: false }) readonly achievement!: ProfileAchievement;
+    @Prop({ required: true }) readonly achievement!: ProfileAchievement;
 
-    @Prop({ required: false}) readonly completed!: number;
+    @Prop({ required: false, default: 0 }) readonly completed!: number;
+
+    @Prop({ required: false, default: true }) readonly showLevels!: boolean;
 
     getLevels(): number {
-      if (!Object.prototype.hasOwnProperty.call(this.achievement, 'title')) {
-        return Object.values(this.achievement).length;
-      }
-      return 0;
+      return Object.values(this.achievement).length;
     }
   }
 </script>

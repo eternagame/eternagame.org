@@ -28,25 +28,29 @@
             <b-modal id="delete" title="Delete Collection?" hide-footer>
               <div class="d-block text-center">
                 Warning: This will permanently delete the collection!
+                <br/>
+                <br/>
+                Enter the title of the collection to continue:
               </div>
-
-              <b-button
-                class="mt-3"
-                type="submit"
-                style="margin-left: 10px"
-                variant="primary"
-                @click="$bvModal.hide('delete')"
-              >
-                {{ 'Cancel' }}
-              </b-button>
+              <input v-model="deleteTitle"/>
               <b-button
                 class="mt-3"
                 type="submit"
                 style="margin-left: 10px"
                 variant="danger"
+                :disabled="deleteTitle != title"
                 @click="deleteCollection()"
               >
                 {{ 'Delete' }}
+              </b-button>
+              <b-button
+                class="mt-3"
+                type="submit"
+                style="margin-left: 10px"
+                variant="secondary"
+                @click="$bvModal.hide('delete')"
+              >
+                {{ 'Cancel' }}
               </b-button>
             </b-modal>
             <b-button
@@ -98,6 +102,8 @@
     @Prop({ required: true }) private loading!: boolean;
 
     private title = '';
+
+    private deleteTitle = '';
 
     private desc = '';
 

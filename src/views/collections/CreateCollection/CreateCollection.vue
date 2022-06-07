@@ -107,7 +107,6 @@
         this.loading = false;
         const error = res?.data?.data?.error;
         if (error) throw new Error(error);
-        console.log(res.data);
         this.$router.push(`/collections/${res.data.data.nid}`);
       } catch (e: any) {
         const r = this.$notify({

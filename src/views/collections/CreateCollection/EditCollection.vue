@@ -121,7 +121,7 @@
         const puzzlelist = collection.puzzles.split(',');
         const res = await Promise.all(
           Object.values(puzzlelist).map((puzz) =>
-            this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`),
+            this.$http.get(`/get/?type=puzzle&nid=${puzz}`),
           ),
         );
         this.puzzlelist = res.map((puzz) => puzz.data.data.puzzle as PuzzleItem);

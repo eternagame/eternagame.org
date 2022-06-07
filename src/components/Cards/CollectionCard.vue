@@ -49,7 +49,7 @@
                     class="icon"
                   />
                 </slot>
-                {{ puzzleList.length }}
+                {{ getPuzzles().length }}
               </div>
             </div>
           </b-col>
@@ -98,7 +98,6 @@
     CollectionResponse,
     PuzzleItem,
   } from '@/types/common-types';
-  import FetchMixin from '@/mixins/FetchMixin';
 
   @Component({
     components: {
@@ -106,7 +105,7 @@
       SmartLink,
     },
   })
-  export default class CollectionCard extends Mixins(FetchMixin) {
+  export default class CollectionCard extends Vue {
     @Prop({ required: true }) readonly image!: string;
 
     @Prop({ required: true }) readonly title!: string;
@@ -134,8 +133,6 @@
     @Prop({ required: false }) readonly current_level!: string;
 
     @Prop() readonly current_puzzle?: string;
-
-    puzzleList: string[] = [];
 
     get nav() {
       return Utils.isLinkInternal(this.toGame) ? 'to' : 'href';
@@ -167,18 +164,19 @@
     }
 
     to_next() {
+      const puzzleList = this.getPuzzles();
       const cleared = this.cleared.filter((x) =>
-        this.puzzleList.map((y) => y).includes(x.nid),
+        puzzleList.includes(x.nid),
       );
-      return cleared.length / this.puzzleList.length;
+      return cleared.length / puzzleList.length;
     }
 
-    async fetch() {
-      this.puzzleList = this.puzzles.split(',');
+    getPuzzles() {
+      return this.puzzles.split(',');
     }
 
     getImage() {
-      return Utils.getPuzzleMiddleThumbnail(this.puzzleList[0]);
+      return Utils.getPuzzleMiddleThumbnail(this.getPuzzles()[0]);
     }
   }
 </script>

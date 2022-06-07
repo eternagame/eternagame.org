@@ -25,10 +25,10 @@
     <Gallery sm="4" md="3" v-if="puzzles">
       <PuzzleCard
         v-for="puzzle in puzzles"
-        :key="puzzle.puzzle.id"
-        :nid="puzzle.puzzle.id"
-        v-bind="puzzle.puzzle"
-        :cleared="puzzleCleared(puzzle.puzzle.id)"
+        :key="puzzle.id"
+        :nid="puzzle.id"
+        v-bind="puzzle"
+        :cleared="puzzleCleared(puzzle.id)"
       />
     </Gallery>
     <div v-else>
@@ -116,7 +116,12 @@
       this.nid = res.collection.nid;
       if(this.collection.username === this.$vxm.user.username) this.editRights = true;
       const puzzlelist = this.collection.puzzles.split(",");
-      Object.values(puzzlelist).forEach(async puzz => this.puzzles.push((await this.$http.get(`/get/?type=puzzle&nid=${parseInt(puzz, 10)}`)).data.data as PuzzleItem));
+      const res2 = await Promise.all(
+        Object.values(puzzlelist).map((puzz) =>
+          this.$http.get(`/get/?type=puzzle&nid=${puzz}`),
+        ),
+      );
+      this.puzzles = res2.map((puzz) => puzz.data.data.puzzle as PuzzleItem);
       this.cleared = await (await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)).data.data.cleared;
     }
 

@@ -5,26 +5,13 @@
         {{ $t('collections-view:top-tip') }}
       </h3>
 
-      <template v-if="hasLabAccess">
-        <QuestActivity :sideQuests="masteringEternaAchievements" />
-        <TutorialActivity
-          :stages="tenToolsAchievements"
-          :heading="$t('player-home:advanced-tutorials')"
-        />
-        <TutorialActivity
-          :stages="eternaEssentialsAchievements"
-          :heading="$t('player-home:eterna-essentials-completed')"
-        />
-      </template>
-      <template v-else>
-        <TutorialActivity
-          :stages="eternaEssentialsAchievements"
-          :heading="$t('player-home:eterna-essentials')"
-        />
-        <TutorialActivity
-          :stages="tenToolsAchievements"
-          :heading="$t('player-home:advanced-tutorials')"
-        />
+      <template>
+
+    <Carousel :slideTo="slideTo">
+        <SwiperSlide v-for="item in quests" :key="item.name">
+          <CollectionCard :key="item.name" :cleared="cleared" v-bind="item" />
+        </SwiperSlide>
+    </Carousel>
       </template>
 
       <h4
@@ -115,6 +102,7 @@
     search: string;
     size: string;
     uid: number | null;
+    quest: boolean;
   }
 
   @Component({
@@ -139,13 +127,9 @@
   export default class CollectionsExplore extends Mixins(FetchMixin) {
     collections: CollectionItem[] = [];
 
+    quests: CollectionItem[] = [];
+
     created: CreatedCollection[] = [];
-
-    tenToolsAchievements: RoadmapAchievement[] = [];
-
-    eternaEssentialsAchievements: RoadmapAchievement[] = [];
-
-    masteringEternaAchievements: ProcessedRoadmapAchievement[] = [];
 
     cleared: PuzzleItem[] = [];
 
@@ -154,40 +138,25 @@
       const params = {
         sort: sort || INITIAL_SORT,
         size: size || INITIAL_NUMBER,
+        quest: false,
         search,
       } as CollectionExploreParams;
+      const questParams = { quest: true } as CollectionExploreParams;
 
       const ROUTE: string = '/get/?type=collections';
 
       if (this.$vxm.user.loggedIn) params.uid = this.$vxm.user.uid;
 
       const res = await Promise.all([
-        this.$http.get(ROUTE, { params,}),
-        this.$http.get('/get/?type=side_project_roadmap'),
-        this.$http.get('/get/?type=puzzles')
+        this.$http.get(ROUTE, { params }),
+        this.$http.get('/get/?type=collections&quest=true'),
+        this.$http.get('/get/?type=puzzles'),
       ]);
-      
+
       this.collections = res[0].data.data.collections;
       this.created = res[0].data.data.created || [];
 
-      const roadmap = res[1].data.data
-        .achievement_roadmap as RoadmapAchievement[];
-      this.tenToolsAchievements = roadmap.filter((p) => p.key === 'ten_tools');
-      this.eternaEssentialsAchievements = roadmap.filter(
-        (p) => p.key === 'eterna_essentials',
-      );
-      this.masteringEternaAchievements = roadmap
-        .filter((p) => p.key.includes('side_quest'))
-        .map((p) => ({
-          ...p,
-          prereqSatisfied:
-            p.prereq === undefined ||
-            roadmap.some(
-              (ach) =>
-                `${ach.key}${ach.level}` === ach.prereq &&
-                Number(ach.current_level) >= ach.level,
-            ),
-        }));
+      this.quests = res[1].data.data.collections as CollectionItem[];
 
       this.$vxm.user.refreshAchievements();
 

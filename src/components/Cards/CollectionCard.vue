@@ -11,7 +11,7 @@
         </div>
       </template>
       <img
-        :src="getImage()"
+        :src="getImage"
         style="width: 80%; margin: auto"
         class="scalable"
       />
@@ -49,7 +49,7 @@
                     class="icon"
                   />
                 </slot>
-                {{ getPuzzles().length }}
+                {{ getPuzzles.length }}
               </div>
             </div>
           </b-col>
@@ -76,7 +76,7 @@
                     {{ $t('quest-card:play') }}
                   </b-button>
                   <SmartLink v-if="started" :link="toGame">
-                    <b-progress :value="to_next()" max="1"></b-progress>
+                    <b-progress :value="to_next" max="1"></b-progress>
                   </SmartLink>
                 </div>
               </div>
@@ -156,27 +156,27 @@
     }
 
     get started() {
-      return this.to_next() > 0 && !this.locked;
+      return this.to_next > 0 && !this.locked;
     }
 
     get completed() {
-      return this.to_next() >= 1 && !this.locked;
+      return this.to_next >= 1 && !this.locked;
     }
 
-    to_next() {
-      const puzzleList = this.getPuzzles();
+    get to_next() {
+      const puzzleList = this.getPuzzles;
       const cleared = this.cleared.filter((x) =>
         puzzleList.includes(x.nid),
       );
       return cleared.length / puzzleList.length;
     }
 
-    getPuzzles() {
+    get getPuzzles() {
       return this.puzzles.split(',');
     }
 
-    getImage() {
-      return Utils.getPuzzleMiddleThumbnail(this.getPuzzles()[0]);
+    get getImage() {
+      return Utils.getPuzzleMiddleThumbnail(this.getPuzzles[0]);
     }
   }
 </script>

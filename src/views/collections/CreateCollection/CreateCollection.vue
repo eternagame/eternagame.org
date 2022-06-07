@@ -13,7 +13,7 @@
           </div>
           <div class="col-md-6">
             <CollectionPuzzles
-                          :puzzlelist="puzzlelist"
+              :puzzlelist="puzzlelist"
               @update:puzzle="(puzzles) => (puzzlelist = puzzles)"
             />
           </div>
@@ -93,7 +93,7 @@
       const data = new FormData();
       data.set('collection-title', this.title);
       data.set('collection-description', this.body);
-      const puzzleids: String[] = this.puzzlelist.map(e => e.id);
+      const puzzleids: String[] = this.puzzlelist.map((e) => e.id);
       data.set('collection-puzzles', puzzleids.toString());
       if (this.newPicture) data.append(`files[picture_upload]`, this.newPicture);
       data.set('type', 'create_collection');

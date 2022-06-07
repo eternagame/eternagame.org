@@ -54,7 +54,7 @@
       group="people"
       @start="drag = true"
       @end="drag = false"
-      @input="$emit('update:puzzles', puzzlelis)"
+      @input="$emit('update:puzzles', puzzlelist)"
     >
       <transition-group>
         <div v-for="element in puzzlelist" :key="element.id">

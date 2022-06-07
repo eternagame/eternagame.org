@@ -1,30 +1,23 @@
 <template>
   <b-modal
-    id="modal-register"
+    id="modal-register-fb"
     ref="modal"
     body-class="py-0"
     header-border-variant="primary"
     hide-footer
   >
     <template #modal-title>
-      <b class="text-uppercase">{{ $t('register-modal:title') }}</b>
+      <b class="text-uppercase">{{ $t('register-modal-fb:title') }}</b>
     </template>
-    {{ $t('register-modal:register-explanation') }}
+    {{ $t('register-modal-fb:register-explanation') }}
     <transition name="fade">
       <b-alert class="mt-3" show variant="danger" v-if="errorMessage">
         {{ $t(errorMessage) }}
       </b-alert>
     </transition>
-    <b-form @submit.prevent="tryRegister" class="pb-3" data-form-type="register">
+    <b-form @submit.prevent="tryRegister" class="pb-3">
       <div class="custom-input-group">
-        <b-input 
-          :placeholder="$t('register-modal:username')" 
-          v-model="form.username" 
-          required 
-          name="username"
-          autocomplete="username"
-          data-form-type="username" 
-        />
+        <b-input :placeholder="$t('register-modal:username')" v-model="form.username" required />
         <span class="input-group-append">
           <img src="@/assets/front-page/img/user.svg" />
         </span>
@@ -34,9 +27,6 @@
         :placeholder="$t('register-modal:email')"
         v-model="form.email"
         required
-        name="email"
-        autocomplete="email"
-        data-form-type="email"
       />
       <div class="custom-input-group">
         <b-input
@@ -44,9 +34,6 @@
           :placeholder="$t('register-modal:password')"
           v-model="form.password"
           required
-          name="password"
-          autocomplete="new-password"
-          data-form-type="password"
         />
         <span class="input-group-append">
           <img src="@/assets/front-page/img/lock.svg" />
@@ -61,9 +48,6 @@
           required
           ref="rePassword"
           :state="form.password === form.rePassword"
-          name="rePassword"
-          autocomplete="new-password"
-          data-form-type="password,confirmation"
         />
         <span class="input-group-append">
           <img src="@/assets/front-page/img/lock.svg" />
@@ -95,7 +79,6 @@
         {{ $t('register-modal:main-action') }}
         <b-spinner v-if="loading" small />
       </b-button>
-      <FacebookAuthentication @fb-verify="registerWithFacebook" class="btn"></FacebookAuthentication>
     </b-form>
   </b-modal>
 </template>
@@ -104,9 +87,6 @@
   import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
-  import FacebookAuthentication from './components/FacebookAuthentication.vue';
-
-  const FB_LOGIN_ROUTE = '/login/?type=login&method=facebook';
 
   const INITIAL_FORM = {
     username: '',
@@ -118,13 +98,10 @@
   @Component({
     components: {
       VueRecaptcha,
-      FacebookAuthentication,
     },
   })
-  export default class RegisterModal extends Vue {
+  export default class RegisterFBModal extends Vue {
     form = INITIAL_FORM;
-
-    private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
     private loading = false;
 
@@ -136,23 +113,9 @@
 
     attemptNumber: number = 0;
 
-    FB = null;
-
     @Ref() readonly modal!: BModal;
 
     @Ref() readonly rePassword!: BFormInput;
-
-    registerWithFacebook(data: { success: boolean; error: string }) {
-      this.form.password = '';
-      if (data.success) {
-        this.modal.hide();
-      } else if (data.error === 'NEEDS_REGISTRATION') {
-        this.modal.hide();
-        this.$bvModal.show('modal-register-fb');
-      } else {
-        this.errorMessage = data.error;
-      }
-    }
 
     async tryRegister(event: Event) {
       this.errorMessage = '';
@@ -178,6 +141,7 @@
           pass: this.form.password,
           mail: this.form.email,
           type: 'create',
+          method: 'facebook',
           captcha_response: this.captchaResponse,
         }),
         {

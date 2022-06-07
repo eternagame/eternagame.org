@@ -75,6 +75,7 @@
       community: {
         leaderboards: '/players',
         eternacon: `/eternacon`,
+        calendar: '/calendar',
         forum: 'https://forum.eternagame.org',
         discord: 'https://discord.gg/KYeTwux',
         wiki: 'http://eternawiki.org',

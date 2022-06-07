@@ -1,7 +1,8 @@
 <template>
   <b-dropdown-item
     style="padding-left:0px;margin-left:0px"
-    :to="to"
+    :to="isLinkInternal(to) ? to : undefined"
+    :href="isLinkInternal(to) ? undefined : to"
   >
     <div class="d-flex">
       <img
@@ -35,6 +36,8 @@
     @Prop({ required: true }) readonly content!: string;
 
     strippedBody = Utils.strippedBody;
+
+    isLinkInternal = Utils.isLinkInternal;
   }
 </script>
 

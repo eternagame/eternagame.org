@@ -3,13 +3,14 @@
     :title="puzzle.title"
     :nid="puzzle.nid"
     :aspectRatio="1.18"
-    :leftNumber="puzzle.num_slots"
+    :numSlots="puzzle.num_slots"
     :numSynths="puzzle.num_synthesized"
     :mySolutions="puzzle.num_solutions"
     :maxSubmissions="puzzle.player_max_submissions"
     :states="states"
-    :rightNumber="puzzle.submitted"
+    :numSubmitted="puzzle.submitted"
     :backgroundLink="false"
+    :is3d="puzzle['has3d'] === '1'"
   >
     <div class="text-center image-container">
       <img :src="imageURL" class="image" />

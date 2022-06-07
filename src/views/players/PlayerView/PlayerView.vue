@@ -10,15 +10,61 @@
         />
 
         <div class="m-3" v-if="$route.query.tab_type == 'achievements'">
+          <b-modal
+            id="subachievement-modal"
+            hide-footer
+            size="xl"
+            centered
+            header-border-variant="primary"
+          >
+            <Gallery :xs="6" :sm="4" :md="2">
+              <AchievementCard
+                v-for="(achievement, key) in subAchievements"
+                :key="key"
+                v-bind="achievement"
+                :achievement="achievement"
+                :isAchieved="isAchieved(achievement)"
+                :showLevels="false"
+              >
+              </AchievementCard>
+            </Gallery>
+          </b-modal>
           <hr class="top-border" />
-          <h4 class="title mb-4">{{ $t('side-panel-options:achievements') }}</h4>
+          <h4 class="title mb-4">
+            {{ $t('side-panel-options:achievements') }}
+          </h4>
+
           <Gallery :xs="6" :sm="4" :md="2">
             <AchievementCard
-              v-for="(achievement, key) in achievements"
+              v-for="(achievement, key) in filter(allAchievements, 'earnable')"
               :key="key"
-              v-bind="achievement"
-            />
+              v-bind="computeAchievement(achievement)"
+              :isAchieved="isAchieved(achievement)"
+              :achievement="achievement"
+              :completed="completed(achievement)"
+              @expand="expand(achievement)"
+            >
+            </AchievementCard>
           </Gallery>
+          <div v-if="filter(myAchievements, 'limited').length != 0">
+            <hr class="top-border" />
+            <h4 class="title mb-4">
+              {{ 'Special Achievements' }}
+            </h4>
+
+            <Gallery :xs="6" :sm="4" :md="2">
+              <AchievementCard
+                v-for="(achievement, key) in filter(myAchievements, 'limited')"
+                :key="key"
+                v-bind="achievement"
+                :isAchieved="isAchieved(achievement)"
+                :achievement="achievement"
+                :completed="completed(achievement)"
+                @expand="expand(achievement)"
+              >
+              </AchievementCard>
+            </Gallery>
+          </div>
         </div>
 
         <PlayerTable
@@ -37,11 +83,15 @@
               <td>
                 <!-- TODO: need to include filters e.g. https://eternagame.org/game/browse/6296743/?filter1=Id&filter1_arg1=6348941&filter1_arg2=6348941 -->
                 <!--eslint-disable-next-line max-len-->
-                <a :href="`${BASE_URL_PREFIX}/game/browse/${slotProps.item.puznid}/`">
+                <a
+                  :href="`${BASE_URL_PREFIX}/game/browse/${slotProps.item.puznid}/`"
+                >
                   {{ slotProps.item.title }}
                 </a>
               </td>
-              <td class="font-weight-bold">{{ slotProps.item.score || 'Waiting' }}</td>
+              <td class="font-weight-bold">
+                {{ slotProps.item.score || 'Waiting' }}
+              </td>
             </tr>
           </template>
         </PlayerTable>
@@ -59,7 +109,9 @@
           <template v-slot:trow="slotProps">
             <tr>
               <td class="puzzle-link">
-                <a :href="`/puzzles/${slotProps.item.puznid}/`">{{ slotProps.item.title }}</a>
+                <a :href="`/puzzles/${slotProps.item.puznid}/`">{{
+                  slotProps.item.title
+                }}</a>
               </td>
             </tr>
           </template>
@@ -78,7 +130,9 @@
           <template v-slot:trow="slotProps">
             <tr>
               <td class="puzzle-link">
-                <a :href="`/puzzles/${slotProps.item.id}`">{{ slotProps.item.title }}</a>
+                <a :href="`/puzzles/${slotProps.item.id}`">{{
+                  slotProps.item.title
+                }}</a>
               </td>
             </tr>
           </template>
@@ -98,7 +152,9 @@
           <template v-slot:trow="slotProps">
             <tr>
               <td class="puzzle-link">
-                <a :href="`/puzzles/${slotProps.item.id}/`">{{ slotProps.item.title }}</a>
+                <a :href="`/puzzles/${slotProps.item.id}/`">{{
+                  slotProps.item.title
+                }}</a>
               </td>
             </tr>
           </template>
@@ -117,7 +173,9 @@
           <template v-slot:trow="slotProps">
             <tr>
               <td class="puzzle-link">
-                <a :href="`/web/group/${slotProps.item.group_nid}/`">{{ slotProps.item.group_title }}</a>
+                <a :href="`/web/group/${slotProps.item.group_nid}/`">{{
+                  slotProps.item.group_title
+                }}</a>
               </td>
             </tr>
           </template>
@@ -143,7 +201,9 @@
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import DropdownSidebarPanel, {
+    Option,
+    } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
   import {
@@ -155,8 +215,9 @@
     CreatedPuzzle,
     SynthesizedDesign,
     ProfileAchievement,
-    ProfileGroup
+    ProfileGroup,
   } from '@/types/common-types';
+  import { isArray, isMap, isObject } from 'lodash';
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
   import PlayerTable from './components/PlayerTable.vue';
@@ -183,7 +244,7 @@
       { value: 'created', text: 'side-panel-options:created' },
       { value: 'latest', text: 'side-panel-options:latest' },
       { value: 'cleared', text: 'side-panel-options:cleared' },
-      { value: 'groups', text: 'side-panel-options:groups' }
+      { value: 'groups', text: 'side-panel-options:groups' },
     ];
 
     user: UserData | null = null;
@@ -198,27 +259,72 @@
 
     synthesized: SynthesizedDesign[] = [];
 
-    achievements: {[name: string]: ProfileAchievement} = {};
+    myAchievements: { [name: string]: ProfileAchievement } = {};
+
+    allAchievements: { [name: string]: ProfileAchievement } = {};
 
     joinedGroups: ProfileGroup[] = [];
+
+    subAchievements: ProfileAchievement[] = [];
 
     async fetch() {
       const ROUTE = `/get/?type=user&uid=${this.$route.params.uid}`;
       // Achievements and Groups are provided when no tab_type is specified.
-      const tab_type = (this.$route.query.tab_type === ('achievements') || this.$route.query.tab_type === ('groups')) ? 'about' : this.$route.query.tab_type;
-      const res = (await this.$http.get(ROUTE, { params: { tab_type } })).data.data as UserResponse;
+      const tab_type =
+        this.$route.query.tab_type === 'achievements' ||
+        this.$route.query.tab_type === 'groups'
+          ? 'about'
+          : this.$route.query.tab_type;
+      const res = (await this.$http.get(ROUTE, { params: { tab_type } })).data
+        .data as UserResponse;
       this.user = res.user;
       this.follow = res.follow;
       this.latestPuzzles = res.latest_puzzles || [];
       this.createdPuzzles = res.created_puzzles || [];
       this.clearedPuzzles = res.cleared_puzzles || [];
       this.synthesized = res.synthesized || [];
-      this.achievements = res.achievements || {};
+      this.myAchievements = res.achievements || {};
+      this.allAchievements = res.all_achievements || {};
       this.joinedGroups = res.my_group || [];
+    }
+
+    isAchieved(a: ProfileAchievement): boolean {
+      return !Object.values(this.myAchievements).some(
+        (value) =>
+          Object.values(a).some((value2) => value.title === value2.title) ||
+          value.title === a.title,
+      );
+    }
+
+    completed(a: ProfileAchievement[]): number {
+      let b = 0;
+      Object.values(this.myAchievements).forEach((value) => {
+        b += Object.values(a).filter(
+          (value2) => value.title === value2.title,
+        ).length;
+      });
+      return b;
+    }
+
+    computeAchievement(a: ProfileAchievement): ProfileAchievement {
+      const highest = this.completed(Object.values(a)) || 1;
+      return Object.values(a)[highest - 1];
+    }
+
+    expand(a: ProfileAchievement[]) {
+      this.subAchievements = a;
+      this.$bvModal.show('subachievement-modal');
+    }
+
+    filter(aList: ProfileAchievement[], filter: string) {
+      const returnArray: ProfileAchievement[] = Object.values(aList).filter(
+        (a) => Object.values(a)[0].type === filter || a.type === filter,
+      );
+      return returnArray;
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/global.scss';
+@import '@/styles/global.scss';
 </style>

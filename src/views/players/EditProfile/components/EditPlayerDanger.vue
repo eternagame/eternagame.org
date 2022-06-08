@@ -114,6 +114,15 @@
 </script>
 
 <style lang="scss" scoped>
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.15s;
+  }
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
   ::v-deep .modal-dialog {
     max-width: 600px;
     width: 100%;

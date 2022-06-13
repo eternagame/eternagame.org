@@ -6,12 +6,11 @@
       </h3>
 
       <template>
-
-    <Carousel :slideTo="slideTo">
-        <SwiperSlide v-for="item in quests" :key="item.name">
-          <CollectionCard :key="item.name" :cleared="cleared" v-bind="item" />
-        </SwiperSlide>
-    </Carousel>
+        <Carousel :slideTo="slideTo">
+          <SwiperSlide v-for="item in quests" :key="item.name">
+            <CollectionCard :key="item.name" :cleared="cleared" v-bind="item" />
+          </SwiperSlide>
+        </Carousel>
       </template>
 
       <h4

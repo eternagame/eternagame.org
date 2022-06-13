@@ -11,7 +11,14 @@
         </div>
       </template>
       <img
+        v-if="quest == '0'"
         :src="getImage"
+        style="width: 80%; margin: auto"
+        class="scalable"
+      />
+      <img
+        v-else
+        :src="image"
         style="width: 80%; margin: auto"
         class="scalable"
       />
@@ -26,7 +33,7 @@
         <b-row class="mb-2" style="margin-top: 10px">
           <b-col cols="6">
             <div class="left-col">
-              <div v-b-tooltip.hover title="Author">
+              <div v-b-tooltip.hover title="Author" v-if="quest == '0'">
                 <slot name="left-icon">
                   <img
                     :src="userpicture"
@@ -121,6 +128,8 @@
     @Prop({ required: true }) readonly username!: string;
 
     @Prop({ required: true }) readonly puzzles!: string;
+
+    @Prop({ required: true }) readonly quest!: string;
 
     @Prop({ required: true }) readonly cleared!: PuzzleItem[];
 

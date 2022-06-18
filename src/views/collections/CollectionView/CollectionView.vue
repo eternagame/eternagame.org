@@ -1,9 +1,12 @@
 <template>
-  <EternaPage :title="collection.title" v-if="fetchState.firstFetchComplete && collection">
+  <EternaPage
+    :title="collection.title"
+    v-if="fetchState.firstFetchComplete && collection"
+  >
     <div class="page-content">
       <h2>About the Collection</h2>
       <div class="d-flex flex-wrap justify-content-between" xs="12" sm="8">
-        <div style="text-align:center" class="order-sm-2 image-col">
+        <div style="text-align: center" class="order-sm-2 image-col">
           <div class="puzzle-image">
             <img v-if="collection.image" :src="collection.image" />
           </div>
@@ -13,7 +16,7 @@
           <hr class="top-border d-sm-none" />
           <div
             class="puzzle-description"
-            style="overflow-wrap: break-word;"
+            style="overflow-wrap: break-word"
             v-dompurify-html="collection.desc"
           />
         </div>
@@ -39,28 +42,40 @@
     <template #sidebar="{ isInSidebar }">
       <SidebarPanel
         :isInSidebar="isInSidebar"
-        :header="$t('collection-info:side-bar-header')"
+        :header="$t('collection-info-sidebar:title')"
         headerIcon="@/assets/info.svg"
       >
         <template #header-icon>
           <img src="@/assets/info.svg" />
         </template>
-        <ul style="padding: 0; list-style-type:none" v-if="collection">
+        <ul style="padding: 0; list-style-type: none" v-if="collection">
           <li>
-            <img :src="collection.userpicture" class="icon" />{{ collection.username }}
+            <img :src="'../' + collection.userpicture" class="icon" />{{
+              collection.username
+            }}
           </li>
           <li>
-            <img src="@/assets/calendar.svg" class="icon" />{{ collection.created }}
+            <img src="@/assets/calendar.svg" class="icon" />{{
+              collection.created
+            }}
+          </li>
+          <li>
+            <img
+              src="@/assets/noun_puzzle.svg"
+              alt="number of puzzles"
+              class="icon"
+            />
+            {{ puzzles.length }}
           </li>
           <div v-if="editRights">
-            <li>  
+            <li>
               <b-button
-              type="submit"
-              variant="primary"
-              class="submit-button"
-              :href="`/collections/${nid}/edit`"
+                type="submit"
+                variant="primary"
+                class="submit-button"
+                :href="`/collections/${nid}/edit`"
               >
-                {{ "Edit" }}
+                {{ 'Edit' }}
               </b-button>
             </li>
           </div>
@@ -68,7 +83,7 @@
       </SidebarPanel>
     </template>
   </EternaPage>
-  <Preloader v-else style="margin-top: 10rem;" />
+  <Preloader v-else style="margin-top: 10rem" />
 </template>
 
 <script lang="ts">
@@ -79,7 +94,15 @@
   import CollectionCard from '@/components/Cards/QuestCard.vue';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import { PuzzleList, PuzzleItem, ClearedPuzzle, RoadmapAchievement, CollectionItem, CollectionResponse, CommentItem } from '@/types/common-types';
+  import {
+    PuzzleList,
+    PuzzleItem,
+    ClearedPuzzle,
+    RoadmapAchievement,
+    CollectionItem,
+    CollectionResponse,
+    CommentItem,
+  } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import Comments from '@/components/PageLayout/Comments.vue';
 
@@ -105,52 +128,55 @@
 
     editRights: Boolean = false;
 
-    nid: string|undefined;
+    nid: string | undefined;
 
-    async fetch(){
+    async fetch() {
       const res = (
         await this.$http.get(`/get/?type=collection&nid=${this.$route.params.id}`)
       ).data.data as CollectionResponse;
       this.collection = res.collection;
       this.comments = res.comments;
       this.nid = res.collection.nid;
-      if(this.collection.username === this.$vxm.user.username) this.editRights = true;
-      const puzzlelist = this.collection.puzzles.replaceAll(" ", "").split(",");
+      if (this.collection.username === this.$vxm.user.username)
+        this.editRights = true;
+      const puzzlelist = this.collection.puzzles.replaceAll(' ', '').split(',');
       const res2 = await Promise.all(
         Object.values(puzzlelist).map((puzz) =>
           this.$http.get(`/get/?type=puzzle&nid=${puzz}`),
         ),
       );
       this.puzzles = res2.map((puzz) => puzz.data.data.puzzle as PuzzleItem);
-      this.cleared = await (await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)).data.data.cleared;
+      this.cleared = await (
+        await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)
+      ).data.data.cleared;
     }
 
     puzzleCleared(id: string) {
-      return this.cleared.map(puzzle => puzzle.id).includes(id);
+      return this.cleared.map((puzzle) => puzzle.id).includes(id);
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/global.scss';
+@import '@/styles/global.scss';
 
-  .collection-badge {
-    max-width: 270px;
-  }
+.collection-badge {
+  max-width: 270px;
+}
 
-  .collection-description {
-    background-color: $med-dark-blue;
-    object-fit: contain;
-    padding: 2rem;
-  }
-  .icon {
-    margin-right: 10px;
-    width: 20.4px;
-    height: 20px;
-    object-fit: contain;
-  }
+.collection-description {
+  background-color: $med-dark-blue;
+  object-fit: contain;
+  padding: 2rem;
+}
+.icon {
+  margin-right: 10px;
+  width: 20.4px;
+  height: 20px;
+  object-fit: contain;
+}
 
-  li {
-    margin-bottom: 20px;
-  }
+li {
+  margin-bottom: 20px;
+}
 </style>

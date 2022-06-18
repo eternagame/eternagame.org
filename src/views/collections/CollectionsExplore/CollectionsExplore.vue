@@ -7,7 +7,7 @@
 
       <QuestCarousel :slideTo="slideTo">
         <SwiperSlide v-for="item in quests" :key="item.name">
-          <CollectionCard :key="item.name" :cleared="cleared" v-bind="item" />
+          <CollectionCard :key="item.name" :cleared="cleared" :progress="getProgress(item)" v-bind="item" />
         </SwiperSlide>
       </QuestCarousel>
 
@@ -26,6 +26,7 @@
             v-for="item in collections"
             :key="item.name"
             :cleared="cleared"
+            :progress="getProgress(item)"
             v-bind="item"
           />
         </Gallery>
@@ -86,9 +87,6 @@
   import {
     CreatedCollection,
     CollectionItem,
-    CollectionList,
-    RoadmapAchievement,
-    ProcessedRoadmapAchievement,
     PuzzleItem,
   } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
@@ -166,6 +164,14 @@
       this.$vxm.user.refreshAchievements();
 
       this.cleared = res[2].data.data.cleared;
+    }
+
+    getProgress(c: CollectionItem) {
+      const puzzleList = c.puzzles.replaceAll(" ", "").split(',');
+      const cleared = this.cleared.filter((x) =>
+        puzzleList.includes(x.nid),
+      );
+      return cleared.length / puzzleList.length;
     }
 
     get hasLabAccess() {

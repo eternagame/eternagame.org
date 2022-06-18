@@ -115,12 +115,13 @@
       this.comments = res.comments;
       this.nid = res.collection.nid;
       if(this.collection.username === this.$vxm.user.username) this.editRights = true;
-      const puzzlelist = this.collection.puzzles.split(",");
+      const puzzlelist = this.collection.puzzles.replaceAll(" ", "").split(",");
       const res2 = await Promise.all(
         Object.values(puzzlelist).map((puzz) =>
           this.$http.get(`/get/?type=puzzle&nid=${puzz}`),
         ),
       );
+      console.log(puzzlelist);
       this.puzzles = res2.map((puzz) => puzz.data.data.puzzle as PuzzleItem);
       this.cleared = await (await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)).data.data.cleared;
     }

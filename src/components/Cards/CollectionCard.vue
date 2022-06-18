@@ -66,7 +66,7 @@
             <div style="text-align: center; margin-bottom: 0px">
               <img src="@/assets/noun_lock.svg" v-if="locked" />
               <div v-else>
-                <p v-if="completed">
+                <p v-if="progress == 1">
                   <SmartLink :link="toGame">
                     <img src="@/assets/noun_check.svg" />
                     <b style="text-transform: uppercase">{{
@@ -83,7 +83,7 @@
                     {{ $t('quest-card:play') }}
                   </b-button>
                   <SmartLink v-if="started" :link="toGame">
-                    <b-progress :value="to_next" max="1"></b-progress>
+                    <b-progress :value="progress" max="1"></b-progress>
                   </SmartLink>
                 </div>
               </div>
@@ -133,6 +133,8 @@
 
     @Prop({ required: true }) readonly cleared!: PuzzleItem[];
 
+    @Prop({ required: true }) readonly progress!: number;
+
     @Prop({ default: 1 }) readonly aspectRatio!: number;
 
     @Prop() readonly collectionLink?: string;
@@ -168,10 +170,6 @@
       return this.to_next > 0 && !this.locked;
     }
 
-    get completed() {
-      return this.to_next >= 1 && !this.locked;
-    }
-
     get to_next() {
       const puzzleList = this.getPuzzles;
       const cleared = this.cleared.filter((x) =>
@@ -181,7 +179,7 @@
     }
 
     get getPuzzles() {
-      return this.puzzles.split(',');
+      return this.puzzles.replaceAll(" ", "").split(',');
     }
 
     get getImage() {

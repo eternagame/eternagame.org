@@ -160,16 +160,38 @@
       this.cleared = res[2].data.data.cleared;
 
       this.collections = res[0].data.data.collections;
-      this.collections.forEach((c) => {c.progress = this.getProgress(c);});
-      if (filters === 'cleared') {
+      this.collections.forEach((c) => {
+        c.progress = this.getProgress(c);
+      });
+      switch (filters) {
+      case 'cleared': {
         this.collections = this.collections.filter((c) => c.progress === 1);
-      } else if (filters === 'uncleared') {
+        break;
+      }
+      case 'uncleared': {
         this.collections = this.collections.filter((c) => c.progress !== 1);
+        break;
+      }
+      case 'inprogress': {
+        this.collections = this.collections.filter(
+          (c) => c.progress < 1 && c.progress > 0,
+        );
+        break;
+      }
+      case 'notstarted': {
+        this.collections = this.collections.filter((c) => c.progress === 0);
+        break;
+      }
+      default: {
+        break;
+      }
       }
       this.created = res[0].data.data.created || [];
 
       this.quests = res[1].data.data.collections as CollectionItem[];
-      this.quests.forEach((c) => {c.progress = this.getProgress(c);});
+      this.quests.forEach((c) => {
+        c.progress = this.getProgress(c);
+      });
 
       this.$vxm.user.refreshAchievements();
     }
@@ -194,6 +216,8 @@
     private filters: Filter[] = [
       { value: 'cleared', text: 'Cleared' },
       { value: 'uncleared', text: 'Uncleared' },
+      { value: 'inprogress', text: 'In Progress' },
+      { value: 'notstarted', text: 'Not Started' },
     ];
   }
 </script>

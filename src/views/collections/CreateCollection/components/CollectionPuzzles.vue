@@ -18,27 +18,38 @@
     >
       <template slot="suggestion" slot-scope="{ data, htmlText }">
         <div class="d-flex align-items-center">
-          <img
-            class="rounded-circle"
-            :src="getImage(data.id)"
-            style="width: 40px; height: 40px; margin-right: 10px"
-          />
-          <span v-dompurify-html="htmlText" style="color: white"></span>
-          by {{ data.username }}
-          <button
-            type="button"
-            class="btn secondary"
-            @click="addPuzzle(data.id)"
-          >
-            {{ $t('create-collection:puzzle-info:secondary-action') }}
-          </button>
-          <button
-            type="button"
-            class="btn secondary"
-            @click="viewPuzzle(data.id)"
-          >
-            View Puzzle
-          </button>
+          <b-row>
+            <b-col>
+            <div class="left-col">
+              <img
+                class="rounded-circle"
+                :src="getImage(data.id)"
+                style="width: 40px; height: 40px; margin-right: 10px"
+              />
+              <span v-dompurify-html="htmlText" style="color: white"></span>
+              by {{ data.username }}
+            </div>
+            </b-col>
+            <b-col>
+
+            <div class="right-col">
+              <button
+                type="button"
+                class="btn secondary"
+                @click="addPuzzle(data.id)"
+              >
+                {{ $t('create-collection:puzzle-info:secondary-action') }}
+              </button>
+              <button
+                type="button"
+                class="btn secondary"
+                @click="viewPuzzle(data.id)"
+              >
+                View Puzzle
+              </button>
+            </div>
+            </b-col>
+          </b-row>
         </div>
       </template>
     </vue-bootstrap-typeahead>
@@ -161,7 +172,7 @@
 
     viewPuzzle(nid: string) {
       const route = this.$router.resolve({ path: `/puzzles/${nid}` });
-      window.open(route.href, "_blank");
+      window.open(route.href, '_blank');
     }
 
     getImage(nid: string) {
@@ -225,4 +236,21 @@ input {
   background-color: #0a223c;
   margin-top: 10px;
 }
+
+.left-col,
+.right-col {
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+
+  & > .icon {
+    width: 12.57px;
+  }
+}
+
+.right-col {
+  justify-content: flex-end;
+}
+
 </style>

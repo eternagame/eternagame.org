@@ -179,4 +179,64 @@
 li {
   margin-bottom: 20px;
 }
+
+.puzzle-image {
+  width: 100%;
+  //background-color: #041227;
+  border-radius: 5px;
+  padding: 1.6rem 2.2rem;
+  img {
+    width: 100%;
+    max-height: 400px;
+  }
+}
+.description-col {
+  width: calc(60% - 15px);
+}
+
+.image-col {
+  width: 40%;
+}
+
+@include media-breakpoint-down(xs) {
+  .description-col,
+  .image-col {
+    width: 100%;
+  }
+}
+
+.quest-image {
+  margin: 15px;
+}
+
+.group-description {
+  white-space: pre-wrap;
+}
+
+.submit-button {
+  margin-top: 15px;
+}
+h2 {
+  font-size: 22px;
+  font-weight: bold;
+}
+h3 {
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+p {
+  font-size: 17px;
+  line-height: 1.47;
+}
+
+#modal-members ul {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+
+  li {
+    margin: 10px;
+  }
+}
 </style>

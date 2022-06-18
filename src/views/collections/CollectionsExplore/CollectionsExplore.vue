@@ -5,11 +5,11 @@
         {{ $t('collections-view:top-tip') }}
       </h3>
 
-        <QuestCarousel :slideTo="slideTo">
-          <SwiperSlide v-for="item in quests" :key="item.name">
-            <CollectionCard :key="item.name" :cleared="cleared" v-bind="item" />
-          </SwiperSlide>
-        </QuestCarousel>
+      <QuestCarousel :slideTo="slideTo">
+        <SwiperSlide v-for="item in quests" :key="item.name">
+          <CollectionCard :key="item.name" :cleared="cleared" v-bind="item" />
+        </SwiperSlide>
+      </QuestCarousel>
 
       <h4
         :style="{
@@ -51,6 +51,12 @@
       :tags="['#Switch', '#Ribozyme', '#XOR', '#MS2', '#FMN', '#Telomerase']"
         :isInSidebar="isInSidebar"
       /> -->
+      <DropdownSidebarPanel
+        :options="options"
+        paramName="sort"
+        replace
+        :isInSidebar="isInSidebar"
+      />
       <b-button
         type="submit"
         variant="primary"
@@ -74,6 +80,7 @@
   import CollectionCard from '@/components/Cards/CollectionCard.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import QuestCarousel from '@/views/collections/CollectionsExplore/QuestCarousel.vue';
+  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import {
@@ -119,6 +126,7 @@
       SearchPanel,
       QuestActivity,
       TutorialActivity,
+      DropdownSidebarPanel
     },
   })
   export default class CollectionsExplore extends Mixins(FetchMixin) {
@@ -163,6 +171,13 @@
     get hasLabAccess() {
       return this.$vxm.user.hasLabAccess;
     }
+
+    private options: Option[] = [
+      { value: 'date', text: 'side-panel-options:desc' },
+      { value: 'title', text: 'side-panel-options:Alphabetical' },
+    // { value: 'date_asc', text: 'side-panel-options:asc' },
+    // { value: 'size', text: 'side-panel-options:size' },
+    ];
 
     private filters: Filter[] = [
       { value: 'cleared', text: 'Cleared' },

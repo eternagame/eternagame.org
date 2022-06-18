@@ -121,7 +121,6 @@
           this.$http.get(`/get/?type=puzzle&nid=${puzz}`),
         ),
       );
-      console.log(puzzlelist);
       this.puzzles = res2.map((puzz) => puzz.data.data.puzzle as PuzzleItem);
       this.cleared = await (await this.$http.get(`/get/?type=puzzle&nid=${puzzlelist[0]}`)).data.data.cleared;
     }

@@ -7,7 +7,7 @@
 
       <QuestCarousel :slideTo="slideTo">
         <SwiperSlide v-for="item in quests" :key="item.name">
-          <CollectionCard :key="item.name" :cleared="cleared" :progress="getProgress(item)" v-bind="item" />
+          <CollectionCard :key="item.name" :cleared="cleared" v-bind="item" />
         </SwiperSlide>
       </QuestCarousel>
 
@@ -26,7 +26,6 @@
             v-for="item in collections"
             :key="item.name"
             :cleared="cleared"
-            :progress="getProgress(item)"
             v-bind="item"
           />
         </Gallery>
@@ -81,7 +80,9 @@
   import CollectionCard from '@/components/Cards/CollectionCard.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import QuestCarousel from '@/views/collections/CollectionsExplore/QuestCarousel.vue';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import DropdownSidebarPanel, {
+    Option,
+    } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import {
@@ -124,7 +125,7 @@
       SearchPanel,
       QuestActivity,
       TutorialActivity,
-      DropdownSidebarPanel
+      DropdownSidebarPanel,
     },
   })
   export default class CollectionsExplore extends Mixins(FetchMixin) {
@@ -156,21 +157,26 @@
         this.$http.get('/get/?type=puzzles'),
       ]);
 
+      this.cleared = res[2].data.data.cleared;
+
       this.collections = res[0].data.data.collections;
+      this.collections.forEach((c) => {c.progress = this.getProgress(c);});
+      if (filters === 'cleared') {
+        this.collections = this.collections.filter((c) => c.progress === 1);
+      } else if (filters === 'uncleared') {
+        this.collections = this.collections.filter((c) => c.progress !== 1);
+      }
       this.created = res[0].data.data.created || [];
 
       this.quests = res[1].data.data.collections as CollectionItem[];
+      this.quests.forEach((c) => {c.progress = this.getProgress(c);});
 
       this.$vxm.user.refreshAchievements();
-
-      this.cleared = res[2].data.data.cleared;
     }
 
     getProgress(c: CollectionItem) {
-      const puzzleList = c.puzzles.replaceAll(" ", "").split(',');
-      const cleared = this.cleared.filter((x) =>
-        puzzleList.includes(x.nid),
-      );
+      const puzzleList = c.puzzles.replaceAll(' ', '').split(',');
+      const cleared = this.cleared.filter((x) => puzzleList.includes(x.nid));
       return cleared.length / puzzleList.length;
     }
 

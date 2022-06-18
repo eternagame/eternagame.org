@@ -285,6 +285,7 @@ export interface CollectionItem {
   puzzles: string;
   num_completers: string;
   quest: boolean;
+  progress: number;
 }
 
 export interface CollectionResponse {

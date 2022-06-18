@@ -20,34 +20,33 @@
         <div class="d-flex align-items-center">
           <b-row>
             <b-col>
-            <div class="left-col">
-              <img
-                class="rounded-circle"
-                :src="getImage(data.id)"
-                style="width: 40px; height: 40px; margin-right: 10px"
-              />
-              <span v-dompurify-html="htmlText" style="color: white"></span>
-              by {{ data.username }}
-            </div>
+              <div class="left-col">
+                <img
+                  class="rounded-circle"
+                  :src="getImage(data.id)"
+                  style="width: 40px; height: 40px; margin-right: 10px"
+                />
+                <span v-dompurify-html="htmlText" style="color: white"></span>
+                by {{ data.username }}
+              </div>
             </b-col>
             <b-col>
-
-            <div class="right-col">
-              <button
-                type="button"
-                class="btn secondary"
-                @click="addPuzzle(data.id)"
-              >
-                {{ $t('create-collection:puzzle-info:secondary-action') }}
-              </button>
-              <button
-                type="button"
-                class="btn secondary"
-                @click="viewPuzzle(data.id)"
-              >
-                View Puzzle
-              </button>
-            </div>
+              <div class="right-col">
+                <button
+                  type="button"
+                  class="btn secondary"
+                  @click="addPuzzle(data.id)"
+                >
+                  {{ $t('create-collection:puzzle-info:secondary-action') }}
+                </button>
+                <button
+                  type="button"
+                  class="btn secondary"
+                  @click="viewPuzzle(data.id)"
+                >
+                  View Puzzle
+                </button>
+              </div>
             </b-col>
           </b-row>
         </div>
@@ -73,9 +72,9 @@
             <div class="row">
               <div class="col-md-8">
                 <img
+                  class="rounded-circle"
                   :src="getImage(element.id)"
                   style="width: 5%; margin: auto"
-                  class="scalable"
                 />
                 <b>{{ element.title }}</b> by {{ element.username }}
               </div>
@@ -252,5 +251,4 @@ input {
 .right-col {
   justify-content: flex-end;
 }
-
 </style>

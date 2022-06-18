@@ -5,13 +5,11 @@
         {{ $t('collections-view:top-tip') }}
       </h3>
 
-      <template>
-        <Carousel :slideTo="slideTo">
+        <QuestCarousel :slideTo="slideTo">
           <SwiperSlide v-for="item in quests" :key="item.name">
             <CollectionCard :key="item.name" :cleared="cleared" v-bind="item" />
           </SwiperSlide>
-        </Carousel>
-      </template>
+        </QuestCarousel>
 
       <h4
         :style="{
@@ -74,8 +72,8 @@
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import CollectionCard from '@/components/Cards/CollectionCard.vue';
-  import Carousel from '@/components/Common/Carousel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
+  import QuestCarousel from '@/views/collections/CollectionsExplore/QuestCarousel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import {
@@ -115,7 +113,7 @@
       SwiperSlide,
       BIconChevronRight,
       BIconChevronLeft,
-      Carousel,
+      QuestCarousel,
       Pagination,
       Preloader,
       SearchPanel,

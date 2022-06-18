@@ -5,6 +5,8 @@
         <div class="row">
           <div class="col-md-6">
             <CollectionInfo
+              :title="title"
+              :body="desc"
               :picture="picture"
               @update:title="(text) => (title = text)"
               @update:body="(text) => (body = text)"

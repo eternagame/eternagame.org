@@ -153,7 +153,7 @@
 
       const res = await Promise.all([
         this.$http.get(ROUTE, { params }),
-        this.$http.get('/get/?type=collections&quest=true'),
+        this.$http.get('/get/?type=collections&quest=true&sort=title'),
         this.$http.get('/get/?type=puzzles'),
       ]);
 

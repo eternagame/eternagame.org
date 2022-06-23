@@ -13,7 +13,7 @@
               <SmartLink :link="toGame">
                 <img src="@/assets/noun_check.svg" />
                 <b style="text-transform: uppercase">{{
-                  $t('quest:completed')
+                  $t('collection:completed')
                 }}</b>
               </SmartLink>
             </p>

@@ -13,7 +13,7 @@
         Attending Eternacon 2020 is <strong>free</strong>, <strong>open to everyone</strong>, and
         <strong>online</strong>. To attend,
         <a href="https://stanford.zoom.us/webinar/register/WN_papHzTJQRs2_-u0U_yhYIw">preregister for
-        the Zoom webinar</a>. You will recieve a link by email unique to you that can be used to join the conference
+        the Zoom webinar</a>. You will receive a link by email unique to you that can be used to join the conference
         once it starts. Zoom Q&amp;A and comments will be available to interact with presenters, as well as potential
         opportunities to be approved to join with your voice and video if we feel greater interaction is beneficial to
         discussion.
@@ -52,7 +52,7 @@
   import HeroSection from './components/HeroSection.vue';
   import ScheduleSection from './components/ScheduleSection.vue';
   import ConferenceAreasSection from './components/ConferenceAreasSection.vue';
-  import { options } from './AboutEternacon.vue'; 
+  import { options } from './AboutEternacon.vue';
   import sessions from './speakers-2020.json';
 
   @Component({

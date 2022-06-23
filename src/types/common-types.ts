@@ -274,6 +274,7 @@ export interface GroupList {
 }
 
 export interface CollectionItem {
+  achievement: string;
   nid: string;
   title: string;
   desc: string;

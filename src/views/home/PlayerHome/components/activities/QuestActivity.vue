@@ -45,7 +45,7 @@
     }
 
     questLink(item: ProcessedRoadmapAchievement) {
-      const nid = this.collections.find((a) => a.title === item.title)?.nid;
+      const nid = this.collections.find((a) => a.achievement === item.title)?.nid;
       if (isUndefined(nid)) {
         return Utils.getQuestLink(item.key);
       }

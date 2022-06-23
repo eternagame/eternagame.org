@@ -167,7 +167,7 @@ export interface PuzzleItem {
   number_of_states: number;
   'next-puzzle': string;
   'has3d': string;
-}
+  }
 
 export interface PuzzleList {
   puzzles: PuzzleItem[];

@@ -30,8 +30,16 @@
         v-for="puzzle in puzzles"
         :key="puzzle.id"
         :nid="puzzle.id"
-        v-bind="puzzle"
+        :title="puzzle.title"
+        :folder="puzzle.folder"
+        :username="puzzle.username"
+        :userpicture="puzzle.userpicture"
+        :image="puzzle.image"
+        :numSolutions="puzzle['num-cleared']"
+        :states="puzzle.states"
         :cleared="puzzleCleared(puzzle.id)"
+        :madeByPlayer="puzzle['made-by-player'] !== '0'"
+        :is3d="puzzle['3d_structure'] !== null"
       />
     </Gallery>
     <div v-else>

@@ -48,9 +48,8 @@
       const nid = this.collections.find((a) => a.title === item.title)?.nid;
       if (isUndefined(nid)) {
         return Utils.getQuestLink(item.key);
-      } 
-      return `/collections/${  nid}`;
-    
+      }
+      return `/collections/${nid}`;
     }
   }
 </script>

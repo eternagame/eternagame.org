@@ -1,6 +1,6 @@
 <template>
-  <EternaPage>
-    <div v-if="true">
+  <EternaPage    v-if="fetchState.firstFetchComplete && collections"
+>
       <h3 :style="{ fontSize: '16px', fontWeight: 'bold' }">
         {{ $t('collections-view:top-tip') }}
       </h3>
@@ -31,7 +31,6 @@
         </Gallery>
         <Pagination :key="fetch.length" />
       </div>
-    </div>
     <div v-else>
       <Preloader />
     </div>
@@ -67,6 +66,7 @@
       </b-button>
     </template>
   </EternaPage>
+    <Preloader v-else style="margin-top: 10rem" />
 </template>
 
 <script lang="ts">

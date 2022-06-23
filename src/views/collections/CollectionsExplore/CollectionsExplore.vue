@@ -188,7 +188,7 @@
       }
       this.created = res[0].data.data.created || [];
 
-      this.quests = res[1].data.data.collections as CollectionItem[];
+      this.quests = (res[1].data.data.collections as CollectionItem[]).filter(q => q.achievement !== null);
       this.quests.forEach((c) => {
         c.progress = this.getProgress(c);
       });

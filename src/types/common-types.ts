@@ -293,6 +293,7 @@ export interface CollectionResponse {
   collection: CollectionItem;
   comments: CommentItem[];
   total_num_comments: number;
+  puzzles: PuzzleItem[];
   uid: string;
 }
 

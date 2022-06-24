@@ -130,7 +130,6 @@
     @Prop({ default: true }) readonly backgroundLink!: boolean;
 
     get numCleared() {
-      console.log(this.numSolutions);
       if (isUndefined(this.$attrs['num-cleared'])){
         return this.numSolutions;
       }

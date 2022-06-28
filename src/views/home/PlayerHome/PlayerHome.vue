@@ -190,11 +190,11 @@
           views: {
             upcoming: {
               type: 'list',
-              duration: { days: 3 },
+              duration: { days: 14 },
               listDayAltFormat: 'dddd',
             },
           },
-          height: 'auto',
+          height: 260,
           eventClick: this.handleEventClick,
           googleCalendarApiKey: process.env.VUE_APP_GOOGLE_API_ID,
           events: {

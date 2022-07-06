@@ -12,6 +12,7 @@
         style="text-shadow: 1px 1px 2px #333"
       >
         <template v-if="hasLabAccess">
+          <EternaconSlide></EternaconSlide>
           <LabSlide
             v-for="lab in labCarouselLabs"
             v-bind="lab"

@@ -42,7 +42,7 @@
 
           <div class="col-md-6">
             <h3>Upcoming Events</h3>
-            <FullCalendar :options="calendarOptions" />
+            <FullCalendar @hook:mounted="filterEvents" ref="fullCalendar" :options="calendarOptions" />
             <p class="text-right"><a href="/calendar">View All ></a></p>
           </div>
         </div>
@@ -191,8 +191,7 @@
           views: {
             upcoming: {
               type: 'list',
-              duration: { days: 3 },
-              listDayAltFormat: 'dddd',
+              duration: { days: 14 },
             },
           },
           height: 'auto',
@@ -203,6 +202,22 @@
           },
         },
       };
+    }
+
+    filterEvents() {
+      // This function is called after the FullCal component has mounted and the calendar
+      // is available (via hook:mounted; see https://github.com/vuejs/core/issues/3178). 
+      // We get the events the calendar is displaying, sort them, and then we remove all 
+      // events past the number we want to display. 
+      // This method is necessary because FullCalendar's Google Calendar integration
+      // doesn't provide parameters for maxResults (to limit returned events) or 
+      // orderBy (to sort).
+      const fcAPI = this.$refs?.fullCalendar?.getApi();
+      const numberOfEventsToDisplay = 4;
+      const eventsToRemove = fcAPI.getEvents()
+        .sort((a, b) => a._instance.range.end > b._instance.range.end)
+        .slice(numberOfEventsToDisplay)
+        .map(event => event.remove());
     }
 
     handleEventClick(info: {

@@ -227,9 +227,9 @@
       const eventsToRemove = fcAPI.getEvents()
         .sort((a, b) => {
           if (a.start == null || b.start == null) { return 0; }
-          
-          return a.start.valueOf() - b.start.valueOf();
-          
+          else {
+            return a.start.valueOf() - b.start.valueOf();
+          }
         })
         .slice(numberOfEventsToDisplay)
         .map(event => event.remove());

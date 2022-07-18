@@ -84,6 +84,8 @@
     NotificationItem,
     NewsItem,
   } from '@/types/common-types';
+  import type Vue from 'vue';
+  import type { EventApi } from '@fullcalendar/common';
   import FetchMixin from '@/mixins/FetchMixin';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import Carousel from '@/components/Common/Carousel.vue';
@@ -204,6 +206,14 @@
       };
     }
 
+    // Define the type of the fullCalendar ref to avoid TS errors in the filterEvents function
+    $refs!: {
+      fullCalendar: Vue & {
+        getApi(): {
+          getEvents(): [ EventApi ]
+        },}
+    };
+
     filterEvents() {
       // This function is called after the FullCal component has mounted and the calendar
       // is available (via hook:mounted; see https://github.com/vuejs/core/issues/3178). 
@@ -215,7 +225,12 @@
       const fcAPI = this.$refs?.fullCalendar?.getApi();
       const numberOfEventsToDisplay = 4;
       const eventsToRemove = fcAPI.getEvents()
-        .sort((a, b) => a._instance.range.end > b._instance.range.end)
+        .sort((a, b) => {
+          if (a.start == null || b.start == null) { return 0; }
+          
+          return a.start.valueOf() - b.start.valueOf();
+          
+        })
         .slice(numberOfEventsToDisplay)
         .map(event => event.remove());
     }

@@ -192,7 +192,7 @@
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { AxiosInstance, AxiosResponse } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, {
     Option,
@@ -283,7 +283,7 @@
           ? 'about'
           : this.$route.query.tab_type;
 
-      const res = await Promise.all([
+      const res: AxiosResponse<any>[] = await Promise.all([
         this.$http.get(USERROUTE, { params: { tab_type } }),
       ]);
 

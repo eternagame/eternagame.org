@@ -226,6 +226,7 @@
 
   const INITIAL_SORT = 'date_completed';
   const INITIAL_NUMBER = 18;
+  let TAB_TYPE = '';
 
   @Component({
     components: {
@@ -288,6 +289,10 @@
       ]);
 
       if (tab_type === 'cleared') {
+        if (TAB_TYPE !== tab_type) {
+          this.$route.query.size = INITIAL_NUMBER.toString();
+          TAB_TYPE = tab_type;
+        }
         const { filters, sort, search, size } = this.$route.query;
         const params = {
           puzzle_type: 'AllChallengesPuzzle',
@@ -305,6 +310,10 @@
         const puzzleRes = res[1].data.data as PuzzleList;
         this.puzzles = puzzleRes.puzzles;
       } else if (tab_type === 'created') {
+        if (TAB_TYPE !== tab_type) {
+          this.$route.query.size = INITIAL_NUMBER.toString();
+          TAB_TYPE = tab_type;
+        }
         const { filters, sort, search, size } = this.$route.query;
         const params = {
           puzzle_type: 'AllChallengesPuzzle',
@@ -322,6 +331,10 @@
         const puzzleRes = res[1].data.data as PuzzleList;
         this.puzzles = puzzleRes.puzzles;
       } else if (tab_type === 'latest') {
+        if (TAB_TYPE !== tab_type) {
+          this.$route.query.size = INITIAL_NUMBER.toString();
+          TAB_TYPE = tab_type;
+        }
         const { filters, sort, search, size } = this.$route.query;
         const params = {
           puzzle_type: 'AllChallengesPuzzle',
@@ -339,6 +352,10 @@
         const puzzleRes = res[1].data.data as PuzzleList;
         this.puzzles = puzzleRes.puzzles;
       } else if (tab_type === 'groups') {
+        if (TAB_TYPE !== tab_type) {
+          this.$route.query.size = INITIAL_NUMBER.toString();
+          TAB_TYPE = tab_type;
+        }
         const { filters, sort, search, size } = this.$route.query;
         const params = {
           sort: sort || INITIAL_SORT,

@@ -269,8 +269,9 @@ a:hover {
 }
 
 td {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  border-top: 1px solid $light-blue;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   border-bottom: 1px solid $light-blue;
 }
 

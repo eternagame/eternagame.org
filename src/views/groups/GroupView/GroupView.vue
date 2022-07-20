@@ -50,6 +50,20 @@
         <b-modal id="modal-message" title="Message Group Members">
         <GroupMessageCompose @submit-message="sentMessage" :parentNID="group.nid"/>
         </b-modal>
+        <b-button v-if="editRights" v-b-modal.modal-pending style="margin-left:10px">Pending Members</b-button>
+        <b-modal id="modal-pending" title="Group Members">
+        <div>
+            Pending Members:
+            <ul>
+              <li v-for="player in pendings" :key="player.name">
+                <img :src="`../${player.picture}`" class="icon" />
+                <router-link :to="`/players/${player.uid}/`">
+                  {{player.name}}
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </b-modal>
       </div>
     </div>
     <Comments :comments="comments" :nid="group.nid" />
@@ -110,13 +124,21 @@
               </b-button>
             </li>
             <li>  
-              <b-button v-if="!subscribed"
+              <b-button v-if="!subscribed && !is_pending"
               type="submit"
               variant="primary"
               class="submit-button"
               @click="subscribe"
               >
                 {{ $t('group-view:subscribe') }}
+              </b-button>
+              <b-button v-if="is_pending"
+              type="submit"
+              variant="primary"
+              class="submit-button"
+              disabled
+              >
+                {{ $t('group-view:pending') }}
               </b-button>
               <b-button v-if="subscribed"
               type="submit"
@@ -182,6 +204,10 @@
 
     comments: CommentItem[] = [];
 
+    is_pending: boolean = false;
+
+    pendings: UserData[] = [];
+
     async fetch() {
       const res = (
         await this.$http.get(`/get/?type=group&nid=${this.$route.params.id}&script=-1`, {
@@ -198,7 +224,9 @@
       this.is_private = res.group.is_private;
       this.following = res.is_following;
       this.subscribed = res.is_member;
+      this.is_pending = res.is_pending;
       this.comments = res.comments;
+      this.pendings = res.group_pendings;
       if(this.group.founder_name === this.$vxm.user.username || res.is_admin) this.editRights = true;
     }
 

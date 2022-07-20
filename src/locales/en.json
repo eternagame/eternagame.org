@@ -520,6 +520,7 @@
   "group-view:subscribe": "Join",
   "group-view:unfollow": "Unfollow",
   "group-view:unsubscribe": "Leave",
+  "group-view:pending": "Pending",
   "edit-group:group-name": "Group Name",
   "edit-group:discription": "Group Description",
   "edit-group:privacy": "Group Privacy",

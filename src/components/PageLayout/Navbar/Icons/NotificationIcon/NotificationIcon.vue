@@ -30,6 +30,9 @@
         <b-dropdown-item v-if="notifications.length == 0">
           {{$t('activity-feed:empty')}}
         </b-dropdown-item>
+        <b-dropdown-item href="/feed">
+          {{ $t('nav-bar:notifications-view-all') }}
+        </b-dropdown-item>
       </div>
     </template>
   </NavbarIcon>

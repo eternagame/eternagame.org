@@ -23,7 +23,11 @@
         Additional questions? Contact <a href="mailto:events@eternagame.org">events@eternagame.org</a>.
       </p>
     </section>
-    <ScheduleSection :sessions="sessions" />
+    <ScheduleSection :sessions="sessions" >
+      <template v-slot:break>
+       <p>Check out our <a href="https://www.twitch.tv/eternagame">Twitch Stream</a> while you wait!</p>
+      </template>
+    </ScheduleSection>
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"

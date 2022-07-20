@@ -23,10 +23,13 @@
         <b-dropdown-item v-if="notifications.length == 0">
           {{$t('activity-feed:empty')}}
         </b-dropdown-item>
-        <b-dropdown-item href="/feed">
-          {{ $t('nav-bar:notifications-view-all') }}
-        </b-dropdown-item>
       </div>
+      <div class="border"></div>
+      <router-link to="/feed" style="color:white">
+        <div class="view-all-link">
+          {{ $t('nav-bar:notifications-view-all') }}
+        </div>
+      </router-link>
     </template>
   </NavbarIcon>
 </template>
@@ -149,7 +152,7 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep a {
+  ::v-deep a.dropdown-item {
     padding-right: 10px !important;
     padding-left: 10px !important;
     border-radius: 3px;
@@ -175,5 +178,19 @@
   img.icon {
     width: 24px;
     height: 24px;
+  }
+
+  .view-all-link {
+    padding: 10px;
+    text-align: center;
+    color: white !important;
+
+    &:hover, &:focus {
+      background-color: #212529;
+
+      @include media-breakpoint-down(md) {
+        background-color: var(--primary);
+      }
+    }
   }
 </style>

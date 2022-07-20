@@ -138,7 +138,7 @@
               </b-button>
             </li>
           </div>
-          <div v-if="!editRights">
+          <div>
             <li>
               <b-button
                 v-if="!following"

@@ -141,7 +141,7 @@
         group_nid: (this.parentNID? this.parentNID : 'null').toString(),
         action: 'add',
         target_names: this.targetName,
-        body: "You have been invited to join the group"
+        body: `I'd like to invite you to our group.<br></br>Please come to <a transition='page' style='font-weight:bolder;font-size:13px;' href='/groups/${  (this.parentNID? this.parentNID : 'null').toString()  }/'>visit us.</a>`
       };
     
       await axios.post('/post/', new URLSearchParams(params));
@@ -153,7 +153,7 @@
         group_nid: (this.parentNID? this.parentNID : 'null').toString(),
         action: 'add',
         target_names: this.targetName,
-        body: "You have been promoted to admin in the group"
+        body: `You are now an administrator of <a transition='page' style='font-weight:bolder;font-size:13px;' href='/groups/${  (this.parentNID? this.parentNID : 'null').toString()  }/'>this group.</a>`
       };
 
       await axios.post('/post/', new URLSearchParams(params));

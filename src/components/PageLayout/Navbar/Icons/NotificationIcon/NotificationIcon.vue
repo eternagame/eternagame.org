@@ -10,7 +10,12 @@
     <template>
       <div class="activity-container">
         <div class="d-flex justify-content-between">
-          <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
+          <div style="display: flex;">
+            <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
+            <div v-if="isFetching" class="fetch-loader">
+              <SimpleLoader />
+            </div>
+          </div>
         </div>
         <div class="border"></div>
         <template v-for="item in notifications">
@@ -49,6 +54,7 @@
   import CommentNotification from './CommentNotification.vue';
   import GroupNotificationItem from './GroupNotification.vue';
   import RewardNotificationItem from './RewardNotification.vue';
+  import SimpleLoader from '../../../SimpleLoader.vue';
 
   const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user';
 
@@ -65,13 +71,14 @@
       PrivateMessageNotification,
       CommentNotification,
       GroupNotificationItem,
-      RewardNotificationItem
+      RewardNotificationItem,
+      SimpleLoader
     },
   })
   export default class NotificationIcon extends Mixins(FetchMixin) {
     private notificationsCount = 0;
 
-    private calledFetch = false;
+    private isFetching = false;
 
     private notifications: NotificationItem[] = [];
 
@@ -95,7 +102,9 @@
       this.notificationsCount = res.data.data.noti_count;
 
       if (this.notificationsCount > 0 || !this.fetchState.firstFetchComplete) {
+        this.isFetching = true;
         await this.updateDropdownContents();
+        this.isFetching = false;
       }
     }
 
@@ -193,5 +202,12 @@
         background-color: var(--primary);
       }
     }
+  }
+
+  .fetch-loader {
+    margin: 0 10px;
+    width: 25px;
+    height: 25px;
+    align-self: center;
   }
 </style>

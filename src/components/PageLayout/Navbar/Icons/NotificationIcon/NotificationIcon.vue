@@ -182,6 +182,10 @@
     font-size: 16px;
     font-weight: bold;
     margin-top: 14.5px;
+
+    @include media-breakpoint-down(md) {
+      font-size: 13px;
+    }
   }
 
   .border {
@@ -213,5 +217,10 @@
     width: 25px;
     height: 25px;
     align-self: center;
+
+    @include media-breakpoint-down(md) {
+      width: 18px;
+      height: 18px;
+    }
   }
 </style>

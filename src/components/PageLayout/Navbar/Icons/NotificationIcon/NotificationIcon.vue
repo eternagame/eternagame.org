@@ -7,17 +7,10 @@
       </div>
     </template>
     <template #text>{{ $t('nav-bar:notifications') }}</template>
-    <template v-slot="slotProp">
+    <template>
       <div class="activity-container">
         <div class="d-flex justify-content-between">
           <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
-          <router-link to="/feed">
-            <img
-              class="mt-2"
-              src="@/assets/navbar/popOut.svg"
-              @click="slotProp.hideDropdown.hide()"
-            />
-          </router-link>
         </div>
         <div class="border"></div>
         <template v-for="item in notifications">

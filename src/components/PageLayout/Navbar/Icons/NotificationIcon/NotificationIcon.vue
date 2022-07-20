@@ -1,5 +1,5 @@
 <template>
-  <NavbarIcon @shown="onShown">
+  <NavbarIcon ref="dropdown" @shown="onShown">
     <template #icon>
       <div class="d-inline-block">
         <div class="unread" v-if="notificationsCount > 0"></div>
@@ -93,7 +93,6 @@
     }
 
     async onShown() {
-      await this.$http.post('/post/', new URLSearchParams({ type: 'notification_read' }));
       await this.$fetch();
     }
 
@@ -102,6 +101,11 @@
       this.notificationsCount = res.data.data.noti_count;
 
       if (this.notificationsCount > 0 || !this.fetchState.firstFetchComplete) {
+        if ((this.$refs.dropdown as NavbarIcon).isShown) {
+          this.notificationsCount = 0;
+          await this.$http.post('/post/', new URLSearchParams({ type: 'notification_read' }));
+        }
+
         this.isFetching = true;
         await this.updateDropdownContents();
         this.isFetching = false;

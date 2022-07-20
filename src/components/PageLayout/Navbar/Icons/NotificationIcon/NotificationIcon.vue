@@ -93,7 +93,8 @@
     async fetch() {
       const res = await this.$http.get(NUM_NOTIFICATIONS_ROUTE);
       this.notificationsCount = res.data.data.noti_count;
-      if (res.data.data.noti_count > this.notificationsCount || !this.fetchState.firstFetchComplete) {
+
+      if (this.notificationsCount > 0 || !this.fetchState.firstFetchComplete) {
         await this.updateDropdownContents();
       }
     }

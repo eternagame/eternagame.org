@@ -17,16 +17,16 @@
     </transition>
     <b-form @submit.prevent="tryRegister" class="pb-3" data-form-type="register">
       <div class="custom-input-group">
-        <b-input 
-          :placeholder="$t('register-modal:username')" 
-          v-model="form.username" 
-          required 
+        <b-input
+          :placeholder="$t('register-modal:username')"
+          v-model="form.username"
+          required
           name="username"
           autocomplete="username"
-          data-form-type="username" 
+          data-form-type="username"
         />
         <span class="input-group-append">
-          <img src="@/assets/front-page/img/user.svg" />
+          <img src="@/assets/front-page/img/user.svg" alt="user" />
         </span>
       </div>
       <b-input
@@ -49,7 +49,7 @@
           data-form-type="password"
         />
         <span class="input-group-append">
-          <img src="@/assets/front-page/img/lock.svg" />
+          <img src="@/assets/front-page/img/lock.svg" alt="lock" />
         </span>
       </div>
 
@@ -66,7 +66,7 @@
           data-form-type="password,confirmation"
         />
         <span class="input-group-append">
-          <img src="@/assets/front-page/img/lock.svg" />
+          <img src="@/assets/front-page/img/lock.svg" alt="lock" />
         </span>
       </div>
 
@@ -234,7 +234,7 @@
   .fade-leave-to {
     opacity: 0;
   }
-  ::v-deep .modal-header {
+  :deep(.modal-header) {
     -webkit-backdrop-filter: blur(28.125px);
     backdrop-filter: blur(28.125px);
     background-color: #4a90e2;
@@ -259,7 +259,7 @@
     }
   }
 
-  ::v-deep .modal-dialog {
+  :deep(.modal-dialog) {
     max-width: 400px;
     width: 100%;
     height: 100%;

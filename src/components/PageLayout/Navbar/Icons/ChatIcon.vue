@@ -1,8 +1,13 @@
 <template>
   <!-- TODO: Consider making this a NavIcon instead for consistent styling and behavior. -->
   <li style="list-style: none;">
-    <div class="clickable mt-2" @click="goToChat()">
-      <img src="@/assets/navbar/Chat.svg" />
+    <div
+      class="clickable mt-2"
+      @click="goToChat()"
+      @keypress.enter="goToChat()"
+      @keypress.space="goToChat()"
+    >
+      <img src="@/assets/navbar/Chat.svg" alt="chat" />
       <span class="d-md-none font-weight-bold">
         {{ $t('nav-bar:chat') }}
       </span>

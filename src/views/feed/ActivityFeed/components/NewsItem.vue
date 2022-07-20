@@ -20,7 +20,7 @@
         <div class="row d-flex" v-else style="margin-top:10px" />
         <div v-dompurify-html="strippedBody(article.body)" class="text" />
         <div v-if="commentCount" class="d-flex">
-          <img src="@/assets/comment-count.svg" />
+          <img src="@/assets/comment-count.svg" alt="number of comments" />
           <p class="icon-text">{{ commentCount }}</p>
         </div>
       </div>
@@ -69,7 +69,7 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep .card-body {
+  :deep(.card-body) {
     padding: 11.25px !important;
   }
 

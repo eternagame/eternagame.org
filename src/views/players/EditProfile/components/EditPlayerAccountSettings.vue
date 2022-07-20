@@ -6,6 +6,7 @@
       style="color:#fff"
       type="password"
       :placeholder="$t('edit-profile:new-password')"
+      :aria-label="$t('edit-profile:new-password')"
       v-model="password"
       @input="sendPassword"
     />
@@ -13,13 +14,14 @@
       style="color:#fff"
       type="password"
       :placeholder="$t('edit-profile:confirm-password')"
+      :aria-label="$t('edit-profile:confirm-password')"
       v-model="passwordConfirm"
       @input="sendPassword"
     />
     <p v-show="!passwordsMatch">Please make sure your password and confirmation match!</p>
 
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-address') }}</p>
-    <input type="email" style="color:#fff" :value="email" @input="sendEmail" required />
+    <input type="email" aria-label="email" style="color:#fff" :value="email" @input="sendEmail" required />
     <p style="margin-top:13px">{{ $t('edit-profile:email-details') }}</p>
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-notifications') }}</p>
     <b-form-checkbox :checked="messagesNotify" @change="toggleMessages">

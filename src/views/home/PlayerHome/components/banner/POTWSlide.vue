@@ -3,9 +3,9 @@
     class="slide"
   >
     <template v-slot:img>
-      <img src="~@/assets/home/hero-sunburst.png" class="img-fluid w-100 d-block bg-image" />
+      <img src="~@/assets/home/hero-sunburst.png" alt="" class="img-fluid w-100 d-block bg-image" />
       <div class="puzzle-image-wrapper">
-        <img :src="puzImageURL" class="puzzle-image" />
+        <img :src="puzImageURL" alt="" class="puzzle-image" />
       </div>
     </template>
     <div class="banner-text">
@@ -42,7 +42,7 @@
     @Prop({ required: true }) readonly title!: string;
 
     @Prop({ required: true }) readonly nid!: string;
-    
+
     get puzImageURL() {
       return Utils.getPuzzleMiddleThumbnail(this.nid);
     }

@@ -2,7 +2,7 @@
   <div class="page-content card">
     <a :href="editURL" class="edit-link" v-if="showEdit">Edit</a>
     <div class="container">
-      <img class="logo mr-3" style="border:0;" :src="`/sites/default/files/${project.logo}`" />
+      <img alt="" class="logo mr-3" style="border:0;" :src="`/sites/default/files/${project.logo}`" />
 
       <h3 class="mb-2">
         {{ project.name }}
@@ -55,6 +55,7 @@
           <a :href="project.paper_url">
             <img
               v-if="project.thumbnail"
+              alt="Publication"
               class="thumbnail"
               :src="`/sites/default/files/${project.thumbnail}`"
             />

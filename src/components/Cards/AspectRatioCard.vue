@@ -44,7 +44,7 @@
     }
   }
 
-  .card ::v-deep .card-body {
+  .card :deep(.card-body) {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -60,7 +60,7 @@
     width: 100%;
   }
 
-  .scalable-container ::v-deep .scalable {
+  .scalable-container :deep(.scalable) {
     height: 100%;
     object-fit: contain;
   }

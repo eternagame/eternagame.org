@@ -34,9 +34,9 @@
         </p>
     </div>
     <template #sidebar="{ isInSidebar }">
-      <SearchPanel :isInSidebar="isInSidebar" /> 
-      <a href="https://www.keystone-research-solutions.com/fileadmin/Item/9ee14794-9f0b-42de-9f2d-56428a53d965/A_Gamers_Guide_to_Eterna.pdf">
-                <img src="@/assets/help/gamer_guide_cover.svg" />
+      <SearchPanel :isInSidebar="isInSidebar" />
+      <a aria-label="A Gamer's Guide to Eterna" href="https://www.keystone-research-solutions.com/fileadmin/Item/9ee14794-9f0b-42de-9f2d-56428a53d965/A_Gamers_Guide_to_Eterna.pdf">
+                <img alt="The cover to a gamer's guide to Eterna" src="@/assets/help/gamer_guide_cover.svg" />
       </a>
     </template>
   </EternaPage>
@@ -60,7 +60,7 @@
 </script>
 <style lang="scss" scoped>
   @import '@/styles/_variables.scss';
-    
+
   img{
     height: 100%;
     width: 100%;

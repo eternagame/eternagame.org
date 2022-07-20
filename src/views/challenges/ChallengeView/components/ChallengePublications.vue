@@ -12,9 +12,9 @@
         >
         <div class="row">
           <div class="publication-image col-sm-4 order-2 order-sm-1">
-            <img v-if="publication.image" :src="`/sites/default/files/${publication.image}`" />
+            <img v-if="publication.image" :src="`/sites/default/files/${publication.image}`" alt="" />
             <div v-else class="publication-image-placeholder">
-              <img class="publication-image-placeholder-image" src="@/assets/logomark_eterna.svg" />
+              <img class="publication-image-placeholder-image" src="@/assets/logomark_eterna.svg" alt="" />
             </div>
           </div>
           <div class="publication-info col-sm order-1 order-sm-2">

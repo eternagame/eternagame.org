@@ -61,7 +61,7 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep .card-body {
+  :deep(.card-body) {
     padding: 11.25px !important;
   }
 

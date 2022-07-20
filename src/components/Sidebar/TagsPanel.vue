@@ -1,7 +1,7 @@
 <template>
   <SidebarPanel :isInSidebar="isInSidebar" header="Tags" headerIcon="@/assets/sidebar/hashtag.svg">
     <template #header-icon>
-      <img src="@/assets/sidebar/hashtag.svg" />
+      <img src="@/assets/sidebar/hashtag.svg" alt="hashtag" />
     </template>
     <ul style="padding: 0; list-style-type:none">
       <li class="gray-header" v-for="tag in tags" :key="tag">{{ tag }}</li>

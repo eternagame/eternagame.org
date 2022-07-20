@@ -181,7 +181,7 @@
     width: 100%;
     content: '';
   }
-  
+
   h2 {
     font-size: 32px;
   }
@@ -189,7 +189,7 @@
     font-size: 18px;
   }
 
-  ::v-deep img {
+  :deep(img) {
     min-height: 500px;
     object-fit: cover;
   }
@@ -201,27 +201,27 @@
     margin-right: 10px;
   }
 
-  ::v-deep .flip-card {
+  :deep(.flip-card) {
     font-size: 1.5rem !important;
   }
 
-  ::v-deep .flip-card__top,
-  ::v-deep .flip-card__bottom,
-  ::v-deep .flip-card__back-bottom,
-  ::v-deep .flip-card__back::before,
-  ::v-deep .flip-card__back::after {
+  :deep(.flip-card__top),
+  :deep(.flip-card__bottom),
+  :deep(.flip-card__back-bottom),
+  :deep(.flip-card__back::before),
+  :deep(.flip-card__back::after) {
     color: white !important;
     width: 2.3rem !important;
   }
 
-  ::v-deep .flip-card__bottom,
-  ::v-deep .flip-card__back-bottom,
-  ::v-deep .flip-card__bottom-4digits,
-  ::v-deep .flip-card__back-bottom-4digits {
+  :deep(.flip-card__bottom),
+  :deep(.flip-card__back-bottom),
+  :deep(.flip-card__bottom-4digits),
+  :deep(.flip-card__back-bottom-4digits) {
     border: none !important;
   }
 
-  ::v-deep .flip-clock__slot {
+  :deep(.flip-clock__slot) {
     font-size: .6rem !important;
     font-weight: bold;
   }

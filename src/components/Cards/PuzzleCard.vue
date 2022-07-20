@@ -3,15 +3,15 @@
     <AspectRatioCard :aspectRatio="aspectRatio" :id="`popover-target-${nid}`" class="card">
       <template #header>
         <div class="puzzle-card-title" v-if="title">
-          <img src="@/assets/noun_check.svg" v-if="cleared" style="float:right" />
+          <img src="@/assets/noun_check.svg" alt="cleared" v-if="cleared" style="float:right" />
 
-          <SmartLink :link="`/puzzles/${nid}`"><img src="@/assets/info.svg" v-if="!backgroundLink" style="float:right" /></SmartLink>
+          <SmartLink :link="`/puzzles/${nid}`"><img src="@/assets/info.svg" alt="info" v-if="!backgroundLink" style="float:right" /></SmartLink>
 
           <b>{{ title }}</b>
         </div>
       </template>
-      <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable" />
-      <img src="@/assets/noun_lock.svg" v-if="locked" class="inner" />
+      <img :src="imageURL" style="width: 80%; margin: auto;" class="scalable" alt="" />
+      <img src="@/assets/noun_lock.svg" alt="" v-if="locked" class="inner" />
       <template #footer>
         <!-- Puzzle gameplay info -->
         <div class="meta-row meta-gameplay" v-if="folder || stateCount > 1 || is3d">
@@ -161,7 +161,7 @@
     margin-bottom: 0px;
   }
 
-  ::v-deep .card-body {
+  :deep(.card-body) {
     padding: 11.25px !important;
   }
 

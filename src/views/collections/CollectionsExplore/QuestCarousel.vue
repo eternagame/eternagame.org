@@ -74,7 +74,7 @@
     padding-right: $page-margin-side;
   }
 
-  ::v-deep .swiper-button {
+  :deep(.swiper-button) {
     background-color: black;
     color: teal;
     width: 38px;
@@ -87,21 +87,21 @@
     cursor: pointer;
   }
 
-  ::v-deep .swiper-button.prev-elem {
+  :deep(.swiper-button.prev-elem) {
     border-radius: 0 10px 10px 0;
     left: 0px;
   }
 
-  ::v-deep .swiper-button-disabled {
+  :deep(.swiper-button-disabled) {
     display: none;
   }
 
-  ::v-deep .swipper-button-right {
+  :deep(.swipper-button-right) {
     border-radius: 10px 0 0 10px;
     right: 0px;
   }
 
-  ::v-deep .swiper-pagination {
+  :deep(.swiper-pagination) {
     position: static !important;
     .swiper-pagination-bullet {
       background-color: white;

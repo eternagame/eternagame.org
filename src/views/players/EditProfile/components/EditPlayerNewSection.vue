@@ -7,6 +7,7 @@
         @input="setTitle"
         :value="title"
         :placeholder="$t('edit-profile:section-title')"
+        :aria-label="$t('edit-profile:section-title')"
       />
       <b-button variant="outline-secondary">{{
         $t('edit-profile:custom-section-remove')

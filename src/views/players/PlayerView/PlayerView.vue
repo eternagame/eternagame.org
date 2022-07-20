@@ -203,7 +203,7 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, {
     Option,
-    } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
   import {

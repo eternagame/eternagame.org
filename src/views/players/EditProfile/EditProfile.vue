@@ -30,6 +30,7 @@
         style="color:#fff"
         type="password"
         :placeholder="$t('edit-profile:current-password')"
+        :aria-label="$t('edit-profile:current-password')"
         v-model="currentPassword"
       />
       <div class="flex" style="margin-top:20px">

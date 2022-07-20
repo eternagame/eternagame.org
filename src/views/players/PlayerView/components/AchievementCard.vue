@@ -6,6 +6,8 @@
         :alt="title"
         :class="{ 'achievement--thumbnail__grayscale': isAchieved }"
         @click="$emit('expand')"
+        @keypress.enter="$emit('expand')"
+        @keypress.space="$emit('expand')"
       />
 
         <div v-if="getLevels() != 1 && achievement.type != 'limited' && showLevels">

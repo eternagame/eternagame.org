@@ -123,7 +123,7 @@
     opacity: 0;
   }
 
-  ::v-deep .modal-dialog {
+  :deep(.modal-dialog) {
     max-width: 600px;
     width: 100%;
     height: 100%;

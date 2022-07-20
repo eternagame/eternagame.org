@@ -24,6 +24,7 @@
                 <img
                   class="rounded-circle"
                   :src="getImage(data.id)"
+                  alt=""
                   style="width: 40px; height: 40px; margin-right: 10px"
                 />
                 <span v-dompurify-html="htmlText" style="color: white"></span>
@@ -74,6 +75,7 @@
                 <img
                   class="rounded-circle"
                   :src="getImage(element.id)"
+                  alt=""
                   style="width: 5%; margin: auto"
                 />
                 <b>{{ element.title }}</b> by {{ element.username }}

@@ -10,6 +10,7 @@
         :src="avatar"
         v-if="avatar"
         style="margin-right:10px;position:relative;top:10px;width:30px;height:30px"
+        alt=""
       />
       <div class="description">
         <span v-if="prefix">

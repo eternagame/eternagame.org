@@ -5,30 +5,37 @@
         <img
           class="hero-background-tiles"
           src="@/assets/front-page/img/landing-page-tiling.svg"
+          alt=""
         />
         <img
           class="background-graphic design-scene"
           src="@/assets/front-page/img/design-scene.svg"
+          alt="An illustration of a player playing Eterna in the design interface"
         />
         <img
           class="background-graphic vote-scene"
           src="@/assets/front-page/img/vote-scene.svg"
+          alt="An illustration of players looking at solutions in the Eterna design browser, with one of them putting a vote into a ballot box"
         />
         <img
           class="background-graphic analyze-scene"
           src="@/assets/front-page/img/analyze-scene.svg"
+          alt="An illustration of a player looking at details of an Eterna design and another player looking at a chart of data"
         />
         <img
           class="background-graphic analyze-scene mobile"
           src="@/assets/front-page/img/analyze-scene-mobile.svg"
+          alt="An illustration of a player looking at details of an Eterna design"
         />
         <img
           class="background-graphic test-scene"
           src="@/assets/front-page/img/test-scene.svg"
+          alt="An illustration of a researcher on a latter looking into a giant microscope, a researcher with a giant pipette and plate of test tubes, and a researcher operating a giant analysis machine with a robotic arm pulling out a test tube"
         />
         <img
           class="background-graphic test-scene mobile"
           src="@/assets/front-page/img/test-scene-mobile.svg"
+          alt="An illustration of a researcher on a latter looking into a giant microscope"
         />
       </div>
 
@@ -55,8 +62,8 @@
               </b-button>
               <br /><br />
               <p><strong>Now Available on iOS and Android!</strong></p>
-              <a href="https://apps.apple.com/us/app/id1513216417" target="_blank"><img src="@/assets/front-page/img/btn_download_ios.svg" style="width:128px; padding-right:0.5rem;" /></a>
-              <a href="https://play.google.com/store/apps/details?id=org.eternagame.mob" target="_blank"><img src="@/assets/front-page/img/btn_download_play.png" style="width:135px" /></a>
+              <a href="https://apps.apple.com/us/app/id1513216417" target="_blank"><img src="@/assets/front-page/img/btn_download_ios.svg" alt="Download on the app store" style="width:128px; padding-right:0.5rem;" /></a>
+              <a href="https://play.google.com/store/apps/details?id=org.eternagame.mob" target="_blank"><img src="@/assets/front-page/img/btn_download_play.png" alt="Get it on google play" style="width:135px" /></a>
             </div>
           </b-col>
           <b-col lg="3" md="2" sm="1" />
@@ -94,7 +101,7 @@
     min-height: 700px;
     margin-left: auto;
     margin-right: auto;
-    
+
     &-tiles {
       position: relative;
       left: 50%;
@@ -164,7 +171,7 @@
       @include media-breakpoint-down(sm) {
         display: none;
       }
-      
+
       &.mobile {
         display: none;
 

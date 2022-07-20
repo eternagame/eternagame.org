@@ -38,6 +38,7 @@
                 v-if="data.userpicture"
                 class="rounded-circle"
                 :src="`/${data.userpicture}`"
+                alt=""
                 style="width: 40px; height: 40px;margin-right:10px"
               />
 
@@ -190,11 +191,11 @@
     background-color: lighten($med-dark-blue, 10);
   }
 
-  ::v-deep .editor {
+  :deep(.editor) {
     background-color: rgba(1, 1, 1, 0.53);
   }
 
-  ::v-deep input {
+  :deep(input) {
     color: $white;
     background-color: rgba(1, 1, 1, 0.53);
   }

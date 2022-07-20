@@ -3,7 +3,7 @@
   <div class="card">
   <router-link :to="`/challenges/${challenge.nid}`">
       <div class="media row">
-        <img :src="coverImage"/>
+        <img :src="coverImage" alt=""/>
         <div class="media-body p-4">
           <h3 class="mt-0" style="font-weight: bold;">
             {{ challenge.title }}
@@ -22,7 +22,7 @@
       </div>
       </router-link>
     </div>
-  
+
 </template>
 
 <script lang="ts">
@@ -49,7 +49,7 @@
   })
 
   export default class ChallengeCard extends Mixins(FetchMixin) {
-    
+
     @Prop({required:true}) readonly challenge!: any;
 
     get coverImage() {

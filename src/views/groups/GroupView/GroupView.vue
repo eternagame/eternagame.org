@@ -6,8 +6,8 @@
       <div class="d-flex flex-wrap justify-content-between" xs="12" sm="8">
         <div style="text-align:center" class="order-sm-2 image-col">
           <div class="group-image">
-            <img v-if="group.picture" :src="group.picture" />
-            <img v-if="!group.picture" src="@/assets/group.svg" />
+            <img alt="" v-if="group.picture" :src="group.picture" />
+            <img alt="" v-if="!group.picture" src="@/assets/group.svg" />
           </div>
         </div>
 
@@ -27,7 +27,7 @@
             Admins:
             <ul>
               <li v-for="player in admins" :key="player.name">
-                <img :src="`../${player.picture}`" class="icon" />
+                <img alt="" :src="`../${player.picture}`" class="icon" />
                 <router-link :to="`/players/${player.uid}/`">
                   {{player.name}}
                 </router-link>
@@ -38,13 +38,13 @@
             Members:
             <ul>
               <li v-for="player in members" :key="player.name">
-                <img :src="`../${player.picture}`" class="icon" />
+                <img alt="" :src="`../${player.picture}`" class="icon" />
                 <router-link :to="`/players/${player.uid}/`">
                   {{player.name}}
                 </router-link>
               </li>
             </ul>
-          </div>   
+          </div>
         </b-modal>
         <b-button v-if="editRights" v-b-modal.modal-message style="margin-left:10px">Message Members</b-button>
         <b-modal id="modal-message" title="Message Group Members">
@@ -61,25 +61,25 @@
         headerIcon="@/assets/info.svg"
       >
         <template #header-icon>
-          <img src="@/assets/info.svg" />
+          <img src="@/assets/info.svg" alt="info" />
         </template>
         <ul style="padding: 0; list-style-type:none" v-if="group">
         <li>
-            <img :src="`../${group.founder_picture}`" class="icon" />{{ group.founder_name }}
+            <img :src="`../${group.founder_picture}`" alt="founder" class="icon" />{{ group.founder_name }}
         </li>
         <li>
-            <img src="@/assets/dollar.svg" class="icon" />{{ group.score }}
+            <img src="@/assets/dollar.svg" alt="total points" class="icon" />{{ group.score }}
         </li>
         <li>
-            <img src="@/assets/people.svg" class="icon" />{{ group.num_members }}
+            <img src="@/assets/people.svg" alt="number of members" class="icon" />{{ group.num_members }}
         </li>
         <li>
-            <img src="@/assets/calendar.svg" class="icon" />{{ group.created }}
+            <img src="@/assets/calendar.svg" alt="created on" class="icon" />{{ group.created }}
         </li>
         <li>
         </li>
           <div v-if="editRights">
-            <li>  
+            <li>
               <b-button
               type="submit"
               variant="primary"
@@ -91,7 +91,7 @@
             </li>
           </div>
           <div v-if="!editRights">
-            <li>  
+            <li>
               <b-button v-if="!following"
               type="submit"
               variant="primary"
@@ -109,7 +109,7 @@
                 {{ $t('group-view:unfollow') }}
               </b-button>
             </li>
-            <li>  
+            <li>
               <b-button v-if="!subscribed"
               type="submit"
               variant="primary"
@@ -165,7 +165,7 @@
     private deleteRoute: string = "";
 
     private editRights: boolean = false;
-    
+
     private following: boolean = false;
 
     private subscribed: boolean = false;

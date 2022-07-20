@@ -3,12 +3,13 @@
     <input
       type="text"
       :placeholder="placeholder || $t('search:search')"
+      :aria-label="placeholder || $t('search:search')"
       class="local-search"
       :value="searchValue"
       @input="onSearch"
     />
     <span>
-      <img src="@/assets/sidebar/search.svg" />
+      <img src="@/assets/sidebar/search.svg" alt="search" />
     </span>
   </div>
 </template>

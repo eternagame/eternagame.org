@@ -26,10 +26,10 @@
         $t('create-collection:collection-info:image-optional')
       }}</span>
     </h3>
-    <img :src="picture" class="collection-image" />
+    <img :src="picture" class="collection-image" alt="" />
     <div class="input-group">
-      <input type="file" @change="handleFile" hidden ref="fileUpload" />
-      <button type="button" class="btn secondary" @click="fileUpload.click()">
+      <input type="file" @change="handleFile" hidden ref="fileUpload" aria-labelledby="collection-upload-image"/>
+      <button id="collection-upload-image" type="button" class="btn secondary" @click="fileUpload.click()">
         {{ $t('create-collection:collection-info:image-button-text') }}
       </button>
     </div>

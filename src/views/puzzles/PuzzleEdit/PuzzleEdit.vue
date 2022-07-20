@@ -8,7 +8,7 @@
       <div class="d-flex flex-wrap justify-content-between" xs="12" sm="8">
         <div style="text-align:center" class="order-sm-2 image-col">
           <div class="puzzle-image">
-            <img v-if="imageURL" :src="imageURL" />
+            <img alt="" v-if="imageURL" :src="imageURL" />
           </div>
           <b-button
             type="submit"
@@ -37,27 +37,27 @@
         headerIcon="@/assets/info.svg"
       >
         <template #header-icon>
-          <img src="@/assets/info.svg" />
+          <img src="@/assets/info.svg" alt="info" />
         </template>
         <ul style="padding: 0; list-style-type:none" v-if="puzzle">
           <li v-if="madeByPlayer">
-            <img :src="avatar" class="icon" />{{ puzzle.username }}
+            <img :src="avatar" class="icon" alt="author" />{{ puzzle.username }}
           </li>
           <li v-if="puzzle.folder">
-            <img src="@/assets/chemical_bond.svg" class="icon" />{{ puzzle.folder }}
+            <img src="@/assets/chemical_bond.svg" alt="folding engine" class="icon" />{{ puzzle.folder }}
           </li>
           <li v-if="puzzle.reward">
-            <img src="@/assets/dollar.svg" class="icon" />{{ puzzle.reward }}
+            <img src="@/assets/dollar.svg" alt="reward" class="icon" />{{ puzzle.reward }}
           </li>
           <li>
-            <img src="@/assets/people.svg" class="icon" />
+            <img src="@/assets/people.svg" alt="players solved" class="icon" />
             {{ puzzle['num-cleared'] ? puzzle['num-cleared'] : 0 }}
           </li>
           <li v-if="puzzle.created">
-            <img src="@/assets/calendar.svg" class="icon" />{{ puzzle.created }}
+            <img src="@/assets/calendar.svg" alt="created on" class="icon" />{{ puzzle.created }}
           </li>
           <li v-if="clearedThisPuzzle">
-            <img src="@/assets/noun_check.svg" class="icon" />Cleared
+            <img src="@/assets/noun_check.svg" alt="cleared" class="icon" />Cleared
           </li>
           <li>
           <b-button
@@ -105,7 +105,7 @@
     private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
     private tutorialRoute: string = PUZZLE_ROUTE_TUTORIAL_PREFIX;
-    
+
     puzzle: Puzzle | null = null;
 
     nid: string = "";
@@ -113,7 +113,7 @@
     comments: CommentItem[] = [];
 
     clearedPuzzles: ClearedPuzzle[] = [];
-    
+
     access: boolean = false;
 
     puzzTitle: string = "";
@@ -121,9 +121,9 @@
     puzzBody: string = "";
 
     async submit(){
-      
+
       if(this.access && this.puzzTitle && this.puzzBody){
- 
+
         this.$http.post('/post/', new URLSearchParams({
           type: 'edit_puzzle',
           nid: this.nid,

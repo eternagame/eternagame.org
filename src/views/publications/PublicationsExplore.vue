@@ -5,13 +5,13 @@
         {{ $t('publications:overview') }} {{totalPapers}} {{ $t('publications:overview:tag') }}
       </p>
 
-      <a name="player-publications" class="anchor-link"></a>
+      <a name="player-publications" aria-label="player publications" class="anchor-link"></a>
       <h2>{{ $t('publications:player-title') }}</h2>
       <Gallery :sm="12" :md="12">
         <PublicationsCard v-for="pub in playerPublications" :key="pub.link" v-bind="pub" />
       </Gallery>
 
-      <a name="researcher-publications" class="anchor-link"></a>
+      <a name="researcher-publications" aria-label="researcher publications" class="anchor-link"></a>
       <h2>{{ $t('publications:researcher-title') }}</h2>
       <Gallery :sm="12" :md="12">
         <PublicationsCard v-for="pub in researcherPublications" :key="pub.link" v-bind="pub" />
@@ -91,7 +91,7 @@
       this.researcherPublications = res.researcherpubslist;
     }
 
-    
+
   }
 </script>
 

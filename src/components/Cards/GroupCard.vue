@@ -3,15 +3,13 @@
     <AspectRatioCard :aspectRatio="aspectRatio" :id="`popover-target-${nid}`" class="card">
       <template #header>
         <div class="group-card-title" v-if="name">
-          <img src="@/assets/noun_check.svg" v-if="false" style="float:right" />
-          
-          <SmartLink :link="`/groups/${nid}`"><img src="@/assets/info.svg" v-if="rightNumber" style="float:right" /></SmartLink>
+          <SmartLink :link="`/groups/${nid}`"><img src="@/assets/info.svg" alt="info" v-if="rightNumber" style="float:right" /></SmartLink>
 
           <b>{{ name }}</b>
         </div>
       </template>
-      <img :src="picture" v-if="picture != null" style="width: 100%; margin: auto; max-height: 400px" class="scalable" />
-      <img src="@/assets/group.svg" v-if="picture == null" style="width: 100%; margin: auto; max-height: 400px" class="scalable" />
+      <img :src="picture" alt="" v-if="picture != null" style="width: 100%; margin: auto; max-height: 400px" class="scalable" />
+      <img src="@/assets/group.svg" alt="" v-if="picture == null" style="width: 100%; margin: auto; max-height: 400px" class="scalable" />
       <template #footer>
         <div style="width: 100%;" class="d-flex justify-content-between" v-if="$slots.buttons">
           <slot name="buttons" />
@@ -40,7 +38,7 @@
           <b-col cols="6">
             <div class="left-col" v-if="founder_name">
               <slot name="left-icon">
-                <img :src="founder_picture" id="avatarimage" class="icon">
+                <img :src="founder_picture" alt="" id="avatarimage" class="icon">
               </slot>
               <div v-if="founder_name"> {{ founder_name }} </div>
             </div>
@@ -48,7 +46,7 @@
           <b-col cols="6">
             <div class="right-col">
               <slot name="right-icon">
-                <img src="@/assets/noun_lock.svg" v-if="is_private === 'true'" class="icon" />
+                <img src="@/assets/noun_lock.svg" alt="private" v-if="is_private === 'true'" class="icon" />
               </slot>
             </div>
           </b-col>
@@ -91,7 +89,7 @@
 
     @Prop({ default: 1 }) readonly aspectRatio!: number;
 
-    @Prop({ default: false }) readonly is_private!: boolean;
+    @Prop({ default: false }) readonly is_private!: string;
 
     @Prop({ default: false }) readonly joined!: boolean;
 
@@ -122,7 +120,7 @@
     margin-bottom: 0px;
   }
 
-  ::v-deep .card-body {
+  :deep(.card-body) {
     padding: 11.25px !important;
   }
 

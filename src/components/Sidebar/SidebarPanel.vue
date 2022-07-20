@@ -1,7 +1,13 @@
 <template>
   <div :class="{ panel: isInSidebar, toggler: !isInSidebar }">
-    <div class="sidebar-panel-header" :style="headerStyle" @click="clickedHeader">
-      <img v-if="headerIcon" :src="headerIcon" class="header-icon" />
+    <div
+      class="sidebar-panel-header"
+      :style="headerStyle"
+      @click="clickedHeader"
+      @keypress.enter="clickedHeader"
+      @keypress.space="clickedHeader"
+    >
+      <img v-if="headerIcon" :src="headerIcon" class="header-icon" alt="" />
       <span :class="headerTextClasses">{{ header }}</span>
     </div>
     <template v-if="isInSidebar">
@@ -25,6 +31,8 @@
     @Prop({ required: true }) readonly header!: string;
 
     @Prop({ required: true }) readonly headerIcon!: string;
+
+    @Prop({ required: true }) readonly headerIconAlt!: string;
 
     get headerTextClasses() {
       return this.isInSidebar ? [] : ['d-none', 'd-md-inline-block'];

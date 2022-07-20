@@ -82,7 +82,7 @@
   import QuestCarousel from '@/views/collections/CollectionsExplore/QuestCarousel.vue';
   import DropdownSidebarPanel, {
     Option,
-    } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import {
@@ -222,7 +222,7 @@
   }
 </script>
 <style lang="scss" scoped>
-::v-deep .swiper-pagination-bullet-active {
+:deep(.swiper-pagination-bullet-active) {
   background-color: white;
 }
 </style>

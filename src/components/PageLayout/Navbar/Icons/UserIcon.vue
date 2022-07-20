@@ -1,7 +1,7 @@
 <template>
   <NavbarIcon>
     <template #icon>
-      <img src="@/assets/navbar/DefaultIcon.svg" />
+      <img src="@/assets/navbar/DefaultIcon.svg" alt="User" />
       <span class="mx-2">{{ username }}</span>
     </template>
     <template #text> </template>
@@ -41,11 +41,11 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep .dropdown .nav-link {
+  :deep(.dropdown .nav-link) {
     background-color: $dark-blue;
   }
 
-  ::v-deep a.dropdown-item {
+  :deep(a.dropdown-item) {
     text-transform: uppercase;
   }
 </style>

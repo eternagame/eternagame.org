@@ -12,6 +12,7 @@
           <img
             class="d-none d-sm-block rounded-circle player-image"
             :src="avatar"
+            alt=""
             style="margin-right:10px"
           />
         </SmartLink>
@@ -85,7 +86,7 @@
     margin-bottom: 0px;
   }
 
-  ::v-deep .card-body {
+  :deep(.card-body) {
     padding: 11.25px !important;
   }
 
@@ -120,7 +121,7 @@
     text-decoration: none;
   }
 
-  .text ::v-deep img {
+  .text :deep(img) {
     max-width: 100% !important;
   }
 </style>

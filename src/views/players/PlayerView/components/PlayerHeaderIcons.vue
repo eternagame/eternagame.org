@@ -6,9 +6,9 @@
     >
       Certificate
     </a>
-    <img src="@/assets/dollar.svg" class="icon ml-4" /> {{ user.points }}
-    <img src="@/assets/test-tube.svg" class="icon ml-4" /> {{ user.synthesized_count }}
-    <img src="@/assets/calendar.svg" class="icon ml-4" /> {{ user.created }}
+    <img src="@/assets/dollar.svg" alt="points" class="icon ml-4" /> {{ user.points }}
+    <img src="@/assets/test-tube.svg" alt="synthesized designs" class="icon ml-4" /> {{ user.synthesized_count }}
+    <img src="@/assets/calendar.svg" alt="account created on" class="icon ml-4" /> {{ user.created }}
   </div>
 </template>
 

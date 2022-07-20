@@ -232,11 +232,11 @@
 <style lang="scss" scoped>
 @import '@/styles/global.scss';
 
-::v-deep section {
+:deep(section) {
   text-align: center;
 }
 
-::v-deep .player-progress-bar {
+:deep(.player-progress-bar) {
   max-width: 100%;
 }
 
@@ -254,16 +254,16 @@
   margin-right: -$page-margin-side;
 }
 
-#header-carousel ::v-deep .carousel-inner {
+#header-carousel :deep(.carousel-inner) {
   min-height: 300px;
 }
 
-#header-carousel ::v-deep .carousel-control-prev,
-::v-deep .carousel-control-next {
+#header-carousel :deep(.carousel-control-prev),
+:deep(.carousel-control-next) {
   max-width: 100px;
 }
 
-#header-carousel ::v-deep .carousel-caption {
+#header-carousel :deep(.carousel-caption) {
   left: min(100px, 15%) !important;
   right: min(100px, 15%) !important;
 }

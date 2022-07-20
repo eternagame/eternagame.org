@@ -3,7 +3,7 @@
     <template #icon>
       <div class="d-inline-block">
         <div class="unread" v-if="notificationsCount > 0"></div>
-        <img class="icon" src="@/assets/navbar/Bell.svg" />
+        <img class="icon" src="@/assets/navbar/Bell.svg" alt="notifications" />
       </div>
     </template>
     <template #text>{{ $t('nav-bar:notifications') }}</template>
@@ -16,6 +16,9 @@
               class="mt-2"
               src="@/assets/navbar/popOut.svg"
               @click="slotProp.hideDropdown.hide()"
+              @keypress.enter="slotProp.hideDropdown.hide()"
+              @keypress.space="slotProp.hideDropdown.hide()"
+              alt="Open full newsfeed"
             />
           </router-link>
         </div>
@@ -101,7 +104,7 @@
 
     async updateDropdownContents() {
       const response = await this.$http.get(NEWS_FEED_ROUTE);
-      
+
       // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
       const res = response.data.data.entries as NotificationItem[];
 
@@ -153,7 +156,7 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep a {
+  :deep(a) {
     padding-right: 10px !important;
     padding-left: 10px !important;
     border-radius: 3px;

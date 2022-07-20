@@ -44,7 +44,7 @@
     width: 100%;
   }
 
-  ::v-deep {
+  :deep(*) {
     font-weight: bold;
   }
 

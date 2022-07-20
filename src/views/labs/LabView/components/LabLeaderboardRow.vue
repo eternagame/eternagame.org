@@ -7,8 +7,8 @@
         </p>
       </td>
       <td style="shrink">
-        <img v-if="imageLink" class="rounded-circle player-image" :src="imageLink" />
-        <img v-else class="rounded-circle player-image" src="@/assets/front-page/img/icon_user.png" />
+        <img v-if="imageLink" alt="" class="rounded-circle player-image" :src="imageLink" />
+        <img v-else alt="" class="rounded-circle player-image" src="@/assets/front-page/img/icon_user.png" />
       </td>
       <td>
         <div class="player-name">
@@ -23,8 +23,8 @@
         </a>
       </td>
       <td>
-        <a v-bind:href="solutionLink"> 
-          {{ rankedSolution.title }} 
+        <a v-bind:href="solutionLink">
+          {{ rankedSolution.title }}
         </a>
       </td>
       <td>
@@ -49,7 +49,7 @@
     components: {},
   })
   export default class LabLeaderboardRow extends Vue {
-    
+
     @Prop({required: true}) readonly rankedSolution!: any;
 
     @Prop({required: true}) readonly rank!: number;

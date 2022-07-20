@@ -54,7 +54,7 @@
   margin-bottom: 0px;
 }
 
-::v-deep .card-body {
+:deep(.card-body) {
   padding: 11.25px !important;
 }
 

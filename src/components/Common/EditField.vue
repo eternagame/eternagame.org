@@ -133,7 +133,7 @@
     text-align: initial;
   }
 
-  .editor ::v-deep p.is-empty:first-child::before {
+  .editor :deep(p.is-empty:first-child::before) {
     content: attr(data-empty-text);
     float: left;
     color: #aaa;
@@ -142,7 +142,7 @@
     font-style: italic;
   }
 
-  .editor ::v-deep p {
+  .editor :deep(p) {
     margin-bottom: 0;
     padding-bottom: 1rem;
   }

@@ -14,6 +14,7 @@
             <div class="d-flex align-items-center">
               <img
                 v-if="data.userpicture"
+                alt=""
                 class="rounded-circle"
                 :src="`/${data.userpicture}`"
                 style="width: 40px; height: 40px;margin-right:10px"
@@ -52,6 +53,7 @@
             <div class="d-flex align-items-center">
               <img
                 v-if="data.userpicture"
+                alt=""
                 class="rounded-circle"
                 :src="`/${data.userpicture}`"
                 style="width: 40px; height: 40px;margin-right:10px"
@@ -142,7 +144,7 @@
         action: 'add',
         target_names: this.targetName,
       };
-    
+
       await axios.post('/post/?type=message', new URLSearchParams(params));
     }
 
@@ -226,11 +228,11 @@
     background-color: lighten($med-dark-blue, 10);
   }
 
-  ::v-deep .editor {
+  :deep(.editor) {
     background-color: rgba(1, 1, 1, 0.53);
   }
 
-  ::v-deep input {
+  :deep(input) {
     color: $white;
     background-color: rgba(1, 1, 1, 0.53);
   }

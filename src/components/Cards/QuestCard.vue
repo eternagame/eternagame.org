@@ -3,15 +3,15 @@
     <AspectRatioCard>
       <template #header> </template>
       <SmartLink :link="toQuest">
-        <img :src="image" style="width: 80%; margin: auto" class="scalable" />
+        <img :src="image" style="width: 80%; margin: auto" class="scalable" :alt="title" />
       </SmartLink>
       <template #footer>
         <div style="text-align: center; margin-bottom: 0px">
-          <img src="@/assets/noun_lock.svg" v-if="locked" />
+          <img src="@/assets/noun_lock.svg" v-if="locked" alt="locked" />
           <div v-else>
             <p v-if="completed">
               <SmartLink :link="toGame">
-                <img src="@/assets/noun_check.svg" />
+                <img src="@/assets/noun_check.svg" alt="completed" />
                 <b style="text-transform: uppercase">{{
                   $t('collection:completed')
                 }}</b>
@@ -110,7 +110,7 @@
   width: 48%;
   margin-bottom: 0px;
 }
-::v-deep .card-body {
+:deep(.card-body) {
   padding: 11.25px !important;
 }
 .card {

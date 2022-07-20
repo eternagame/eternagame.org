@@ -7,6 +7,7 @@
       <div class="history-paragraph">
         <section class="history-media-asset responsive">
           <iframe
+            title="Eterna history"
             src="https://www.youtube.com/embed/bTlNNFQxs_A"
             frameborder="0"
             allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
@@ -60,7 +61,7 @@
       </h4>
       <div class="history-paragraph">
         <section class="history-media-asset responsive">
-          <img src="@/assets/history/science.png" />
+          <img src="@/assets/history/science.png" alt="A graph with data comparing performance of Eterna players to automated algorithms on six early Eterna puzzles (the finger, the cross, bulged cross, the star, bulged star, and the branches)" />
           <p class="history-media-asset-description">
             {{ $t('history:origins-media-caption') }}
           </p>
@@ -100,7 +101,7 @@
       </h4>
       <div class="history-paragraph">
         <section class="history-media-asset">
-          <img src="@/assets/history/software.png" />
+          <img src="@/assets/history/software.png" alt="a multicolored wireframe illustration of a brain" />
           <p class="history-media-asset-description">
             {{ $t('history:software-media-caption') }}
           </p>
@@ -117,7 +118,7 @@
       </h4>
       <div class="history-paragraph">
         <section class="history-media-asset responsive">
-          <img src="@/assets/history/community.png" />
+          <img src="@/assets/history/community.png" alt="A group photo of participants at Eternacon" />
           <p class="history-media-asset-description">
             {{ $t('history:community-media-caption') }}
           </p>

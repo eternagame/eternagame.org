@@ -11,14 +11,14 @@
         </div>
         <div class="col-md-6">
           <div v-for="key in column2Keys" :key="key">
-            <a class="section-link" :href="'#' + key">{{ $t(key) }}</a>
+            <a class="section-link" :href="'#' + key" :aria-label="$t(key)">{{ $t(key) }}</a>
             <hr class="options-divider m-0" />
           </div>
         </div>
       </div>
     </div>
     <div v-for="[key, section] in Object.entries(data)" :key="key">
-      <a :name="key" class="anchor-link"></a>
+      <a :name="key" :aria-label="$t(key)" class="anchor-link"></a>
       <a href="#" @click="scrollToTop()" class="top-link">
         {{ $t('help:top') }} <b-icon-arrow-up></b-icon-arrow-up>
       </a>

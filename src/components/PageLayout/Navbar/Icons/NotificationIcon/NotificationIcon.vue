@@ -101,14 +101,14 @@
       this.notificationsCount = res.data.data.noti_count;
 
       if (this.notificationsCount > 0 || !this.fetchState.firstFetchComplete) {
+        this.isFetching = true;
+        await this.updateDropdownContents();
+        this.isFetching = false;
+
         if ((this.$refs.dropdown as NavbarIcon).isShown) {
           this.notificationsCount = 0;
           await this.$http.post('/post/', new URLSearchParams({ type: 'notification_read' }));
         }
-
-        this.isFetching = true;
-        await this.updateDropdownContents();
-        this.isFetching = false;
       }
     }
 
@@ -160,6 +160,7 @@
     private isReward(notification: NotificationItem) {
       return notification.type === NotificationType.REWARD;
     }
+
   }
 </script>
 

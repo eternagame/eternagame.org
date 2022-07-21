@@ -1,5 +1,5 @@
 <template>
-  <span class="loader"></span>
+  <span class="loader" aria-label="Loading"></span>
 </template>
 
 <style lang="scss" scoped>

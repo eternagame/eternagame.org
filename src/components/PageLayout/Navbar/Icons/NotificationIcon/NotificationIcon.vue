@@ -7,17 +7,10 @@
       </div>
     </template>
     <template #text>{{ $t('nav-bar:notifications') }}</template>
-    <template v-slot="slotProp">
+    <template>
       <div class="activity-container">
         <div class="d-flex justify-content-between">
           <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
-          <router-link to="/feed">
-            <img
-              class="mt-2"
-              src="@/assets/navbar/popOut.svg"
-              @click="slotProp.hideDropdown.hide()"
-            />
-          </router-link>
         </div>
         <div class="border"></div>
         <template v-for="item in notifications">
@@ -31,6 +24,12 @@
           {{$t('activity-feed:empty')}}
         </b-dropdown-item>
       </div>
+      <div class="border"></div>
+      <router-link to="/feed" style="color:white">
+        <div class="view-all-link">
+          {{ $t('nav-bar:notifications-view-all') }}
+        </div>
+      </router-link>
     </template>
   </NavbarIcon>
 </template>
@@ -153,7 +152,7 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep a {
+  ::v-deep a.dropdown-item {
     padding-right: 10px !important;
     padding-left: 10px !important;
     border-radius: 3px;
@@ -179,5 +178,19 @@
   img.icon {
     width: 24px;
     height: 24px;
+  }
+
+  .view-all-link {
+    padding: 10px;
+    text-align: center;
+    color: white !important;
+
+    &:hover, &:focus {
+      background-color: #212529;
+
+      @include media-breakpoint-down(md) {
+        background-color: var(--primary);
+      }
+    }
   }
 </style>

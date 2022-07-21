@@ -7,7 +7,7 @@
       </div>
     </template>
     <template #text>{{ $t('nav-bar:notifications') }}</template>
-    <template>
+    <template v-slot="slotProp">
       <div class="activity-container">
         <div class="d-flex justify-content-between">
           <div style="display: flex;">
@@ -31,7 +31,7 @@
       </div>
       <div class="border"></div>
       <router-link to="/feed" style="color:white">
-        <div class="view-all-link">
+        <div class="view-all-link" @click="slotProp.hideDropdown.hide()">
           {{ $t('nav-bar:notifications-view-all') }}
         </div>
       </router-link>

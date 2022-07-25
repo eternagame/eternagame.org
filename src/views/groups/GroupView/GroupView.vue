@@ -302,6 +302,7 @@
           text: e.message,
         });
       }
+      this.fetch();
     }
 
     async reject(uid: string) {
@@ -323,6 +324,7 @@
           text: e.message,
         });
       }
+      this.fetch();
     }
 
     async subscribe() {
@@ -352,6 +354,7 @@
           text: e.message,
         });
       }
+      this.fetch();
     }
 
     async follow() {
@@ -378,6 +381,7 @@
           text: e.message,
         });
       }
+      this.fetch();
     }
 
     async unsubscribe() {
@@ -410,6 +414,7 @@
           text: e.message,
         });
       }
+      this.fetch();
     }
 
     async unfollow() {
@@ -436,6 +441,7 @@
           text: e.message,
         });
       }
+      this.fetch();
     }
 
     sentMessage() {

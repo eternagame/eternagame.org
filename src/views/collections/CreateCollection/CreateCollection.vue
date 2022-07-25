@@ -25,6 +25,14 @@
             <b-button type="submit" variant="primary" @click="submit()">
               {{ $t('create-collection:collection-info:main-action') }}
             </b-button>
+            <b-button
+                type="submit"
+                variant="secondary"
+                style="margin-left: 10px"
+                :to="`/collections`"
+              >
+                {{ 'Cancel' }}
+            </b-button>
           </div>
         </div>
       </div>

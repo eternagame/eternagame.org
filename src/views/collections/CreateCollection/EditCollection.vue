@@ -25,6 +25,14 @@
             <b-button type="submit" variant="primary" @click="submit()">
               {{ $t('update-collection:collection-info:main-action') }}
             </b-button>
+            <b-button
+                type="submit"
+                variant="secondary"
+                style="margin-left: 10px"
+                :to="`/collections/${this.$route.params.id}`"
+              >
+                {{ 'Cancel' }}
+            </b-button>
             <b-modal id="delete" title="Delete Collection?" hide-footer>
               <div class="d-block text-center">
                 Warning: This will permanently delete the collection!

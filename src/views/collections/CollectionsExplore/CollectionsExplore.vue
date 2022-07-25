@@ -1,5 +1,5 @@
 <template>
-  <EternaPage    v-if="fetchState.firstFetchComplete && collections"
+  <EternaPage v-if="fetchState.firstFetchComplete && collections" :title="$t('nav-bar:collections')"
 >
       <h3 :style="{ fontSize: '16px', fontWeight: 'bold' }">
         {{ $t('collections-view:top-tip') }}
@@ -15,7 +15,6 @@
         :style="{
           fontSize: '16px',
           fontWeight: 'bold',
-          textTransform: 'uppercase',
         }"
       >
         {{ $t('collections-view:section3') }}

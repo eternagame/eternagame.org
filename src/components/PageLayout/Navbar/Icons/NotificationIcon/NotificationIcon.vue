@@ -1,5 +1,5 @@
 <template>
-  <NavbarIcon ref="dropdown" @shown="onShown">
+  <NavbarIcon @shown="onShown">
     <template #icon>
       <div class="d-inline-block">
         <div class="unread" v-if="notificationsCount > 0"></div>
@@ -78,6 +78,8 @@
   export default class NotificationIcon extends Mixins(FetchMixin) {
     private notificationsCount = 0;
 
+    private isDropdownShown = false;
+
     private isFetching = false;
 
     private notifications: NotificationItem[] = [];
@@ -92,7 +94,8 @@
       clearInterval(this.checkDataInterval);
     }
 
-    async onShown() {
+    async onShown(isShown: boolean) {
+      this.isDropdownShown = isShown;
       await this.$fetch();
     }
 
@@ -105,7 +108,7 @@
         await this.updateDropdownContents();
         this.isFetching = false;
 
-        if ((this.$refs.dropdown as NavbarIcon).isShown) {
+        if (this.isDropdownShown) {
           this.notificationsCount = 0;
           await this.$http.post('/post/', new URLSearchParams({ type: 'notification_read' }));
         }

@@ -6,8 +6,8 @@
     variant="link"
     toggle-class="px-0 text-decoration-none"
     no-caret
-    @show="onShow"
-    @hide="onHide"
+    @show="$emit('shown', true)"
+    @hide="$emit('shown', false)"
   >
     <template #button-content>
       <div>
@@ -31,16 +31,6 @@
     components: {},
   })
   export default class NavbarIcon extends Vue {
-    public isShown = false;
-
-    onShow() {
-      this.isShown = true;
-      this.$emit('shown');
-    }
-
-    onHide() {
-      this.isShown = false;
-    }
   }
 </script>
 

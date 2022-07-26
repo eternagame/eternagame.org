@@ -12,7 +12,6 @@
         style="text-shadow: 1px 1px 2px #333"
       >
         <template v-if="hasLabAccess">
-          <EternaconSlide></EternaconSlide>
           <LabSlide
             v-for="lab in labCarouselLabs"
             v-bind="lab"
@@ -100,7 +99,6 @@
   import TutorialTeaserSlide from './components/banner/TutorialTeaserSlide.vue';
   import POTWSlide from './components/banner/POTWSlide.vue';
   import LabSlide from './components/banner/LabSlide.vue';
-  import EternaconSlide from './components/banner/EternaconSlide.vue';
   import IdeaJamSlide from './components/banner/IdeaJamSlide.vue';
   import QuestActivity from './components/activities/QuestActivity.vue';
   import TutorialActivity from './components/activities/TutorialActivity.vue';
@@ -114,7 +112,6 @@
       POTWSlide,
       LabSlide,
       TutorialTeaserSlide,
-      EternaconSlide,
       Preloader,
       QuestActivity,
       TutorialActivity,

@@ -81,6 +81,7 @@
     "vue-slim-tabs": "^0.4.0",
     "vue2-circle-progress": "^1.2.3",
     "vue2-flip-countdown": "^0.11.1",
+    "vuedraggable": "^2.24.3",
     "vuex": "^3.6.2",
     "vuex-class": "^0.3.2",
     "vuex-class-component": "^2.3.5",

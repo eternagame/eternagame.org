@@ -152,6 +152,7 @@ export interface Publications {
 
 export interface PuzzleItem {
   id: string;
+  nid: string;
   title: string;
   created: string;
   username: string;
@@ -166,7 +167,7 @@ export interface PuzzleItem {
   number_of_states: number;
   'next-puzzle': string;
   'has3d': string;
-}
+  }
 
 export interface PuzzleList {
   puzzles: PuzzleItem[];
@@ -270,6 +271,41 @@ export interface GroupList {
   groups: GroupItem[];
   num_groups: string;
   joined?: JoinedGroup[];
+}
+
+export interface CollectionItem {
+  achievement: string;
+  nid: string;
+  title: string;
+  desc: string;
+  userpicture: string;
+  username: string;
+  uid: string;
+  created: string;
+  image: string;
+  puzzles: string;
+  num_completers: string;
+  quest: boolean;
+  progress: number;
+}
+
+export interface CollectionResponse {
+  collection: CollectionItem;
+  comments: CommentItem[];
+  total_num_comments: number;
+  puzzles: PuzzleItem[];
+  uid: string;
+}
+
+export interface CreatedCollection {
+  name: string;
+  nid: string;
+}
+
+export interface CollectionList {
+  collections: CollectionItem[];
+  num_collections: string;
+  created?: CreatedCollection[];
 }
 
 export interface NewsArticle {

@@ -66,9 +66,9 @@
   // @ts-ignore
   import debounce from 'lodash.debounce';
   import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
+  // @ts-ignore
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import EditField from '@/components/Common/EditField.vue';
-  // @ts-ignore
 
   @Component({ components: { EditField, VueBootstrapTypeahead } })
   export default class MessageCompose extends Vue {

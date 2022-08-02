@@ -32,19 +32,24 @@ export default function createRouter() {
         component: () => import('./views/challenges/ChallengeView/ChallengeView.vue'),
       },
       {
-        path: '/quests',
-        name: 'quests-list',
-        component: () => import('./views/quests/QuestsExplore/QuestsExplore.vue'),
+        path: '/collections',
+        name: 'collections-list',
+        component: () => import('./views/collections/CollectionsExplore/CollectionsExplore.vue'),
       },
       {
-        path: '/quests/:id',
-        name: 'quests-view',
-        component: () => import('./views/quests/QuestView/QuestView.vue'),
+        path: '/collections/create',
+        name: 'create-collection',
+        component: () => import('./views/collections/CreateCollection/CreateCollection.vue'),
       },
       {
-        path: '/create/quest',
-        name: 'create-quest',
-        component: () => import('./views/quests/CreateQuest/CreateQuest.vue'),
+        path: '/collections/:id',
+        name: 'collections-view',
+        component: () => import('./views/collections/CollectionView/CollectionView.vue'),
+      },
+      {
+        path: '/collections/:id/edit',
+        name: 'collections-view',
+        component: () => import('./views/collections/CreateCollection/EditCollection.vue'),
       },
       {
         path: '/puzzles',

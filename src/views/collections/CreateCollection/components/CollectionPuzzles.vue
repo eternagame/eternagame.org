@@ -130,7 +130,7 @@
 
     async dofetchData() {
       const res = await axios.get(
-        `/get/?type=puzzles&puzzle_type=All&size=10${
+        `/get/?type=puzzles&puzzle_type=AllChallengesPuzzle&size=10${
           this.targetName ? `&search=${this.targetName}` : ''
         }`,
       );

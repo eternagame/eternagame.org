@@ -75,22 +75,24 @@
                 <router-link :to="`/players/${player.uid}/`">
                   {{ player.name }}
                 </router-link>
-                <button
+                <b-btn
                   type="submit"
                   variant="primary"
                   class="submit-button"
                   @click="accept(player.uid)"
+                  style="margin-left: 5px;"
                 >
                   Accept
-                </button>
-                <button
+                </b-btn>
+                <b-btn
                   type="submit"
                   variant="primary"
                   class="submit-button"
                   @click="reject(player.uid)"
+                  style="margin-left: 5px;"
                 >
                   Decline
-                </button>
+                </b-btn>
               </li>
             </ul>
           </div>

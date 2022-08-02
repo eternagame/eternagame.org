@@ -18,37 +18,33 @@
     >
       <template slot="suggestion" slot-scope="{ data, htmlText }">
         <div class="d-flex align-items-center">
-          <b-row>
-            <b-col>
-              <div class="left-col">
-                <img
-                  class="rounded-circle"
-                  :src="getImage(data.id)"
-                  style="width: 40px; height: 40px; margin-right: 10px"
-                />
-                <span v-dompurify-html="htmlText" style="color: white"></span>
-                by {{ data.username }}
-              </div>
-            </b-col>
-            <b-col>
-              <div class="right-col">
-                <button
-                  type="button"
-                  class="btn secondary"
-                  @click="addPuzzle(data.id)"
-                >
-                  {{ $t('create-collection:puzzle-info:secondary-action') }}
-                </button>
-                <button
-                  type="button"
-                  class="btn secondary"
-                  @click="viewPuzzle(data.id)"
-                >
-                  View Puzzle
-                </button>
-              </div>
-            </b-col>
-          </b-row>
+          <div class="d-flex justify-content-between w-100" style="flex-wrap: nowrap">
+            <div class="left-col">
+              <img
+                class="rounded-circle"
+                :src="getImage(data.id)"
+                style="width: 40px; height: 40px; margin-right: 10px"
+              />
+              <span v-dompurify-html="htmlText" style="color: white; margin-right: 3px;"></span>
+              by {{ data.username }}
+            </div>
+            <div class="right-col">
+              <button
+                type="button"
+                class="btn secondary"
+                @click="addPuzzle(data.id)"
+              >
+                {{ $t('create-collection:puzzle-info:secondary-action') }}
+              </button>
+              <button
+                type="button"
+                class="btn secondary ml-2"
+                @click="viewPuzzle(data.id)"
+              >
+                View Puzzle
+              </button>
+            </div>
+          </div>
         </div>
       </template>
     </vue-bootstrap-typeahead>
@@ -69,16 +65,16 @@
       <transition-group>
         <div v-for="element in puzzlelist" :key="element.id">
           <div class="card flex">
-            <div class="row">
-              <div class="col-md-8">
+            <div class="row m-2 justify-content-between">
+              <div class="align-self-center p-0">
                 <img
                   class="rounded-circle"
                   :src="getImage(element.id)"
-                  style="width: 5%; margin: auto"
+                  style="width: 40px; max-height: 36px; margin: 0 15px 0 5px;"
                 />
                 <b>{{ element.title }}</b> by {{ element.username }}
               </div>
-              <div class="col-md-2">
+              <div class="align-self-center p-0">
                 <button
                   type="button"
                   class="btn secondary"
@@ -212,7 +208,6 @@ input {
   width: 124px;
   border-radius: 5px;
   color: white;
-  margin-top: 9px;
 }
 
 .save {
@@ -248,7 +243,12 @@ input {
   }
 }
 
+.left-col {
+  flex-wrap: wrap;
+}
+
 .right-col {
   justify-content: flex-end;
+  margin-left: 5px;
 }
 </style>

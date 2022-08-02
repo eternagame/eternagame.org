@@ -225,20 +225,18 @@
 
     filterEvents() {
       // This function is called after the FullCal component has mounted and the calendar
-      // is available (via hook:mounted; see https://github.com/vuejs/core/issues/3178). 
-      // We get the events the calendar is displaying, sort them, and then we remove all 
-      // events past the number we want to display. 
+      // is available (via hook:mounted; see https://github.com/vuejs/core/issues/3178).
+      // We get the events the calendar is displaying, sort them, and then we remove all
+      // events past the number we want to display.
       // This method is necessary because FullCalendar's Google Calendar integration
-      // doesn't provide parameters for maxResults (to limit returned events) or 
+      // doesn't provide parameters for maxResults (to limit returned events) or
       // orderBy (to sort).
       const fcAPI = this.$refs?.fullCalendar?.getApi();
       const numberOfEventsToDisplay = 4;
       const eventsToRemove = fcAPI.getEvents()
         .sort((a, b) => {
-          if (a.start == null || b.start == null) { return 0; }
-          else {
-            return a.start.valueOf() - b.start.valueOf();
-          }
+          if (a.start == null || b.start == null) return 0;
+          return a.start.valueOf() - b.start.valueOf();
         })
         .slice(numberOfEventsToDisplay)
         .map(event => event.remove());

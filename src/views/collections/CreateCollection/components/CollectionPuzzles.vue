@@ -17,7 +17,7 @@
       :serializer="(puzzle) => puzzle.title"
     >
       <template slot="suggestion" slot-scope="{ data, htmlText }">
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center" :key="renderKey">
           <div class="d-flex justify-content-between w-100" style="flex-wrap: nowrap">
             <div class="left-col">
               <img
@@ -29,16 +29,21 @@
               by {{ data.username }}
             </div>
             <div class="right-col">
+              <!--
+                Why add the vbst-item class? So the blur handler for the typeahead text input
+                doesn't close the list before we fire our event handler. For some reason, this is only
+                an issue on Chrome but not Firefox
+              -->
               <button
                 type="button"
-                class="btn secondary"
+                class="vbst-item btn secondary"
                 @click="addPuzzle(data.id)"
               >
                 {{ $t('create-collection:puzzle-info:secondary-action') }}
               </button>
               <button
                 type="button"
-                class="btn secondary ml-2"
+                class="vbst-item btn secondary ml-2"
                 @click="viewPuzzle(data.id)"
               >
                 View Puzzle
@@ -58,8 +63,6 @@
     <draggable
       v-model="puzzlelist"
       group="people"
-      @start="drag = true"
-      @end="drag = false"
       @input="$emit('update:puzzles', puzzlelist)"
     >
       <transition-group>
@@ -95,14 +98,13 @@
   import {
     Component,
     Vue,
-    Mixins,
     Prop,
     Ref,
     Watch,
   } from 'vue-property-decorator';
   import draggable from 'vuedraggable';
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
-  import { CollectionItem, PuzzleItem } from '@/types/common-types';
+  import { PuzzleItem } from '@/types/common-types';
   import axios from 'axios';
   import { debounce } from 'lodash';
   import Utils from '@/utils/utils';
@@ -114,13 +116,15 @@
     },
   })
   export default class CollectionPuzzles extends Vue {
-    private puzzlenames: PuzzleItem[] = [];
+    @Prop({required: true}) puzzlelist!: PuzzleItem[];
 
-    @Prop() puzzlelist: PuzzleItem[] = [];
+    private puzzlenames: PuzzleItem[] = [];
 
     private targetName = '';
 
     private idInput: String = '';
+
+    private renderKey: number = 0;
 
     fetchData: () => Promise<void> | undefined = async () => {};
 
@@ -137,7 +141,7 @@
       this.fetchData = debounce(this.dofetchData, 200);
     }
 
-    @Ref('typeahead') readonly typeahead!: { inputValue: string };
+    @Ref('typeahead') readonly typeahead!: Vue & { inputValue: string };
 
     mounted() {
       if (this.$route.query.message) {
@@ -152,15 +156,16 @@
     }
 
     async addPuzzle(nid: String) {
-      this.puzzlelist.push(
-        (await (
-          await axios.get(`/get/?type=puzzle&nid=${nid}`)
-        ).data.data.puzzle) as PuzzleItem,
-      );
+      console.log('adding', nid);
+      const puzzle = (await axios.get(`/get/?type=puzzle&nid=${nid}`)).data.data.puzzle as PuzzleItem;
+      this.$emit('update:puzzles', [
+        ...this.puzzlelist,
+        puzzle,
+      ]);
     }
 
     removePuzzle(puzzle: PuzzleItem) {
-      this.puzzlelist.splice(this.puzzlelist.indexOf(puzzle), 1);
+      this.$emit('update:puzzles', this.puzzlelist.filter(puz => puz !== puzzle));
     }
 
     @Ref('fileUpload') private fileUpload!: HTMLInputElement;
@@ -179,6 +184,10 @@
 
 <style lang="scss" scoped>
 @import '@/styles/global.scss';
+
+::v-deep .vbst-item.active {
+  background-color: rgb(33, 80, 140);
+}
 
 h2 {
   font-size: 24px;

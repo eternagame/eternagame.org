@@ -6,7 +6,7 @@
           <div class="col-md-6">
             <CollectionInfo
               :title="title"
-              :body="desc"
+              :body="body"
               :picture="picture"
               @update:title="(text) => (title = text)"
               @update:body="(text) => (body = text)"
@@ -16,7 +16,7 @@
           <div class="col-md-6">
             <CollectionPuzzles
               :puzzlelist="puzzlelist"
-              @update:puzzle="(puzzles) => (puzzlelist = puzzles)"
+              @update:puzzles="(puzzles) => (puzzlelist = puzzles)"
             />
           </div>
         </div>
@@ -42,27 +42,17 @@
 
 <script lang="ts">
 // @ts-ignore
-  import debounce from 'lodash.debounce';
   import {
     Component,
     Vue,
-    Mixins,
-    Watch,
-    Ref,
     Prop,
   } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import axios, { AxiosInstance } from 'axios';
-  // @ts-ignore
-  import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
-  import draggable from 'vuedraggable';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Utils from '@/utils/utils';
   import { PuzzleItem } from '@/types/common-types';
   import CollectionInfo from './components/CollectionInfo.vue';
   import CollectionPuzzles from './components/CollectionPuzzles.vue';
-  import LabViewData, { LabData } from './types';
 
   @Component({
     components: {
@@ -77,17 +67,11 @@
 
     private body = '';
 
-    private targetName = '';
-
-    private puzzlenames: PuzzleItem[] = [];
-
     private puzzlelist: PuzzleItem[] = [];
 
     private currentPicture?: string;
 
     private newPicture: File | null = null;
-
-    private idInput: String = '';
 
     get picture() {
       if (this.newPicture) {
@@ -96,7 +80,7 @@
       return Utils.getCollectionAvatar(this.currentPicture || null);
     }
 
-    @Prop({ required: true }) private loading!: boolean;
+    private loading!: boolean;
 
     async submit() {
       this.loading = true;

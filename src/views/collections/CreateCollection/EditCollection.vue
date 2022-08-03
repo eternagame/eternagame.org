@@ -16,7 +16,7 @@
           <div class="col-md-6">
             <CollectionPuzzles
               :puzzlelist="puzzlelist"
-              @update:puzzle="(puzzles) => (puzzlelist = puzzles)"
+              @update:puzzles="(puzzles) => (puzzlelist = puzzles)"
             />
           </div>
         </div>
@@ -78,21 +78,13 @@
 
 <script lang="ts">
 // @ts-ignore
-  import debounce from 'lodash.debounce';
   import {
     Component,
-    Vue,
     Mixins,
-    Watch,
-    Ref,
     Prop,
   } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import axios, { AxiosInstance } from 'axios';
-  // @ts-ignore
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import Utils from '@/utils/utils';
   import { CollectionItem, PuzzleItem } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import CollectionInfo from './components/CollectionInfo.vue';
@@ -115,15 +107,11 @@
 
     private desc = '';
 
-    private puzzlenames: PuzzleItem[] = [];
-
     private puzzlelist: PuzzleItem[] = [];
 
     private picture: string = '';
 
     private newPicture: File | null = null;
-
-    private data: boolean = false;
 
     fetchData: () => Promise<void> | undefined = async () => {};
 

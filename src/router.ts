@@ -77,6 +77,11 @@ export default function createRouter() {
         component: () => import('./views/about/About.vue'),
       },
       {
+        path: '/epa',
+        name: 'epa',
+        component: () => import('./views/epa/EPA.vue'),
+      },
+      {
         path: '/history',
         name: 'history',
         component: () => import('./views/history/History.vue'),

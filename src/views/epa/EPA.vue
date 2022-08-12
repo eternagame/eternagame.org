@@ -31,11 +31,45 @@
       </ul>
       <h4 class="header">Learn More and Help Out</h4>
       <ul>
-        <li>Current Board of Directors/Officers</li>
-        <li>EPA Bylaws</li>
-        <li>EPA Workplan & Recent EPA Activities</li>
-        <li>Board Meeting Schedule and Video Link</li>
+        <li>
+          <a
+            target="_blank"
+            href="https://docs.google.com/spreadsheets/d/1NaWWhIvJA1rGio4uIn0joAttiVKa__MiG2flknU3zvA/"
+            >Current Board of Directors/Officers</a
+          >
+        </li>
+        <li>
+          <a
+            target="_blank"
+            href="https://docs.google.com/document/d/1CglhMMf61XqSbMijc8NoRdytYmFcHqbp/"
+            >EPA Bylaws</a
+          >
+        </li>
+        <li>
+          <a
+            target="_blank"
+            href="https://docs.google.com/spreadsheets/d/1DBXhraizu62LfAVf2od2Q5NCkZaez3Rq/"
+            >EPA Workplan</a
+          >
+          and
+          <a
+            target="_blank"
+            href="https://docs.google.com/presentation/d/1nngPduJESf74D4DUng0JtIoI_LWHGQfm/"
+            >Recent EPA Activities</a
+          >
+        </li>
+        <li>
+          <a v-b-modal.modal href="#">Board Meeting Schedule</a> and
+          <a target="_blank" href="https://meet.google.com/wyi-ymbc-cry"
+            >Video Link</a
+          >
+        </li>
       </ul>
+      <b-modal id="modal" title="Board Meeting Schedule" hide-footer>
+        <div class="d-block text-center">
+          1st and 3rd Sunday of the month at 9am USA Central Time
+        </div>
+      </b-modal>
       <div class="row d-flex justify-content-center align-content-center">
         <b-button
           type="submit"

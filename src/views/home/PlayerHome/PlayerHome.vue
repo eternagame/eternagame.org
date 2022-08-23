@@ -12,7 +12,6 @@
         style="text-shadow: 1px 1px 2px #333"
       >
         <template v-if="hasLabAccess">
-          <EternaconSlide></EternaconSlide>
           <LabSlide
             v-for="lab in labCarouselLabs"
             v-bind="lab"
@@ -49,23 +48,30 @@
       </div>
 
       <template v-if="hasLabAccess">
-        <QuestActivity :sideQuests="masteringEternaAchievements" />
+        <QuestActivity
+          :sideQuests="masteringEternaAchievements"
+          :collections="collections"
+        />
         <TutorialActivity
           :stages="tenToolsAchievements"
+          :collections="collections"
           :heading="$t('player-home:advanced-tutorials')"
         />
         <TutorialActivity
           :stages="eternaEssentialsAchievements"
+          :collections="collections"
           :heading="$t('player-home:eterna-essentials-completed')"
         />
       </template>
       <template v-else>
         <TutorialActivity
           :stages="eternaEssentialsAchievements"
+          :collections="collections"
           :heading="$t('player-home:eterna-essentials')"
         />
         <TutorialActivity
           :stages="tenToolsAchievements"
+          :collections="collections"
           :heading="$t('player-home:advanced-tutorials')"
         />
       </template>
@@ -83,6 +89,7 @@
     BlogItem,
     NotificationItem,
     NewsItem,
+    CollectionItem,
   } from '@/types/common-types';
   import type Vue from 'vue';
   import type { EventApi } from '@fullcalendar/common';
@@ -100,7 +107,6 @@
   import TutorialTeaserSlide from './components/banner/TutorialTeaserSlide.vue';
   import POTWSlide from './components/banner/POTWSlide.vue';
   import LabSlide from './components/banner/LabSlide.vue';
-  import EternaconSlide from './components/banner/EternaconSlide.vue';
   import IdeaJamSlide from './components/banner/IdeaJamSlide.vue';
   import QuestActivity from './components/activities/QuestActivity.vue';
   import TutorialActivity from './components/activities/TutorialActivity.vue';
@@ -114,7 +120,6 @@
       POTWSlide,
       LabSlide,
       TutorialTeaserSlide,
-      EternaconSlide,
       Preloader,
       QuestActivity,
       TutorialActivity,
@@ -137,12 +142,15 @@
 
     newsItems: (NewsItem | BlogItem)[] = [];
 
+    collections: CollectionItem[] = [];
+
     async fetch() {
       const res = await Promise.all([
         this.$http.get('/get/?type=side_project_roadmap'),
         this.$http.get('/get/?type=carousel'),
         this.$http.get('/get/?type=puzzle_of_the_week'),
         this.$http.get('/get/?type=newsandblogslist&size=3'),
+        this.$http.get('/get/?type=collections&quest=true&size=30'),
       ]);
 
       const roadmap = res[0].data.data
@@ -167,6 +175,7 @@
       this.labCarouselLabs = res[1].data.data.labs;
       this.potwSlideData = res[2].data.data;
       this.newsItems = res[3].data.data.entries;
+      this.collections = res[4].data.data.collections;
 
       this.$vxm.user.refreshAchievements();
     }
@@ -239,41 +248,41 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/global.scss';
+@import '@/styles/global.scss';
 
-  ::v-deep section {
-    text-align: center;
-  }
+::v-deep section {
+  text-align: center;
+}
 
-  ::v-deep .player-progress-bar {
-    max-width: 100%;
-  }
+::v-deep .player-progress-bar {
+  max-width: 100%;
+}
 
-  .fc {
-    --fc-list-event-hover-bg-color: #043468;
-    --fc-page-bg-color: #043468;
-    --fc-border-color: #043468;
-    --fc-neutral-bg-color: #043468;
-  }
+.fc {
+  --fc-list-event-hover-bg-color: #043468;
+  --fc-page-bg-color: #043468;
+  --fc-border-color: #043468;
+  --fc-neutral-bg-color: #043468;
+}
 
-  #header-carousel {
-    // Overflow page margins as a hero element.
-    margin-top: -$page-margin-top;
-    margin-left: -$page-margin-side;
-    margin-right: -$page-margin-side;
-  }
+#header-carousel {
+  // Overflow page margins as a hero element.
+  margin-top: -$page-margin-top;
+  margin-left: -$page-margin-side;
+  margin-right: -$page-margin-side;
+}
 
-  #header-carousel ::v-deep .carousel-inner {
-    min-height: 300px;
-  }
+#header-carousel ::v-deep .carousel-inner {
+  min-height: 300px;
+}
 
-  #header-carousel ::v-deep .carousel-control-prev,
-  ::v-deep .carousel-control-next {
-    max-width: 100px;
-  }
+#header-carousel ::v-deep .carousel-control-prev,
+::v-deep .carousel-control-next {
+  max-width: 100px;
+}
 
-  #header-carousel ::v-deep .carousel-caption {
-    left: min(100px, 15%) !important;
-    right: min(100px, 15%) !important;
-  }
+#header-carousel ::v-deep .carousel-caption {
+  left: min(100px, 15%) !important;
+  right: min(100px, 15%) !important;
+}
 </style>

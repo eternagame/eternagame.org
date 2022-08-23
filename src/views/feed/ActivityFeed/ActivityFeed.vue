@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Mixins } from 'vue-property-decorator';
+  import { Component, Mixins, Watch } from 'vue-property-decorator';
   import axios from 'axios';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
@@ -80,6 +80,24 @@
 
     sentMessage() {
       this.$fetch();
+    }
+
+    async mounted() {
+      // TODO: Handle SSR? We're currently overriding the mounted hook...
+      if (!this.$vxm.user.loggedIn) {
+        this.$bvModal.show('modal-login');
+      }
+    }
+
+    @Watch('$vxm.user.userDetailsLoaded')
+    loggedIn() {
+      if (this.$vxm.user.userDetailsLoaded) {
+        // We weren't logged in when we hit the page, so we have to fetch now
+        this.$fetch();
+      } else {
+        // We're logged out, so it doesn't make sense to stay on this page
+        this.$router.push('/');
+      }
     }
 
     private options: Option[] = [

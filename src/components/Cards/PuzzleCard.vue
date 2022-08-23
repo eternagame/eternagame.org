@@ -73,6 +73,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
+  import { isUndefined } from 'lodash';
   import AspectRatioCard from './AspectRatioCard.vue';
   import StateCounter from './StateCounter.vue';
   import SmartLink from '../Common/SmartLink.vue';
@@ -113,6 +114,8 @@
 
     @Prop() readonly image?: string;
 
+    @Prop() readonly numSolutions?: number;
+
     @Prop({ default: 1 }) readonly aspectRatio!: number;
 
     @Prop({ default: false }) readonly locked!: boolean;
@@ -127,7 +130,10 @@
     @Prop({ default: true }) readonly backgroundLink!: boolean;
 
     get numCleared() {
-      return this.$attrs['num-cleared'] ?? undefined;
+      if (isUndefined(this.$attrs['num-cleared'])){
+        return this.numSolutions;
+      }
+      return this.$attrs['num-cleared'];
     }
 
     get imageURL() {

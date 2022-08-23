@@ -210,7 +210,7 @@
           googleCalendarApiKey: process.env.VUE_APP_GOOGLE_API_ID,
           events: {
             googleCalendarId: process.env.VUE_APP_GOOGLE_CALENDAR_ID,
-            success: (content) => {
+            success: (content: [{start: string}]) => {
               // This function is called after FullCalendar has loaded the events
               // from the Google Calendar. EventSourceSuccess allows us to transform
               // the events before display. Here we sort them and filter down to the
@@ -221,9 +221,7 @@
                 const aStart = new Date(a.start).valueOf();
                 const bStart = new Date(b.start).valueOf();
                 if (a.start == null || b.start == null) { return 0; }
-                
                 return aStart - bStart;
-                
               })
                 .slice(0, numberOfEventsToDisplay);
 

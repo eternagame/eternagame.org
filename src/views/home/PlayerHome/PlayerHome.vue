@@ -42,7 +42,7 @@
 
           <div class="col-md-6">
             <h3>Upcoming Events</h3>
-            <FullCalendar @hook:mounted="filterEvents" ref="fullCalendar" :options="calendarOptions" />
+            <FullCalendar :options="calendarOptions" />
             <p class="text-right"><a href="/calendar">View All ></a></p>
           </div>
         </div>
@@ -201,38 +201,28 @@
           googleCalendarApiKey: process.env.VUE_APP_GOOGLE_API_ID,
           events: {
             googleCalendarId: process.env.VUE_APP_GOOGLE_CALENDAR_ID,
+            success: (content) => {
+              // This function is called after FullCalendar has loaded the events
+              // from the Google Calendar. EventSourceSuccess allows us to transform
+              // the events before display. Here we sort them and filter down to the
+              // first N events. This is necessary because FullCalendar's Google 
+              // integration doesn't support the maxResults or orderBy options.
+              const numberOfEventsToDisplay = 4;
+              const filteredEvents = content.sort((a, b) => {
+                const aStart = new Date(a.start).valueOf();
+                const bStart = new Date(b.start).valueOf();
+                if (a.start == null || b.start == null) { return 0; }
+                
+                return aStart - bStart;
+                
+              })
+                .slice(0, numberOfEventsToDisplay);
+
+              return filteredEvents;
+            }
           },
         },
       };
-    }
-
-    // Define the type of the fullCalendar ref to avoid TS errors in the filterEvents function
-    $refs!: {
-      fullCalendar: Vue & {
-        getApi(): {
-          getEvents(): [ EventApi ]
-        },}
-    };
-
-    filterEvents() {
-      // This function is called after the FullCal component has mounted and the calendar
-      // is available (via hook:mounted; see https://github.com/vuejs/core/issues/3178). 
-      // We get the events the calendar is displaying, sort them, and then we remove all 
-      // events past the number we want to display. 
-      // This method is necessary because FullCalendar's Google Calendar integration
-      // doesn't provide parameters for maxResults (to limit returned events) or 
-      // orderBy (to sort).
-      const fcAPI = this.$refs?.fullCalendar?.getApi();
-      const numberOfEventsToDisplay = 4;
-      const eventsToRemove = fcAPI.getEvents()
-        .sort((a, b) => {
-          if (a.start == null || b.start == null) { return 0; }
-          else {
-            return a.start.valueOf() - b.start.valueOf();
-          }
-        })
-        .slice(numberOfEventsToDisplay)
-        .map(event => event.remove());
     }
 
     handleEventClick(info: {

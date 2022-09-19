@@ -173,7 +173,7 @@
           <template v-slot:trow="slotProps">
             <tr>
               <td class="puzzle-link">
-                <a :href="`/web/group/${slotProps.item.group_nid}/`">{{
+                <a :href="`/groups/${slotProps.item.group_nid}/`">{{
                   slotProps.item.group_title
                 }}</a>
               </td>

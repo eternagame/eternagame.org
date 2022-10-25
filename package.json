@@ -38,7 +38,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eterna-chat-wrapper": "https://github.com/eternagame/eterna-chat-wrapper/archive/dd47b03753aeae81c3a8450933b274216515d1bc.tar.gz",
     "express": "^4.17.1",
-    "geckodriver": "^1.21.1",
+    "geckodriver": "^3.0.2",
     "in-browser-language": "^1.0.3",
     "jquery": "^3.5.1",
     "js-cookie": "^2.2.1",

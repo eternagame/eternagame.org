@@ -77,6 +77,11 @@
     search: string;
     size: string;
     uid: number | null;
+    public: string;
+    private: string;
+    admin: string;
+    unjoined: string;
+    pending: string;
   }
 
   @Component({
@@ -101,17 +106,16 @@
       const params = {
         sort: sort || INITIAL_SORT,
         size: size || INITIAL_NUMBER,
+        public: filters && filters.includes('public') && 'true',
+        private: filters && filters.includes('private') && 'true',
+        admin: filters && filters.includes('admin') && 'true',
+        joined: filters && filters.includes('mygroups') && 'true',
+        unjoined: filters && filters.includes('unjoined') && 'true',
+        pending: filters && filters.includes('pending') && 'true',
         search,
       } as GroupExploreParams;
 
-      let ROUTE: string = "";
-
-      if (filters && filters.includes('joined') && 'true')
-      {
-        ROUTE = JOINEDROUTE;
-      } else {
-        ROUTE = MAINROUTE;
-      }
+      const ROUTE: string = MAINROUTE;
 
       if (this.$vxm.user.loggedIn) params.uid = this.$vxm.user.uid;
 
@@ -128,16 +132,18 @@
 
     private options: Option[] = [
       { value: 'date', text: 'side-panel-options:desc' },
+      { value: 'date_asc', text: 'side-panel-options:asc' },
       { value: 'title', text: 'side-panel-options:Alphabetical' },
-      // { value: 'date_asc', text: 'side-panel-options:asc' },
-      // { value: 'size', text: 'side-panel-options:size' },
+      { value: 'size', text: 'side-panel-options:size' },
     ];
 
     private filters: Filter[] = [
-      { value: 'joined', text: 'Joined' },
-      // { value: 'unjoined', text: 'Not Joined'},
-      // { value: 'public', text: 'Public' },
-      // { value: 'private', text: 'Private'}
+      { value: 'mygroups', text: 'Joined' },
+      { value: 'unjoined', text: 'Not Joined'},
+      { value: 'admin', text: 'Admin',},
+      { value: 'pending', text: 'Pending'},
+      { value: 'public', text: 'Public' },
+      { value: 'private', text: 'Private'},
     ];
 
   // private tags: string[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];

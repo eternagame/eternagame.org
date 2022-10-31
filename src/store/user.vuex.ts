@@ -32,7 +32,7 @@ export default function createUserStore($http: AxiosInstance) {
     public userDetailsLoaded = false;
 
     public newAchievements: RefreshAchievement[] = [];
-    
+
     @mutation showResetCompleteModal() {}
 
     @action() async logout() {
@@ -40,6 +40,9 @@ export default function createUserStore($http: AxiosInstance) {
       const response = await $http.get('/eterna_logout.php');
       window.localStorage.setItem('loggedIn', 'false');
       this.triedAuthenticating = false;
+      // Technically we may want to actually clear the loaded user details... need to think
+      // of a cleaner way to handle this
+      this.userDetailsLoaded = false;
       await this.FB?.logout();
     }
 

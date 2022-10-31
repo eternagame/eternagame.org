@@ -1,0 +1,179 @@
+{
+    "Saturday, July 23": [
+        {
+            "speaker": "Jonathan Romano (LFP6)",
+            "affiliation": "Lead Developer, Eterna; Eternacon Coordinator",
+            "time": "July 23, 2022, 16:00:00 UTC",
+            "topic": "Opening Remarks",
+            "abstract": "Welcome to Eternacon 8 and logistics."
+        },
+        {
+            "speaker": "Rhiju Das, PhD",
+            "affiliation": "Principal Investigator, Eterna; Das Lab, Stanford University",
+            "time": "July 23, 2022, 16:15:00 UTC",
+            "topic": "Welcome",
+            "abstract": "Introductory remarks from Eterna's principal investigator.",
+            "publicLink": "https://player.vimeo.com/video/740476716??h=92bcb1b884&title=0&byline=0&portrait=0"
+        },
+        {
+            "speaker": "Hannah Wayment-Steele",
+            "affiliation": "Harvard Medical School",
+            "time": "July 23, 2022, 16:30:00 UTC",
+            "topic": "Designing 'Superfolder' Thermostable mRNA Therapeutics",
+            "abstract": "Therapeutics based on messenger RNA (mRNA) emerged as vaccine forerunners in the COVID-19 pandemic and show immense promise. However, the inherent chemical instability of RNA molecules sets a fundamental limit on the stability of mRNA vaccines, and has created barriers for equitable worldwide vaccine distribution. I  will talk about our efforts to develop a principled biophysical model for RNA degradation, and how we used this model to launch Eterna design challenges. Our studies indicated that the half-life of any mRNA can be immediately increased at least two-fold through sequence design. We further created a machine learning model, trained on degradation data from thousands of player-designed short RNA fragments, which revealed novel sequence- and structure-specific degradation patterns, and demonstrated improved predictive power in independent tests of experimentally-characterized mRNA half-lives. We anticipate this work will be formative for guiding future therapeutic and vaccine development in potency and stability.",
+            "publicLink": "https://player.vimeo.com/video/740805971??h=92bcb1b884&title=0&byline=0&portrait=0"
+        },
+        {
+            "speaker": "David Resnik",
+            "affiliation": "National Institutes of Health",
+            "time": "July 23, 2022, 17:00:00 UTC",
+            "topic": "Ethics in Citizen Science",
+            "abstract": "This presentation will provide an introduction to key concepts and principles of ethical research, such as honesty, rigor, reproducibility, objectivity, transparency, and openness, and will discuss some of the ethical issues and concerns that arise in citizen science.",
+            "publicLink": "https://player.vimeo.com/video/742087797??h=92bcb1b884&title=0&byline=0&portrait=0"
+        },
+        {
+            "time": "July 23, 2022, 18:00:00 UTC",
+            "topic": "Break",
+            "abstract": "Check out our Twitch Stream https://www.twitch.tv/eternagame while you wait!"
+        },
+        {
+            "speaker": "Karmen Williams, DrPH, MBA; Akira Bowler",
+            "affiliation": "City University of New York; Eterna Twitch Streamer",
+            "time": "July 23, 2022, 18:30:00 UTC",
+            "topic": "Diversity in Gaming, Citizen Science, and STEM",
+            "abstract": "This panel will discuss gaming culture, attracting gamers, and what it would take to include more underrepresented communities in community science. The panelists are Jamal Michel, freelance journalist and creator of @RESPECBlog; Amanda Farough, co-founder of F-Squared, co-host of the Virtual Economy podcast, and freelance games writer & narrative designer; and James Harrington, computer scientist at NASA and STEM education promoter."
+        },
+        {
+            "time": "July 23, 2022, 19:30:00 UTC",
+            "topic": "Break",
+            "abstract": "Check out our Twitch Stream https://www.twitch.tv/eternagame while you wait!"
+        },
+        {
+            "speaker": "whbob; DigitalEmbrace; amybarish",
+            "affiliation": "Eterna Players",
+            "time": "July 23, 2022, 20:00:00 UTC",
+            "topic": "Player Tools",
+            "abstract": "Eterna players will review the new functionality for using scripts in player puzzles and lab puzzles, and describe the tools players have developed to enhance RNA design in the lab puzzles and analyze experimental results, particularly for the Ribosome Challenge.",
+            "publicLink": "https://player.vimeo.com/video/745840948??h=92bcb1b884&title=0&byline=0&portrait=0"
+        },
+        {
+            "time": "July 23, 2022, 21:30:00 UTC",
+            "topic": "Break",
+            "abstract": "Check out our Twitch Stream https://www.twitch.tv/eternagame while you wait!"
+        },
+        {
+            "speaker": "Amy Barish",
+            "affiliation": "Eterna Player",
+            "time": "July 23, 2022, 22:00:00 UTC",
+            "topic": "Bring Your Buddy to Eternacon",
+            "abstract": "A fun social event to get to know the other Eternacon attendees. Turn on your camera, unmute, and introduce your buddy!  A buddy can be a pet, a child, or a plant.  We request that attendees keep their cameras on for this activity.  Don't worry - no one will be looking at your hair, they'll be focused on all the adorable pets!"
+        },
+        {
+            "speaker": "Jennifer Pearl",
+            "affiliation": "Eterna Player",
+            "time": "July 23, 2022, 22:15:00 UTC",
+            "topic": "RNA, Mechanics, and the Partition Function",
+            "abstract": "I will be discussing my recent document I am writing and thoughts on how RNA can be viewed as being regulated by mechanics.",
+            "publicLink": "https://player.vimeo.com/video/743608628??h=92bcb1b884&title=0&byline=0&portrait=0"
+        },
+        {
+            "speaker": "William Dunlap (Astromon)",
+            "affiliation": "Eterna Player",
+            "time": "July 23, 2022, 23:15:00 UTC",
+            "topic": "Eternacon Puzzle Race!",
+            "abstract": "Join in our annual challenge to solve a puzzle specifically designed for Eternacon 8.",
+            "publicLink": "https://player.vimeo.com/video/743623954??h=92bcb1b884&title=0&byline=0&portrait=0"
+        }
+    ],
+    "Sunday, July 24": [
+        {
+            "speaker": "Sarah Smaga, PhD",
+            "affiliation": "C-GEM - University of California, Berkeley",
+            "time": "July 24, 2022, 16:00:00 UTC",
+            "topic": "C-GEM 101: Bespoke molecules from an ancient ribozyme",
+            "abstract": "The NSF Center for Genetically Encoded Materials (C-GEM) is establishing a fundamentally new way to program chemical matter. We are achieving this goal by expanding the chemical capacity of the ribosome, the ubiquitous molecular machine that translates an mRNA code into a protein of defined sequence and length. We envision a future where materials (polymers) and medicines (natural products) could be programmed in the same way. This talk will introduce the Center’s scientific focus and achievements, and highlight how players contribute to our goals through lab puzzles.",
+            "publicLink": "https://player.vimeo.com/video/742091522??h=92bcb1b884&title=0&byline=0&portrait=0"
+        },
+        {
+            "speaker": "Slava Butkovich (Anamfija)",
+            "affiliation": "Community Liaison, Eterna",
+            "time": "July 24, 2022, 16:30:00 UTC",
+            "topic": "Chimera Tutorial",
+            "abstract": "This presentation will demonstrate how the Chimera and ChimeraX molecular modeling programs can be used to visualize 3D RNA structures interactively. Knowledge of these free-to-use programs can empower Eterna players by providing more information and tools with which to design and analyze RNA.",
+            "publicLink": "https://player.vimeo.com/video/742889426??h=92bcb1b884&title=0&byline=0&portrait=0"
+        },
+        {
+            "speaker": "Rachael Kretsch",
+            "affiliation": "Stanford University",
+            "time": "July 24, 2022, 17:00:00 UTC",
+            "topic": "RNA in 3D - How does it work?",
+            "abstract": "It's time to think about how RNA folds in 3D! By playing Eterna you learn how to design stems of base-pairs, but in 3D stems are not just a 2D ladder but a 3D helix, like a spiral staircase. This is only the simplest level of 3D structure, stems and loops can fold into well defined shapes. We will take a look at some tertiary contacts and how they help RNA fold in 3D. We also will look at the ultimate 3D structure resource, the PDB, and highlight some key values that can help you assess the quality of structures.",
+            "publicLink": "https://player.vimeo.com/video/743608211??h=92bcb1b884&title=0&byline=0&portrait=0"
+        },
+        {
+            "time": "July 24, 2022, 17:30:00 UTC",
+            "topic": "Break",
+            "abstract": "Check out our Twitch Stream https://www.twitch.tv/eternagame while you wait!"
+        },
+        {
+            "speaker": "Janet Iwasa",
+            "affiliation": "University of Utah",
+            "time": "July 24, 2022, 18:30:00 UTC",
+            "topic": "Animating Molecular Machines",
+            "abstract": "Life as we know it relies on the constant tireless work of tiny molecular machines. My work focuses on creating animations and illustrations of how these machines are hypothesized to operate, based on a variety of data collected by molecular biologists. In this talk, I'll discuss the process of creating molecular animations, how these visualizations help researchers better understand and communicate hypotheses, and share a few past and current projects.",
+            "privateLink": "https://player.vimeo.com/video/742899635??h=92bcb1b884&title=0&byline=0&portrait=0"
+        },
+        {
+            "speaker": "Aaron T Frank",
+            "affiliation": "Arrakis Therapeutics",
+            "time": "July 24, 2022, 19:00:00 UTC",
+            "topic": "Exploring Structure-Sequence Space Using Image-to-Image Translation",
+            "abstract": "TBA",
+            "publicLink": "https://player.vimeo.com/video/745847685??h=92bcb1b884&title=0&byline=0&portrait=0"
+        },
+        {
+            "speaker": "Michael Stone",
+            "affiliation": "University of California, Santa Cruz",
+            "time": "July 24, 2022, 19:30:00 UTC",
+            "topic": "Streamlining the discovery of antisense oligonucleotide (ASO) therapeutics",
+            "abstract": "Antisense oligonucleotides (ASOs) are promising therapeutic agents for human diseases. The mechanism of action of ASO drugs can vary widely; however, in all cases the ASO drug must bind stably and specifically to its target RNA to elicit the desired therapeutic outcome. In this talk, I will review examples of successful deployment of ASO therapeutics and highlight challenges to scaling this technology. Next, I will review current research efforts at the University of California, Santa Cruz to develop a rapid and cost-effective ASO design platform. I will conclude with several concepts for ASO design Eterna puzzles.",
+            "privateLink": "https://player.vimeo.com/video/740475534??h=92bcb1b884&title=0&byline=0&portrait=0"
+        },
+        {
+            "time": "July 24, 2022, 20:30:00 UTC",
+            "topic": "Break",
+            "abstract": "Check out our Twitch Stream https://www.twitch.tv/eternagame while you wait!"
+        },
+        {
+            "speaker": "Jonathan Romano; Sharif Ezzat; Thomas Karagianes",
+            "affiliation": "Eterna Developers",
+            "time": "July 24, 2022, 21:00:00 UTC",
+            "topic": "EternaNext: Setting the Foundation for the Next Decade of Eterna",
+            "abstract": "The Eterna project and our amazing community have generated amazing new scientific discoveries and achieved significant milestones over the last 11 years. Looking to the future, the Eterna development team has identified several key areas in which we can improve our platform to provide a more powerful and fun experience for our users. In this session, core developers will discuss the rewrite effort and share some of the new features we're excited about."
+        },
+        {
+            "speaker": "Leonard Oppenheimer",
+            "affiliation": "Eterna Player",
+            "time": "July 24, 2022, 22:00:00 UTC",
+            "topic": "Your Voice in Eterna Players' Alliance, with EPA Election",
+            "abstract": "Eterna Players’ Alliance has been in hibernation.  We are waking up our governance organization with a simpler structure and a revitalized charter.   How can players’ needs and concerns get addressed in the complex, multi-organization project that comprises Eterna?  Help us reboot the EPA with your suggestions and participate in the EPA election.",
+            "publicLink": "https://player.vimeo.com/video/743623809??h=92bcb1b884&title=0&byline=0&portrait=0"
+        },
+        {
+            "speaker": "Arnuv Modh",
+            "affiliation": "Eterna Player",
+            "time": "July 24, 2022, 22:30:00 UTC",
+            "topic": "Eterna Art Show",
+            "abstract": "I'll be presenting Eterna art made by Eterna players.",
+            "publicLink": "https://player.vimeo.com/video/745840747??h=92bcb1b884&title=0&byline=0&portrait=0"
+        },
+        {
+            "speaker": "Andrew Kaechele",
+            "affiliation": "Eterna Player",
+            "time": "July 24, 2022, 22:45:00 UTC",
+            "topic": "Coding Fun with Dot-bracket Notation",
+            "abstract": "I will talk briefly about my thoughts that led me to encode images in eterna puzzles. I was aware that data had been encoded in DNA and it was being considered a means of storage. I may reference a current example of this. The remainder will be a walkthrough of decoding the structure of these 2 puzzles. PASTE BIN IX: https://eternagame.org/puzzles/11100787 Decode the structure to reveal a Portable GreyMap Image. PASTE BIN X: https://eternagame.org/puzzles/11103073A Portable PixMap Image (color) is encoded into the structure of the puzzle.",
+            "publicLink": "https://player.vimeo.com/video/743623674??h=92bcb1b884&title=0&byline=0&portrait=0"
+        }
+    ]
+}

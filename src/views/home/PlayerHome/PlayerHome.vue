@@ -48,23 +48,30 @@
       </div>
 
       <template v-if="hasLabAccess">
-        <QuestActivity :sideQuests="masteringEternaAchievements" />
+        <QuestActivity
+          :sideQuests="masteringEternaAchievements"
+          :collections="collections"
+        />
         <TutorialActivity
           :stages="tenToolsAchievements"
+          :collections="collections"
           :heading="$t('player-home:advanced-tutorials')"
         />
         <TutorialActivity
           :stages="eternaEssentialsAchievements"
+          :collections="collections"
           :heading="$t('player-home:eterna-essentials-completed')"
         />
       </template>
       <template v-else>
         <TutorialActivity
           :stages="eternaEssentialsAchievements"
+          :collections="collections"
           :heading="$t('player-home:eterna-essentials')"
         />
         <TutorialActivity
           :stages="tenToolsAchievements"
+          :collections="collections"
           :heading="$t('player-home:advanced-tutorials')"
         />
       </template>
@@ -82,7 +89,10 @@
     BlogItem,
     NotificationItem,
     NewsItem,
+    CollectionItem,
   } from '@/types/common-types';
+  import type Vue from 'vue';
+  import type { EventApi } from '@fullcalendar/common';
   import FetchMixin from '@/mixins/FetchMixin';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import Carousel from '@/components/Common/Carousel.vue';
@@ -97,7 +107,6 @@
   import TutorialTeaserSlide from './components/banner/TutorialTeaserSlide.vue';
   import POTWSlide from './components/banner/POTWSlide.vue';
   import LabSlide from './components/banner/LabSlide.vue';
-  import EternaconSlide from './components/banner/EternaconSlide.vue';
   import IdeaJamSlide from './components/banner/IdeaJamSlide.vue';
   import QuestActivity from './components/activities/QuestActivity.vue';
   import TutorialActivity from './components/activities/TutorialActivity.vue';
@@ -111,7 +120,6 @@
       POTWSlide,
       LabSlide,
       TutorialTeaserSlide,
-      EternaconSlide,
       Preloader,
       QuestActivity,
       TutorialActivity,
@@ -134,12 +142,15 @@
 
     newsItems: (NewsItem | BlogItem)[] = [];
 
+    collections: CollectionItem[] = [];
+
     async fetch() {
       const res = await Promise.all([
         this.$http.get('/get/?type=side_project_roadmap'),
         this.$http.get('/get/?type=carousel'),
         this.$http.get('/get/?type=puzzle_of_the_week'),
         this.$http.get('/get/?type=newsandblogslist&size=3'),
+        this.$http.get('/get/?type=collections&quest=true&size=30'),
       ]);
 
       const roadmap = res[0].data.data
@@ -164,6 +175,7 @@
       this.labCarouselLabs = res[1].data.data.labs;
       this.potwSlideData = res[2].data.data;
       this.newsItems = res[3].data.data.entries;
+      this.collections = res[4].data.data.collections;
 
       this.$vxm.user.refreshAchievements();
     }
@@ -190,8 +202,7 @@
           views: {
             upcoming: {
               type: 'list',
-              duration: { days: 3 },
-              listDayAltFormat: 'dddd',
+              duration: { days: 14 },
             },
           },
           height: 'auto',
@@ -199,6 +210,23 @@
           googleCalendarApiKey: process.env.VUE_APP_GOOGLE_API_ID,
           events: {
             googleCalendarId: process.env.VUE_APP_GOOGLE_CALENDAR_ID,
+            success: (content: [{start: string}]) => {
+              // This function is called after FullCalendar has loaded the events
+              // from the Google Calendar. EventSourceSuccess allows us to transform
+              // the events before display. Here we sort them and filter down to the
+              // first N events. This is necessary because FullCalendar's Google 
+              // integration doesn't support the maxResults or orderBy options.
+              const numberOfEventsToDisplay = 4;
+              const filteredEvents = content.sort((a, b) => {
+                const aStart = new Date(a.start).valueOf();
+                const bStart = new Date(b.start).valueOf();
+                if (a.start == null || b.start == null) { return 0; }
+                return aStart - bStart;
+              })
+                .slice(0, numberOfEventsToDisplay);
+
+              return filteredEvents;
+            }
           },
         },
       };
@@ -218,41 +246,41 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/global.scss';
+@import '@/styles/global.scss';
 
-  ::v-deep section {
-    text-align: center;
-  }
+::v-deep section {
+  text-align: center;
+}
 
-  ::v-deep .player-progress-bar {
-    max-width: 100%;
-  }
+::v-deep .player-progress-bar {
+  max-width: 100%;
+}
 
-  .fc {
-    --fc-list-event-hover-bg-color: #043468;
-    --fc-page-bg-color: #043468;
-    --fc-border-color: #043468;
-    --fc-neutral-bg-color: #043468;
-  }
+.fc {
+  --fc-list-event-hover-bg-color: #043468;
+  --fc-page-bg-color: #043468;
+  --fc-border-color: #043468;
+  --fc-neutral-bg-color: #043468;
+}
 
-  #header-carousel {
-    // Overflow page margins as a hero element.
-    margin-top: -$page-margin-top;
-    margin-left: -$page-margin-side;
-    margin-right: -$page-margin-side;
-  }
+#header-carousel {
+  // Overflow page margins as a hero element.
+  margin-top: -$page-margin-top;
+  margin-left: -$page-margin-side;
+  margin-right: -$page-margin-side;
+}
 
-  #header-carousel ::v-deep .carousel-inner {
-    min-height: 300px;
-  }
+#header-carousel ::v-deep .carousel-inner {
+  min-height: 300px;
+}
 
-  #header-carousel ::v-deep .carousel-control-prev,
-  ::v-deep .carousel-control-next {
-    max-width: 100px;
-  }
+#header-carousel ::v-deep .carousel-control-prev,
+::v-deep .carousel-control-next {
+  max-width: 100px;
+}
 
-  #header-carousel ::v-deep .carousel-caption {
-    left: min(100px, 15%) !important;
-    right: min(100px, 15%) !important;
-  }
+#header-carousel ::v-deep .carousel-caption {
+  left: min(100px, 15%) !important;
+  right: min(100px, 15%) !important;
+}
 </style>

@@ -18,7 +18,7 @@ module.exports = {
     'no-unused-vars': 'off',
     'arrow-parens': 'off',
     'object-curly-newline': 'off',
-    'no-underscore-dangle': ['error', { allow: ['__INITIAL_STATE__'] }],
+    'no-underscore-dangle': ['error', { allow: ['__INITIAL_STATE__', '_instance'] }],
     // Why doesn't typescript-eslint do this for us? No idea!
     "no-use-before-define": "off",
     "no-shadow": "off",

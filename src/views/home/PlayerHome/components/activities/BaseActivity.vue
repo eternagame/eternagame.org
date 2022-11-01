@@ -25,7 +25,4 @@
 </script>
 
 <style lang="scss" scopde>
-  .section-header {
-    margin-top: 61px;
-  }
 </style>

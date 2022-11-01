@@ -25,7 +25,20 @@
       </b-carousel>
       <br />
       <div class="flex">
+        <h3>Latest News</h3>
         <div class="row">
+          <div class="col-md-4">
+            <NewsCard :key="newsItems[0].nid" v-bind="newsItems[0]"></NewsCard>
+          </div>
+          <div class="col-md-4">
+            <NewsCard :key="newsItems[1].nid" v-bind="newsItems[1]"></NewsCard>
+          </div>
+          <div class="col-md-4">
+            <NewsCard :key="newsItems[2].nid" v-bind="newsItems[2]"></NewsCard>
+            <p class="text-right"><a href="/news">View All ></a></p>
+          </div>
+        </div>
+      <!-- <div class="row">
           <div class="col-md-6">
             <h3>Latest News</h3>
             <Gallery :sm="12" :md="12">
@@ -44,36 +57,45 @@
             <FullCalendar :options="calendarOptions" />
             <p class="text-right"><a href="/calendar">View All ></a></p>
           </div>
-        </div>
+        </div> -->
       </div>
-
       <template v-if="hasLabAccess">
-        <QuestActivity
-          :sideQuests="masteringEternaAchievements"
-          :collections="collections"
-        />
-        <TutorialActivity
-          :stages="tenToolsAchievements"
-          :collections="collections"
-          :heading="$t('player-home:advanced-tutorials')"
-        />
-        <TutorialActivity
-          :stages="eternaEssentialsAchievements"
-          :collections="collections"
-          :heading="$t('player-home:eterna-essentials-completed')"
-        />
+        <div>
+          <QuestActivity
+            :sideQuests="masteringEternaAchievements"
+            :collections="collections"
+          />
+        </div>
+        <div class="section-spacing">
+          <TutorialActivity
+            :stages="tenToolsAchievements"
+            :collections="collections"
+            :heading="$t('player-home:advanced-tutorials')"
+          />
+        </div>
+        <div class="section-spacing">
+          <TutorialActivity
+            :stages="eternaEssentialsAchievements"
+            :collections="collections"
+            :heading="$t('player-home:eterna-essentials-completed')"
+          />
+        </div>
       </template>
       <template v-else>
-        <TutorialActivity
-          :stages="eternaEssentialsAchievements"
-          :collections="collections"
-          :heading="$t('player-home:eterna-essentials')"
-        />
-        <TutorialActivity
-          :stages="tenToolsAchievements"
-          :collections="collections"
-          :heading="$t('player-home:advanced-tutorials')"
-        />
+        <div>
+          <TutorialActivity
+            :stages="eternaEssentialsAchievements"
+            :collections="collections"
+            :heading="$t('player-home:eterna-essentials')"
+          />
+        </div>
+        <div class="section-spacing">
+          <TutorialActivity
+            :stages="tenToolsAchievements"
+            :collections="collections"
+            :heading="$t('player-home:advanced-tutorials')"
+          />
+        </div>
       </template>
     </template>
     <Preloader v-else />
@@ -112,6 +134,7 @@
   import TutorialActivity from './components/activities/TutorialActivity.vue';
   import '@fullcalendar/core/vdom'; // solves problem with Vite
   import NewsActivity from './components/activities/NewsActivity.vue';
+  import NewsCard from '../../news/NewsExplore/components/NewsCard.vue';
 
   @Component({
     components: {
@@ -127,6 +150,7 @@
       Pagination,
       FullCalendar,
       NewsActivity,
+      NewsCard
     },
   })
   export default class PlayerHome extends Mixins(FetchMixin) {
@@ -282,5 +306,9 @@
 #header-carousel ::v-deep .carousel-caption {
   left: min(100px, 15%) !important;
   right: min(100px, 15%) !important;
+}
+
+.section-spacing {
+  margin-top: 32px;
 }
 </style>

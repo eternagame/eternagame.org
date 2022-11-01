@@ -28,7 +28,7 @@
     </td>
 
     <td>
-      <div v-if="folder" v-b-tooltip.hover title="Folding engine">
+      <div v-if="folder" v-b-tooltip.hover title="Folding engine" style="white-space: nowrap;">
         <img
           src="@/assets/chemical_bond.svg"
           alt="Folding engine"
@@ -48,7 +48,7 @@
         maxSubmissions
       "
     >
-      <div v-if="numSynths" v-b-tooltip.hover title="Number synthesized">
+      <div v-if="numSynths" v-b-tooltip.hover title="Number synthesized" style="white-space: nowrap;">
         <img src="@/assets/test-tube.svg" alt="Number synthesized" />
         {{ numSynths }}
       </div>
@@ -57,7 +57,7 @@
         v-b-tooltip.hover
         title="Number to be synthesized"
       >
-        <img src="@/assets/test-tube.svg" alt="Number to be synthesized" />
+        <img src="@/assets/test-tube.svg" alt="Number to be synthesized" style="white-space: nowrap;" />
         {{ numSlots }}
       </div>
 
@@ -65,6 +65,7 @@
         v-if="numSubmitted !== undefined"
         v-b-tooltip.hover
         title="Total solutions submitted"
+        style="white-space: nowrap;"
       >
         <img src="@/assets/noun_globe.svg" alt="Total solutions submitted" />
         {{ numSubmitted }}
@@ -73,6 +74,7 @@
         v-if="mySolutions !== undefined || maxSubmissions"
         v-b-tooltip.hover
         title="My solutions submitted"
+        style="white-space: nowrap;"
       >
         <img src="@/assets/noun_max.svg" alt="My solutions submitted" />
         {{ mySolutions || 0
@@ -81,7 +83,7 @@
     </td>
 
     <td v-if="reward || (username && madeByPlayer) || numCleared !== undefined">
-      <div v-if="username && madeByPlayer" v-b-tooltip.hover title="Author">
+      <div v-if="username && madeByPlayer" v-b-tooltip.hover title="Author" style="white-space: nowrap;">
         <img
           style="width: 15px; margin: auto"
           :src="avatar"
@@ -90,11 +92,11 @@
         />
         {{ username }}
       </div>
-      <div v-if="reward" v-b-tooltip.hover title="Reward">
+      <div v-if="reward" v-b-tooltip.hover title="Reward" style="white-space: nowrap;">
         <img src="@/assets/dollar.svg" alt="Reward" />
         {{ reward }}
       </div>
-      <div v-b-tooltip.hover title="Players cleared">
+      <div v-b-tooltip.hover title="Players cleared" style="white-space: nowrap;">
         <img src="@/assets/people.svg" alt="Players cleared" />
         {{ numCleared || 0 }}
       </div>
@@ -270,8 +272,7 @@ a:hover {
 
 td {
   border-top: 1px solid $light-blue;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.5rem 0.25rem;
   border-bottom: 1px solid $light-blue;
 }
 

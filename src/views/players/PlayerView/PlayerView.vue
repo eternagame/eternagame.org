@@ -190,7 +190,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Vue, Mixins, Watch } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
   import { AxiosInstance, AxiosResponse } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
@@ -275,6 +275,11 @@
     joinedGroups: GroupItem[] = [];
 
     subAchievements: ProfileAchievement[] = [];
+
+    @Watch('$route.query.tab_type')
+    resetPuzzles() {
+      this.puzzles = [];
+    }
 
     async fetch() {
       const USERROUTE = `/get/?type=user&uid=${this.$route.params.uid}`;

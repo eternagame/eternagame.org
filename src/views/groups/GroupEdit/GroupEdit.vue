@@ -115,7 +115,7 @@
 
     private body = "";
 
-    private is_private = "";
+    private is_private = false;
 
     private newBody: string | null = null;
 
@@ -130,7 +130,7 @@
       this.nid = group.nid;
       this.body = group.body;
       this.name = group.name;
-      this.is_private = group.is_private;
+      this.is_private = group.is_private === 'true';
       this.currentPicture = group.picture;
     }
 

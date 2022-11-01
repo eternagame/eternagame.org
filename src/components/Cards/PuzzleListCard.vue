@@ -187,6 +187,7 @@
   padding: 1px 3px;
   border-radius: 2px;
   margin: 0 5px;
+  display: inline-block;
 }
 
 .card {

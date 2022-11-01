@@ -7,7 +7,6 @@
         :key="`${value}-${link}`"
         :replace="replace"
         :class="{ selected: routeSelected(index, link) }"
-        @click.native="onClick(index, link)"
       >
         {{ $t(text) }} {{ suffix && suffix }}
         <!-- Note: Can't use Utils.isInternal(). #anchors use href, but not external icon. -->

@@ -5,8 +5,8 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { RewardNotificationItem } from '@/types/common-types';
-  import BaseNotification from './BaseNotification.vue';
   import { PUZZLE_ROUTE_BROWSE_PREFIX } from '@/utils/constants';
+  import BaseNotification from './BaseNotification.vue';
 
   @Component({
     components: {

@@ -3,24 +3,26 @@ import { sync } from 'vuex-router-sync';
 import BootstrapVue from 'bootstrap-vue';
 // @ts-ignore
 import VueScrollReveal from 'vue-scroll-reveal'; // Module has no declaration file
-import VueDOMPurifyHTML from 'vue-dompurify-html';
+import VueDOMPurifyHTML, { MinimalDOMPurifyConfig } from 'vue-dompurify-html';
 import DOMPurify from 'dompurify';
 import {Swiper as SwiperClass, Pagination, Navigation} from 'swiper';
 import axios from 'axios';
 // If we get around to re-enabling SSR:
 // import Notifications from 'vue-notification/dist/ssr.js'
-import Notifications from 'vue-notification';
+import Notifications, {NotificationOptions} from 'vue-notification';
 import i18n from '@/plugins/i18n';
 import InitGlobalComponents from '@/components/global';
 import App from './App.vue';
 import createRouter from './router';
 import createStore from './store/store';
 
+const domPurifyOpts: DOMPurify.Config | MinimalDOMPurifyConfig = {
+  ADD_TAGS: ['iframe']
+};
+
 Vue.use(BootstrapVue);
 Vue.use(VueDOMPurifyHTML, {
-  default: {
-    ADD_TAGS: ['iframe']
-  }
+  default: domPurifyOpts
 });
 Vue.use(VueScrollReveal, {
   distance: '10px',
@@ -57,8 +59,22 @@ Vue.use(() => {
     });
   }
 });
- 
+
 Vue.use(Notifications);
+
+// The notifications library is vulnerable to XSS if you don't sanitize the content you pass it, as it
+// uses v-html directly. This wraps its behavior to sanitize by default
+const notify: (options: NotificationOptions | string) => void = Vue.prototype.$notify;
+const wrappedNotify = (options: NotificationOptions | string) => {
+  if (typeof options === 'string') return notify(DOMPurify.sanitize(options, domPurifyOpts) as string);
+  return notify({
+    ...options,
+    title: options.title ? DOMPurify.sanitize(options.title, domPurifyOpts) as string : undefined,
+    text: options.text ? DOMPurify.sanitize(options.text, domPurifyOpts) as string : undefined,
+  });
+};
+Vue.prototype.$notify = wrappedNotify;
+Vue.notify = wrappedNotify;
 
 InitGlobalComponents();
 

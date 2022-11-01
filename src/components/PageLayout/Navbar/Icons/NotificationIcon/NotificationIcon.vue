@@ -10,14 +10,12 @@
     <template v-slot="slotProp">
       <div class="activity-container">
         <div class="d-flex justify-content-between">
-          <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
-          <router-link to="/feed">
-            <img
-              class="mt-2"
-              src="@/assets/navbar/popOut.svg"
-              @click="slotProp.hideDropdown.hide()"
-            />
-          </router-link>
+          <div style="display: flex;">
+            <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
+            <div v-if="isFetching" class="fetch-loader">
+              <SimpleLoader />
+            </div>
+          </div>
         </div>
         <div class="border"></div>
         <template v-for="item in notifications">
@@ -31,6 +29,12 @@
           {{$t('activity-feed:empty')}}
         </b-dropdown-item>
       </div>
+      <div class="border"></div>
+      <router-link to="/feed" style="color:white">
+        <div class="view-all-link" @click="slotProp.hideDropdown.hide()">
+          {{ $t('nav-bar:notifications-view-all') }}
+        </div>
+      </router-link>
     </template>
   </NavbarIcon>
 </template>
@@ -50,6 +54,7 @@
   import CommentNotification from './CommentNotification.vue';
   import GroupNotificationItem from './GroupNotification.vue';
   import RewardNotificationItem from './RewardNotification.vue';
+  import SimpleLoader from '../../../SimpleLoader.vue';
 
   const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user';
 
@@ -66,13 +71,16 @@
       PrivateMessageNotification,
       CommentNotification,
       GroupNotificationItem,
-      RewardNotificationItem
+      RewardNotificationItem,
+      SimpleLoader
     },
   })
   export default class NotificationIcon extends Mixins(FetchMixin) {
     private notificationsCount = 0;
 
-    private calledFetch = false;
+    private isDropdownShown = false;
+
+    private isFetching = false;
 
     private notifications: NotificationItem[] = [];
 
@@ -86,16 +94,24 @@
       clearInterval(this.checkDataInterval);
     }
 
-    async onShown() {
-      await this.$http.post('/post/', new URLSearchParams({ type: 'notification_read' }));
+    async onShown(isShown: boolean) {
+      this.isDropdownShown = isShown;
       await this.$fetch();
     }
 
     async fetch() {
       const res = await this.$http.get(NUM_NOTIFICATIONS_ROUTE);
       this.notificationsCount = res.data.data.noti_count;
-      if (res.data.data.noti_count > this.notificationsCount || !this.fetchState.firstFetchComplete) {
+
+      if (this.notificationsCount > 0 || !this.fetchState.firstFetchComplete) {
+        this.isFetching = true;
         await this.updateDropdownContents();
+        this.isFetching = false;
+
+        if (this.isDropdownShown) {
+          this.notificationsCount = 0;
+          await this.$http.post('/post/', new URLSearchParams({ type: 'notification_read' }));
+        }
       }
     }
 
@@ -147,13 +163,14 @@
     private isReward(notification: NotificationItem) {
       return notification.type === NotificationType.REWARD;
     }
+
   }
 </script>
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep a {
+  ::v-deep a.dropdown-item {
     padding-right: 10px !important;
     padding-left: 10px !important;
     border-radius: 3px;
@@ -169,6 +186,10 @@
     font-size: 16px;
     font-weight: bold;
     margin-top: 14.5px;
+
+    @include media-breakpoint-down(md) {
+      font-size: 13px;
+    }
   }
 
   .border {
@@ -179,5 +200,31 @@
   img.icon {
     width: 24px;
     height: 24px;
+  }
+
+  .view-all-link {
+    padding: 10px;
+    text-align: center;
+    color: white !important;
+
+    &:hover, &:focus {
+      background-color: #212529;
+
+      @include media-breakpoint-down(md) {
+        background-color: var(--primary);
+      }
+    }
+  }
+
+  .fetch-loader {
+    margin: 0 10px;
+    width: 25px;
+    height: 25px;
+    align-self: center;
+
+    @include media-breakpoint-down(md) {
+      width: 18px;
+      height: 18px;
+    }
   }
 </style>

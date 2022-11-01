@@ -59,6 +59,7 @@
         puzzles: '/puzzles',
         labs: '/labs',
         challenges: '/challenges',
+        collections: '/collections',
         data: `${process.env.VUE_APP_API_BASE_URL}/web/labs/data-browser/`,
         'puzzle-maker': `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`,
         'puzzle-maker-2-states': `${process.env.VUE_APP_API_BASE_URL}/game/switchmaker/2/`,
@@ -80,6 +81,7 @@
         wiki: 'http://eternawiki.org',
         groups: `/groups`,
         'code-of-conduct': '/conduct',
+        epa: `/epa`,
       },
       news: '/news',
       about: {

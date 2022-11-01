@@ -1,5 +1,6 @@
 import DefaultAvatar from '@/assets/navbar/DefaultIcon.svg';
 import DefaultGroupAvatar from '@/assets/group.svg';
+import DefaultCollectionAvatar from '@/assets/logo.svg';
 import { NotificationItem } from '@/types/common-types';
 
 export default {
@@ -160,5 +161,9 @@ export default {
   getGroupAvatar(uri: string | null) {
     if (uri) return uri;
     return DefaultGroupAvatar;
+  },
+  getCollectionAvatar(uri: string | null) {
+    if (uri) return uri;
+    return DefaultCollectionAvatar;
   },
 };

@@ -103,14 +103,16 @@
           <div class="page-content">
             <table style="width: 100%">
               <tbody>
+                <Gallery>
                 <template v-for="puzzle in puzzles">
-                  <PuzzleListCard
+                  <PuzzleCard
                     :key="puzzle.id"
                     :nid="puzzle.id"
                     v-bind="puzzle"
                     :is3d="puzzle['has3d'] === '1'"
                   />
                 </template>
+              </Gallery>
               </tbody>
             </table>
           </div>
@@ -124,14 +126,16 @@
           <div class="page-content">
             <table style="width: 100%">
               <tbody>
+                <Gallery>
                 <template v-for="puzzle in puzzles">
-                  <PuzzleListCard
+                  <PuzzleCard
                     :key="puzzle.id"
                     :nid="puzzle.id"
                     v-bind="puzzle"
                     :is3d="puzzle['has3d'] === '1'"
                   />
                 </template>
+              </Gallery>
               </tbody>
             </table>
           </div>
@@ -145,14 +149,16 @@
           <div class="page-content">
             <table style="width: 100%">
               <tbody>
+                <Gallery>
                 <template v-for="puzzle in puzzles">
-                  <PuzzleListCard
+                  <PuzzleCard
                     :key="puzzle.id"
                     :nid="puzzle.id"
                     v-bind="puzzle"
                     :is3d="puzzle['has3d'] === '1'"
                   />
                 </template>
+                </Gallery>
               </tbody>
             </table>
           </div>

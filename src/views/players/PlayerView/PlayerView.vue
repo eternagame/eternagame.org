@@ -100,7 +100,7 @@
           <hr class="top-border" />
           <h4 class="title">{{ $t('player-view:latest-activity') }}</h4>
 
-          <div class="page-content">
+          <div class="page-content" style="overflow-x:auto;">
             <table style="width: 100%">
               <tbody>
                 <template v-for="puzzle in puzzles">
@@ -121,7 +121,7 @@
           <hr class="top-border" />
           <h4 class="title">{{ $t('player-view:created-puzzles') }}</h4>
 
-          <div class="page-content">
+          <div class="page-content" style="overflow-x:auto;">
             <table style="width: 100%">
               <tbody>
                 <template v-for="puzzle in puzzles">
@@ -142,7 +142,7 @@
           <hr class="top-border" />
           <h4 class="title">{{ $t('player-view:cleared-puzzles') }}</h4>
 
-          <div class="page-content">
+          <div class="page-content" style="overflow-x:auto;">
             <table style="width: 100%">
               <tbody>
                 <template v-for="puzzle in puzzles">

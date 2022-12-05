@@ -37,7 +37,7 @@
               <a
                 target="_blank"
                 href="https://docs.google.com/spreadsheets/d/1NaWWhIvJA1rGio4uIn0joAttiVKa__MiG2flknU3zvA/"
-                >Current Board of Directors/Officers</a
+                >Current Board of Directors/Officers, Meeting Schedule, and Video Link</a
               >
             </li>
             <li>
@@ -60,18 +60,6 @@
                 >Recent EPA Activities</a
               >
             </li>
-            <li>
-              <a v-b-modal.modal href="#">Board Meeting Schedule</a> and
-              <a target="_blank" href="https://meet.google.com/wyi-ymbc-cry"
-                >Video Link</a
-              >
-            </li>
-          </ul>
-          <b-modal id="modal" title="Board Meeting Schedule" hide-footer>
-            <div class="d-block text-center">
-              1st and 3rd Sunday of the month at 9am USA Central Time
-            </div>
-          </b-modal>
         </div>
         <div class="col">
           <div class="row d-flex justify-content-center align-content-center">

@@ -60,6 +60,7 @@
                 >Recent EPA Activities</a
               >
             </li>
+          </ul>
         </div>
         <div class="col">
           <div class="row d-flex justify-content-center align-content-center">

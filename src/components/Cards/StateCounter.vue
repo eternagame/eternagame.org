@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="white-space: nowrap;">
     <i class="arrow left"></i>
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -96,90 +96,83 @@
           </template>
         </PlayerTable>
 
-        <PlayerTable
-          v-if="$route.query.tab_type == 'latest'"
-          :title="$t('player-view:latest-activity')"
-          :entries="latestPuzzles"
-        >
-          <template v-slot:theader>
-            <tr class="table-primary">
-              <th scope="col">{{ $t('player-view:latest-played-puzzles') }}</th>
-            </tr>
-          </template>
-          <template v-slot:trow="slotProps">
-            <tr>
-              <td class="puzzle-link">
-                <a :href="`/puzzles/${slotProps.item.puznid}/`">{{
-                  slotProps.item.title
-                }}</a>
-              </td>
-            </tr>
-          </template>
-        </PlayerTable>
+        <div v-if="$route.query.tab_type == 'latest'">
+          <hr class="top-border" />
+          <h4 class="title">{{ $t('player-view:latest-activity') }}</h4>
 
-        <PlayerTable
-          v-if="$route.query.tab_type == 'created'"
-          :title="$t('player-view:created-puzzles')"
-          :entries="createdPuzzles"
-        >
-          <template v-slot:theader>
-            <tr class="table-primary">
-              <th scope="col">{{ $t('player-view:created-puzzles') }}</th>
-            </tr>
-          </template>
-          <template v-slot:trow="slotProps">
-            <tr>
-              <td class="puzzle-link">
-                <a :href="`/puzzles/${slotProps.item.id}`">{{
-                  slotProps.item.title
-                }}</a>
-              </td>
-            </tr>
-          </template>
-        </PlayerTable>
+          <div class="page-content" style="overflow-x:auto;">
+            <table style="width: 100%">
+              <tbody>
+                <template v-for="puzzle in puzzles">
+                  <PuzzleListCard
+                    :key="puzzle.id"
+                    :nid="puzzle.id"
+                    v-bind="puzzle"
+                    :is3d="puzzle['has3d'] === '1'"
+                  />
+                </template>
+              </tbody>
+            </table>
+          </div>
+          <Pagination :key="puzzles && puzzles.length" />
+        </div>
 
-        <!-- TODO: Implement pagination so large tables don't take forever. -->
-        <PlayerTable
-          v-if="$route.query.tab_type == 'cleared'"
-          :title="$t('player-view:cleared-puzzles')"
-          :entries="clearedPuzzles"
-        >
-          <template v-slot:theader>
-            <tr class="table-primary">
-              <th scope="col">{{ $t('player-view:cleared-puzzles') }}</th>
-            </tr>
-          </template>
-          <template v-slot:trow="slotProps">
-            <tr>
-              <td class="puzzle-link">
-                <a :href="`/puzzles/${slotProps.item.id}/`">{{
-                  slotProps.item.title
-                }}</a>
-              </td>
-            </tr>
-          </template>
-        </PlayerTable>
+        <div v-if="$route.query.tab_type == 'created'">
+          <hr class="top-border" />
+          <h4 class="title">{{ $t('player-view:created-puzzles') }}</h4>
 
-        <PlayerTable
-          v-if="$route.query.tab_type == 'groups'"
-          :title="$t('player-view:joined-groups')"
-          :entries="joinedGroups"
-        >
-          <template v-slot:theader>
-            <tr class="table-primary">
-              <th scope="col">{{ $t('player-view:joined-groups') }}</th>
-            </tr>
-          </template>
-          <template v-slot:trow="slotProps">
-            <tr>
-              <td class="puzzle-link">
-                <a :href="`/groups/${slotProps.item.group_nid}/`">{{
-                  slotProps.item.group_title
-                }}</a>
-              </td>
-            </tr>
-          </template>
-        </PlayerTable>
+          <div class="page-content" style="overflow-x:auto;">
+            <table style="width: 100%">
+              <tbody>
+                <template v-for="puzzle in puzzles">
+                  <PuzzleListCard
+                    :key="puzzle.id"
+                    :nid="puzzle.id"
+                    v-bind="puzzle"
+                    :is3d="puzzle['has3d'] === '1'"
+                  />
+                </template>
+              </tbody>
+            </table>
+          </div>
+          <Pagination :key="puzzles && puzzles.length" />
+        </div>
+
+        <div v-if="$route.query.tab_type == 'cleared'">
+          <hr class="top-border" />
+          <h4 class="title">{{ $t('player-view:cleared-puzzles') }}</h4>
+
+          <div class="page-content" style="overflow-x:auto;">
+            <table style="width: 100%">
+              <tbody>
+                <template v-for="puzzle in puzzles">
+                  <PuzzleListCard
+                    :key="puzzle.id"
+                    :nid="puzzle.id"
+                    v-bind="puzzle"
+                    :is3d="puzzle['has3d'] === '1'"
+                  />
+                </template>
+              </tbody>
+            </table>
+          </div>
+          <Pagination :key="puzzles && puzzles.length" />
+        </div>
+
+        <div v-if="$route.query.tab_type == 'groups'">
+          <hr class="top-border" />
+          <h4 class="title">{{ $t('player-view:joined-groups') }}</h4>
+
+          <Gallery>
+            <GroupCard
+              v-for="group in joinedGroups"
+              :key="group.nid"
+              :nid="group.nid"
+              v-bind="group"
+            />
+          </Gallery>
+          <Pagination :key="joinedGroups && joinedGroups.length" />
+        </div>
       </div>
     </div>
     <div v-else>
@@ -197,9 +190,9 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Vue, Mixins, Watch } from 'vue-property-decorator';
   import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { AxiosInstance, AxiosResponse } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, {
     Option,
@@ -216,12 +209,24 @@
     SynthesizedDesign,
     ProfileAchievement,
     ProfileGroup,
+    PuzzleList,
+    PuzzleItem,
+    GroupList,
+    GroupItem,
   } from '@/types/common-types';
   import { isArray, isMap, isObject } from 'lodash';
+  import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
+  import Pagination from '@/components/PageLayout/Pagination.vue';
+  import GroupCard from '@/components/Cards/GroupCard.vue';
+  import PuzzleListCard from '@/components/Cards/PuzzleListCard.vue';
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
   import PlayerTable from './components/PlayerTable.vue';
   import AchievementCard from './components/AchievementCard.vue';
+
+  const INITIAL_SORT = 'date_completed';
+  const INITIAL_NUMBER = 18;
+  let TAB_TYPE = '';
 
   @Component({
     components: {
@@ -232,6 +237,10 @@
       PlayerTable,
       AchievementCard,
       Preloader,
+      PuzzleCard,
+      PuzzleListCard,
+      Pagination,
+      GroupCard,
     },
   })
   export default class PlayerView extends Mixins(FetchMixin) {
@@ -253,7 +262,7 @@
 
     latestPuzzles: LatestPuzzle[] = [];
 
-    clearedPuzzles: ClearedPuzzle[] = [];
+    puzzles: PuzzleItem[] = [];
 
     createdPuzzles: CreatedPuzzle[] = [];
 
@@ -263,29 +272,119 @@
 
     allAchievements: { [name: string]: ProfileAchievement } = {};
 
-    joinedGroups: ProfileGroup[] = [];
+    joinedGroups: GroupItem[] = [];
 
     subAchievements: ProfileAchievement[] = [];
 
+    @Watch('$route.query.tab_type')
+    resetPuzzles() {
+      this.puzzles = [];
+    }
+
     async fetch() {
-      const ROUTE = `/get/?type=user&uid=${this.$route.params.uid}`;
+      const USERROUTE = `/get/?type=user&uid=${this.$route.params.uid}`;
       // Achievements and Groups are provided when no tab_type is specified.
       const tab_type =
-        this.$route.query.tab_type === 'achievements' ||
-        this.$route.query.tab_type === 'groups'
+        this.$route.query.tab_type === 'achievements'
           ? 'about'
           : this.$route.query.tab_type;
-      const res = (await this.$http.get(ROUTE, { params: { tab_type } })).data
-        .data as UserResponse;
-      this.user = res.user;
-      this.follow = res.follow;
-      this.latestPuzzles = res.latest_puzzles || [];
-      this.createdPuzzles = res.created_puzzles || [];
-      this.clearedPuzzles = res.cleared_puzzles || [];
-      this.synthesized = res.synthesized || [];
-      this.myAchievements = res.achievements || {};
-      this.allAchievements = res.all_achievements || {};
-      this.joinedGroups = res.my_group || [];
+
+      const res: AxiosResponse<any>[] = await Promise.all([
+        this.$http.get(USERROUTE, { params: { tab_type } }),
+      ]);
+
+      if (tab_type === 'cleared') {
+        if (TAB_TYPE !== tab_type) {
+          this.$route.query.size = INITIAL_NUMBER.toString();
+          TAB_TYPE = tab_type;
+        }
+        const { filters, sort, search, size } = this.$route.query;
+        const params = {
+          puzzle_type: 'AllChallengesPuzzle',
+          cleared: 'true',
+          sort: sort || INITIAL_SORT,
+          size: size || INITIAL_NUMBER,
+          search,
+          uid: this.$route.params.uid,
+        };
+        res.push(
+          await this.$http.get('/get/?type=puzzles', {
+            params,
+          }),
+        );
+        const puzzleRes = res[1].data.data as PuzzleList;
+        this.puzzles = puzzleRes.puzzles;
+      } else if (tab_type === 'created') {
+        if (TAB_TYPE !== tab_type) {
+          this.$route.query.size = INITIAL_NUMBER.toString();
+          TAB_TYPE = tab_type;
+        }
+        const { filters, sort, search, size } = this.$route.query;
+        const params = {
+          puzzle_type: 'AllChallengesPuzzle',
+          creator_uid: this.$route.params.uid,
+          sort: sort || INITIAL_SORT,
+          size: size || INITIAL_NUMBER,
+          search,
+          uid: this.$route.params.uid,
+        };
+        res.push(
+          await this.$http.get('/get/?type=puzzles', {
+            params,
+          }),
+        );
+        const puzzleRes = res[1].data.data as PuzzleList;
+        this.puzzles = puzzleRes.puzzles;
+      } else if (tab_type === 'latest') {
+        if (TAB_TYPE !== tab_type) {
+          this.$route.query.size = INITIAL_NUMBER.toString();
+          TAB_TYPE = tab_type;
+        }
+        const { filters, sort, search, size } = this.$route.query;
+        const params = {
+          puzzle_type: 'AllChallengesPuzzle',
+          latest: 'true',
+          sort: sort || INITIAL_SORT,
+          size: size || INITIAL_NUMBER,
+          search,
+          uid: this.$route.params.uid,
+        };
+        res.push(
+          await this.$http.get('/get/?type=puzzles', {
+            params,
+          }),
+        );
+        const puzzleRes = res[1].data.data as PuzzleList;
+        this.puzzles = puzzleRes.puzzles;
+      } else if (tab_type === 'groups') {
+        if (TAB_TYPE !== tab_type) {
+          this.$route.query.size = INITIAL_NUMBER.toString();
+          TAB_TYPE = tab_type;
+        }
+        const { filters, sort, search, size } = this.$route.query;
+        const params = {
+          sort: sort || INITIAL_SORT,
+          size: size || INITIAL_NUMBER,
+          search,
+          uid: this.$route.params.uid,
+        };
+        res.push(
+          await this.$http.get('/get/?type=user_groups', {
+            params,
+          }),
+        );
+        const groupRes = res[1].data.data as GroupList;
+        this.joinedGroups = groupRes.groups;
+      }
+
+      const userRes = res[0].data.data as UserResponse;
+      this.user = userRes.user;
+      this.follow = userRes.follow;
+      this.latestPuzzles = userRes.latest_puzzles || [];
+      this.createdPuzzles = userRes.created_puzzles || [];
+      this.synthesized = userRes.synthesized || [];
+      this.myAchievements = userRes.achievements || {};
+      this.allAchievements = userRes.all_achievements || {};
     }
 
     isAchieved(a: ProfileAchievement): boolean {

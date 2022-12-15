@@ -41,6 +41,7 @@
     download_url?: string;
     help_tooltip?: string;
     help_url?: string;
+    commercial_license_disabled?: "0" | "1";
   }
 
   const ROUTE = '/get/?type=software_packages';

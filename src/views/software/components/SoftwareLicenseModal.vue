@@ -41,13 +41,18 @@
         </b-card>
         <b-card>
           <div class="d-flex align-items-center">
-            <p class="mb-0 mr-4">
+            <p v-if="commercialDisabled === '1'">
+              Commercial licenses for this package are currently unavailable. For questions, please
+              contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a>.
+            </p>
+            <p class="mb-0 mr-4" v-else>
               For commercial purposes, you can request a license, including royalty-free licenses
               that comply with the <a href="https://opencovidpledge.org/" target="_blank">Open COVID Pledge</a>
             </p>
             <b-btn
               variant="primary" class="d-flex align-items-center text-left"
               @click="page = 'commercial'"
+              :disabled="commercialDisabled === '1'"
             >
               Commercial License
               <b-icon-chevron-right class="ml-2 mr-n2" aria-hidden="true"/>
@@ -74,8 +79,12 @@
           :key="version.version_id"
         />
       </template>
+      <template v-if="page === 'error'">
+        <b-alert variant="danger" show>{{ error }}</b-alert>
+        Please contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a> for assistance.
+      </template>
       <template v-if="page === 'thanks'">
-        Thank you for your request! You should recieve an automated introductory email from us within a few minutes.
+        Thank you for your request! You should receive an automated introductory email from us within a few minutes.
         Please contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a> with any concerns.
       </template>
     </div>
@@ -156,7 +165,7 @@
     description: string;
     published: string;
     assets: {
-      name: string; 
+      name: string;
     }[];
   }
 
@@ -176,13 +185,17 @@
     // The id used by the server to refer to this software package.
     @Prop({ required: true }) readonly packageid!: string;
 
+    @Prop({ required: true }) readonly commercialDisabled?: "0" | "1";
+
     private accepted = false;
 
     private showSpinner = false;
 
-    private page: 'select' | 'noncommercial' | 'commercial' | 'download' | 'thanks' = 'select';
+    private page: 'select' | 'noncommercial' | 'commercial' | 'download' | 'thanks' | 'error' = 'select';
 
     private token = '';
+
+    private error = '';
 
     // The parameters needed by the server when requesting a new license
     private licenseRequest = {
@@ -209,7 +222,11 @@
         }),
       });
 
-      if (this.page === 'commercial') {
+      const err = licenseResponse.data.data?.error;
+      if (err) {
+        this.error = err;
+        this.page = 'error';
+      } else if (this.page === 'commercial') {
         this.page = 'thanks';
       } else {
         this.token = licenseResponse.data.data.token;

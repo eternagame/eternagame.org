@@ -25,6 +25,7 @@
             :id="id"
             :packageid="packageid"
             :license-terms="project.license_terms"
+            :commercialDisabled="project.commercial_license_disabled"
           />
         </template>
         <b-btn v-else

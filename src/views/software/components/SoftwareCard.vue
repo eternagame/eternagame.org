@@ -39,12 +39,13 @@
             :commercialDisabled="project.commercial_license_disabled"
           />
         </template>
-        <b-btn v-else
+        <b-btn
           type="button"
           class="btn btn-primary mt-3 mr-3 mb-3"
           v-b-tooltip.hover.bottom
           :title="project.download_tooltip"
           :href="project.download_url"
+          v-if="project.download_url"
         >
           <b-icon-download />
           DOWNLOAD

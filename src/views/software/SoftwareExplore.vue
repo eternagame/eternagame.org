@@ -34,6 +34,8 @@
     paper_url: string;
     paper_journal: string;
     paper_date: string;
+    server_tooltip?: string;
+    server_url?: string;
     // HTML string for license. If present, we'll use the license approval flow.
     license_terms?: string;
     // Otherwise, we allow user to download the content immediately.

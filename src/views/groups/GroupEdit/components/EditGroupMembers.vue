@@ -143,9 +143,10 @@
         group_nid: (this.parentNID? this.parentNID : 'null').toString(),
         action: 'add',
         target_names: this.targetName,
+        body: `I'd like to invite you to our group.<br></br>Please come to <a transition='page' style='font-weight:bolder;font-size:13px;' href='/groups/${  (this.parentNID? this.parentNID : 'null').toString()  }/'>visit us.</a>`
       };
 
-      await axios.post('/post/?type=message', new URLSearchParams(params));
+      await axios.post('/post/', new URLSearchParams(params));
     }
 
     async postAdminInvite(targetUid: string, message: string) {
@@ -154,9 +155,10 @@
         group_nid: (this.parentNID? this.parentNID : 'null').toString(),
         action: 'add',
         target_names: this.targetName,
+        body: `You are now an administrator of <a transition='page' style='font-weight:bolder;font-size:13px;' href='/groups/${  (this.parentNID? this.parentNID : 'null').toString()  }/'>this group.</a>`
       };
 
-      await axios.post('/post/?type=message', new URLSearchParams(params));
+      await axios.post('/post/', new URLSearchParams(params));
     }
 
     async inviteMember() {

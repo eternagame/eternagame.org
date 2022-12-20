@@ -27,7 +27,7 @@
         <b-button
           type="submit"
           style="margin-left:10px"
-          variant="outline-secondary"
+          variant="secondary"
           :to="`/groups`"
         >
           {{ $t('edit-group:cancel') }}

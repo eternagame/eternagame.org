@@ -1,14 +1,14 @@
 <template>
-  <div class="d-flex">
+  <div class="d-flex flex-wrap">
     <a
       :href="`${BASE_URL_PREFIX}/certificate/${user.uid}`"
       v-if="isCurrentUser || isPublicCertificate"
     >
       Certificate
     </a>
-    <img src="@/assets/dollar.svg" alt="points" class="icon ml-4" /> {{ user.points }}
-    <img src="@/assets/test-tube.svg" alt="synthesized designs" class="icon ml-4" /> {{ user.synthesized_count }}
-    <img src="@/assets/calendar.svg" alt="account created on" class="icon ml-4" /> {{ user.created }}
+    <div><img src="@/assets/dollar.svg" alt="points" class="icon ml-4" /> {{ user.points }}</div>
+    <div><img src="@/assets/test-tube.svg" alt="synthesized designs" class="icon ml-4" /> {{ user.synthesized_count }}</div>
+    <div><img src="@/assets/calendar.svg" alt="account created on" class="icon ml-4" /> {{ user.created }}</div>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <EternaPage :title="`${$t('edit-profile:title')} ${username}`">
     <notifications position="bottom center" width="50%"/>
-    <div class="page-content" v-if="fetchState.firstFetchComplete">
+    <div class="page-content" v-if="username">
       <EditPlayerHeader
         :loading="loading"
         @submit="submit"
@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Vue, Mixins, Watch } from 'vue-property-decorator';
   import axios from 'axios';
   import Notifications from 'vue-notification';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
@@ -119,6 +119,24 @@
       this.messagesNotify = user['Mail notification'] === 'on';
       this.newsNotify = user['News mail notification'] === 'on';
       this.publicCertificate = user['Certificate public'] === 'on';
+    }
+
+    async mounted() {
+      // TODO: Handle SSR? We're currently overriding the mounted hook...
+      if (!this.$vxm.user.loggedIn) {
+        this.$bvModal.show('modal-login');
+      }
+    }
+
+    @Watch('$vxm.user.userDetailsLoaded')
+    loggedIn() {
+      if (this.$vxm.user.userDetailsLoaded) {
+        // We weren't logged in when we hit the page, so we have to fetch now
+        this.$fetch();
+      } else {
+        // We're logged out, so it doesn't make sense to stay on this page
+        this.$router.push('/');
+      }
     }
 
     get picture() {

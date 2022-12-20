@@ -13,6 +13,9 @@
         <b-button variant="primary" class="enter-lab" size="lg" :to="`/labs/${nid}`">
           {{ $t('home-banner:enter') }}
         </b-button>
+        <b-button v-if="nid === '11311397'" variant="primary" class="training-button" size="lg" :to="`/collections/11366215`">
+          Lab Training
+        </b-button>
       </div>
       <div class="banner-status">
         <div class="countdown" v-if="project_closes">
@@ -224,5 +227,9 @@
   :deep(.flip-clock__slot) {
     font-size: .6rem !important;
     font-weight: bold;
+  }
+
+  .training-button {
+    margin-left: 1rem;
   }
 </style>

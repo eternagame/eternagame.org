@@ -65,6 +65,7 @@
     puzzle_type: string;
     single: string;
     notcleared: string;
+    cleared: string;
     sort: string;
     search: string;
     size: string;
@@ -96,14 +97,17 @@
         return 'Challenge';
       };
       const { filters, sort, search, size } = this.$route.query;
+      // Vue types filters as string | (string | null)[], but it's really string | (string | null)[] | undefined
+      const filtersArr = (typeof filters === 'string' ? filters.split(',') : filters) || [];
       const params = {
         puzzle_type: getPuzzleType(
-          Boolean(filters && filters.includes('challenge')),
-          Boolean(filters && filters.includes('player')),
+          Boolean(filtersArr.includes('challenge')),
+          Boolean(filtersArr.includes('player')),
         ),
-        single: filters && filters.includes('single') && 'checked',
-        notcleared: filters && filters.includes('notcleared') && 'true',
-        '3d': filters && filters.includes('3d') && 'true',
+        single: filtersArr.includes('single') && 'checked',
+        notcleared: filtersArr.includes('notcleared') && 'true',
+        cleared: filtersArr.includes('cleared') && 'true',
+        '3d': filtersArr.includes('3d') && 'true',
         sort: sort || INITIAL_SORT,
         size: size || INITIAL_NUMBER,
         search,
@@ -142,6 +146,7 @@
       // { value: 'rnassd', text: 'RNAssd' },
       // { value: 'inforna', text: 'Inforna' },
       // { value: 'switch', text: 'Switch' },
+      { value: 'cleared', text: 'Cleared' },
       { value: 'notcleared', text: 'Uncleared' },
       { value: '3d', text: '3D' },
     ];

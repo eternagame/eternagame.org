@@ -77,6 +77,11 @@ export default function createRouter() {
         component: () => import('./views/about/About.vue'),
       },
       {
+        path: '/epa',
+        name: 'epa',
+        component: () => import('./views/epa/EPA.vue'),
+      },
+      {
         path: '/history',
         name: 'history',
         component: () => import('./views/history/History.vue'),
@@ -200,6 +205,16 @@ export default function createRouter() {
         name: 'about-eternacon',
         component: () => import('./views/eternacon/AboutEternacon.vue'),
       },
+      {
+        path: '/password-reset',
+        name: 'password-reset',
+        component: () => import('./views/password-reset/PasswordReset.vue'),
+      },
+      {
+        path: '/unsubscribe',
+        name: 'unsubscribe',
+        component: () => import('./views/unsubscribe/Unsubscribe.vue'),
+      },
       // Maintaining these old routes in case they're actively linked from anywhere
       // important - at some point we should audit if we can remove these, or we may need a
       // dedicated section of legacy routes anyways
@@ -226,13 +241,13 @@ export default function createRouter() {
       if (to.hash) {
         return { selector: to.hash };
       }
-      
+
       if(to.params.keepScroll) return null;
 
       return { x: 0, y: 0 };
     },
   });
-  
+
 
   router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {
     const userStore = router.app.$vxm.user;

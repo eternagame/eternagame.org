@@ -31,14 +31,47 @@
         <b-button
           type="submit"
           style="margin-left:10px"
-          variant="outline-secondary"
-          :to="`/groups`"
+          variant="secondary"
+          :to="`/groups/${this.$route.params.id}`"
         >
           {{ $t('edit-group:cancel') }}
         </b-button>
-        <b-button type="submit" style="margin-left:10px" variant="danger" @click="deleteGroup">
-          {{$t('edit-group:delete')}}
-        </b-button>
+                    <b-modal id="delete" title="Delete Group?" hide-footer>
+              <div class="d-block text-center">
+                Warning: This will permanently delete the group!
+                <br/>
+                <br/>
+                Enter the title of the group to continue:
+              </div>
+              <input v-model="deleteTitle"/>
+              <b-button
+                class="mt-3"
+                type="submit"
+                style="margin-left: 10px"
+                variant="danger"
+                :disabled="deleteTitle != name"
+                @click="deleteGroup()"
+              >
+                {{ 'Delete' }}
+              </b-button>
+              <b-button
+                class="mt-3"
+                type="submit"
+                style="margin-left: 10px"
+                variant="secondary"
+                @click="$bvModal.hide('delete')"
+              >
+                {{ 'Cancel' }}
+              </b-button>
+            </b-modal>
+            <b-button
+              type="submit"
+              style="margin-left: 10px"
+              variant="danger"
+              v-b-modal.delete
+            >
+              {{ 'Delete' }}
+            </b-button>
       </div>
     </div>
     <Preloader v-else />
@@ -76,11 +109,13 @@
   export default class CreateGroup extends Mixins(FetchMixin) {
     private name = "";
 
+    private deleteTitle = "";
+
     private nid: string = "";
 
     private body = "";
 
-    private is_private = "";
+    private is_private = false;
 
     private newBody: string | null = null;
 
@@ -95,7 +130,7 @@
       this.nid = group.nid;
       this.body = group.body;
       this.name = group.name;
-      this.is_private = group.is_private;
+      this.is_private = group.is_private === 'true';
       this.currentPicture = group.picture;
     }
 
@@ -135,7 +170,7 @@
         this.loading = false;
         const error = res?.data?.data?.error;
         if (error) throw new Error(error);
-        this.$router.push(`/groups/`);
+        this.$router.push(`/groups/${this.$route.params.id}`);
       } catch (e: any) {
         const r = this.$notify({
           type: 'error',

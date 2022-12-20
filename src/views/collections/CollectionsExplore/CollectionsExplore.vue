@@ -1,5 +1,5 @@
 <template>
-  <EternaPage    v-if="fetchState.firstFetchComplete && collections"
+  <EternaPage v-if="fetchState.firstFetchComplete && collections" :title="$t('nav-bar:collections')"
 >
       <h3 :style="{ fontSize: '16px', fontWeight: 'bold' }">
         {{ $t('collections-view:top-tip') }}
@@ -15,7 +15,6 @@
         :style="{
           fontSize: '16px',
           fontWeight: 'bold',
-          textTransform: 'uppercase',
         }"
       >
         {{ $t('collections-view:section3') }}
@@ -82,7 +81,7 @@
   import QuestCarousel from '@/views/collections/CollectionsExplore/QuestCarousel.vue';
   import DropdownSidebarPanel, {
     Option,
-  } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+    } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import {

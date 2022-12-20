@@ -237,6 +237,7 @@ export interface Group {
 }
 
 export interface GroupResponse {
+  group_pendings: UserData[];
   group: Group;
   comments: CommentItem[];
   total_num_comments: number;

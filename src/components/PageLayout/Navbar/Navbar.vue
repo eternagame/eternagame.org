@@ -84,6 +84,7 @@
         wiki: 'http://eternawiki.org',
         groups: `/groups`,
         'code-of-conduct': '/conduct',
+        epa: `/epa`,
       },
       news: '/news',
       about: {

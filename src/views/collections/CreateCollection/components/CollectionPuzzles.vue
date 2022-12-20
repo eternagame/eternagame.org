@@ -17,39 +17,39 @@
       :serializer="(puzzle) => puzzle.title"
     >
       <template slot="suggestion" slot-scope="{ data, htmlText }">
-        <div class="d-flex align-items-center">
-          <b-row>
-            <b-col>
-              <div class="left-col">
-                <img
-                  class="rounded-circle"
-                  :src="getImage(data.id)"
-                  alt=""
-                  style="width: 40px; height: 40px; margin-right: 10px"
-                />
-                <span v-dompurify-html="htmlText" style="color: white"></span>
-                by {{ data.username }}
-              </div>
-            </b-col>
-            <b-col>
-              <div class="right-col">
-                <button
-                  type="button"
-                  class="btn secondary"
-                  @click="addPuzzle(data.id)"
-                >
-                  {{ $t('create-collection:puzzle-info:secondary-action') }}
-                </button>
-                <button
-                  type="button"
-                  class="btn secondary"
-                  @click="viewPuzzle(data.id)"
-                >
-                  View Puzzle
-                </button>
-              </div>
-            </b-col>
-          </b-row>
+        <div class="d-flex align-items-center" :key="renderKey">
+          <div class="d-flex justify-content-between w-100" style="flex-wrap: nowrap">
+            <div class="left-col">
+              <img
+                class="rounded-circle"
+                :src="getImage(data.id)"
+                style="width: 40px; height: 40px; margin-right: 10px"
+              />
+              <span v-dompurify-html="htmlText" style="color: white; margin-right: 3px;"></span>
+              by {{ data.username }}
+            </div>
+            <div class="right-col">
+              <!--
+                Why add the vbst-item class? So the blur handler for the typeahead text input
+                doesn't close the list before we fire our event handler. For some reason, this is only
+                an issue on Chrome but not Firefox
+              -->
+              <button
+                type="button"
+                class="vbst-item btn secondary"
+                @click="addPuzzle(data.id)"
+              >
+                {{ $t('create-collection:puzzle-info:secondary-action') }}
+              </button>
+              <button
+                type="button"
+                class="vbst-item btn secondary ml-2"
+                @click="viewPuzzle(data.id)"
+              >
+                View Puzzle
+              </button>
+            </div>
+          </div>
         </div>
       </template>
     </vue-bootstrap-typeahead>
@@ -63,24 +63,22 @@
     <draggable
       v-model="puzzlelist"
       group="people"
-      @start="drag = true"
-      @end="drag = false"
       @input="$emit('update:puzzles', puzzlelist)"
     >
       <transition-group>
         <div v-for="element in puzzlelist" :key="element.id">
           <div class="card flex">
-            <div class="row">
-              <div class="col-md-8">
+            <div class="row m-2 justify-content-between">
+              <div class="align-self-center p-0">
                 <img
                   class="rounded-circle"
                   :src="getImage(element.id)"
                   alt=""
-                  style="width: 5%; margin: auto"
+                  style="width: 40px; max-height: 36px; margin: 0 15px 0 5px;"
                 />
                 <b>{{ element.title }}</b> by {{ element.username }}
               </div>
-              <div class="col-md-2">
+              <div class="align-self-center p-0">
                 <button
                   type="button"
                   class="btn secondary"
@@ -101,14 +99,13 @@
   import {
     Component,
     Vue,
-    Mixins,
     Prop,
     Ref,
     Watch,
   } from 'vue-property-decorator';
   import draggable from 'vuedraggable';
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
-  import { CollectionItem, PuzzleItem } from '@/types/common-types';
+  import { PuzzleItem } from '@/types/common-types';
   import axios from 'axios';
   import { debounce } from 'lodash';
   import Utils from '@/utils/utils';
@@ -120,19 +117,21 @@
     },
   })
   export default class CollectionPuzzles extends Vue {
-    private puzzlenames: PuzzleItem[] = [];
+    @Prop({required: true}) puzzlelist!: PuzzleItem[];
 
-    @Prop() puzzlelist: PuzzleItem[] = [];
+    private puzzlenames: PuzzleItem[] = [];
 
     private targetName = '';
 
     private idInput: String = '';
 
+    private renderKey: number = 0;
+
     fetchData: () => Promise<void> | undefined = async () => {};
 
     async dofetchData() {
       const res = await axios.get(
-        `/get/?type=puzzles&puzzle_type=All&size=10${
+        `/get/?type=puzzles&puzzle_type=AllChallengesPuzzle&sort=date&size=10${
           this.targetName ? `&search=${this.targetName}` : ''
         }`,
       );
@@ -143,7 +142,7 @@
       this.fetchData = debounce(this.dofetchData, 200);
     }
 
-    @Ref('typeahead') readonly typeahead!: { inputValue: string };
+    @Ref('typeahead') readonly typeahead!: Vue & { inputValue: string };
 
     mounted() {
       if (this.$route.query.message) {
@@ -158,15 +157,16 @@
     }
 
     async addPuzzle(nid: String) {
-      this.puzzlelist.push(
-        (await (
-          await axios.get(`/get/?type=puzzle&nid=${nid}`)
-        ).data.data.puzzle) as PuzzleItem,
-      );
+      console.log('adding', nid);
+      const puzzle = (await axios.get(`/get/?type=puzzle&nid=${nid}`)).data.data.puzzle as PuzzleItem;
+      this.$emit('update:puzzles', [
+        ...this.puzzlelist,
+        puzzle,
+      ]);
     }
 
     removePuzzle(puzzle: PuzzleItem) {
-      this.puzzlelist.splice(this.puzzlelist.indexOf(puzzle), 1);
+      this.$emit('update:puzzles', this.puzzlelist.filter(puz => puz !== puzzle));
     }
 
     @Ref('fileUpload') private fileUpload!: HTMLInputElement;
@@ -185,6 +185,10 @@
 
 <style lang="scss" scoped>
 @import '@/styles/global.scss';
+
+::v-deep .vbst-item.active {
+  background-color: rgb(33, 80, 140);
+}
 
 h2 {
   font-size: 24px;
@@ -214,7 +218,6 @@ input {
   width: 124px;
   border-radius: 5px;
   color: white;
-  margin-top: 9px;
 }
 
 .save {
@@ -250,7 +253,12 @@ input {
   }
 }
 
+.left-col {
+  flex-wrap: wrap;
+}
+
 .right-col {
   justify-content: flex-end;
+  margin-left: 5px;
 }
 </style>

@@ -151,8 +151,8 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
-  import { BModal, BIconChevronLeft, BIconChevronRight } from 'bootstrap-vue';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { BIconChevronLeft, BIconChevronRight } from 'bootstrap-vue';
   import axios from 'axios';
   import VersionCard from './VersionCard.vue';
 
@@ -251,7 +251,7 @@
 <style scoped lang="scss">
   @import '@/styles/_variables.scss';
 
-  ::v-deep .modal-title {
+  :deep(.modal-title) {
     text-transform: uppercase;
   }
 
@@ -260,7 +260,7 @@
     font-weight: bold;
   }
 
-  ::v-deep .modal-dialog {
+  :deep(.modal-dialog) {
     max-width: 675px;
     width: 100%;
   }
@@ -289,7 +289,7 @@
     opacity: 0;
   }
 
-  ::v-deep .modal-header {
+  :deep(.modal-header) {
     -webkit-backdrop-filter: blur(28.125px);
     backdrop-filter: blur(28.125px);
     background-color: #4a90e2;

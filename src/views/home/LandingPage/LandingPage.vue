@@ -81,9 +81,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Vue } from 'vue-property-decorator';
   import DocsSection from './components/DocsSection.vue';
   import HeroSection from './components/HeroSection.vue';
 

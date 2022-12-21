@@ -1,7 +1,7 @@
 <template>
   <NavbarIcon>
     <template #icon>
-      <img src="@/assets/navbar/DefaultIcon.svg" />
+      <img src="@/assets/navbar/DefaultIcon.svg" alt="User" />
       <span class="mx-2">{{ username }}</span>
     </template>
     <template #text> </template>
@@ -20,8 +20,7 @@
   </NavbarIcon>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
+  import { Component, Vue } from 'vue-property-decorator';
   import NavbarIcon from './NavbarIcon.vue';
 
   @Component({
@@ -41,11 +40,11 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep .dropdown .nav-link {
+  :deep(.dropdown .nav-link) {
     background-color: $dark-blue;
   }
 
-  ::v-deep a.dropdown-item {
+  :deep(a.dropdown-item) {
     text-transform: uppercase;
   }
 </style>

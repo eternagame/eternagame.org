@@ -190,13 +190,12 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Watch } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance, AxiosResponse } from 'axios';
+  import { Component, Mixins, Watch } from 'vue-property-decorator';
+  import { AxiosResponse } from 'axios';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel, {
     Option,
-    } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
   import {
@@ -204,17 +203,14 @@
     UserResponse,
     FollowItem,
     LatestPuzzle,
-    ClearedPuzzle,
     CreatedPuzzle,
     SynthesizedDesign,
     ProfileAchievement,
-    ProfileGroup,
     PuzzleList,
     PuzzleItem,
     GroupList,
     GroupItem,
   } from '@/types/common-types';
-  import { isArray, isMap, isObject } from 'lodash';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import GroupCard from '@/components/Cards/GroupCard.vue';
@@ -298,7 +294,7 @@
           this.$route.query.size = INITIAL_NUMBER.toString();
           TAB_TYPE = tab_type;
         }
-        const { filters, sort, search, size } = this.$route.query;
+        const { sort, search, size } = this.$route.query;
         const params = {
           puzzle_type: 'AllChallengesPuzzle',
           cleared: 'true',
@@ -319,7 +315,7 @@
           this.$route.query.size = INITIAL_NUMBER.toString();
           TAB_TYPE = tab_type;
         }
-        const { filters, sort, search, size } = this.$route.query;
+        const { sort, search, size } = this.$route.query;
         const params = {
           puzzle_type: 'AllChallengesPuzzle',
           creator_uid: this.$route.params.uid,
@@ -340,7 +336,7 @@
           this.$route.query.size = INITIAL_NUMBER.toString();
           TAB_TYPE = tab_type;
         }
-        const { filters, sort, search, size } = this.$route.query;
+        const { sort, search, size } = this.$route.query;
         const params = {
           puzzle_type: 'AllChallengesPuzzle',
           latest: 'true',
@@ -361,7 +357,7 @@
           this.$route.query.size = INITIAL_NUMBER.toString();
           TAB_TYPE = tab_type;
         }
-        const { filters, sort, search, size } = this.$route.query;
+        const { sort, search, size } = this.$route.query;
         const params = {
           sort: sort || INITIAL_SORT,
           size: size || INITIAL_NUMBER,

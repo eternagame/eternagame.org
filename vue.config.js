@@ -19,14 +19,11 @@ module.exports = {
         secure: false,
         changeOrigin: true,
         cookieDomainRewrite: 'localhost',
+        ws: false
       },
     },
   },
   chainWebpack: (config) => {
-    const svgRule = config.module.rule('svg');
-    svgRule.uses.clear();
-    svgRule.use('url-loader').loader('url-loader');
-
     // Treat urls passed to headerIcon as imports
     config
       .module

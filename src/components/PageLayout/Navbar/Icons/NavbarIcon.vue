@@ -17,7 +17,7 @@
         </span>
       </div>
     </template>
-    <!-- The default scope slot has the ability to hide the dropdown: 
+    <!-- The default scope slot has the ability to hide the dropdown:
     https://bootstrap-vue.org/docs/components/nav#comp-ref-b-nav-item-dropdown-slots -->
     <template v-slot="hideDropdown">
       <slot :hide-dropdown="hideDropdown"></slot>
@@ -25,7 +25,7 @@
   </b-nav-dropdown>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Vue } from 'vue-property-decorator';
 
   @Component({
     components: {},
@@ -35,13 +35,13 @@
 </script>
 
 <style lang="scss" scoped>
-  ::v-deep .nav-link.dropdown-toggle {
+  :deep(.nav-link.dropdown-toggle) {
     padding-left: 10px !important;
     padding-right: 10px !important;
     border-radius: 0.5rem 0.5rem 0 0;
   }
 
-  ::v-deep .dropdown-toggle:focus {
+  :deep(.dropdown-toggle:focus) {
     border-radius: 0.5rem;
   }
 </style>

@@ -54,11 +54,11 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep .carousel-caption {
+  :deep(.carousel-caption) {
     text-align: left;
   }
 
-  ::v-deep img {
+  :deep(img) {
     min-height: 500px;
     object-fit: contain;
     // padding: 50px;

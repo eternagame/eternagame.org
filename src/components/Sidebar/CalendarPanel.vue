@@ -11,7 +11,7 @@
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
   import { DateItem } from '@/types/common-types';
-  
+
   // @ts-ignore
 
   Vue.use(VCalendar, {
@@ -54,7 +54,7 @@
     }
 
     @Watch('dates')
-    onSearch(event: KeyboardEvent) {
+    onSearch() {
       const { start, end } = this.dates;
       if (start && end)
         this.$router.replace({
@@ -70,12 +70,12 @@
 </script>
 
 <style scoped lang="scss">
-  ::v-deep .vc-container {
+  :deep(.vc-container) {
     background-color: transparent;
     border: 0px;
   }
 
-  ::v-deep .vc-weekday {
+  :deep(.vc-weekday) {
     color: gray;
   }
 </style>

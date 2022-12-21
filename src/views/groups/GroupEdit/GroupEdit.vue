@@ -83,9 +83,9 @@
   import axios from 'axios';
   import Notifications from 'vue-notification';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import DropdownSidebarPanel from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import { Group, GroupResponse } from '@/types/common-types';
+  import { Group } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import Utils from "@/utils/utils";
   import EditGroupHeader from './components/EditGroupHeader.vue';
@@ -145,10 +145,9 @@
       this.$http.post('/post/', new URLSearchParams({
         type: 'delete_group',
         nid: this.nid,
-      }))
-        .then(res => {
-          this.$router.push({path: `/groups`});
-        });
+      })).then(() => {
+        this.$router.push({path: `/groups`});
+      });
     }
 
     async submit() {
@@ -172,7 +171,7 @@
         if (error) throw new Error(error);
         this.$router.push(`/groups/${this.$route.params.id}`);
       } catch (e: any) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,

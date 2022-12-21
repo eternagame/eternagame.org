@@ -19,7 +19,7 @@
       <div class="custom-input-group">
         <b-input :placeholder="$t('register-modal:username')" v-model="form.username" required />
         <span class="input-group-append">
-          <img src="@/assets/front-page/img/user.svg" />
+          <img src="@/assets/front-page/img/user.svg" alt="user" />
         </span>
       </div>
       <b-input
@@ -36,7 +36,7 @@
           required
         />
         <span class="input-group-append">
-          <img src="@/assets/front-page/img/lock.svg" />
+          <img src="@/assets/front-page/img/lock.svg" alt="lock" />
         </span>
       </div>
 
@@ -50,7 +50,7 @@
           :state="form.password === form.rePassword"
         />
         <span class="input-group-append">
-          <img src="@/assets/front-page/img/lock.svg" />
+          <img src="@/assets/front-page/img/lock.svg" alt="lock" />
         </span>
       </div>
 
@@ -84,7 +84,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
 
@@ -117,7 +117,7 @@
 
     @Ref() readonly rePassword!: BFormInput;
 
-    async tryRegister(event: Event) {
+    async tryRegister() {
       this.errorMessage = '';
       if (!this.accepted) {
         this.errorMessage = 'register-modal:error-accept-terms';
@@ -198,7 +198,7 @@
   .fade-leave-to {
     opacity: 0;
   }
-  ::v-deep .modal-header {
+  :deep(.modal-header) {
     -webkit-backdrop-filter: blur(28.125px);
     backdrop-filter: blur(28.125px);
     background-color: #4a90e2;
@@ -223,7 +223,7 @@
     }
   }
 
-  ::v-deep .modal-dialog {
+  :deep(.modal-dialog) {
     max-width: 400px;
     width: 100%;
     height: 100%;

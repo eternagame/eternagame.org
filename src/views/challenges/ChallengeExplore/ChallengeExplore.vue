@@ -1,7 +1,7 @@
 <template>
   <EternaPage :title="$t('challenge-explore:title')">
 
-    <ChallengeCard v-for="challenge in challenges" :key="challenge.nid" :challenge="challenge"/> 
+    <ChallengeCard v-for="challenge in challenges" :key="challenge.nid" :challenge="challenge"/>
     <template #sidebar="{ isInSidebar }">
 
       <DropdownSidebarPanel
@@ -16,16 +16,14 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Mixins } from 'vue-property-decorator';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
-  import { NewsItem, BlogItem, ChallengeItem } from '@/types/common-types';
+  import { ChallengeItem } from '@/types/common-types';
   import ChallengeCard from './ChallengeCard.vue';
 
 
@@ -45,7 +43,7 @@
       { value: 'all', text: 'side-panel-options:all' },
       { value: 'active', text: 'challenge-explore:active'},
       { value: 'inactive', text: 'challenge-explore:inactive'},
-      
+
     ];
 
     challenges: ChallengeItem[]= [];
@@ -59,7 +57,7 @@
       ).data.data.challenges as ChallengeItem[];
 
       switch(sort){
-        
+
       case 'active':
         this.challenges = res.filter( entry => entry.challenge_status === "Active");
         break;
@@ -71,7 +69,7 @@
         this.challenges = res;
       }
     }
-    
+
   }
 </script>
 

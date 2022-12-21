@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
   import SmartLink from '../Common/SmartLink.vue';

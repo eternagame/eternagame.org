@@ -15,7 +15,10 @@
             v-if="loggedIn"
             src="@/assets/navbar/Toggler.svg"
             @click.stop="showSidebar = true"
+            @keypress.enter="showSidebar = true"
+            @keypress.space="showSidebar = true"
             class="toggler d-inline-block d-lg-none "
+            alt="Open menu"
           />
         </div>
         <MobileSidebar :show.sync="showSidebar">
@@ -26,7 +29,7 @@
   </b-navbar>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Ref } from 'vue-property-decorator';
   import NavbarIcons from './Icons/NavbarIcons.vue';
   import NavbarCollapseContent from './NavbarMenu/NavbarCollapseContent.vue';
   import EternaLogo from './EternaLogo.vue';
@@ -112,11 +115,11 @@
     height: 120px;
   }
 
-  ::v-deep * {
+  :deep(*) {
     font-size: 13.125px;
   }
 
-  ::v-deep .navbar-nav {
+  :deep(.navbar-nav) {
     text-transform: uppercase;
   }
 

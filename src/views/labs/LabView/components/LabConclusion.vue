@@ -23,7 +23,6 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import defaultImage from '@/assets/ribosome_challenge_bg.png';
-  import { LabData } from '../types';
 
   const MAX_CHARS = 1000;
 

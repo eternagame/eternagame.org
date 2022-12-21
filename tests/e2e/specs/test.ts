@@ -2,7 +2,7 @@
 // http://nightwatchjs.org/guide#usage
 import { NightwatchBrowser } from 'nightwatch';
 
-module.exports = {
+export default {
   'default e2e tests': (browser: NightwatchBrowser) => {
     browser
       .url(process.env.VUE_DEV_SERVER_URL as string)

@@ -2,25 +2,25 @@
     <section class="row conference-areas">
         <div class="col-md-3 col-sm-6">
         <b-card>
-            <img src="~@/assets/about/icon_about_2.png" />
+            <img src="~@/assets/about/icon_about_2.png" alt="A microscope" />
             <p>Research</p>
         </b-card>
         </div>
         <div class="col-md-3 col-sm-6">
         <b-card>
-            <img src="~@/assets/about/icon_about_1.png" />
+            <img src="~@/assets/about/icon_about_1.png" alt="A computer screen with an RNA strand and a mouse cursor" />
             <p>Gameplay</p>
         </b-card>
         </div>
         <div class="col-md-3 col-sm-6">
         <b-card>
-            <img src="~@/assets/about/about-section-4-3.png" />
+            <img src="~@/assets/about/about-section-4-3.png" alt="The characters <, /, and > (indicating code)" />
             <p>Development</p>
         </b-card>
         </div>
         <div class="col-md-3 col-sm-6">
         <b-card>
-            <img src="~@/assets/about/about-community.svg" />
+            <img src="~@/assets/about/about-community.svg" alt="Three people" />
             <p>Community</p>
         </b-card>
         </div>

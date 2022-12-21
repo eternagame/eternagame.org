@@ -38,6 +38,7 @@
                 v-if="data.userpicture"
                 class="rounded-circle"
                 :src="`/${data.userpicture}`"
+                alt=""
                 style="width: 40px; height: 40px;margin-right:10px"
               />
 
@@ -62,10 +63,10 @@
   </div>
 </template>
 <script lang="ts">
-  import axios, { AxiosInstance } from 'axios';
+  import axios from 'axios';
   // @ts-ignore
   import debounce from 'lodash.debounce';
-  import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Prop, Watch, Ref } from 'vue-property-decorator';
   // @ts-ignore
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import EditField from '@/components/Common/EditField.vue';
@@ -190,11 +191,11 @@
     background-color: lighten($med-dark-blue, 10);
   }
 
-  ::v-deep .editor {
+  :deep(.editor) {
     background-color: rgba(1, 1, 1, 0.53);
   }
 
-  ::v-deep input {
+  :deep(input) {
     color: $white;
     background-color: rgba(1, 1, 1, 0.53);
   }

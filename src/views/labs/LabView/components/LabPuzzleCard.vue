@@ -13,7 +13,7 @@
     :is3d="puzzle['has3d'] === '1'"
   >
     <div class="text-center image-container">
-      <img :src="imageURL" class="image" />
+      <img :src="imageURL" alt="" class="image" />
     </div>
     <template #buttons>
       <b-button :href="`${mainRoute}${puzzle.nid}/`" variant="primary" size="sm">{{
@@ -65,7 +65,7 @@
 </script>
 
 <style lang="scss" scoped>
-  ::v-deep .btn {
+  :deep(.btn) {
     display: inline-block;
     width: 48%;
     margin-bottom: 0px;

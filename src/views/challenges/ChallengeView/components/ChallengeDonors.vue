@@ -10,7 +10,7 @@
           :key="i"
           class="donor"
         >
-          <img :src="donor.image" />
+          <img :src="donor.image" :alt="donor.name"/>
         </div>
       </div>
     </div>

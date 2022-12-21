@@ -12,6 +12,7 @@ export default class Gallery extends Vue {
 
   @Prop() readonly sm?: string;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public render(h: CreateElement) {
     const { md, sm } = this;
     return (

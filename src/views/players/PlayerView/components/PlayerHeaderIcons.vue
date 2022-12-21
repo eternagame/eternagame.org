@@ -6,14 +6,14 @@
     >
       Certificate
     </a>
-    <div><img src="@/assets/dollar.svg" class="icon ml-4" /> {{ user.points }}</div>
-    <div><img src="@/assets/test-tube.svg" class="icon ml-4" /> {{ user.synthesized_count }}</div>
-    <div><img src="@/assets/calendar.svg" class="icon ml-4" /> {{ user.created }}</div>
+    <div><img src="@/assets/dollar.svg" alt="points" class="icon ml-4" /> {{ user.points }}</div>
+    <div><img src="@/assets/test-tube.svg" alt="synthesized designs" class="icon ml-4" /> {{ user.synthesized_count }}</div>
+    <div><img src="@/assets/calendar.svg" alt="account created on" class="icon ml-4" /> {{ user.created }}</div>
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   import { UserData } from '@/types/common-types';
 
   @Component({})

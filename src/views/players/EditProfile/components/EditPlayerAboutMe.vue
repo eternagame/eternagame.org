@@ -9,6 +9,7 @@
           style="color:#fff"
           type="text"
           :placeholder="$t('edit-profile:personal-name')"
+          :aria-label="$t('edit-profile:personal-name')"
           :value="personalName"
           @input="e => $emit('update:personalName', e.target.value)"
         />

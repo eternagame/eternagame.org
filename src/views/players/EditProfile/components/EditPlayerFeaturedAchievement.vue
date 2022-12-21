@@ -2,7 +2,8 @@
   <div class="d-none d-sm-block" v-if="featuredAchievementURL">
     <b class="d-flex justify-content-center">{{ $t('player-view:featured-achievement') }}</b>
     <div class="d-flex justify-content-center" style="margin-top:15px">
-      <img :src="featuredAchievementURL" />
+      <!-- TODO: If we actually support featured achievement, the alt should be the achievement name -->
+      <img alt="featured achievement" :src="featuredAchievementURL" />
     </div>
     <div class="d-flex justify-content-center" style="margin-top:23px">
       <b-button type="submit" variant="secondary">{{

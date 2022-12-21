@@ -1,7 +1,7 @@
 import i18n, { LANGUAGE_KEY_NAME, DEFAULT_LANGUAGE } from '@/plugins/i18n';
 import createApp from './app';
 
-export default async function (context: any) {
+export default async function run(context: any) {
   context.BASE_URL = process.env.BASE_URL;
 
   const { app, router, store } = createApp();
@@ -15,7 +15,7 @@ export default async function (context: any) {
   router.push(context.url);
 
   // Wait until router has resolved possible async components and hooks
-  await new Promise((resolve, reject) => router.onReady(resolve, reject));
+  await new Promise<void>((resolve, reject) => { router.onReady(resolve, reject); });
 
   const matchedComponents = router.getMatchedComponents();
   // no matched routes, reject with 404

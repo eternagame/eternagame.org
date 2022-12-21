@@ -6,8 +6,8 @@
       <div class="d-flex flex-wrap justify-content-between" xs="12" sm="8">
         <div style="text-align: center" class="order-sm-2 image-col">
           <div class="group-image">
-            <img v-if="group.picture" :src="group.picture" />
-            <img v-if="!group.picture" src="@/assets/group.svg" />
+            <img alt="" v-if="group.picture" :src="group.picture" />
+            <img alt="" v-if="!group.picture" src="@/assets/group.svg" />
           </div>
         </div>
 
@@ -29,7 +29,7 @@
             Admins:
             <ul>
               <li v-for="player in admins" :key="player.name">
-                <img :src="`../${player.picture}`" class="icon" />
+                <img alt="" :src="`../${player.picture}`" class="icon" />
                 <router-link :to="`/players/${player.uid}/`">
                   {{ player.name }}
                 </router-link>
@@ -40,7 +40,7 @@
             Members:
             <ul>
               <li v-for="player in members" :key="player.name">
-                <img :src="`../${player.picture}`" class="icon" />
+                <img alt="" :src="`../${player.picture}`" class="icon" />
                 <router-link :to="`/players/${player.uid}/`">
                   {{ player.name }}
                 </router-link>
@@ -71,7 +71,7 @@
             Pending Members:
             <ul>
               <li v-for="player in pendings" :key="player.name">
-                <img :src="`../${player.picture}`" class="icon" />
+                <img :src="`../${player.picture}`" class="icon" alt="" />
                 <router-link :to="`/players/${player.uid}/`">
                   {{ player.name }}
                 </router-link>
@@ -108,24 +108,24 @@
         headerIcon="@/assets/info.svg"
       >
         <template #header-icon>
-          <img src="@/assets/info.svg" />
+          <img src="@/assets/info.svg" alt="info" />
         </template>
         <ul style="padding: 0; list-style-type: none" v-if="group">
           <li>
-            <img :src="`../${group.founder_picture}`" class="icon" />{{
+            <img :src="`../${group.founder_picture}`" alt="founder" class="icon" />{{
               group.founder_name
             }}
           </li>
           <li>
-            <img src="@/assets/dollar.svg" class="icon" />{{ group.score }}
+            <img src="@/assets/dollar.svg" class="icon" alt="total points"/>{{ group.score }}
           </li>
           <li>
-            <img src="@/assets/people.svg" class="icon" />{{
+            <img src="@/assets/people.svg" class="icon" alt="number of members"/>{{
               group.num_members
             }}
           </li>
           <li>
-            <img src="@/assets/calendar.svg" class="icon" />{{ group.created }}
+            <img src="@/assets/calendar.svg" class="icon" alt="created on"/>{{ group.created }}
           </li>
           <li></li>
           <div v-if="editRights">
@@ -200,9 +200,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Mixins } from 'vue-property-decorator';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
@@ -298,7 +296,7 @@
         const resData = res?.data?.data;
         if (resData?.error) this.$notify({ text: resData.error });
       } catch (e: any) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,
@@ -320,7 +318,7 @@
         const resData = res?.data?.data;
         if (resData?.error) this.$notify({ text: resData.error });
       } catch (e: any) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,
@@ -350,7 +348,7 @@
           this.subscribed = true;
         if (resData?.error) this.$notify({ text: resData.error });
       } catch (e: any) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,
@@ -377,7 +375,7 @@
           this.following = true;
         if (resData?.error) this.$notify({ text: resData.error });
       } catch (e: any) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,

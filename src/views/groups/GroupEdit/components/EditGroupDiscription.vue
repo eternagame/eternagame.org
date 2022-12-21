@@ -9,6 +9,7 @@
           style="color:#fff"
           type="text"
           :placeholder="$t('edit-group:group-name')"
+          :aria-label="$t('edit-group:group-name')"
           :value="personalName"
           @input="e => $emit('update:personalName', e.target.value)"
         />

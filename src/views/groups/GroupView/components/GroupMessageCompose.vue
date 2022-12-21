@@ -15,8 +15,8 @@
   </div>
 </template>
 <script lang="ts">
-  import axios, { AxiosInstance } from 'axios';
-  import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
+  import axios from 'axios';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
 
   @Component({ components: { EditField } })
@@ -86,11 +86,11 @@
     background-color: lighten($med-dark-blue, 10);
   }
 
-  ::v-deep .editor {
+  :deep(.editor) {
     background-color: rgba(1, 1, 1, 0.53);
   }
 
-  ::v-deep input {
+  :deep(input) {
     color: $white;
     background-color: rgba(1, 1, 1, 0.53);
   }

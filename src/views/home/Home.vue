@@ -4,9 +4,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Vue } from 'vue-property-decorator';
   import PlayerHome from './PlayerHome/PlayerHome.vue';
   import LandingPage from './LandingPage/LandingPage.vue';
 

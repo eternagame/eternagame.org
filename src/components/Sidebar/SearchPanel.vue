@@ -3,25 +3,24 @@
     <input
       type="text"
       :placeholder="placeholder || $t('search:search')"
+      :aria-label="placeholder || $t('search:search')"
       class="local-search"
       :value="searchValue"
       @input="onSearch"
     />
     <span>
-      <img src="@/assets/sidebar/search.svg" />
+      <img src="@/assets/sidebar/search.svg" alt="search" />
     </span>
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
   import debounce from 'lodash.debounce';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
   // @ts-ignore
-
-  import icon from '@/assets/Filter.svg';
 
   @Component({
     components: {

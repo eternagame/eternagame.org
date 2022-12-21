@@ -3,7 +3,7 @@
     <div ref="mobileSidebar" class="mobile-sidebar  d-lg-none" v-show="isOpen">
       <div class="d-flex justify-content-end">
         <button class="btn p-0" @click="isOpen = false">
-          <img src="@/assets/sidebar/Cross.svg" class="cross-icon" />
+          <img src="@/assets/sidebar/Cross.svg" class="cross-icon" alt="close" />
         </button>
       </div>
       <slot></slot>
@@ -61,7 +61,7 @@
     padding: 15px 22.5px;
     z-index: 2000;
   }
-  .mobile-sidebar > ::v-deep * {
+  .mobile-sidebar > :deep(*) {
     margin-bottom: 20px;
   }
   .slide-enter-active,

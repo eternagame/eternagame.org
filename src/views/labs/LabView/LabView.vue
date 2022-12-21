@@ -73,7 +73,7 @@
         const challengeResults = (
           await this.$http.get(`/get/?type=challenge&nid=${res.lab.challenge}`)
         ).data.data.challenge as ChallengeData;
-        
+
         this.challenge = {...challengeResults};
       }
 
@@ -101,11 +101,11 @@
 </script>
 
 <style scoped lang="scss">
-  ::v-deep .nav-link {
+  :deep(.nav-link) {
     background-color: #50b2dc;
     color: white;
   }
-  ::v-deep .nav-link.active {
+  :deep(.nav-link.active) {
     background-color: #041227 !important;
     border: 0px;
     color: white;
@@ -120,7 +120,7 @@
   .leaderboard-header{
     background-color: #103e85;
   }
-  ::v-deep .nav-tabs {
+  :deep(.nav-tabs) {
     color: white;
 
     border: 0px;

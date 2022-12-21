@@ -47,8 +47,6 @@
   import ChallengeUpdates from './components/ChallengeUpdates.vue';
   import ChallengeDonors from './components/ChallengeDonors.vue';
 
-  const INITIAL_NUMBER = 18;
-
   @Component({
     components: {
       EternaPage,
@@ -68,8 +66,8 @@
     async fetch() {
       const challengeResults = (
         await this.$http.get(`/get/?type=challenge&nid=${this.$route.params.id}`)
-      ).data.data.challenge as ChallengeData;  
-      
+      ).data.data.challenge as ChallengeData;
+
       this.challenge = {...challengeResults};
     }
 

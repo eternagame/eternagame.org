@@ -1,5 +1,3 @@
-import { CommentItem } from '@/types/common-types';
-
 export default interface HistoryData {
   num_player_publications: number;
   num_researcher_publications: number;

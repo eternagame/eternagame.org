@@ -17,7 +17,7 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import {GroupNotificationItem, GroupNotificationMessage, RegularGroupNotificationMessage, NotificationType } from '@/types/common-types';
+  import {GroupNotificationItem, GroupNotificationMessage, RegularGroupNotificationMessage } from '@/types/common-types';
   import Utils from '@/utils/utils';
   import MessageItem from './MessageItem.vue';
 

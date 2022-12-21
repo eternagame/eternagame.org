@@ -5,7 +5,7 @@
     role="button"
   >
     <td style="shrink">
-      <img class="player-image" :src="imageURL" />
+      <img class="player-image" :src="imageURL" alt="" />
     </td>
     <td>
       <div class="player-name">

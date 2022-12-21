@@ -30,6 +30,7 @@
         style="color:#fff"
         type="password"
         :placeholder="$t('edit-profile:current-password')"
+        :aria-label="$t('edit-profile:current-password')"
         v-model="currentPassword"
       />
       <div class="flex" style="margin-top:20px">
@@ -56,7 +57,7 @@
   import axios from 'axios';
   import Notifications from 'vue-notification';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import DropdownSidebarPanel from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { UserData } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
@@ -174,7 +175,7 @@
         if (error) throw new Error(error);
         this.$router.push(`/players/${this.$vxm.user.uid}`);
       } catch (e: any) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,

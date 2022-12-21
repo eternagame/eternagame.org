@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref, Mixins } from 'vue-property-decorator';
+  import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
   import axios from 'axios';
   import TermsAndConditionsText from '@/views/terms/TermsAndConditionsText.vue';
@@ -83,7 +83,7 @@
     font-weight: bold;
   }
 
-  ::v-deep .modal-dialog {
+  :deep(.modal-dialog) {
     max-width: 675px;
     width: 100%;
   }
@@ -93,7 +93,7 @@
     overflow: auto;
   }
 
-  ::v-deep .modal-footer {
+  :deep(.modal-footer) {
     margin: 0 auto;
     text-align: center;
   }
@@ -116,7 +116,7 @@
     opacity: 0;
   }
 
-  ::v-deep .modal-header {
+  :deep(.modal-header) {
     -webkit-backdrop-filter: blur(28.125px);
     backdrop-filter: blur(28.125px);
     background-color: #4a90e2;

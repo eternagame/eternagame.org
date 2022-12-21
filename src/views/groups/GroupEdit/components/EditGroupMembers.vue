@@ -14,6 +14,7 @@
             <div class="d-flex align-items-center">
               <img
                 v-if="data.userpicture"
+                alt=""
                 class="rounded-circle"
                 :src="`/${data.userpicture}`"
                 style="width: 40px; height: 40px;margin-right:10px"
@@ -52,6 +53,7 @@
             <div class="d-flex align-items-center">
               <img
                 v-if="data.userpicture"
+                alt=""
                 class="rounded-circle"
                 :src="`/${data.userpicture}`"
                 style="width: 40px; height: 40px;margin-right:10px"
@@ -78,10 +80,10 @@
   </div>
 </template>
 <script lang="ts">
-  import axios, { AxiosInstance } from 'axios';
+  import axios from 'axios';
   // @ts-ignore
   import debounce from 'lodash.debounce';
-  import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Prop, Watch, Ref } from 'vue-property-decorator';
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import EditField from '@/components/Common/EditField.vue';
   // @ts-ignore
@@ -91,8 +93,6 @@
     @Prop() readonly parentNID?: number;
 
     @Prop() readonly uid?: number;
-
-    commentText: string = '';
 
     targetName = '';
 
@@ -131,11 +131,7 @@
       }
     }
 
-    setCommentText(text: string) {
-      this.commentText = text;
-    }
-
-    async postMemberInvite(targetUid: string, message: string) {
+    async postMemberInvite() {
       const params = {
         type: 'invite_member',
         group_nid: (this.parentNID? this.parentNID : 'null').toString(),
@@ -143,11 +139,11 @@
         target_names: this.targetName,
         body: `I'd like to invite you to our group.<br></br>Please come to <a transition='page' style='font-weight:bolder;font-size:13px;' href='/groups/${  (this.parentNID? this.parentNID : 'null').toString()  }/'>visit us.</a>`
       };
-    
+
       await axios.post('/post/', new URLSearchParams(params));
     }
 
-    async postAdminInvite(targetUid: string, message: string) {
+    async postAdminInvite() {
       const params = {
         type: 'add_admin',
         group_nid: (this.parentNID? this.parentNID : 'null').toString(),
@@ -162,8 +158,7 @@
     async inviteMember() {
       this.isSending = true;
       try {
-        const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
-        await this.postMemberInvite(targetUid, this.commentText);
+        await this.postMemberInvite();
       } catch (e) {
         // eslint-disable-next-line
         alert(`Error posting message.\n${e}`);
@@ -177,8 +172,7 @@
     async inviteAdmin() {
       this.isSendingAdmin = true;
       try {
-        const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
-        await this.postAdminInvite(targetUid, this.commentText);
+        await this.postAdminInvite();
       } catch (e) {
         // eslint-disable-next-line
         alert(`Error posting message.\n${e}`);
@@ -228,11 +222,11 @@
     background-color: lighten($med-dark-blue, 10);
   }
 
-  ::v-deep .editor {
+  :deep(.editor) {
     background-color: rgba(1, 1, 1, 0.53);
   }
 
-  ::v-deep input {
+  :deep(input) {
     color: $white;
     background-color: rgba(1, 1, 1, 0.53);
   }

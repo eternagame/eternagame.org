@@ -95,6 +95,7 @@
               >
                 <div class="challenge-video-wrapper">
                   <iframe
+                    :title="`Challenge video for ${challenge.title}`"
                     class="challenges__video"
                     :src="challenge.video"
                     frameborder="0"
@@ -489,8 +490,6 @@
     ];
 
     async fetch() {
-      const {sort} = this.$route.query;
-      
       const challenges = (
         await this.$http.get('/get/?type=challenges')
       ).data.data.challenges as ChallengeItem[];
@@ -508,7 +507,7 @@
         .sort((a, b) => b.timestamp - a.timestamp)
         .slice(0, 3);
     }
-    
+
     isExternal(link: string): boolean {
       return Utils.isExternal(link);
     }
@@ -554,7 +553,7 @@
     margin-top: -45px;
     margin-left: -22.5px;
     margin-right: -22.5px;
-    
+
     &__video {
       text-align: center;
       background-color: black;
@@ -574,7 +573,7 @@
     @media (max-width: $breakpoint-small) {
       padding: 50px 10px;
     }
-  
+
     &__row {
       display: flex;
       flex-direction: row;
@@ -614,7 +613,7 @@
         justify-content: center;
         animation: transitionIn 300ms linear;
       }
-      
+
       @media (max-width: $breakpoint-small) {
         padding-left: 0px;
         margin-top: 20px;
@@ -740,9 +739,9 @@
         }
     }
   }
-  
+
   .featured-publications {
- 
+
     &__title {
       font-size: 2.25rem;
       text-align: center;
@@ -928,8 +927,8 @@
       color: #F39C12;
       font-weight: bolder;
       margin: 2px auto;
-      
-      
+
+
       &-source {
         font-size: 0.875rem;
         text-align: center;

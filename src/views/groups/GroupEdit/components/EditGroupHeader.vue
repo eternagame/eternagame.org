@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditGroupHeaderImage from './EditGroupHeaderImage.vue';
   import EditGroupHeaderTopRow from './EditGroupHeaderTopRow.vue';
 

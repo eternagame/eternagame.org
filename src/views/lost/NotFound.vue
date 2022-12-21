@@ -8,7 +8,7 @@
       </div>
       <div class="d-flex flex-column align-items-center">
         <figure class="text-left mt-4 d-inline-block figure">
-          <img src="~@/assets/watblob.png" class="figure-img mw-100">
+          <img src="~@/assets/watblob.png" alt="" class="figure-img mw-100">
           <figcaption class="figure-caption mt-n4">Image by Ness</figcaption>
         </figure>
       </div>

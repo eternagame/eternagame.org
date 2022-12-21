@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Vue } from 'vue-property-decorator';
 
   // @ts-ignore
   import VFacebookLogin from 'vue-facebook-login-component';
@@ -53,7 +53,7 @@
     }
   }
 
-  ::v-deep .modal-header {
+  :deep(.modal-header) {
     -webkit-backdrop-filter: blur(28.125px);
     backdrop-filter: blur(28.125px);
     background-color: #4a90e2;
@@ -82,7 +82,7 @@
     }
   }
 
-  ::v-deep .modal-dialog {
+  :deep(.modal-dialog) {
     max-width: 375px;
     width: 100%;
     height: 100%;

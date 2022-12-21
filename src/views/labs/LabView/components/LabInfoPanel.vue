@@ -4,8 +4,8 @@
     :header="$t('lab-info:title')"
     headerIcon="@/assets/info.svg"
   >
-    <span class="gray-header">{{ $t('lab-info:admin') }}</span><br />
-    <img src="@/assets/navbar/DefaultIcon.svg" style="margin-right:5px" />
+    <span id="lab-admin" class="gray-header">{{ $t('lab-info:admin') }}</span><br />
+    <img src="@/assets/navbar/DefaultIcon.svg" :alt="$t('lab-info:admin')" style="margin-right:5px" />
     <span style="font-weight: bold; color: var(--yellow);">{{ lab.username }}</span>
     <br />
     <br />

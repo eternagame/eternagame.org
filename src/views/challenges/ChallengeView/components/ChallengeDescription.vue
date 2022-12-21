@@ -2,7 +2,7 @@
   <div>
     <div class="banner">
       <div class="banner-hero-image">
-        <img :src="coverImage" />
+        <img :src="coverImage" alt="" />
       </div>
       <div class="banner-details">
         <h3>
@@ -17,6 +17,7 @@
       <div :class="readMore? 'body expanded' : 'body'">
         <div class="challenge-body-video">
           <iframe
+            title="Challenge video"
             :src="video"
             frameborder="0"
             allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
@@ -105,7 +106,7 @@
       flex-basis: 200px;
       flex-grow: 0;
       flex-shrink: 0;
-      
+
       & > img {
         width: 200px;
       }

@@ -18,16 +18,16 @@
     </transition>
     <b-form @submit.prevent="login" class="login_modal_content" data-form-type="login">
       <div class="custom-input-group">
-        <b-input 
-          :placeholder="$t('login-modal:username')" 
-          v-model="form.username" 
-          required 
+        <b-input
+          :placeholder="$t('login-modal:username')"
+          v-model="form.username"
+          required
           name="username"
           autocomplete="username"
-          data-form-type="username" 
+          data-form-type="username"
         />
         <span class="input-group-append">
-          <img src="@/assets/front-page/img/user.svg" />
+          <img src="@/assets/front-page/img/user.svg" alt="user" />
         </span>
       </div>
       <div class="custom-input-group">
@@ -41,7 +41,7 @@
           data-form-type="password"
         />
         <span class="input-group-append">
-          <img src="@/assets/front-page/img/lock.svg" />
+          <img src="@/assets/front-page/img/lock.svg" alt="lock" />
         </span>
       </div>
 
@@ -62,6 +62,8 @@
         <span
           style="text-decoration:underline"
           @click="modal.hide()"
+          @keypress.enter="modal.hide()"
+          @keypress.space="modal.hide()"
           v-b-modal.modal-register
         >
           {{ $t('login-modal:register-action') }}
@@ -73,7 +75,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
   import FacebookAuthentication from './components/FacebookAuthentication.vue';
@@ -162,7 +164,7 @@
     }
   }
 
-  ::v-deep .modal-header {
+  :deep(.modal-header) {
     -webkit-backdrop-filter: blur(28.125px);
     backdrop-filter: blur(28.125px);
     background-color: #4a90e2;
@@ -191,7 +193,7 @@
     }
   }
 
-  ::v-deep .modal-dialog {
+  :deep(.modal-dialog) {
     max-width: 375px;
     width: 100%;
     height: 100%;

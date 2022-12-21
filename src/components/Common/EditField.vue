@@ -43,11 +43,11 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   // @ts-ignore
   import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
   import {
-    Heading, Bold, Underline, Image, HardBreak, OrderedList,
+    Heading, Bold, Underline, HardBreak, OrderedList,
     ListItem, Code, Italic, Link, Strike, BulletList, History, Placeholder
   // @ts-ignore
   } from 'tiptap-extensions';

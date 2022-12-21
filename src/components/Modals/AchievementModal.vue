@@ -18,7 +18,7 @@
 
 <script lang="ts">
   import { BModal } from 'bootstrap-vue';
-  import { Component, Prop, Vue, Ref, Watch } from 'vue-property-decorator';
+  import { Component, Vue, Ref, Watch } from 'vue-property-decorator';
   import { RefreshAchievement } from '@/types/common-types';
 
   @Component({})

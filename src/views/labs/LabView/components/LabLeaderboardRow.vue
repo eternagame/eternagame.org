@@ -42,7 +42,6 @@
   import {
     PUZZLE_ROUTE_PREFIX,
     PUZZLE_ROUTE_BROWSE_PREFIX,
-    PUZZLE_ROUTE_SOLUTIONS_PREFIX,
   } from '@/utils/constants';
 
   @Component({

@@ -151,8 +151,8 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
-  import { BModal, BIconChevronLeft, BIconChevronRight } from 'bootstrap-vue';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { BIconChevronLeft, BIconChevronRight } from 'bootstrap-vue';
   import axios from 'axios';
   import VersionCard from './VersionCard.vue';
 

@@ -1,5 +1,5 @@
 import {
-  shallowMount, mount, Wrapper,
+  shallowMount, Wrapper,
 } from '@vue/test-utils';
 import Vue from 'vue';
 import MobileSidebar from '@/components/PageLayout/MobileSidebar.vue';

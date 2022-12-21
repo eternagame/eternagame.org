@@ -54,7 +54,7 @@
     }
 
     @Watch('dates')
-    onSearch(event: KeyboardEvent) {
+    onSearch() {
       const { start, end } = this.dates;
       if (start && end)
         this.$router.replace({

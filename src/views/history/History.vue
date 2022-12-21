@@ -135,7 +135,7 @@
 <script lang="ts">
   import { Component, Mixins } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import DropdownSidebarPanel from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import FetchMixin from '@/mixins/FetchMixin';
   import HistoryInfoPanel from './components/HistoryInfoPanel.vue';
   import HistoryData from './types';

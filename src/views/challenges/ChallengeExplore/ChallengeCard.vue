@@ -26,10 +26,8 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import { Component, Prop, Mixins } from 'vue-property-decorator';
+  import DropdownSidebarPanel from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';

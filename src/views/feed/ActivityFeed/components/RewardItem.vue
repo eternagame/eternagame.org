@@ -25,8 +25,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import SmartLink from '@/components/Common/SmartLink.vue';
-  import Utils from '@/utils/utils';
-  import {RewardNotificationItem, NotificationType} from '@/types/common-types';
+  import {RewardNotificationItem} from '@/types/common-types';
   import { PUZZLE_ROUTE_BROWSE_PREFIX, PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import MessageThread from './MessageThread.vue';
 

@@ -64,7 +64,10 @@
         </div>
         <div class="col">
           <div class="row d-flex justify-content-center align-content-center">
-            <img src="https://eternagame.org/sites/default/files/pictures/picture-10246970.png" />
+            <img
+              src="https://eternagame.org/sites/default/files/pictures/picture-10246970.png"
+              alt="The Eterna Players Alliance logo, a gold bordered badge containing simplified human-like figures on a hill under a starry sky, with the text Eterna Players Alliance and the Eterna logo"
+            />
           </div>
           <br>
           <div class="row d-flex justify-content-center align-content-center">

@@ -4,7 +4,6 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import icon from '@/assets/Filter.svg';
   import Preloader from '@/components/PageLayout/Preloader.vue';
 
   @Component({
@@ -26,7 +25,7 @@
         const scrollTrigger =
           document.documentElement.scrollTop + window.innerHeight + 1 >=
           document.documentElement.offsetHeight * 3/4;
-          
+
         if (scrollTrigger) {
           const length = this.$vnode.key;
           const querySize = Number(this.$route.query.size || this.initial);

@@ -64,7 +64,6 @@
     ];
 
     async fetch() {
-      const {sort} = this.$route.query;
       const res = (
         await this.$http.get('/get/?type=get_labs_for_lab_cards', {
           params: {

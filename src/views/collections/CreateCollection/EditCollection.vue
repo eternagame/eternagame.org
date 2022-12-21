@@ -155,7 +155,7 @@
         if (error) throw new Error(error);
         this.$router.push(`/collections/${this.$route.params.id}`);
       } catch (e: any) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,
@@ -172,7 +172,7 @@
             nid: this.$route.params.id,
           }),
         )
-        .then((res) => {
+        .then(() => {
           this.$router.push({ path: `/collections` });
         });
     }

@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref, Mixins } from 'vue-property-decorator';
+  import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
   import axios from 'axios';
   import TermsAndConditionsText from '@/views/terms/TermsAndConditionsText.vue';

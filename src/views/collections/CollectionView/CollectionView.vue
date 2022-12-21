@@ -91,7 +91,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Mixins } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
@@ -99,10 +99,8 @@
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import {
-    PuzzleList,
     PuzzleItem,
     ClearedPuzzle,
-    RoadmapAchievement,
     CollectionItem,
     CollectionResponse,
     CommentItem,

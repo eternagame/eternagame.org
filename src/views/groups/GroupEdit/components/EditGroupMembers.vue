@@ -80,10 +80,10 @@
   </div>
 </template>
 <script lang="ts">
-  import axios, { AxiosInstance } from 'axios';
+  import axios from 'axios';
   // @ts-ignore
   import debounce from 'lodash.debounce';
-  import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Prop, Watch, Ref } from 'vue-property-decorator';
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import EditField from '@/components/Common/EditField.vue';
   // @ts-ignore
@@ -93,8 +93,6 @@
     @Prop() readonly parentNID?: number;
 
     @Prop() readonly uid?: number;
-
-    commentText: string = '';
 
     targetName = '';
 
@@ -133,11 +131,7 @@
       }
     }
 
-    setCommentText(text: string) {
-      this.commentText = text;
-    }
-
-    async postMemberInvite(targetUid: string, message: string) {
+    async postMemberInvite() {
       const params = {
         type: 'invite_member',
         group_nid: (this.parentNID? this.parentNID : 'null').toString(),
@@ -149,7 +143,7 @@
       await axios.post('/post/', new URLSearchParams(params));
     }
 
-    async postAdminInvite(targetUid: string, message: string) {
+    async postAdminInvite() {
       const params = {
         type: 'add_admin',
         group_nid: (this.parentNID? this.parentNID : 'null').toString(),
@@ -164,8 +158,7 @@
     async inviteMember() {
       this.isSending = true;
       try {
-        const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
-        await this.postMemberInvite(targetUid, this.commentText);
+        await this.postMemberInvite();
       } catch (e) {
         // eslint-disable-next-line
         alert(`Error posting message.\n${e}`);
@@ -179,8 +172,7 @@
     async inviteAdmin() {
       this.isSendingAdmin = true;
       try {
-        const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
-        await this.postAdminInvite(targetUid, this.commentText);
+        await this.postAdminInvite();
       } catch (e) {
         // eslint-disable-next-line
         alert(`Error posting message.\n${e}`);

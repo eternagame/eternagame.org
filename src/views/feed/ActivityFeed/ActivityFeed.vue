@@ -40,7 +40,7 @@
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
-  import { NotificationItem, RewardNotificationItem, NotificationType } from '@/types/common-types';
+  import { NotificationItem } from '@/types/common-types';
   import ActivityCard from './components/ActivityCard.vue';
   import MessageCompose from './components/MessageCompose.vue';
 

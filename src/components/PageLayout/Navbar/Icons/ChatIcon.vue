@@ -26,7 +26,7 @@
   </li>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins, Ref } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { Chat } from 'eterna-chat-wrapper';
 
   import NavbarIcon from './NavbarIcon.vue';
@@ -43,6 +43,8 @@
 
     @Ref() readonly chatContainer!: HTMLElement;
 
+    chat!: Chat;
+
     goToChat() {
       if (this.isInSideBar) {
         this.$router.push('/chat');
@@ -52,7 +54,7 @@
     }
 
     addChat() {
-      const chat = new Chat({
+      this.chat = new Chat({
         container: this.chatContainer,
         username: this.$vxm.user.username ? this.$vxm.user.username : '',
         uid: this.$vxm.user.uid ? this.$vxm.user.uid.toString() : '0',

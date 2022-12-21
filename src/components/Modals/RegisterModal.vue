@@ -101,12 +101,10 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
   import FacebookAuthentication from './components/FacebookAuthentication.vue';
-
-  const FB_LOGIN_ROUTE = '/login/?type=login&method=facebook';
 
   const INITIAL_FORM = {
     username: '',
@@ -154,7 +152,7 @@
       }
     }
 
-    async tryRegister(event: Event) {
+    async tryRegister() {
       this.errorMessage = '';
       if (!this.accepted) {
         this.errorMessage = 'register-modal:error-accept-terms';

@@ -15,8 +15,8 @@
   </div>
 </template>
 <script lang="ts">
-  import axios, { AxiosInstance } from 'axios';
-  import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
+  import axios from 'axios';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
 
   @Component({ components: { EditField } })

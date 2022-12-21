@@ -28,11 +28,9 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Mixins } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
+  import FiltersPanel from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
@@ -85,7 +83,7 @@
           }
         })
       ).data.data.entries as NewsItem[];
-      
+
       // Timezone in UTC, calendar dates parsing is incorrect
 
       this.calendarItems.selectAttribute = res.map((element) =>({
@@ -96,7 +94,7 @@
 
     async fetch() {
       const { sort, end_date, start_date, size, search } = this.$route.query;
-      
+
 
       const res = (
         await this.$http.get(ROUTE, {

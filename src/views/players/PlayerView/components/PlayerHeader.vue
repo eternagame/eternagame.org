@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   import { UserData } from '@/types/common-types';
   import PlayerHeaderImage from './PlayerHeaderImage.vue';
   import PlayerHeaderTopRow from './PlayerHeaderTopRow.vue';

@@ -42,11 +42,7 @@
 
 <script lang="ts">
 // @ts-ignore
-  import {
-    Component,
-    Vue,
-    Prop,
-  } from 'vue-property-decorator';
+  import { Component, Vue } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Utils from '@/utils/utils';
@@ -103,7 +99,7 @@
         if (error) throw new Error(error);
         this.$router.push(`/collections/${res.data.data.nid}`);
       } catch (e: any) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,

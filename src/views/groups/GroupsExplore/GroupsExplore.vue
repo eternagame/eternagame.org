@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Mixins } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
@@ -67,7 +67,6 @@
   const INITIAL_NUMBER = 18;
 
   const MAINROUTE = '/get/?type=groups';
-  const JOINEDROUTE = '/get/?type=my_groups';
 
   interface GroupExploreParams {
     group_type: string;

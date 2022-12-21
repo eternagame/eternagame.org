@@ -32,11 +32,8 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
-  import Utils from '@/utils/utils';
   import bgimage from '@/assets/home/hero-evergreen.jpg';
 
   @Component({

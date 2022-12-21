@@ -20,8 +20,7 @@
   </NavbarIcon>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
+  import { Component, Vue } from 'vue-property-decorator';
   import NavbarIcon from './NavbarIcon.vue';
 
   @Component({

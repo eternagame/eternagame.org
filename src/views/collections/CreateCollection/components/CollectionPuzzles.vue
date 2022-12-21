@@ -24,6 +24,7 @@
                 class="rounded-circle"
                 :src="getImage(data.id)"
                 style="width: 40px; height: 40px; margin-right: 10px"
+                alt=""
               />
               <span v-dompurify-html="htmlText" style="color: white; margin-right: 3px;"></span>
               by {{ data.username }}

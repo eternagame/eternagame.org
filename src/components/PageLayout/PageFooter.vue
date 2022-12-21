@@ -83,8 +83,8 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
-  import i18n, { LANGUAGES, DEFAULT_LANGUAGE, LANGUAGE_KEY_NAME } from '@/plugins/i18n';
+  import { Component, Vue } from 'vue-property-decorator';
+  import i18n, { DEFAULT_LANGUAGE, LANGUAGE_KEY_NAME } from '@/plugins/i18n';
 
   @Component({
     components: {},

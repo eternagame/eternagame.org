@@ -7,7 +7,7 @@
           <div class="alert alert-danger" v-if="error">{{error}}</div>
           <div class="alert alert-success" v-if="success">Preferences updated successfully</div>
           <div id="authorizing" v-if="loading">
-            <div style="text-align:center;"><img src="/puzzle-progression/images/loading.gif"></div>
+            <div style="text-align:center;"><img src="/puzzle-progression/images/loading.gif" alt="Loading"></div>
             <p class="card-text" style="text-align: center;">
               Authorizing...
             </p>

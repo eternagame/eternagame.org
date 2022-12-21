@@ -77,20 +77,15 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import axios from 'axios';
+  import { Component, Mixins } from 'vue-property-decorator';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Utils from '@/utils/utils';
   import { PUZZLE_ROUTE_PREFIX, PUZZLE_ROUTE_TUTORIAL_PREFIX } from '@/utils/constants';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import Comments from '@/components/PageLayout/Comments.vue';
   import FetchMixin from '@/mixins/FetchMixin';
   import { PuzzleResponse, Puzzle, CommentItem, ClearedPuzzle } from '@/types/common-types';
-
-  const EDIT_PUZZLE_ROUTE = '/post/';
 
   @Component({
     components: {
@@ -130,7 +125,7 @@
           title: this.puzzTitle,
           description: this.puzzBody,
         }))
-          .then(res => {
+          .then(() => {
             this.$router.push({path: `/puzzles/${this.nid}`});
           });
       }

@@ -1,5 +1,3 @@
-import { UserData } from '@/types/common-types';
-
 export interface FollowData {}
 
 export interface UserItem {

@@ -25,10 +25,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import axios from 'axios';
   import { SoftwareVersion } from './SoftwareLicenseModal.vue';
-
-  const DOWNLOAD_SOFTWARE_ROUTE = '/get/?type=software_package_download';
 
   @Component({})
   export default class VersionCard extends Vue {

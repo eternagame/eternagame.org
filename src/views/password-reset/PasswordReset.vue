@@ -6,15 +6,15 @@
           <h5 class="card-title">Reset Password</h5>
           <div id="reset-error" class="alert alert-danger" v-if="error">{{error}}</div>
           <div id="authorizing" v-if="loading">
-            <div style="text-align:center;"><img src="/puzzle-progression/images/loading.gif"></div>
+            <div style="text-align:center;"><img src="/puzzle-progression/images/loading.gif" alt="Loading"></div>
             <p class="card-text" style="text-align: center;">
               Authorizing...
             </p>
           </div>
           <b-form @submit.prevent="doReset" id="password-form" v-else-if="!authorizationFailure">
             <div class="form-group">
-              <input type="password" class="form-control" placeholder="password" required v-model="newPassword" />
-              <input type="password" class="form-control" placeholder="re-enter password" v-model="confirmPassword" required />
+              <b-input type="password" placeholder="password" required v-model="newPassword" />
+              <b-input type="password" placeholder="re-enter password" v-model="confirmPassword" required />
               <input type="submit" id="submit" value="Change Password" class="btn btn-primary mt-3" />
             </div>
           </b-form>

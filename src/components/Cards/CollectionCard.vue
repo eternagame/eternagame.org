@@ -98,16 +98,12 @@
   </SmartLink>
 </template>
 <script lang="ts">
-  import { Component, Mixins, Prop, Ref, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import SmartLink from '@/components/Common/SmartLink.vue';
   import Utils from '@/utils/utils';
-  import {
-    ClearedPuzzle,
-    CollectionResponse,
-    PuzzleItem,
-  } from '@/types/common-types';
+  import { PuzzleItem } from '@/types/common-types';
 
   @Component({
     components: {

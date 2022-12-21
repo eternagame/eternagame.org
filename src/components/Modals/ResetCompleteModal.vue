@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
 
   @Component({
@@ -30,7 +30,7 @@
     @Ref() readonly modal!: BModal;
 
     created() {
-      this.$vxm.user.$subscribe('showResetCompleteModal', payload => {
+      this.$vxm.user.$subscribe('showResetCompleteModal', () => {
         this.modal.show();
       });
     }

@@ -6,9 +6,9 @@
     :message="message.content"
   >
     <router-link :to="`/players/` + senderID">
-      {{ senderName }} 
+      {{ senderName }}
     </router-link>
-    > 
+    >
     <router-link :to="`/players/` + receiverID">
       {{ receiverName }}
     </router-link>
@@ -16,7 +16,7 @@
   </MessageItem>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue, Watch, Ref } from 'vue-property-decorator';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
   import { PrivateNotificationMessage, PrivateMessageNotificationItem } from '@/types/common-types';
   import Utils from '@/utils/utils';
   import MessageItem from './MessageItem.vue';
@@ -26,7 +26,7 @@
   })
   export default class PrivateMessageItem extends Vue {
     @Prop({ required: true }) readonly notification!: PrivateMessageNotificationItem;
-    
+
     @Prop({ required: true }) readonly message!: PrivateNotificationMessage;
 
     get senderID() {

@@ -107,14 +107,10 @@
   import {
     RoadmapAchievement,
     ProcessedRoadmapAchievement,
-    NewsItem as NewsItemType,
     BlogItem,
-    NotificationItem,
     NewsItem,
     CollectionItem,
   } from '@/types/common-types';
-  import type Vue from 'vue';
-  import type { EventApi } from '@fullcalendar/common';
   import FetchMixin from '@/mixins/FetchMixin';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import Carousel from '@/components/Common/Carousel.vue';
@@ -238,7 +234,7 @@
               // This function is called after FullCalendar has loaded the events
               // from the Google Calendar. EventSourceSuccess allows us to transform
               // the events before display. Here we sort them and filter down to the
-              // first N events. This is necessary because FullCalendar's Google 
+              // first N events. This is necessary because FullCalendar's Google
               // integration doesn't support the maxResults or orderBy options.
               const numberOfEventsToDisplay = 4;
               const filteredEvents = content.sort((a, b) => {

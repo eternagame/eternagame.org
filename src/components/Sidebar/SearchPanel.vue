@@ -15,14 +15,12 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
   import debounce from 'lodash.debounce';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
   // @ts-ignore
-
-  import icon from '@/assets/Filter.svg';
 
   @Component({
     components: {

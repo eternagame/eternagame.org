@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Vue } from 'vue-property-decorator';
   import PageFooter from '@/components/PageLayout/PageFooter.vue';
 
   @Component({

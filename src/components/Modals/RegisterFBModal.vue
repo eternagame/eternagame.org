@@ -84,7 +84,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
 
@@ -117,7 +117,7 @@
 
     @Ref() readonly rePassword!: BFormInput;
 
-    async tryRegister(event: Event) {
+    async tryRegister() {
       this.errorMessage = '';
       if (!this.accepted) {
         this.errorMessage = 'register-modal:error-accept-terms';

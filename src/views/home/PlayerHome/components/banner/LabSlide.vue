@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   import FlipCountdown from 'vue2-flip-countdown';
   import DefaultHero from '@/assets/home/hero-lab-default.png';
   import Progress from '@/components/Common/Progress.vue';

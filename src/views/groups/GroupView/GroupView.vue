@@ -71,7 +71,7 @@
             Pending Members:
             <ul>
               <li v-for="player in pendings" :key="player.name">
-                <img :src="`../${player.picture}`" class="icon" />
+                <img :src="`../${player.picture}`" class="icon" alt="" />
                 <router-link :to="`/players/${player.uid}/`">
                   {{ player.name }}
                 </router-link>
@@ -200,9 +200,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Mixins } from 'vue-property-decorator';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
@@ -298,7 +296,7 @@
         const resData = res?.data?.data;
         if (resData?.error) this.$notify({ text: resData.error });
       } catch (e: any) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,
@@ -320,7 +318,7 @@
         const resData = res?.data?.data;
         if (resData?.error) this.$notify({ text: resData.error });
       } catch (e: any) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,
@@ -350,7 +348,7 @@
           this.subscribed = true;
         if (resData?.error) this.$notify({ text: resData.error });
       } catch (e: any) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,
@@ -377,7 +375,7 @@
           this.following = true;
         if (resData?.error) this.$notify({ text: resData.error });
       } catch (e: any) {
-        const r = this.$notify({
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,

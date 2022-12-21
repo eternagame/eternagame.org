@@ -9,7 +9,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { GroupNotificationItem, GroupNotificationMessage, RegularGroupNotificationMessage } from '@/types/common-types';
+  import { GroupNotificationItem } from '@/types/common-types';
   import Utils from '@/utils/utils';
   import BaseNotification from './BaseNotification.vue';
 
@@ -32,7 +32,7 @@
     get content() {
       return this.isInvite ? this.message.content : (this.message.content as { body: string}).body;
     }
-    
+
     get name() {
       return this.group.message[0].sender === this.group.target_uid
         ? this.group.target_name

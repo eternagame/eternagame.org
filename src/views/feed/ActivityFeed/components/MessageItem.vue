@@ -27,9 +27,7 @@
 <script lang="ts">
   import { Component, Prop, Vue, Watch, Ref } from 'vue-property-decorator';
   import VueScrollTo from 'vue-scrollto';
-  import Utils from '@/utils/utils';
   import SmartLink from '@/components/Common/SmartLink.vue';
-  import { NotificationNotificationItem, NotificationMessage, PrivateNotificationMessage, NotificationMessageType } from '@/types/common-types';
 
   Vue.use(VueScrollTo);
 

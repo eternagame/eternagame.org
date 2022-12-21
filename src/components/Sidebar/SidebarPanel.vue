@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
 

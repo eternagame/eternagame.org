@@ -490,8 +490,6 @@
     ];
 
     async fetch() {
-      const {sort} = this.$route.query;
-
       const challenges = (
         await this.$http.get('/get/?type=challenges')
       ).data.data.challenges as ChallengeItem[];

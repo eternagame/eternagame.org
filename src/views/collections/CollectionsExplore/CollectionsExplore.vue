@@ -71,7 +71,7 @@
 <script lang="ts">
   import { BIconChevronRight, BIconChevronLeft } from 'bootstrap-vue';
   import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
-  import { Component, Mixins, Vue } from 'vue-property-decorator';
+  import { Component, Mixins } from 'vue-property-decorator';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
@@ -81,7 +81,7 @@
   import QuestCarousel from '@/views/collections/CollectionsExplore/QuestCarousel.vue';
   import DropdownSidebarPanel, {
     Option,
-    } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import {
@@ -144,7 +144,6 @@
         quest: false,
         search,
       } as CollectionExploreParams;
-      const questParams = { quest: true } as CollectionExploreParams;
 
       const ROUTE: string = '/get/?type=collections';
 

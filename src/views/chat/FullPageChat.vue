@@ -15,8 +15,10 @@
   export default class FullPageChat extends Vue {
     @Ref() readonly chatContainer!: HTMLElement;
 
+    chat!: Chat;
+
     mounted() {
-      const chat = new Chat({
+      this.chat = new Chat({
         container: this.chatContainer,
         username: this.$vxm.user.username ? this.$vxm.user.username : '',
         uid: this.$vxm.user.uid ? this.$vxm.user.uid.toString() : '0',

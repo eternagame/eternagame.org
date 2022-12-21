@@ -29,7 +29,7 @@
   </b-navbar>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Ref } from 'vue-property-decorator';
   import NavbarIcons from './Icons/NavbarIcons.vue';
   import NavbarCollapseContent from './NavbarMenu/NavbarCollapseContent.vue';
   import EternaLogo from './EternaLogo.vue';

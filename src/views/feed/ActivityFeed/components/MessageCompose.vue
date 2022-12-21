@@ -63,10 +63,10 @@
   </div>
 </template>
 <script lang="ts">
-  import axios, { AxiosInstance } from 'axios';
+  import axios from 'axios';
   // @ts-ignore
   import debounce from 'lodash.debounce';
-  import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Prop, Watch, Ref } from 'vue-property-decorator';
   // @ts-ignore
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import EditField from '@/components/Common/EditField.vue';

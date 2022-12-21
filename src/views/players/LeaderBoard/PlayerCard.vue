@@ -39,10 +39,9 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import axios, { AxiosInstance } from 'axios';
+  import axios from 'axios';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
   import { UserData } from '@/types/common-types';
-  import { DEFAULT_PLAYER_PICTURE } from '@/utils/constants';
 
   @Component({
     components: {

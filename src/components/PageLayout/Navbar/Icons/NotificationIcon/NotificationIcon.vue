@@ -30,8 +30,14 @@
         </b-dropdown-item>
       </div>
       <div class="border"></div>
-      <router-link to="/feed" style="color:white">
-        <div class="view-all-link" @click="slotProp.hideDropdown.hide()">
+      <router-link
+        to="/feed"
+        style="color:white"
+        @click.native="slotProp.hideDropdown.hide()"
+        @keypress.enter.native="slotProp.hideDropdown.hide()"
+        @keypress.space.native="slotProp.hideDropdown.hide()"
+      >
+        <div class="view-all-link">
           {{ $t('nav-bar:notifications-view-all') }}
         </div>
       </router-link>
@@ -170,11 +176,7 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-<<<<<<< HEAD
-  :deep(a) {
-=======
-  ::v-deep a.dropdown-item {
->>>>>>> dev
+  :deep(a.dropdown-item) {
     padding-right: 10px !important;
     padding-left: 10px !important;
     border-radius: 3px;

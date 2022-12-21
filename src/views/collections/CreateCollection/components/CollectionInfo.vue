@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Prop, Ref } from 'vue-property-decorator';
 
   @Component({})
 

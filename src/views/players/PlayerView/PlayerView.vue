@@ -296,7 +296,7 @@
         }
         const { sort, search, size } = this.$route.query;
         const params = {
-          puzzle_type: 'AllChallengesPuzzle',
+          puzzle_type: 'AllChallengesAndProgression',
           cleared: 'true',
           sort: sort || INITIAL_SORT,
           size: size || INITIAL_NUMBER,

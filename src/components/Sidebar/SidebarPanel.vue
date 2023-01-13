@@ -32,8 +32,6 @@
 
     @Prop({ required: true }) readonly headerIcon!: string;
 
-    @Prop({ required: true }) readonly headerIconAlt!: string;
-
     get headerTextClasses() {
       return this.isInSidebar ? [] : ['d-none', 'd-md-inline-block'];
     }

@@ -155,7 +155,7 @@
         this.$http.get('/get/?type=puzzles'),
       ]);
 
-      this.cleared = res[2].data.data.cleared;
+      this.cleared = res[2].data.data?.cleared ?? [];
 
       this.collections = res[0].data.data.collections;
       this.collections.forEach((c) => {

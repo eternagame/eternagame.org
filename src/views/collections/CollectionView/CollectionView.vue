@@ -145,7 +145,7 @@
       }
       this.cleared = (
         await this.$http.get(`/get/?type=puzzle&nid=${this.puzzles[0].nid}`)
-      ).data.data.cleared;
+      ).data.data?.cleared ?? [];
     }
 
     puzzleCleared(id: string) {

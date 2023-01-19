@@ -12,6 +12,11 @@
         style="text-shadow: 1px 1px 2px #333"
       >
         <template v-if="hasLabAccess">
+          <LabTrainingSlide
+            title="Coming Soon: Toxic RNA"
+            subtitle="A project in collaboration with the University of California-Santa Cruz. Read about splicing biology and oligo binding in preparation for this exciting new challenge."
+            training_url="/collections/11431896"
+          ></LabTrainingSlide>
           <LabSlide
             v-for="lab in labCarouselLabs"
             v-bind="lab"
@@ -125,6 +130,7 @@
   import TutorialTeaserSlide from './components/banner/TutorialTeaserSlide.vue';
   import POTWSlide from './components/banner/POTWSlide.vue';
   import LabSlide from './components/banner/LabSlide.vue';
+  import LabTrainingSlide from './components/banner/LabTrainingSlide.vue';
   import IdeaJamSlide from './components/banner/IdeaJamSlide.vue';
   import QuestActivity from './components/activities/QuestActivity.vue';
   import TutorialActivity from './components/activities/TutorialActivity.vue';
@@ -138,6 +144,7 @@
       Carousel,
       POTWSlide,
       LabSlide,
+      LabTrainingSlide,
       TutorialTeaserSlide,
       Preloader,
       QuestActivity,

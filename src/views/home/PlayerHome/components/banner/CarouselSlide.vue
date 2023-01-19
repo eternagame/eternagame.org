@@ -18,7 +18,7 @@
 
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
-  import DefaultHero from '@/assets/home/hero-lab-default.png';
+  import DefaultHero from '@/assets/home/hero-sunburst.png';
 
   @Component({
   })

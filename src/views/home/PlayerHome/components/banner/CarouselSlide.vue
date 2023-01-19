@@ -8,8 +8,8 @@
         <p>
           {{  subtitle }}
         </p>
-        <b-button variant="primary" class="enter-lab" size="lg" :to="training_url">
-          Learn More
+        <b-button variant="primary" class="enter-lab" size="lg" :to="button_url">
+          {{button_text}}
         </b-button>
       </div>
     </div>
@@ -19,9 +19,6 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import DefaultHero from '@/assets/home/hero-lab-default.png';
-  import ToxicRNAHero from '@/assets/home/hero-toxicRNA.jpg';
-  // @ts-ignore
-  // @ts-ignore
 
   @Component({
   })
@@ -31,10 +28,14 @@
 
     @Prop({ required: true }) readonly subtitle!: string;
 
-    @Prop({ required: true }) readonly training_url!: string;
+    @Prop({ required: true }) readonly button_text!: string;
+
+    @Prop({ required: true }) readonly button_url!: string;
+
+    @Prop({ required: true }) readonly background_image!: string;
 
     get heroImage() {
-      return  ToxicRNAHero || DefaultHero;
+      return  this.background_image || DefaultHero;
     }
   }
 
@@ -65,10 +66,6 @@
         width: 100%;
       }
     }
-  }
-
-  .banner-progress {
-    display: flex;
   }
 
   .banner-text {

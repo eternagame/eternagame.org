@@ -144,7 +144,7 @@
         this.editRights = true;
       }
       this.cleared = (
-        await this.$http.get(`/get/?type=puzzle&nid=${this.puzzles[0].nid}`)
+        await this.$http.get(`/get/?type=puzzle&nid=${this.puzzles[0].id}`)
       ).data.data?.cleared ?? [];
     }
 

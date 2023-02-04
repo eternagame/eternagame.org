@@ -62,9 +62,9 @@
   import RewardNotificationItem from './RewardNotification.vue';
   import SimpleLoader from '../../../SimpleLoader.vue';
 
-  const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user';
+  const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user&cache_bust=2';
 
-  const NEWS_FEED_ROUTE = '/get/?type=newsfeed&combined=true&filter=all';
+  const NEWS_FEED_ROUTE = '/get/?type=newsfeed&combined=true&filter=all&cache_bust=2';
 
   const NUMBER_NOTIFICATIONS_TO_SHOW = 5;
 

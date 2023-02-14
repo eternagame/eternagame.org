@@ -45,7 +45,7 @@ export default {
         return '#53b64e';
     }
   },
-  getPuzzleLink(key: string) {
+  getPuzzleLink(key: string, currentPuzzle?: string) {
     switch (key) {
       case 'register':
         return '/web/register/';
@@ -79,22 +79,21 @@ export default {
       case 'eterna100':
         return '/news/6136054/';
       case 'side_quest_just_for_fun':
-        // return "/web/puzzle/" + current_puzzle + "/";
+        if (currentPuzzle) return `/puzzles/${currentPuzzle}`;
         return '/puzzles/?search=Fun&sort=date';
       case 'side_quest_nova_videos':
         return 'http://www.pbs.org/wgbh/nova/labs/lab/rna/';
       case 'side_quest_challenge_puzzles':
-        // return 'https://eternagame.org/web/challenges/?size=50&notcleared=true&sort=solved';
         return '/puzzles/?notcleared=true&sort=solved';
       case 'side_quest_puzzle_of_the_day':
         return '/puzzles/?size=1&search:SPPuzzleOfTheDay&notcleared=true&sort=date';
       case 'side_quest_eterna100':
         return '/puzzles/?search=:Eterna100&notcleared=true&sort=solved';
       case 'side_quest_best_lab_practices':
-        // return "/web/puzzle/" + current_puzzle + "/";
+        if (currentPuzzle) return `/puzzles/${currentPuzzle}`;
         return '/puzzles/?search=%5BLab%20Tutorial%5D&sort=date';
       case 'side_quest_switch_puzzles':
-        // return "/web/puzzle/" + current_puzzle + "/";
+        if (currentPuzzle) return `/puzzles/${currentPuzzle}`;
         return '/puzzles/?search=switch&switch=checked&sort=date';
       case 'side_quest_create_a_puzzle':
         return `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`;
@@ -104,7 +103,6 @@ export default {
       case 'side_quest_create_a_script':
         return `${process.env.VUE_APP_API_BASE_URL}/web/script/create/`;
       case 'side_quest_covid19_potd':
-        // return 'https://eternagame.org/web/playerpuzzles/?search=:COVID19&sort=solved';
         return '/puzzles/?search=:COVID19&sort=solved';
       case 'side_quest_eterna3d_expo':
         return '/puzzles/?search=:Eterna3D Expo&sort=date_asc';
@@ -119,7 +117,6 @@ export default {
       case 'side_quest_nova_videos':
         return 'http://www.pbs.org/wgbh/nova/labs/lab/rna/';
       case 'side_quest_challenge_puzzles':
-        // return 'https://eternagame.org/web/challenges/?size=50&notcleared=true&sort=solved';
         return '/puzzles/?size=50&notcleared=true&sort=solved';
       case 'side_quest_puzzle_of_the_day':
         return '/puzzles/?size=1&search:SPPuzzleOfTheDay&notcleared=true&sort=date';
@@ -137,7 +134,6 @@ export default {
       case 'side_quest_create_a_script':
         return `${process.env.VUE_APP_API_BASE_URL}/web/script/`;
       case 'side_quest_covid19_potd':
-        // return 'https://eternagame.org/web/playerpuzzles/?search=:COVID19&sort=solved';
         return '/puzzles/?search=:COVID19&sort=solved';
       case 'side_quest_eterna3d_expo':
         return '/puzzles/?search=:Eterna3D Expo&sort=date_asc';

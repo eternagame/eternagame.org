@@ -40,7 +40,7 @@
         .map((p) => ({
           ...p,
           questLink: this.questLink(p),
-          puzzleLink: Utils.getPuzzleLink(p.key),
+          puzzleLink: Utils.getPuzzleLink(p.key, p.current_puzzle),
         }));
     }
 

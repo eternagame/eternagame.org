@@ -28,38 +28,9 @@
     </div>
     <!-- End Promo -->
 
-    <!-- 10 Year Anniversary Promo (TODO: localize?)-->
-    <div class="container bs-docs-section mt-5">
-      <div class="media row">
-        <div class="media-body p-4">
-          <h3 class="mt-0" style="font-weight: bold;">10 Years of Discovery</h3>
-          <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
-          <p style="font-size: 1.2rem;">
-            Eterna has led over 10 years of citizen science. Together we've
-            synthesized thousands of player-designed molecules, published over 20 academic papers
-            tackling fundamental RNA design questions, and pioneered the open development of RNA
-            medicines. We will continue to roll out new features, game
-            mechanics, and lab challenges as we expand the future of Eterna.
-          </p>
-          <p class="mb-0"></p>
-        </div>
-        <img
-          src="~@/assets/front-page/img/eterna_10yr-transp.png"
-          class="align-self-center mr-3 mb-3 col-sm-12 col-lg-4"
-          alt="Eterna 10th anniversary"
-        />
-      </div>
-    </div>
-    <!-- End Promo -->
-
     <!-- NOVA Promo (TODO: localize?)-->
     <div class="container bs-docs-section mt-5">
       <div class="media row">
-        <img
-          src="/puzzle-progression/badges/badge_nova_large.png"
-          class="align-self-center mr-3 mb-3 col-sm-12 col-lg-3"
-          alt="Learn about RNA with NOVA" border="0"
-        />
         <div class="media-body p-4">
           <h3 class="mt-0" style="font-weight: bold;">Learn more about RNA</h3>
           <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
@@ -72,6 +43,11 @@
           </p>
           <p class="mb-0"></p>
         </div>
+        <img
+          src="/puzzle-progression/badges/badge_nova_large.png"
+          class="align-self-center mr-3 mb-3 col-sm-12 col-lg-3"
+          alt="Learn about RNA with NOVA" border="0"
+        />
       </div>
     </div>
     <!-- End Promo -->

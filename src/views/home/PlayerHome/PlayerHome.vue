@@ -12,13 +12,6 @@
         style="text-shadow: 1px 1px 2px #333"
       >
         <template v-if="hasLabAccess">
-          <CarouselSlide
-            title="Coming Soon: Toxic RNA"
-            subtitle="A project in collaboration with the University of California-Santa Cruz. Read about splicing biology and oligo binding in preparation for this exciting new challenge."
-            button_text="Learn More"
-            button_url="/collections/11431896"
-            :background_image="require('@/assets/home/hero-toxicRNA.jpg')"
-          ></CarouselSlide>
           <LabSlide
             v-for="lab in labCarouselLabs"
             v-bind="lab"

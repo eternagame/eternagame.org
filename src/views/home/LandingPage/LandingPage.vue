@@ -7,20 +7,20 @@
     <div class="container bs-docs-section mt-5">
       <div class="media row">
         <img
-          src="https://eternagame.org/puzzle-progression/badges/badge_openvaccine_100.png"
+          src="https://eternagame.org/sites/default/files/badge-openASO_0.png"
           class="align-self-center mr-3 mb-3 col-sm-12 col-lg-4"
-          alt="Fight COVID-19 with Eterna"
+          alt="Fight toxic RNAs with Eterna"
         />
         <div class="media-body p-4">
-          <h3 class="mt-0" style="font-weight: bold;">OpenVaccine: Eterna takes on COVID-19</h3>
+          <h3 class="mt-0" style="font-weight: bold;">OpenASO: RNA Rescue</h3>
           <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
           <p style="font-size: 1.2rem;">
-            With the onset of the COVID-19 pandemic in 2020, the Eterna project harnessed online
-            gamers toward a solution: the OpenVaccine challenge. Their mission? To develop mRNA
-            vaccines stable enough to be deployed to everyone in the world and not just a privileged
-            few. Check out the <router-link to="/challenges/10845741">challenge page</router-link>
-            for a description of our accomplishments and publications, including special sequences
-            for fighting the Delta and Omicron variants.
+            How can playing a game help address rare genetic diseases? The OpenASO Challenge is
+            a research initiative aimed at developing innovative design principles for RNA-based
+            therapeutics that can effectively target and neutralize the harmful effects of toxic
+            RNAs involved in genetic diseases, including many cancers. Visit the
+            <router-link to="/challenges/11546273">challenge page</router-link> to learn more and
+            participate.
           </p>
           <p class="mb-0"></p>
         </div>

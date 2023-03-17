@@ -6,26 +6,31 @@
       </h4>
       <p class="challenge-summary">
         {{ summary() }}
-      </p> 
+      </p>
       <div>
         <div
           v-for="(update, i) in updates()"
           :key="i"
           class="update card"
         >
-          <div class="update-card-label">
-            Challenges
-          </div>
+
+        <a
+                v-if="update.nid"
+                :href="'/news/' + update.nid"
+                target="_blank"
+              >
           <div class="update-card-date">
             {{ update.created }}
           </div>
           <div class="update-card-contents">
             <div class="update-card-title">
-              {{ update.title }}
+                {{ update.title }}
             </div>
-            <div class="update-card-body" v-dompurify-html="update.body"></div>
           </div>
+
+        </a>
         </div>
+
       </div>
     </div>
   </div>
@@ -78,7 +83,7 @@
   .update {
     position: relative;
     width: 100%;
-    padding: 20px;
+    padding: 16px;
     margin-bottom: 20px;
     background-color: #043468;
     border-radius: 5px;
@@ -89,16 +94,6 @@
     &:hover {
     box-shadow: 1px 1px 0px 0px rgb(94 93 102 / 8%),
     2px 5px 10px 0px rgb(94 93 102 / 10%);
-    }
-
-    &-card-label {
-      position: absolute;
-      top: $card-padding;
-      left: $card-padding;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: #F39C12;
     }
 
     &-card-date {
@@ -115,14 +110,12 @@
     }
 
     &-card-title {
+      position: absolute;
+      top: $card-padding;
+      left: $card-padding;
       font-weight: 700;
       font-size: 1rem;
       margin-bottom: 0.7rem;
-      color: #FFFFFF;
-    }
-
-    &-card-body {
-      font-size: 0.7rem;
       color: #FFFFFF;
     }
   }

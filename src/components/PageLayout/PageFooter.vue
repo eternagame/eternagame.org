@@ -17,23 +17,20 @@
     <b-row class="mt-3">
       <b-col lg="8" sm="12">
         <div style="text-align:center; padding:10px;">
-          <b-row>
-            <b-col md="4" sm="4">
-              <img src="@/assets/front-page/img/logo_gates.png" class="sponsor-logo" alt="" />
-            </b-col>
-            <b-col md="3" sm="4">
-              <img src="@/assets/front-page/img/logo_stanford.png" class="sponsor-logo" style="max-width:220px;" alt="" />
-            </b-col>
-            <b-col md="5" sm="4">
-              <img src="@/assets/front-page/img/logo_NIH.png" class="sponsor-logo" alt="" />
-            </b-col>
-            <b-col md="5" sm="4">
-              <img src="@/assets/front-page/img/logo_fastgrants.png" class="sponsor-logo" alt="" />
-            </b-col>
-            <b-col md="2" sm="2">
-              <img src="@/assets/front-page/img/logo_nsf.png" class="sponsor-logo" style="max-width:100px;" alt="" />
-            </b-col>
-          </b-row>
+          <div class="d-none d-sm-flex sponsor-logo-row">
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_stanford.png" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_NIH.png" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_hhmi.jpg" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_nsf.png" alt="" />
+          </div>
+          <div class="d-flex d-sm-none sponsor-logo-row mb-3">
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_stanford.png" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_NIH.png" alt="" />
+          </div>
+          <div class="d-flex d-sm-none sponsor-logo-row">
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_hhmi.jpg" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_nsf.png" alt="" />
+          </div>
         </div>
       </b-col>
       <b-col lg="4" sm="12">
@@ -41,7 +38,7 @@
           <a href="https://twitter.com/eternagame">
             <img src="@/assets/front-page/img/icon_twt.png" class="icon" alt="Twitter" />
           </a>
-          <a href="https://www.facebook.com/eternathegame/">
+          <a href="https://www.facoebok.com/eternathegame/">
             <img src="@/assets/front-page/img/icon_fb.png" class="icon" alt="Facebook" />
           </a>
           <a href="https://www.instagram.com/eternagame/">
@@ -127,19 +124,21 @@
     }
   }
 
+  .sponsor-logo-row {
+    align-items: center;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  .sponsor-logo {
+    min-width: 0;
+    max-height: 35px;
+  }
+
   .top-border {
     border-top-color: rgba(255, 255, 255, 0.4);
     margin-top: 2.5em;
     margin-bottom: 2.5em;
-  }
-
-  .sponsor-logo {
-    width: 85%;
-    padding: 1em;
-    max-width: 100px;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
   }
 
   .icon {
@@ -160,18 +159,6 @@
   }
   .icon:active {
     transform: rotateZ(0deg);
-  }
-
-  @media (min-width: 320px) {
-    .sponsor-logo {
-      max-width: 65%;
-    }
-  }
-
-  @include media-breakpoint-up(sm) {
-    .sponsor-logo {
-      max-width: 85%;
-    }
   }
 
   @include media-breakpoint-up(md) {

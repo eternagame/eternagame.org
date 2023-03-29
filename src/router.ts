@@ -215,6 +215,10 @@ export default function createRouter() {
         name: 'unsubscribe',
         component: () => import('./views/unsubscribe/Unsubscribe.vue'),
       },
+      {
+        path: '/debug/autosave-manager',
+        component: () => import('./views/debug/AutosaveManager.vue'),
+      },
       // Maintaining these old routes in case they're actively linked from anywhere
       // important - at some point we should audit if we can remove these, or we may need a
       // dedicated section of legacy routes anyways

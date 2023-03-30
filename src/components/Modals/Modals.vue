@@ -7,6 +7,7 @@
     <AcceptTermsModal />
     <LoginModal />
     <AchievementModal />
+    <SurveyModal />
   </div>
 </template>
 
@@ -19,6 +20,7 @@
   import ResetPasswordModal from './ResetPasswordModal.vue';
   import LoginModal from './LoginModal.vue';
   import AchievementModal from './AchievementModal.vue';
+  import SurveyModal from './SurveyModal.vue';
 
   @Component({
     components: {
@@ -28,7 +30,8 @@
       ResetPasswordModal,
       LoginModal,
       AcceptTermsModal,
-      AchievementModal
+      AchievementModal,
+      SurveyModal
     },
   })
   export default class Modals extends Vue {}

@@ -46,7 +46,7 @@
   export default class AcceptTermsModal extends Vue {
     @Ref() readonly modal!: BModal;
 
-    private accepted: boolean = false;
+    accepted: boolean = false;
 
     get shown() {
       return this.$vxm.user.userDetailsLoaded && !this.$vxm.user.surveyRecord.match(/EULA_AGREE_2021-10-02/i);

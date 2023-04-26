@@ -20,7 +20,7 @@
           <div class="d-none d-sm-flex sponsor-logo-row">
             <img class="sponsor-logo" src="@/assets/front-page/img/logo_stanford.png" alt="" />
             <img class="sponsor-logo" src="@/assets/front-page/img/logo_NIH.png" alt="" />
-            <img class="sponsor-logo" src="@/assets/front-page/img/logo_hhmi.jpg" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_hhmi.png" alt="" />
             <img class="sponsor-logo" src="@/assets/front-page/img/logo_nsf.png" alt="" />
           </div>
           <div class="d-flex d-sm-none sponsor-logo-row mb-3">
@@ -28,7 +28,7 @@
             <img class="sponsor-logo" src="@/assets/front-page/img/logo_NIH.png" alt="" />
           </div>
           <div class="d-flex d-sm-none sponsor-logo-row">
-            <img class="sponsor-logo" src="@/assets/front-page/img/logo_hhmi.jpg" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_hhmi.png" alt="" />
             <img class="sponsor-logo" src="@/assets/front-page/img/logo_nsf.png" alt="" />
           </div>
         </div>

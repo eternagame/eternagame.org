@@ -1,0 +1,120 @@
+{
+    "Friday, July 19": [
+        {
+            "speaker": "Dr. David Hendrix",
+            "time": "July 19, 2019, 22:00:00 UTC",
+            "topic": "A deep recurrent neural network discovers complex biological rules to decipher RNA protein-coding potential"
+        },
+        {
+            "speaker": "Dr. Manu Prakash, Rebecca Konte",
+            "time": "July 19, 2019, 23:00:00 UTC",
+            "topic": "Foldscope Hands-on Workshop" 
+        }
+    ],
+    "Saturday, July 20": [
+        {
+            "speaker": "Organizers",
+            "time": "July 20, 2019, 16:00:00 UTC",
+            "topic": "Opening Remarks",
+        },
+        {
+            "speaker": "Rhiju Das, PhD",
+            "time": "July 20, 2019, 16:15:00 UTC",
+            "topic": "State of Eterna"
+        },
+        {
+            "speaker": "Do Soon Kim",
+            "time": "July 20, 2019, 17:00:00 UTC",
+            "topic": "Ribosome Engineering: Designing Macromolecular Machines" 
+        },
+        {
+            "speaker": "He Zhang",
+            "time": "July 20, 2019, 18:00:00 UTC",
+            "topic": "LinearPartition: Linear Time Partition Function and Base Pair Probability Calculation for RNA Secondary Structure"
+        },
+        {
+            "time": "July 20, 2019, 19:00:00 UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Brourd",
+            "time": "July 20, 2019, 19:45:00 UTC",
+            "topic": "Eterna100" 
+        },
+        {
+            "speaker": "Dr. Jeffrey Yoshimi",
+            "time": "July 20, 2019, 20:15:00 UTC",
+            "topic": "Using Multimedia Principles to Enhance User Retention in Eterna"
+        },
+        {
+            "speaker": "R. Das, J. Yoshimi, D. Hendrix, M. Adrianowycz",
+            "time": "July 20, 2019, 21:00:00 UTC",
+            "topic": "Improving Eterna in Educational Settings + panel discussion"
+        },
+        {
+            "time": "July 20, 2019, 21:45:00 UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "LFP6, Jennifer Pearl, lroppy, Brourd",
+            "time": "July 20, 2019, 22:00:00 UTC",
+            "topic": "Eterna Players Alliance (EPA)/Eterna Commons" 
+        },
+        {
+            "speaker": "Omei",
+            "time": "July 20, 2019, 22:30:00 UTC",
+            "topic": "Techniques for Solving the Ribosome Puzzles"   
+        },
+        {
+            "speaker": "Astromon",
+            "time": "July 20, 2019, 23:30:00 UTC",
+            "topic": "Eterna Art" 
+        },
+        {
+            "speaker": "Hoglahoo",
+            "time": "July 20, 2019, 23:45:00 UTC",
+            "topic": "Eternacon Puzzle Challenge"
+        }
+    ],
+    "Sunday, July 21": [
+        {
+            "speaker": "Dr. Michael Gotrik",
+            "time": "July 21, 2019, 16:15:00 UTC",
+            "topic": "RNA as a molecule sensor - why the world needs more "light up" RNA",
+        },
+        {
+            "speaker": "Mastertormer",
+            "time": "July 21, 2019, 17:00:00 UTC",
+            "topic": "Learning from other video games: Ideas for new game systems in Eterna"
+        },
+        {
+            "speaker": "Gerry",
+            "time": "July 21, 2019, 17:30:00 UTC",
+            "topic": "Traversing Death Valley Deltas"    
+        },
+        {
+            "speaker": "Dr. David Magnus",
+            "time": "July 21, 2019, 18:00:00 UTC",
+            "topic": "Citizen Science and Gamification: Players' Role + Ethics discussion" 
+        },
+        {
+            "time": "July 21, 2019, 19:00:00 UTC",
+            "topic": "Break"
+        },
+        {
+            "speaker": "whbob",
+            "time": "July 21, 2019, 20:00:00 UTC",
+            "topic": "Making sense of the Light-up Lab Graphs"    
+        },
+        {
+            "speaker": "LFP6",
+            "time": "July 21, 2019, 20:30:00 UTC",
+            "topic": "Eterna Refresh: Website Redesign" 
+        },
+        {
+            "speaker": "Dr. Feriel Melaine",
+            "time": "July 21, 2019, 21:15:00 UTC",
+            "topic": "OpenTB: Outcomes and Challenges" 
+        }
+    ]
+}

@@ -8,12 +8,17 @@
     <template #modal-title>
       Who Are We?
     </template>
-    <div class="content">
+    <div>
       Did you know the last time we surveyed player demographics was in
       <a href="https://eternagame.org/news/6163840">2015</a>?
       Help us understand who we are by participating in our newly revised survey!
       Results of the Eterna Player Profile Survey will be shared with the Eterna
       community.
+    </div>
+    <div style="text-align: center;">
+      <br/>
+      The survey will close Sunday, May 14th.
+      <br/>
       Would you like to participate?
     </div>
     <template #modal-footer>
@@ -36,6 +41,7 @@
   export default class AcceptTermsModal extends Vue {
     get shown() {
       if (this.$vxm.user.userDetailsLoaded) {
+        if (Date.now() > Date.UTC(2023, 4, 15, 12, 0)) return false;
         const entries = this.$vxm.user.surveyRecord.split(',');
         if (entries.includes('DIV_SURVEY_2023_DISMISSED')) return false;
         const delays = entries

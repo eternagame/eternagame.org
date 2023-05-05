@@ -183,7 +183,12 @@ export default function createRouter() {
       },
       {
         path: '/eternacon',
-        redirect: { name: 'eternacon-2022' }
+        redirect: { name: 'eternacon-2023' }
+      },
+      {
+        path: '/eternacon/2019',
+        name: 'eternacon-2019',
+        component: () => import('./views/eternacon/Eternacon2019.vue'),
       },
       {
         path: '/eternacon/2020',
@@ -199,6 +204,11 @@ export default function createRouter() {
         path: '/eternacon/2022',
         name: 'eternacon-2022',
         component: () => import('./views/eternacon/Eternacon2022.vue'),
+      },
+      {
+        path: '/eternacon/2023',
+        name: 'eternacon-2023',
+        component: () => import('./views/eternacon/Eternacon2023.vue'),
       },
       {
         path: '/eternacon/about',

@@ -107,23 +107,23 @@
     },
   })
   export default class CreateGroup extends Mixins(FetchMixin) {
-    private name = "";
+    name = "";
 
-    private deleteTitle = "";
+    deleteTitle = "";
 
-    private nid: string = "";
+    nid: string = "";
 
-    private body = "";
+    body = "";
 
-    private is_private = false;
+    is_private = false;
 
-    private newBody: string | null = null;
+    newBody: string | null = null;
 
     private currentPicture?: string;
 
-    private newPicture: File | null = null;
+    newPicture: File | null = null;
 
-    private loading: Boolean = false;
+    loading: Boolean = false;
 
     async fetch() {
       const group = (await axios.get(`/get/?type=group&nid=${this.$route.params.id}`)).data.data.group as Group;

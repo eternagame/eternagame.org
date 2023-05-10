@@ -39,7 +39,7 @@
   export default class MessageThread extends Vue {
     @Prop({ required: true }) readonly notification!: PrivateMessageNotificationItem;
 
-    private showCompose = false;
+    showCompose = false;
 
     get messages() {
       return this.notification.message;

@@ -40,7 +40,7 @@
     components: {},
   })
   export default class TutorialTeaserSlide extends Vue {
-    private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
+    puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
     @Prop({ required: true }) readonly nextPuzzleID!: string;
 

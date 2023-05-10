@@ -124,9 +124,9 @@
 
     private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
-    private loading = false;
+    loading = false;
 
-    private accepted: boolean = false;
+    accepted: boolean = false;
 
     captchaResponse = '';
 

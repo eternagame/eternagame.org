@@ -37,11 +37,11 @@
 
     @Prop({ default: 'blogs' }) readonly type!: string;
 
-    private formattedType = Utils.formattedType;
+    formattedType = Utils.formattedType;
 
-    private strippedBody = Utils.strippedBody;
+    strippedBody = Utils.strippedBody;
 
-    private typeColor = Utils.typeColor;
+    typeColor = Utils.typeColor;
   }
 </script>
 

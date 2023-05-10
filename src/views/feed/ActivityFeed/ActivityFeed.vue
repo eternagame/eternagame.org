@@ -100,7 +100,7 @@
       }
     }
 
-    private options: Option[] = [
+    options: Option[] = [
       { value: 'all', text: 'side-panel-options:all-activity' },
       { value: 'groups', text: 'side-panel-options:my-groups' },
       { value: 'notifications', text: 'side-panel-options:my-messages' },

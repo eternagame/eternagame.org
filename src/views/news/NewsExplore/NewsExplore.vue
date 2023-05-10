@@ -68,9 +68,9 @@
       { value: 'blogs', text: 'side-panel-options:blogs' },
     ];
 
-    private newsItems: (NewsItem|BlogItem)[] = [];
+    newsItems: (NewsItem|BlogItem)[] = [];
 
-    private calendarItems:{selectAttribute: { dot: string; dates: string; }[]} = {selectAttribute: []} ;
+    calendarItems:{selectAttribute: { dot: string; dates: string; }[]} = {selectAttribute: []} ;
 
     async monthFetch(monthData: DateItem){
 

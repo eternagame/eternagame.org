@@ -44,7 +44,7 @@
   export default class ChallengeDescription extends Vue {
     @Prop({ required: true }) readonly challenge!: ChallengeData;
 
-    private readMore = false;
+    readMore = false;
 
     get readMoreNeeded() {
       return this.challenge?.body && this.challenge?.body?.length > MAX_CHARS;

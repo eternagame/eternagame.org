@@ -115,11 +115,11 @@
   })
   export default class PuzzleView extends Mixins(FetchMixin) {
 
-    private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
+    puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
-    private tutorialRoute: string = PUZZLE_ROUTE_TUTORIAL_PREFIX;
+    tutorialRoute: string = PUZZLE_ROUTE_TUTORIAL_PREFIX;
 
-    private editRights: boolean = false;
+    editRights: boolean = false;
 
     puzzle: Puzzle | null = null;
 

@@ -27,13 +27,13 @@
 
     @Prop({required: false}) readonly notableDates!: {selectAttribute: { dot: string; dates: string; }[]} ;
 
-    private dates: {
+    dates: {
       start?: Date;
       end?: Date;
     } = {};
 
 
-    private changePage(shownMonth : DateItem){
+    changePage(shownMonth : DateItem){
       this.$emit('page-update', shownMonth);
     }
 

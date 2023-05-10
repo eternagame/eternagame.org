@@ -45,17 +45,17 @@
     components: { EditField },
   })
   export default class EditPlayerAccountSettings extends Vue {
-    private password: string = '';
+    password: string = '';
 
-    private passwordConfirm: string = '';
+    passwordConfirm: string = '';
 
-    @Prop({ required: true }) private email!: string;
+    @Prop({ required: true }) email!: string;
 
-    @Prop({ required: true }) private messagesNotify!: boolean;
+    @Prop({ required: true }) messagesNotify!: boolean;
 
-    @Prop({ required: true }) private newsNotify!: boolean;
+    @Prop({ required: true }) newsNotify!: boolean;
 
-    @Prop({ required: true }) private publicCertificate!: boolean;
+    @Prop({ required: true }) publicCertificate!: boolean;
 
     get passwordsMatch() {
       return this.passwordConfirm === this.password;

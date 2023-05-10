@@ -32,9 +32,9 @@
     components: { EditGroupHeaderImage, EditGroupHeaderTopRow },
   })
   export default class GroupHeader extends Vue {
-    @Prop({required: true}) private picture!: File;
+    @Prop({required: true}) picture!: File;
 
-    @Prop({required: true}) private loading!: boolean;
+    @Prop({required: true}) loading!: boolean;
   }
 </script>
 

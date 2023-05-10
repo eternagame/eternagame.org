@@ -55,7 +55,7 @@
 
     private newPicture: File | null = null;
 
-    @Ref('fileUpload') private fileUpload!: HTMLInputElement;
+    @Ref('fileUpload') fileUpload!: HTMLInputElement;
 
     handleFile(event: Event) {
       const target = event.target as HTMLInputElement;

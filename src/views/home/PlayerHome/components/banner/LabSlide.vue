@@ -73,7 +73,7 @@
 
     @Prop({ required: true }) readonly nid!: number;
 
-    private get displayTitle() {
+    get displayTitle() {
       return this.carousel_title || this.title;
     };
 

@@ -68,13 +68,13 @@
 
   @Component({})
   export default class EditPlayerDanger extends Vue {
-    private loading = false;
+    loading = false;
 
-    private username = '';
+    username = '';
 
-    private password = '';
+    password = '';
 
-    private errorMessage = '';
+    errorMessage = '';
 
     async deleteAccount() {
       this.errorMessage = '';

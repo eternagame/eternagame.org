@@ -229,11 +229,11 @@
   export default class GroupView extends Mixins(FetchMixin) {
     private deleteRoute: string = '';
 
-    private editRights: boolean = false;
+    editRights: boolean = false;
 
-    private following: boolean = false;
+    following: boolean = false;
 
-    private subscribed: boolean = false;
+    subscribed: boolean = false;
 
     group: Group | null = null;
 

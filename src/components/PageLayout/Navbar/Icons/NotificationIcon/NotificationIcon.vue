@@ -82,13 +82,13 @@
     },
   })
   export default class NotificationIcon extends Mixins(FetchMixin) {
-    private notificationsCount = 0;
+    notificationsCount = 0;
 
     private isDropdownShown = false;
 
-    private isFetching = false;
+    isFetching = false;
 
-    private notifications: NotificationItem[] = [];
+    notifications: NotificationItem[] = [];
 
     checkDataInterval?: number;
 
@@ -150,23 +150,23 @@
       return this.$vxm.user.uid;
     }
 
-    private isNewsItem(notification: NotificationItem) {
+    isNewsItem(notification: NotificationItem) {
       return notification.type === NotificationType.NEWS || notification.type === NotificationType.BLOG;
     }
 
-    private isPM(notification: NotificationItem) {
+    isPM(notification: NotificationItem) {
       return isPMNotiItem(notification);
     }
 
-    private isComment(notification: NotificationItem) {
+    isComment(notification: NotificationItem) {
       return isCommentNotiItem(notification);
     }
 
-    private isGroup(notification: NotificationItem) {
+    isGroup(notification: NotificationItem) {
       return isDirectedNotificationItem(notification);
     }
 
-    private isReward(notification: NotificationItem) {
+    isReward(notification: NotificationItem) {
       return notification.type === NotificationType.REWARD;
     }
 

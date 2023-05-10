@@ -126,7 +126,7 @@
       return this.cleared.some(puzzle => id === puzzle.id);
     }
 
-    private options: Option[] = [
+    options: Option[] = [
       { value: 'date', text: 'side-panel-options:desc' },
       { value: 'date_asc', text: 'side-panel-options:asc' },
       // TODO: i18nize these in en.json
@@ -135,7 +135,7 @@
     ];
 
     // TODO add additional filters in backend: https://app.clubhouse.io/vital-mind-media/story/755/make-filters-for-all-pages-work
-    private filters: Filter[] = [
+    filters: Filter[] = [
       { value: 'challenge', text: 'Challenge' },
       { value: 'player', text: 'Player' },
       { value: 'single', text: 'Single State' },

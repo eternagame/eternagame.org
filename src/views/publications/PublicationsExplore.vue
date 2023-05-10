@@ -64,7 +64,7 @@
     },
   })
   export default class PublicationsExplore extends Mixins(FetchMixin) {
-    private options: Option[] = [
+    options: Option[] = [
       { value: 'all', text: 'publications:player-title', link: '#player-publications' },
       { value: 'all', text: 'publications:researcher-title', link: '#researcher-publications' },
     ];

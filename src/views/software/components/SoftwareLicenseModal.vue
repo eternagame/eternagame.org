@@ -187,18 +187,18 @@
 
     @Prop({ required: true }) readonly commercialDisabled?: "0" | "1";
 
-    private accepted = false;
+    accepted = false;
 
-    private showSpinner = false;
+    showSpinner = false;
 
-    private page: 'select' | 'noncommercial' | 'commercial' | 'download' | 'thanks' | 'error' = 'select';
+    page: 'select' | 'noncommercial' | 'commercial' | 'download' | 'thanks' | 'error' = 'select';
 
-    private token = '';
+    token = '';
 
-    private error = '';
+    error = '';
 
     // The parameters needed by the server when requesting a new license
-    private licenseRequest = {
+    licenseRequest = {
       name: '',
       email: '',
       institution: '',
@@ -206,7 +206,7 @@
       position: '',
     };
 
-    private softwareVersions: SoftwareVersion[] = [];
+    softwareVersions: SoftwareVersion[] = [];
 
     async acceptTerms() {
       this.showSpinner = true;

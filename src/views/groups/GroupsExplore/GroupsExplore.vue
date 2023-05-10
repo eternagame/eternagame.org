@@ -129,14 +129,14 @@
       return this.joined.some(group => id === group.nid);
     }
 
-    private options: Option[] = [
+    options: Option[] = [
       { value: 'date', text: 'side-panel-options:desc' },
       { value: 'date_asc', text: 'side-panel-options:asc' },
       { value: 'title', text: 'side-panel-options:Alphabetical' },
       { value: 'size', text: 'side-panel-options:size' },
     ];
 
-    private filters: Filter[] = [
+    filters: Filter[] = [
       { value: 'mygroups', text: 'Joined' },
       { value: 'unjoined', text: 'Not Joined'},
       { value: 'admin', text: 'Admin',},

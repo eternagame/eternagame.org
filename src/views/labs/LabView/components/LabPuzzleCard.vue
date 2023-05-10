@@ -48,11 +48,11 @@
 
     @Prop({ default: true }) readonly closed!: boolean;
 
-    private secondaryRoute: string = this.closed
+    secondaryRoute: string = this.closed
       ? PUZZLE_ROUTE_SOLUTIONS_PREFIX
       : PUZZLE_ROUTE_BROWSE_PREFIX;
 
-    private mainRoute: string = PUZZLE_ROUTE_PREFIX;
+    mainRoute: string = PUZZLE_ROUTE_PREFIX;
 
     get imageURL() {
       return Utils.getPuzzleMiddleThumbnail(this.puzzle.nid);

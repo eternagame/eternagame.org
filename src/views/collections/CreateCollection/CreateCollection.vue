@@ -59,15 +59,15 @@
     },
   })
   export default class CreateCollection extends Vue {
-    private title = '';
+    title = '';
 
-    private body = '';
+    body = '';
 
-    private puzzlelist: PuzzleItem[] = [];
+    puzzlelist: PuzzleItem[] = [];
 
     private currentPicture?: string;
 
-    private newPicture: File | null = null;
+    newPicture: File | null = null;
 
     get picture() {
       if (this.newPicture) {

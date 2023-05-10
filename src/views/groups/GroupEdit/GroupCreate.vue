@@ -62,21 +62,21 @@
     },
   })
   export default class CreateGroup extends Mixins(FetchMixin) {
-    private name = "";
+    name = "";
 
     private nid: string = "";
 
-    private body = "";
+    body = "";
 
-    private is_private = "";
+    is_private = "";
 
     private group_type = "";
 
-    private newBody: string | null = null;
+    newBody: string | null = null;
 
     private currentPicture?: string;
 
-    private newPicture: File | null = null;
+    newPicture: File | null = null;
 
     private email = "";
 
@@ -88,9 +88,9 @@
 
     private newsNotify = false;
 
-    private isPrivate = false;
+    isPrivate = false;
 
-    private loading = false;
+    loading = false;
 
     get picture() {
       if (this.newPicture) {

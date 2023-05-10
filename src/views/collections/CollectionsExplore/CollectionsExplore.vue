@@ -204,14 +204,14 @@
       return this.$vxm.user.hasLabAccess;
     }
 
-    private options: Option[] = [
+    options: Option[] = [
       { value: 'date', text: 'side-panel-options:desc' },
       { value: 'title', text: 'side-panel-options:Alphabetical' },
     // { value: 'date_asc', text: 'side-panel-options:asc' },
     // { value: 'size', text: 'side-panel-options:size' },
     ];
 
-    private filters: Filter[] = [
+    filters: Filter[] = [
       { value: 'cleared', text: 'Cleared' },
       { value: 'uncleared', text: 'Uncleared' },
       { value: 'inprogress', text: 'In Progress' },

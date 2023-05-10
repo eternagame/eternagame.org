@@ -45,7 +45,7 @@
   export default class LabDescription extends Vue {
     @Prop({ required: true }) readonly lab!: LabData;
 
-    private readMore = false;
+    readMore = false;
 
     get totalProgressCircle() {
       return {

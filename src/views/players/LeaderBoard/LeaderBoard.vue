@@ -64,13 +64,13 @@
     },
   })
   export default class LeaderBoard extends Mixins(FetchMixin) {
-    private options: Option[] = [
+    options: Option[] = [
       { value: 'active', text: 'side-panel-options:points-last-30-days' },
       { value: 'point', text: 'side-panel-options:total-points' },
       { value: 'synthesizes', text: 'side-panel-options:total-synthesized' },
     ];
 
-    private users: UserItem[] = [];
+    users: UserItem[] = [];
 
     async fetch() {
       const {sort, filters, size, search} = this.$route.query;

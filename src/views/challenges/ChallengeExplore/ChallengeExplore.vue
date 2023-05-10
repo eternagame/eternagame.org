@@ -39,7 +39,7 @@
   })
   export default class ChallengeExplore extends Mixins(FetchMixin) {
 
-    private options: Option[] = [
+    options: Option[] = [
       { value: 'all', text: 'side-panel-options:all' },
       { value: 'active', text: 'challenge-explore:active'},
       { value: 'inactive', text: 'challenge-explore:inactive'},

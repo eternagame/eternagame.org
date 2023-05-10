@@ -101,17 +101,17 @@
   export default class EditCollection extends Mixins(FetchMixin) {
     @Prop({ required: true }) private loading!: boolean;
 
-    private title = '';
+    title = '';
 
-    private deleteTitle = '';
+    deleteTitle = '';
 
-    private desc = '';
+    desc = '';
 
-    private puzzlelist: PuzzleItem[] = [];
+    puzzlelist: PuzzleItem[] = [];
 
-    private picture: string = '';
+    picture: string = '';
 
-    private newPicture: File | null = null;
+    newPicture: File | null = null;
 
     fetchData: () => Promise<void> | undefined = async () => {};
 

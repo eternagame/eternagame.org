@@ -18,7 +18,7 @@
 
     private search: string = '';
 
-    private loading: boolean = false;
+    loading: boolean = false;
 
     mounted() {
       window.onscroll = () => {

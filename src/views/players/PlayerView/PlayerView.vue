@@ -240,9 +240,9 @@
     },
   })
   export default class PlayerView extends Mixins(FetchMixin) {
-    private BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;
+    BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;
 
-    private options: Option[] = [
+    options: Option[] = [
       { value: 'about', text: 'side-panel-options:about' },
       { value: 'achievements', text: 'side-panel-options:achievements' },
       { value: 'synthesized', text: 'side-panel-options:synthesized' },

@@ -28,7 +28,7 @@
       return this.user['Certificate public'] === 'on';
     }
 
-    private BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;
+    BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;
   }
 </script>
 

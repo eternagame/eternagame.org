@@ -124,8 +124,7 @@
     "vue-svg-loader": "^0.16.0",
     "vue-template-compiler": "^2.7.7",
     "webpack-dev-middleware": "^5.3.3",
-    "webpack-node-externals": "^3.0.0",
-    "volar-service-vetur": "latest"
+    "webpack-node-externals": "^3.0.0"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"

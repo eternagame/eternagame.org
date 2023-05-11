@@ -16,7 +16,7 @@
   export default class FacebookAuthentication extends Vue {
     private FB = null;
 
-    private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
+    fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
     async fbLogIn() {
       const data = await this.$vxm.user.fbLogin(this.FB);

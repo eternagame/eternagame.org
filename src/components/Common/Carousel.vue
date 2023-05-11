@@ -36,7 +36,7 @@
       if (this.slideTo) this.slider.$swiper.slideTo(this.slideTo);
     }
 
-    private swiperOption = {
+    swiperOption = {
       spaceBetween: 20,
       pagination: {
         el: '.swiper-pagination',

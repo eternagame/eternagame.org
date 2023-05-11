@@ -120,13 +120,13 @@
   export default class CollectionPuzzles extends Vue {
     @Prop({required: true}) puzzlelist!: PuzzleItem[];
 
-    private puzzlenames: PuzzleItem[] = [];
+    puzzlenames: PuzzleItem[] = [];
 
-    private targetName = '';
+    targetName = '';
 
-    private idInput: String = '';
+    idInput: String = '';
 
-    private renderKey: number = 0;
+    renderKey: number = 0;
 
     fetchData: () => Promise<void> | undefined = async () => {};
 

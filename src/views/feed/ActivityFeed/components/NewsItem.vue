@@ -40,17 +40,17 @@
   export default class NewsItem extends Vue {
     @Prop({ required: true }) readonly article!: NewsItemType|BlogItem;
 
-    private get link() {
+    get link() {
       return `/news/${this.article.nid}`;
     }
 
-    private get commentCount() {
+    get commentCount() {
       return this.article.type === NotificationType.NEWS ?
         this.article.commentcount
         : this.article.comments.length;
     }
 
-    private get date() {
+    get date() {
       return new Date(this.article.created).toLocaleDateString(undefined, {
         year: 'numeric',
         month: 'short',
@@ -58,11 +58,11 @@
       });
     }
 
-    private formattedType = Utils.formattedType;
+    formattedType = Utils.formattedType;
 
-    private strippedBody = Utils.strippedBody;
+    strippedBody = Utils.strippedBody;
 
-    private typeColor = Utils.typeColor;
+    typeColor = Utils.typeColor;
   }
 </script>
 

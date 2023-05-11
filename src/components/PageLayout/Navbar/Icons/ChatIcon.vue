@@ -39,7 +39,7 @@
   export default class ChatIcon extends Vue {
     @Prop({ default: false }) readonly isInSideBar!: boolean;
 
-    private show: boolean = false;
+    show: boolean = false;
 
     @Ref() readonly chatContainer!: HTMLElement;
 

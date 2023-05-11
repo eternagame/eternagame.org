@@ -83,31 +83,31 @@
     },
   })
   export default class EditProfile extends Mixins(FetchMixin) {
-    private username = "";
+    username = "";
 
-    private personalName: string = "";
+    personalName: string = "";
 
-    private oldAboutMe = "";
+    oldAboutMe = "";
 
-    private newAboutMe: string | null = null;
+    newAboutMe: string | null = null;
 
     private currentPicture?: string;
 
-    private newPicture: File | null = null;
+    newPicture: File | null = null;
 
-    private email = "";
+    email = "";
 
-    private newPassword?: string;
+    newPassword?: string;
 
-    private currentPassword = "";
+    currentPassword = "";
 
-    private messagesNotify = false;
+    messagesNotify = false;
 
-    private newsNotify = false;
+    newsNotify = false;
 
-    private publicCertificate = false;
+    publicCertificate = false;
 
-    private loading = false;
+    loading = false;
 
     async fetch() {
       const user = (await axios.get(`/get/?type=my_user&uid=${this.$vxm.user.uid}`)).data.data.user as UserData;

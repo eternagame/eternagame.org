@@ -16,9 +16,9 @@
 
   @Component({})
   export default class PlayerHeaderTopRow extends Vue {
-    @Ref("fileUpload") private fileUpload!: HTMLInputElement;
+    @Ref("fileUpload") fileUpload!: HTMLInputElement;
 
-    @Prop({required: true}) private loading!: boolean;
+    @Prop({required: true}) loading!: boolean;
 
     handleFile(event: Event) {
       const target = event.target as HTMLInputElement;

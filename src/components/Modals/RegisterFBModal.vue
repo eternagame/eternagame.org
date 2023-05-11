@@ -103,9 +103,9 @@
   export default class RegisterFBModal extends Vue {
     form = INITIAL_FORM;
 
-    private loading = false;
+    loading = false;
 
-    private accepted: boolean = false;
+    accepted: boolean = false;
 
     captchaResponse = '';
 

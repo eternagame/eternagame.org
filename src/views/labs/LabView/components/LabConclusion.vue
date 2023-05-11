@@ -34,7 +34,7 @@
 
     @Prop({ default: '250px' }) readonly height!: string;
 
-    private showFullText = false;
+    showFullText = false;
 
     get readMoreNeeded() {
       return this.conclusion.length > MAX_CHARS;

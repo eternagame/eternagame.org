@@ -25,7 +25,7 @@
     components: { EditField },
   })
   export default class PlayerNewSection extends Vue {
-    private title: string = '';
+    title: string = '';
 
     private text: string = '';
 

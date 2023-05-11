@@ -16,7 +16,7 @@
   })
   export default class GroupEditVisibility extends Vue {
 
-    @Prop({ required: true }) private isPrivate!: boolean;
+    @Prop({ required: true }) isPrivate!: boolean;
 
     togglePrivate(checked: InputEvent) {
       this.$emit('update:isPrivate', checked);

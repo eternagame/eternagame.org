@@ -30,7 +30,7 @@
 
     @Prop({ required: true }) readonly paramName!: string;
 
-    private selected: string[] = [];
+    selected: string[] = [];
 
     created() {
       const data = this.$route.query[this.paramName];

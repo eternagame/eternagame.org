@@ -53,12 +53,12 @@
   export default class LabsExplore extends Mixins(FetchMixin) {
     labs: LabCardData[] = [];
 
-    private filters: Filter[] = [
+    filters: Filter[] = [
       { value: 'active', text: 'Active' },
       { value: 'inactive', text: 'Inactive' },
     ];
 
-    private options: Option[] = [
+    options: Option[] = [
       { value: 'desc', text: 'side-panel-options:desc' },
       { value: 'asc', text: 'side-panel-options:asc' },
     ];

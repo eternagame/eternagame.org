@@ -16,13 +16,13 @@
   export default class RewardNotification extends Vue {
     @Prop({ required: true }) readonly reward!: RewardNotificationItem;
 
-    private get content() {
+    get content() {
       return `You received ${this.reward.field_reward_amount_value} points `
         + `for ${this.isVote ? 'voting on' : 'your design'} ${this.reward.field_reward_solution_title_value} `
         + `in ${this.reward.field_reward_puzzle_title_value}`;
     }
 
-    private get link() {
+    get link() {
       return `${PUZZLE_ROUTE_BROWSE_PREFIX}${this.reward.field_reward_puzzle_nid_value}/?filter1=Id&filter1_arg1=${this.reward.field_reward_solution_nid_value}&filter1_arg2=${this.reward.field_reward_solution_nid_value}`;
     }
 

@@ -60,7 +60,7 @@
     },
   })
   export default class QuickHelp extends Vue {
-    private data = {
+    data = {
       'help:toolbar': 'help:toolbar',
       'help:tips-and-tricks': 'help:tips-and-tricks-text',
       'help:four-bases': 'help:four-bases-text',
@@ -99,7 +99,7 @@
       return keys.slice(keys.length / 2);
     }
 
-    private keycommands = {
+    keycommands = {
       'help:mode': 'Space',
       'help:zoom-in': '+',
       'help:zoom-out': '-',

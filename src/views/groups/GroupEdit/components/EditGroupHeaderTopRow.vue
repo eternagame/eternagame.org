@@ -12,7 +12,7 @@
 
   @Component({})
   export default class GroupHeaderTopRow extends Vue {
-    @Ref("fileUpload") private fileUpload!: HTMLInputElement;
+    @Ref("fileUpload") fileUpload!: HTMLInputElement;
 
     @Prop({required: true}) private loading!: boolean;
 

@@ -31,8 +31,7 @@
       <b-button
         class="support-container-button"
         variant="secondary"
-        href="https://makeagift.stanford.edu/get/page/makeagift?pgnTPC=399&stp=163&olc=14209&cturl=close"
-        target="_blank"
+        to="/donate"
       >
         {{ $t('challenge-support:button') }}
       </b-button>

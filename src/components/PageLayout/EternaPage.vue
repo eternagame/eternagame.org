@@ -21,7 +21,7 @@
         <b-col class="body" v-if="!hasSidebarSlot">
           <slot></slot>
         </b-col>
-        <b-col class="sidebar d-none d-lg-block" v-if="hasSidebarSlot">
+        <b-col class="sidebar d-none d-lg-block" cols="3" v-if="hasSidebarSlot">
           <slot name="sidebar" :isInSidebar="true"></slot>
         </b-col>
       </b-row>

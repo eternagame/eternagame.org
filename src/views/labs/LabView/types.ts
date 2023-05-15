@@ -62,6 +62,7 @@ export interface LabData {
   total_submitted_solutions_of_user: number;
   max_designs: number;
   challenge: string;
+  submitter_count: number;
 }
 
 export default interface LabViewData {

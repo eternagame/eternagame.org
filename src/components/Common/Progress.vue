@@ -1,5 +1,5 @@
 <template>
-  <div v-if="total" style="margin-right:10px">
+  <Stat v-if="total" :name="name">
     <vue-circle
       :key="$mq"
       :progress="(100 * progress) / total"
@@ -19,9 +19,7 @@
       </p>
       <p class="smaller-text">/{{ total }}</p>
     </vue-circle>
-
-    <p class="smaller-text" style="font-weight: bold; width:120px">{{ $t(name) }}</p>
-  </div>
+  </Stat>
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -29,6 +27,7 @@
   import VueCircle from 'vue2-circle-progress/src/index.vue';
   // @ts-ignore
   import VueMq from 'vue-mq';
+  import Stat from './Stat.vue';
 
   Vue.use(VueMq, {
     breakpoints: {
@@ -38,7 +37,7 @@
   });
 
   @Component({
-    components: { VueCircle },
+    components: { VueCircle, Stat },
   })
   export default class Progress extends Vue {
     @Prop({ required: true }) readonly name!: string;

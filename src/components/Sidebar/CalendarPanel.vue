@@ -7,12 +7,12 @@
 <script lang="ts">
   import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
+  import VCalendar from 'v-calendar';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
   import { DateItem } from '@/types/common-types';
-  
+
   // @ts-ignore
-  import VCalendar from 'v-calendar';
 
   Vue.use(VCalendar, {
     componentPrefix: 'vc',
@@ -27,13 +27,13 @@
 
     @Prop({required: false}) readonly notableDates!: {selectAttribute: { dot: string; dates: string; }[]} ;
 
-    private dates: {
+    dates: {
       start?: Date;
       end?: Date;
     } = {};
 
 
-    private changePage(shownMonth : DateItem){
+    changePage(shownMonth : DateItem){
       this.$emit('page-update', shownMonth);
     }
 
@@ -54,8 +54,8 @@
     }
 
     @Watch('dates')
-    onSearch(event: KeyboardEvent) {
-      const { start, end } = (this.dates || {});
+    onSearch() {
+      const { start, end } = this.dates;
       if (start && end)
         this.$router.replace({
           name: this.$route.name!,
@@ -70,12 +70,12 @@
 </script>
 
 <style scoped lang="scss">
-  ::v-deep .vc-container {
+  :deep(.vc-container) {
     background-color: transparent;
     border: 0px;
   }
 
-  ::v-deep .vc-weekday {
+  :deep(.vc-weekday) {
     color: gray;
   }
 </style>

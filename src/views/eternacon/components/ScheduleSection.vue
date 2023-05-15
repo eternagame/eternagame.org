@@ -7,7 +7,7 @@
         <template v-for="session in sessions">
           <li :key="`${session.topic}-${session.time}`" class="row">
             <div class="col-sm-3">
-              <div class="session-time">{{session.time}}</div>
+              <div class="session-time">{{formatSessionTime(session.time)}}</div>
               <div class="font-weight-bold">{{session.speaker}}</div>
               <div class="text-muted">{{session.affiliation}}</div>
             </div>
@@ -20,7 +20,7 @@
                   its contents, and limit discussion to the lab categories on the forum and Discord.
                 </p>
                 <div class="embed-responsive embed-responsive-16by9 mt-2">
-                  <iframe :src="session.privateLink" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                  <iframe :src="session.privateLink" :title="`Session video for ${session.topic}`" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
                 </div>
               </template>
               <p class="video-info" v-else-if="session.privateLink">
@@ -34,7 +34,7 @@
               </p>
               <template v-if="session.publicLink">
                 <div class="embed-responsive embed-responsive-16by9 mt-2">
-                  <iframe :src="session.publicLink" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                  <iframe :src="session.publicLink" :title="`Session video for ${session.topic}`" class="embed-responsive-item" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
                 </div>
               </template>
             </b-card>
@@ -66,7 +66,18 @@
   @Component
   export default class ScheduleSection extends Vue {
     @Prop({ required: true }) sessions!: Sessions;
+
+    formatSessionTime(time: string) {
+      if (new Date(time).toString() !== 'Invalid Date') {
+        const formatter = new Intl.DateTimeFormat([],{hour: "numeric", minute: "numeric", timeZoneName: "short"});
+        return formatter.format(new Date(time));
+      }
+      return time;
+    }
   }
+
+
+  
 </script>
 
 <style lang="scss" scoped>

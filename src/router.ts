@@ -12,6 +12,11 @@ export default function createRouter() {
     base: process.env.BASE_URL,
     routes: [
       {
+        path: '/calendar',
+        name: 'calendar',
+        component: () => import('./views/calendar/Calendar.vue'),
+      },
+      {
         path: '/labs',
         name: 'labs-list',
         component: () => import('./views/labs/LabsExplore/LabsExplore.vue'),
@@ -27,19 +32,24 @@ export default function createRouter() {
         component: () => import('./views/challenges/ChallengeView/ChallengeView.vue'),
       },
       {
-        path: '/quests',
-        name: 'quests-list',
-        component: () => import('./views/quests/QuestsExplore/QuestsExplore.vue'),
+        path: '/collections',
+        name: 'collections-list',
+        component: () => import('./views/collections/CollectionsExplore/CollectionsExplore.vue'),
       },
       {
-        path: '/quests/:id',
-        name: 'quests-view',
-        component: () => import('./views/quests/QuestView/QuestView.vue'),
+        path: '/collections/create',
+        name: 'create-collection',
+        component: () => import('./views/collections/CreateCollection/CreateCollection.vue'),
       },
       {
-        path: '/create/quest',
-        name: 'create-quest',
-        component: () => import('./views/quests/CreateQuest/CreateQuest.vue'),
+        path: '/collections/:id',
+        name: 'collections-view',
+        component: () => import('./views/collections/CollectionView/CollectionView.vue'),
+      },
+      {
+        path: '/collections/:id/edit',
+        name: 'collections-view',
+        component: () => import('./views/collections/CreateCollection/EditCollection.vue'),
       },
       {
         path: '/puzzles',
@@ -67,6 +77,11 @@ export default function createRouter() {
         component: () => import('./views/about/About.vue'),
       },
       {
+        path: '/epa',
+        name: 'epa',
+        component: () => import('./views/epa/EPA.vue'),
+      },
+      {
         path: '/history',
         name: 'history',
         component: () => import('./views/history/History.vue'),
@@ -87,12 +102,32 @@ export default function createRouter() {
         component: () => import('./views/challenges/ChallengeExplore/ChallengeExplore.vue'),
       },
       {
-        path: '/about/software',
+        path: '/software',
         name: 'software',
         component: () => import('./views/software/SoftwareExplore.vue'),
       },
       {
-        path: '/about/terms',
+        path: '/groups',
+        name: 'groups',
+        component: () => import('./views/groups/GroupsExplore/GroupsExplore.vue'),
+      },
+      {
+        path: '/groups/create',
+        name: 'group-create',
+        component: () => import('./views/groups/GroupEdit/GroupCreate.vue'),
+      },
+      {
+        path: '/groups/:id',
+        name: 'group-view',
+        component: () => import('./views/groups/GroupView/GroupView.vue'),
+      },
+      {
+        path: '/groups/:id/edit',
+        name: 'group-edit',
+        component: () => import('./views/groups/GroupEdit/GroupEdit.vue'),
+      },
+      {
+        path: '/terms',
         name: 'terms-and-conditions',
         component: () => import('./views/terms/TermsAndConditions.vue'),
       },
@@ -112,7 +147,7 @@ export default function createRouter() {
         component: () => import('./views/news/NewsView/NewsView.vue'),
       },
       {
-        path: '/about/publications',
+        path: '/publications',
         name: 'publications-list',
         component: () => import('./views/publications/PublicationsExplore.vue'),
       },
@@ -148,7 +183,12 @@ export default function createRouter() {
       },
       {
         path: '/eternacon',
-        redirect: { name: 'eternacon-2021' }
+        redirect: { name: 'eternacon-2023' }
+      },
+      {
+        path: '/eternacon/2019',
+        name: 'eternacon-2019',
+        component: () => import('./views/eternacon/Eternacon2019.vue'),
       },
       {
         path: '/eternacon/2020',
@@ -161,10 +201,53 @@ export default function createRouter() {
         component: () => import('./views/eternacon/Eternacon2021.vue'),
       },
       {
+        path: '/eternacon/2022',
+        name: 'eternacon-2022',
+        component: () => import('./views/eternacon/Eternacon2022.vue'),
+      },
+      {
+        path: '/eternacon/2023',
+        name: 'eternacon-2023',
+        component: () => import('./views/eternacon/Eternacon2023.vue'),
+      },
+      {
         path: '/eternacon/about',
         name: 'about-eternacon',
         component: () => import('./views/eternacon/AboutEternacon.vue'),
-      }
+      },
+      {
+        path: '/password-reset',
+        name: 'password-reset',
+        component: () => import('./views/password-reset/PasswordReset.vue'),
+      },
+      {
+        path: '/unsubscribe',
+        name: 'unsubscribe',
+        component: () => import('./views/unsubscribe/Unsubscribe.vue'),
+      },
+      {
+        path: '/debug/autosave-manager',
+        component: () => import('./views/debug/AutosaveManager.vue'),
+      },
+      {
+        path: '/donate',
+        component: () => import('./views/donate/Donate.vue'),
+      },
+      // Maintaining these old routes in case they're actively linked from anywhere
+      // important - at some point we should audit if we can remove these, or we may need a
+      // dedicated section of legacy routes anyways
+      {
+        path: '/about/software',
+        redirect: '/software'
+      },
+      {
+        path: '/about/terms',
+        redirect: '/terms'
+      },
+      {
+        path: '/about/publications',
+        redirect: '/publications'
+      },
     ],
     scrollBehavior(to, from, savedPosition) {
       // Navigate to previous scroll position, or else top of page
@@ -176,13 +259,13 @@ export default function createRouter() {
       if (to.hash) {
         return { selector: to.hash };
       }
-      
+
       if(to.params.keepScroll) return null;
 
       return { x: 0, y: 0 };
     },
   });
-  
+
 
   router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {
     const userStore = router.app.$vxm.user;

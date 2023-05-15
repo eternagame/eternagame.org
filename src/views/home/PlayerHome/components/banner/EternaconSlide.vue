@@ -6,11 +6,11 @@
   >
     <div>
       <p class="video-title">
-        <strong>Register now</strong> for Eternacon 2021
+        <strong>Register now</strong> for Eternacon 2022
       </p>
 
       <p class="explain">
-        Tune in on July 24-25 to exciting talks and activities from Eterna researchers, developers,
+        Tune in on July 23-24 to exciting talks and activities from Eterna researchers, developers,
         players, and other world-class experts.
       </p>
       <b-button
@@ -18,7 +18,7 @@
         variant="primary"
         size="lg"
         style="margin-right:10px"
-        href="https://stanford.zoom.us/meeting/register/tJcvdumspjouGNHW_HAviA1ic_tuAvheeoTM"
+        href="https://stanford.zoom.us/meeting/register/tJMtceGoqj4oGdOhGq-MbBqI3gKfOJUCIqC_"
       >
         Register
       </b-button>
@@ -30,13 +30,6 @@
       >
         Schedule &amp; Info
       </b-button>
-      <div class="d-flex" style="margin-top: 22px;">
-        <a href="https://eternagame.org/news/10865634">
-          <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
-            <i class="arrow_right"></i>Sign up to give a presentation or run a session
-          </p>
-        </a>
-      </div>
     </div>
   </b-carousel-slide>
 </template>
@@ -44,7 +37,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
-  import bgimage from '@/assets/about/logo_eternacon.svg';
+  import bgimage from '@/assets/home/hero-eternacon-2022.jpg';
 
   @Component({
     components: {},
@@ -61,14 +54,14 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep .carousel-caption {
+  :deep(.carousel-caption) {
     text-align: left;
   }
 
-  ::v-deep img {
+  :deep(img) {
     min-height: 500px;
     object-fit: contain;
-    padding: 50px;
+    // padding: 50px;
   }
 
   .slide {

@@ -23,7 +23,6 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import defaultImage from '@/assets/ribosome_challenge_bg.png';
-  import { LabData } from '../types';
 
   const MAX_CHARS = 1000;
 
@@ -35,7 +34,7 @@
 
     @Prop({ default: '250px' }) readonly height!: string;
 
-    private showFullText = false;
+    showFullText = false;
 
     get readMoreNeeded() {
       return this.conclusion.length > MAX_CHARS;

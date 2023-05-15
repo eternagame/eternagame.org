@@ -2,7 +2,7 @@
   <EternaPage
     :title="$t('code-of-conduct:section1-title')"
     :header_title="$t('code-of-conduct:title')"
-    :header_date="$t('terms:header-date')"
+    header_date="Last updated: October 2, 2021"
   >
     <!-- Note: If you make meaningful updates this page, make sure to update the header date -->
     <div class="page-content mt-2">
@@ -60,9 +60,10 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
+  import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
 
   @Component({
-    components: { EternaPage },
+    components: { EternaPage, SidebarPanel },
   })
   export default class CodeOfConduct extends Vue {
 

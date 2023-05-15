@@ -2,7 +2,7 @@
   <div class="page-content card">
     <a :href="editURL" class="edit-link" v-if="showEdit">Edit</a>
     <div class="container">
-      <img class="logo mr-3" style="border:0;" :src="`/sites/default/files/${project.logo}`" />
+      <img alt="" class="logo mr-3" style="border:0;" :src="`/sites/default/files/${project.logo}`" />
 
       <h3 class="mb-2">
         {{ project.name }}
@@ -10,6 +10,17 @@
       <p class="text">{{ project.description }}</p>
 
       <div class="">
+        <b-btn
+            type="button"
+            class="btn btn-primary mt-3 mr-3 mb-3"
+            v-b-tooltip.hover.bottom
+            :title="project.server_tooltip"
+            :href="project.server_url"
+            v-if="project.server_url"
+        >
+          <b-icon-hdd-stack />
+          SERVER
+        </b-btn>
         <template v-if="project.license_terms">
           <b-btn
             type="button"
@@ -25,21 +36,23 @@
             :id="id"
             :packageid="packageid"
             :license-terms="project.license_terms"
+            :commercialDisabled="project.commercial_license_disabled"
           />
         </template>
-        <b-btn v-else
+        <b-btn
           type="button"
           class="btn btn-primary mt-3 mr-3 mb-3"
           v-b-tooltip.hover.bottom
           :title="project.download_tooltip"
           :href="project.download_url"
+          v-if="project.download_url"
         >
           <b-icon-download />
           DOWNLOAD
         </b-btn>
         <b-btn
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-secondary mt-3 mr-3 mb-3"
             v-b-tooltip.hover.bottom
             :title="project.help_tooltip"
             :href="project.help_url"
@@ -55,6 +68,7 @@
           <a :href="project.paper_url">
             <img
               v-if="project.thumbnail"
+              alt="Publication"
               class="thumbnail"
               :src="`/sites/default/files/${project.thumbnail}`"
             />
@@ -74,12 +88,12 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { BIconDownload, BIconBook } from 'bootstrap-vue';
+  import { BIconDownload, BIconBook, BIconHddStack } from 'bootstrap-vue';
   import SoftwareLicenseModal from './SoftwareLicenseModal.vue';
   import { SoftwareProject } from '../SoftwareExplore.vue';
 
   @Component({
-    components: { BIconBook, BIconDownload, SoftwareLicenseModal },
+    components: { BIconBook, BIconDownload, BIconHddStack, SoftwareLicenseModal },
   })
   export default class SoftwareCard extends Vue {
     @Prop({ required: true }) readonly project!: SoftwareProject;

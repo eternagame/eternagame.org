@@ -20,7 +20,7 @@
         <div class="row d-flex" v-else style="margin-top:10px" />
         <div v-dompurify-html="strippedBody(article.body)" class="text" />
         <div v-if="commentCount" class="d-flex">
-          <img src="@/assets/comment-count.svg" />
+          <img src="@/assets/comment-count.svg" alt="number of comments" />
           <p class="icon-text">{{ commentCount }}</p>
         </div>
       </div>
@@ -40,17 +40,17 @@
   export default class NewsItem extends Vue {
     @Prop({ required: true }) readonly article!: NewsItemType|BlogItem;
 
-    private get link() {
+    get link() {
       return `/news/${this.article.nid}`;
     }
 
-    private get commentCount() {
+    get commentCount() {
       return this.article.type === NotificationType.NEWS ?
         this.article.commentcount
         : this.article.comments.length;
     }
 
-    private get date() {
+    get date() {
       return new Date(this.article.created).toLocaleDateString(undefined, {
         year: 'numeric',
         month: 'short',
@@ -58,18 +58,18 @@
       });
     }
 
-    private formattedType = Utils.formattedType;
+    formattedType = Utils.formattedType;
 
-    private strippedBody = Utils.strippedBody;
+    strippedBody = Utils.strippedBody;
 
-    private typeColor = Utils.typeColor;
+    typeColor = Utils.typeColor;
   }
 </script>
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep .card-body {
+  :deep(.card-body) {
     padding: 11.25px !important;
   }
 

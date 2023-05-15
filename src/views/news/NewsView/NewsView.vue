@@ -13,12 +13,12 @@
     </div>
 
     <template #sidebar="{ isInSidebar }">
-      <DropdownSidebarPanel
+      <!-- <DropdownSidebarPanel
         :options="options"
         paramName="sort"
         replace
         :isInSidebar="isInSidebar"
-      />
+      /> -->
       <CalendarPanel :isInSidebar="isInSidebar" />
       <!-- <TagsPanel :tags="['#Ribosome', '#Eternacon', '#Chat']" :isInSidebar="isInSidebar" /> -->
     </template>
@@ -26,9 +26,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Mixins } from 'vue-property-decorator';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';

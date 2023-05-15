@@ -1,8 +1,8 @@
 <template>
     <section class="hero">
-      <img :src="bgImage" class="bg" />
+      <img :src="bgImage" class="bg" alt="" />
       <div v-if="!backgroundImage" class="logowrap">
-        <img src="@/assets/about/logo_eternacon.svg" class="logo" />
+        <img src="@/assets/about/logo_eternacon.svg" class="logo" alt="" />
       </div>
       <div class="hero-description">
         <h2>Learn. Play. <i>Connect</i>.</h2>
@@ -42,7 +42,7 @@
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
-  
+
   .hero {
     height: 350px;
     position: relative;

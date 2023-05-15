@@ -1,23 +1,28 @@
 <template>
   <div ref="root">
     <AspectRatioCard>
-      <template #header>
-      </template>
+      <template #header> </template>
       <SmartLink :link="toQuest">
-        <img :src="image" style="width: 80%; margin: auto;" class="scalable" />
+        <img :src="image" style="width: 80%; margin: auto" class="scalable" :alt="title" />
       </SmartLink>
       <template #footer>
-        <div style="text-align:center; margin-bottom:0px">
-          <img src="@/assets/noun_lock.svg" v-if="locked" />
+        <div style="text-align: center; margin-bottom: 0px">
+          <img src="@/assets/noun_lock.svg" v-if="locked" alt="locked" />
           <div v-else>
             <p v-if="completed">
               <SmartLink :link="toGame">
-                <img src="@/assets/noun_check.svg" />
-                <b style="text-transform: uppercase;">{{ $t('quest:completed') }}</b>
+                <img src="@/assets/noun_check.svg" alt="completed" />
+                <b style="text-transform: uppercase">{{
+                  $t('collection:completed')
+                }}</b>
               </SmartLink>
             </p>
             <div v-else>
-              <b-button variant="primary" style="margin:10px 0" :[nav]="toGame">
+              <b-button
+                variant="primary"
+                style="margin: 10px 0"
+                :[nav]="toGame"
+              >
                 {{ $t('quest-card:play') }}
               </b-button>
               <SmartLink v-if="started" :link="toGame">
@@ -47,21 +52,21 @@
     },
   })
   export default class QuestCard extends Vue {
-    @Prop({required: true}) readonly image!: string;
+    @Prop({ required: true }) readonly image!: string;
 
-    @Prop({required: true}) readonly to_next!: number;
+    @Prop({ required: true }) readonly to_next!: number;
 
-    @Prop({required: true}) readonly title!: string;
+    @Prop({ required: true }) readonly title!: string;
 
-    @Prop({required: true}) readonly desc!: string;
+    @Prop({ required: true }) readonly desc!: string;
 
-    @Prop({required: true}) readonly level!: string;
+    @Prop({ required: true }) readonly level!: string;
 
     @Prop() readonly questLink?: string;
 
     @Prop() readonly puzzleLink?: string;
 
-    @Prop({required: true}) readonly current_level!: string;
+    @Prop({ required: true }) readonly current_level!: string;
 
     @Prop() readonly current_puzzle?: string;
 
@@ -73,9 +78,10 @@
 
     get toGame() {
       return (
-        this.puzzleLink
-        || (this.current_puzzle && `${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`)
-        || this.toQuest
+        this.puzzleLink ||
+        (this.current_puzzle &&
+          `${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`) ||
+        this.toQuest
       );
     }
 
@@ -83,37 +89,39 @@
       return this.questLink || (this.title && `/quests/${this.title}`);
     }
 
-    private locked = Number(this.level) - 1 > Number(this.current_level);
+    get locked() {
+      return Number(this.level) - 1 > Number(this.current_level);
+    }
 
-    private started = this.to_next > 0 && !this.locked;
+    get started() {
+      return this.to_next > 0 && !this.locked;
+    }
 
-    private completed = this.to_next >= 1 && !this.locked;
+    get completed() {
+      return this.to_next >= 1 && !this.locked;
+    }
   }
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/global.scss';
-
-  .btn {
-    display: inline-block;
-    width: 48%;
-    margin-bottom: 0px;
-  }
-
-  ::v-deep .card-body {
-    padding: 11.25px !important;
-  }
-
-  .card {
-    background-color: $input-bg;
-    transition: 0.3s ease;
-  }
-  .card:hover {
-    background-color: $blue;
-  }
-
-  .quest-card-title {
-    height: 30px;
-    text-align: center;
-  }
+@import '@/styles/global.scss';
+.btn {
+  display: inline-block;
+  width: 48%;
+  margin-bottom: 0px;
+}
+:deep(.card-body) {
+  padding: 11.25px !important;
+}
+.card {
+  background-color: $input-bg;
+  transition: 0.3s ease;
+}
+.card:hover {
+  background-color: $blue;
+}
+.quest-card-title {
+  height: 30px;
+  text-align: center;
+}
 </style>

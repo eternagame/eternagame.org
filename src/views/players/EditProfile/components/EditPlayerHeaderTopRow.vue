@@ -1,9 +1,9 @@
 <template>
   <div class="d-flex justify-content-between">
-    <b-button type="secondary" style="margin-left:10px" @click="fileUpload.click()">
+    <b-button id="replace-image" type="secondary" style="margin-left:10px" @click="fileUpload.click()">
       {{$t('edit-profile:replace-image')}}
     </b-button>
-    <input type="file" @change="handleFile" hidden ref="fileUpload" />
+    <input type="file" @change="handleFile" hidden ref="fileUpload" aria-labelledby="replace-image" />
     <b-button type="submit" style="margin-left:10px" variant="primary" @click="$emit('submit')" :disabled="loading">
       {{$t('edit-profile:save')}}
       <b-spinner v-if="loading" small />
@@ -16,9 +16,9 @@
 
   @Component({})
   export default class PlayerHeaderTopRow extends Vue {
-    @Ref("fileUpload") private fileUpload!: HTMLInputElement;
+    @Ref("fileUpload") fileUpload!: HTMLInputElement;
 
-    @Prop({required: true}) private loading!: boolean;
+    @Prop({required: true}) loading!: boolean;
 
     handleFile(event: Event) {
       const target = event.target as HTMLInputElement;

@@ -14,6 +14,7 @@
           class="form-control"
           v-model="commentText"
           :placeholder="$t('page:comments-enter')"
+          :aria-label="$t('page:comments-enter')"
         />
         <b-button
           type="submit"
@@ -51,9 +52,9 @@
 
     private newComments: CommentItem[] | null = null;
 
-    private commentText: string = '';
+    commentText: string = '';
 
-    private submitting = false;
+    submitting = false;
 
     get loggedIn() {
       return this.$vxm.user.loggedIn;

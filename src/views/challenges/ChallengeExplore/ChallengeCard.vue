@@ -3,7 +3,7 @@
   <div class="card">
   <router-link :to="`/challenges/${challenge.nid}`">
       <div class="media row">
-        <img :src="coverImage"/>
+        <img :src="coverImage" alt=""/>
         <div class="media-body p-4">
           <h3 class="mt-0" style="font-weight: bold;">
             {{ challenge.title }}
@@ -22,14 +22,12 @@
       </div>
       </router-link>
     </div>
-  
+
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import { Component, Prop, Mixins } from 'vue-property-decorator';
+  import DropdownSidebarPanel from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
@@ -49,7 +47,7 @@
   })
 
   export default class ChallengeCard extends Mixins(FetchMixin) {
-    
+
     @Prop({required:true}) readonly challenge!: any;
 
     get coverImage() {

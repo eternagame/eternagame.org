@@ -9,7 +9,7 @@
   >
     <template v-if="achievement">
       <h6>{{achievement.title}}</h6>
-      <img :src="achievement.image" />
+      <img :src="achievement.image" alt="" />
       <br/>
       <p>{{achievement.desc}}</p>
     </template>
@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
-  import { RefreshAchievement } from '@/types/common-types';
   import { BModal } from 'bootstrap-vue';
-  import { Component, Prop, Vue, Ref, Watch } from 'vue-property-decorator';
+  import { Component, Vue, Ref, Watch } from 'vue-property-decorator';
+  import { RefreshAchievement } from '@/types/common-types';
 
   @Component({})
   export default class AchievementModal extends Vue {
@@ -42,7 +42,7 @@
 </script>
 
 <style scoped lang="scss">
-  ::v-deep .modal-header {
+  :deep(.modal-header) {
     -webkit-backdrop-filter: blur(28.125px);
     backdrop-filter: blur(28.125px);
     background-color: #4a90e2;
@@ -73,7 +73,7 @@
     }
   }
 
-  ::v-deep .modal-dialog {
+  :deep(.modal-dialog) {
     max-width: 375px;
     width: 100%;
     height: 100%;

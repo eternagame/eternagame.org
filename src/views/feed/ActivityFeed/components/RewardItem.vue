@@ -25,8 +25,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import SmartLink from '@/components/Common/SmartLink.vue';
-  import Utils from '@/utils/utils';
-  import {RewardNotificationItem, NotificationType} from '@/types/common-types';
+  import {RewardNotificationItem} from '@/types/common-types';
   import { PUZZLE_ROUTE_BROWSE_PREFIX, PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import MessageThread from './MessageThread.vue';
 
@@ -36,19 +35,19 @@
   export default class NewsItem extends Vue {
     @Prop({ required: true }) readonly reward!: RewardNotificationItem;
 
-    private get link() {
+    get link() {
       return `${PUZZLE_ROUTE_BROWSE_PREFIX}${this.reward.field_reward_puzzle_nid_value}/?filter1=Id&filter1_arg1=${this.reward.field_reward_solution_nid_value}&filter1_arg2=${this.reward.field_reward_solution_nid_value}`;
     }
 
-    private get puzzleLink() {
+    get puzzleLink() {
       return `${PUZZLE_ROUTE_PREFIX}/${this.reward.field_reward_solution_nid_value}`;
     }
 
-    private get isVote() {
+    get isVote() {
       return this.reward.field_reward_type_value === 'VOTE';
     }
 
-    private get date() {
+    get date() {
       return new Date(parseInt(this.reward.created, 10) * 1000).toLocaleDateString(undefined, {
         year: 'numeric',
         month: 'short',
@@ -61,7 +60,7 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep .card-body {
+  :deep(.card-body) {
     padding: 11.25px !important;
   }
 

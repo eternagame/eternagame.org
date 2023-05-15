@@ -17,7 +17,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
   import NavbarIcons from '../Icons/NavbarIcons.vue';
   import NavbarMenuItem from './NavbarMenuItem.vue';
   import LoginSub from './Login/LoginSub.vue';

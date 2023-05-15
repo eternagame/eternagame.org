@@ -11,8 +11,7 @@ export interface UserData {
   ['Mail notification']: string;
   ['Certificate public']: string;
   Profile: string;
-  is_lab_member_legacy: boolean;
-  ten_tools_level: number;
+  is_lab_member: boolean;
   Survey: string;
   is_admin: boolean;
 }
@@ -45,7 +44,7 @@ export interface SynthesizedDesign {
 export interface ProfileGroup {
   group_nid: string;
   group_title: string;
-  founder: string;    
+  founder: string;
 }
 
 export interface FollowItem {
@@ -63,6 +62,7 @@ export interface ProfileAchievement {
   title: string;
   desc: string;
   past: string;
+  type: string;
 }
 
 export interface UserResponse {
@@ -77,6 +77,9 @@ export interface UserResponse {
   my_group?: ProfileGroup[];
   my_pending_group?: ProfileGroup[];
   achievements?: {
+    [name: string]: ProfileAchievement
+  }
+  all_achievements?: {
     [name: string]: ProfileAchievement
   }
 }
@@ -149,6 +152,7 @@ export interface Publications {
 
 export interface PuzzleItem {
   id: string;
+  nid: string;
   title: string;
   created: string;
   username: string;
@@ -161,7 +165,9 @@ export interface PuzzleItem {
   "made-for-lab": string | null;
   folder: string;
   number_of_states: number;
-}
+  'next-puzzle': string;
+  'has3d': string;
+  }
 
 export interface PuzzleList {
   puzzles: PuzzleItem[];
@@ -213,6 +219,94 @@ export interface PuzzleResponse {
   nid: string;
   comments: CommentItem[];
   cleared?: ClearedPuzzle[];
+}
+
+export interface Group {
+  nid: string;
+  body: string;
+  name: string;
+  group_members: UserData[];
+  founder_uid: string;
+  is_private: string;
+  created: string;
+  picture: string;
+  score: number;
+  founder_name: string;
+  founder_picture: string;
+  num_members: number;
+}
+
+export interface GroupResponse {
+  group_pendings: UserData[];
+  group: Group;
+  comments: CommentItem[];
+  total_num_comments: number;
+  group_members: UserData[];
+  group_admins: UserData[];
+  uid: string;
+  is_member: boolean;
+  is_pending: boolean;
+  is_admin: boolean;
+  is_following: boolean;
+}
+
+export interface GroupItem {
+  nid: string;
+  name: string;
+  founder_picture: string;
+  founder_name: string;
+  founder_uid: string;
+  is_private: string;
+  group_members: string;
+  created: string;
+  picture: string;
+  num_members: string;
+}
+
+export interface JoinedGroup {
+  name: string;
+  nid: string;
+}
+
+export interface GroupList {
+  groups: GroupItem[];
+  num_groups: string;
+  joined?: JoinedGroup[];
+}
+
+export interface CollectionItem {
+  achievement: string;
+  nid: string;
+  title: string;
+  desc: string;
+  userpicture: string;
+  username: string;
+  uid: string;
+  created: string;
+  image: string;
+  puzzles: string;
+  num_completers: string;
+  quest: boolean;
+  progress: number;
+}
+
+export interface CollectionResponse {
+  collection: CollectionItem;
+  comments: CommentItem[];
+  total_num_comments: number;
+  puzzles: PuzzleItem[];
+  uid: string;
+}
+
+export interface CreatedCollection {
+  name: string;
+  nid: string;
+}
+
+export interface CollectionList {
+  collections: CollectionItem[];
+  num_collections: string;
+  created?: CreatedCollection[];
 }
 
 export interface NewsArticle {

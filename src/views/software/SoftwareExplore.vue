@@ -34,6 +34,8 @@
     paper_url: string;
     paper_journal: string;
     paper_date: string;
+    server_tooltip?: string;
+    server_url?: string;
     // HTML string for license. If present, we'll use the license approval flow.
     license_terms?: string;
     // Otherwise, we allow user to download the content immediately.
@@ -41,6 +43,7 @@
     download_url?: string;
     help_tooltip?: string;
     help_url?: string;
+    commercial_license_disabled?: "0" | "1";
   }
 
   const ROUTE = '/get/?type=software_packages';

@@ -19,8 +19,8 @@
   </b-button-group>
 </template>
 <script lang="ts">
-  import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
-  import { BIcon, BIconFileEarmarkPlus, BIconArrowDown } from 'bootstrap-vue';
+  import { Component, Watch, Vue } from 'vue-property-decorator';
+  import { BIconFileEarmarkPlus, BIconArrowDown } from 'bootstrap-vue';
 
   @Component({
     components: {

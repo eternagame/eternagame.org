@@ -1,5 +1,5 @@
 import {
-  shallowMount, mount, Wrapper,
+  shallowMount, Wrapper,
 } from '@vue/test-utils';
 import Vue from 'vue';
 import MobileSidebar from '@/components/PageLayout/MobileSidebar.vue';
@@ -27,14 +27,14 @@ describe('MobileSidebar.vue', () => {
   });
 
   it('Should show when calling openMenu', () => {
-    expect(wrapper.element.style.display).toBe('none');
+    expect((wrapper.element as HTMLElement).style.display).toBe('none');
     (wrapper.vm as any).openMenu();
-    expect(wrapper.element.style.display).toBeFalsy(); // no value == visible
+    expect((wrapper.element as HTMLElement).style.display).toBeFalsy(); // no value == visible
   });
 
   it('Should close when clicking the cross', () => {
     (wrapper.vm as any).openMenu();
     wrapper.find('.cross-icon').trigger('click');
-    expect(wrapper.element.style.display).toBe('none');
+    expect((wrapper.element as HTMLElement).style.display).toBe('none');
   });
 });

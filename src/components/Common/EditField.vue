@@ -43,11 +43,11 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   // @ts-ignore
   import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
   import {
-    Heading, Bold, Underline, Image, HardBreak, OrderedList,
+    Heading, Bold, Underline, HardBreak, OrderedList,
     ListItem, Code, Italic, Link, Strike, BulletList, History, Placeholder
   // @ts-ignore
   } from 'tiptap-extensions';
@@ -74,6 +74,7 @@
         extensions: [
           new HardBreak(),
           new HardBreak(),
+          new Link(),
           new Heading({ levels: [1, 2, 3] }),
           new BulletList(),
           new OrderedList(),
@@ -81,7 +82,6 @@
           new Bold(),
           new Code(),
           new Italic(),
-          new Link(),
           new Strike(),
           new Underline(),
           new History(),
@@ -133,7 +133,7 @@
     text-align: initial;
   }
 
-  .editor ::v-deep p.is-empty:first-child::before {
+  .editor :deep(p.is-empty:first-child::before) {
     content: attr(data-empty-text);
     float: left;
     color: #aaa;
@@ -142,7 +142,7 @@
     font-style: italic;
   }
 
-  .editor ::v-deep p {
+  .editor :deep(p) {
     margin-bottom: 0;
     padding-bottom: 1rem;
   }

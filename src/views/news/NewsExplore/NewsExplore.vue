@@ -19,13 +19,14 @@
     <template #sidebar="{ isInSidebar }">
       <SearchPanel v-if="isInSidebar" :placeholder="$t('search:news')" :isInSidebar="isInSidebar" />
       <ChooseView v-if="isInSidebar" />
-      <DropdownSidebarPanel
-        class="mt-3"  
+
+      <!-- <DropdownSidebarPanel
+        class="mt-3"
         :options="options"
         paramName="sort"
         replace
         :isInSidebar="isInSidebar"
-      />
+      /> -->
       <CalendarPanel @page-update="monthFetch" :notableDates="calendarItems" :isInSidebar="isInSidebar"/>
       <p v-if="isInSidebar" class="ml-1 mt-0 d-inline-block custom-control-label no-before no-after">{{ total }} results</p><br>
       <button v-if="isInSidebar" class="btn btn-primary mt-1 ml-1" @click="refresh">Refresh</button>
@@ -38,11 +39,9 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins, Watch } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Mixins, Watch } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
+  import FiltersPanel from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
@@ -56,7 +55,6 @@
   import NewsCard from './components/NewsCard.vue';
 
   const INITIAL_NUMBER = 18;
-  const INCREMENT = INITIAL_NUMBER;
 
   const ROUTE = '/get/?type=newsandblogslist';
 
@@ -84,9 +82,9 @@
       { value: 'blogs', text: 'side-panel-options:blogs' },
     ];
 
-    private newsItems: (NewsItem|BlogItem)[] = [];
+    newsItems: (NewsItem|BlogItem)[] = [];
 
-    private calendarItems:{selectAttribute: { dot: string; dates: string; }[]} = {selectAttribute: []} ;
+    calendarItems:{selectAttribute: { dot: string; dates: string; }[]} = {selectAttribute: []} ;
 
     async monthFetch(monthData: DateItem){
 
@@ -99,7 +97,7 @@
           }
         })
       ).data.data.entries as NewsItem[];
-      
+
       // Timezone in UTC, calendar dates parsing is incorrect
 
       this.calendarItems.selectAttribute = res.map((element) =>({
@@ -109,8 +107,8 @@
     }
 
     async fetch(refresh = false) {
-      const { sort, end_date, start_date, size, search, skip } = this.$route.query;
-      
+      const { end_date, start_date, size, search, skip } = this.$route.query;
+
       const params = {
         search,
         size: size || INITIAL_NUMBER,
@@ -162,7 +160,7 @@
     currentPage: number = 1;
 
     loading = true;
-    
+
     total = 0;
 
     get displayedNewsItems() {
@@ -176,7 +174,7 @@
     get filteredNewsItems() {
       // TODO https://github.com/eternagame/eternagame.org/issues/157 move filtering to backend
       const { sort } = this.$route.query;
-      
+
       switch (sort) {
       case 'news':
       case 'blogs':

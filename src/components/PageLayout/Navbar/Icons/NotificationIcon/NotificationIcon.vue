@@ -3,21 +3,19 @@
     <template #icon>
       <div class="d-inline-block">
         <div class="unread" v-if="notificationsCount > 0"></div>
-        <img class="icon" src="@/assets/navbar/Bell.svg" />
+        <img class="icon" src="@/assets/navbar/Bell.svg" alt="notifications" />
       </div>
     </template>
     <template #text>{{ $t('nav-bar:notifications') }}</template>
     <template v-slot="slotProp">
       <div class="activity-container">
         <div class="d-flex justify-content-between">
-          <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
-          <router-link to="/feed">
-            <img
-              class="mt-2"
-              src="@/assets/navbar/popOut.svg"
-              @click="slotProp.hideDropdown.hide()"
-            />
-          </router-link>
+          <div style="display: flex;">
+            <h1 class="header">{{ $t('nav-bar:notifications-title') }}</h1>
+            <div v-if="isFetching" class="fetch-loader">
+              <SimpleLoader />
+            </div>
+          </div>
         </div>
         <div class="border"></div>
         <template v-for="item in notifications">
@@ -25,11 +23,24 @@
           <PrivateMessageNotification v-else-if="isPM(item)" :key="getCreated(item)" :pm="item" />
           <CommentNotification v-else-if="isComment(item)" :key="getCreated(item)" :comment="item" />
           <GroupNotificationItem v-else-if="isGroup(item)" :key="getCreated(item)" :group="item" />
+          <RewardNotificationItem v-else-if="isReward(item)" :key="getCreated(item)" :reward="item" />
         </template>
         <b-dropdown-item v-if="notifications.length == 0">
           {{$t('activity-feed:empty')}}
         </b-dropdown-item>
       </div>
+      <div class="border"></div>
+      <router-link
+        to="/feed"
+        style="color:white"
+        @click.native="slotProp.hideDropdown.hide()"
+        @keypress.enter.native="slotProp.hideDropdown.hide()"
+        @keypress.space.native="slotProp.hideDropdown.hide()"
+      >
+        <div class="view-all-link">
+          {{ $t('nav-bar:notifications-view-all') }}
+        </div>
+      </router-link>
     </template>
   </NavbarIcon>
 </template>
@@ -48,10 +59,12 @@
   import PrivateMessageNotification from './PrivateMessageNotification.vue';
   import CommentNotification from './CommentNotification.vue';
   import GroupNotificationItem from './GroupNotification.vue';
+  import RewardNotificationItem from './RewardNotification.vue';
+  import SimpleLoader from '../../../SimpleLoader.vue';
 
-  const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user';
+  const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user&cache_bust=2';
 
-  const NEWS_FEED_ROUTE = '/get/?type=newsfeed&combined=true&filter=all';
+  const NEWS_FEED_ROUTE = '/get/?type=newsfeed&combined=true&filter=all&cache_bust=2';
 
   const NUMBER_NOTIFICATIONS_TO_SHOW = 5;
 
@@ -63,15 +76,19 @@
       NewsNotification,
       PrivateMessageNotification,
       CommentNotification,
-      GroupNotificationItem
+      GroupNotificationItem,
+      RewardNotificationItem,
+      SimpleLoader
     },
   })
   export default class NotificationIcon extends Mixins(FetchMixin) {
-    private notificationsCount = 0;
+    notificationsCount = 0;
 
-    private calledFetch = false;
+    private isDropdownShown = false;
 
-    private notifications: NotificationItem[] = [];
+    isFetching = false;
+
+    notifications: NotificationItem[] = [];
 
     checkDataInterval?: number;
 
@@ -83,22 +100,30 @@
       clearInterval(this.checkDataInterval);
     }
 
-    async onShown() {
-      await this.$http.post('/post/', new URLSearchParams({ type: 'notification_read' }));
+    async onShown(isShown: boolean) {
+      this.isDropdownShown = isShown;
       await this.$fetch();
     }
 
     async fetch() {
       const res = await this.$http.get(NUM_NOTIFICATIONS_ROUTE);
       this.notificationsCount = res.data.data.noti_count;
-      if (res.data.data.noti_count > this.notificationsCount || !this.fetchState.firstFetchComplete) {
+
+      if (this.notificationsCount > 0 || !this.fetchState.firstFetchComplete) {
+        this.isFetching = true;
         await this.updateDropdownContents();
+        this.isFetching = false;
+
+        if (this.isDropdownShown) {
+          this.notificationsCount = 0;
+          await this.$http.post('/post/', new URLSearchParams({ type: 'notification_read' }));
+        }
       }
     }
 
     async updateDropdownContents() {
       const response = await this.$http.get(NEWS_FEED_ROUTE);
-      
+
       // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
       const res = response.data.data.entries as NotificationItem[];
 
@@ -125,28 +150,33 @@
       return this.$vxm.user.uid;
     }
 
-    private isNewsItem(notification: NotificationItem) {
+    isNewsItem(notification: NotificationItem) {
       return notification.type === NotificationType.NEWS || notification.type === NotificationType.BLOG;
     }
 
-    private isPM(notification: NotificationItem) {
+    isPM(notification: NotificationItem) {
       return isPMNotiItem(notification);
     }
 
-    private isComment(notification: NotificationItem) {
+    isComment(notification: NotificationItem) {
       return isCommentNotiItem(notification);
     }
 
-    private isGroup(notification: NotificationItem) {
+    isGroup(notification: NotificationItem) {
       return isDirectedNotificationItem(notification);
     }
+
+    isReward(notification: NotificationItem) {
+      return notification.type === NotificationType.REWARD;
+    }
+
   }
 </script>
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep a {
+  :deep(a.dropdown-item) {
     padding-right: 10px !important;
     padding-left: 10px !important;
     border-radius: 3px;
@@ -162,6 +192,10 @@
     font-size: 16px;
     font-weight: bold;
     margin-top: 14.5px;
+
+    @include media-breakpoint-down(md) {
+      font-size: 13px;
+    }
   }
 
   .border {
@@ -172,5 +206,31 @@
   img.icon {
     width: 24px;
     height: 24px;
+  }
+
+  .view-all-link {
+    padding: 10px;
+    text-align: center;
+    color: white !important;
+
+    &:hover, &:focus {
+      background-color: #212529;
+
+      @include media-breakpoint-down(md) {
+        background-color: var(--primary);
+      }
+    }
+  }
+
+  .fetch-loader {
+    margin: 0 10px;
+    width: 25px;
+    height: 25px;
+    align-self: center;
+
+    @include media-breakpoint-down(md) {
+      width: 18px;
+      height: 18px;
+    }
   }
 </style>

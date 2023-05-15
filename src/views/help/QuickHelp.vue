@@ -11,14 +11,14 @@
         </div>
         <div class="col-md-6">
           <div v-for="key in column2Keys" :key="key">
-            <a class="section-link" :href="'#' + key">{{ $t(key) }}</a>
+            <a class="section-link" :href="'#' + key" :aria-label="$t(key)">{{ $t(key) }}</a>
             <hr class="options-divider m-0" />
           </div>
         </div>
       </div>
     </div>
     <div v-for="[key, section] in Object.entries(data)" :key="key">
-      <a :name="key" class="anchor-link"></a>
+      <a :name="key" :aria-label="$t(key)" class="anchor-link"></a>
       <a href="#" @click="scrollToTop()" class="top-link">
         {{ $t('help:top') }} <b-icon-arrow-up></b-icon-arrow-up>
       </a>
@@ -47,9 +47,9 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
+  import { BIconArrowUp, BIconCommand } from 'bootstrap-vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
-  import { BIconArrowUp, BIconCommand } from 'bootstrap-vue';
 
   @Component({
     components: {
@@ -60,7 +60,8 @@
     },
   })
   export default class QuickHelp extends Vue {
-    private data = {
+    data = {
+      'help:toolbar': 'help:toolbar',
       'help:tips-and-tricks': 'help:tips-and-tricks-text',
       'help:four-bases': 'help:four-bases-text',
       'help:moving-and-magnifying-RNA': 'help:moving-and-magnifying-RNA-text',
@@ -84,6 +85,8 @@
       'help:energy': 'help:energy-text',
       'help:switch-puzzles': 'help:switch-puzzles-text',
       'help:highlighting-bases': 'help:highlighting-bases-text',
+      'help:glossary': 'help:glossary-text',
+      'help:3D-puzzles': 'help:3D-puzzles-text'
     };
 
     get column1Keys(): string[] {
@@ -96,7 +99,7 @@
       return keys.slice(keys.length / 2);
     }
 
-    private keycommands = {
+    keycommands = {
       'help:mode': 'Space',
       'help:zoom-in': '+',
       'help:zoom-out': '-',

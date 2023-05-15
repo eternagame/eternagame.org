@@ -21,7 +21,7 @@
         <b-col class="body" v-if="!hasSidebarSlot">
           <slot></slot>
         </b-col>
-        <b-col class="sidebar d-none d-lg-block" v-if="hasSidebarSlot">
+        <b-col class="sidebar d-none d-lg-block" cols="3" v-if="hasSidebarSlot">
           <slot name="sidebar" :isInSidebar="true"></slot>
         </b-col>
       </b-row>
@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
   import MobileSidebar from './MobileSidebar.vue';
   import PageFooter from './PageFooter.vue';
 

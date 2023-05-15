@@ -1,8 +1,13 @@
 <template>
   <!-- TODO: Consider making this a NavIcon instead for consistent styling and behavior. -->
   <li style="list-style: none;">
-    <div class="clickable mt-2" @click="goToChat()">
-      <img src="@/assets/navbar/Chat.svg" />
+    <div
+      class="clickable mt-2"
+      @click="goToChat()"
+      @keypress.enter="goToChat()"
+      @keypress.space="goToChat()"
+    >
+      <img src="@/assets/navbar/Chat.svg" alt="chat" />
       <span class="d-md-none font-weight-bold">
         {{ $t('nav-bar:chat') }}
       </span>
@@ -21,7 +26,7 @@
   </li>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins, Ref } from 'vue-property-decorator';
+  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { Chat } from 'eterna-chat-wrapper';
 
   import NavbarIcon from './NavbarIcon.vue';
@@ -34,9 +39,11 @@
   export default class ChatIcon extends Vue {
     @Prop({ default: false }) readonly isInSideBar!: boolean;
 
-    private show: boolean = false;
+    show: boolean = false;
 
     @Ref() readonly chatContainer!: HTMLElement;
+
+    chat!: Chat;
 
     goToChat() {
       if (this.isInSideBar) {
@@ -47,7 +54,7 @@
     }
 
     addChat() {
-      const chat = new Chat({
+      this.chat = new Chat({
         container: this.chatContainer,
         username: this.$vxm.user.username ? this.$vxm.user.username : '',
         uid: this.$vxm.user.uid ? this.$vxm.user.uid.toString() : '0',

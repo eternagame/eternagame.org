@@ -13,6 +13,9 @@
         <b-button variant="primary" class="enter-lab" size="lg" :to="`/labs/${nid}`">
           {{ $t('home-banner:enter') }}
         </b-button>
+        <b-button v-if="nid === '11627606'" variant="primary" class="training-button" size="lg" :to="`/collections/11366215`">
+          Lab Training
+        </b-button>
       </div>
       <div class="banner-status">
         <div class="countdown" v-if="project_closes">
@@ -37,15 +40,12 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
+  import FlipCountdown from 'vue2-flip-countdown';
   import DefaultHero from '@/assets/home/hero-lab-default.png';
   import Progress from '@/components/Common/Progress.vue';
   // @ts-ignore
-  import FlipCountdown from 'vue2-flip-countdown';
   // @ts-ignore
-  import VueMq from 'vue-mq';
 
   @Component({
     components: { Progress, FlipCountdown },
@@ -73,7 +73,7 @@
 
     @Prop({ required: true }) readonly nid!: number;
 
-    private get displayTitle() {
+    get displayTitle() {
       return this.carousel_title || this.title;
     };
 
@@ -184,7 +184,7 @@
     width: 100%;
     content: '';
   }
-  
+
   h2 {
     font-size: 32px;
   }
@@ -192,7 +192,7 @@
     font-size: 18px;
   }
 
-  ::v-deep img {
+  :deep(img) {
     min-height: 500px;
     object-fit: cover;
   }
@@ -204,28 +204,32 @@
     margin-right: 10px;
   }
 
-  ::v-deep .flip-card {
+  :deep(.flip-card) {
     font-size: 1.5rem !important;
   }
 
-  ::v-deep .flip-card__top,
-  ::v-deep .flip-card__bottom,
-  ::v-deep .flip-card__back-bottom,
-  ::v-deep .flip-card__back::before,
-  ::v-deep .flip-card__back::after {
+  :deep(.flip-card__top),
+  :deep(.flip-card__bottom),
+  :deep(.flip-card__back-bottom),
+  :deep(.flip-card__back::before),
+  :deep(.flip-card__back::after) {
     color: white !important;
     width: 2.3rem !important;
   }
 
-  ::v-deep .flip-card__bottom,
-  ::v-deep .flip-card__back-bottom,
-  ::v-deep .flip-card__bottom-4digits,
-  ::v-deep .flip-card__back-bottom-4digits {
+  :deep(.flip-card__bottom),
+  :deep(.flip-card__back-bottom),
+  :deep(.flip-card__bottom-4digits),
+  :deep(.flip-card__back-bottom-4digits) {
     border: none !important;
   }
 
-  ::v-deep .flip-clock__slot {
+  :deep(.flip-clock__slot) {
     font-size: .6rem !important;
     font-weight: bold;
+  }
+
+  .training-button {
+    margin-left: 1rem;
   }
 </style>

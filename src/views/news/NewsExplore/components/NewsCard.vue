@@ -37,11 +37,11 @@
 
     @Prop({ default: 'blogs' }) readonly type!: string;
 
-    private formattedType = Utils.formattedType;
+    formattedType = Utils.formattedType;
 
-    private strippedBody = Utils.strippedBody;
+    strippedBody = Utils.strippedBody;
 
-    private typeColor = Utils.typeColor;
+    typeColor = Utils.typeColor;
   }
 </script>
 
@@ -54,7 +54,7 @@
   margin-bottom: 0px;
 }
 
-::v-deep .card-body {
+:deep(.card-body) {
   padding: 11.25px !important;
 }
 

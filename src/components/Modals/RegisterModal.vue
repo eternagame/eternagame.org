@@ -15,11 +15,18 @@
         {{ $t(errorMessage) }}
       </b-alert>
     </transition>
-    <b-form @submit.prevent="tryRegister" class="pb-3">
+    <b-form @submit.prevent="tryRegister" class="pb-3" data-form-type="register">
       <div class="custom-input-group">
-        <b-input :placeholder="$t('register-modal:username')" v-model="form.username" required />
+        <b-input
+          :placeholder="$t('register-modal:username')"
+          v-model="form.username"
+          required
+          name="username"
+          autocomplete="username"
+          data-form-type="username"
+        />
         <span class="input-group-append">
-          <img src="@/assets/front-page/img/user.svg" />
+          <img src="@/assets/front-page/img/user.svg" alt="user" />
         </span>
       </div>
       <b-input
@@ -27,6 +34,9 @@
         :placeholder="$t('register-modal:email')"
         v-model="form.email"
         required
+        name="email"
+        autocomplete="email"
+        data-form-type="email"
       />
       <div class="custom-input-group">
         <b-input
@@ -34,9 +44,12 @@
           :placeholder="$t('register-modal:password')"
           v-model="form.password"
           required
+          name="password"
+          autocomplete="new-password"
+          data-form-type="password"
         />
         <span class="input-group-append">
-          <img src="@/assets/front-page/img/lock.svg" />
+          <img src="@/assets/front-page/img/lock.svg" alt="lock" />
         </span>
       </div>
 
@@ -48,9 +61,12 @@
           required
           ref="rePassword"
           :state="form.password === form.rePassword"
+          name="rePassword"
+          autocomplete="new-password"
+          data-form-type="password,confirmation"
         />
         <span class="input-group-append">
-          <img src="@/assets/front-page/img/lock.svg" />
+          <img src="@/assets/front-page/img/lock.svg" alt="lock" />
         </span>
       </div>
 
@@ -58,6 +74,7 @@
         :key="attemptNumber"
         ref="recaptcha"
         sitekey="6LcFwUsUAAAAAOQ9szhauSNv2bJuBOUtw_pGrRnd"
+        recaptchaHost="www.recaptcha.net"
         :loadRecaptchaScript="true"
         @verify="captchaResponse = $event"
       />
@@ -65,7 +82,7 @@
         <b-checkbox class="mr-1" v-model="accepted">
           {{ $t('register-modal:disclaimer-accept') }}
         </b-checkbox>
-        <b-link size="sm" to="/about/terms" @click="modal.hide()">{{
+        <b-link size="sm" to="/terms" @click="modal.hide()">{{
           $t('register-modal:disclaimer')
         }}</b-link>
       </div>
@@ -84,12 +101,10 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
   import FacebookAuthentication from './components/FacebookAuthentication.vue';
-
-  const FB_LOGIN_ROUTE = '/login/?type=login&method=facebook';
 
   const INITIAL_FORM = {
     username: '',
@@ -109,9 +124,9 @@
 
     private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
 
-    private loading = false;
+    loading = false;
 
-    private accepted: boolean = false;
+    accepted: boolean = false;
 
     captchaResponse = '';
 
@@ -125,11 +140,19 @@
 
     @Ref() readonly rePassword!: BFormInput;
 
-    registerWithFacebook() {
-      this.modal.hide();
+    registerWithFacebook(data: { success: boolean; error: string }) {
+      this.form.password = '';
+      if (data.success) {
+        this.modal.hide();
+      } else if (data.error === 'NEEDS_REGISTRATION') {
+        this.modal.hide();
+        this.$bvModal.show('modal-register-fb');
+      } else {
+        this.errorMessage = data.error;
+      }
     }
 
-    async tryRegister(event: Event) {
+    async tryRegister() {
       this.errorMessage = '';
       if (!this.accepted) {
         this.errorMessage = 'register-modal:error-accept-terms';
@@ -209,7 +232,7 @@
   .fade-leave-to {
     opacity: 0;
   }
-  ::v-deep .modal-header {
+  :deep(.modal-header) {
     -webkit-backdrop-filter: blur(28.125px);
     backdrop-filter: blur(28.125px);
     background-color: #4a90e2;
@@ -234,8 +257,8 @@
     }
   }
 
-  ::v-deep .modal-dialog {
-    max-width: 375px;
+  :deep(.modal-dialog) {
+    max-width: 400px;
     width: 100%;
     height: 100%;
     margin: 0 auto;

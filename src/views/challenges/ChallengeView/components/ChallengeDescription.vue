@@ -2,7 +2,7 @@
   <div>
     <div class="banner">
       <div class="banner-hero-image">
-        <img :src="coverImage" />
+        <img :src="coverImage" alt="" />
       </div>
       <div class="banner-details">
         <h3>
@@ -17,6 +17,7 @@
       <div :class="readMore? 'body expanded' : 'body'">
         <div class="challenge-body-video">
           <iframe
+            title="Challenge video"
             :src="video"
             frameborder="0"
             allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
@@ -43,7 +44,7 @@
   export default class ChallengeDescription extends Vue {
     @Prop({ required: true }) readonly challenge!: ChallengeData;
 
-    private readMore = false;
+    readMore = false;
 
     get readMoreNeeded() {
       return this.challenge?.body && this.challenge?.body?.length > MAX_CHARS;
@@ -105,7 +106,7 @@
       flex-basis: 200px;
       flex-grow: 0;
       flex-shrink: 0;
-      
+
       & > img {
         width: 200px;
       }
@@ -127,10 +128,10 @@
 
       & > p {
         @include media-breakpoint-down(md) {
-          text-align: center;
+          text-align: left;
         }
         @include media-breakpoint-down(xs) {
-          text-align: center;
+          text-align: left;
         }
       }
 
@@ -175,10 +176,10 @@
       margin-bottom: 10px;
 
       @include media-breakpoint-down(md) {
-        text-align: center;
+        text-align: left;
       }
       @include media-breakpoint-down(xs) {
-        text-align: center;
+        text-align: left;
       }
     }
   }

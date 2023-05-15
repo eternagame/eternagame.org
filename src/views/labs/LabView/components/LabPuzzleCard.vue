@@ -3,16 +3,17 @@
     :title="puzzle.title"
     :nid="puzzle.nid"
     :aspectRatio="1.18"
-    :leftNumber="puzzle.num_slots"
+    :numSlots="puzzle.num_slots"
     :numSynths="puzzle.num_synthesized"
     :mySolutions="puzzle.num_solutions"
     :maxSubmissions="puzzle.player_max_submissions"
     :states="states"
-    :rightNumber="puzzle.submitted"
+    :numSubmitted="puzzle.submitted"
     :backgroundLink="false"
+    :is3d="puzzle['has3d'] === '1'"
   >
     <div class="text-center image-container">
-      <img :src="imageURL" class="image" />
+      <img :src="imageURL" alt="" class="image" />
     </div>
     <template #buttons>
       <b-button :href="`${mainRoute}${puzzle.nid}/`" variant="primary" size="sm">{{
@@ -47,11 +48,11 @@
 
     @Prop({ default: true }) readonly closed!: boolean;
 
-    private secondaryRoute: string = this.closed
+    secondaryRoute: string = this.closed
       ? PUZZLE_ROUTE_SOLUTIONS_PREFIX
       : PUZZLE_ROUTE_BROWSE_PREFIX;
 
-    private mainRoute: string = PUZZLE_ROUTE_PREFIX;
+    mainRoute: string = PUZZLE_ROUTE_PREFIX;
 
     get imageURL() {
       return Utils.getPuzzleMiddleThumbnail(this.puzzle.nid);
@@ -64,7 +65,7 @@
 </script>
 
 <style lang="scss" scoped>
-  ::v-deep .btn {
+  :deep(.btn) {
     display: inline-block;
     width: 48%;
     margin-bottom: 0px;

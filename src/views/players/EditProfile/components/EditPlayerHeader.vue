@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditPlayerHeaderImage from './EditPlayerHeaderImage.vue';
   import EditPlayerHeaderTopRow from './EditPlayerHeaderTopRow.vue';
 
@@ -32,9 +32,9 @@
     components: { EditPlayerHeaderImage, EditPlayerHeaderTopRow },
   })
   export default class PlayerHeader extends Vue {
-    @Prop({required: true}) private picture!: File;
+    @Prop({required: true}) picture!: File;
 
-    @Prop({required: true}) private loading!: boolean;
+    @Prop({required: true}) loading!: boolean;
   }
 </script>
 

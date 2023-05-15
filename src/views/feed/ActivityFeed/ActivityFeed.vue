@@ -51,7 +51,7 @@
   import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
-  import { NotificationItem, RewardNotificationItem, NotificationType } from '@/types/common-types';
+  import { NotificationItem } from '@/types/common-types';
   import { navigationModes } from '@/store/pagination.vuex';
   import ChooseView from '@/components/Sidebar/ChooseView.vue';
   import UserSearch from './components/UserSearch.vue';
@@ -59,7 +59,6 @@
   import MessageCompose from './components/MessageCompose.vue';
 
   const INITIAL_NUMBER = 18;
-  const INCREMENT = INITIAL_NUMBER;
 
   const ROUTE = '/get/?type=newsfeed&combined=true';
 
@@ -148,11 +147,29 @@
       this.$fetch();
     }
 
-    private options: Option[] = [
+    async mounted() {
+      // TODO: Handle SSR? We're currently overriding the mounted hook...
+      if (!this.$vxm.user.loggedIn) {
+        this.$bvModal.show('modal-login');
+      }
+    }
+
+    @Watch('$vxm.user.userDetailsLoaded')
+    loggedIn() {
+      if (this.$vxm.user.userDetailsLoaded) {
+        // We weren't logged in when we hit the page, so we have to fetch now
+        this.$fetch();
+      } else {
+        // We're logged out, so it doesn't make sense to stay on this page
+        this.$router.push('/');
+      }
+    }
+
+    options: Option[] = [
       { value: 'all', text: 'side-panel-options:all-activity' },
       { value: 'groups', text: 'side-panel-options:my-groups' },
       { value: 'notifications', text: 'side-panel-options:my-messages' },
-      { value: 'news', text: 'side-panel-options:news' },
+      { value: 'newsandblogs', text: 'side-panel-options:news' },
       { value: 'rewards', text: 'side-panel-options:labs'},
     ];
 

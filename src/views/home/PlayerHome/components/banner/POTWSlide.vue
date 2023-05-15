@@ -3,9 +3,9 @@
     class="slide"
   >
     <template v-slot:img>
-      <img src="~@/assets/home/hero-sunburst.png" class="img-fluid w-100 d-block bg-image" />
+      <img src="~@/assets/home/hero-sunburst.png" alt="" class="img-fluid w-100 d-block bg-image" />
       <div class="puzzle-image-wrapper">
-        <img :src="puzImageURL" class="puzzle-image" />
+        <img :src="puzImageURL" alt="" class="puzzle-image" />
       </div>
     </template>
     <div class="banner-text">
@@ -30,9 +30,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   import Utils from '@/utils/utils';
 
   @Component({
@@ -42,7 +40,7 @@
     @Prop({ required: true }) readonly title!: string;
 
     @Prop({ required: true }) readonly nid!: string;
-    
+
     get puzImageURL() {
       return Utils.getPuzzleMiddleThumbnail(this.nid);
     }

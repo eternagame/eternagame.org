@@ -31,8 +31,7 @@
       <b-button
         class="support-container-button"
         variant="secondary"
-        href="https://makeagift.stanford.edu/get/page/makeagift?pgnTPC=399&stp=163&olc=14209&cturl=close"
-        target="_blank"
+        to="/donate"
       >
         {{ $t('challenge-support:button') }}
       </b-button>
@@ -41,7 +40,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';

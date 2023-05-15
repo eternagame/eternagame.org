@@ -6,8 +6,8 @@
 
 <script lang="ts">
   import { Component, Vue, Ref } from 'vue-property-decorator';
-  import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import { Chat } from 'eterna-chat-wrapper';
+  import EternaPage from '@/components/PageLayout/EternaPage.vue';
 
   @Component({
     components: { EternaPage },
@@ -15,8 +15,10 @@
   export default class FullPageChat extends Vue {
     @Ref() readonly chatContainer!: HTMLElement;
 
+    chat!: Chat;
+
     mounted() {
-      const chat = new Chat({
+      this.chat = new Chat({
         container: this.chatContainer,
         username: this.$vxm.user.username ? this.$vxm.user.username : '',
         uid: this.$vxm.user.uid ? this.$vxm.user.uid.toString() : '0',

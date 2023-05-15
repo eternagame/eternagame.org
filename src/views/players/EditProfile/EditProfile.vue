@@ -1,7 +1,7 @@
 <template>
   <EternaPage :title="`${$t('edit-profile:title')} ${username}`">
     <notifications position="bottom center" width="50%"/>
-    <div class="page-content" v-if="fetchState.firstFetchComplete">
+    <div class="page-content" v-if="username">
       <EditPlayerHeader
         :loading="loading"
         @submit="submit"
@@ -15,7 +15,7 @@
         :personalName.sync="personalName"
       />
       <hr class="top-border" />
-      <EditPlayerCredentials
+      <EditPlayerAccountSettings
         :email.sync="email"
         :messagesNotify.sync="messagesNotify"
         :newsNotify.sync="newsNotify"
@@ -23,11 +23,14 @@
         @update:password="pass => newPassword = pass"
       />
       <hr class="top-border" />
-      <p style="font-weight:bold">{{ $t('edit-profile:current-password') }}</p>
+      <EditPlayerDanger />
+      <hr class="top-border" />
+      <h4 style="font-weight:bold">{{ $t('edit-profile:current-password') }}</h4>
       <input
         style="color:#fff"
         type="password"
         :placeholder="$t('edit-profile:current-password')"
+        :aria-label="$t('edit-profile:current-password')"
         v-model="currentPassword"
       />
       <div class="flex" style="margin-top:20px">
@@ -50,18 +53,19 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins } from 'vue-property-decorator';
+  import { Component, Vue, Mixins, Watch } from 'vue-property-decorator';
   import axios from 'axios';
-  import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Notifications from 'vue-notification';
+  import EternaPage from '@/components/PageLayout/EternaPage.vue';
+  import DropdownSidebarPanel from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { UserData } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import Utils from "@/utils/utils";
   import EditPlayerHeader from './components/EditPlayerHeader.vue';
   import EditPlayerAboutMe from './components/EditPlayerAboutMe.vue';
-  import EditPlayerCredentials from './components/EditPlayerCredentials.vue';
+  import EditPlayerAccountSettings from './components/EditPlayerAccountSettings.vue';
+  import EditPlayerDanger from './components/EditPlayerDanger.vue';
 
   const EDIT_PROFILE = '/login/';
 
@@ -73,36 +77,37 @@
       DropdownSidebarPanel,
       EditPlayerHeader,
       EditPlayerAboutMe,
-      EditPlayerCredentials,
+      EditPlayerAccountSettings,
+      EditPlayerDanger,
       Preloader,
     },
   })
   export default class EditProfile extends Mixins(FetchMixin) {
-    private username = "";
+    username = "";
 
-    private personalName: string = "";
+    personalName: string = "";
 
-    private oldAboutMe = "";
+    oldAboutMe = "";
 
-    private newAboutMe: string | null = null;
+    newAboutMe: string | null = null;
 
     private currentPicture?: string;
 
-    private newPicture: File | null = null;
+    newPicture: File | null = null;
 
-    private email = "";
+    email = "";
 
-    private newPassword?: string;
+    newPassword?: string;
 
-    private currentPassword = "";
+    currentPassword = "";
 
-    private messagesNotify = false;
+    messagesNotify = false;
 
-    private newsNotify = false;
+    newsNotify = false;
 
-    private publicCertificate = false;
+    publicCertificate = false;
 
-    private loading = false;
+    loading = false;
 
     async fetch() {
       const user = (await axios.get(`/get/?type=my_user&uid=${this.$vxm.user.uid}`)).data.data.user as UserData;
@@ -114,6 +119,24 @@
       this.messagesNotify = user['Mail notification'] === 'on';
       this.newsNotify = user['News mail notification'] === 'on';
       this.publicCertificate = user['Certificate public'] === 'on';
+    }
+
+    async mounted() {
+      // TODO: Handle SSR? We're currently overriding the mounted hook...
+      if (!this.$vxm.user.loggedIn) {
+        this.$bvModal.show('modal-login');
+      }
+    }
+
+    @Watch('$vxm.user.userDetailsLoaded')
+    loggedIn() {
+      if (this.$vxm.user.userDetailsLoaded) {
+        // We weren't logged in when we hit the page, so we have to fetch now
+        this.$fetch();
+      } else {
+        // We're logged out, so it doesn't make sense to stay on this page
+        this.$router.push('/');
+      }
     }
 
     get picture() {
@@ -151,8 +174,8 @@
         const error = res?.data?.data?.error;
         if (error) throw new Error(error);
         this.$router.push(`/players/${this.$vxm.user.uid}`);
-      } catch (e) {
-        const r = this.$notify({
+      } catch (e: any) {
+        this.$notify({
           type: 'error',
           title: 'Error',
           text: e.message,

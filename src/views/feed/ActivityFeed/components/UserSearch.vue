@@ -14,6 +14,7 @@
           class="rounded-circle"
           :src="`/${data.userpicture}`"
           style="width: 40px; height: 40px;margin-right:10px"
+          alt=""
         />
           <span v-dompurify-html="htmlText" style="color: white"></span>
         </div>

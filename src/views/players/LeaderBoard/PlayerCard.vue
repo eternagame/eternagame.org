@@ -8,8 +8,8 @@
       <p class="rank">#{{ index + 1 }}</p>
     </td>
     <td style="shrink">
-      <img v-if="imageLink" class="rounded-circle player-image" :src="imageLink" />
-      <img v-else class="rounded-circle player-image" src="@/assets/front-page/img/icon_user.png" />
+      <img v-if="imageLink" alt="" class="rounded-circle player-image" :src="imageLink" />
+      <img v-else class="rounded-circle player-image" alt="" src="@/assets/front-page/img/icon_user.png" />
     </td>
     <td>
       <div class="player-name">
@@ -19,19 +19,19 @@
 
     <td>
       <div v-if="points">
-        <img src="@/assets/dollar.svg" class="icon" style="margin-bottom:5px" />
+        <img src="@/assets/dollar.svg" alt="points" class="icon" style="margin-bottom:5px" />
         {{ points }}
       </div>
     </td>
     <td>
       <div v-if="points" class="d-none d-md-block">
-        <img src="@/assets/test-tube.svg" class="icon" style="margin-bottom:5px" />
+        <img src="@/assets/test-tube.svg" class="icon" alt="synthesized solutions" style="margin-bottom:5px" />
         {{ synths }}
       </div>
     </td>
     <td>
       <div v-if="dateCreated" class="d-none d-sm-block">
-        <img src="@/assets/calendar.svg" class="icon" style="margin-bottom:5px" />
+        <img src="@/assets/calendar.svg" class="icon" alt="account created on" style="margin-bottom:5px" />
         {{ dateCreated }}
       </div>
     </td>
@@ -39,10 +39,9 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
+  import axios from 'axios';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
-  import axios, { AxiosInstance } from 'axios';
   import { UserData } from '@/types/common-types';
-  import { DEFAULT_PLAYER_PICTURE } from '@/utils/constants';
 
   @Component({
     components: {

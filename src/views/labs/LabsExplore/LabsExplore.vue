@@ -71,18 +71,18 @@
 
     total = 0;
 
-    private filters: Filter[] = [
+    filters: Filter[] = [
       { value: 'active', text: 'Active' },
       { value: 'inactive', text: 'Inactive' },
     ];
 
-    private options: Option[] = [
+    options: Option[] = [
       { value: 'desc', text: 'side-panel-options:desc' },
       { value: 'asc', text: 'side-panel-options:asc' },
     ];
 
     async fetch(refresh = false) {
-      const { filters, sort, search, size, skip } = this.$route.query;
+      const { filters, sort, search, skip } = this.$route.query;
 
       const convertToIncrementOf = (num: number, inc: number) => Math.ceil(num / inc) * inc;
       const params = {

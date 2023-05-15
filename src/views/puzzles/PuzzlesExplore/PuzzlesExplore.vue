@@ -9,6 +9,7 @@
           v-bind="puzzle"
           :cleared="puzzleCleared(puzzle.id)"
           :madeByPlayer="puzzle['made-by-player'] !== '0'"
+          :is3d="puzzle['has3d'] === '1'"
         />
       </Gallery>
     </div>
@@ -81,12 +82,14 @@
     single: string;
     switch: string;
     notcleared: string;
+    cleared: string;
     sort: string;
     search: string;
     size: string;
     creator_uid: number | null;
     uid: number | null;
     skip: string | null;
+    '3d': boolean;
   }
 
   @Component({
@@ -118,14 +121,18 @@
       };
       const { filters, sort, search, size, skip } = this.$route.query;
       const convertToIncrementOf = (num: number, inc: number) => Math.ceil(num / inc) * inc;
+      // Vue types filters as string | (string | null)[], but it's really string | (string | null)[] | undefined
+      const filtersArr = (typeof filters === 'string' ? filters.split(',') : filters) || [];
       const params = {
         puzzle_type: getPuzzleType(
-          Boolean(filters && filters.includes('challenge')),
-          Boolean(filters && filters.includes('player')),
+          Boolean(filtersArr.includes('challenge')),
+          Boolean(filtersArr.includes('player')),
         ),
-        single: filters && filters.includes('single') && 'checked',
-        switch: filters && filters.includes('switch') && 'checked',
-        notcleared: filters && filters.includes('notcleared') && 'true',
+        single: filtersArr.includes('single') && 'checked',
+        switch: filtersArr.includes('switch') && 'checked',
+        notcleared: filtersArr.includes('notcleared') && 'true',
+        cleared: filtersArr.includes('cleared') && 'true',
+        '3d': filtersArr.includes('3d') && 'true',
         sort: sort || INITIAL_SORT,
         size: this.pagesEnabled ? INITIAL_NUMBER : (size || INITIAL_NUMBER),
         search,
@@ -162,7 +169,7 @@
       return this.cleared.some(puzzle => id === puzzle.id);
     }
 
-    private options: Option[] = [
+    options: Option[] = [
       { value: 'date', text: 'side-panel-options:desc' },
       { value: 'date_asc', text: 'side-panel-options:asc' },
       // TODO: i18nize these in en.json
@@ -171,7 +178,7 @@
     ];
 
     // TODO add additional filters in backend: https://app.clubhouse.io/vital-mind-media/story/755/make-filters-for-all-pages-work
-    private filters: Filter[] = [
+    filters: Filter[] = [
       { value: 'challenge', text: 'Challenge' },
       { value: 'player', text: 'Player' },
       { value: 'single', text: 'Single State' },
@@ -182,10 +189,12 @@
       // { value: 'rnassd', text: 'RNAssd' },
       // { value: 'inforna', text: 'Inforna' },
       { value: 'switch', text: 'Switch' },
+      { value: 'cleared', text: 'Cleared' },
       { value: 'notcleared', text: 'Uncleared' },
+      { value: '3d', text: '3D' },
     ];
 
-    private tags = ['#POTW', '#RibosomeChallenge', '#COVID19', '#Eterna100'];
+    tags = ['#POTW', '#RibosomeChallenge', '#COVID19', '#Eterna100'];
 
     get pagesEnabled() {
       return this.$vxm.pagination.navigation === navigationModes.NAVIGATION_PAGES;
@@ -216,9 +225,6 @@
       this.uid = newValue;
       this.fetch();
     }
-
-
-  // private tags: string[] = ['#Switch', '#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
   }
 </script>
 <style scoped>

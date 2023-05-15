@@ -12,6 +12,7 @@
           <img
             class="d-none d-sm-block rounded-circle player-image"
             :src="avatar"
+            alt=""
             style="margin-right:10px"
           />
         </SmartLink>
@@ -25,10 +26,8 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue, Watch, Ref } from 'vue-property-decorator';
-  import Utils from '@/utils/utils';
-  import SmartLink from '@/components/Common/SmartLink.vue';
   import VueScrollTo from 'vue-scrollto';
-  import { NotificationNotificationItem, NotificationMessage, PrivateNotificationMessage, NotificationMessageType } from '@/types/common-types';
+  import SmartLink from '@/components/Common/SmartLink.vue';
 
   Vue.use(VueScrollTo);
 
@@ -85,7 +84,7 @@
     margin-bottom: 0px;
   }
 
-  ::v-deep .card-body {
+  :deep(.card-body) {
     padding: 11.25px !important;
   }
 
@@ -120,7 +119,7 @@
     text-decoration: none;
   }
 
-  .text ::v-deep img {
+  .text :deep(img) {
     max-width: 100% !important;
   }
 </style>

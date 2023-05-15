@@ -7,6 +7,7 @@
         @input="setTitle"
         :value="title"
         :placeholder="$t('edit-profile:section-title')"
+        :aria-label="$t('edit-profile:section-title')"
       />
       <b-button variant="outline-secondary">{{
         $t('edit-profile:custom-section-remove')
@@ -17,14 +18,14 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Prop } from 'vue-property-decorator';
+  import { Component, Vue } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
 
   @Component({
     components: { EditField },
   })
   export default class PlayerNewSection extends Vue {
-    private title: string = '';
+    title: string = '';
 
     private text: string = '';
 

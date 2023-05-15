@@ -1,6 +1,5 @@
 /* eslint-disable max-classes-per-file */
 import { Vue, Component, Watch } from 'vue-property-decorator';
-import { Route, RouteCallback } from 'vue-router';
 import { isCacheError } from '@/store/FetchData.vuex';
 
 class FetchState {
@@ -40,14 +39,14 @@ export default class FetchMixin extends Vue {
       if (process.env.NODE_ENV === 'development') {
         console.error('Error in fetch():', err);
       }
-      this.fetchState.error = err;
+      this.fetchState.error = err as Error;
     }
 
     this.fetchState.pending = false;
     this.fetchState.firstFetchComplete = true;
     this.fetchState.lastFetched = new Date();
   }
-  
+
   async serverPrefetch() {
     if (!this.fetch) return;
 
@@ -75,7 +74,7 @@ export default class FetchMixin extends Vue {
 
     this.fetchState.key = +fetchKey;
     const cache = this.$vxm.fetchData.ssrCache[this.fetchState.key];
-    
+
     if (isCacheError(cache)) {
       this.fetchState.error = cache.error;
     } else {

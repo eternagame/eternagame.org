@@ -8,10 +8,10 @@
     @hide="handleHide"
   >
     <template #modal-title>
-      <b class="text-uppercase">{{ $t('terms:title-short') }}</b>
+      <b class="text-uppercase">{{ $t('terms-modal:title') }}</b>
     </template>
     <div class="content">
-      <h3 class="p-2 mt-3 mb-0">{{ $t('terms-modal:eula') }}</h3>
+      <p class="p-2 mt-3 mb-0 text-center">{{ $t('terms-modal:info') }}</p>
       <TermsAndConditionsText />
     </div>
     <template #modal-footer>
@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref, Mixins } from 'vue-property-decorator';
+  import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
   import axios from 'axios';
   import TermsAndConditionsText from '@/views/terms/TermsAndConditionsText.vue';
@@ -46,10 +46,10 @@
   export default class AcceptTermsModal extends Vue {
     @Ref() readonly modal!: BModal;
 
-    private accepted: boolean = false;
+    accepted: boolean = false;
 
     get shown() {
-      return this.$vxm.user.userDetailsLoaded && !this.$vxm.user.surveyRecord.match(/EULA_AGREE/i);
+      return this.$vxm.user.userDetailsLoaded && !this.$vxm.user.surveyRecord.match(/EULA_AGREE_2021-10-02/i);
     }
 
     handleHide(e: Event) {
@@ -66,7 +66,7 @@
           new URLSearchParams({
             type: 'survey',
             action: 'update',
-            value: 'EULA_AGREE',
+            value: 'EULA_AGREE_2021-10-02',
             uid: String(this.$vxm.user.uid),
           }),
         );
@@ -83,7 +83,7 @@
     font-weight: bold;
   }
 
-  ::v-deep .modal-dialog {
+  :deep(.modal-dialog) {
     max-width: 675px;
     width: 100%;
   }
@@ -93,7 +93,7 @@
     overflow: auto;
   }
 
-  ::v-deep .modal-footer {
+  :deep(.modal-footer) {
     margin: 0 auto;
     text-align: center;
   }
@@ -116,7 +116,7 @@
     opacity: 0;
   }
 
-  ::v-deep .modal-header {
+  :deep(.modal-header) {
     -webkit-backdrop-filter: blur(28.125px);
     backdrop-filter: blur(28.125px);
     background-color: #4a90e2;

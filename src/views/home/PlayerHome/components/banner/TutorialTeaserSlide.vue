@@ -20,37 +20,27 @@
         :href="`${puzzleRoute}${nextPuzzleID}/`"
         >{{ $t('player-home:next-puzzle') }}</b-button
       >
-      <b-button
-        class="button"
-        variant="secondary"
-        size="lg"
-        href="https://www.pbs.org/wgbh/nova/labs/lab/rna/"
-        >{{ $t('player-home:nova-labs') }}</b-button
-      >
       <div class="d-flex" style="margin-top: 22px;">
-        <router-link to="/news/9818657">
-          <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
-            <i class="arrow_right"></i>{{ $t('player-home:open-vaccine') }}
+        <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/" target="_blank">
+        <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
+            <i class="arrow_right"></i>{{ $t('player-home:nova-labs') }}
           </p>
-        </router-link>
+        </a>
       </div>
     </div>
   </b-carousel-slide>
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import { AxiosInstance } from 'axios';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
-  import Utils from '@/utils/utils';
-  import bgimage from '@/assets/home/new-player-hero.png';
+  import bgimage from '@/assets/home/hero-evergreen.jpg';
 
   @Component({
     components: {},
   })
   export default class TutorialTeaserSlide extends Vue {
-    private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
+    puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
 
     @Prop({ required: true }) readonly nextPuzzleID!: string;
 
@@ -63,11 +53,11 @@
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
 
-  ::v-deep .carousel-caption {
+  :deep(.carousel-caption) {
     text-align: left;
   }
 
-  ::v-deep img {
+  :deep(img) {
     min-height: 500px;
     object-fit: cover;
   }

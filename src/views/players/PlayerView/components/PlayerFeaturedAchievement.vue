@@ -2,7 +2,8 @@
   <div class="d-none d-sm-block">
     <b class="d-flex justify-content-center">{{ $t('player-view:featured-achievement') }}</b>
     <div class="d-flex justify-content-center" style="margin-top:15px">
-      <img :src="user.featuredAchievement" />
+      <!-- TODO: If we actually support featured achievement, the alt should be the achievement name -->
+      <img alt="featured achievement" :src="user.featuredAchievement" />
     </div>
     <div class="d-flex justify-content-center" style="margin-top:23px">
       <b-button type="submit" variant="secondary">{{
@@ -13,7 +14,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
 
   @Component({
     components: {},

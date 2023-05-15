@@ -19,7 +19,6 @@
 
 <script lang="ts">
   import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-  import icon from '@/assets/Filter.svg';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { navigationModes } from '@/store/pagination.vuex';
 
@@ -33,8 +32,6 @@
 
     @Prop({ default: 18 }) readonly initial!: number;
 
-    private search: string = '';
-
     @Prop({ default: false }) loading!: boolean;
 
     @Prop({ required: true }) total !: number;
@@ -46,7 +43,7 @@
         const scrollTrigger =
           document.documentElement.scrollTop + window.innerHeight + 1 >=
           document.documentElement.offsetHeight * 3/4;
-          
+
         if (scrollTrigger && !this.pagesEnabled) {
           const length = this.$vnode.key;
           const { skip } = this.$route.query;

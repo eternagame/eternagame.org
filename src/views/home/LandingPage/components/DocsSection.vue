@@ -10,31 +10,31 @@
             <b-row>
               <b-col lg="3">
                 <a href="http://www.nytimes.com/2011/01/11/science/11rna.html?_r=0">
-                  <img src="@/assets/front-page/img/logo_nyt.svg" class="media-logo" alt />
+                  <img src="@/assets/front-page/img/logo_nyt.svg" class="media-logo" alt="New York Times" />
                 </a>
               </b-col>
               <b-col lg="2">
                 <a href="http://www.cnn.com/interactive/2012/08/tech/gaming.series/research.html">
-                  <img src="@/assets/front-page/img/logo_cnn.svg" class="media-logo" alt />
+                  <img src="@/assets/front-page/img/logo_cnn.svg" class="media-logo" alt="CNN"/>
                 </a>
               </b-col>
               <b-col lg="2">
                 <a href="http://www.wired.com/wiredscience/2012/07/ff-rnagame/">
-                  <img src="@/assets/front-page/img/logo_wired.svg" class="media-logo" alt />
+                  <img src="@/assets/front-page/img/logo_wired.svg" class="media-logo" alt="Wired" />
                 </a>
               </b-col>
               <b-col lg="2">
                 <a
                   href="https://www.pbs.org/wgbh/nova/video/decoding-covid-19/"
                 >
-                  <img src="@/assets/front-page/img/logo_nova.svg" class="media-logo" alt />
+                  <img src="@/assets/front-page/img/logo_nova.svg" class="media-logo" alt="Nova" />
                 </a>
               </b-col>
               <b-col lg="3">
                 <a
                   href="http://www.wsj.com/articles/videogamers-are-recruited-to-fight-tuberculosis-and-other-ills-1462290212"
                 >
-                  <img src="@/assets/front-page/img/logo_wsj.svg" class="media-logo" alt />
+                  <img src="@/assets/front-page/img/logo_wsj.svg" class="media-logo" alt="Wall Street Journal" />
                 </a>
               </b-col>
             </b-row>
@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Vue } from 'vue-property-decorator';
   import PageFooter from '@/components/PageLayout/PageFooter.vue';
 
   @Component({

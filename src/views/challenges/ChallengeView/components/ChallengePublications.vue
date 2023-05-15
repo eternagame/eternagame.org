@@ -10,13 +10,14 @@
           :key="i"
           class="publication"
         >
-          <div class="publication-image">
-            <img v-if="publication.image" :src="`/sites/default/files/${publication.image}`" />
+        <div class="row">
+          <div class="publication-image col-sm-4 order-2 order-sm-1">
+            <img v-if="publication.image" :src="`/sites/default/files/${publication.image}`" alt="" />
             <div v-else class="publication-image-placeholder">
-              <img class="publication-image-placeholder-image" src="@/assets/logomark_eterna.svg" />
+              <img class="publication-image-placeholder-image" src="@/assets/logomark_eterna.svg" alt="" />
             </div>
           </div>
-          <div class="publication-info">
+          <div class="publication-info col-sm order-1 order-sm-2">
             <h5 class="publication-title">
               <a
                 v-if="publication.link"
@@ -44,8 +45,9 @@
               </span>
               - {{ publication.pub_date }}
             </p>
-            <p class="publication-overview">{{ publication.authors }}</p>
+            <p class="publication-overview" v-dompurify-html="publication.authors"></p>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -82,20 +84,22 @@
     &-image {
       position: relative;
       text-align: center;
-      flex-basis: 150px;
+      flex-basis: 100%;
       flex-grow: 0;
       flex-shrink: 0;
 
       & > img {
-        width: 100%;
+        width: 80%;
       }
 
       &-placeholder {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100%;
-        height: 100px;
+        margin-left: 10%;
+        width: 80%;
+        height: 60%;
+        min-height: 100px;
         border-radius: 5px;
         background-color: #041227;
 
@@ -112,7 +116,7 @@
     &-title {
       font-size: 1rem;
       font-weight: 700;
-      
+
       & a {
         color: #ffffff;
       }

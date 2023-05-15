@@ -41,13 +41,18 @@
         </b-card>
         <b-card>
           <div class="d-flex align-items-center">
-            <p class="mb-0 mr-4">
+            <p v-if="commercialDisabled === '1'">
+              Commercial licenses for this package are currently unavailable. For questions, please
+              contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a>.
+            </p>
+            <p class="mb-0 mr-4" v-else>
               For commercial purposes, you can request a license, including royalty-free licenses
               that comply with the <a href="https://opencovidpledge.org/" target="_blank">Open COVID Pledge</a>
             </p>
             <b-btn
               variant="primary" class="d-flex align-items-center text-left"
               @click="page = 'commercial'"
+              :disabled="commercialDisabled === '1'"
             >
               Commercial License
               <b-icon-chevron-right class="ml-2 mr-n2" aria-hidden="true"/>
@@ -74,8 +79,12 @@
           :key="version.version_id"
         />
       </template>
+      <template v-if="page === 'error'">
+        <b-alert variant="danger" show>{{ error }}</b-alert>
+        Please contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a> for assistance.
+      </template>
       <template v-if="page === 'thanks'">
-        Thank you for your request! You should recieve an automated introductory email from us within a few minutes.
+        Thank you for your request! You should receive an automated introductory email from us within a few minutes.
         Please contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a> with any concerns.
       </template>
     </div>
@@ -142,8 +151,8 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
-  import { BModal, BIconChevronLeft, BIconChevronRight } from 'bootstrap-vue';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { BIconChevronLeft, BIconChevronRight } from 'bootstrap-vue';
   import axios from 'axios';
   import VersionCard from './VersionCard.vue';
 
@@ -156,7 +165,7 @@
     description: string;
     published: string;
     assets: {
-      name: string; 
+      name: string;
     }[];
   }
 
@@ -176,16 +185,20 @@
     // The id used by the server to refer to this software package.
     @Prop({ required: true }) readonly packageid!: string;
 
-    private accepted = false;
+    @Prop({ required: true }) readonly commercialDisabled?: "0" | "1";
 
-    private showSpinner = false;
+    accepted = false;
 
-    private page: 'select' | 'noncommercial' | 'commercial' | 'download' | 'thanks' = 'select';
+    showSpinner = false;
 
-    private token = '';
+    page: 'select' | 'noncommercial' | 'commercial' | 'download' | 'thanks' | 'error' = 'select';
+
+    token = '';
+
+    error = '';
 
     // The parameters needed by the server when requesting a new license
-    private licenseRequest = {
+    licenseRequest = {
       name: '',
       email: '',
       institution: '',
@@ -193,7 +206,7 @@
       position: '',
     };
 
-    private softwareVersions: SoftwareVersion[] = [];
+    softwareVersions: SoftwareVersion[] = [];
 
     async acceptTerms() {
       this.showSpinner = true;
@@ -209,7 +222,11 @@
         }),
       });
 
-      if (this.page === 'commercial') {
+      const err = licenseResponse.data.data?.error;
+      if (err) {
+        this.error = err;
+        this.page = 'error';
+      } else if (this.page === 'commercial') {
         this.page = 'thanks';
       } else {
         this.token = licenseResponse.data.data.token;
@@ -234,7 +251,7 @@
 <style scoped lang="scss">
   @import '@/styles/_variables.scss';
 
-  ::v-deep .modal-title {
+  :deep(.modal-title) {
     text-transform: uppercase;
   }
 
@@ -243,7 +260,7 @@
     font-weight: bold;
   }
 
-  ::v-deep .modal-dialog {
+  :deep(.modal-dialog) {
     max-width: 675px;
     width: 100%;
   }
@@ -272,7 +289,7 @@
     opacity: 0;
   }
 
-  ::v-deep .modal-header {
+  :deep(.modal-header) {
     -webkit-backdrop-filter: blur(28.125px);
     backdrop-filter: blur(28.125px);
     background-color: #4a90e2;

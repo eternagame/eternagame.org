@@ -2,6 +2,7 @@
   <!-- TODO: i18nify all content -->
   <!-- TODO: De-duplicate the editfield and submit button -->
   <div v-if="parentNID">
+    <notifications position="top center" width="50%"/>
     <EditField @input="setCommentText" :key="messagesSent" />
 
     <b-button
@@ -19,6 +20,7 @@
     </b-button>
   </div>
   <div class="page-content card" v-else>
+    <notifications position="top center" width="50%"/>
     <div class="container">
       <div class="d-flex">
         <h4 class="mt-3 mr-3">{{ $t('activity-feed:to') }}</h4>
@@ -36,6 +38,7 @@
                 v-if="data.userpicture"
                 class="rounded-circle"
                 :src="`/${data.userpicture}`"
+                alt=""
                 style="width: 40px; height: 40px;margin-right:10px"
               />
 
@@ -60,13 +63,13 @@
   </div>
 </template>
 <script lang="ts">
-  import axios, { AxiosInstance } from 'axios';
+  import axios from 'axios';
   // @ts-ignore
   import debounce from 'lodash.debounce';
-  import { Component, Vue, Mixins, Prop, Watch, Ref } from 'vue-property-decorator';
-  import EditField from '@/components/Common/EditField.vue';
+  import { Component, Vue, Prop, Watch, Ref } from 'vue-property-decorator';
   // @ts-ignore
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
+  import EditField from '@/components/Common/EditField.vue';
 
   @Component({ components: { EditField, VueBootstrapTypeahead } })
   export default class MessageCompose extends Vue {
@@ -129,9 +132,13 @@
       try {
         const targetUid: string = this.uid || (await this.lookupUid(this.targetName));
         await this.postMessage(targetUid, this.commentText);
-      } catch (e) {
-        // TODO: Differentiate errors (no username? post issue?), use a better UI
-        alert(`Error posting message.\n${e}`);
+      } catch (e: any) {
+        // TODO: Differentiate errors (no username? post issue?)
+        this.$notify({
+          type: 'error',
+          title: 'Error sending message',
+          text: e.message,
+        });
       }
       this.isSending = false;
       this.$emit('submit-message');
@@ -178,11 +185,11 @@
     background-color: lighten($med-dark-blue, 10);
   }
 
-  ::v-deep .editor {
+  :deep(.editor) {
     background-color: rgba(1, 1, 1, 0.53);
   }
 
-  ::v-deep input {
+  :deep(input) {
     color: $white;
     background-color: rgba(1, 1, 1, 0.53);
   }

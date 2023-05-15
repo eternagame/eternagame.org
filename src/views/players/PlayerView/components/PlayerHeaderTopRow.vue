@@ -20,14 +20,13 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Mixins, Prop } from 'vue-property-decorator';
-  import axios, { AxiosInstance } from 'axios';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   import { UserData } from '@/types/common-types';
   import SmartLink from '@/components/Common/SmartLink.vue';
 
-  const UNFOLLOW_ROUTE = `/post/?type=expire_follow&follow_type=user&id=`;
+  // const UNFOLLOW_ROUTE = `/post/?type=expire_follow&follow_type=user&id=`;
 
-  const FOLLOW_ROUTE = `/post/?type=follow&follow_type=user&id=`;
+  // const FOLLOW_ROUTE = `/post/?type=follow&follow_type=user&id=`;
 
   @Component({ components: { SmartLink } })
   export default class PlayerHeaderTopRow extends Vue {
@@ -35,9 +34,11 @@
 
     @Prop({ required: true }) readonly followList!: UserData[];
 
-    private follows: boolean = this.followList
-      .map((u: UserData) => u.uid)
-      .includes(String(this.$vxm.user.uid));
+    get follows(): boolean {
+      return this.followList
+        .map((u: UserData) => u.uid)
+        .includes(String(this.$vxm.user.uid));
+    }
 
     // toggleFollow() {
     //   const route = this.follows ? UNFOLLOW_ROUTE : FOLLOW_ROUTE;

@@ -6,7 +6,7 @@
           <b>{{ lab.title }}</b>
         </div>
       </template>
-      <img class="image" :src="image" />
+      <img class="image" alt="" :src="image" />
       <template #footer>
         <div class="lab-card-footer d-flex">
           <div
@@ -81,7 +81,7 @@
     color: $yellow;
   }
 
-  ::v-deep .scalable-container {
+  :deep(.scalable-container) {
     margin: 0 -20px;
     margin-top: 6px;
     background-color: $black;

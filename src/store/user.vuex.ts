@@ -32,14 +32,17 @@ export default function createUserStore($http: AxiosInstance) {
     public userDetailsLoaded = false;
 
     public newAchievements: RefreshAchievement[] = [];
-    
+
     @mutation showResetCompleteModal() {}
 
     @action() async logout() {
       this.loggedIn = false;
-      const response = await $http.get('/eterna_logout.php');
+      await $http.get('/eterna_logout.php');
       window.localStorage.setItem('loggedIn', 'false');
       this.triedAuthenticating = false;
+      // Technically we may want to actually clear the loaded user details... need to think
+      // of a cleaner way to handle this
+      this.userDetailsLoaded = false;
       await this.FB?.logout();
     }
 
@@ -87,7 +90,7 @@ export default function createUserStore($http: AxiosInstance) {
       }
       const matches = data.match(/^(.+)\s(\d+)$/);
       if (matches && matches.length === 3) {
-        const [match, username, uid] = matches;
+        const [, username, uid] = matches;
         this.username = username;
         this.uid = Number(uid);
         this.loggedIn = true;
@@ -98,10 +101,7 @@ export default function createUserStore($http: AxiosInstance) {
         // on this call. I'm not even sure if we want some of these to be here!
         const userDataResponse = (await axios.get(`/get/?type=my_user&uid=${uid}`)).data.data;
         const userDetails: UserData = userDataResponse.user;
-        this.hasLabAccess = Boolean(
-          Number(userDetails.ten_tools_level) >= 8 ||
-            Number(userDetails.is_lab_member_legacy),
-        );
+        this.hasLabAccess = Boolean(Number(userDetails.is_lab_member));
         this.isAdmin = userDetails.is_admin;
         this.surveyRecord = userDetails.Survey;
         this.userDetailsLoaded = true;
@@ -118,7 +118,7 @@ export default function createUserStore($http: AxiosInstance) {
     }
 
     @mutation private pushAchievements(achievements?: Record<string, RefreshAchievement>) {
-      if (achievements) this.newAchievements.push(...Object.entries(achievements).map(([key, val]) => val));
+      if (achievements) this.newAchievements.push(...Object.entries(achievements).map(([, val]) => val));
     }
   }
 

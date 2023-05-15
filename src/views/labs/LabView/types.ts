@@ -17,6 +17,8 @@ export interface PuzzleData {
   my_votes: number;
   submitted: number;
   num_synthesized: number;
+  player_max_submissions: number;
+  has3d: string;
 }
 
 export interface RoundData {
@@ -60,6 +62,7 @@ export interface LabData {
   total_submitted_solutions_of_user: number;
   max_designs: number;
   challenge: string;
+  submitter_count: number;
 }
 
 export default interface LabViewData {

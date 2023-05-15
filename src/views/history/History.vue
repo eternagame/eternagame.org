@@ -7,6 +7,7 @@
       <div class="history-paragraph">
         <section class="history-media-asset responsive">
           <iframe
+            title="Eterna history"
             src="https://www.youtube.com/embed/bTlNNFQxs_A"
             frameborder="0"
             allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
@@ -60,7 +61,7 @@
       </h4>
       <div class="history-paragraph">
         <section class="history-media-asset responsive">
-          <img src="@/assets/history/science.png" />
+          <img src="@/assets/history/science.png" alt="A graph with data comparing performance of Eterna players to automated algorithms on six early Eterna puzzles (the finger, the cross, bulged cross, the star, bulged star, and the branches)" />
           <p class="history-media-asset-description">
             {{ $t('history:origins-media-caption') }}
           </p>
@@ -90,6 +91,9 @@
       <div class="history-paragraph">
         {{ $t('history:science-body-16') }}
       </div>
+      <div class="history-paragraph">
+        {{ $t('history:science-body-17') }}
+      </div>
     </div>
     <div class="software-container" :id="sections[2].href">
       <h4 class="header">
@@ -97,7 +101,7 @@
       </h4>
       <div class="history-paragraph">
         <section class="history-media-asset">
-          <img src="@/assets/history/software.png" />
+          <img src="@/assets/history/software.png" alt="a multicolored wireframe illustration of a brain" />
           <p class="history-media-asset-description">
             {{ $t('history:software-media-caption') }}
           </p>
@@ -114,7 +118,7 @@
       </h4>
       <div class="history-paragraph">
         <section class="history-media-asset responsive">
-          <img src="@/assets/history/community.png" />
+          <img src="@/assets/history/community.png" alt="A group photo of participants at Eternacon" />
           <p class="history-media-asset-description">
             {{ $t('history:community-media-caption') }}
           </p>
@@ -131,11 +135,11 @@
 <script lang="ts">
   import { Component, Mixins } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import DropdownSidebarPanel from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import FetchMixin from '@/mixins/FetchMixin';
   import HistoryInfoPanel from './components/HistoryInfoPanel.vue';
   import HistoryData from './types';
-  
+
 
   @Component({
     components: {
@@ -174,7 +178,7 @@
       const historyResults = (
         await this.$http.get(`/get/?type=history`)
       ).data.data.history as HistoryData;
-      
+
       this.data = historyResults;
     }
 
@@ -266,7 +270,7 @@
     display: inline-block;
     font-size: 0.7rem;
   }
-  
+
   .history-paragraph {
     margin-bottom: 20px;
   }
@@ -283,7 +287,7 @@
       width: 50%;
       background-color: #043468;
       margin-bottom: 10px;
-      
+
       padding: 15px;
       border-radius: 5px;
 
@@ -300,7 +304,7 @@
       @include media-breakpoint-down(sm) {
         width: 100%;
       }
-    
+
       .stat-number {
         font-size: 2rem;
         font-weight: 700;

@@ -45,11 +45,9 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Mixins, Watch } from 'vue-property-decorator';
-  import { RouteCallback, Route } from 'vue-router';
-  import axios, { AxiosInstance } from 'axios';
+  import { Component, Mixins, Watch } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
-  import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
+  import FiltersPanel from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Pagination from '@/components/PageLayout/Pagination.vue';
@@ -62,7 +60,6 @@
   import { UserItem, UsersData } from '../types';
 
   const INITIAL_NUMBER = 18;
-  const INCREMENT = INITIAL_NUMBER;
 
   const ROUTE = '/get/?type=users';
 
@@ -80,13 +77,13 @@
     },
   })
   export default class LeaderBoard extends Mixins(FetchMixin) {
-    private options: Option[] = [
+    options: Option[] = [
       { value: 'active', text: 'side-panel-options:points-last-30-days' },
       { value: 'point', text: 'side-panel-options:total-points' },
       { value: 'synthesizes', text: 'side-panel-options:total-synthesized' },
     ];
 
-    private users: UserItem[] = [];
+    users: UserItem[] = [];
 
     get pagesEnabled() {
       return this.$vxm.pagination.navigation === navigationModes.NAVIGATION_PAGES;
@@ -95,7 +92,7 @@
     @Watch('pagesEnabled')
     async refresh() {
       this.$route.query.skip = this.users.length.toString();
-      await this.fetch(true);
+      await this.fetch();
     }
 
     currentPage: number = 1;
@@ -112,7 +109,7 @@
 
     total = 0;
 
-    async fetch(refresh = false) {
+    async fetch() {
       const {sort, filters, size, search, skip} = this.$route.query;
 
       const params = {

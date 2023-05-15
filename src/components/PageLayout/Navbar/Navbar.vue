@@ -15,7 +15,10 @@
             v-if="loggedIn"
             src="@/assets/navbar/Toggler.svg"
             @click.stop="showSidebar = true"
+            @keypress.enter="showSidebar = true"
+            @keypress.space="showSidebar = true"
             class="toggler d-inline-block d-lg-none "
+            alt="Open menu"
           />
         </div>
         <MobileSidebar :show.sync="showSidebar">
@@ -26,7 +29,7 @@
   </b-navbar>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Ref } from 'vue-property-decorator';
   import NavbarIcons from './Icons/NavbarIcons.vue';
   import NavbarCollapseContent from './NavbarMenu/NavbarCollapseContent.vue';
   import EternaLogo from './EternaLogo.vue';
@@ -59,6 +62,7 @@
         puzzles: '/puzzles',
         labs: '/labs',
         challenges: '/challenges',
+        collections: '/collections',
         data: `${process.env.VUE_APP_API_BASE_URL}/web/labs/data-browser/`,
         'puzzle-maker': `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`,
         'puzzle-maker-2-states': `${process.env.VUE_APP_API_BASE_URL}/game/switchmaker/2/`,
@@ -74,20 +78,21 @@
       community: {
         leaderboards: '/players',
         eternacon: `/eternacon`,
+        calendar: '/calendar',
         forum: 'https://forum.eternagame.org',
         discord: 'https://discord.gg/KYeTwux',
         wiki: 'http://eternawiki.org',
-        groups: `${process.env.VUE_APP_API_BASE_URL}/web/group/`,
+        groups: `/groups`,
         'code-of-conduct': '/conduct',
+        epa: `/epa`,
       },
       news: '/news',
       about: {
         overview: '/about',
-        publications: '/about/publications',
-        software: '/about/software',
+        publications: '/publications',
+        software: '/software',
         merch: `https://www.redbubble.com/people/eternagame/explore`,
-        donate: 'https://challenges.eternagame.org/',
-        terms: '/about/terms',
+        donate: '/donate',
       },
     };
   }
@@ -110,11 +115,11 @@
     height: 120px;
   }
 
-  ::v-deep * {
+  :deep(*) {
     font-size: 13.125px;
   }
 
-  ::v-deep .navbar-nav {
+  :deep(.navbar-nav) {
     text-transform: uppercase;
   }
 

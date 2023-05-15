@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
@@ -30,7 +30,7 @@
 
     @Prop({ required: true }) readonly paramName!: string;
 
-    private selected: string[] = [];
+    selected: string[] = [];
 
     created() {
       const data = this.$route.query[this.paramName];

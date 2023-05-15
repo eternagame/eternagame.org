@@ -6,9 +6,7 @@
           <hr class="top-border" />
           <h4>
             {{ $t('page-footer:main-action') }}
-            <a href="https://challenges.eternagame.org/"
-              ><strong>{{ $t('page-footer:main-action-stress') }}</strong></a
-            >
+            <router-link to="/donate"><strong>{{ $t('page-footer:main-action-stress') }}</strong></router-link>
           </h4>
         </div>
       </div>
@@ -16,18 +14,21 @@
 
     <b-row class="mt-3">
       <b-col lg="8" sm="12">
-        <div style="text-align:center;">
-          <b-row>
-            <b-col md="4" sm="4">
-              <img src="@/assets/front-page/img/logo_gates.png" class="sponsor-logo" alt="" />
-            </b-col>
-            <b-col md="3" sm="4">
-              <img src="@/assets/front-page/img/logo_stanford.png" class="sponsor-logo" alt="" />
-            </b-col>
-            <b-col md="5" sm="4">
-              <img src="@/assets/front-page/img/logo_NIH.png" class="sponsor-logo" alt="" />
-            </b-col>
-          </b-row>
+        <div style="text-align:center; padding:10px;">
+          <div class="d-none d-sm-flex sponsor-logo-row">
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_stanford.png" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_NIH.png" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_hhmi.png" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_nsf.png" alt="" />
+          </div>
+          <div class="d-flex d-sm-none sponsor-logo-row mb-3">
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_stanford.png" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_NIH.png" alt="" />
+          </div>
+          <div class="d-flex d-sm-none sponsor-logo-row">
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_hhmi.png" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_nsf.png" alt="" />
+          </div>
         </div>
       </b-col>
       <b-col lg="4" sm="12">
@@ -35,7 +36,7 @@
           <a href="https://twitter.com/eternagame">
             <img src="@/assets/front-page/img/icon_twt.png" class="icon" alt="Twitter" />
           </a>
-          <a href="https://www.facebook.com/eternathegame/">
+          <a href="https://www.facoebok.com/eternathegame/">
             <img src="@/assets/front-page/img/icon_fb.png" class="icon" alt="Facebook" />
           </a>
           <a href="https://www.instagram.com/eternagame/">
@@ -53,6 +54,10 @@
         </div>
       </b-col>
     </b-row>
+
+    <div class="text-center my-3">
+      <router-link to="/terms">Terms of Use/Privacy Policy</router-link>
+    </div>
     <!--
     <div class="mt-3 language-bar">
       <div @click="setLanguage('en')" :class="{ active: isLanguage('en') }">
@@ -73,8 +78,8 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
-  import i18n, { LANGUAGES, DEFAULT_LANGUAGE, LANGUAGE_KEY_NAME } from '@/plugins/i18n';
+  import { Component, Vue } from 'vue-property-decorator';
+  import i18n, { DEFAULT_LANGUAGE, LANGUAGE_KEY_NAME } from '@/plugins/i18n';
 
   @Component({
     components: {},
@@ -117,15 +122,21 @@
     }
   }
 
+  .sponsor-logo-row {
+    align-items: center;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  .sponsor-logo {
+    min-width: 0;
+    max-height: 35px;
+  }
+
   .top-border {
     border-top-color: rgba(255, 255, 255, 0.4);
     margin-top: 2.5em;
     margin-bottom: 2.5em;
-  }
-
-  .sponsor-logo {
-    width: 85%;
-    padding: 10px;
   }
 
   .icon {
@@ -146,18 +157,6 @@
   }
   .icon:active {
     transform: rotateZ(0deg);
-  }
-
-  @media (min-width: 320px) {
-    .sponsor-logo {
-      max-width: 65%;
-    }
-  }
-
-  @include media-breakpoint-up(sm) {
-    .sponsor-logo {
-      max-width: 85%;
-    }
   }
 
   @include media-breakpoint-up(md) {

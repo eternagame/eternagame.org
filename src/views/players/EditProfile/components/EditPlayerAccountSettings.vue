@@ -1,10 +1,12 @@
 <template>
   <div>
+    <h4 style="font-weight:bold">{{ $t('edit-profile:account-settings') }}</h4>
     <p style="font-weight:bold">{{ $t('edit-profile:change-password') }}</p>
     <input
       style="color:#fff"
       type="password"
       :placeholder="$t('edit-profile:new-password')"
+      :aria-label="$t('edit-profile:new-password')"
       v-model="password"
       @input="sendPassword"
     />
@@ -12,13 +14,14 @@
       style="color:#fff"
       type="password"
       :placeholder="$t('edit-profile:confirm-password')"
+      :aria-label="$t('edit-profile:confirm-password')"
       v-model="passwordConfirm"
       @input="sendPassword"
     />
     <p v-show="!passwordsMatch">Please make sure your password and confirmation match!</p>
 
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-address') }}</p>
-    <input type="email" style="color:#fff" :value="email" @input="sendEmail" required />
+    <input type="email" aria-label="email" style="color:#fff" :value="email" @input="sendEmail" required />
     <p style="margin-top:13px">{{ $t('edit-profile:email-details') }}</p>
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-notifications') }}</p>
     <b-form-checkbox :checked="messagesNotify" @change="toggleMessages">
@@ -41,18 +44,18 @@
   @Component({
     components: { EditField },
   })
-  export default class PlayerEditCredentials extends Vue {
-    private password: string = '';
+  export default class EditPlayerAccountSettings extends Vue {
+    password: string = '';
 
-    private passwordConfirm: string = '';
+    passwordConfirm: string = '';
 
-    @Prop({ required: true }) private email!: string;
+    @Prop({ required: true }) email!: string;
 
-    @Prop({ required: true }) private messagesNotify!: boolean;
+    @Prop({ required: true }) messagesNotify!: boolean;
 
-    @Prop({ required: true }) private newsNotify!: boolean;
+    @Prop({ required: true }) newsNotify!: boolean;
 
-    @Prop({ required: true }) private publicCertificate!: boolean;
+    @Prop({ required: true }) publicCertificate!: boolean;
 
     get passwordsMatch() {
       return this.passwordConfirm === this.password;

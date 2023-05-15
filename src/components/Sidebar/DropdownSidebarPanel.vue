@@ -7,7 +7,6 @@
         :key="`${value}-${link}`"
         :replace="replace"
         :class="{ selected: routeSelected(index, link) }"
-        @click.native="onClick(index, link)"
       >
         {{ $t(text) }} {{ suffix && suffix }}
         <!-- Note: Can't use Utils.isInternal(). #anchors use href, but not external icon. -->
@@ -26,9 +25,6 @@
       <b-dropdown-item
         :[nav(link)]="navTarget(link, value)"
         :key="`${value}-${link}`"
-        :replace="replace"
-        :disabled="routeSelected(index, link)"
-        @click.native="onClick(index, link)"
       >
         {{ $t(text) }} {{ suffix && suffix }}
       </b-dropdown-item>
@@ -38,7 +34,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
   import SmartLink from '../Common/SmartLink.vue';
@@ -62,29 +58,18 @@
 
     @Prop({ default: false }) readonly replace!: boolean;
 
-    selectedIndex = this.defaultIndex;
-
-    @Watch('$route')
-    readFromQuery() {
+    get selectedIndex() {
       const data = this.$route.query[this.paramName];
       if (data && typeof data === 'string') {
-        this.selectedIndex = this.options.map(option => option.value).indexOf(data);
-      } else {
-        const idx = this.options.map(option => option.link).indexOf(window.location.pathname);
-        if (idx !== -1) this.selectedIndex = idx;
+        return this.options.map(option => option.value).indexOf(data);
       }
-    }
-
-    created() {
-      this.readFromQuery();
+      const idx = this.options.map(option => option.link).indexOf(window.location.pathname);
+      if (idx !== -1) return idx;
+      return this.defaultIndex;
     }
 
     routeSelected(index: number, link?: string) {
       return this.selectedIndex === index || link === window.location.pathname;
-    }
-
-    onClick(index: number, link?: string) {
-      this.selectedIndex = index;
     }
 
     generateQuery(value: string) {

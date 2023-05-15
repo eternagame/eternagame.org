@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { createModule, action } from 'vuex-class-component';
+import { createModule } from 'vuex-class-component';
 
 const VuexModule = createModule({
   strict: false,

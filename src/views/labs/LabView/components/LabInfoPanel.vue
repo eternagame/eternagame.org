@@ -4,8 +4,8 @@
     :header="$t('lab-info:title')"
     headerIcon="@/assets/info.svg"
   >
-    <span class="gray-header">{{ $t('lab-info:admin') }}</span><br />
-    <img src="@/assets/navbar/DefaultIcon.svg" style="margin-right:5px" />
+    <span id="lab-admin" class="gray-header">{{ $t('lab-info:admin') }}</span><br />
+    <img src="@/assets/navbar/DefaultIcon.svg" :alt="$t('lab-info:admin')" style="margin-right:5px" />
     <span style="font-weight: bold; color: var(--yellow);">{{ lab.username }}</span>
     <br />
     <br />
@@ -27,9 +27,10 @@
     <!-- <span class="gray-header">{{ $t('lab-info:currently-active') }}</span -->
     <!-- ><br /> -->
     <!-- <b>{{ $t('lab-info:round-number') }} 4</b> -->
-    <div class="banner-progress d-none d-lg-block">
-      <Progress v-bind="totalProgressCircle" color="#2f94d1" />
-      <Progress v-if="$vxm.user.loggedIn" v-bind="userProgressCircle" color="#fac244" />
+    <div class="banner-progress d-none d-lg-inline-flex" style="justify-content: space-between; flex-wrap: wrap;">
+      <Progress v-bind="totalProgressCircle" color="#2f94d1" style="flex-basis: 50%;" />
+      <Progress v-if="$vxm.user.loggedIn" v-bind="userProgressCircle" color="#fac244" style="flex-basis: 50%;" />
+      <Stat name="Players Contributed" style="flex-basis: 50%; font-size: 24px;">{{ lab.submitter_count }}</Stat>
     </div>
   </SidebarPanel>
 </template>
@@ -40,6 +41,7 @@
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
   import Progress from '@/components/Common/Progress.vue';
+  import Stat from '@/components/Common/Stat.vue';
   import { ChallengeData } from '@/views/challenges/ChallengeView/types';
   import { LabData } from '../types';
 
@@ -47,6 +49,7 @@
     components: {
       SidebarPanel,
       Progress,
+      Stat
     },
   })
   export default class LabInfoPanel extends mixins(SidebarPanelMixin) {

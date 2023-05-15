@@ -77,7 +77,9 @@
       return this.$vxm.pagination.navigation === navigationModes.NAVIGATION_PAGES;
     }
 
-    currentPage = (+this.$route.query.skip || 0) / this.initial + 1;
+    get currentPage() {
+      return (+this.$route.query.skip || 0) / this.initial + 1;
+    };
 
     created() {
       if (!this.pagesEnabled && this.$route.query.size !== this.initial.toString()) {

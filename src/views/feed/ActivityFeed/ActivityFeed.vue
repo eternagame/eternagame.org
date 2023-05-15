@@ -16,7 +16,7 @@
       <Pagination
         :key="notifications && notifications.length"
         @page="currentPage = $event"
-        :total="total + 18"
+        :total="total"
         :loading="loading"
         @loading="loading = $event"
       />
@@ -114,7 +114,7 @@
       // Remove duplicates, in case a new puzzles was added
       this.notifications = [...new Set(this.notifications)];
       this.loading = false;
-      this.total = this.notifications.length;
+      this.total = res.count;
     }
 
     get pagesEnabled() {
@@ -176,6 +176,7 @@
     uid = '';
 
     updateUID(newValue: string) {
+      this.notifications = [];
       this.uid = newValue;
       this.fetch();
     }

@@ -38,18 +38,24 @@
 
     @Prop() placeholder !: string;
 
-    usernames = [] as {
+    usernames: {
       username: string,
       uid: string,
       userpicture: string,
-    }[];
+    }[] = [];
 
-    fetchData = debounce(async () => {
+    fetchData: () => Promise<void> | undefined = async () => {};
+
+    async doFetchData() {
       const res = await axios.get(
         `/get/?type=usernames&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );
       this.usernames = res.data.data.usernames;
-    }, 200);
+    };
+
+    created() {
+      this.fetchData = debounce(this.doFetchData, 200);
+    }
 
     @Watch('targetName', { immediate: true, deep: true })
     async getUserNames() {
@@ -59,6 +65,10 @@
         return;
       }
       const user = this.usernames[0];
+      if (!user) {
+        this.$emit('uid', '');
+        return;
+      }
       if (user.uid) {
         this.$emit('uid', user.uid);
         return;

@@ -5,9 +5,9 @@
         {{ $t('collections-view:top-tip') }}
       </h3>
 
-      <QuestCarousel :slideTo="slideTo">
-        <SwiperSlide v-for="item in quests" :key="item.name">
-          <CollectionCard :key="item.name" :cleared="cleared" v-bind="item" />
+      <QuestCarousel>
+        <SwiperSlide v-for="item in quests" :key="item.title">
+          <CollectionCard :key="item.title" :cleared="cleared" v-bind="item" />
         </SwiperSlide>
       </QuestCarousel>
 
@@ -23,7 +23,7 @@
         <Gallery>
           <CollectionCard
             v-for="item in collections"
-            :key="item.name"
+            :key="item.title"
             :cleared="cleared"
             v-bind="item"
           />
@@ -87,7 +87,7 @@
   import {
     CreatedCollection,
     CollectionItem,
-    PuzzleItem,
+    ClearedPuzzle,
   } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import QuestActivity from '@/views/home/PlayerHome/components/activities/QuestActivity.vue';
@@ -134,7 +134,7 @@
 
     created: CreatedCollection[] = [];
 
-    cleared: PuzzleItem[] = [];
+    cleared: ClearedPuzzle[] = [];
 
     async fetch() {
       const { filters, sort, search, size } = this.$route.query;

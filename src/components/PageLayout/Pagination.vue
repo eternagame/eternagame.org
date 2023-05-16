@@ -1,24 +1,24 @@
 <template>
   <div>
-    <Preloader v-if="loading && (!pagesEnabled || useSize)" />
+    <Preloader v-if="loading && scrollEnabled" />
+    <!-- Limit is 11 because the ellipsis counts. The style bind makes sure the pagination is always at the bottom of the page, but not covering any content up.-->
     <b-pagination
-      v-if="pagesEnabled && !useSize"
+      v-if="pagesEnabled"
       :value="currentPage"
-      @change="currentPage = $event"
+      @change="updateQuery(undefined, ($event - 1) * increment)"
       :total-rows="total"
-      :per-page="initial"
+      :per-page="increment"
       style="bottom: 0;"
       :style="{ position: loading ? 'absolute': 'relative'}"
       align="fill"
       limit=11
       class="my-2 w-100"
     />
-    <!-- Limit is 11 because the ellipsis counts. The style bind makes sure the pagination is always at the bottom of the page, but not covering any content up.-->
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { navigationModes } from '@/store/pagination.vuex';
 
@@ -28,15 +28,11 @@
     },
   })
   export default class Pagination extends Vue {
-    @Prop({ default: 18 }) readonly increment!: number;
+    @Prop({ required: true }) total!: number;
 
-    @Prop({ default: 18 }) readonly initial!: number;
+    @Prop({ required: true }) increment!: number;
 
-    @Prop({ default: false }) loading!: boolean;
-
-    @Prop({ required: true }) total !: number;
-
-    @Prop({ default: false }) useSize !: boolean;
+    @Prop({ required: true }) loading!: boolean;
 
     mounted() {
       window.onscroll = () => {
@@ -44,64 +40,55 @@
           document.documentElement.scrollTop + window.innerHeight + 1 >=
           document.documentElement.offsetHeight * 3/4;
 
-        if (scrollTrigger && !this.pagesEnabled) {
-          const length = this.$vnode.key;
-          const { skip } = this.$route.query;
-          let skipped = +skip || this.initial;
-          if (skipped === 0) skipped = this.initial;
-          skipped = this.convertToIncrementOf(skipped, this.increment);
-          if (skipped === length) {
-            this.$router.replace({
-              name: this.$route.name!,
-              query: {
-                ...this.$route.query,
-                size: this.increment.toString(),
-                skip: String(skipped + this.increment),
-              },
-              hash: window.location.hash,
-              params: { keepScroll: 'true' }
-            });
-            this.$emit('loading', true);
-          } else if (!this.loading) {
-            this.$route.query.skip = length?.toString() || this.$route.query.skip;
+        if (scrollTrigger && this.scrollEnabled) {
+          const { size, skip } = this.$route.query;
+
+          const sizeNum = +size || this.increment;
+          const skipNum = +skip || 0;
+
+          if (skipNum + sizeNum < this.total && !this.loading) {
+            this.updateQuery(sizeNum, skipNum + sizeNum);
           }
         }
       };
-    }
-
-    convertToIncrementOf(num: number, inc: number, ceil = true) {
-      return (ceil ? Math.ceil : Math.floor)(num / inc) * inc;
     }
 
     get pagesEnabled() {
       return this.$vxm.pagination.navigation === navigationModes.NAVIGATION_PAGES;
     }
 
+    get scrollEnabled() {
+      return this.$vxm.pagination.navigation === navigationModes.NAVIGATION_SCROLL;
+    }
+
     get currentPage() {
-      return (+this.$route.query.skip || 0) / this.initial + 1;
+      return (+this.$route.query.skip || 0) / this.increment + 1;
     };
 
     created() {
-      if (!this.pagesEnabled && this.$route.query.size !== this.initial.toString()) {
-        this.$route.query.size = this.initial.toString();
-      } else if (this.$route.query.size !== this.initial.toString()) {
-        this.$route.query.size = this.initial.toString();
+      if (this.pagesEnabled && this.$route.query.skip) {
+        const skipNum = Math.floor(+this.$route.query.skip / this.increment) * this.increment;
+        this.updateQuery(undefined, skipNum);
       }
-      this.$route.query.skip = this.convertToIncrementOf(+this.$route.query.skip, this.increment).toString();
     }
 
-    @Watch('currentPage')
-    async updateQuery() {
-      this.$emit('page', this.currentPage);
-      const newQuery = this.getQuery();
-      if (newQuery !== this.$route.query) await this.$router.replace({ name: this.$route.name!, query: this.getQuery(), });
-      this.$emit('loading', true);
-    }
+    updateQuery(size?: number, skip?: number) {
+      const realSize = size?.toString() ?? this.$route.query.size;
+      const realSkip = skip?.toString() ?? this.$route.query.skip;
 
-    getQuery() {
-      const query = { ...this.$route.query };
-      if (this.pagesEnabled) query.skip = (this.initial * (this.currentPage - 1)).toString();
-      return query;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const {size: oldSize, skip: oldSkip, ...query} = this.$route.query;
+
+      this.$router.replace({
+        name: this.$route.name!,
+        query: {
+          ...query,
+          ...(realSize !== null ? {size: realSize} : {}),
+          ...(realSkip && realSkip !== '0' ? {skip: realSkip} : {}),
+        },
+        hash: window.location.hash,
+        params: { keepScroll: 'true' }
+      });
     }
   }
 </script>

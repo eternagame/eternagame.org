@@ -152,7 +152,6 @@ export interface Publications {
 
 export interface PuzzleItem {
   id: string;
-  nid: string;
   title: string;
   created: string;
   username: string;
@@ -451,6 +450,11 @@ export interface BlogItem {
   filepath: string | null;
   timestamp: string;
   comments: CommentItem[];
+}
+
+export interface NewsAndBlogResponse {
+  entries: (NewsItem | BlogItem)[];
+  count: number;
 }
 
 export interface ChallengeItem{

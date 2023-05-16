@@ -33,7 +33,7 @@
       VueBootstrapTypeahead,
     }
   })
-  export default class UserSearch extends Vue {
+  export default class UserSearchPanel extends Vue {
     targetName = '';
 
     @Prop() placeholder !: string;
@@ -61,20 +61,32 @@
     async getUserNames() {
       await this.fetchData();
       if (this.targetName.trim() === '') {
-        this.$emit('uid', '');
+        this.replaceRoute('');
         return;
       }
       const user = this.usernames[0];
       if (!user) {
-        this.$emit('uid', '');
+        this.replaceRoute('');
         return;
       }
       if (user.uid) {
-        this.$emit('uid', user.uid);
+        this.replaceRoute(user.uid);
         return;
       }
       const uid = await this.lookupUid(user.username);
-      this.$emit('uid', uid);
+      this.replaceRoute(uid);
+    }
+
+    replaceRoute(uid: string) {
+      const {uid: oldUid, skip: oldSkip, ...query} = this.$route.query;
+
+      this.$router.replace({
+        name: this.$route.name!,
+        query: {
+          ...query,
+          ...(uid ? {uid} : {})
+        },
+      });
     }
 
     @Ref('typeahead') readonly typeahead!: { inputValue: string };

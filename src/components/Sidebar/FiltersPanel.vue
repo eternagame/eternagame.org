@@ -40,21 +40,16 @@
     }
 
     async onCheck() {
-      const query = this.getQuery();
-      if (query === this.$route.query) return;
-      await this.$router.replace({ name: this.$route.name!, query, });
-    }
-
-    getQuery() {
-      const query = { ...this.$route.query };
-      if (this.selected.length) {
-        query[this.paramName] = this.selected.join(',');
-        if (query.size !== '18') query.size = '18';
-        if (query.skip !== '0') query.skip = '0';
-      } else {
-        delete query[this.paramName];
-      }
-      return query;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const {[this.paramName]: oldParam, skip: oldSkip, ...query} = this.$route.query;
+      const filter = this.selected.join(',');
+      this.$router.replace({
+        name: this.$route.name!,
+        query: {
+          ...query,
+          ...(filter ? {[this.paramName]: filter} : {})
+        },
+      });
     }
   }
 </script>

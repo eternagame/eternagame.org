@@ -4,7 +4,16 @@
       <img src="@/assets/sidebar/hashtag.svg" alt="hashtag" />
     </template>
     <ul style="padding: 0; list-style-type:none">
-      <li class="gray-header" v-for="tag in tags" :key="tag" :class="{ 'text-white': tagSelected(tag) }">{{ tag }}</li>
+      <li
+        class="gray-header" :class="{ 'text-white': tagSelected(tag) }"
+        role="button" v-for="tag in tags" :key="tag"
+        @click="toggleTag(tag)"
+        @keypress.enter="toggleTag(tag)"
+        @keypress.space="toggleTag(tag)"
+        tabindex="0"
+      >
+        {{ tag }}
+      </li>
     </ul>
   </SidebarPanel>
 </template>
@@ -24,7 +33,25 @@
     @Prop({ required: true }) readonly tags!: string[];
 
     tagSelected(tag: string) {
-      return this.$route.query.search?.includes(`:${tag.replace('#', '')}`);
+      return this.$route.query.tags?.includes(tag.replace('#', ''));
+    }
+
+    toggleTag(tag: string) {
+      const realTag = tag.replace('#', '');
+      const {tags: oldTags, skip: oldSkip, ...query} = this.$route.query;
+
+      const tags = Array.isArray(oldTags) ? oldTags.slice() : [];
+      const tagIdx = tags.indexOf(realTag);
+      if (tagIdx !== -1) tags.splice(tagIdx, 1);
+      else tags.push(realTag);
+
+      this.$router.replace({
+        name: this.$route.name!,
+        query: {
+          ...query,
+          ...(tags.length ? {tags} : {})
+        },
+      });
     }
   }
 </script>

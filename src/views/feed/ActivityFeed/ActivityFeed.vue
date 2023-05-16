@@ -4,35 +4,26 @@
       <MessageCompose @submit-message="sentMessage" />
       <Gallery :sm="12" :md="12" style="margin-top:25px">
         <ActivityCard
-          v-for="notification in displayedNotifications"
+          v-for="notification in notifications"
           :key="notification.nid"
           :notification="notification"
         />
       </Gallery>
+      <Pagination :total="total" :increment="increment" :loading="fetchState.pending" />
     </div>
     <div v-else>
       <Preloader />
     </div>
-      <Pagination
-        :key="notifications && notifications.length"
-        @page="currentPage = $event"
-        :total="total"
-        :loading="loading"
-        @loading="loading = $event"
-      />
     <template #sidebar="{ isInSidebar }">
       <SearchPanel v-if="isInSidebar" :isInSidebar="isInSidebar" />
-      <UserSearch ref="userSearch" placeholder="activity-feed:search-users" v-if="isInSidebar" @uid="updateUID" class="mb-2"/>
-      <ChooseView v-if="isInSidebar" />
       <DropdownSidebarPanel
         :options="options"
-        class="my-3"
         paramName="filter"
         replace
         :isInSidebar="isInSidebar"
       />
-      <p v-if="isInSidebar" class="ml-1 d-inline-block custom-control-label no-before no-after">{{ total }} results </p><br>
-      <button v-if="isInSidebar" class="btn btn-primary mt-1 ml-1" @click="refresh">Refresh</button>
+      <UserSearchPanel placeholder="activity-feed:search-users" v-if="isInSidebar" class="mb-4"/>
+      <PaginationPanel v-if="isInSidebar" :shownCount="notifications.length" :totalCount="total" />
     </template>
     <template #mobileSearchbar>
       <SearchPanel :isInSidebar="false" />
@@ -52,13 +43,11 @@
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
   import { NotificationItem } from '@/types/common-types';
+  import UserSearchPanel from '@/components/Sidebar/UserSearchPanel.vue';
+  import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
   import { navigationModes } from '@/store/pagination.vuex';
-  import ChooseView from '@/components/Sidebar/ChooseView.vue';
-  import UserSearch from './components/UserSearch.vue';
-  import ActivityCard from './components/ActivityCard.vue';
   import MessageCompose from './components/MessageCompose.vue';
-
-  const INITIAL_NUMBER = 18;
+  import ActivityCard from './components/ActivityCard.vue';
 
   const ROUTE = '/get/?type=newsfeed&combined=true';
 
@@ -73,74 +62,40 @@
       Preloader,
       MessageCompose,
       SearchPanel,
-      UserSearch,
-      ChooseView
+      UserSearchPanel,
+      PaginationPanel
     },
   })
   export default class ActivityFeed extends Mixins(FetchMixin) {
     notifications: NotificationItem[] = [];
 
-    loading = true;
-
-    async fetch(refresh = false) {
-      const { filter, search, size, skip } = this.$route.query;
-      const params = {
-        search,
-        size: size || INITIAL_NUMBER,
-        filter: filter || 'all',
-        skip,
-        uid: this.uid || null,
-      };
-
-      if (refresh) {
-        params.size = (parseInt(params.size as string, 10) + parseInt(params.skip! as string, 10)).toString();
-        params.skip = '0';
-      }
-
-      const res = (
-        await axios.get(ROUTE, {
-          params,
-        })
-      ).data.data;
-
-      const skipped = parseInt(params.skip as string, 10);
-      const puzzlesLoaded = parseInt(params.size as string, 10);
-      // Ensure splice places items where they should go by making the array larger
-      while (this.notifications.length < skipped && this.pagesEnabled) {
-        this.notifications.push({} as NotificationItem);
-      }
-      // Replace the old puzzles the new ones
-      this.notifications.splice(skipped, puzzlesLoaded, ...res.entries);
-      // Remove duplicates, in case a new puzzles was added
-      this.notifications = [...new Set(this.notifications)];
-      this.loading = false;
-      this.total = res.count;
-    }
-
-    get pagesEnabled() {
-      return this.$vxm.pagination.navigation === navigationModes.NAVIGATION_PAGES;
-    }
-
-    @Watch('pagesEnabled')
-    async refresh() {
-      this.$route.query.skip = this.notifications.length.toString();
-      await this.fetch(true);
-    }
-
-    created() {
-      this.refresh();
-    }
-
-    currentPage: number = 1;
-
     total = 0;
 
-    get displayedNotifications() {
-      if (this.pagesEnabled) {
-        const start = (this.currentPage - 1) * 18;
-        return this.notifications.slice(start, start + 18);
+    increment = 18;
+
+    async fetch() {
+      const { filter, search, size, skip, uid } = this.$route.query;
+      const res = (
+        await axios.get(ROUTE, {
+          params: {
+            size: size || this.increment,
+            skip: skip || 0,
+            search,
+            filter: filter || 'all',
+            uid
+          },
+        })
+      ).data.data;
+      if (this.$vxm.pagination.navigation === navigationModes.NAVIGATION_SCROLL && skip) {
+        res.entries.forEach((newNotif: NotificationItem) => {
+          if (!this.notifications.some((notif) => notif.nid === newNotif.nid)) {
+            this.notifications.push(newNotif);
+          }
+        });
+      } else {
+        this.notifications = res.entries;
       }
-      return this.notifications;
+      this.total = res.count;
     }
 
     sentMessage() {
@@ -172,19 +127,5 @@
       { value: 'newsandblogs', text: 'side-panel-options:news' },
       { value: 'rewards', text: 'side-panel-options:labs'},
     ];
-
-    uid = '';
-
-    updateUID(newValue: string) {
-      this.notifications = [];
-      this.uid = newValue;
-      this.fetch();
-    }
   }
 </script>
-
-<style lang="scss" scoped>
-.no-before::before, .no-after::after {
-  content: none !important;
-}
-</style>

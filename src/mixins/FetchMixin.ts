@@ -85,14 +85,19 @@ export default class FetchMixin extends Vue {
   }
 
   @Watch('$route.path')
-  private async fetchForNewPage() {
+  async fetchForNewPage() {
     // This is actually a completely different page, so don't act like we've loaded it already
     this.fetchState = new FetchState();
     await this.$fetch();
   }
 
   @Watch('$route.query')
-  private async fetchForNewQuery() {
+  async fetchForNewQuery() {
+    await this.$fetch();
+  }
+
+  @Watch('$vxm.pagination.navigation')
+  async refresh() {
     await this.$fetch();
   }
 }

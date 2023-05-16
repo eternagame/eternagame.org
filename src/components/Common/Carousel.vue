@@ -28,7 +28,7 @@
     },
   })
   export default class Carousel extends Vue {
-    @Prop({required: true}) readonly slideTo?: number;
+    @Prop({default: undefined}) readonly slideTo?: number;
 
     @Ref('slider') readonly slider!: SwiperRef;
 

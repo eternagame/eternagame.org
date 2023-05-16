@@ -56,15 +56,17 @@
     @Watch('dates')
     onSearch() {
       const { start, end } = this.dates;
-      if (start && end)
+      if (start && end) {
+        const {skip: oldSkip, ...query} = this.$route.query;
         this.$router.replace({
           name: this.$route.name!,
           query: {
-            ...this.$route.query,
+            ...query,
             start_date: start.toLocaleDateString().replace(/\//g, '-'),
             end_date: end.toLocaleDateString().replace(/\//g, '-'),
           },
         });
+      }
     }
   }
 </script>

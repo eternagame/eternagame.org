@@ -93,8 +93,6 @@
 
     @Prop({ default: false }) readonly joined!: boolean;
 
-    @Prop({ default: false }) readonly madeByPlayer!: boolean;
-
     // Whether clicking on the card background should link to the group.
     @Prop({ default: true }) readonly backgroundLink!: boolean;
 

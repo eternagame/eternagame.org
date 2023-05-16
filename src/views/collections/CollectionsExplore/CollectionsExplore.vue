@@ -28,7 +28,7 @@
             v-bind="item"
           />
         </Gallery>
-        <Pagination :key="fetch.length" />
+        <Pagination :total="total" :increment="increment" :loading="fetchState.pending" />
       </div>
     <div v-else>
       <Preloader />
@@ -55,6 +55,7 @@
         replace
         :isInSidebar="isInSidebar"
       />
+      <PaginationPanel v-if="isInSidebar" :shownCount="collections.length" :totalCount="total" />
       <b-button
         type="submit"
         variant="primary"
@@ -92,9 +93,10 @@
   import FetchMixin from '@/mixins/FetchMixin';
   import QuestActivity from '@/views/home/PlayerHome/components/activities/QuestActivity.vue';
   import TutorialActivity from '@/views/home/PlayerHome/components/activities/TutorialActivity.vue';
+  import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
+  import { navigationModes } from '@/store/pagination.vuex';
 
   const INITIAL_SORT = 'date';
-  const INITIAL_NUMBER = 18;
 
   interface CollectionExploreParams {
     collection_type: string;
@@ -103,6 +105,7 @@
     sort: string;
     search: string;
     size: string;
+    skip: string | number;
     uid: number | null;
     quest: boolean;
   }
@@ -125,9 +128,14 @@
       QuestActivity,
       TutorialActivity,
       DropdownSidebarPanel,
+      PaginationPanel
     },
   })
   export default class CollectionsExplore extends Mixins(FetchMixin) {
+    total = 0;
+
+    increment = 18;
+
     collections: CollectionItem[] = [];
 
     quests: CollectionItem[] = [];
@@ -137,10 +145,11 @@
     cleared: ClearedPuzzle[] = [];
 
     async fetch() {
-      const { filters, sort, search, size } = this.$route.query;
+      const { filters, sort, search, size, skip } = this.$route.query;
       const params = {
         sort: sort || INITIAL_SORT,
-        size: size || INITIAL_NUMBER,
+        size: size || this.increment,
+        skip: skip || 0,
         quest: false,
         search,
       } as CollectionExploreParams;
@@ -157,10 +166,21 @@
 
       this.cleared = res[2].data.data?.cleared ?? [];
 
-      this.collections = res[0].data.data.collections;
-      this.collections.forEach((c) => {
-        c.progress = this.getProgress(c);
-      });
+      if (this.$vxm.pagination.navigation === navigationModes.NAVIGATION_SCROLL && skip) {
+        res[0].data.data.collections.forEach((newCollection: CollectionItem) => {
+          if (!this.collections.some((collection) => collection.nid === newCollection.nid)) {
+            this.collections.push(newCollection);
+            newCollection.progress = this.getProgress(newCollection);
+          }
+        });
+      } else {
+        this.collections = res[0].data.data.collections;
+        this.collections.forEach((c) => {
+          c.progress = this.getProgress(c);
+        });
+      }
+      this.total = +res[0].data.data.num_collections;
+
       switch (filters) {
       case 'cleared': {
         this.collections = this.collections.filter((c) => c.progress === 1);

@@ -5,13 +5,11 @@
         <GroupCard
           v-for="group in groups"
           :key="group.nid"
-          :nid="group.nid"
           v-bind="group"
           :joined="groupJoined(group.nid)"
-          :madeByPlayer="group['made-by-player'] !== '0'"
         />
       </Gallery>
-      <Pagination :key="groups && groups.length" />
+      <Pagination :total="total" :increment="increment" :loading="fetchState.pending" />
     </div>
     <div v-else>
       <Preloader />
@@ -35,6 +33,7 @@
         replace
         :isInSidebar="isInSidebar"
       />
+      <PaginationPanel v-if="isInSidebar" :shownCount="groups.length" :totalCount="total" />
       <b-button
        type="submit"
         variant="primary"
@@ -62,9 +61,10 @@
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { GroupList, JoinedGroup, GroupItem } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
+  import { navigationModes } from '@/store/pagination.vuex';
+  import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
 
   const INITIAL_SORT = 'date';
-  const INITIAL_NUMBER = 18;
 
   const MAINROUTE = '/get/?type=groups';
 
@@ -75,6 +75,7 @@
     sort: string;
     search: string;
     size: string;
+    skip: string | number;
     uid: number | null;
     public: string;
     private: string;
@@ -93,18 +94,24 @@
       DropdownSidebarPanel,
       TagsPanel,
       Preloader,
+      PaginationPanel
     },
   })
   export default class GroupsExplore extends Mixins(FetchMixin) {
+    total = 0;
+
+    increment = 18;
+
     groups: GroupItem[] = [];
 
     joined: JoinedGroup[] = [];
 
     async fetch() {
-      const { filters, sort, search, size } = this.$route.query;
+      const { filters, sort, search, size, skip } = this.$route.query;
       const params = {
         sort: sort || INITIAL_SORT,
-        size: size || INITIAL_NUMBER,
+        size: size || this.increment,
+        skip: skip || 0,
         public: filters && filters.includes('public') && 'true',
         private: filters && filters.includes('private') && 'true',
         admin: filters && filters.includes('admin') && 'true',
@@ -121,7 +128,16 @@
       const res = (await this.$http.get(ROUTE, {
         params,
       })).data.data as GroupList;
-      this.groups = res.groups;
+      if (this.$vxm.pagination.navigation === navigationModes.NAVIGATION_SCROLL && skip) {
+        res.groups.forEach((newGroup) => {
+          if (!this.groups.some((group) => group.nid === newGroup.nid)) {
+            this.groups.push(newGroup);
+          }
+        });
+      } else {
+        this.groups = res.groups;
+      }
+      this.total = +res.num_groups;
       this.joined = res.joined || [];
     }
 

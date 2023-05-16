@@ -34,23 +34,32 @@
 
     @Prop({ required: true }) loading!: boolean;
 
-    mounted() {
-      window.onscroll = () => {
-        const scrollTrigger =
-          document.documentElement.scrollTop + window.innerHeight + 1 >=
-          document.documentElement.offsetHeight * 3/4;
+    private boundScrollHandler = this.scrollHandler.bind(this);
 
-        if (scrollTrigger && this.scrollEnabled) {
-          const { size, skip } = this.$route.query;
+    private scrollHandler() {
+      console.log('Scroll handler triggered');
+      const scrollTrigger =
+        document.documentElement.scrollTop + window.innerHeight + 1 >=
+        document.documentElement.offsetHeight * 3/4;
 
-          const sizeNum = +size || this.increment;
-          const skipNum = +skip || 0;
+      if (scrollTrigger && this.scrollEnabled) {
+        const { size, skip } = this.$route.query;
 
-          if (skipNum + sizeNum < this.total && !this.loading) {
-            this.updateQuery(sizeNum, skipNum + sizeNum);
-          }
+        const sizeNum = +size || this.increment;
+        const skipNum = +skip || 0;
+
+        if (skipNum + sizeNum < this.total && !this.loading) {
+          this.updateQuery(sizeNum, skipNum + sizeNum);
         }
-      };
+      }
+    }
+
+    mounted() {
+      window.addEventListener('scroll', this.boundScrollHandler);
+    }
+
+    beforeDestroy() {
+      window.removeEventListener('scroll', this.boundScrollHandler);
     }
 
     get pagesEnabled() {

@@ -73,9 +73,11 @@
     }
 
     generateQuery(value: string) {
-      const query = { ...this.$route.query };
-      query[this.paramName] = value;
-      return query;
+      const {size, skip, ...query} = this.$route.query;
+      return {
+        ...query,
+        [this.paramName]: value
+      };
     }
 
     nav(link?: string): string {

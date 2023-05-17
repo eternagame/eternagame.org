@@ -95,7 +95,7 @@ export default class FetchMixin<ManualLoadParams> extends Vue {
 
   @Watch('$route.query')
   async fetchForNewQuery(query: Route['query'], oldQuery: Route['query']) {
-    if (utils.queryChangeShouldRefetch(query, oldQuery)) await this.$fetch();
+    if (utils.nonPaginationQueryChanged(query, oldQuery)) await this.$fetch();
   }
 
   @Watch('$vxm.pagination.navigation')

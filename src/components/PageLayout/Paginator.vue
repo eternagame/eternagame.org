@@ -81,6 +81,43 @@
 
     loadedCount = 0;
 
+    private needsPush = true;
+
+    private currentlyRouting = false;
+
+    created() {
+      if (this.pagesEnabled && this.$route.query.skip && +this.$route.query.skip % this.increment !== 0) {
+        this.updateQuery(Math.ceil(+this.$route.query.skip / this.increment) * this.increment, 'replace');
+      }
+      this.firstLoaded = +this.$route.query.skip || 0;
+      this.loadedCount = this.increment;
+    }
+
+    mounted() {
+      window.addEventListener('scroll', this.boundScrollHandler);
+    }
+
+    beforeDestroy() {
+      window.removeEventListener('scroll', this.boundScrollHandler);
+    }
+
+    @Watch('$route.query')
+    async fetchForNewQuery(query: Route['query'], oldQuery: Route['query']) {
+      if (utils.nonPaginationQueryChanged(query, oldQuery)) {
+        // If the query has changed in some way excluding the size and skip params, FetchMixin
+        // will cause data to be reloaded as if it was the first visit to the page
+        this.firstLoaded = +this.$route.query.skip || 0;
+        this.loadedCount = this.increment;
+      } else if (!this.currentlyRouting) {
+        // If $route.query changed but no non-pagination property changed, that means ONLY
+        // pagination properties changed. If this didn't occur because we triggered a re-route
+        // (in which case we've fetched the new data we wanted), that means something else like
+        // the user using the forward/back navigation caused this, in which case we want to treat
+        // this as if the user navigated there the first time
+        this.$emit('load', {mode: 'replace', size: +query.size, skip: +query.skip});
+      }
+    }
+
     loadPrevious() {
       const toLoad = this.increment > this.firstLoaded ? this.firstLoaded : this.increment;
       const skip = this.firstLoaded - toLoad;
@@ -88,7 +125,7 @@
       this.firstLoaded = skip;
       this.loadedCount += toLoad;
 
-      this.updateQuery(skip);
+      this.updateQuery(skip, 'auto');
     }
 
     loadNext() {
@@ -99,7 +136,7 @@
       this.$emit('load', {mode: 'append', size: toLoad, skip});
       this.loadedCount += toLoad;
 
-      this.updateQuery(skip);
+      this.updateQuery(skip, 'auto');
     }
 
     loadPage(index: number) {
@@ -107,13 +144,35 @@
       this.$emit('load', {mode: 'replace', size: this.increment, skip});
       this.firstLoaded = skip;
       this.loadedCount = this.increment;
-      this.updateQuery(skip);
+      this.updateQuery(skip, 'push');
     }
 
-    private updateQuery(skip: number) {
+    /**
+     * Update the size and skip query params
+     *
+     * @param skip
+     * @param action 'replace' or 'push' uses the relevant methods on $router.
+     * 'auto' will push the first time, and replace any consecutive times.
+     * This allows for the user to hit the back button when in infinite scroll mode to
+     * get to the point where they started on the page
+     */
+    private updateQuery(skip: number, action: 'replace' | 'push' | 'auto') {
+      let resolvedAction: 'push' | 'replace';
+      if (action === 'auto') {
+        if (this.needsPush) {
+          resolvedAction = 'push';
+          this.needsPush = false;
+        } else {
+          resolvedAction = 'replace';
+        }
+      } else {
+        resolvedAction = action;
+      }
+
+      this.currentlyRouting = true;
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const {size: oldSize, skip: oldSkip, ...query} = this.$route.query;
-      this.$router.replace({
+      this.$router[resolvedAction]({
         name: this.$route.name!,
         query: {
           ...query,
@@ -122,6 +181,8 @@
         },
         hash: window.location.hash,
         params: { keepScroll: 'true' }
+      }).finally(() => {
+        this.currentlyRouting = false;
       });
     }
 
@@ -134,30 +195,6 @@
 
       if (scrollTrigger && this.scrollEnabled && !this.loading) {
         this.loadNext();
-      }
-    }
-
-    mounted() {
-      window.addEventListener('scroll', this.boundScrollHandler);
-    }
-
-    beforeDestroy() {
-      window.removeEventListener('scroll', this.boundScrollHandler);
-    }
-
-    created() {
-      if (this.pagesEnabled && this.$route.query.skip && +this.$route.query.skip % this.increment !== 0) {
-        this.updateQuery(Math.ceil(+this.$route.query.skip / this.increment) * this.increment);
-      }
-      this.firstLoaded = +this.$route.query.skip || 0;
-      this.loadedCount = this.increment;
-    }
-
-    @Watch('$route.query')
-    async fetchForNewQuery(query: Route['query'], oldQuery: Route['query']) {
-      if (utils.queryChangeShouldRefetch(query, oldQuery)) {
-        this.firstLoaded = +this.$route.query.skip || 0;
-        this.loadedCount = this.increment;
       }
     }
 

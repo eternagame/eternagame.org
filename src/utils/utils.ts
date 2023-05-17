@@ -163,7 +163,10 @@ export default {
     if (uri) return uri;
     return DefaultCollectionAvatar;
   },
-  queryChangeShouldRefetch(query: Route['query'], oldQuery: Route['query']) {
+  nonPaginationQueryChanged(
+    query: Route['query'],
+    oldQuery: Route['query']
+  ) {
     const shallowEqual = <T>(a: T[], b: T[]) => {
       if (a === b) {
         return true;
@@ -177,8 +180,9 @@ export default {
     };
 
     const keys = [...new Set([...Object.keys(query), ...Object.keys(oldQuery)])];
+
     return keys.some((key) => {
-      // Size and skip should NOT trigger a re-fetch, as paginator takes care of those
+      // Size and skip should NOT trigger a re-fetch in FetchMixin, as paginator takes care of those
       if (key === 'size' || key === 'skip') return false;
 
       const val = query[key];

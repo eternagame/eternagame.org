@@ -80,6 +80,8 @@
     replaceRoute(uid: string) {
       const {uid: oldUid, skip: oldSkip, ...query} = this.$route.query;
 
+      if ((+uid || 0) === (+oldUid || 0)) return;
+
       this.$router.replace({
         name: this.$route.name!,
         query: {

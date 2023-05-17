@@ -23,20 +23,24 @@
         :placeholder="$t('search:puzzles')"
         :isInSidebar="isInSidebar"
       />
-      <FiltersPanel
-        :filters="filters"
-        paramName="filters"
-        :isInSidebar="isInSidebar"
-        :flagged="true"
-      />
-      <UserSearchPanel placeholder="activity-feed:search-users" v-if="isInSidebar"/>
-      <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
       <DropdownSidebarPanel
         :options="options"
         paramName="sort"
         replace
         :isInSidebar="isInSidebar"
       />
+      <FiltersPanel
+        :filters="filters"
+        paramName="filters"
+        :isInSidebar="isInSidebar"
+        :flagged="true"
+      />
+      <UserSearchPanel :isInSidebar="isInSidebar" placeholder="activity-feed:search-users" v-if="isInSidebar" />
+      <RangePanel :isInSidebar="isInSidebar" label="Solvers" minParamName="minSolvers" maxParamName="maxSolvers" v-if="isInSidebar"/>
+      <RangePanel :isInSidebar="isInSidebar" label="Length" minParamName="minLength" maxParamName="maxLength" v-if="isInSidebar"/>
+      <RangePanel :isInSidebar="isInSidebar" label="Reward" minParamName="minReward" maxParamName="maxReward" v-if="isInSidebar"/>
+      <RangePanel :isInSidebar="isInSidebar" label="States" minParamName="minStates" maxParamName="maxStates" v-if="isInSidebar"/>
+      <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
       <PaginationPanel v-if="isInSidebar" :shownCount="puzzles.length" :totalCount="total" />
     </template>
     <template #mobileSearchbar>
@@ -58,6 +62,7 @@
   import FetchMixin from '@/mixins/FetchMixin';
   import UserSearchPanel from '@/components/Sidebar/UserSearchPanel.vue';
   import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
+  import RangePanel from '@/components/Sidebar/RangePanel.vue';
   import Paginator, { PaginatorEvent } from '@/components/PageLayout/Paginator.vue';
 
   const INITIAL_SORT = 'date';
@@ -77,6 +82,14 @@
     uid: number | null;
     creator_uid: number | null;
     '3d': boolean;
+    solver_min: string | number;
+    solver_max: string | number;
+    length_min: string | number;
+    length_max: string | number;
+    reward_min: string | number;
+    reward_max: string | number;
+    states_min: string | number;
+    states_max: string | number;
   }
 
   @Component({
@@ -90,6 +103,7 @@
       Preloader,
       UserSearchPanel,
       PaginationPanel,
+      RangePanel,
       Paginator
     },
   })
@@ -114,7 +128,7 @@
         if (player) return 'PlayerPuzzle';
         return 'Challenge';
       };
-      const { filters, sort, search, uid } = this.$route.query;
+      const { filters, sort, search, uid, minSolvers, maxSolvers, minReward, maxReward, minLength, maxLength, minStates, maxStates } = this.$route.query;
       // Vue types filters as string | (string | null)[], but it's really string | (string | null)[] | undefined
       const filtersArr = (typeof filters === 'string' ? filters.split(',') : filters) || [];
       const params = {
@@ -122,8 +136,6 @@
           Boolean(filtersArr.includes('challenge')),
           Boolean(filtersArr.includes('player')),
         ),
-        single: filtersArr.includes('single') && 'checked',
-        switch: filtersArr.includes('switch') && 'checked',
         notcleared: filtersArr.includes('notcleared') && 'true',
         cleared: filtersArr.includes('cleared') && 'true',
         '3d': filtersArr.includes('3d') && 'true',
@@ -132,6 +144,14 @@
         skip,
         creator_uid: uid || null,
         search,
+        solver_min: minSolvers,
+        solver_max: maxSolvers,
+        reward_min: minReward,
+        reward_max: maxReward,
+        length_min: minLength,
+        length_max: maxLength,
+        states_min: minStates,
+        states_max: maxStates,
       } as PuzzleExploreParams;
 
       if (this.$vxm.user.loggedIn) params.uid = this.$vxm.user.uid;
@@ -160,17 +180,19 @@
       { value: 'date', text: 'side-panel-options:desc' },
       { value: 'date_asc', text: 'side-panel-options:asc' },
       { value: 'solved', text: 'side-panel-options:solved' },
+      { value: 'solved_asc', text: 'side-panel-options:solved_asc' },
+      { value: 'length_desc', text: 'side-panel-options:length_desc' },
       { value: 'length', text: 'side-panel-options:length' },
+      { value: 'reward_desc', text: 'side-panel-options:reward_desc' },
+      { value: 'reward', text: 'side-panel-options:reward' },
     ];
 
     filters: Filter[] = [
       { value: 'challenge', text: 'Challenge' },
       { value: 'player', text: 'Player' },
-      { value: 'single', text: 'Single State' },
       // { value: '2-state', text: '2-state switch' },
       // { value: '3-state', text: '3-state switch' },
       // { value: '4-state', text: '4-state switch' },
-      { value: 'switch', text: 'Switch' },
       { value: 'cleared', text: 'Cleared' },
       { value: 'notcleared', text: 'Uncleared' },
       { value: '3d', text: '3D' },

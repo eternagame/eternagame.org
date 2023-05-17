@@ -8,7 +8,6 @@
             :key="puzzle.id"
             :nid="puzzle.id"
             v-bind="puzzle"
-            :cleared="puzzleCleared(puzzle.id)"
             :madeByPlayer="puzzle['made-by-player'] !== '0'"
             :is3d="puzzle['has3d'] === '1'"
           />
@@ -95,11 +94,11 @@
     },
   })
   export default class PuzzlesExplore extends Mixins(FetchMixin) {
-    increment = 45;
+    increment = 18;
 
     total = 0;
 
-    puzzles: PuzzleItem[] = [];
+    puzzles: (PuzzleItem & {cleared: boolean})[] = [];
 
     cleared: ClearedPuzzle[] = [];
 
@@ -140,11 +139,12 @@
       const res = (await this.$http.get(ROUTE, {
         params,
       })).data.data as PuzzleList;
-      if (mode === 'replace') this.puzzles = res.puzzles;
+      // We calculated the cleared status ahead of time for performance
+      if (mode === 'replace') this.puzzles = res.puzzles.map((puz) => ({...puz, cleared: this.puzzleCleared(puz.id)}));
       else {
         const newPuzzles = res.puzzles.filter(
           (newItem) => !this.puzzles.some((oldItem) => oldItem.id === newItem.id)
-        );
+        ).map((puz) => ({...puz, cleared: this.puzzleCleared(puz.id)}));
         if (mode === 'append') this.puzzles.push(...newPuzzles);
         if (mode === 'prepend') this.puzzles.unshift(...newPuzzles);
       }

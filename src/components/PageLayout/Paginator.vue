@@ -186,17 +186,17 @@
       });
     }
 
-    private boundScrollHandler = this.scrollHandler.bind(this);
-
     private scrollHandler() {
       const scrollTrigger =
-        document.documentElement.scrollTop + window.innerHeight + 1 >=
-        document.documentElement.offsetHeight * 3/4;
+        document.documentElement.offsetHeight - (document.documentElement.scrollTop + window.innerHeight)
+        <= window.innerHeight * 3;
 
       if (scrollTrigger && this.scrollEnabled && !this.loading) {
         this.loadNext();
       }
     }
+
+    private boundScrollHandler = this.scrollHandler.bind(this);
 
     get pagesEnabled() {
       return this.$vxm.pagination.navigation === navigationModes.NAVIGATION_PAGES;

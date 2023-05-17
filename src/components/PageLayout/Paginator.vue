@@ -2,16 +2,25 @@
   <div>
     <div v-if="scrollEnabled && firstLoaded > 0" style="width: 100%; display: flex; justify-content: center;">
       <Preloader v-if="loading" />
-      <b-btn
-        v-else
-        class="my-2"
-        variant="primary" :disabled="loading"
-        @click="loadPrevious"
-        @keypress.space="loadPrevious"
-        @keypress.enter="loadPrevious"
-      >
-        Load Previous
-      </b-btn>
+      <div v-else class="my-2">
+        <b-btn
+          variant="primary" :disabled="loading"
+          @click="loadPrevious"
+          @keypress.space="loadPrevious"
+          @keypress.enter="loadPrevious"
+        >
+          Load Previous
+        </b-btn>
+        <b-btn
+          class="ml-2"
+          variant="primary" :disabled="loading"
+          @click="loadPage(1)"
+          @keypress.space="loadPage(1)"
+          @keypress.enter="loadPage(1)"
+        >
+          Load First
+        </b-btn>
+      </div>
     </div>
     <slot></slot>
     <div v-if="pagesEnabled">

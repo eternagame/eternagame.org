@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--
     <b-button-group>
       <b-button
         @click="$vxm.pagination.navigation = 1"
@@ -19,6 +20,7 @@
       </b-button>
     </b-button-group>
     <br/><br/>
+    -->
     <p style="margin: 0; font-size: 14px;">Showing {{ shownCount }}/{{ totalCount }} results </p>
   </div>
 </template>

@@ -120,56 +120,59 @@
           <hr class="top-border" />
           <h4 class="title">{{ $t('player-view:created-puzzles') }}</h4>
 
-          <div class="page-content" style="overflow-x:auto;">
-            <table style="width: 100%">
-              <tbody>
-                <template v-for="puzzle in puzzles">
-                  <PuzzleListCard
-                    :key="puzzle.id"
-                    :nid="puzzle.id"
-                    v-bind="puzzle"
-                    :is3d="puzzle['has3d'] === '1'"
-                  />
-                </template>
-              </tbody>
-            </table>
-          </div>
-          <Pagination :total="total" :increment="increment" :loading="fetchState.pending" />
+          <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+            <div class="page-content" style="overflow-x:auto;">
+              <table style="width: 100%">
+                <tbody>
+                  <template v-for="puzzle in puzzles">
+                    <PuzzleListCard
+                      :key="puzzle.id"
+                      :nid="puzzle.id"
+                      v-bind="puzzle"
+                      :is3d="puzzle['has3d'] === '1'"
+                    />
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </Paginator>
         </div>
 
         <div v-if="$route.query.tab_type == 'cleared'">
           <hr class="top-border" />
           <h4 class="title">{{ $t('player-view:cleared-puzzles') }}</h4>
 
-          <div class="page-content" style="overflow-x:auto;">
-            <table style="width: 100%">
-              <tbody>
-                <template v-for="puzzle in puzzles">
-                  <PuzzleListCard
-                    :key="puzzle.id"
-                    :nid="puzzle.id"
-                    v-bind="puzzle"
-                    :is3d="puzzle['has3d'] === '1'"
-                  />
-                </template>
-              </tbody>
-            </table>
-          </div>
-          <Pagination :total="total" :increment="increment" :loading="fetchState.pending" />
+          <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+            <div class="page-content" style="overflow-x:auto;">
+              <table style="width: 100%">
+                <tbody>
+                  <template v-for="puzzle in puzzles">
+                    <PuzzleListCard
+                      :key="puzzle.id"
+                      :nid="puzzle.id"
+                      v-bind="puzzle"
+                      :is3d="puzzle['has3d'] === '1'"
+                    />
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </Paginator>
         </div>
 
         <div v-if="$route.query.tab_type == 'groups'">
           <hr class="top-border" />
           <h4 class="title">{{ $t('player-view:joined-groups') }}</h4>
 
-          <Gallery>
-            <GroupCard
-              v-for="group in joinedGroups"
-              :key="group.nid"
-              v-bind="group"
-            />
-          </Gallery>
-          <Pagination :total="total" :increment="increment" :loading="fetchState.pending" />
+          <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+            <Gallery>
+              <GroupCard
+                v-for="group in joinedGroups"
+                :key="group.nid"
+                v-bind="group"
+              />
+            </Gallery>
+          </Paginator>
         </div>
       </div>
     </div>
@@ -213,11 +216,10 @@
     GroupItem,
   } from '@/types/common-types';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  import Pagination from '@/components/PageLayout/Pagination.vue';
   import GroupCard from '@/components/Cards/GroupCard.vue';
   import PuzzleListCard from '@/components/Cards/PuzzleListCard.vue';
   import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
-  import { navigationModes } from '@/store/pagination.vuex';
+  import Paginator, { PaginatorEvent } from '@/components/PageLayout/Paginator.vue';
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
   import PlayerTable from './components/PlayerTable.vue';
@@ -237,15 +239,15 @@
       Preloader,
       PuzzleCard,
       PuzzleListCard,
-      Pagination,
       GroupCard,
       PaginationPanel,
+      Paginator
     },
   })
   export default class PlayerView extends Mixins(FetchMixin) {
     total = 0;
 
-    increment = 18;
+    increment = 45;
 
     BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;
 
@@ -284,7 +286,13 @@
       this.puzzles = [];
     }
 
-    async fetch() {
+    async fetch(
+      {mode, size, skip}: PaginatorEvent = {
+        mode: 'replace',
+        skip: +this.$route.query.skip || 0,
+        size: +this.$route.query.size || this.increment
+      }
+    ) {
       const USERROUTE = `/get/?type=user&uid=${this.$route.params.uid}`;
       // Achievements and Groups are provided when no tab_type is specified.
       const tab_type =
@@ -301,13 +309,13 @@
           this.$route.query.size = this.increment.toString();
           TAB_TYPE = tab_type;
         }
-        const { sort, search, size, skip } = this.$route.query;
+        const { sort, search } = this.$route.query;
         const params = {
           puzzle_type: 'AllChallengesAndProgression',
           cleared: 'true',
           sort: sort || INITIAL_SORT,
-          size: size || this.increment,
-          skip: skip || 0,
+          size,
+          skip,
           search,
           uid: this.$route.params.uid,
         };
@@ -317,14 +325,13 @@
           }),
         );
         const puzzleRes = res[1].data.data as PuzzleList;
-        if (this.$vxm.pagination.navigation === navigationModes.NAVIGATION_SCROLL && skip) {
-          puzzleRes.puzzles.forEach((newPuz) => {
-            if (!this.puzzles.some((puz) => puz.id === newPuz.id)) {
-              this.puzzles.push(newPuz);
-            }
-          });
-        } else {
-          this.puzzles = puzzleRes.puzzles;
+        if (mode === 'replace') this.puzzles = puzzleRes.puzzles;
+        else {
+          const newPuzzles = puzzleRes.puzzles.filter(
+            (newItem) => !this.puzzles.some((oldItem) => oldItem.id === newItem.id)
+          );
+          if (mode === 'append') this.puzzles.push(...newPuzzles);
+          if (mode === 'prepend') this.puzzles.unshift(...newPuzzles);
         }
         this.total = +puzzleRes.num_puzzles;
       } else if (tab_type === 'created') {
@@ -332,13 +339,13 @@
           this.$route.query.size = this.increment.toString();
           TAB_TYPE = tab_type;
         }
-        const { sort, search, size, skip } = this.$route.query;
+        const { sort, search } = this.$route.query;
         const params = {
           puzzle_type: 'AllChallengesPuzzle',
           creator_uid: this.$route.params.uid,
           sort: sort || INITIAL_SORT,
-          size: size || this.increment,
-          skip: skip || 0,
+          size,
+          skip,
           search,
           uid: this.$route.params.uid,
         };
@@ -348,14 +355,13 @@
           }),
         );
         const puzzleRes = res[1].data.data as PuzzleList;
-        if (this.$vxm.pagination.navigation === navigationModes.NAVIGATION_SCROLL && skip) {
-          puzzleRes.puzzles.forEach((newPuz) => {
-            if (!this.puzzles.some((puz) => puz.id === newPuz.id)) {
-              this.puzzles.push(newPuz);
-            }
-          });
-        } else {
-          this.puzzles = puzzleRes.puzzles;
+        if (mode === 'replace') this.puzzles = puzzleRes.puzzles;
+        else {
+          const newPuzzles = puzzleRes.puzzles.filter(
+            (newItem) => !this.puzzles.some((oldItem) => oldItem.id === newItem.id)
+          );
+          if (mode === 'append') this.puzzles.push(...newPuzzles);
+          if (mode === 'prepend') this.puzzles.unshift(...newPuzzles);
         }
         this.total = +puzzleRes.num_puzzles;
       } else if (tab_type === 'latest') {
@@ -363,13 +369,13 @@
           this.$route.query.size = this.increment.toString();
           TAB_TYPE = tab_type;
         }
-        const { sort, search, size, skip } = this.$route.query;
+        const { sort, search } = this.$route.query;
         const params = {
           puzzle_type: 'AllChallengesPuzzle',
           latest: 'true',
           sort: sort || INITIAL_SORT,
-          size: size || this.increment,
-          skip: skip || 0,
+          size,
+          skip,
           search,
           uid: this.$route.params.uid,
         };
@@ -379,14 +385,13 @@
           }),
         );
         const puzzleRes = res[1].data.data as PuzzleList;
-        if (this.$vxm.pagination.navigation === navigationModes.NAVIGATION_SCROLL && skip) {
-          puzzleRes.puzzles.forEach((newPuz) => {
-            if (!this.puzzles.some((puz) => puz.id === newPuz.id)) {
-              this.puzzles.push(newPuz);
-            }
-          });
-        } else {
-          this.puzzles = puzzleRes.puzzles;
+        if (mode === 'replace') this.puzzles = puzzleRes.puzzles;
+        else {
+          const newPuzzles = puzzleRes.puzzles.filter(
+            (newItem) => !this.puzzles.some((oldItem) => oldItem.id === newItem.id)
+          );
+          if (mode === 'append') this.puzzles.push(...newPuzzles);
+          if (mode === 'prepend') this.puzzles.unshift(...newPuzzles);
         }
         this.total = +puzzleRes.num_puzzles;
       } else if (tab_type === 'groups') {
@@ -394,11 +399,11 @@
           this.$route.query.size = this.increment.toString();
           TAB_TYPE = tab_type;
         }
-        const { sort, search, size, skip } = this.$route.query;
+        const { sort, search } = this.$route.query;
         const params = {
           sort: sort || INITIAL_SORT,
-          size: size || this.increment,
-          skip: skip || 0,
+          size,
+          skip,
           search,
           uid: this.$route.params.uid,
         };
@@ -408,15 +413,13 @@
           }),
         );
         const groupRes = res[1].data.data as GroupList;
-        // this.joinedGroups = groupRes.groups;
-        if (this.$vxm.pagination.navigation === navigationModes.NAVIGATION_SCROLL && skip) {
-          groupRes.groups.forEach((newGroup) => {
-            if (!this.puzzles.some((group) => group.id === newGroup.nid)) {
-              this.joinedGroups.push(newGroup);
-            }
-          });
-        } else {
-          this.joinedGroups = groupRes.groups;
+        if (mode === 'replace') this.joinedGroups = groupRes.groups;
+        else {
+          const newGroups = groupRes.groups.filter(
+            (newItem) => !this.joinedGroups.some((oldItem) => oldItem.nid === newItem.nid)
+          );
+          if (mode === 'append') this.joinedGroups.push(...newGroups);
+          if (mode === 'prepend') this.joinedGroups.unshift(...newGroups);
         }
         this.total = +groupRes.num_groups;
       }

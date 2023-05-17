@@ -480,6 +480,11 @@ export interface AboutMediaItem {
   description: string;
 }
 
+export interface NotificationResponse {
+  entries: NotificationItem[];
+  count: number;
+}
+
 // The combined news and blogs list uses the same logic and creates the same fields
 // as notifications, and news and blog responses in notifications and the list
 // both return the same thing, so long story short we're treating them the same way

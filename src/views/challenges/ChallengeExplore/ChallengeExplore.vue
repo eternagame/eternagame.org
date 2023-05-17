@@ -18,7 +18,6 @@
 <script lang="ts">
   import { Component, Mixins } from 'vue-property-decorator';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
-  import Pagination from '@/components/PageLayout/Pagination.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
@@ -29,7 +28,6 @@
 
   @Component({
     components: {
-      Pagination,
       EternaPage,
       DropdownSidebarPanel,
       SearchPanel,

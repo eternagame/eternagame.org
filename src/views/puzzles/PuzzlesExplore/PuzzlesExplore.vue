@@ -1,18 +1,19 @@
 <template>
   <EternaPage :title="$t('nav-bar:puzzles')">
     <div v-if="fetchState.firstFetchComplete">
-      <Gallery>
-        <PuzzleCard
-          v-for="puzzle in puzzles"
-          :key="puzzle.id"
-          :nid="puzzle.id"
-          v-bind="puzzle"
-          :cleared="puzzleCleared(puzzle.id)"
-          :madeByPlayer="puzzle['made-by-player'] !== '0'"
-          :is3d="puzzle['has3d'] === '1'"
-        />
-      </Gallery>
-      <Pagination :total="total" :increment="increment" :loading="fetchState.pending" />
+      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+        <Gallery>
+          <PuzzleCard
+            v-for="puzzle in puzzles"
+            :key="puzzle.id"
+            :nid="puzzle.id"
+            v-bind="puzzle"
+            :cleared="puzzleCleared(puzzle.id)"
+            :madeByPlayer="puzzle['made-by-player'] !== '0'"
+            :is3d="puzzle['has3d'] === '1'"
+          />
+        </Gallery>
+      </Paginator>
     </div>
     <div v-else>
       <Preloader />
@@ -53,13 +54,12 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { PuzzleList, ClearedPuzzle, PuzzleItem } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import UserSearchPanel from '@/components/Sidebar/UserSearchPanel.vue';
   import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
-  import { navigationModes } from '@/store/pagination.vuex';
+  import Paginator, { PaginatorEvent } from '@/components/PageLayout/Paginator.vue';
 
   const INITIAL_SORT = 'date';
 
@@ -73,7 +73,7 @@
     cleared: string;
     sort: string;
     search: string;
-    size: string;
+    size: string | number;
     skip: string | number;
     uid: number | null;
     creator_uid: number | null;
@@ -84,14 +84,14 @@
     components: {
       PuzzleCard,
       EternaPage,
-      Pagination,
       FiltersPanel,
       SearchPanel,
       DropdownSidebarPanel,
       TagsPanel,
       Preloader,
       UserSearchPanel,
-      PaginationPanel
+      PaginationPanel,
+      Paginator
     },
   })
   export default class PuzzlesExplore extends Mixins(FetchMixin) {
@@ -103,13 +103,19 @@
 
     cleared: ClearedPuzzle[] = [];
 
-    async fetch() {
+    async fetch(
+      {mode, size, skip}: PaginatorEvent = {
+        mode: 'replace',
+        skip: +this.$route.query.skip || 0,
+        size: +this.$route.query.size || this.increment
+      }
+    ) {
       const getPuzzleType = (challenge: boolean, player: boolean) => {
         if (challenge === player) return 'AllChallengesPuzzle';
         if (player) return 'PlayerPuzzle';
         return 'Challenge';
       };
-      const { filters, sort, search, size, skip, uid } = this.$route.query;
+      const { filters, sort, search, uid } = this.$route.query;
       // Vue types filters as string | (string | null)[], but it's really string | (string | null)[] | undefined
       const filtersArr = (typeof filters === 'string' ? filters.split(',') : filters) || [];
       const params = {
@@ -123,8 +129,8 @@
         cleared: filtersArr.includes('cleared') && 'true',
         '3d': filtersArr.includes('3d') && 'true',
         sort: sort || INITIAL_SORT,
-        size: size || this.increment,
-        skip: skip || 0,
+        size,
+        skip,
         creator_uid: uid || null,
         search,
       } as PuzzleExploreParams;
@@ -134,14 +140,13 @@
       const res = (await this.$http.get(ROUTE, {
         params,
       })).data.data as PuzzleList;
-      if (this.$vxm.pagination.navigation === navigationModes.NAVIGATION_SCROLL && skip) {
-        res.puzzles.forEach((newPuzzle) => {
-          if (!this.puzzles.some((puzzle) => puzzle.id === newPuzzle.id)) {
-            this.puzzles.push(newPuzzle);
-          }
-        });
-      } else {
-        this.puzzles = res.puzzles;
+      if (mode === 'replace') this.puzzles = res.puzzles;
+      else {
+        const newPuzzles = res.puzzles.filter(
+          (newItem) => !this.puzzles.some((oldItem) => oldItem.id === newItem.id)
+        );
+        if (mode === 'append') this.puzzles.push(...newPuzzles);
+        if (mode === 'prepend') this.puzzles.unshift(...newPuzzles);
       }
       this.total = +res.num_puzzles;
       this.cleared = res.cleared || [];

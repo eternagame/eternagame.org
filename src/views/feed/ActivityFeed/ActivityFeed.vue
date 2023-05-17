@@ -2,14 +2,15 @@
   <EternaPage :title="$t('activity-feed:title')">
     <div v-if="fetchState.firstFetchComplete">
       <MessageCompose @submit-message="sentMessage" />
-      <Gallery :sm="12" :md="12" style="margin-top:25px">
-        <ActivityCard
-          v-for="notification in notifications"
-          :key="notification.nid"
-          :notification="notification"
-        />
-      </Gallery>
-      <Pagination :total="total" :increment="increment" :loading="fetchState.pending" />
+      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+        <Gallery :sm="12" :md="12" style="margin-top:25px">
+          <ActivityCard
+            v-for="notification in notifications"
+            :key="notification.nid"
+            :notification="notification"
+          />
+        </Gallery>
+      </Paginator>
     </div>
     <div v-else>
       <Preloader />
@@ -39,13 +40,12 @@
   import FiltersPanel from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
-  import { NotificationItem } from '@/types/common-types';
+  import { NotificationItem, NotificationResponse } from '@/types/common-types';
   import UserSearchPanel from '@/components/Sidebar/UserSearchPanel.vue';
   import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
-  import { navigationModes } from '@/store/pagination.vuex';
+  import Paginator, { PaginatorEvent } from '@/components/PageLayout/Paginator.vue';
   import MessageCompose from './components/MessageCompose.vue';
   import ActivityCard from './components/ActivityCard.vue';
 
@@ -58,12 +58,12 @@
       DropdownSidebarPanel,
       TagsPanel,
       ActivityCard,
-      Pagination,
       Preloader,
       MessageCompose,
       SearchPanel,
       UserSearchPanel,
-      PaginationPanel
+      PaginationPanel,
+      Paginator
     },
   })
   export default class ActivityFeed extends Mixins(FetchMixin) {
@@ -73,28 +73,34 @@
 
     increment = 18;
 
-    async fetch() {
-      const { filter, search, size, skip, uid } = this.$route.query;
+    async fetch(
+      {mode, size, skip}: PaginatorEvent = {
+        mode: 'replace',
+        skip: +this.$route.query.skip || 0,
+        size: +this.$route.query.size || this.increment
+      }
+    ) {
+      const { filter, search, uid } = this.$route.query;
       const res = (
         await axios.get(ROUTE, {
           params: {
-            size: size || this.increment,
-            skip: skip || 0,
             search,
             filter: filter || 'all',
-            uid
+            uid,
+            size,
+            skip,
           },
         })
-      ).data.data;
-      if (this.$vxm.pagination.navigation === navigationModes.NAVIGATION_SCROLL && skip) {
-        res.entries.forEach((newNotif: NotificationItem) => {
-          if (!this.notifications.some((notif) => notif.nid === newNotif.nid)) {
-            this.notifications.push(newNotif);
-          }
-        });
-      } else {
-        this.notifications = res.entries;
+      ).data.data as NotificationResponse;
+      if (mode === 'replace') this.notifications = res.entries;
+      else {
+        const newNotifications = res.entries.filter(
+          (newItem) => !this.notifications.some((oldItem) => oldItem.nid === newItem.nid)
+        );
+        if (mode === 'append') this.notifications.push(...newNotifications);
+        if (mode === 'prepend') this.notifications.unshift(...newNotifications);
       }
+
       this.total = res.count;
     }
 

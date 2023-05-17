@@ -1,6 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Vue, Component, Watch } from 'vue-property-decorator';
 import { isCacheError } from '@/store/FetchData.vuex';
+import { Route } from 'vue-router';
+import utils from '@/utils/utils';
 
 class FetchState {
   key: number | null = null;
@@ -22,19 +24,19 @@ class FetchState {
  *   - https://github.com/nuxt/nuxt.js/blob/917adc06184efd55a48123269b659adb288a3341/packages/vue-app/template/mixins/fetch.client.js
  */
 @Component
-export default class FetchMixin extends Vue {
-  fetch?(): Promise<void>;
+export default class FetchMixin<ManualLoadParams> extends Vue {
+  fetch?(params?: ManualLoadParams): Promise<void>;
 
   fetchState: FetchState = new FetchState();
 
-  async $fetch() {
+  async $fetch(params?: ManualLoadParams) {
     if (!this.fetch) return;
 
     this.fetchState.pending = true;
     this.fetchState.error = null;
 
     try {
-      await this.fetch();
+      await this.fetch(params);
     } catch (err) {
       if (process.env.NODE_ENV === 'development') {
         console.error('Error in fetch():', err);
@@ -92,8 +94,8 @@ export default class FetchMixin extends Vue {
   }
 
   @Watch('$route.query')
-  async fetchForNewQuery() {
-    await this.$fetch();
+  async fetchForNewQuery(query: Route['query'], oldQuery: Route['query']) {
+    if (utils.queryChangeShouldRefetch(query, oldQuery)) await this.$fetch();
   }
 
   @Watch('$vxm.pagination.navigation')

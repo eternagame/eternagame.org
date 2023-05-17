@@ -212,9 +212,6 @@
     filters: Filter[] = [
       { value: 'challenge', text: 'Challenge' },
       { value: 'player', text: 'Player' },
-      // { value: '2-state', text: '2-state switch' },
-      // { value: '3-state', text: '3-state switch' },
-      // { value: '4-state', text: '4-state switch' },
       { value: 'cleared', text: 'Cleared' },
       { value: 'notcleared', text: 'Uncleared' },
       { value: '3d', text: '3D' },

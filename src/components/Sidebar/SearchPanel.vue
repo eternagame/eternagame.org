@@ -48,7 +48,7 @@
       });
     }
 
-    craeted() {
+    created() {
       this.replaceRoute = debounce(this.replaceRoute, 200);
     }
 

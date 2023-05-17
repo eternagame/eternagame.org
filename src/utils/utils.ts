@@ -2,6 +2,7 @@ import DefaultAvatar from '@/assets/navbar/DefaultIcon.svg';
 import DefaultGroupAvatar from '@/assets/group.svg';
 import DefaultCollectionAvatar from '@/assets/logo.svg';
 import { NotificationItem } from '@/types/common-types';
+import { Route } from 'vue-router';
 
 export default {
   isExternal(link: string) {
@@ -162,4 +163,31 @@ export default {
     if (uri) return uri;
     return DefaultCollectionAvatar;
   },
+  nonPaginationQueryChanged(
+    query: Route['query'],
+    oldQuery: Route['query']
+  ) {
+    const shallowEqual = <T>(a: T[], b: T[]) => {
+      if (a === b) {
+        return true;
+      }
+
+      if (a == null || b == null || a.length !== b.length) {
+        return false;
+      }
+
+      return a.every((value, index) => value === b[index]);
+    };
+
+    const keys = [...new Set([...Object.keys(query), ...Object.keys(oldQuery)])];
+
+    return keys.some((key) => {
+      // Size and skip should NOT trigger a re-fetch in FetchMixin, as paginator takes care of those
+      if (key === 'size' || key === 'skip') return false;
+
+      const val = query[key];
+      const oldVal = oldQuery[key];
+      return Array.isArray(val) && Array.isArray(oldVal) ? !shallowEqual(val, oldVal) : val !== oldVal;
+    });
+  }
 };

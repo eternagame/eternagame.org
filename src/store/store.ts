@@ -5,11 +5,13 @@ import { AxiosInstance } from 'axios';
 import createUserStore from './user.vuex';
 import createMobilStore from './mobile.vuex';
 import createFetchDataStore from './FetchData.vuex';
+import PaginationStore from './pagination.vuex';
 
 Vue.use(Vuex);
 
 export default function createStore(axios: AxiosInstance) {
   const BoundUserStore = createUserStore(axios);
+  const BoundPaginationStore = PaginationStore;
   const BoundMobileStore = createMobilStore();
   const BoundFetchDataStore = createFetchDataStore();
 
@@ -17,6 +19,7 @@ export default function createStore(axios: AxiosInstance) {
     modules: {
       ...extractVuexModule(BoundUserStore),
       ...extractVuexModule(BoundMobileStore),
+      ...extractVuexModule(BoundPaginationStore),
       ...extractVuexModule(BoundFetchDataStore),
     },
   });
@@ -24,6 +27,7 @@ export default function createStore(axios: AxiosInstance) {
   const vxm = {
     user: createProxy(store, BoundUserStore),
     mobile: createProxy(store, BoundMobileStore),
+    pagination: createProxy(store, BoundPaginationStore),
     fetchData: createProxy(store, BoundFetchDataStore),
   };
 

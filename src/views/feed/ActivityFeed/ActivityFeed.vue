@@ -2,26 +2,29 @@
   <EternaPage :title="$t('activity-feed:title')">
     <div v-if="fetchState.firstFetchComplete">
       <MessageCompose @submit-message="sentMessage" />
-      <Gallery :sm="12" :md="12" style="margin-top:25px">
-        <ActivityCard
-          v-for="notification in notifications"
-          :key="notification.nid"
-          :notification="notification"
-        />
-      </Gallery>
-      <Pagination :key="notifications.length" />
+      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+        <Gallery :sm="12" :md="12" style="margin-top:25px">
+          <ActivityCard
+            v-for="notification in notifications"
+            :key="notification.nid"
+            :notification="notification"
+          />
+        </Gallery>
+      </Paginator>
     </div>
     <div v-else>
       <Preloader />
     </div>
     <template #sidebar="{ isInSidebar }">
-      <!--SearchPanel v-if="isInSidebar" :isInSidebar="isInSidebar" /-->
+      <SearchPanel v-if="isInSidebar" :isInSidebar="isInSidebar" />
       <DropdownSidebarPanel
         :options="options"
         paramName="filter"
         replace
         :isInSidebar="isInSidebar"
       />
+      <UserSearchPanel placeholder="activity-feed:search-users" v-if="isInSidebar" class="mb-4"/>
+      <PaginationPanel v-if="isInSidebar" :shownCount="notifications.length" :totalCount="total" />
     </template>
     <template #mobileSearchbar>
       <SearchPanel :isInSidebar="false" />
@@ -37,14 +40,14 @@
   import FiltersPanel from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
-  import { NotificationItem } from '@/types/common-types';
-  import ActivityCard from './components/ActivityCard.vue';
+  import { NotificationItem, NotificationResponse } from '@/types/common-types';
+  import UserSearchPanel from '@/components/Sidebar/UserSearchPanel.vue';
+  import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
+  import Paginator, { PaginatorEvent } from '@/components/PageLayout/Paginator.vue';
   import MessageCompose from './components/MessageCompose.vue';
-
-  const INITIAL_NUMBER = 18;
+  import ActivityCard from './components/ActivityCard.vue';
 
   const ROUTE = '/get/?type=newsfeed&combined=true';
 
@@ -55,27 +58,50 @@
       DropdownSidebarPanel,
       TagsPanel,
       ActivityCard,
-      Pagination,
       Preloader,
       MessageCompose,
       SearchPanel,
+      UserSearchPanel,
+      PaginationPanel,
+      Paginator
     },
   })
   export default class ActivityFeed extends Mixins(FetchMixin) {
     notifications: NotificationItem[] = [];
 
-    async fetch() {
-      const { filter, search, size } = this.$route.query;
+    total = 0;
+
+    increment = 18;
+
+    async fetch(
+      {mode, size, skip}: PaginatorEvent = {
+        mode: 'replace',
+        skip: +this.$route.query.skip || 0,
+        size: +this.$route.query.size || this.increment
+      }
+    ) {
+      const { filter, search, uid } = this.$route.query;
       const res = (
         await axios.get(ROUTE, {
           params: {
-            size: size || INITIAL_NUMBER,
             search,
             filter: filter || 'all',
+            uid,
+            size,
+            skip,
           },
         })
-      ).data.data;
-      this.notifications = res.entries;
+      ).data.data as NotificationResponse;
+      if (mode === 'replace') this.notifications = res.entries;
+      else {
+        const newNotifications = res.entries.filter(
+          (newItem) => !this.notifications.some((oldItem) => oldItem.nid === newItem.nid)
+        );
+        if (mode === 'append') this.notifications.push(...newNotifications);
+        if (mode === 'prepend') this.notifications.unshift(...newNotifications);
+      }
+
+      this.total = res.count;
     }
 
     sentMessage() {

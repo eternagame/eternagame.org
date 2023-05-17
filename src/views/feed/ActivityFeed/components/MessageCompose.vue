@@ -87,18 +87,12 @@
 
     messagesSent = 0;
 
-    fetchData: () => Promise<void> | undefined = async () => {};
-
-    async doFetchData() {
+    fetchData = debounce(async () => {
       const res = await axios.get(
         `/get/?type=usernames&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );
       this.usernames = res.data.data.usernames;
-    }
-
-    created() {
-      this.fetchData = debounce(this.doFetchData, 200);
-    }
+    }, 200);
 
     @Watch('targetName', { immediate: true, deep: true })
     getUserNames() {

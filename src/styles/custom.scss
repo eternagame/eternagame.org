@@ -56,6 +56,20 @@
   color: white;
 }
 
+/** Pagination style overrides **/
+
+.page-item > button {
+  background-color: $blue;
+}
+
+.page-item:hover > button, .page-item.active > .page-link {
+  background-color: lighten($med-dark-blue, 5%);
+}
+
+.page-item.disabled > .page-link {
+  background-color: lighten($blue, 15%);
+}
+
 .vue-tablist {
   list-style: none;
   display: flex;

@@ -1,17 +1,16 @@
 <template>
   <EternaPage :title="$t('nav-bar:groups')">
     <div v-if="fetchState.firstFetchComplete">
-      <Gallery>
-        <GroupCard
-          v-for="group in groups"
-          :key="group.nid"
-          :nid="group.nid"
-          v-bind="group"
-          :joined="groupJoined(group.nid)"
-          :madeByPlayer="group['made-by-player'] !== '0'"
-        />
-      </Gallery>
-      <Pagination :key="groups && groups.length" />
+      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+        <Gallery>
+          <GroupCard
+            v-for="group in groups"
+            :key="group.nid"
+            v-bind="group"
+            :joined="groupJoined(group.nid)"
+          />
+        </Gallery>
+      </Paginator>
     </div>
     <div v-else>
       <Preloader />
@@ -35,6 +34,7 @@
         replace
         :isInSidebar="isInSidebar"
       />
+      <PaginationPanel v-if="isInSidebar" :shownCount="groups.length" :totalCount="total" />
       <b-button
        type="submit"
         variant="primary"
@@ -58,13 +58,13 @@
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import GroupCard from '@/components/Cards/GroupCard.vue';
-  import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { GroupList, JoinedGroup, GroupItem } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
+  import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
+  import Paginator, { PaginatorEvent } from '@/components/PageLayout/Paginator.vue';
 
   const INITIAL_SORT = 'date';
-  const INITIAL_NUMBER = 18;
 
   const MAINROUTE = '/get/?type=groups';
 
@@ -74,7 +74,8 @@
     joined: string;
     sort: string;
     search: string;
-    size: string;
+    size: string | number;
+    skip: string | number;
     uid: number | null;
     public: string;
     private: string;
@@ -87,24 +88,34 @@
     components: {
       GroupCard,
       EternaPage,
-      Pagination,
       FiltersPanel,
       SearchPanel,
       DropdownSidebarPanel,
       TagsPanel,
       Preloader,
+      PaginationPanel,
+      Paginator
     },
   })
   export default class GroupsExplore extends Mixins(FetchMixin) {
+    total = 0;
+
+    increment = 18;
+
     groups: GroupItem[] = [];
 
     joined: JoinedGroup[] = [];
 
-    async fetch() {
-      const { filters, sort, search, size } = this.$route.query;
+    async fetch(
+      {mode, size, skip}: PaginatorEvent = {
+        mode: 'replace',
+        skip: +this.$route.query.skip || 0,
+        size: +this.$route.query.size || this.increment
+      }
+    ) {
+      const { filters, sort, search } = this.$route.query;
       const params = {
         sort: sort || INITIAL_SORT,
-        size: size || INITIAL_NUMBER,
         public: filters && filters.includes('public') && 'true',
         private: filters && filters.includes('private') && 'true',
         admin: filters && filters.includes('admin') && 'true',
@@ -112,6 +123,8 @@
         unjoined: filters && filters.includes('unjoined') && 'true',
         pending: filters && filters.includes('pending') && 'true',
         search,
+        size,
+        skip,
       } as GroupExploreParams;
 
       const ROUTE: string = MAINROUTE;
@@ -121,7 +134,17 @@
       const res = (await this.$http.get(ROUTE, {
         params,
       })).data.data as GroupList;
-      this.groups = res.groups;
+
+      if (mode === 'replace') this.groups = res.groups;
+      else {
+        const newGroups = res.groups.filter(
+          (newItem) => !this.groups.some((oldItem) => oldItem.nid === newItem.nid)
+        );
+        if (mode === 'append') this.groups.push(...newGroups);
+        if (mode === 'prepend') this.groups.unshift(...newGroups);
+      }
+
+      this.total = +res.num_groups;
       this.joined = res.joined || [];
     }
 

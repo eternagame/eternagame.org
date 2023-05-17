@@ -1,10 +1,11 @@
 <template>
   <EternaPage :title="$t('news-explore:title')">
     <div v-if="fetchState.firstFetchComplete">
-      <Gallery :sm="12" :md="12">
-        <NewsCard v-for="article in newsItems" :key="article.nid" v-bind="article" />
-      </Gallery>
-      <Pagination :key="newsItems.length" />
+      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+        <Gallery :sm="12" :md="12">
+          <NewsCard v-for="article in newsItems" :key="article.nid" v-bind="article" />
+        </Gallery>
+      </Paginator>
     </div>
     <div v-else>
       <Preloader />
@@ -20,6 +21,7 @@
       /> -->
       <CalendarPanel @page-update="monthFetch" :notableDates="calendarItems" :isInSidebar="isInSidebar"/>
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
+      <PaginationPanel v-if="isInSidebar" :shownCount="newsItems.length" :totalCount="total" />
     </template>
     <template #mobileSearchbar>
       <SearchPanel :placeholder="$t('search:news')" :isInSidebar="false" />
@@ -31,17 +33,15 @@
   import { Component, Mixins } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel from '@/components/Sidebar/FiltersPanel.vue';
-  import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import Pagination from '@/components/PageLayout/Pagination.vue';
   import CalendarPanel from '@/components/Sidebar/CalendarPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
-  import { NewsItem, BlogItem, DateItem } from '@/types/common-types';
+  import { NewsItem, BlogItem, DateItem, NewsAndBlogResponse } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
+  import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
+  import Paginator, { PaginatorEvent } from '@/components/PageLayout/Paginator.vue';
   import NewsCard from './components/NewsCard.vue';
-
-  const INITIAL_NUMBER = 18;
 
   const ROUTE = '/get/?type=newsandblogslist';
 
@@ -50,23 +50,20 @@
       EternaPage,
       FiltersPanel,
       CalendarPanel,
-      DropdownSidebarPanel,
       SearchPanel,
       TagsPanel,
       NewsCard,
-      Pagination,
       Preloader,
+      PaginationPanel,
+      Paginator
     },
   })
-
   export default class NewsExplore extends Mixins(FetchMixin) {
-    private tags: string[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
+    increment = 18;
 
-    private options: Option[] = [
-      { value: 'all', text: 'side-panel-options:all' },
-      { value: 'news', text: 'side-panel-options:announcements' },
-      { value: 'blogs', text: 'side-panel-options:blogs' },
-    ];
+    total = 0;
+
+    private tags: string[] = ['#Ribosome', '#XOR', '#MS2', '#tRNA', '#mRNA'];
 
     newsItems: (NewsItem|BlogItem)[] = [];
 
@@ -77,7 +74,7 @@
       const res = (
         await this.$http.get(ROUTE, {
           params: {
-            size: INITIAL_NUMBER,
+            size: this.increment,
             from_created: new Date(monthData.year, monthData.month - 1, 1).getTime() / 1000,
             to_created: new Date(monthData.year, monthData.month, 1).getTime() / 1000,
           }
@@ -92,30 +89,36 @@
       }));
     }
 
-    async fetch() {
-      const { sort, end_date, start_date, size, search } = this.$route.query;
-
+    async fetch(
+      {mode, size, skip}: PaginatorEvent = {
+        mode: 'replace',
+        skip: +this.$route.query.skip || 0,
+        size: +this.$route.query.size || this.increment
+      }
+    ) {
+      const { end_date, start_date, search } = this.$route.query;
 
       const res = (
         await this.$http.get(ROUTE, {
           params: {
-            search,
-            size: size || INITIAL_NUMBER,
             from_created: start_date && new Date(start_date.toString().replace(/-/g, '/')).getTime() / 1000,
             to_created: end_date && (new Date(end_date.toString().replace(/-/g, '/')).getTime() / 1000),
+            search,
+            size,
+            skip,
           },
         })
-      ).data.data.entries as NewsItem[];
+      ).data.data as NewsAndBlogResponse;
 
-      // TODO https://github.com/eternagame/eternagame.org/issues/157 move filtering to backend
-      switch (sort) {
-      case 'news':
-      case 'blogs':
-        this.newsItems = res.filter(entry => entry.type === sort);
-        break;
-      default:
-        this.newsItems = res;
+      if (mode === 'replace') this.newsItems = res.entries;
+      else {
+        const newNews = res.entries.filter(
+          (newItem) => !this.newsItems.some((oldItem) => oldItem.nid === newItem.nid)
+        );
+        if (mode === 'append') this.newsItems.push(...newNews);
+        if (mode === 'prepend') this.newsItems.unshift(...newNews);
       }
+      this.total = res.count;
     }
   }
 </script>

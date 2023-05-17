@@ -114,49 +114,50 @@
               </tbody>
             </table>
           </div>
-          <Pagination :key="puzzles && puzzles.length" />
         </div>
 
         <div v-if="$route.query.tab_type == 'created'">
           <hr class="top-border" />
           <h4 class="title">{{ $t('player-view:created-puzzles') }}</h4>
 
-          <div class="page-content" style="overflow-x:auto;">
-            <table style="width: 100%">
-              <tbody>
-                <template v-for="puzzle in puzzles">
-                  <PuzzleListCard
-                    :key="puzzle.id"
-                    :nid="puzzle.id"
-                    v-bind="puzzle"
-                    :is3d="puzzle['has3d'] === '1'"
-                  />
-                </template>
-              </tbody>
-            </table>
-          </div>
-          <Pagination :key="puzzles && puzzles.length" />
+          <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+            <div class="page-content" style="overflow-x:auto;">
+              <table style="width: 100%">
+                <tbody>
+                  <template v-for="puzzle in puzzles">
+                    <PuzzleListCard
+                      :key="puzzle.id"
+                      :nid="puzzle.id"
+                      v-bind="puzzle"
+                      :is3d="puzzle['has3d'] === '1'"
+                    />
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </Paginator>
         </div>
 
         <div v-if="$route.query.tab_type == 'cleared'">
           <hr class="top-border" />
           <h4 class="title">{{ $t('player-view:cleared-puzzles') }}</h4>
 
-          <div class="page-content" style="overflow-x:auto;">
-            <table style="width: 100%">
-              <tbody>
-                <template v-for="puzzle in puzzles">
-                  <PuzzleListCard
-                    :key="puzzle.id"
-                    :nid="puzzle.id"
-                    v-bind="puzzle"
-                    :is3d="puzzle['has3d'] === '1'"
-                  />
-                </template>
-              </tbody>
-            </table>
-          </div>
-          <Pagination :key="puzzles && puzzles.length" />
+          <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+            <div class="page-content" style="overflow-x:auto;">
+              <table style="width: 100%">
+                <tbody>
+                  <template v-for="puzzle in puzzles">
+                    <PuzzleListCard
+                      :key="puzzle.id"
+                      :nid="puzzle.id"
+                      v-bind="puzzle"
+                      :is3d="puzzle['has3d'] === '1'"
+                    />
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </Paginator>
         </div>
 
         <div v-if="$route.query.tab_type == 'groups'">
@@ -164,14 +165,12 @@
           <h4 class="title">{{ $t('player-view:joined-groups') }}</h4>
 
           <Gallery>
-            <GroupCard
-              v-for="group in joinedGroups"
-              :key="group.nid"
-              :nid="group.nid"
-              v-bind="group"
-            />
-          </Gallery>
-          <Pagination :key="joinedGroups && joinedGroups.length" />
+              <GroupCard
+                v-for="group in joinedGroups"
+                :key="group.nid"
+                v-bind="group"
+              />
+            </Gallery>
         </div>
       </div>
     </div>
@@ -185,6 +184,8 @@
         :replace="true"
         :isInSidebar="isInSidebar"
       />
+      <PaginationPanel v-if="isInSidebar && $route.query.tab_type === 'cleared'" :shownCount="puzzles.length" :totalCount="total" />
+      <PaginationPanel v-if="isInSidebar && $route.query.tab_type === 'created'" :shownCount="puzzles.length" :totalCount="total" />
     </template>
   </EternaPage>
 </template>
@@ -212,16 +213,16 @@
     GroupItem,
   } from '@/types/common-types';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
-  import Pagination from '@/components/PageLayout/Pagination.vue';
   import GroupCard from '@/components/Cards/GroupCard.vue';
   import PuzzleListCard from '@/components/Cards/PuzzleListCard.vue';
+  import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
+  import Paginator, { PaginatorEvent } from '@/components/PageLayout/Paginator.vue';
   import PlayerHeader from './components/PlayerHeader.vue';
   import PlayerAboutMe from './components/PlayerAboutMe.vue';
   import PlayerTable from './components/PlayerTable.vue';
   import AchievementCard from './components/AchievementCard.vue';
 
   const INITIAL_SORT = 'date_completed';
-  const INITIAL_NUMBER = 18;
   let TAB_TYPE = '';
 
   @Component({
@@ -235,11 +236,16 @@
       Preloader,
       PuzzleCard,
       PuzzleListCard,
-      Pagination,
       GroupCard,
+      PaginationPanel,
+      Paginator
     },
   })
   export default class PlayerView extends Mixins(FetchMixin) {
+    total = 0;
+
+    increment = 45;
+
     BASE_URL_PREFIX: string = process.env.VUE_APP_API_BASE_URL;
 
     options: Option[] = [
@@ -277,7 +283,13 @@
       this.puzzles = [];
     }
 
-    async fetch() {
+    async fetch(
+      {mode, size, skip}: PaginatorEvent = {
+        mode: 'replace',
+        skip: +this.$route.query.skip || 0,
+        size: +this.$route.query.size || this.increment
+      }
+    ) {
       const USERROUTE = `/get/?type=user&uid=${this.$route.params.uid}`;
       // Achievements and Groups are provided when no tab_type is specified.
       const tab_type =
@@ -291,15 +303,16 @@
 
       if (tab_type === 'cleared') {
         if (TAB_TYPE !== tab_type) {
-          this.$route.query.size = INITIAL_NUMBER.toString();
+          this.$route.query.size = this.increment.toString();
           TAB_TYPE = tab_type;
         }
-        const { sort, search, size } = this.$route.query;
+        const { sort, search } = this.$route.query;
         const params = {
           puzzle_type: 'AllChallengesAndProgression',
           cleared: 'true',
           sort: sort || INITIAL_SORT,
-          size: size || INITIAL_NUMBER,
+          size,
+          skip,
           search,
           uid: this.$route.params.uid,
         };
@@ -309,18 +322,27 @@
           }),
         );
         const puzzleRes = res[1].data.data as PuzzleList;
-        this.puzzles = puzzleRes.puzzles;
+        if (mode === 'replace') this.puzzles = puzzleRes.puzzles;
+        else {
+          const newPuzzles = puzzleRes.puzzles.filter(
+            (newItem) => !this.puzzles.some((oldItem) => oldItem.id === newItem.id)
+          );
+          if (mode === 'append') this.puzzles.push(...newPuzzles);
+          if (mode === 'prepend') this.puzzles.unshift(...newPuzzles);
+        }
+        this.total = +puzzleRes.num_puzzles;
       } else if (tab_type === 'created') {
         if (TAB_TYPE !== tab_type) {
-          this.$route.query.size = INITIAL_NUMBER.toString();
+          this.$route.query.size = this.increment.toString();
           TAB_TYPE = tab_type;
         }
-        const { sort, search, size } = this.$route.query;
+        const { sort, search } = this.$route.query;
         const params = {
           puzzle_type: 'AllChallengesPuzzle',
           creator_uid: this.$route.params.uid,
           sort: sort || INITIAL_SORT,
-          size: size || INITIAL_NUMBER,
+          size,
+          skip,
           search,
           uid: this.$route.params.uid,
         };
@@ -330,18 +352,27 @@
           }),
         );
         const puzzleRes = res[1].data.data as PuzzleList;
-        this.puzzles = puzzleRes.puzzles;
+        if (mode === 'replace') this.puzzles = puzzleRes.puzzles;
+        else {
+          const newPuzzles = puzzleRes.puzzles.filter(
+            (newItem) => !this.puzzles.some((oldItem) => oldItem.id === newItem.id)
+          );
+          if (mode === 'append') this.puzzles.push(...newPuzzles);
+          if (mode === 'prepend') this.puzzles.unshift(...newPuzzles);
+        }
+        this.total = +puzzleRes.num_puzzles;
       } else if (tab_type === 'latest') {
         if (TAB_TYPE !== tab_type) {
-          this.$route.query.size = INITIAL_NUMBER.toString();
+          this.$route.query.size = this.increment.toString();
           TAB_TYPE = tab_type;
         }
-        const { sort, search, size } = this.$route.query;
+        const { sort, search } = this.$route.query;
         const params = {
           puzzle_type: 'AllChallengesPuzzle',
           latest: 'true',
           sort: sort || INITIAL_SORT,
-          size: size || INITIAL_NUMBER,
+          size,
+          skip,
           search,
           uid: this.$route.params.uid,
         };
@@ -351,16 +382,26 @@
           }),
         );
         const puzzleRes = res[1].data.data as PuzzleList;
-        this.puzzles = puzzleRes.puzzles;
+        if (mode === 'replace') this.puzzles = puzzleRes.puzzles;
+        else {
+          const newPuzzles = puzzleRes.puzzles.filter(
+            (newItem) => !this.puzzles.some((oldItem) => oldItem.id === newItem.id)
+          );
+          if (mode === 'append') this.puzzles.push(...newPuzzles);
+          if (mode === 'prepend') this.puzzles.unshift(...newPuzzles);
+        }
+        this.total = +puzzleRes.num_puzzles;
       } else if (tab_type === 'groups') {
+        // NOTE: Both the size handling and the total counting of the groups endpoint is super
+        // scuffed, and the count should be reasonably small anyways, so just get all of them
         if (TAB_TYPE !== tab_type) {
-          this.$route.query.size = INITIAL_NUMBER.toString();
+          this.$route.query.size = this.increment.toString();
           TAB_TYPE = tab_type;
         }
-        const { sort, search, size } = this.$route.query;
+        const { sort, search } = this.$route.query;
         const params = {
           sort: sort || INITIAL_SORT,
-          size: size || INITIAL_NUMBER,
+          size: 1000,
           search,
           uid: this.$route.params.uid,
         };

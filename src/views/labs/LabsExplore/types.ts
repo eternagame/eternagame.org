@@ -1,5 +1,6 @@
 export default interface LabsExploreData {
   labs: LabCardData[];
+  num_labs: string
 }
 // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
 export interface LabCardData {

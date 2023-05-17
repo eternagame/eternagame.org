@@ -120,7 +120,6 @@
   import googleCalendarPlugin from '@fullcalendar/google-calendar';
   import listPlugin from '@fullcalendar/list';
   import dayGridPlugin from '@fullcalendar/daygrid';
-  import Pagination from '@/components/PageLayout/Pagination.vue';
   import { LabData } from '../../labs/LabView/types';
   import TutorialTeaserSlide from './components/banner/TutorialTeaserSlide.vue';
   import POTWSlide from './components/banner/POTWSlide.vue';
@@ -145,7 +144,6 @@
       QuestActivity,
       TutorialActivity,
       IdeaJamSlide,
-      Pagination,
       FullCalendar,
       NewsActivity,
       NewsCard

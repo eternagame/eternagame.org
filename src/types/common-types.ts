@@ -152,7 +152,6 @@ export interface Publications {
 
 export interface PuzzleItem {
   id: string;
-  nid: string;
   title: string;
   created: string;
   username: string;
@@ -453,6 +452,11 @@ export interface BlogItem {
   comments: CommentItem[];
 }
 
+export interface NewsAndBlogResponse {
+  entries: (NewsItem | BlogItem)[];
+  count: number;
+}
+
 export interface ChallengeItem{
   abstract: string;
   affiliation: string;
@@ -474,6 +478,11 @@ export interface AboutMediaItem {
   link: string;
   title: string;
   description: string;
+}
+
+export interface NotificationResponse {
+  entries: NotificationItem[];
+  count: number;
 }
 
 // The combined news and blogs list uses the same logic and creates the same fields

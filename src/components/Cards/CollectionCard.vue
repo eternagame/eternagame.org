@@ -103,7 +103,7 @@
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import SmartLink from '@/components/Common/SmartLink.vue';
   import Utils from '@/utils/utils';
-  import { PuzzleItem } from '@/types/common-types';
+  import { ClearedPuzzle } from '@/types/common-types';
 
   @Component({
     components: {
@@ -130,7 +130,7 @@
 
     @Prop({ required: true }) readonly quest!: string;
 
-    @Prop({ required: true }) readonly cleared!: PuzzleItem[];
+    @Prop({ required: true }) readonly cleared!: ClearedPuzzle[];
 
     @Prop({ required: true }) readonly progress!: number;
 

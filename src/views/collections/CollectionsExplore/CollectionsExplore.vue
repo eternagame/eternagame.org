@@ -5,9 +5,9 @@
         {{ $t('collections-view:top-tip') }}
       </h3>
 
-      <QuestCarousel :slideTo="slideTo">
-        <SwiperSlide v-for="item in quests" :key="item.name">
-          <CollectionCard :key="item.name" :cleared="cleared" v-bind="item" />
+      <QuestCarousel>
+        <SwiperSlide v-for="item in quests" :key="item.title">
+          <CollectionCard :key="item.title" :cleared="cleared" v-bind="item" />
         </SwiperSlide>
       </QuestCarousel>
 
@@ -20,15 +20,16 @@
         {{ $t('collections-view:section3') }}
       </h4>
       <div v-if="fetchState.firstFetchComplete">
-        <Gallery>
-          <CollectionCard
-            v-for="item in collections"
-            :key="item.name"
-            :cleared="cleared"
-            v-bind="item"
-          />
-        </Gallery>
-        <Pagination :key="fetch.length" />
+        <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+          <Gallery>
+            <CollectionCard
+              v-for="item in collections"
+              :key="item.title"
+              :cleared="cleared"
+              v-bind="item"
+            />
+          </Gallery>
+        </Paginator>
       </div>
     <div v-else>
       <Preloader />
@@ -55,6 +56,7 @@
         replace
         :isInSidebar="isInSidebar"
       />
+      <PaginationPanel v-if="isInSidebar" :shownCount="collections.length" :totalCount="total" />
       <b-button
         type="submit"
         variant="primary"
@@ -77,7 +79,6 @@
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import CollectionCard from '@/components/Cards/CollectionCard.vue';
-  import Pagination from '@/components/PageLayout/Pagination.vue';
   import QuestCarousel from '@/views/collections/CollectionsExplore/QuestCarousel.vue';
   import DropdownSidebarPanel, {
     Option,
@@ -87,14 +88,16 @@
   import {
     CreatedCollection,
     CollectionItem,
-    PuzzleItem,
+    ClearedPuzzle,
+    CollectionList,
   } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
   import QuestActivity from '@/views/home/PlayerHome/components/activities/QuestActivity.vue';
   import TutorialActivity from '@/views/home/PlayerHome/components/activities/TutorialActivity.vue';
+  import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
+  import Paginator, { PaginatorEvent } from '@/components/PageLayout/Paginator.vue';
 
   const INITIAL_SORT = 'date';
-  const INITIAL_NUMBER = 18;
 
   interface CollectionExploreParams {
     collection_type: string;
@@ -102,7 +105,8 @@
     joined: string;
     sort: string;
     search: string;
-    size: string;
+    size: string | number;
+    skip: string | number;
     uid: number | null;
     quest: boolean;
   }
@@ -119,30 +123,42 @@
       BIconChevronRight,
       BIconChevronLeft,
       QuestCarousel,
-      Pagination,
       Preloader,
       SearchPanel,
       QuestActivity,
       TutorialActivity,
       DropdownSidebarPanel,
+      PaginationPanel,
+      Paginator
     },
   })
   export default class CollectionsExplore extends Mixins(FetchMixin) {
+    total = 0;
+
+    increment = 18;
+
     collections: CollectionItem[] = [];
 
     quests: CollectionItem[] = [];
 
     created: CreatedCollection[] = [];
 
-    cleared: PuzzleItem[] = [];
+    cleared: ClearedPuzzle[] = [];
 
-    async fetch() {
-      const { filters, sort, search, size } = this.$route.query;
+    async fetch(
+      {mode, size, skip}: PaginatorEvent = {
+        mode: 'replace',
+        skip: +this.$route.query.skip || 0,
+        size: +this.$route.query.size || this.increment
+      }
+    ) {
+      const { filters, sort, search } = this.$route.query;
       const params = {
         sort: sort || INITIAL_SORT,
-        size: size || INITIAL_NUMBER,
         quest: false,
         search,
+        size,
+        skip,
       } as CollectionExploreParams;
 
       const ROUTE: string = '/get/?type=collections';
@@ -157,10 +173,21 @@
 
       this.cleared = res[2].data.data?.cleared ?? [];
 
-      this.collections = res[0].data.data.collections;
-      this.collections.forEach((c) => {
+      const {collections, num_collections} = res[0].data.data as CollectionList;
+      collections.forEach((c) => {
         c.progress = this.getProgress(c);
       });
+      if (mode === 'replace') this.collections = collections;
+      else {
+        const newCollections = collections.filter(
+          (newItem) => !this.collections.some((oldItem) => oldItem.nid === newItem.nid)
+        );
+        if (mode === 'append') this.collections.push(...newCollections);
+        if (mode === 'prepend') this.collections.unshift(...newCollections);
+      }
+
+      this.total = +num_collections;
+
       switch (filters) {
       case 'cleared': {
         this.collections = this.collections.filter((c) => c.progress === 1);

@@ -1,10 +1,11 @@
 <template>
   <EternaPage :title="$t('nav-bar:labs')">
     <div v-if="fetchState.firstFetchComplete">
-      <Gallery>
-        <LabCard v-for="lab in labs" :key="lab.nid" :lab="lab" />
-      </Gallery>
-      <Pagination :key="labs && labs.length" />
+      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+        <Gallery>
+          <LabCard v-for="lab in labs" :key="lab.nid" :lab="lab" />
+        </Gallery>
+      </Paginator>
     </div>
     <div v-else>
       <Preloader />
@@ -18,6 +19,7 @@
         replace
         :isInSidebar="isInSidebar"
       />
+      <PaginationPanel v-if="isInSidebar" :shownCount="labs.length" :totalCount="total" />
     </template>
     <template #mobileSearchbar>
       <SearchPanel :placeholder="$t('search:labs')" :isInSidebar="false" />
@@ -31,13 +33,12 @@
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
-  import Pagination from '@/components/PageLayout/Pagination.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
+  import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
+  import Paginator, { PaginatorEvent } from '@/components/PageLayout/Paginator.vue';
   import LabsExploreData, { LabCardData } from './types';
   import LabCard from './components/LabCard.vue';
-
-  const INITIAL_NUMBER = 18;
 
   @Component({
     components: {
@@ -45,9 +46,10 @@
       SearchPanel,
       EternaPage,
       FiltersPanel,
-      Pagination,
       DropdownSidebarPanel,
       Preloader,
+      PaginationPanel,
+      Paginator,
     },
   })
   export default class LabsExplore extends Mixins(FetchMixin) {
@@ -63,18 +65,37 @@
       { value: 'asc', text: 'side-panel-options:asc' },
     ];
 
-    async fetch() {
+    total = 0;
+
+    increment = 18;
+
+    async fetch(
+      {mode, size, skip}: PaginatorEvent = {
+        mode: 'replace',
+        skip: +this.$route.query.skip || 0,
+        size: +this.$route.query.size || this.increment
+      }
+    ) {
       const res = (
         await this.$http.get('/get/?type=get_labs_for_lab_cards', {
           params: {
             order: this.$route.query.sort,
             filters: this.$route.query.filters ? this.$route.query.filters : '',
             search: this.$route.query.search,
-            size: this.$route.query.size || INITIAL_NUMBER,
+            size,
+            skip
           },
         })
       ).data.data as LabsExploreData;
-      this.labs = res.labs;
+      if (mode === 'replace') this.labs = res.labs;
+      else {
+        const newLabs = res.labs.filter(
+          (newItem) => !this.labs.some((oldItem) => oldItem.nid === newItem.nid)
+        );
+        if (mode === 'append') this.labs.push(...newLabs);
+        if (mode === 'prepend') this.labs.unshift(...newLabs);
+      }
+      this.total = +res.num_labs;
     }
   }
 </script>

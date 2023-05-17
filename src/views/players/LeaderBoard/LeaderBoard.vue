@@ -1,16 +1,17 @@
 <template>
   <EternaPage :title="$t('nav-bar:leaderboards')">
     <div v-if="fetchState.firstFetchComplete">
-      <div class="page-content">
-        <table style="width: 100%">
-          <tbody>
-            <template v-for="(player, index) in users">
-              <PlayerCard :key="player.uid" :player="player" :index="index" />
-            </template>
-          </tbody>
-        </table>
-      </div>
-      <Pagination :key="users.length" />
+      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+        <div class="page-content">
+          <table style="width: 100%">
+            <tbody>
+              <template v-for="(player, index) in users">
+                <PlayerCard :key="player.uid" :player="player" :index="index" />
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </Paginator>
     </div>
     <div v-else>
       <Preloader />
@@ -27,6 +28,7 @@
         replace
         :isInSidebar="isInSidebar"
       />
+      <PaginationPanel v-if="isInSidebar" :shownCount="users.length" :totalCount="total" />
     </template>
     <template #mobileSearchbar>
       <SearchPanel :placeholder="$t('search:players')" :isInSidebar="false" />
@@ -40,14 +42,13 @@
   import FiltersPanel from '@/components/Sidebar/FiltersPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
-  import Pagination from '@/components/PageLayout/Pagination.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
+  import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
+  import Paginator, { PaginatorEvent } from '@/components/PageLayout/Paginator.vue';
   import PlayerCard from './PlayerCard.vue';
   import { UserItem, UsersData } from '../types';
-
-  const INITIAL_NUMBER = 18;
 
   const ROUTE = '/get/?type=users';
 
@@ -57,13 +58,18 @@
       EternaPage,
       SearchPanel,
       FiltersPanel,
-      Pagination,
       DropdownSidebarPanel,
       TagsPanel,
       Preloader,
+      PaginationPanel,
+      Paginator
     },
   })
   export default class LeaderBoard extends Mixins(FetchMixin) {
+    increment = 18;
+
+    total = 0;
+
     options: Option[] = [
       { value: 'active', text: 'side-panel-options:points-last-30-days' },
       { value: 'point', text: 'side-panel-options:total-points' },
@@ -72,20 +78,35 @@
 
     users: UserItem[] = [];
 
-    async fetch() {
-      const {sort, filters, size, search} = this.$route.query;
+    async fetch(
+      {mode, size, skip}: PaginatorEvent = {
+        mode: 'replace',
+        skip: +this.$route.query.skip || 0,
+        size: +this.$route.query.size || this.increment
+      }
+    ) {
+      const {sort, filters, search} = this.$route.query;
 
       const res = (
-        await this.$http.get(`${ROUTE}&size=${INITIAL_NUMBER}`, {
+        await this.$http.get(ROUTE, {
           params: {
+            filters: filters && (filters as string).split(','),
             sort,
             search,
-            filters: filters && (filters as string).split(','),
-            size: size || INITIAL_NUMBER,
+            size,
+            skip
           },
         })
       ).data.data as UsersData;
-      this.users = res.users;
+      if (mode === 'replace') this.users = res.users;
+      else {
+        const newUsers = res.users.filter(
+          (newItem) => !this.users.some((oldItem) => oldItem.uid === newItem.uid)
+        );
+        if (mode === 'append') this.users.push(...newUsers);
+        if (mode === 'prepend') this.users.unshift(...newUsers);
+      }
+      this.total = +res.num_users;
     }
   }
 </script>

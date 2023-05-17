@@ -164,15 +164,13 @@
           <hr class="top-border" />
           <h4 class="title">{{ $t('player-view:joined-groups') }}</h4>
 
-          <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-            <Gallery>
+          <Gallery>
               <GroupCard
                 v-for="group in joinedGroups"
                 :key="group.nid"
                 v-bind="group"
               />
             </Gallery>
-          </Paginator>
         </div>
       </div>
     </div>
@@ -188,7 +186,6 @@
       />
       <PaginationPanel v-if="isInSidebar && $route.query.tab_type === 'cleared'" :shownCount="puzzles.length" :totalCount="total" />
       <PaginationPanel v-if="isInSidebar && $route.query.tab_type === 'created'" :shownCount="puzzles.length" :totalCount="total" />
-      <PaginationPanel v-if="isInSidebar && $route.query.tab_type === 'groups'" :shownCount="joinedGroups.length" :totalCount="total" />
     </template>
   </EternaPage>
 </template>
@@ -395,6 +392,8 @@
         }
         this.total = +puzzleRes.num_puzzles;
       } else if (tab_type === 'groups') {
+        // NOTE: Both the size handling and the total counting of the groups endpoint is super
+        // scuffed, and the count should be reasonably small anyways, so just get all of them
         if (TAB_TYPE !== tab_type) {
           this.$route.query.size = this.increment.toString();
           TAB_TYPE = tab_type;
@@ -402,8 +401,7 @@
         const { sort, search } = this.$route.query;
         const params = {
           sort: sort || INITIAL_SORT,
-          size,
-          skip,
+          size: 1000,
           search,
           uid: this.$route.params.uid,
         };
@@ -413,15 +411,7 @@
           }),
         );
         const groupRes = res[1].data.data as GroupList;
-        if (mode === 'replace') this.joinedGroups = groupRes.groups;
-        else {
-          const newGroups = groupRes.groups.filter(
-            (newItem) => !this.joinedGroups.some((oldItem) => oldItem.nid === newItem.nid)
-          );
-          if (mode === 'append') this.joinedGroups.push(...newGroups);
-          if (mode === 'prepend') this.joinedGroups.unshift(...newGroups);
-        }
-        this.total = +groupRes.num_groups;
+        this.joinedGroups = groupRes.groups;
       }
 
       const userRes = res[0].data.data as UserResponse;

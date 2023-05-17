@@ -40,6 +40,12 @@
       <RangePanel :isInSidebar="isInSidebar" label="Length" minParamName="minLength" maxParamName="maxLength" v-if="isInSidebar"/>
       <RangePanel :isInSidebar="isInSidebar" label="Reward" minParamName="minReward" maxParamName="maxReward" v-if="isInSidebar"/>
       <RangePanel :isInSidebar="isInSidebar" label="States" minParamName="minStates" maxParamName="maxStates" v-if="isInSidebar"/>
+      <SelectSidebarPanel
+        :options="engineOptions"
+        paramName="engine"
+        :isInSidebar="isInSidebar"
+        label="Engine"
+      />
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
       <PaginationPanel v-if="isInSidebar" :shownCount="puzzles.length" :totalCount="total" />
     </template>
@@ -55,6 +61,7 @@
   import FiltersPanel, { Filter } from '@/components/Sidebar/FiltersPanel.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import DropdownSidebarPanel, { Option } from '@/components/Sidebar/DropdownSidebarPanel.vue';
+  import SelectSidebarPanel from '@/components/Sidebar/SelectSidebarPanel.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import PuzzleCard from '@/components/Cards/PuzzleCard.vue';
   import Preloader from '@/components/PageLayout/Preloader.vue';
@@ -90,6 +97,7 @@
     reward_max: string | number;
     states_min: string | number;
     states_max: string | number;
+    engine: string;
   }
 
   @Component({
@@ -99,6 +107,7 @@
       FiltersPanel,
       SearchPanel,
       DropdownSidebarPanel,
+      SelectSidebarPanel,
       TagsPanel,
       Preloader,
       UserSearchPanel,
@@ -128,7 +137,7 @@
         if (player) return 'PlayerPuzzle';
         return 'Challenge';
       };
-      const { filters, sort, search, uid, minSolvers, maxSolvers, minReward, maxReward, minLength, maxLength, minStates, maxStates } = this.$route.query;
+      const { filters, sort, search, uid, minSolvers, maxSolvers, minReward, maxReward, minLength, maxLength, minStates, maxStates, engine } = this.$route.query;
       // Vue types filters as string | (string | null)[], but it's really string | (string | null)[] | undefined
       const filtersArr = (typeof filters === 'string' ? filters.split(',') : filters) || [];
       const params = {
@@ -152,6 +161,7 @@
         length_max: maxLength,
         states_min: minStates,
         states_max: maxStates,
+        engine,
       } as PuzzleExploreParams;
 
       if (this.$vxm.user.loggedIn) params.uid = this.$vxm.user.uid;
@@ -185,6 +195,18 @@
       { value: 'length', text: 'side-panel-options:length' },
       { value: 'reward_desc', text: 'side-panel-options:reward_desc' },
       { value: 'reward', text: 'side-panel-options:reward' },
+    ];
+
+    engineOptions: Option[] = [
+      { value: '', text: '' },
+      { value: 'ContraFold', text: 'ContraFold' },
+      { value: 'EternaFold', text: 'EternaFold' },
+      { value: 'LinearFoldE', text: 'LinearFoldEternaFold' },
+      { value: 'LinearFoldV', text: 'LinearFoldVienna' },
+      { value: 'LinearFoldC', text: 'LinearFoldContraFold' },
+      { value: 'NuPACK', text: 'NuPACK'},
+      { value: 'Vienna', text: 'Vienna 1' },
+      { value: 'Vienna2', text: 'Vienna 2' },
     ];
 
     filters: Filter[] = [

@@ -36,7 +36,7 @@
         class="my-2 w-100"
       />
     </div>
-    <div v-if="scrollEnabled && loadedCount - firstLoaded < total" style="width: 100%; display: flex; justify-content: center;">
+    <div v-if="scrollEnabled && hasMore" style="width: 100%; display: flex; justify-content: center;">
       <Preloader v-if="loading" />
       <b-btn
         v-else
@@ -132,11 +132,10 @@
       const loadedWithSkipped = this.loadedCount + this.firstLoaded;
       const numLeft = this.total - loadedWithSkipped;
       const toLoad = this.increment > numLeft ? numLeft : this.increment;
-      const skip = Math.min(loadedWithSkipped, Math.max(0, this.total - this.increment));
-      this.$emit('load', {mode: 'append', size: toLoad, skip});
+      this.$emit('load', {mode: 'append', size: toLoad, skip: loadedWithSkipped});
       this.loadedCount += toLoad;
 
-      this.updateQuery(skip, 'auto');
+      this.updateQuery(loadedWithSkipped, 'auto');
     }
 
     loadPage(index: number) {
@@ -191,7 +190,7 @@
         document.documentElement.offsetHeight - (document.documentElement.scrollTop + window.innerHeight)
         <= window.innerHeight * 3;
 
-      if (scrollTrigger && this.scrollEnabled && !this.loading) {
+      if (scrollTrigger && this.scrollEnabled && this.hasMore && !this.loading) {
         this.loadNext();
       }
     }
@@ -212,6 +211,10 @@
 
     get increment() {
       return +this.$route.query.size || this.defaultIncrement;
+    }
+
+    get hasMore() {
+      return this.firstLoaded + this.loadedCount < this.total;
     }
   }
 </script>

@@ -9,6 +9,8 @@
         class="local-search"
         :value="minValue"
         @input="onMinSearch"
+        :min="absoluteMin"
+        :max="absoluteMax"
       />
       <input
         type="number"
@@ -17,6 +19,8 @@
         class="local-search"
         :value="maxValue"
         @input="onMaxSearch"
+        :min="absoluteMin"
+        :max="absoluteMax"
       />
     </div>
   </div>
@@ -41,6 +45,12 @@
     @Prop({ required: true }) readonly maxParamName!: string;
 
     @Prop({ required: true }) readonly label!: string;
+
+    @Prop({ default: false }) readonly nonzero!: boolean;
+
+    @Prop() readonly absoluteMin?: number;
+
+    @Prop() readonly absoluteMax?: number;
 
     private min: string = '';
 

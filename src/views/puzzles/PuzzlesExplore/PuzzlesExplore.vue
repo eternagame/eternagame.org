@@ -36,10 +36,10 @@
         :flagged="true"
       />
       <UserSearchPanel :isInSidebar="isInSidebar" placeholder="activity-feed:search-users" v-if="isInSidebar" />
-      <RangePanel :isInSidebar="isInSidebar" label="Solvers" minParamName="minSolvers" maxParamName="maxSolvers" v-if="isInSidebar"/>
-      <RangePanel :isInSidebar="isInSidebar" label="Length" minParamName="minLength" maxParamName="maxLength" v-if="isInSidebar"/>
-      <RangePanel :isInSidebar="isInSidebar" label="Reward" minParamName="minReward" maxParamName="maxReward" v-if="isInSidebar"/>
-      <RangePanel :isInSidebar="isInSidebar" label="States" minParamName="minStates" maxParamName="maxStates" v-if="isInSidebar"/>
+      <RangePanel :isInSidebar="isInSidebar" label="Solvers" minParamName="minSolvers" maxParamName="maxSolvers" :absoluteMin="0" v-if="isInSidebar"/>
+      <RangePanel :isInSidebar="isInSidebar" label="Length" minParamName="minLength" maxParamName="maxLength" :absoluteMin="1" v-if="isInSidebar"/>
+      <RangePanel :isInSidebar="isInSidebar" label="Reward" minParamName="minReward" maxParamName="maxReward" :absoluteMin="0" v-if="isInSidebar"/>
+      <RangePanel :isInSidebar="isInSidebar" label="States" minParamName="minStates" maxParamName="maxStates" :absoluteMin="1" v-if="isInSidebar"/>
       <SelectSidebarPanel
         :options="engineOptions"
         paramName="engine"

@@ -45,6 +45,7 @@
         paramName="engine"
         :isInSidebar="isInSidebar"
         label="Engine"
+        v-if="isInSidebar"
       />
       <!-- <TagsPanel :tags="tags" :isInSidebar="isInSidebar" /> -->
       <PaginationPanel v-if="isInSidebar" :shownCount="puzzles.length" :totalCount="total" />

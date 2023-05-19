@@ -43,6 +43,7 @@
           ...query,
           ...(value !== '' ? {[this.paramName]: value} : {})
         },
+        params: { keepScroll: 'true' }
       });
     }
   }

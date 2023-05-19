@@ -78,6 +78,7 @@
           ...query,
           ...(min !== '' ? {[this.minParamName]: min} : {})
         },
+        params: { keepScroll: 'true' }
       });
     }
 
@@ -90,6 +91,7 @@
           ...query,
           ...(max !== '' ? {[this.maxParamName]: max} : {})
         },
+        params: { keepScroll: 'true' }
       });
     }
   }

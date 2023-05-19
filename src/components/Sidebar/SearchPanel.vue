@@ -45,6 +45,7 @@
           ...query,
           ...(search ? {search} : {})
         },
+        params: { keepScroll: 'true' }
       });
     }
 

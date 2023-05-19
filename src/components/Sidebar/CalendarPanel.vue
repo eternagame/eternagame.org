@@ -65,6 +65,7 @@
             start_date: start.toLocaleDateString().replace(/\//g, '-'),
             end_date: end.toLocaleDateString().replace(/\//g, '-'),
           },
+          params: { keepScroll: 'true' }
         });
       }
     }

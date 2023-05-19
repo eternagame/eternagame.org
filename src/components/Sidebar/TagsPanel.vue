@@ -51,6 +51,7 @@
           ...query,
           ...(tags.length ? {tags} : {})
         },
+        params: { keepScroll: 'true' }
       });
     }
   }

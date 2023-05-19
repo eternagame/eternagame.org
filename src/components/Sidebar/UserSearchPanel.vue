@@ -88,6 +88,7 @@
           ...query,
           ...(uid ? {uid} : {})
         },
+        params: { keepScroll: 'true' }
       });
     }
 

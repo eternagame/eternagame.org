@@ -49,6 +49,7 @@
           ...query,
           ...(filter ? {[this.paramName]: filter} : {})
         },
+        params: { keepScroll: 'true' }
       });
     }
   }

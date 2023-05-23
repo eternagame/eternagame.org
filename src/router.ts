@@ -48,12 +48,12 @@ export default function createRouter() {
       },
       {
         path: '/collections/:id',
-        name: 'collections-view',
+        name: 'view-collection',
         component: () => import('./views/collections/CollectionView/CollectionView.vue'),
       },
       {
         path: '/collections/:id/edit',
-        name: 'collections-view',
+        name: 'edit-collection',
         component: () => import('./views/collections/CreateCollection/EditCollection.vue'),
       },
       {

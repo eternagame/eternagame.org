@@ -18,6 +18,7 @@
             :key="lab.nid"
           />
           <POTWSlide v-bind="potwSlideData" v-if="potwSlideData" />
+          <EternaconSlide></EternaconSlide>
         </template>
         <template v-else>
           <TutorialTeaserSlide :nextPuzzleID="nextPuzzleID" />
@@ -125,6 +126,7 @@
   import POTWSlide from './components/banner/POTWSlide.vue';
   import LabSlide from './components/banner/LabSlide.vue';
   import CarouselSlide from './components/banner/CarouselSlide.vue';
+  import EternaconSlide from './components/banner/EternaconSlide.vue';
   import IdeaJamSlide from './components/banner/IdeaJamSlide.vue';
   import QuestActivity from './components/activities/QuestActivity.vue';
   import TutorialActivity from './components/activities/TutorialActivity.vue';
@@ -140,6 +142,7 @@
       LabSlide,
       CarouselSlide,
       TutorialTeaserSlide,
+      EternaconSlide,
       Preloader,
       QuestActivity,
       TutorialActivity,

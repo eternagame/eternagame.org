@@ -238,6 +238,10 @@ export default function createRouter() {
         path: '/donate',
         component: () => import('./views/donate/Donate.vue'),
       },
+      {
+        path: '/partner/nova-labs',
+        component: () => import('./views/nova/NovaTransfer.vue'),
+      },
       // Maintaining these old routes in case they're actively linked from anywhere
       // important - at some point we should audit if we can remove these, or we may need a
       // dedicated section of legacy routes anyways

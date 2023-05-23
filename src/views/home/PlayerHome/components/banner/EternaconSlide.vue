@@ -2,18 +2,17 @@
   <b-carousel-slide
     class="slide"
     :img-src="imageURL"
-    style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0))"
   >
     <div>
       <p class="video-title">
-        <strong>Register now</strong> for Eternacon 2022
+        <strong>Save the Date</strong> for Eternacon 2023
       </p>
 
       <p class="explain">
-        Tune in on July 23-24 to exciting talks and activities from Eterna researchers, developers,
-        players, and other world-class experts.
+        Tune in on July 22-23 to exciting talks and activities from Eterna researchers, developers,
+        players, and other world-class experts. Registration will open soon.
       </p>
-      <b-button
+      <!-- <b-button
         class="button"
         variant="primary"
         size="lg"
@@ -21,7 +20,7 @@
         href="https://stanford.zoom.us/meeting/register/tJMtceGoqj4oGdOhGq-MbBqI3gKfOJUCIqC_"
       >
         Register
-      </b-button>
+      </b-button> -->
       <b-button
         class="button"
         variant="secondary"
@@ -37,7 +36,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
-  import bgimage from '@/assets/home/hero-eternacon-2022.jpg';
+  import bgimage from '@/assets/home/hero-eternacon-2023-alt.png';
 
   @Component({
     components: {},
@@ -94,8 +93,8 @@
     background-image: linear-gradient(
       to bottom,
       transparent 0%,
-      rgba(0, 0, 0, 0.7) 35%,
-      rgba(0, 0, 0, 0.9) 100%
+      rgba(0, 0, 0, 0.5) 75%,
+      rgba(0, 0, 0, 0.8) 100%
     );
     margin-top: -400px;
     height: 400px;

@@ -20,7 +20,7 @@
     <section>
       <h3>Schedule</h3>
       <p>
-        TBA - want to preset? Contact <a href="mailto:events@eternagame.org">events@eternagame.org</a>.
+        TBA - want to present? Contact <a href="mailto:events@eternagame.org">events@eternagame.org</a>.
       </p>
     </section>
     <template #sidebar="{ isInSidebar }">

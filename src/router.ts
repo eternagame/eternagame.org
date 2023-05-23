@@ -27,6 +27,11 @@ export default function createRouter() {
         component: () => import('./views/labs/DataBrowser/DataBrowser.vue'),
       },
       {
+        path: '/labs/manual',
+        name: 'lab-manual',
+        component: () => import('./views/labs/LabManual/LabManual.vue'),
+      },
+      {
         path: '/labs/:id',
         name: 'lab-view',
         component: () => import('./views/labs/LabView/LabView.vue'),

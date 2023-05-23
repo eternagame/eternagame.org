@@ -22,7 +22,9 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/styles/global.scss';
+
   .page {
-    margin-top: 120px;
+    margin-top: $navbar-height;
   }
 </style>

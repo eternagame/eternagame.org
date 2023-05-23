@@ -577,7 +577,7 @@
     &__row {
       display: flex;
       flex-direction: row;
-      height: calc(100vh - 120px);
+      height: calc(100vh - $navbar-height);
 
       &:nth-child(2n) {
         flex-direction: row-reverse;

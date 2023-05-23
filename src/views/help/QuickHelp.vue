@@ -140,7 +140,7 @@
   .anchor-link {
     display: block;
     position: relative;
-    top: -150px;
+    top: -$navbar-height - 30px;
     visibility: hidden;
   }
 

@@ -83,11 +83,4 @@
     font-size: 2rem;
     font-weight: bold;
   }
-
-  .anchor-link {
-    display: block;
-    position: relative;
-    top: -120px;
-    visibility: hidden;
-  }
 </style>

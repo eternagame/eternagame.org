@@ -1,36 +1,34 @@
 <template>
-  <div style="overflow:hidden; margin-top: 5rem;">
-    <b-container class="page-container">
-      <b-col class="sub-heading" cols="12" lg="9" v-if="header_title && header_date">
-        <h3 class="text-uppercase">{{ header_title }}</h3>
-        <p>{{ header_date }}</p>
+  <b-container class="page-container">
+    <b-col class="sub-heading" cols="12" lg="9" v-if="header_title && header_date">
+      <h3 class="text-uppercase">{{ header_title }}</h3>
+      <p>{{ header_date }}</p>
+    </b-col>
+    <div class="page-title">
+      <h2 v-if="title">{{ title }}</h2>
+      <div class="d-lg-none title-sidebar">
+        <slot name="sidebar" :isInSidebar="false"></slot>
+      </div>
+    </div>
+    <div class="d-lg-none">
+      <slot name="mobileSearchbar"></slot>
+    </div>
+    <b-row>
+      <b-col cols="12" lg="9" class="body" v-if="hasSidebarSlot">
+        <slot></slot>
       </b-col>
-      <div class="page-title">
-        <h2 v-if="title">{{ title }}</h2>
-        <div class="d-lg-none title-sidebar">
-          <slot name="sidebar" :isInSidebar="false"></slot>
-        </div>
-      </div>
-      <div class="d-lg-none">
-        <slot name="mobileSearchbar"></slot>
-      </div>
-      <b-row>
-        <b-col cols="12" lg="9" class="body" v-if="hasSidebarSlot">
-          <slot></slot>
-        </b-col>
-        <b-col class="body" v-if="!hasSidebarSlot">
-          <slot></slot>
-        </b-col>
-        <b-col class="sidebar d-none d-lg-block" cols="3" v-if="hasSidebarSlot">
-          <slot name="sidebar" :isInSidebar="true"></slot>
-        </b-col>
-      </b-row>
-      <MobileSidebar v-if="hasSidebarSlot" :show.sync="$vxm.mobile.showPageSidebar">
+      <b-col class="body" v-if="!hasSidebarSlot">
+        <slot></slot>
+      </b-col>
+      <b-col class="sidebar d-none d-lg-block" cols="3" v-if="hasSidebarSlot">
         <slot name="sidebar" :isInSidebar="true"></slot>
-      </MobileSidebar>
-      <PageFooter />
-    </b-container>
-  </div>
+      </b-col>
+    </b-row>
+    <MobileSidebar v-if="hasSidebarSlot" :show.sync="$vxm.mobile.showPageSidebar">
+      <slot name="sidebar" :isInSidebar="true"></slot>
+    </MobileSidebar>
+    <PageFooter />
+  </b-container>
 </template>
 
 <script lang="ts">
@@ -62,7 +60,8 @@
 
   .page-container {
     position: relative;
-    min-height: Calc(100vh - 120px);
+    min-height: calc(100vh - $navbar-height);
+    margin-top: $navbar-height;
     padding: $page-margin-top $page-margin-side;
     padding-bottom: 0px;
   }

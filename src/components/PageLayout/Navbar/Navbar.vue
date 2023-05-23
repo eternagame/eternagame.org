@@ -63,7 +63,7 @@
         labs: '/labs',
         challenges: '/challenges',
         collections: '/collections',
-        data: `${process.env.VUE_APP_API_BASE_URL}/web/labs/data-browser/`,
+        data: '/labs/data-browser/',
         'puzzle-maker': `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`,
         'puzzle-maker-2-states': `${process.env.VUE_APP_API_BASE_URL}/game/switchmaker/2/`,
         'puzzle-maker-3-states': `${process.env.VUE_APP_API_BASE_URL}/game/switchmaker/3/`,
@@ -112,7 +112,7 @@
 
   nav {
     border: 0px;
-    height: 120px;
+    height: $navbar-height;
   }
 
   :deep(*) {

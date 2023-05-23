@@ -29,7 +29,7 @@
   @import '@/styles/global.scss';
 
   .page {
-    margin-top: 120px;
+    margin-top: $navbar-height;
     padding: 20px;
   }
 

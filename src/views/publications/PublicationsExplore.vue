@@ -92,6 +92,8 @@
 </script>
 
 <style scoped lang="scss">
+  @import '@/styles/global.scss';
+
   .overview-text {
     margin: 0.4rem 2rem;
     font-size: 1.1rem;
@@ -107,7 +109,7 @@
   .anchor-link {
     display: block;
     position: relative;
-    top: -120px;
+    top: -$navbar-height;
     visibility: hidden;
   }
 </style>

@@ -19,7 +19,8 @@
         replace
         :isInSidebar="isInSidebar"
       /> -->
-      <CalendarPanel :isInSidebar="isInSidebar" />
+      <!-- <CalendarPanel :isInSidebar="isInSidebar" /> -->
+      <FollowPanel :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="isInSidebar" />
       <!-- <TagsPanel :tags="['#Ribosome', '#Eternacon', '#Chat']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
@@ -37,6 +38,7 @@
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import { CommentItem, NewsArticle } from '@/types/common-types';
   import FetchMixin from '@/mixins/FetchMixin';
+  import FollowPanel from '@/components/Sidebar/FollowPanel.vue';
 
   @Component({
     components: {
@@ -48,6 +50,7 @@
       DropdownSidebarPanel,
       Comments,
       Preloader,
+      FollowPanel,
     },
   })
   export default class NewsView extends Mixins(FetchMixin) {

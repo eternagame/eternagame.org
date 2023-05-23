@@ -62,30 +62,31 @@
           <li v-if="clearedThisPuzzle">
             <img src="@/assets/noun_check.svg" alt="cleared" class="icon" />Cleared
           </li>
-          <div v-if="editRights">
-            <li>
-              <b-button
-              type="submit"
-              variant="primary"
-              class="submit-button"
-              :href="`/puzzles/${nid}/edit`"
-              >
-                {{ $t('edit-puzzle-title-description') }}
-              </b-button>
-            </li>
-            <li>
-              <b-button
-                type="submit"
-                variant="primary"
-                class="submit-button"
-                :href="`${tutorialRoute}${nid}`"
-              >
-                {{ $t('edit-puzzle-tutorial') }}
-              </b-button>
-            </li>
-          </div>
         </ul>
       </SidebarPanel>
+      <div>
+        <div v-if="editRights && isInSidebar">
+          <b-button
+            type="submit"
+            variant="primary"
+            class="submit-button"
+            :href="`/puzzles/${nid}/edit`"
+          >
+            {{ $t('edit-puzzle-title-description') }}
+          </b-button>
+        </div>
+        <div v-if="editRights && isInSidebar">
+          <b-button
+            type="submit"
+            variant="primary"
+            class="submit-button"
+            :href="`${tutorialRoute}${nid}`"
+          >
+            {{ $t('edit-puzzle-tutorial') }}
+          </b-button>
+        </div>
+        <FollowPanel class="submit-button" :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="editRights && isInSidebar" />
+      </div>
       <!-- <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
@@ -103,6 +104,7 @@
   import Comments from '@/components/PageLayout/Comments.vue';
   import FetchMixin from '@/mixins/FetchMixin';
   import { PuzzleResponse, Puzzle, CommentItem, ClearedPuzzle } from '@/types/common-types';
+  import FollowPanel from '@/components/Sidebar/FollowPanel.vue';
 
   @Component({
     components: {
@@ -111,6 +113,7 @@
       SidebarPanel,
       Preloader,
       Comments,
+      FollowPanel
     },
   })
   export default class PuzzleView extends Mixins(FetchMixin) {

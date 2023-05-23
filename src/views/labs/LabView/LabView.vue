@@ -23,6 +23,7 @@
     <Comments :comments="comments" :nid="lab.nid" v-if="comments.length || $vxm.user.loggedIn" />
     <template #sidebar="{ isInSidebar }">
       <LabInfoPanel :lab="lab" :challenge="challenge" :isInSidebar="isInSidebar" />
+      <FollowPanel :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="isInSidebar" />
       <!-- <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>
@@ -36,6 +37,7 @@
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import FetchMixin from '@/mixins/FetchMixin';
   import { ChallengeData } from '@/views/challenges/ChallengeView/types';
+  import FollowPanel from '@/components/Sidebar/FollowPanel.vue';
   import LabDescription from './components/LabDescription.vue';
   import LabConclusion from './components/LabConclusion.vue';
   import LabInfoPanel from './components/LabInfoPanel.vue';
@@ -53,6 +55,7 @@
       TagsPanel,
       Comments,
       LabLeaderboardCard,
+      FollowPanel
     },
   })
   export default class LabView extends Mixins(FetchMixin) {

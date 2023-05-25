@@ -89,9 +89,8 @@ export default {
         if (currentPuzzle) return `/puzzles/${currentPuzzle}`;
         return '/puzzles/?search=switch&switch=checked&sort=date';
       case 'side_quest_create_a_puzzle':
-        return `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`;
+        return '/puzzles/create';
       case 'side_quest_create_a_tutorial':
-        // return "https://eternagame.org/game/puzzlemaker/"
         return 'https://docs.google.com/document/d/1m9vkiZO9_MslT1qOXGpsfvKyCtWLLJcsW0BIbCZgHu8';
       case 'side_quest_create_a_script':
         return `${process.env.VUE_APP_API_BASE_URL}/web/script/create/`;
@@ -118,7 +117,7 @@ export default {
       case 'side_quest_switch_puzzles':
         return '/puzzles/?search=switch&switch=checked&sort=date';
       case 'side_quest_create_a_puzzle':
-        return `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`;
+        return '/puzzles/create';
       case 'side_quest_create_a_tutorial':
         return 'https://docs.google.com/document/d/1m9vkiZO9_MslT1qOXGpsfvKyCtWLLJcsW0BIbCZgHu8';
       case 'side_quest_create_a_script':

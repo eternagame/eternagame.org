@@ -35,15 +35,12 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import bgimage from '@/assets/home/hero-eternacon-2023-alt.png';
 
   @Component({
     components: {},
   })
   export default class EternaconSlide extends Vue {
-    private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
-
     get imageURL() {
       return bgimage;
     }

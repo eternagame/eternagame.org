@@ -17,7 +17,7 @@
         variant="primary"
         size="lg"
         style="margin-right:10px"
-        :href="`${puzzleRoute}${nextPuzzleID}/`"
+        :to="`/puzzles/${nextPuzzleID}/play`"
         >{{ $t('player-home:next-puzzle') }}</b-button
       >
       <div class="d-flex" style="margin-top: 22px;">
@@ -33,15 +33,12 @@
 
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
-  import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import bgimage from '@/assets/home/hero-evergreen.jpg';
 
   @Component({
     components: {},
   })
   export default class TutorialTeaserSlide extends Vue {
-    puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
-
     @Prop({ required: true }) readonly nextPuzzleID!: string;
 
     get imageURL() {

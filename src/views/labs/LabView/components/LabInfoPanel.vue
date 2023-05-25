@@ -12,9 +12,9 @@
     <div v-if="challenge">
         <span class="gray-header">{{ $t('lab-info:lab-challenge') }}</span>
         <br />
-        <a :href="`/challenges/${challenge.nid}`">
+        <router-link :to="`/challenges/${challenge.nid}`">
           <span style="font-weight: bold;">{{ challenge.title }}</span>
-        </a>
+        </router-link>
         <br />
         <br />
     </div>

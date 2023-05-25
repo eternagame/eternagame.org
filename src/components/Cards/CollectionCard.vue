@@ -100,7 +100,6 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
-  import { PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import SmartLink from '@/components/Common/SmartLink.vue';
   import Utils from '@/utils/utils';
   import { ClearedPuzzle } from '@/types/common-types';
@@ -152,7 +151,7 @@
       return (
         this.puzzleLink ||
         (this.current_puzzle &&
-          `${PUZZLE_ROUTE_PREFIX}${this.current_puzzle}/`) ||
+          `/puzzles/${this.current_puzzle}/play`) ||
         this.toCollection
       );
     }

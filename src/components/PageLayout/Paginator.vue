@@ -178,7 +178,6 @@
           size: this.increment.toString(),
           skip: skip.toString(),
         },
-        hash: window.location.hash,
         params: { keepScroll: 'true' }
       }).finally(() => {
         this.currentlyRouting = false;

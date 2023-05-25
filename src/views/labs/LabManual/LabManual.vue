@@ -2,12 +2,11 @@
   <EternaPage title="Lab Manual">
     <b-card>
       <h3 id="barcodes">Special requirements for RNA Lab - Barcodes</h3>
-        <img
-          src="/sites/default/files/chat_screens/10_1358979415.png"
-          alt="An Eterna solution, focusing on the barcode region, where a long stack and a hairpin loop are shown with black and white striped rings around each nucleotide"
-          style="display: block; margin: auto; padding: 10px;"
-        >
-
+      <img
+        src="/sites/default/files/chat_screens/10_1358979415.png"
+        alt="An Eterna solution, focusing on the barcode region, where a long stack and a hairpin loop are shown with black and white striped rings around each nucleotide"
+        style="display: block; margin: auto; padding: 10px; max-width: 100%;"
+      >
       <p>
         In the cloud labs, we use a state-of-the-art experimental pipeline and protocol which would allows to synthesize
         hundreds of sequences at once (potentially tens of thousands in near future).
@@ -51,7 +50,7 @@
       </p>
       <h4>Pairing probability</h4>
       <p>
-        <img src="/sites/default/files/dotplot.png" style="float: left; margin-right: 22px" alt="An example dot plot. The square is split by a diagonal line going from top left to bottom right. In the lower left section (labelled lower half) there are a few dark diagonal lines, and in the top right section (labeled upper half) there area also a few dark diagonal lines as well as a number of grey shapes and lines. On the left side on the top is a 1, and on the bottom is a 123. On the bottom on the left is a 1, and on the right is a 123. A circle just to the top and left of the center of the graph is marked pairing probability of base 53 and 32." />
+        <img src="/sites/default/files/dotplot.png" style="float: left; margin-right: 22px; max-width: 100%;" alt="An example dot plot. The square is split by a diagonal line going from top left to bottom right. In the lower left section (labelled lower half) there are a few dark diagonal lines, and in the top right section (labeled upper half) there area also a few dark diagonal lines as well as a number of grey shapes and lines. On the left side on the top is a 1, and on the bottom is a 123. On the bottom on the left is a 1, and on the right is a 123. A circle just to the top and left of the center of the graph is marked pairing probability of base 53 and 32." />
         RNA folds into the minimum free energy structure (i.e, the most stable shape, or the predicted shape in the game.) However, in nature, it does not constantly stay in the structure, but constantly shifts between other structures as well. The pairing probability plot represents what possibilities of two bases pairing up in one of such transitions. The plot has 2 axis, both horizontal axis and vertical axis representing the RNA sequence. The upper half triangle of the plot shows full set of pairing possibilities. The color at the position (x,y) represents the probability that base x and base y pairs up. The darker the color, the higher the probability. The lower half triangle of the plot only colors pairs that are in the minimum free energy structure. In general, the more the upper half looks like the lower half, it would mean the RNA has more chance of staying in the predicted shape. However, as with the melting point, calculation of paring probabilities is only a simulation and therefore you should be careful in trying to use the information.
       </p>
     </b-card>

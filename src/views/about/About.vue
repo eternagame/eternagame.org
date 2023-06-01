@@ -101,7 +101,9 @@
                     frameborder="0"
                     allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
+                    v-if="challenge.video"
                   ></iframe>
+                  <img v-else-if="challenge.teaser_image" :src="`/sites/default/files/${challenge.teaser_image}`" alt="" />
                 </div>
                 <h1 class="challenges__heading">
                   <a :href="`/challenges/${challenge.nid}`">
@@ -704,6 +706,10 @@
 
       .challenge-video-wrapper {
         text-align: center;
+
+        iframe, img {
+          width: 100%;
+        }
       }
 
       @media (max-width: $breakpoint-small) {

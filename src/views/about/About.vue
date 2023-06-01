@@ -709,6 +709,11 @@
 
         iframe, img {
           width: 100%;
+          min-height: 14rem;
+          max-width: 100%;
+          border-radius: 5px;
+          background-color: black;
+          object-fit: contain;
         }
       }
 
@@ -722,12 +727,6 @@
       text-align: center;
       font-size: 2.25rem;
       margin-bottom: 3rem;
-    }
-    &__video {
-      width: 100%;
-      min-height: 14rem;
-      max-width: 100%;
-      border-radius: 5px;
     }
     &__heading {
       font-size: 1.875rem;

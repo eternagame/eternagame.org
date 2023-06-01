@@ -13,7 +13,7 @@
         <b-button variant="primary" class="enter-lab" size="lg" :to="`/labs/${nid}`">
           {{ $t('home-banner:enter') }}
         </b-button>
-        <b-button v-if="nid === '11627606'" variant="primary" class="training-button" size="lg" :to="`/collections/11366215`">
+        <b-button v-if="nid === '11836771'" variant="primary" class="training-button" size="lg" :to="`/collections/11366215`">
           Lab Training
         </b-button>
       </div>

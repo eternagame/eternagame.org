@@ -182,6 +182,11 @@ export default function createRouter() {
         component: () => import('./views/players/LeaderBoard/LeaderBoard.vue'),
       },
       {
+        path: '/scripts',
+        name: 'script-list',
+        component: () => import('./views/scripts/ScriptExplore/ScriptExplore.vue'),
+      },
+      {
         path: '/lost',
         name: 'not-found',
         component: () => import('./views/lost/NotFound.vue'),

@@ -1,14 +1,33 @@
 <template>
-  <EternaPage v-if="fetchState.firstFetchComplete && script" :title="script.title">
-    <div class="page-content">
+  <EternaPage v-if="fetchState.firstFetchComplete && script" :title="script.title" :header_title="script.type">
+    <b-card>
       <div
         style="overflow-wrap: break-word;"
         v-dompurify-html="script.body"
       />
-      <!-- TODO: Script inputs -->
-      <!-- TODO: Script source -->
+    </b-card>
+
+    <b-card class="mt-4" v-if="script.type === 'Etc'">
+      <template v-for="input in inputs">
+        <div :key="input.value">
+          <label :for="`script-input-${input}`" style="width: 100%;">
+            <div class="mb-1">{{ input.value }}</div>
+            <textarea :id="`script-input-${input}`" style="width:100%; height: 40px;" v-model="input.val"></textarea>
+          </label>
+        </div>
+      </template>
+      <label for="script-execution-timeout" class="mt-4 mr-3">
+        Timeout (in seconds) <input id="script-execution-timeout" type="number" placeholder="10" v-model="timeout">
+      </label>
       <!-- TODO: Script execution -->
-    </div>
+      <b-btn variant="primary" @click="evaluate">Evaluate</b-btn>
+      <b-btn variant="danger" @click="srcdoc = ''" v-if="srcdoc" class="ml-2">Clear Output</b-btn>
+      <iframe title="script-execution" v-if="srcdoc" :srcdoc="srcdoc" />
+    </b-card>
+
+    <b-card class="mt-4">
+      <CodeMirror :initialSource="script.source" :editable="false" />
+    </b-card>
     <Comments :comments="comments" :nid="script.nid" />
 
     <template #sidebar="{ isInSidebar }">
@@ -25,14 +44,20 @@
             <img :src="avatar" alt="author" class="icon" />{{ script.author.name }}<span v-b-tooltip.hover title="Trusted author" v-if="script.is_trusted === '1'">&nbsp;✔</span>
           </li>
           <li>{{ script.type }}</li>
+          <li>{{ script.is_private === '1' ? 'Private' : 'Public' }}</li>
         </ul>
       </SidebarPanel>
       <div>
-        <!-- TODO: Favorite -->
-        <!-- TODO: Private -->
-        <!-- TODO: Edit type -->
-        <!-- TODO: Edit name/body -->
-        <FollowPanel class="submit-button" :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="isInSidebar" />
+        <div v-if="isInSidebar" class="mb-2">
+          <b-btn variant="primary" @click="toggleFavorite" :disabled="processingFavorite">
+            {{ script.is_favorite === '1' ? 'Unfavorite' : 'Favorite' }}
+            <b-spinner v-if="processingFavorite" small></b-spinner>
+          </b-btn>
+        </div>
+        <div v-if="isInSidebar" class="mb-2">
+          <b-btn variant="primary">Make A Copy</b-btn>
+        </div>
+        <FollowPanel :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="isInSidebar" />
       </div>
     </template>
   </EternaPage>
@@ -49,6 +74,7 @@
   import { Script, ScriptResponse, CommentItem } from '@/types/common-types';
   import FollowPanel from '@/components/Sidebar/FollowPanel.vue';
   import Utils from '@/utils/utils';
+  import CodeMirror from './components/CodeMirror.vue';
 
   @Component({
     components: {
@@ -56,13 +82,22 @@
       SidebarPanel,
       Preloader,
       Comments,
-      FollowPanel
+      FollowPanel,
+      CodeMirror
     },
   })
   export default class ScriptView extends Mixins(FetchMixin) {
     script: Script | null = null;
 
+    inputs: {value: string; val: string}[] = [];
+
     comments: CommentItem[] = [];
+
+    processingFavorite = false;
+
+    srcdoc = '';
+
+    timeout = '';
 
     async fetch() {
       const res = (
@@ -70,11 +105,76 @@
       ).data.data as ScriptResponse;
       // eslint-disable-next-line prefer-destructuring
       this.script = res.script[0];
+      this.inputs = JSON.parse(this.script.input).map((input: {value: string}) => ({value: input.value, val: ''}));
       this.comments = res.comments;
     }
 
     get avatar() {
       return Utils.getAvatar(null);
+    }
+
+    get isAuthor() {
+      return this.script && this.script.uid === this.$vxm.user.uid?.toString();
+    }
+
+    async toggleFavorite() {
+      if (!this.script) return;
+
+      this.processingFavorite = true;
+
+      try {
+        await this.$http.post('/post/', new URLSearchParams({
+          type: "script",
+          need: 'favorite',
+          'nid': this.$route.params.id,
+          'should_favorite': (!(this.script.is_favorite === '1')).toString()
+        }));
+
+        await this.$fetch();
+      } finally {
+        this.processingFavorite = false;
+      }
+    }
+
+    evaluate() {
+      if (!this.script) return;
+
+      this.srcdoc = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/jquery/jquery-1.7.2.min.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/jquery/jquery-unselectable.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/jquery-ui/jquery-ui-1.8.7.custom.min.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/json/json2.js"></${'script'}>
+
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/application.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/utils.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/ajaxmanager.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/datamanager.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/usermanager.js"></${'script'}>
+
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/eterna/eterna-application.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/eterna/eterna-utils.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/eterna/script-library.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/eterna/script-interface.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/eterna/presenter.js"></${'script'}>
+      </head>
+      <body>
+          <div id="result"></div>
+          <${'script'}>
+            const inputs = ScriptInterface.codify_input(${JSON.stringify(this.inputs)});
+            const code = ScriptInterface.insert_timeout(${JSON.stringify(this.script.source)}, ${this.timeout})
+            const result = ScriptInterface.evaluate(inputs+code);
+            Pervasives.outln("<br>Return : " + result['cause'])
+            Pervasives.outln("Evaluation time : " + result['eval_time']/1000 + " sec")
+          </${'script'}>
+      </body>
+      </html>
+      `;
     }
   }
 </script>
@@ -89,5 +189,13 @@
 
   li {
     margin-bottom: 20px;
+  }
+
+  iframe {
+    width: 100%;
+    height: 400px;
+    margin-top: 10px;
+    background-color: white;
+    border: none;
   }
 </style>

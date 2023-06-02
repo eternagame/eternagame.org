@@ -85,7 +85,7 @@
             {{ $t('edit-puzzle-tutorial') }}
           </b-button>
         </div>
-        <FollowPanel class="submit-button" :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="editRights && isInSidebar" />
+        <FollowPanel class="submit-button" :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="isInSidebar" />
       </div>
       <!-- <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" /> -->
     </template>

@@ -158,22 +158,22 @@
           <meta charset="UTF-8">
           <meta http-equiv="X-UA-Compatible" content="IE=edge">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/jquery/jquery-1.7.2.min.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/jquery/jquery-unselectable.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/jquery-ui/jquery-ui-1.8.7.custom.min.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/json/json2.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/jquery/jquery-1.7.2.min.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/jquery/jquery-unselectable.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/jquery-ui/jquery-ui-1.8.7.custom.min.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/json/json2.js"></${'script'}>
 
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/application.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/utils.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/ajaxmanager.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/datamanager.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/usermanager.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/application.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/utils.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/ajaxmanager.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/datamanager.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/usermanager.js"></${'script'}>
 
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/eterna/eterna-application.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/eterna/eterna-utils.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/eterna/script-library.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/eterna/script-interface.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/workbranch_main/frontend/jscripts/eterna/presenter.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/eterna/eterna-application.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/eterna/eterna-utils.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/eterna/script-library.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/eterna/script-interface.js"></${'script'}>
+          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/eterna/presenter.js"></${'script'}>
       </head>
       <body>
           <div id="result"></div>

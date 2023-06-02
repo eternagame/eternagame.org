@@ -533,3 +533,28 @@ export interface ScriptListResponse {
   lists: ScriptItem[];
   total_script: string;
 }
+
+export interface Script {
+  nid: string;
+  uid: string;
+  title: string;
+  time: string;
+  source: string;
+  input: string;
+  type: string;
+  pageview: string;
+  body: string;
+  is_private: string;
+  is_favorite: string;
+  agreed_to_run: string;
+  is_trusted: string;
+  author: {
+    uid: string;
+    name: string;
+  }
+}
+
+export interface ScriptResponse {
+  script: [Script];
+  comments: CommentItem[];
+}

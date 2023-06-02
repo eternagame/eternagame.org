@@ -12,7 +12,7 @@
           </div>
           <div class="col p-0" style="text-align:right">
             <div class="b" style="opacity: 0.5;">{{ created }}</div>
-            <div><span v-b-tooltip.hover title="Trusted author" v-if="is_trusted === '1'">✔&nbsp;</span>{{ author.name }}</div>
+            <div>{{ author.name }}<span v-b-tooltip.hover title="Trusted author" v-if="is_trusted === '1'">&nbsp;✔</span></div>
             <div v-if="is_favorite === '1'">★ Favorite</div>
             <div v-if="is_private === '1'">Private</div>
           </div>

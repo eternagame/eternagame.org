@@ -26,7 +26,7 @@
         :isInSidebar="isInSidebar"
       />
       <PaginationPanel v-if="isInSidebar" :shownCount="scripts.length" :totalCount="total" />
-      <div><b-btn variant="primary">Create</b-btn></div>
+      <div><b-btn variant="primary" to="/scripts/create">Create</b-btn></div>
       <div><b-btn variant="secondary">Documentation</b-btn></div>
     </template>
     <template #mobileSearchbar>

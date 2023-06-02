@@ -1,6 +1,6 @@
 <template>
-  <EternaPage v-if="fetchState.firstFetchComplete && script" :title="script.title" :header_title="script.type">
-    <b-card>
+  <EternaPage v-if="fetchState.firstFetchComplete && script" :title="script.title">
+    <b-card v-if="script.body">
       <div
         style="overflow-wrap: break-word;"
         v-dompurify-html="script.body"
@@ -10,23 +10,22 @@
     <b-card class="mt-4" v-if="script.type === 'Etc'">
       <template v-for="input in inputs">
         <div :key="input.value">
-          <label :for="`script-input-${input}`" style="width: 100%;">
+          <label :for="`script-input-${input.value}`" style="width: 100%;">
             <div class="mb-1">{{ input.value }}</div>
-            <textarea :id="`script-input-${input}`" style="width:100%; height: 40px;" v-model="input.val"></textarea>
+            <textarea :id="`script-input-${input.value}`" style="width:100%; height: 40px;" v-model="input.val"></textarea>
           </label>
         </div>
       </template>
       <label for="script-execution-timeout" class="mt-4 mr-3">
         Timeout (in seconds) <input id="script-execution-timeout" type="number" placeholder="10" v-model="timeout">
       </label>
-      <!-- TODO: Script execution -->
       <b-btn variant="primary" @click="evaluate">Evaluate</b-btn>
       <b-btn variant="danger" @click="srcdoc = ''" v-if="srcdoc" class="ml-2">Clear Output</b-btn>
-      <iframe title="script-execution" v-if="srcdoc" :srcdoc="srcdoc" />
+      <iframe title="script-execution" v-if="srcdoc" :srcdoc="srcdoc" :key="executionNonce" />
     </b-card>
 
     <b-card class="mt-4">
-      <CodeMirror :initialSource="script.source" :editable="false" />
+      <CodeMirror :source="script.source" :editable="false" />
     </b-card>
     <Comments :comments="comments" :nid="script.nid" />
 
@@ -54,8 +53,11 @@
             <b-spinner v-if="processingFavorite" small></b-spinner>
           </b-btn>
         </div>
+        <div v-if="isInSidebar && script.uid === $vxm.user.uid?.toString()" class="mb-2">
+          <b-btn variant="primary" :to="`/scripts/${$route.params.id}/edit`">Edit</b-btn>
+        </div>
         <div v-if="isInSidebar" class="mb-2">
-          <b-btn variant="primary">Make A Copy</b-btn>
+          <b-btn variant="primary" @click="copy">Make A Copy</b-btn>
         </div>
         <FollowPanel :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="isInSidebar" />
       </div>
@@ -74,7 +76,7 @@
   import { Script, ScriptResponse, CommentItem } from '@/types/common-types';
   import FollowPanel from '@/components/Sidebar/FollowPanel.vue';
   import Utils from '@/utils/utils';
-  import CodeMirror from './components/CodeMirror.vue';
+  import CodeMirror from '../components/CodeMirror.vue';
 
   @Component({
     components: {
@@ -99,6 +101,8 @@
 
     timeout = '';
 
+    executionNonce = 0;
+
     async fetch() {
       const res = (
         await this.$http.get(`/get/?type=script&need=script&id=${this.$route.params.id}`)
@@ -111,10 +115,6 @@
 
     get avatar() {
       return Utils.getAvatar(null);
-    }
-
-    get isAuthor() {
-      return this.script && this.script.uid === this.$vxm.user.uid?.toString();
     }
 
     async toggleFavorite() {
@@ -136,8 +136,20 @@
       }
     }
 
+    copy() {
+      this.$router.push({
+        name: 'script-create',
+        params: {
+          originalScript: JSON.stringify(this.script)
+        }
+      });
+    }
+
     evaluate() {
       if (!this.script) return;
+
+      // Ensure the iframe is destroyed and recreated
+      this.executionNonce = Date.now();
 
       this.srcdoc = `
       <!DOCTYPE html>
@@ -166,11 +178,10 @@
       <body>
           <div id="result"></div>
           <${'script'}>
-            const inputs = ScriptInterface.codify_input(${JSON.stringify(this.inputs)});
-            const code = ScriptInterface.insert_timeout(${JSON.stringify(this.script.source)}, ${this.timeout})
-            const result = ScriptInterface.evaluate(inputs+code);
-            Pervasives.outln("<br>Return : " + result['cause'])
-            Pervasives.outln("Evaluation time : " + result['eval_time']/1000 + " sec")
+            ScriptInterface.evaluate_script_with_nid(${this.$route.params.id}, ${JSON.stringify(Object.fromEntries(this.inputs.map(input => [input.value, input.val])))}, function(result) {
+              Pervasives.outln("<br>Return : " + result['cause'])
+              Pervasives.outln("Evaluation time : " + result['eval_time']/1000 + " sec")
+            });
           </${'script'}>
       </body>
       </html>

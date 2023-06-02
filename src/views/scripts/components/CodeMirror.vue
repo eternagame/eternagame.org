@@ -26,7 +26,7 @@
 
     @Prop({ required: true }) editable!: boolean;
 
-    @Prop({ default: '' }) initialSource!: string;
+    @Prop({ default: '' }) source!: string;
 
     view!: EditorView;
 
@@ -73,9 +73,14 @@
           fixedHeightEditor,
           readonly.of(EditorState.readOnly.of(!this.editable)),
           editable.of(EditorView.editable.of(this.editable)),
+          EditorView.updateListener.of((viewUpdate) => {
+            if (viewUpdate.docChanged) {
+              this.$emit('source:changed', viewUpdate.state.doc.toString());
+            }
+          })
         ],
         parent: this.container,
-        doc: this.initialSource,
+        doc: this.source,
       });
     }
 

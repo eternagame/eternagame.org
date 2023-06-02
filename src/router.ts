@@ -187,9 +187,19 @@ export default function createRouter() {
         component: () => import('./views/scripts/ScriptExplore/ScriptExplore.vue'),
       },
       {
+        path: '/scripts/create',
+        name: 'script-create',
+        component: () => import('./views/scripts/ScriptEdit/ScriptEdit.vue'),
+      },
+      {
         path: '/scripts/:id',
         name: 'script-view',
         component: () => import('./views/scripts/ScriptView/ScriptView.vue'),
+      },
+      {
+        path: '/scripts/:id/edit',
+        name: 'script-edit',
+        component: () => import('./views/scripts/ScriptEdit/ScriptEdit.vue'),
       },
       {
         path: '/lost',

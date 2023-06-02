@@ -16,6 +16,7 @@ export interface ChallengeData {
   donors: string;
   affiliation: string;
   video: string;
+  teaser_image: string;
   cover_image: string;
   abstract: string;
   update_summary: string;

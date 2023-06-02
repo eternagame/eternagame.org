@@ -22,7 +22,9 @@
             frameborder="0"
             allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
+            v-if="video"
           ></iframe>
+          <img v-else-if="teaserImage" :src="`/sites/default/files/${teaserImage}`" alt="">
         </div>
         <div ref="content" class="challenge-body-description" v-dompurify-html="descriptionToShow"></div>
         <ReadMore v-model="readMore" v-if="readMoreNeeded"></ReadMore>
@@ -64,6 +66,10 @@
 
     get video() {
       return this.challenge?.video || "";
+    }
+
+    get teaserImage() {
+      return this.challenge?.teaser_image || "";
     }
 
     get coverImage() {
@@ -169,6 +175,10 @@
         display: flex;
         justify-content: center;
         margin-left: 0;
+      }
+
+      iframe, img {
+        width: 300px;
       }
     }
 

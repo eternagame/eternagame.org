@@ -101,7 +101,9 @@
                     frameborder="0"
                     allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
+                    v-if="challenge.video"
                   ></iframe>
+                  <img v-else-if="challenge.teaser_image" :src="`/sites/default/files/${challenge.teaser_image}`" alt="" />
                 </div>
                 <h1 class="challenges__heading">
                   <a :href="`/challenges/${challenge.nid}`">
@@ -704,6 +706,15 @@
 
       .challenge-video-wrapper {
         text-align: center;
+
+        iframe, img {
+          width: 100%;
+          min-height: 14rem;
+          max-width: 100%;
+          border-radius: 5px;
+          background-color: black;
+          object-fit: contain;
+        }
       }
 
       @media (max-width: $breakpoint-small) {
@@ -716,12 +727,6 @@
       text-align: center;
       font-size: 2.25rem;
       margin-bottom: 3rem;
-    }
-    &__video {
-      width: 100%;
-      min-height: 14rem;
-      max-width: 100%;
-      border-radius: 5px;
     }
     &__heading {
       font-size: 1.875rem;

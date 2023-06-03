@@ -187,6 +187,11 @@ export default function createRouter() {
         component: () => import('./views/scripts/ScriptExplore/ScriptExplore.vue'),
       },
       {
+        path: '/scripts/docs',
+        name: 'script-docs',
+        component: () => import('./views/scripts/ScriptDocs/ScriptDocs.vue'),
+      },
+      {
         path: '/scripts/create',
         name: 'script-create',
         component: () => import('./views/scripts/ScriptEdit/ScriptEdit.vue'),

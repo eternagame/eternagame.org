@@ -22,7 +22,7 @@
     </b-card>
 
     <b-card class="mt-4">
-      <div style="margin-bottom: 10px; display: flex; justify-content: right;"><b-btn variant="secondary">Documentation</b-btn></div>
+      <div style="margin-bottom: 10px; display: flex; justify-content: right;"><b-btn variant="secondary" to="/scripts/docs">Documentation</b-btn></div>
       <CodeMirror :source="source" :editable="true" @source:changed="source=$event"/>
     </b-card>
 

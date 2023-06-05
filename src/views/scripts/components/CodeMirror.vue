@@ -39,7 +39,6 @@
       });
 
       const readonly = new Compartment();
-      const editable = new Compartment();
 
       this.view = new EditorView({
         extensions: [
@@ -74,7 +73,6 @@
           javascript(),
           fixedHeightEditor,
           readonly.of(EditorState.readOnly.of(!this.editable)),
-          editable.of(EditorView.editable.of(this.editable)),
           EditorView.updateListener.of((viewUpdate) => {
             if (viewUpdate.docChanged) {
               this.$emit('source:changed', viewUpdate.state.doc.toString());

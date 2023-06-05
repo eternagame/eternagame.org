@@ -233,6 +233,10 @@
               rank: ${this.$vxm.user.rank},
               points: ${this.$vxm.user.points}
             }});
+            window.Page = {
+              is_there_new_notification: function() { return false; },
+              count_new_notifications: function() { return '0'; }
+            };
             Application.on_initialize();
             const inputs = ScriptInterface.codify_input(${JSON.stringify(this.inputs)});
             const code = ScriptInterface.insert_timeout(${JSON.stringify(this.source)}, ${this.timeout})

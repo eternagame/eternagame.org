@@ -184,6 +184,10 @@
               rank: ${this.$vxm.user.rank},
               points: ${this.$vxm.user.points}
             }});
+            window.Page = {
+              is_there_new_notification: function() { return false; },
+              count_new_notifications: function() { return '0'; }
+            };
             Application.on_initialize();
             ScriptInterface.evaluate_script_with_nid(${this.$route.params.id}, ${JSON.stringify(Object.fromEntries(this.inputs.map(input => [input.value, input.val])))}, function(result) {
               Pervasives.outln("<br>Return : " + result['cause'])

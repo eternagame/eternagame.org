@@ -37,12 +37,7 @@
 </template>
 
 <script lang="ts">
-
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import {
-    PUZZLE_ROUTE_PREFIX,
-    PUZZLE_ROUTE_BROWSE_PREFIX,
-  } from '@/utils/constants';
 
   @Component({
     components: {},
@@ -54,11 +49,11 @@
     @Prop({required: true}) readonly rank!: number;
 
     get puzzleLink(){
-      return `${PUZZLE_ROUTE_PREFIX}${this.rankedSolution.puznid}/`;
+      return `/puzzles/${this.rankedSolution.puznid}/play`;
     }
 
     get solutionLink(){
-      return `${PUZZLE_ROUTE_BROWSE_PREFIX}${this.rankedSolution.puznid}/?filter1=Id&filter1_arg1=${this.rankedSolution.id}&filter1_arg2=${this.rankedSolution.id}`;
+      return `/puzzles/${this.rankedSolution.puznid}/browse?filter1=Id&filter1_arg1=${this.rankedSolution.id}&filter1_arg2=${this.rankedSolution.id}`;
     }
 
     get imageLink() {

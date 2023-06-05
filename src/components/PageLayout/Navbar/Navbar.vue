@@ -64,9 +64,9 @@
         challenges: '/challenges',
         collections: '/collections',
         data: '/labs/data-browser/',
-        'puzzle-maker': `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`,
-        'puzzle-maker-2-states': `${process.env.VUE_APP_API_BASE_URL}/game/switchmaker/2/`,
-        'puzzle-maker-3-states': `${process.env.VUE_APP_API_BASE_URL}/game/switchmaker/3/`,
+        'puzzle-maker': `/puzzles/create`,
+        'puzzle-maker-2-states': '/puzzles/create?states=2',
+        'puzzle-maker-3-states': '/puzzles/create?states=3',
         scripts: `${process.env.VUE_APP_API_BASE_URL}/web/script/`,
       },
       learn: {

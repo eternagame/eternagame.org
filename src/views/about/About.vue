@@ -106,9 +106,9 @@
                   <img v-else-if="challenge.teaser_image" :src="`/sites/default/files/${challenge.teaser_image}`" alt="" />
                 </div>
                 <h1 class="challenges__heading">
-                  <a :href="`/challenges/${challenge.nid}`">
+                  <router-link :to="`/challenges/${challenge.nid}`">
                     {{ challenge.title }}
-                  </a>
+                  </router-link>
                 </h1>
                 <p class="challenges__sub-text">
                   {{ challenge.blurb }}

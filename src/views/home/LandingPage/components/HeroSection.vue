@@ -53,7 +53,7 @@
               <b-button
                 variant="primary"
                 size="lg"
-                :href="`${BASE_URL_PREFIX}/game/puzzle/11098074/`"
+                to="/puzzles/11098074/play"
                 class="button"
                 >{{ $t('hero-section:main-action') }}</b-button
               >

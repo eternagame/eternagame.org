@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <VueBootstrapBreakpointIndicator v-if="isDevelopment" class="breakpoint" />
-    <Navbar />
+    <Navbar v-if="!$route.meta?.hideNav" />
     <Modals />
     <router-view />
   </div>

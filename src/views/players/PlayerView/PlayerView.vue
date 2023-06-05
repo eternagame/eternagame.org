@@ -81,13 +81,11 @@
           <template v-slot:trow="slotProps">
             <tr>
               <td>
-                <!-- TODO: need to include filters e.g. https://eternagame.org/game/browse/6296743/?filter1=Id&filter1_arg1=6348941&filter1_arg2=6348941 -->
-                <!--eslint-disable-next-line max-len-->
-                <a
-                  :href="`${BASE_URL_PREFIX}/game/browse/${slotProps.item.puznid}/`"
+                <router-link
+                  :to="`/puzzles/${slotProps.item.puznid}/browse?filter1=Id&filter1_arg1=${slotProps.item.id}&filter1_arg2=${slotProps.item.id}`"
                 >
                   {{ slotProps.item.title }}
-                </a>
+                </router-link>
               </td>
               <td class="font-weight-bold">
                 {{ slotProps.item.score || 'Waiting' }}

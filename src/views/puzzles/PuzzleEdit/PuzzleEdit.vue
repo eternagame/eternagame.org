@@ -64,7 +64,7 @@
             type="submit"
             variant="primary"
             class="submit-button"
-            :href="`${tutorialRoute}${nid}`"
+            :to="`/puzzles/${nid}/edit-tutorial`"
           >
           {{ $t('edit-puzzle-tutorial') }}
           </b-button>
@@ -82,7 +82,6 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Utils from '@/utils/utils';
-  import { PUZZLE_ROUTE_PREFIX, PUZZLE_ROUTE_TUTORIAL_PREFIX } from '@/utils/constants';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import FetchMixin from '@/mixins/FetchMixin';
   import { PuzzleResponse, Puzzle, CommentItem, ClearedPuzzle } from '@/types/common-types';
@@ -97,10 +96,6 @@
     },
   })
   export default class PuzzleView extends Mixins(FetchMixin) {
-    private puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
-
-    tutorialRoute: string = PUZZLE_ROUTE_TUTORIAL_PREFIX;
-
     puzzle: Puzzle | null = null;
 
     nid: string = "";

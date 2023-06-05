@@ -1,7 +1,9 @@
 <template>
   <div>
+    <template v-if="editable">
+      Press escape then tab if you wish to use tab to focus other page elements while focused on the editor.
+    </template>
     <div class="cm-container" :class="{editable}" ref="container"></div>
-    Press escape then tab if you wish to use tab to focus other page elements while focused on the editor.
   </div>
 </template>
 

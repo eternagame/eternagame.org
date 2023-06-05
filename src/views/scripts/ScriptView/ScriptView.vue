@@ -43,7 +43,7 @@
             <img :src="avatar" alt="author" class="icon" />{{ script.author.name }}<span v-b-tooltip.hover title="Trusted author" v-if="script.is_trusted === '1'">&nbsp;✔</span>
           </li>
           <li>{{ script.type }}</li>
-          <li>{{ script.is_private === '1' ? 'Private' : 'Public' }}</li>
+          <li v-if="isAuthor">{{ script.is_private === '1' ? 'Private' : 'Public' }}</li>
         </ul>
       </SidebarPanel>
       <div>
@@ -53,7 +53,7 @@
             <b-spinner v-if="processingFavorite" small></b-spinner>
           </b-btn>
         </div>
-        <div v-if="isInSidebar && script.uid === $vxm.user.uid?.toString()" class="mb-2">
+        <div v-if="isInSidebar && isAuthor" class="mb-2">
           <b-btn variant="primary" :to="`/scripts/${$route.params.id}/edit`">Edit</b-btn>
         </div>
         <div v-if="isInSidebar" class="mb-2">
@@ -115,6 +115,10 @@
 
     get avatar() {
       return Utils.getAvatar(null);
+    }
+
+    get isAuthor() {
+      return this.script && this.script.uid === this.$vxm.user.uid?.toString();
     }
 
     async toggleFavorite() {

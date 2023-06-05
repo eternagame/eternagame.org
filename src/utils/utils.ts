@@ -154,7 +154,8 @@ export default {
   },
   nonPaginationQueryChanged(
     query: Route['query'],
-    oldQuery: Route['query']
+    oldQuery: Route['query'],
+    includeCur = true
   ) {
     const shallowEqual = <T>(a: T[], b: T[]) => {
       if (a === b) {
@@ -171,8 +172,16 @@ export default {
     const keys = [...new Set([...Object.keys(query), ...Object.keys(oldQuery)])];
 
     return keys.some((key) => {
-      // Size and skip should NOT trigger a re-fetch in FetchMixin, as paginator takes care of those
-      if (key === 'size' || key === 'skip') return false;
+      // Size and skip should NOT trigger a re-fetch in FetchMixin, as paginator takes care of those,
+      // and cur should not either as that is purely state tracking for next reload
+      if (
+        key === 'size'
+        || key === 'skip'
+        || key === 'curFrom'
+        || (includeCur && key === 'cur')
+      ) {
+        return false;
+      }
 
       const val = query[key];
       const oldVal = oldQuery[key];

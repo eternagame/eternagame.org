@@ -40,7 +40,6 @@
     }
 
     async onCheck() {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const {[this.paramName]: oldParam, skip: oldSkip, ...query} = this.$route.query;
       const filter = this.selected.join(',');
       this.$router.replace({

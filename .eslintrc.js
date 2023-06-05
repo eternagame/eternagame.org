@@ -23,6 +23,7 @@ module.exports = {
     "no-use-before-define": "off",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["error"],
+    "@typescript-eslint/no-unused-vars": ['warn', {ignoreRestSiblings: true}]
   },
   parserOptions: {
     parser: '@typescript-eslint/parser',

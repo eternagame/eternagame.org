@@ -169,7 +169,6 @@
       }
 
       this.currentlyRouting = true;
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const {size: oldSize, skip: oldSkip, ...query} = this.$route.query;
       this.$router[resolvedAction]({
         name: this.$route.name!,

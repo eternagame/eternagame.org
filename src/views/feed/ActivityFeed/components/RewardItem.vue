@@ -26,7 +26,6 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import SmartLink from '@/components/Common/SmartLink.vue';
   import {RewardNotificationItem} from '@/types/common-types';
-  import { PUZZLE_ROUTE_BROWSE_PREFIX, PUZZLE_ROUTE_PREFIX } from '@/utils/constants';
   import MessageThread from './MessageThread.vue';
 
   @Component({
@@ -36,11 +35,11 @@
     @Prop({ required: true }) readonly reward!: RewardNotificationItem;
 
     get link() {
-      return `${PUZZLE_ROUTE_BROWSE_PREFIX}${this.reward.field_reward_puzzle_nid_value}/?filter1=Id&filter1_arg1=${this.reward.field_reward_solution_nid_value}&filter1_arg2=${this.reward.field_reward_solution_nid_value}`;
+      return `/puzzles/${this.reward.field_reward_puzzle_nid_value}/browse?filter1=Id&filter1_arg1=${this.reward.field_reward_solution_nid_value}&filter1_arg2=${this.reward.field_reward_solution_nid_value}`;
     }
 
     get puzzleLink() {
-      return `${PUZZLE_ROUTE_PREFIX}/${this.reward.field_reward_solution_nid_value}`;
+      return `/puzzles/${this.reward.field_reward_puzzle_nid_value}/play`;
     }
 
     get isVote() {

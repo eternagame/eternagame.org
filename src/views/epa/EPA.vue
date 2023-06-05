@@ -75,7 +75,7 @@
               type="submit"
               variant="primary"
               class="submit-button"
-              :href="`/groups/10246970`"
+              :to="`/groups/10246970`"
               size="lg"
             >
               {{ 'Join Now!' }}

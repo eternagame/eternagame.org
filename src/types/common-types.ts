@@ -190,6 +190,7 @@ export interface Puzzle {
   folder: string | null;
   "made-by-player": string;
   type: string;
+  "rscript": string | null,
   // Format of this stuff is a bit wacky, a bunch of it is specific to EternaJS, and we don't use it
   // anyways, so let's just leave them excluded unless we really need them for some reason.
   // "locks": null,
@@ -199,7 +200,6 @@ export interface Puzzle {
   // "scoring": null,
   // "tutorial-level": "123",
   // "ui-specs": ""
-  // "rscript": null,
   // "solved-by-bot": null,
   // "object": null,
   // "annotations": null,

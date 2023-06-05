@@ -89,9 +89,8 @@ export default {
         if (currentPuzzle) return `/puzzles/${currentPuzzle}`;
         return '/puzzles/?search=switch&switch=checked&sort=date';
       case 'side_quest_create_a_puzzle':
-        return `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`;
+        return '/puzzles/create';
       case 'side_quest_create_a_tutorial':
-        // return "https://eternagame.org/game/puzzlemaker/"
         return 'https://docs.google.com/document/d/1m9vkiZO9_MslT1qOXGpsfvKyCtWLLJcsW0BIbCZgHu8';
       case 'side_quest_create_a_script':
         return `/scripts/create`;
@@ -118,7 +117,7 @@ export default {
       case 'side_quest_switch_puzzles':
         return '/puzzles/?search=switch&switch=checked&sort=date';
       case 'side_quest_create_a_puzzle':
-        return `${process.env.VUE_APP_API_BASE_URL}/game/puzzlemaker/`;
+        return '/puzzles/create';
       case 'side_quest_create_a_tutorial':
         return 'https://docs.google.com/document/d/1m9vkiZO9_MslT1qOXGpsfvKyCtWLLJcsW0BIbCZgHu8';
       case 'side_quest_create_a_script':
@@ -154,7 +153,8 @@ export default {
   },
   nonPaginationQueryChanged(
     query: Route['query'],
-    oldQuery: Route['query']
+    oldQuery: Route['query'],
+    includeCur = true
   ) {
     const shallowEqual = <T>(a: T[], b: T[]) => {
       if (a === b) {
@@ -171,8 +171,16 @@ export default {
     const keys = [...new Set([...Object.keys(query), ...Object.keys(oldQuery)])];
 
     return keys.some((key) => {
-      // Size and skip should NOT trigger a re-fetch in FetchMixin, as paginator takes care of those
-      if (key === 'size' || key === 'skip') return false;
+      // Size and skip should NOT trigger a re-fetch in FetchMixin, as paginator takes care of those,
+      // and cur should not either as that is purely state tracking for next reload
+      if (
+        key === 'size'
+        || key === 'skip'
+        || key === 'curFrom'
+        || (includeCur && key === 'cur')
+      ) {
+        return false;
+      }
 
       const val = query[key];
       const oldVal = oldQuery[key];

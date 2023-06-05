@@ -15,7 +15,7 @@
             type="submit"
             variant="primary"
             class="submit-button"
-            :href="`${puzzleRoute}${puzzle.id}/`"
+            :to="`/puzzles/${puzzle.id}/play`"
           >
             {{ $t('puzzle-view:main-action') }}
           </b-button>
@@ -70,7 +70,7 @@
             type="submit"
             variant="primary"
             class="submit-button"
-            :href="`/puzzles/${nid}/edit`"
+            :to="`/puzzles/${nid}/edit`"
           >
             {{ $t('edit-puzzle-title-description') }}
           </b-button>
@@ -80,12 +80,12 @@
             type="submit"
             variant="primary"
             class="submit-button"
-            :href="`${tutorialRoute}${nid}`"
+            :to="`/puzzles/${nid}/edit-tutorial`"
           >
             {{ $t('edit-puzzle-tutorial') }}
           </b-button>
         </div>
-        <FollowPanel class="submit-button" :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="editRights && isInSidebar" />
+        <FollowPanel class="submit-button" :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="isInSidebar" />
       </div>
       <!-- <TagsPanel :tags="['#SRP', '#easy']" :isInSidebar="isInSidebar" /> -->
     </template>
@@ -99,7 +99,6 @@
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import TagsPanel from '@/components/Sidebar/TagsPanel.vue';
   import Utils from '@/utils/utils';
-  import { PUZZLE_ROUTE_PREFIX, PUZZLE_ROUTE_TUTORIAL_PREFIX } from '@/utils/constants';
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
   import FetchMixin from '@/mixins/FetchMixin';
@@ -117,11 +116,6 @@
     },
   })
   export default class PuzzleView extends Mixins(FetchMixin) {
-
-    puzzleRoute: string = PUZZLE_ROUTE_PREFIX;
-
-    tutorialRoute: string = PUZZLE_ROUTE_TUTORIAL_PREFIX;
-
     editRights: boolean = false;
 
     puzzle: Puzzle | null = null;

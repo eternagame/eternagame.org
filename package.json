@@ -90,7 +90,8 @@
     "vuex-class": "^0.3.2",
     "vuex-class-component": "^2.3.5",
     "vuex-router-sync": "^5.0.0",
-    "webpack-hot-middleware": "^2.25.0"
+    "webpack-hot-middleware": "^2.25.0",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",

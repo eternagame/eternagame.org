@@ -77,7 +77,24 @@
 
     @Prop({ default: 18 }) defaultIncrement!: number;
 
-    firstLoaded = 0;
+    private firstLoadedNum = 0;
+
+    get firstLoaded() {
+      return this.firstLoadedNum;
+    }
+
+    set firstLoaded(val: number) {
+      this.firstLoadedNum = val;
+      const {curFrom: oldCurFrom, ...query} = this.$route.query;
+      this.$router.replace({
+        name: this.$route.name!,
+        query: {
+          ...query,
+          ...(val !== 0 ? {curFrom: val.toString()} : {})
+        },
+        params: { keepScroll: 'true' }
+      });
+    }
 
     loadedCount = 0;
 
@@ -87,7 +104,10 @@
 
     created() {
       if (this.pagesEnabled && this.$route.query.skip && +this.$route.query.skip % this.increment !== 0) {
-        this.updateQuery(Math.ceil(+this.$route.query.skip / this.increment) * this.increment, 'replace');
+        // this.updateQuery(Math.ceil(+this.$route.query.skip / this.increment) * this.increment, 'replace');
+        this.loadPage(Math.ceil(+this.$route.query.skip / this.increment));
+      } else if (this.$route.query.skip || this.$route.query.cur || this.$route.query.curFrom) {
+        this.loadPageFrom((+this.$route.query.curFrom || 0) + (+this.$route.query.cur || 0));
       }
       this.firstLoaded = +this.$route.query.skip || 0;
       this.loadedCount = this.increment;
@@ -104,17 +124,17 @@
     @Watch('$route.query')
     async fetchForNewQuery(query: Route['query'], oldQuery: Route['query']) {
       if (utils.nonPaginationQueryChanged(query, oldQuery)) {
-        // If the query has changed in some way excluding the size and skip params, FetchMixin
+        // If the query has changed in some way excluding pagination-related params, FetchMixin
         // will cause data to be reloaded as if it was the first visit to the page
         this.firstLoaded = +this.$route.query.skip || 0;
         this.loadedCount = this.increment;
-      } else if (!this.currentlyRouting) {
-        // If $route.query changed but no non-pagination property changed, that means ONLY
-        // pagination properties changed. If this didn't occur because we triggered a re-route
-        // (in which case we've fetched the new data we wanted), that means something else like
-        // the user using the forward/back navigation caused this, in which case we want to treat
-        // this as if the user navigated there the first time
-        this.$emit('load', {mode: 'replace', size: +query.size, skip: +query.skip});
+      } else if (!utils.nonPaginationQueryChanged(query, oldQuery, false) && !this.currentlyRouting) {
+        // $route.query changed, but it was ONLY a parameter managed by this component. If this
+        // didn't occur because we triggered a re-route (in which case we've fetched the new data
+        // we wanted), that means something else like the user using the forward/back navigation
+        // caused this, in which case we want to treat this as if the user navigated there the
+        // first time
+        this.$emit('load', {mode: 'replace', size: +query.size || this.increment, skip: +query.skip || 0});
       }
     }
 
@@ -146,6 +166,13 @@
       this.updateQuery(skip, 'push');
     }
 
+    loadPageFrom(skip: number) {
+      this.$emit('load', {mode: 'replace', size: this.increment, skip});
+      this.firstLoaded = skip;
+      this.loadedCount = this.increment;
+      this.updateQuery(skip, 'push');
+    }
+
     /**
      * Update the size and skip query params
      *
@@ -169,7 +196,6 @@
       }
 
       this.currentlyRouting = true;
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const {size: oldSize, skip: oldSkip, ...query} = this.$route.query;
       this.$router[resolvedAction]({
         name: this.$route.name!,

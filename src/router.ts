@@ -67,14 +67,46 @@ export default function createRouter() {
         component: () => import('./views/puzzles/PuzzlesExplore/PuzzlesExplore.vue'),
       },
       {
+        path: '/puzzles/create',
+        name: 'puzzle-create',
+        component: () => import('./views/puzzles/PuzzleMaker/PuzzleMaker.vue'),
+        meta: {
+          hideNav: true
+        }
+      },
+      {
         path: '/puzzles/:id',
         name: 'puzzle-view',
         component: () => import('./views/puzzles/PuzzleView/PuzzleView.vue'),
       },
       {
+        path: '/puzzles/:id/play',
+        name: 'puzzle-play',
+        component: () => import('./views/puzzles/PuzzlePlay/PuzzlePlay.vue'),
+        meta: {
+          hideNav: true
+        }
+      },
+      {
+        path: '/puzzles/:id/browse',
+        name: 'puzzle-browse',
+        component: () => import('./views/puzzles/PuzzleBrowse/PuzzleBrowse.vue'),
+        meta: {
+          hideNav: true
+        }
+      },
+      {
         path: '/puzzles/:id/edit',
         name: 'puzzle-edit',
         component: () => import('./views/puzzles/PuzzleEdit/PuzzleEdit.vue'),
+      },
+      {
+        path: '/puzzles/:id/edit-tutorial',
+        name: 'puzzle-edit-tutorial',
+        component: () => import('./views/puzzles/PuzzleTutorialEdit/PuzzleTutorialEdit.vue'),
+        meta: {
+          hideNav: true
+        }
       },
       {
         path: '/',

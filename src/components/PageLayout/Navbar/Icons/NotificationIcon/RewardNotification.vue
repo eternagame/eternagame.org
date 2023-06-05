@@ -5,7 +5,6 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { RewardNotificationItem } from '@/types/common-types';
-  import { PUZZLE_ROUTE_BROWSE_PREFIX } from '@/utils/constants';
   import BaseNotification from './BaseNotification.vue';
 
   @Component({
@@ -23,7 +22,7 @@
     }
 
     get link() {
-      return `${PUZZLE_ROUTE_BROWSE_PREFIX}${this.reward.field_reward_puzzle_nid_value}/?filter1=Id&filter1_arg1=${this.reward.field_reward_solution_nid_value}&filter1_arg2=${this.reward.field_reward_solution_nid_value}`;
+      return `/puzzles/${this.reward.field_reward_puzzle_nid_value}/browse?filter1=Id&filter1_arg1=${this.reward.field_reward_solution_nid_value}&filter1_arg2=${this.reward.field_reward_solution_nid_value}`;
     }
 
     private get isVote() {

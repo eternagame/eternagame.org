@@ -12,7 +12,7 @@
       <h1 class="banner-title">{{ $t('puzzle-slide::puzzle-of-week') }}</h1>
       <h2 class="banner-subtitle ">{{ title }}</h2>
 
-      <b-button variant="primary" class="enter-lab" size="lg" :href="`/puzzles/${nid}`">
+      <b-button variant="primary" class="enter-lab" size="lg" :to="`/puzzles/${nid}`">
         {{ $t('puzzle-slide:solve-now') }}
       </b-button>
       <router-link class="d-none d-sm-block" to="/puzzles/?search=:POTW">

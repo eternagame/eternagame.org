@@ -77,7 +77,7 @@
                 type="submit"
                 variant="primary"
                 class="submit-button"
-                :href="`/collections/${nid}/edit`"
+                :to="`/collections/${nid}/edit`"
               >
                 {{ 'Edit' }}
               </b-button>

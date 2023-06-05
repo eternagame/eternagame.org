@@ -67,7 +67,7 @@
         'puzzle-maker': `/puzzles/create`,
         'puzzle-maker-2-states': '/puzzles/create?states=2',
         'puzzle-maker-3-states': '/puzzles/create?states=3',
-        scripts: `${process.env.VUE_APP_API_BASE_URL}/web/script/`,
+        scripts: `/scripts`,
       },
       learn: {
         'quick-help': '/help',

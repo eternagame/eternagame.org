@@ -214,6 +214,31 @@ export default function createRouter() {
         component: () => import('./views/players/LeaderBoard/LeaderBoard.vue'),
       },
       {
+        path: '/scripts',
+        name: 'script-list',
+        component: () => import('./views/scripts/ScriptExplore/ScriptExplore.vue'),
+      },
+      {
+        path: '/scripts/docs',
+        name: 'script-docs',
+        component: () => import('./views/scripts/ScriptDocs/ScriptDocs.vue'),
+      },
+      {
+        path: '/scripts/create',
+        name: 'script-create',
+        component: () => import('./views/scripts/ScriptEdit/ScriptEdit.vue'),
+      },
+      {
+        path: '/scripts/:id',
+        name: 'script-view',
+        component: () => import('./views/scripts/ScriptView/ScriptView.vue'),
+      },
+      {
+        path: '/scripts/:id/edit',
+        name: 'script-edit',
+        component: () => import('./views/scripts/ScriptEdit/ScriptEdit.vue'),
+      },
+      {
         path: '/lost',
         name: 'not-found',
         component: () => import('./views/lost/NotFound.vue'),

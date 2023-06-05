@@ -93,7 +93,7 @@ export default {
       case 'side_quest_create_a_tutorial':
         return 'https://docs.google.com/document/d/1m9vkiZO9_MslT1qOXGpsfvKyCtWLLJcsW0BIbCZgHu8';
       case 'side_quest_create_a_script':
-        return `${process.env.VUE_APP_API_BASE_URL}/web/script/create/`;
+        return `/scripts/create`;
       case 'side_quest_covid19_potd':
         return '/collections/11331942';
       case 'side_quest_eterna3d_expo':
@@ -121,7 +121,7 @@ export default {
       case 'side_quest_create_a_tutorial':
         return 'https://docs.google.com/document/d/1m9vkiZO9_MslT1qOXGpsfvKyCtWLLJcsW0BIbCZgHu8';
       case 'side_quest_create_a_script':
-        return `${process.env.VUE_APP_API_BASE_URL}/web/script/`;
+        return `/scripts/`;
       case 'side_quest_covid19_potd':
         return '/collections/11331942';
       case 'side_quest_eterna3d_expo':

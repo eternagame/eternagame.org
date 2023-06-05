@@ -450,7 +450,7 @@
         imgAlt: "lightning bolt",
         header: "about:section7-header2",
         details: "about:section7-header2-details",
-        link: `${process.env.VUE_APP_API_BASE_URL}/web/script/`
+        link: `/scripts`
       },
       {
         imgRef: "about/about-section-4-3.png",

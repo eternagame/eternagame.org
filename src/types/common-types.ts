@@ -510,3 +510,51 @@ export function isPMNotiItem(notification: NotificationItem): notification is Pr
 export function isCommentNotiItem(notification: NotificationItem): notification is CommentNotificationItem {
   return isDirectedNotificationItem(notification) && ( notification.message[0].type === NotificationMessageType.COMMENT);
 }
+
+export interface ScriptItem {
+  commentcounts: string;
+  nid: string;
+  title: string;
+  uid: string;
+  created: string;
+  body: string;
+  type: string;
+  is_private: string;
+  is_favorite: string;
+  is_trusted: string;
+  author: {
+    uid: string;
+    name: string;
+  }
+  created_number: string;
+}
+
+export interface ScriptListResponse {
+  lists: ScriptItem[];
+  total_script: string;
+}
+
+export interface Script {
+  nid: string;
+  uid: string;
+  title: string;
+  time: string;
+  source: string;
+  input: string;
+  type: string;
+  pageview: string;
+  body: string;
+  is_private: string;
+  is_favorite: string;
+  agreed_to_run: string;
+  is_trusted: string;
+  author: {
+    uid: string;
+    name: string;
+  }
+}
+
+export interface ScriptResponse {
+  script: [Script];
+  comments: CommentItem[];
+}

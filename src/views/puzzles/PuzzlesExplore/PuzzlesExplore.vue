@@ -170,6 +170,7 @@
       const res = (await this.$http.get(ROUTE, {
         params,
       })).data.data as PuzzleList;
+      this.cleared = res.cleared || [];
       // We calculated the cleared status ahead of time for performance
       if (mode === 'replace') this.puzzles = res.puzzles.map((puz) => ({...puz, cleared: this.puzzleCleared(puz.id)}));
       else {
@@ -180,7 +181,6 @@
         if (mode === 'prepend') this.puzzles.unshift(...newPuzzles);
       }
       this.total = +res.num_puzzles;
-      this.cleared = res.cleared || [];
     }
 
     puzzleCleared(id: string) {

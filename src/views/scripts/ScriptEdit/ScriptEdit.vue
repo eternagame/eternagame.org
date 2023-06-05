@@ -227,6 +227,13 @@
       <body>
           <div id="result"></div>
           <${'script'}>
+            DataManager.stash_data({user: {
+              uid: ${this.$vxm.user.uid},
+              name: ${JSON.stringify(this.$vxm.user.username)},
+              rank: ${this.$vxm.user.rank},
+              points: ${this.$vxm.user.points}
+            }});
+            Application.on_initialize();
             const inputs = ScriptInterface.codify_input(${JSON.stringify(this.inputs)});
             const code = ScriptInterface.insert_timeout(${JSON.stringify(this.source)}, ${this.timeout})
             const result = ScriptInterface.evaluate(inputs+code);

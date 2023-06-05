@@ -33,6 +33,10 @@ export default function createUserStore($http: AxiosInstance) {
 
     public newAchievements: RefreshAchievement[] = [];
 
+    public rank: number = 0;
+
+    public points: number = 0;
+
     @mutation showResetCompleteModal() {}
 
     @action() async logout() {
@@ -104,6 +108,8 @@ export default function createUserStore($http: AxiosInstance) {
         this.hasLabAccess = Boolean(Number(userDetails.is_lab_member));
         this.isAdmin = userDetails.is_admin;
         this.surveyRecord = userDetails.Survey;
+        this.points = +userDetails.points;
+        this.rank = userDetails.rank;
         this.userDetailsLoaded = true;
       } else {
         throw new Error(`Authentication response malformed: ${data}`);

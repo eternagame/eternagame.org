@@ -178,6 +178,13 @@
       <body>
           <div id="result"></div>
           <${'script'}>
+            DataManager.stash_data({user: {
+              uid: ${this.$vxm.user.uid},
+              name: ${JSON.stringify(this.$vxm.user.username)},
+              rank: ${this.$vxm.user.rank},
+              points: ${this.$vxm.user.points}
+            }});
+            Application.on_initialize();
             ScriptInterface.evaluate_script_with_nid(${this.$route.params.id}, ${JSON.stringify(Object.fromEntries(this.inputs.map(input => [input.value, input.val])))}, function(result) {
               Pervasives.outln("<br>Return : " + result['cause'])
               Pervasives.outln("Evaluation time : " + result['eval_time']/1000 + " sec")

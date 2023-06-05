@@ -1,5 +1,6 @@
 export interface UserData {
   points: string;
+  rank: number;
   synths: string;
   uid: string;
   created: string;

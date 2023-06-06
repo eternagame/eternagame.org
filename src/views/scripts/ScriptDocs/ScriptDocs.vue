@@ -292,6 +292,11 @@
           <p>Returns: the name of the currently selected folding engine (only available in labs)</p>
         </li>
         <li>
+          <code>get_puzzle_id()</code>
+          <p>Parameters: none</p>
+          <p>Returns: a number, the currently loaded puzzle ID</p>
+        </li>
+        <li>
           <code>get_custom_numbering_to_index()</code>
           <p>Parameters: none</p>
           <p>Returns: for puzzles that have custom base numbering, an array mapping the custom base number to the original base index</p>

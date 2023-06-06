@@ -28,10 +28,10 @@
 
     <b-card class="mt-4">
       <template v-for="input in inputs">
-        <div :key="input.value">
-          <label :for="`script-input-${input.value}`" style="width: 100%;">
-            <div class="mb-1">{{ input.value }}</div>
-            <textarea :id="`script-input-${input.value}`" style="width:100%; height: 40px;" v-model="input.val"></textarea>
+        <div :key="input.name">
+          <label :for="`script-input-${input.name}`" style="width: 100%;">
+            <div class="mb-1">{{ input.name }}</div>
+            <textarea :id="`script-input-${input.name}`" style="width:100%; height: 40px;" v-model="input.value"></textarea>
             <b-btn variant="danger" size="sm" class="mt-1" @click="removeInput(input)">Remove Input</b-btn>
           </label>
         </div>
@@ -78,7 +78,7 @@
   import Utils from '@/utils/utils';
   import CodeMirror from '../components/CodeMirror.vue';
 
-  interface ScriptInput { value: string; val: string; }
+  interface ScriptInput { name: string; value: string; }
 
   @Component({
     components: {
@@ -139,7 +139,7 @@
         }
         this.type = script.type;
         this.source = script.source;
-        this.inputs = JSON.parse(script.input).map((input: {value: string}) => ({value: input.value, val: ''}));
+        this.inputs = JSON.parse(script.input).map((input: {value: string}) => ({name: input.value, value: ''}));
         this.body = script.body;
         this.title = script.title;
         this.private = script.is_private === '1';
@@ -156,7 +156,7 @@
 
     addInput() {
       if (!this.newInput) return;
-      this.inputs.push({value: this.newInput, val: ''});
+      this.inputs.push({name: this.newInput, value: ''});
       this.newInput = '';
     }
 
@@ -177,7 +177,7 @@
         script_type: this.type,
         is_private: this.private ? 'true' : 'false',
         source: this.source,
-        input: JSON.stringify(this.inputs.map(input => ({value: input.value}))),
+        input: JSON.stringify(this.inputs.map(input => ({value: input.name}))),
         description: this.body,
         ...(this.$route.params.id ? {parent_nid: this.$route.params.id} : {}),
       }));
@@ -238,7 +238,7 @@
               count_new_notifications: function() { return '0'; }
             };
             Application.on_initialize();
-            const inputs = ScriptInterface.codify_input(${JSON.stringify(this.inputs)});
+            const inputs = ScriptInterface.codify_input(${JSON.stringify(this.inputs.map((input) => ({value: input.name, val: input.value.replaceAll('\\', '\\\\').replaceAll('\n', '\\n')})))});
             const code = ScriptInterface.insert_timeout(${JSON.stringify(this.source)}, ${this.timeout})
             const result = ScriptInterface.evaluate(inputs+code);
             Pervasives.outln("<br>Return : " + result['cause'])

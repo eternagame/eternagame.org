@@ -9,10 +9,10 @@
 
     <b-card class="mt-4" v-if="script.type === 'Etc'">
       <template v-for="input in inputs">
-        <div :key="input.value">
-          <label :for="`script-input-${input.value}`" style="width: 100%;">
-            <div class="mb-1">{{ input.value }}</div>
-            <textarea :id="`script-input-${input.value}`" style="width:100%; height: 40px;" v-model="input.val"></textarea>
+        <div :key="input.name">
+          <label :for="`script-input-${input.name}`" style="width: 100%;">
+            <div class="mb-1">{{ input.name }}</div>
+            <textarea :id="`script-input-${input.name}`" style="width:100%; height: 40px;" v-model="input.value"></textarea>
           </label>
         </div>
       </template>
@@ -91,7 +91,7 @@
   export default class ScriptView extends Mixins(FetchMixin) {
     script: Script | null = null;
 
-    inputs: {value: string; val: string}[] = [];
+    inputs: {name: string; value: string}[] = [];
 
     comments: CommentItem[] = [];
 
@@ -109,7 +109,7 @@
       ).data.data as ScriptResponse;
       // eslint-disable-next-line prefer-destructuring
       this.script = res.script[0];
-      this.inputs = JSON.parse(this.script.input).map((input: {value: string}) => ({value: input.value, val: ''}));
+      this.inputs = JSON.parse(this.script.input).map((input: {value: string}) => ({name: input.value, value: ''}));
       this.comments = res.comments;
     }
 
@@ -193,7 +193,7 @@
               count_new_notifications: function() { return '0'; }
             };
             Application.on_initialize();
-            ScriptInterface.evaluate_script_with_nid(${this.$route.params.id}, ${JSON.stringify(Object.fromEntries(this.inputs.map(input => [input.value, input.val])))}, function(result) {
+            ScriptInterface.evaluate_script_with_nid(${this.$route.params.id}, ${JSON.stringify(Object.fromEntries(this.inputs.map(input => [input.name, input.value.replaceAll('\\', '\\\\').replaceAll('\n', '\\n')])))}, function(result) {
               Pervasives.outln("<br>Return : " + result['cause'])
               Pervasives.outln("Evaluation time : " + result['eval_time']/1000 + " sec")
             });

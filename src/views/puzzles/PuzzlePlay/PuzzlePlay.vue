@@ -73,8 +73,8 @@
       if (this.$vxm.user.uid) {
         const puzzleRes = (await this.$http.get(`/get/?type=puzzle&nid=${nid}`)).data.data as PuzzleResponse;
         if (puzzleRes.puzzle.type === 'Challenge') {
-          const solutions = (await this.$http.get(`/get/?type=solutions&puznid=${nid}&uid=${this.$vxm.user.uid}`)).data.data.solutions as {sequence: string}[];
-          sequence = solutions[0]?.sequence;
+          const solutions = (await this.$http.get(`/get/?type=solutions&puznid=${nid}&uid=${this.$vxm.user.uid}`)).data.data.solutions as {sequence: string}[] | null | undefined;
+          sequence = solutions?.[0]?.sequence || null;
         }
       }
 

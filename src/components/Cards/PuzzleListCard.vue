@@ -4,7 +4,7 @@
     class="player-card"
     role="button"
   >
-    <td style="shrink">
+    <td style="shrink" v-if="!compact">
       <img class="player-image" :src="imageURL" alt="" />
     </td>
     <td>
@@ -13,7 +13,7 @@
       </div>
     </td>
 
-    <td>
+    <td v-if="!compact">
       <div v-if="stateCount > 1 || is3d">
         <StateCounter
           v-if="stateCount > 1"
@@ -27,7 +27,7 @@
       </div>
     </td>
 
-    <td>
+    <td v-if="!compact">
       <div v-if="folder" v-b-tooltip.hover title="Folding engine" style="white-space: nowrap;">
         <img
           src="@/assets/chemical_bond.svg"
@@ -41,11 +41,13 @@
 
     <td
       v-if="
-        numSynths ||
-        numSlots ||
-        numSubmitted !== undefined ||
-        mySolutions !== undefined ||
-        maxSubmissions
+        (
+          numSynths ||
+          numSlots ||
+          numSubmitted !== undefined ||
+          mySolutions !== undefined ||
+          maxSubmissions
+        ) && !compact
       "
     >
       <div v-if="numSynths" v-b-tooltip.hover title="Number synthesized" style="white-space: nowrap;">
@@ -82,7 +84,7 @@
       </div>
     </td>
 
-    <td v-if="reward || (username && madeByPlayer) || numCleared !== undefined">
+    <td v-if="!compact && (reward || (username && madeByPlayer) || numCleared !== undefined)">
       <div v-if="username && madeByPlayer" v-b-tooltip.hover title="Author" style="white-space: nowrap;">
         <img
           style="width: 15px; margin: auto"
@@ -175,6 +177,11 @@
 
     get stateCount() {
       return this.states ?? this.number_of_states ?? 1;
+    }
+
+    get compact() {
+      // Compact view, specifically implemented for Jieux :)
+      return this.$route.query.compact_puzzles || false;
     }
   }
 </script>

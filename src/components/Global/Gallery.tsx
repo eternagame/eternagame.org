@@ -22,15 +22,6 @@ export default class Gallery extends Vue {
   }
 
   private scrollHandler() {
-    /*
-    const scrollTrigger =
-      document.documentElement.offsetHeight - (document.documentElement.scrollTop + window.innerHeight)
-      <= window.innerHeight * 3;
-
-    if (scrollTrigger && this.scrollEnabled && this.hasMore && !this.loading) {
-      this.loadNext();
-    }
-    */
    const children = this.$vnode.componentInstance?.$children || [];
    const firstRowChild = children[0];
    const firstTop = firstRowChild?.$el.getBoundingClientRect().top || 0;
@@ -62,7 +53,7 @@ export default class Gallery extends Vue {
         ...(cur !== 0 ? {cur: cur.toString()} : {})
       },
       params: { keepScroll: 'true' }
-    });
+    }).catch(e => e);
    }
   }
 

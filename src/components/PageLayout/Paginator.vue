@@ -93,7 +93,7 @@
           ...(val !== 0 ? {curFrom: val.toString()} : {})
         },
         params: { keepScroll: 'true' }
-      });
+      }).catch(e => e);
     }
 
     loadedCount = 0;
@@ -205,7 +205,7 @@
           skip: skip.toString(),
         },
         params: { keepScroll: 'true' }
-      }).finally(() => {
+      }).catch(e => e).finally(() => {
         this.currentlyRouting = false;
       });
     }

@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row justify-content-between">
           <div class="col-9 p-0">
-            <div>
+            <div style="margin: 0.4rem 0;">
               <h3 class="p-0 card-title mr-2" style="display: inline">{{ title }}</h3>
               <div class="text-muted" style="display: inline">{{ type }}</div>
             </div>

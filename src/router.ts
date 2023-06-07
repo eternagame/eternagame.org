@@ -337,8 +337,10 @@ export default function createRouter() {
     },
   });
 
+  let lastIntendedRoute: Route | null = null;
 
   router.beforeEach(async (to: Route, from: Route, next: RouteCallback<any>) => {
+    lastIntendedRoute = to;
     const userStore = router.app.$vxm.user;
     if (window.localStorage.getItem('loggedIn') === 'true' && !userStore.triedAuthenticating) {
       await userStore.authenticate();
@@ -352,6 +354,22 @@ export default function createRouter() {
   router.afterEach(() => {
     // @ts-ignore
     gtag('config', 'UA-17383892-2');
+  });
+
+  router.onError((err) => {
+    console.log('onError', lastIntendedRoute, err);
+
+    // If the route attempts to import a chunk that doesn't exist, almost certainly this is due to
+    // the app having been updated (causing the chunks to have different hashes).
+    // Instead of trying to load the new page in-code, do a full page load of the new page so
+    // that we get the latest code
+    if (err.name === 'ChunkLoadError') {
+      if (lastIntendedRoute) {
+        window.location.replace(lastIntendedRoute.fullPath);
+      } else {
+        window.location.reload();
+      }
+    }
   });
 
   return router;

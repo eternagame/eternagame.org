@@ -1,20 +1,15 @@
 <template>
   <EternaPage :title="$t('nav-bar:groups')">
-    <div v-if="fetchState.firstFetchComplete">
-      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-        <Gallery>
-          <GroupCard
-            v-for="group in groups"
-            :key="group.nid"
-            v-bind="group"
-            :joined="groupJoined(group.nid)"
-          />
-        </Gallery>
-      </Paginator>
-    </div>
-    <div v-else>
-      <Preloader />
-    </div>
+    <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+      <Gallery>
+        <GroupCard
+          v-for="group in groups"
+          :key="group.nid"
+          v-bind="group"
+          :joined="groupJoined(group.nid)"
+        />
+      </Gallery>
+    </Paginator>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
         v-if="isInSidebar"

@@ -1,15 +1,10 @@
 <template>
   <EternaPage :title="$t('news-explore:title')">
-    <div v-if="fetchState.firstFetchComplete">
-      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-        <Gallery :sm="12" :md="12">
-          <NewsCard v-for="article in newsItems" :key="article.nid" v-bind="article" />
-        </Gallery>
-      </Paginator>
-    </div>
-    <div v-else>
-      <Preloader />
-    </div>
+    <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+      <Gallery :sm="12" :md="12">
+        <NewsCard v-for="article in newsItems" :key="article.nid" v-bind="article" />
+      </Gallery>
+    </Paginator>
 
     <template #sidebar="{ isInSidebar }">
       <SearchPanel v-if="isInSidebar" :placeholder="$t('search:news')" :isInSidebar="isInSidebar" />

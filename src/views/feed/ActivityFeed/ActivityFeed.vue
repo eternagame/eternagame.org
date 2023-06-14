@@ -1,20 +1,15 @@
 <template>
   <EternaPage :title="$t('activity-feed:title')">
-    <div v-if="fetchState.firstFetchComplete">
-      <MessageCompose @submit-message="sentMessage" />
-      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-        <Gallery :sm="12" :md="12" style="margin-top:25px">
-          <ActivityCard
-            v-for="notification in notifications"
-            :key="notification.nid"
-            :notification="notification"
-          />
-        </Gallery>
-      </Paginator>
-    </div>
-    <div v-else>
-      <Preloader />
-    </div>
+    <MessageCompose @submit-message="sentMessage" />
+    <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+      <Gallery :sm="12" :md="12" style="margin-top:25px">
+        <ActivityCard
+          v-for="notification in notifications"
+          :key="notification.nid"
+          :notification="notification"
+        />
+      </Gallery>
+    </Paginator>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel v-if="isInSidebar" :isInSidebar="isInSidebar" />
       <DropdownSidebarPanel

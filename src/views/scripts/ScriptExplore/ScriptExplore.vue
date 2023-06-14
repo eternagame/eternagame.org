@@ -1,15 +1,10 @@
 <template>
   <EternaPage title="Scripts">
-    <div v-if="fetchState.firstFetchComplete">
-      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-        <Gallery :sm="12" :md="12">
-          <ScriptCard v-for="script in scripts" :key="script.nid" v-bind="script" />
-        </Gallery>
-      </Paginator>
-    </div>
-    <div v-else>
-      <Preloader />
-    </div>
+    <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+      <Gallery :sm="12" :md="12">
+        <ScriptCard v-for="script in scripts" :key="script.nid" v-bind="script" />
+      </Gallery>
+    </Paginator>
 
     <template #sidebar="{ isInSidebar }">
       <SearchPanel v-if="isInSidebar" :placeholder="$t('search:scripts')" :isInSidebar="isInSidebar" />

@@ -1,22 +1,17 @@
 <template>
   <EternaPage :title="$t('nav-bar:puzzles')">
-    <div v-if="fetchState.firstFetchComplete">
-      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-        <Gallery>
-          <PuzzleCard
-            v-for="puzzle in puzzles"
-            :key="puzzle.id"
-            :nid="puzzle.id"
-            v-bind="puzzle"
-            :madeByPlayer="puzzle['made-by-player'] !== '0'"
-            :is3d="puzzle['has3d'] === '1'"
-          />
-        </Gallery>
-      </Paginator>
-    </div>
-    <div v-else>
-      <Preloader />
-    </div>
+    <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+      <Gallery>
+        <PuzzleCard
+          v-for="puzzle in puzzles"
+          :key="puzzle.id"
+          :nid="puzzle.id"
+          v-bind="puzzle"
+          :madeByPlayer="puzzle['made-by-player'] !== '0'"
+          :is3d="puzzle['has3d'] === '1'"
+        />
+      </Gallery>
+    </Paginator>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
         v-if="isInSidebar"

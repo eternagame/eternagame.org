@@ -1,7 +1,7 @@
 <template>
   <EternaPage
     :title="title"
-    :header_date="created"
+    :header_date="createdAt"
     :header_title="$t('news-view:anouncements')"
   >
     <div v-if="fetchState.firstFetchComplete">
@@ -60,7 +60,7 @@
 
     body: string = '';
 
-    created: string = '';
+    createdAt: string = '';
 
     comments: CommentItem[] = [];
 
@@ -77,7 +77,7 @@
       this.nid = res.news.nid;
       this.title = res.news.title;
       this.body = res.news.body;
-      this.created = res.news.created;
+      this.createdAt = res.news.created;
       this.comments = res.comments;
     }
 

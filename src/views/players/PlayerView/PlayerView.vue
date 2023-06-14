@@ -118,7 +118,7 @@
           <hr class="top-border" />
           <h4 class="title">{{ $t('player-view:created-puzzles') }}</h4>
 
-          <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+          <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch" emitLoadOnCreated>
             <div class="page-content" style="overflow-x:auto;">
               <table style="width: 100%">
                 <tbody>
@@ -140,7 +140,7 @@
           <hr class="top-border" />
           <h4 class="title">{{ $t('player-view:cleared-puzzles') }}</h4>
 
-          <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+          <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch" emitLoadOnCreated>
             <div class="page-content" style="overflow-x:auto;">
               <table style="width: 100%">
                 <tbody>

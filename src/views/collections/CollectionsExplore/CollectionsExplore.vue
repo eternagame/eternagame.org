@@ -1,39 +1,33 @@
 <template>
-  <EternaPage v-if="fetchState.firstFetchComplete && collections" :title="$t('nav-bar:collections')"
->
-      <h3 :style="{ fontSize: '16px', fontWeight: 'bold' }">
-        {{ $t('collections-view:top-tip') }}
-      </h3>
+  <EternaPage :title="$t('nav-bar:collections')">
+    <h3 :style="{ fontSize: '16px', fontWeight: 'bold' }">
+      {{ $t('collections-view:top-tip') }}
+    </h3>
 
-      <QuestCarousel>
-        <SwiperSlide v-for="item in quests" :key="item.title">
-          <CollectionCard :key="item.title" :cleared="cleared" v-bind="item" />
-        </SwiperSlide>
-      </QuestCarousel>
+    <QuestCarousel>
+      <SwiperSlide v-for="item in quests" :key="item.title">
+        <CollectionCard :key="item.title" :cleared="cleared" v-bind="item" />
+      </SwiperSlide>
+    </QuestCarousel>
 
-      <h4
-        :style="{
-          fontSize: '16px',
-          fontWeight: 'bold',
-        }"
-      >
-        {{ $t('collections-view:section3') }}
-      </h4>
-      <div v-if="fetchState.firstFetchComplete">
-        <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-          <Gallery>
-            <CollectionCard
-              v-for="item in collections"
-              :key="item.title"
-              :cleared="cleared"
-              v-bind="item"
-            />
-          </Gallery>
-        </Paginator>
-      </div>
-    <div v-else>
-      <Preloader />
-    </div>
+    <h4
+      :style="{
+        fontSize: '16px',
+        fontWeight: 'bold',
+      }"
+    >
+      {{ $t('collections-view:section3') }}
+    </h4>
+    <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+      <Gallery>
+        <CollectionCard
+          v-for="item in collections"
+          :key="item.title"
+          :cleared="cleared"
+          v-bind="item"
+        />
+      </Gallery>
+    </Paginator>
 
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
@@ -67,7 +61,6 @@
       </b-button>
     </template>
   </EternaPage>
-    <Preloader v-else style="margin-top: 10rem" />
 </template>
 
 <script lang="ts">
@@ -86,7 +79,6 @@
   import Preloader from '@/components/PageLayout/Preloader.vue';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import {
-    CreatedCollection,
     CollectionItem,
     ClearedPuzzle,
     CollectionList,
@@ -140,8 +132,6 @@
     collections: CollectionItem[] = [];
 
     quests: CollectionItem[] = [];
-
-    created: CreatedCollection[] = [];
 
     cleared: ClearedPuzzle[] = [];
 
@@ -211,7 +201,6 @@
         break;
       }
       }
-      this.created = res[0].data.data.created || [];
 
       this.quests = (res[1].data.data.collections as CollectionItem[]).filter(q => q.achievement !== null);
       this.quests.forEach((c) => {

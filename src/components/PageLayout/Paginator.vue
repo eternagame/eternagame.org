@@ -77,6 +77,8 @@
 
     @Prop({ default: 18 }) defaultIncrement!: number;
 
+    @Prop({ default: false }) emitLoadOnCreated!: boolean;
+
     private firstLoadedNum = 0;
 
     get firstLoaded() {
@@ -108,11 +110,19 @@
       // (and the last item we saw, which we loaded at the top of the page, will be hidden)
       document.documentElement.scrollTop = 0;
 
+      // Note that we set emitLoad to false when updating the currently loaded content. That's because
+      // the page content hasn't loaded yet (Paginator created is called before FetchMixin mounted
+      // as long as the Paginator component is rendered on page load), so this avoids a duplicate
+      // request (and, in particular, a situation where we first load an invalid set of content
+      // because we haven't updated the URL with the proper parameters yet)
+      // FIXME: This doesn't work properly on a player's page, since the first content load has to happen
+      // before the paginator is rendered (due to the different tab types). Can we come up with a
+      // way to do this that doesn't require this component to be loaded? Maybe this logic should be in FetchMixin?
+      // Or maybe we should rely on the pagination vuex module somehow?
       if (this.pagesEnabled && this.$route.query.skip && +this.$route.query.skip % this.increment !== 0) {
-        // this.updateQuery(Math.ceil(+this.$route.query.skip / this.increment) * this.increment, 'replace');
-        this.loadPage(Math.ceil(+this.$route.query.skip / this.increment));
+        this.loadPage(Math.ceil(+this.$route.query.skip / this.increment), this.emitLoadOnCreated);
       } else if (this.$route.query.skip || this.$route.query.cur || this.$route.query.curFrom) {
-        this.loadPageFrom((+this.$route.query.curFrom || 0) + (+this.$route.query.cur || 0));
+        this.loadPageFrom((+this.$route.query.curFrom || 0) + (+this.$route.query.cur || 0), this.emitLoadOnCreated);
       }
       this.firstLoaded = +this.$route.query.skip || 0;
       this.loadedCount = this.increment;
@@ -163,16 +173,16 @@
       this.updateQuery(loadedWithSkipped, 'auto');
     }
 
-    loadPage(index: number) {
+    loadPage(index: number, emitLoad = true) {
       const skip = (index - 1) * this.increment;
-      this.$emit('load', {mode: 'replace', size: this.increment, skip});
+      if (emitLoad) this.$emit('load', {mode: 'replace', size: this.increment, skip});
       this.firstLoaded = skip;
       this.loadedCount = this.increment;
       this.updateQuery(skip, 'push');
     }
 
-    loadPageFrom(skip: number) {
-      this.$emit('load', {mode: 'replace', size: this.increment, skip});
+    loadPageFrom(skip: number, emitLoad = true) {
+      if (emitLoad) this.$emit('load', {mode: 'replace', size: this.increment, skip});
       this.firstLoaded = skip;
       this.loadedCount = this.increment;
       this.updateQuery(skip, 'push');

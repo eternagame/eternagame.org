@@ -1,15 +1,10 @@
 <template>
   <EternaPage :title="$t('nav-bar:labs')">
-    <div v-if="fetchState.firstFetchComplete">
-      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-        <Gallery>
-          <LabCard v-for="lab in labs" :key="lab.nid" :lab="lab" />
-        </Gallery>
-      </Paginator>
-    </div>
-    <div v-else>
-      <Preloader />
-    </div>
+    <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+      <Gallery>
+        <LabCard v-for="lab in labs" :key="lab.nid" :lab="lab" />
+      </Gallery>
+    </Paginator>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel v-if="isInSidebar" :placeholder="$t('search:labs')" :isInSidebar="isInSidebar" />
       <FiltersPanel :filters="filters" paramName="filters" :isInSidebar="isInSidebar" />

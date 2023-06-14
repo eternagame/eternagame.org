@@ -1,21 +1,16 @@
 <template>
   <EternaPage :title="$t('nav-bar:leaderboards')">
-    <div v-if="fetchState.firstFetchComplete">
-      <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-        <div class="page-content">
-          <table style="width: 100%">
-            <tbody>
-              <template v-for="(player, index) in users">
-                <PlayerCard :key="player.uid" :player="player" :index="index" />
-              </template>
-            </tbody>
-          </table>
-        </div>
-      </Paginator>
-    </div>
-    <div v-else>
-      <Preloader />
-    </div>
+    <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
+      <div class="page-content">
+        <table style="width: 100%">
+          <tbody>
+            <template v-for="(player, index) in users">
+              <PlayerCard :key="player.uid" :player="player" :index="index" />
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </Paginator>
     <template #sidebar="{ isInSidebar }">
       <SearchPanel
         v-if="isInSidebar"

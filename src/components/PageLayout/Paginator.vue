@@ -103,6 +103,11 @@
     private currentlyRouting = false;
 
     created() {
+      // Even though history.scrollRestoration is set to manual, when using browser's back button,
+      // the previous scroll position is set, which means we wind up scrolled down the page a bit
+      // (and the last item we saw, which we loaded at the top of the page, will be hidden)
+      document.documentElement.scrollTop = 0;
+
       if (this.pagesEnabled && this.$route.query.skip && +this.$route.query.skip % this.increment !== 0) {
         // this.updateQuery(Math.ceil(+this.$route.query.skip / this.increment) * this.increment, 'replace');
         this.loadPage(Math.ceil(+this.$route.query.skip / this.increment));

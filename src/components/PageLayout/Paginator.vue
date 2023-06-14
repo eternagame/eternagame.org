@@ -133,6 +133,7 @@
 
     mounted() {
       window.addEventListener('scroll', this.boundScrollHandler);
+      this.scrollHandler();
     }
 
     beforeDestroy() {
@@ -234,12 +235,19 @@
 
     private scrollHandler() {
       const scrollTrigger =
-        document.documentElement.offsetHeight - (document.documentElement.scrollTop + window.innerHeight)
+        (this.$el as HTMLElement).offsetHeight - (document.documentElement.scrollTop + window.innerHeight)
         <= window.innerHeight * 3;
 
       if (scrollTrigger && this.scrollEnabled && this.hasMore && !this.loading) {
         this.loadNext();
       }
+    }
+
+    @Watch('loading')
+    loadingChanged() {
+      // If our last load didn't give us enough content to maintain our desired amount of preloaded content
+      // (eg, if the user kept scrolling as we loaded), load more proactively
+      this.scrollHandler();
     }
 
     private boundScrollHandler = this.scrollHandler.bind(this);

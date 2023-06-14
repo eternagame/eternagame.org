@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="scrollEnabled && firstLoaded > 0" style="width: 100%; display: flex; justify-content: center;">
-      <Preloader v-if="loading" />
+      <Preloader v-if="loading && lastDirectionLoaded === 'top'" />
       <div v-else class="my-2">
         <b-btn
           variant="primary" :disabled="loading"
@@ -22,7 +22,8 @@
         </b-btn>
       </div>
     </div>
-    <slot></slot>
+    <slot v-if="!loading || lastDirectionLoaded !== 'reload'"></slot>
+    <Preloader v-if="loading && lastDirectionLoaded === 'reload'" />
     <div v-if="pagesEnabled">
       <b-pagination
         :disabled="loading"
@@ -37,7 +38,7 @@
       />
     </div>
     <div v-if="scrollEnabled && hasMore" style="width: 100%; display: flex; justify-content: center;">
-      <Preloader v-if="loading" />
+      <Preloader v-if="loading && lastDirectionLoaded === 'bottom'" />
       <b-btn
         v-else
         class="my-2"
@@ -80,6 +81,8 @@
     @Prop({ default: false }) emitLoadOnCreated!: boolean;
 
     private firstLoadedNum = 0;
+
+    lastDirectionLoaded: 'top' | 'bottom' | 'reload' = 'reload';
 
     get firstLoaded() {
       return this.firstLoadedNum;
@@ -159,6 +162,7 @@
       this.$emit('load', {mode: 'prepend', size: toLoad, skip});
       this.firstLoaded = skip;
       this.loadedCount += toLoad;
+      this.lastDirectionLoaded = 'top';
 
       this.updateQuery(skip, 'auto');
     }
@@ -169,6 +173,7 @@
       const toLoad = this.increment > numLeft ? numLeft : this.increment;
       this.$emit('load', {mode: 'append', size: toLoad, skip: loadedWithSkipped});
       this.loadedCount += toLoad;
+      this.lastDirectionLoaded = 'bottom';
 
       this.updateQuery(loadedWithSkipped, 'auto');
     }
@@ -178,6 +183,7 @@
       if (emitLoad) this.$emit('load', {mode: 'replace', size: this.increment, skip});
       this.firstLoaded = skip;
       this.loadedCount = this.increment;
+      this.lastDirectionLoaded = 'reload';
       this.updateQuery(skip, 'push');
     }
 
@@ -185,6 +191,7 @@
       if (emitLoad) this.$emit('load', {mode: 'replace', size: this.increment, skip});
       this.firstLoaded = skip;
       this.loadedCount = this.increment;
+      this.lastDirectionLoaded = 'reload';
       this.updateQuery(skip, 'push');
     }
 

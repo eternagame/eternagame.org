@@ -88,7 +88,7 @@ export default function createApp() {
     withCredentials: true,
   });
 
-  const { store, vxm } = createStore(http);
+  const { store, vxm } = createStore(http, router);
 
   sync(store, router);
 

@@ -2,16 +2,17 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { extractVuexModule, createProxy } from 'vuex-class-component';
 import { AxiosInstance } from 'axios';
+import VueRouter from 'vue-router';
 import createUserStore from './user.vuex';
 import createMobilStore from './mobile.vuex';
 import createFetchDataStore from './FetchData.vuex';
-import PaginationStore from './pagination.vuex';
+import createPaginationStore from './pagination.vuex';
 
 Vue.use(Vuex);
 
-export default function createStore(axios: AxiosInstance) {
+export default function createStore(axios: AxiosInstance, router: VueRouter) {
   const BoundUserStore = createUserStore(axios);
-  const BoundPaginationStore = PaginationStore;
+  const BoundPaginationStore = createPaginationStore(router);
   const BoundMobileStore = createMobilStore();
   const BoundFetchDataStore = createFetchDataStore();
 

@@ -32,7 +32,7 @@
           <h3 class="mt-0" style="font-weight: bold;">Learn more about RNA</h3>
           <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
           <p style="font-size: 1.2rem;">
-            Eterna is proud to partner with NOVA Labs to help advance understanding of RNO biology. Learn about RNA vaccines and viruses from
+            Eterna is proud to partner with NOVA Labs to help advance understanding of RNA biology. Learn about RNA vaccines and viruses from
             <a href="https://www.pbs.org/wgbh/nova/video/decoding-covid-19/" target="_blank">NOVA</a>.
             Check out the <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/" target="_blank">RNA VirtuaLab</a>
             to get a crash course on what you can do to help. Then, unlock lab access to join our lab challenges!

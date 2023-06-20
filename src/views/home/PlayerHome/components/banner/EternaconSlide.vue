@@ -5,22 +5,22 @@
   >
     <div>
       <p class="video-title">
-        <strong>Save the Date</strong> for Eternacon 2023
+        <strong>Register</strong> for Eternacon 2023
       </p>
 
       <p class="explain">
         Tune in on July 22-23 to exciting talks and activities from Eterna researchers, developers,
-        players, and other world-class experts. Registration will open soon.
+        players, and other world-class experts.
       </p>
-      <!-- <b-button
+      <b-button
         class="button"
         variant="primary"
         size="lg"
         style="margin-right:10px"
-        href="https://stanford.zoom.us/meeting/register/tJMtceGoqj4oGdOhGq-MbBqI3gKfOJUCIqC_"
+        href="https://stanford.zoom.us/meeting/register/tJAkfu-vrDgoEtDThU1H5SpJoxDjRFEV5EOX"
       >
         Register
-      </b-button> -->
+      </b-button>
       <b-button
         class="button"
         variant="secondary"

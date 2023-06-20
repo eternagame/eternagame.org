@@ -185,10 +185,12 @@
     width: 100%;
     background-color: #041227;
     border-radius: 5px;
-    padding: 1.6rem 2.2rem;
+    /* Ensure play button is always visible on short screens */
+    height: min(calc(100vh - 300px), 450px);
+    padding: min(1.6rem, (100vh - 300px) * 0.05) 2.2rem;
     img {
       width: 100%;
-      max-height: 400px;
+      height: 100%;
     }
   }
 

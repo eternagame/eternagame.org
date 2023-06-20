@@ -1,7 +1,7 @@
 <template>
   <EternaPage :title="$t('news-explore:title')">
     <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-      <Gallery :sm="12" :md="12">
+      <Gallery :sm="12" :md="12" setCur>
         <NewsCard v-for="article in newsItems" :key="article.nid" v-bind="article" />
       </Gallery>
     </Paginator>

@@ -2,7 +2,7 @@
   <EternaPage :title="$t('activity-feed:title')">
     <MessageCompose @submit-message="sentMessage" />
     <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-      <Gallery :sm="12" :md="12" style="margin-top:25px">
+      <Gallery :sm="12" :md="12" style="margin-top:25px" setCur>
         <ActivityCard
           v-for="notification in notifications"
           :key="notification.nid"

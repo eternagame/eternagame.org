@@ -19,7 +19,7 @@
       {{ $t('collections-view:section3') }}
     </h4>
     <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-      <Gallery>
+      <Gallery setCur>
         <CollectionCard
           v-for="item in collections"
           :key="item.title"

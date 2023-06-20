@@ -1,7 +1,7 @@
 <template>
   <EternaPage :title="$t('nav-bar:puzzles')">
     <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-      <Gallery>
+      <Gallery setCur>
         <PuzzleCard
           v-for="puzzle in puzzles"
           :key="puzzle.id"

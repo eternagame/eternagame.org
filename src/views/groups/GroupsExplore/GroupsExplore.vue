@@ -1,7 +1,7 @@
 <template>
   <EternaPage :title="$t('nav-bar:groups')">
     <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-      <Gallery>
+      <Gallery setCur>
         <GroupCard
           v-for="group in groups"
           :key="group.nid"

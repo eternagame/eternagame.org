@@ -1,7 +1,7 @@
 <template>
   <EternaPage :title="$t('nav-bar:labs')">
     <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-      <Gallery>
+      <Gallery setCur>
         <LabCard v-for="lab in labs" :key="lab.nid" :lab="lab" />
       </Gallery>
     </Paginator>

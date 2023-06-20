@@ -1,4 +1,4 @@
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { CreateElement } from 'vue';
 import { debounce } from 'lodash';
 import GalleryColumn from './GalleryColumn.vue';
@@ -13,12 +13,23 @@ export default class Gallery extends Vue {
 
   @Prop() readonly sm?: string;
 
+  @Prop({ default: false }) readonly setCur!: string;
+
   mounted() {
-    window.addEventListener('scroll', this.boundScrollHandler);
+    if (this.setCur) window.addEventListener('scroll', this.boundScrollHandler);
   }
 
   beforeDestroy() {
-    window.removeEventListener('scroll', this.boundScrollHandler);
+    if (this.setCur) window.removeEventListener('scroll', this.boundScrollHandler);
+  }
+
+  @Watch('setCur')
+  setCurChanged(newVal: boolean) {
+    if (newVal) {
+      window.addEventListener('scroll', this.boundScrollHandler);
+    } else {
+      window.removeEventListener('scroll', this.boundScrollHandler);
+    }
   }
 
   private scrollHandler() {

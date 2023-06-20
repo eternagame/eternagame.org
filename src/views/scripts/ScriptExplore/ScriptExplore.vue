@@ -1,7 +1,7 @@
 <template>
   <EternaPage title="Scripts">
     <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
-      <Gallery :sm="12" :md="12">
+      <Gallery :sm="12" :md="12" setCur>
         <ScriptCard v-for="script in scripts" :key="script.nid" v-bind="script" />
       </Gallery>
     </Paginator>

@@ -354,6 +354,7 @@ export default function createRouter() {
   router.afterEach(() => {
     // @ts-ignore
     gtag('config', 'UA-17383892-2');
+    plausible('pageview', {props: {logged_in: router.app.$vxm.user.loggedIn ? 'true' : 'false'}});
   });
 
   router.onError((err) => {

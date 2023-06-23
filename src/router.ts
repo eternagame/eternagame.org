@@ -357,12 +357,12 @@ export default function createRouter() {
     plausible('pageview', {
       props: {
         logged_in: router.app.$vxm.user.loggedIn ? 'true' : 'false',
-        'resolution/screen': `${window.screen.width}x${window.screen.height}`,
-        'resolution/screen/width': window.screen.width,
-        'resolution/screen/height': window.screen.height,
-        'resolution/page': `${window.innerWidth}x${window.innerHeight}`,
-        'resolution/page/width': window.innerWidth,
-        'resolution/page/height': window.innerHeight,
+        'device/resolution/screen': `${window.screen.width}x${window.screen.height}`,
+        'device/resolution/screen/width': window.screen.width,
+        'device/resolution/screen/height': window.screen.height,
+        'device/resolution/page': `${window.innerWidth}x${window.innerHeight}`,
+        'device/resolution/page/width': window.innerWidth,
+        'device/resolution/page/height': window.innerHeight,
       }
     });
   });

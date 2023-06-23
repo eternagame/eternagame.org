@@ -31,7 +31,7 @@
   @Component({
     components: {},
   })
-  export default class NavbarIcons extends Vue {
+  export default class NavbarMenuItem extends Vue {
     @Prop({ required: true }) readonly text!: string;
 
     @Prop({ required: true }) readonly value!: string | object;

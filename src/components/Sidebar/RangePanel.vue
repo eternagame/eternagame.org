@@ -72,6 +72,7 @@
     onMinSearch(event: KeyboardEvent) {
       const {[this.minParamName]: oldMin, skip: oldSkip, ...query} = this.$route.query;
       const min = (event.target as HTMLInputElement).value;
+      this.min = min;
       this.$router.replace({
         name: this.$route.name!,
         query: {
@@ -85,6 +86,7 @@
     onMaxSearch(event: KeyboardEvent) {
       const {[this.maxParamName]: oldMax, skip: oldSkip, ...query} = this.$route.query;
       const max = (event.target as HTMLInputElement).value;
+      this.max = max;
       this.$router.replace({
         name: this.$route.name!,
         query: {

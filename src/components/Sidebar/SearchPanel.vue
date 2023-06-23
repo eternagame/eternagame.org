@@ -39,6 +39,7 @@
     replaceRoute(event: KeyboardEvent) {
       const {search: oldSearch, skip: oldSkip, ...query} = this.$route.query;
       const search = (event.target as HTMLInputElement).value;
+      this.search = search;
       this.$router.replace({
         name: this.$route.name!,
         query: {
@@ -50,7 +51,7 @@
     }
 
     created() {
-      this.replaceRoute = debounce(this.replaceRoute, 200);
+      this.replaceRoute = debounce(this.replaceRoute.bind(this), 200);
     }
 
     onSearch(event: KeyboardEvent) {

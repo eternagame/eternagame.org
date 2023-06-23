@@ -1,6 +1,6 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { CreateElement } from 'vue';
-import { debounce } from 'lodash';
+import { debounce, throttle } from 'lodash';
 import GalleryColumn from './GalleryColumn.vue';
 
 @Component({
@@ -68,7 +68,7 @@ export default class Gallery extends Vue {
    }
   }
 
-  private boundScrollHandler = debounce(this.scrollHandler.bind(this), 100);
+  private boundScrollHandler = throttle(this.scrollHandler.bind(this), 100);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public render(h: CreateElement) {

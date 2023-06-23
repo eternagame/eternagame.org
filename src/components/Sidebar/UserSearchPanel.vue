@@ -27,6 +27,7 @@
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import debounce from 'lodash.debounce';
   import axios from 'axios';
+  import { UserData } from '@/types/common-types';
 
   @Component({
     components: {
@@ -44,22 +45,13 @@
       userpicture: string,
     }[] = [];
 
-    fetchData: () => Promise<void> | undefined = async () => {};
+    updateUserSearch: () => Promise<void> | undefined = async () => {};
 
-    async doFetchData() {
+    async doUpdateUserSearcj() {
       const res = await axios.get(
         `/get/?type=usernames&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );
       this.usernames = res.data.data.usernames;
-    };
-
-    created() {
-      this.fetchData = debounce(this.doFetchData, 200);
-    }
-
-    @Watch('targetName', { immediate: true, deep: true })
-    async getUserNames() {
-      await this.fetchData();
       if (this.targetName.trim() === '') {
         this.replaceRoute('');
         return;
@@ -75,6 +67,26 @@
       }
       const uid = await this.lookupUid(user.username);
       this.replaceRoute(uid);
+    };
+
+    created() {
+      this.updateUserSearch = debounce(this.doUpdateUserSearcj.bind(this), 200);
+    }
+
+    async mounted() {
+      const {uid} = this.$route.query;
+      if (uid) {
+        const user = (await axios.get(`/get/?type=user&uid=${uid}`)).data.data?.user as UserData | undefined;
+        if (user) {
+          this.targetName = user.name;
+          this.typeahead.inputValue = user.name;
+        }
+      }
+    }
+
+    @Watch('targetName')
+    async getUserNames() {
+      await this.updateUserSearch();
     }
 
     replaceRoute(uid: string) {

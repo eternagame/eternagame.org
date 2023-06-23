@@ -363,6 +363,8 @@ export default function createRouter() {
         'device/resolution/page': `${window.innerWidth}x${window.innerHeight}`,
         'device/resolution/page/width': window.innerWidth,
         'device/resolution/page/height': window.innerHeight,
+        'language/browser': window.navigator.language,
+        'language/browser-fallback': window.navigator.languages.join(',')
       }
     });
   });

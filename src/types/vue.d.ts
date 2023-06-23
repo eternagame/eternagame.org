@@ -6,8 +6,9 @@ import VueRouter, { Route, RawLocation, RouteCallback } from 'vue-router';
 import { AxiosInstance, AxiosStatic } from 'axios';
 import { ProxyWatchers } from 'vuex-class-component/dist/interfaces';
 import SwiperClass from 'swiper';
+import createNotificationStore from '@/store/Notifications.vuex';
 import createUserStore from '../store/user.vuex';
-import Pagination from '../store/pagination.vuex';
+import createPaginationStore from '../store/pagination.vuex';
 import createMobilStore from '../store/mobile.vuex';
 import createFetchDataStore from '../store/FetchData.vuex';
 
@@ -15,7 +16,8 @@ export interface VXM {
   user: ProxyWatchers & InstanceType<ReturnType<typeof createUserStore>>;
   mobile: ProxyWatchers & InstanceType<ReturnType<typeof createMobilStore>>;
   fetchData: ProxyWatchers & InstanceType<ReturnType<typeof createFetchDataStore>>;
-  pagination: ProxyWatchers & Pagination;
+  pagination: ProxyWatchers & InstanceType<ReturnType<typeof createPaginationStore>>;
+  notifications: ProxyWatchers & InstanceType<ReturnType<typeof createNotificationStore>>;
 }
 
 declare module 'vue/types/options' {

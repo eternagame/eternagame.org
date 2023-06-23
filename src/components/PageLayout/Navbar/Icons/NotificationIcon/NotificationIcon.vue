@@ -2,7 +2,7 @@
   <NavbarIcon @shown="onShown">
     <template #icon>
       <div class="d-inline-block">
-        <div class="unread" v-if="notificationsCount > 0"></div>
+        <div class="unread" v-if="$vxm.notifications.unreadCount > 0"></div>
         <img class="icon" src="@/assets/navbar/Bell.svg" alt="notifications" />
       </div>
     </template>
@@ -62,13 +62,9 @@
   import RewardNotificationItem from './RewardNotification.vue';
   import SimpleLoader from '../../../SimpleLoader.vue';
 
-  const NUM_NOTIFICATIONS_ROUTE = '/get/?type=noti_count_for_user&cache_bust=2';
-
   const NEWS_FEED_ROUTE = '/get/?type=newsfeed&combined=true&filter=all&cache_bust=2';
 
   const NUMBER_NOTIFICATIONS_TO_SHOW = 5;
-
-  const REFRESH_FREQUENCY = 20000; // 20 seconds
 
   @Component({
     components: {
@@ -82,8 +78,6 @@
     },
   })
   export default class NotificationIcon extends Mixins(FetchMixin) {
-    notificationsCount = 0;
-
     private isDropdownShown = false;
 
     isFetching = false;
@@ -93,7 +87,8 @@
     checkDataInterval?: number;
 
     async mounted() {
-      this.checkDataInterval = setInterval(this.$fetch, REFRESH_FREQUENCY);
+      this.$vxm.notifications.update();
+      this.checkDataInterval = setInterval(() => this.$vxm.notifications.update(), this.$vxm.notifications.REFRESH_FREQUENCY);
     }
 
     destroyed() {
@@ -102,22 +97,13 @@
 
     async onShown(isShown: boolean) {
       this.isDropdownShown = isShown;
-      await this.$fetch();
-    }
+      this.isFetching = true;
+      await this.updateDropdownContents();
+      this.isFetching = false;
 
-    async fetch() {
-      const res = await this.$http.get(NUM_NOTIFICATIONS_ROUTE);
-      this.notificationsCount = res.data.data.noti_count;
-
-      if (this.notificationsCount > 0 || !this.fetchState.firstFetchComplete) {
-        this.isFetching = true;
-        await this.updateDropdownContents();
-        this.isFetching = false;
-
-        if (this.isDropdownShown) {
-          this.notificationsCount = 0;
-          await this.$http.post('/post/', new URLSearchParams({ type: 'notification_read' }));
-        }
+      if (this.isDropdownShown) {
+        this.$vxm.notifications.unreadCount = 0;
+        await this.$http.post('/post/', new URLSearchParams({ type: 'notification_read' }));
       }
     }
 
@@ -144,10 +130,6 @@
 
     getCreated(notification: NotificationItem) {
       return Number(isDirectedNotificationItem(notification) ? notification.message[0].created : notification.timestamp);
-    }
-
-    private get uid() {
-      return this.$vxm.user.uid;
     }
 
     isNewsItem(notification: NotificationItem) {

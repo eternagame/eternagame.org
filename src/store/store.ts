@@ -7,6 +7,7 @@ import createUserStore from './user.vuex';
 import createMobilStore from './mobile.vuex';
 import createFetchDataStore from './FetchData.vuex';
 import createPaginationStore from './pagination.vuex';
+import createNotificationStore from './Notifications.vuex';
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export default function createStore(axios: AxiosInstance, router: VueRouter) {
   const BoundPaginationStore = createPaginationStore(router);
   const BoundMobileStore = createMobilStore();
   const BoundFetchDataStore = createFetchDataStore();
+  const BoundNotificationsStore = createNotificationStore(axios);
 
   const store = new Vuex.Store({
     modules: {
@@ -22,6 +24,7 @@ export default function createStore(axios: AxiosInstance, router: VueRouter) {
       ...extractVuexModule(BoundMobileStore),
       ...extractVuexModule(BoundPaginationStore),
       ...extractVuexModule(BoundFetchDataStore),
+      ...extractVuexModule(BoundNotificationsStore),
     },
   });
 
@@ -30,6 +33,7 @@ export default function createStore(axios: AxiosInstance, router: VueRouter) {
     mobile: createProxy(store, BoundMobileStore),
     pagination: createProxy(store, BoundPaginationStore),
     fetchData: createProxy(store, BoundFetchDataStore),
+    notifications: createProxy(store, BoundNotificationsStore)
   };
 
   return {

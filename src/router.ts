@@ -354,7 +354,17 @@ export default function createRouter() {
   router.afterEach(() => {
     // @ts-ignore
     gtag('config', 'UA-17383892-2');
-    plausible('pageview', {props: {logged_in: router.app.$vxm.user.loggedIn ? 'true' : 'false'}});
+    plausible('pageview', {
+      props: {
+        logged_in: router.app.$vxm.user.loggedIn ? 'true' : 'false',
+        'resolution/screen': `${window.screen.width}x${window.screen.height}`,
+        'resolution/screen/width': window.screen.width,
+        'resolution/screen/height': window.screen.height,
+        'resolution/page': `${window.innerWidth}x${window.innerHeight}`,
+        'resolution/page/width': window.innerWidth,
+        'resolution/page/height': window.innerHeight,
+      }
+    });
   });
 
   router.onError((err) => {

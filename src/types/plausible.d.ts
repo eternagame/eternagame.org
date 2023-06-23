@@ -1,1 +1,1 @@
-declare function plausible(eventName: string, options?: {props: Record<string, string>});
+declare function plausible(eventName: string, options?: {u?: string, props: Record<string, string | number | boolean>}): void;

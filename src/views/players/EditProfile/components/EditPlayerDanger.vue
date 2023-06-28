@@ -18,12 +18,13 @@
         Please get in touch at <a href="mailto:support@eternagame.org">support@eternagame.org</a>.
       </p>
       <p>
-        Your account will be deactivated and scheduled to be deleted in 30 days.
+        Your account will be deactivated and scheduled to be deleted in 7 days.
         Per our privacy policy found at <a href="https://eternagame.org/terms">https://eternagame.org/terms</a>,
         your identifying information will be removed and your contributions will be anonymized
         (though we cannot retroactively remove names that may have been included in
-        scientific publications). If you have used our forum, you will also need to separately
-        delete your forum account at <a href="https://forum.eternagame.org/">https://forum.eternagame.org/</a>.
+        scientific publications). If you have used our forum or wiki, you will also need to separately
+        delete those accounts at <a href="https://forum.eternagame.org/">https://forum.eternagame.org/</a>
+        and <a href="https://wiki.eternagame.org/">https://wiki.eternagame.org/</a> respectively.
       </p>
       <p>
         Thank you for joining us on our mission to advance science! To confirm you want to delete

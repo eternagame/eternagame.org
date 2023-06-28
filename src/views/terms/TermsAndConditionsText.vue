@@ -1,4 +1,8 @@
 <template>
+  <!--
+    Note: If you make meaningful updates this page, make sure to update the header date on the
+    Terms and Conditions page as well as update the required acceptance date in the accept terms modal
+  -->
   <div class="p-2">
     <h3>Terms of Use</h3>
     <p>
@@ -315,9 +319,7 @@
     </p>
     <p>
       We may allow selected third parties to place cookies through the Websites to provide us with
-      better insights into the use of the Websites (such as page visits and response time) or user
-      demographics. These third parties may collect information about a user's online activities
-      over time and across different websites when he or she uses our Websites.
+      better insights into the use of the Websites (such as page visits and response time).
     </p>
     <h5>Adjusting Cookie Settings</h5>
     <p>
@@ -341,16 +343,6 @@
       Please review the information provided in this cookie policy on adjusting cookie settings for
       the browser of your choice.
     </p>
-    <h5>Google Analytics</h5>
-    <p>
-      We use Google Analytics to help operate our Sites more efficiently, to gather demographic
-      information, and to monitor the level of activity of our Sites. For information on how Google
-      uses data from sites that share information with Google, see
-      <a href="https://www.google.com/policies/privacy/partners/">https://www.google.com/policies/privacy/partners/</a>
-      (or other relevant URL that Google may provide from time to time). You can prevent the use of
-      Google Analytics relating to your use of our Sites by downloading and installing the browse
-      plugin available at this link: <a href="https://tools.google.com/dlpage/gaoptout?hl=en">https://tools.google.com/dlpage/gaoptout?hl=en</a>.
-    </p>
 
     <h4>How We Share Information We Collect</h4>
     <p>
@@ -367,6 +359,15 @@
       We share Personal Information with a limited number of service providers who process it on our
       behalf to provide or improve our Websites. For example, we must necessarily transmit and store
       your data via our cloud service provider.
+    </p>
+    <h5>Under Strict Limitations With Limited Partners</h5>
+    <p>
+      As part of our partnership with <a href="https://scistarter.org/">SciStarter</a>, certain
+      contributions are reported so that if you are a SciStarter member, they can appear on your
+      profile. This report includes the contributor's (sha256) hashed email address. The use of a
+      cryptographic hash ensures that SciStarter (or anyone else) cannot connect that hash to a
+      specific person or a specific email address, unless the email address is already known (ie,
+      you have previously signed up for SciStarter).
     </p>
     <h5>For Legal Disclosure</h5>
     <p>
@@ -388,16 +389,14 @@
     <h4>Information Security</h4>
     <p>
       Eterna takes the security of your personal information seriously. No method of transmission,
-      or method of electronic storage, is 100% secure. Therefore, we cannot guarantee its absolute
-      security. However, we take thorough measures to protect Personal Information from unauthorized
-      access, alteration, or destruction; maintain data accuracy; and help ensure the appropriate
-      use of Personal Information.
+      or method of electronic storage, is 100% secure nor can any process or software be guaranteed
+      to be free from error. Therefore, we cannot guarantee its absolute security. However, we take
+      thorough measures to protect Personal Information from unauthorized access, alteration, or
+      destruction; maintain data accuracy; and help ensure the appropriate use of Personal Information.
     </p>
     <p>
-      Eterna ensures our systems and software are patched, properly configured, and following best
-      practices for general security hardening. Access to relevant systems and information is
-      limited to relevant staff and following relevant policies including usage of firewalls, strong
-      credentials and password managers, appropriate access permissions, and encryption in transit.
+      Eterna strives to ensure our systems and software follow security best practices, including
+      patching, configuration, access controls, credential management, and encryption where appropriate.
     </p>
 
     <h4>Data Rights and Retention</h4>
@@ -420,6 +419,10 @@
 
     <h3>Changelog</h3>
     <ul>
+      <li>
+        June 28, 2023: Removed information about data collection by Google Analytics as it is no longer used,
+        clarify security practices, add information on information shared with SciStarter
+      </li>
       <li>October 2, 2021: Rewritten to improve clarity, consistency, and thoroughness. Added Privacy Policy.</li>
       <li>February 27, 2016: Initial version</li>
     </ul>

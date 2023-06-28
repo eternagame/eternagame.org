@@ -49,7 +49,7 @@
     accepted: boolean = false;
 
     get shown() {
-      return this.$vxm.user.userDetailsLoaded && !this.$vxm.user.surveyRecord.match(/EULA_AGREE_2021-10-02/i);
+      return this.$vxm.user.userDetailsLoaded && !this.$vxm.user.surveyRecord.match(/EULA_AGREE_2023-06-28/i);
     }
 
     handleHide(e: Event) {
@@ -66,7 +66,7 @@
           new URLSearchParams({
             type: 'survey',
             action: 'update',
-            value: 'EULA_AGREE_2021-10-02',
+            value: 'EULA_AGREE_2023-06-28',
             uid: String(this.$vxm.user.uid),
           }),
         );

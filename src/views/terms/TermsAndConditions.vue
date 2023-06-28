@@ -3,7 +3,7 @@
     <EternaPage
       title="Eterna Terms of Use and Privacy Policy"
       header_title="Terms of Use/Privacy Policy"
-      header_date="Last updated: October 2, 2021"
+      header_date="Last updated: June 28, 2023"
     >
       <div class="page-content mt-2">
         <TermsAndConditionsText />

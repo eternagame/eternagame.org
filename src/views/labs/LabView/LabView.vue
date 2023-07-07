@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Mixins } from 'vue-property-decorator';
+  import { Component, Mixins, Watch } from 'vue-property-decorator';
   import { CommentItem } from '@/types/common-types';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import Comments from '@/components/PageLayout/Comments.vue';
@@ -100,6 +100,9 @@
     get openRounds() {
       return this.lab?.puzzles.filter(round => !this.roundClosed(round)) || [];
     }
+
+    @Watch('$vxm.user.loggedIn')
+    fetchOnUserLogin() { this.$fetch(); }
   }
 </script>
 

@@ -22,30 +22,7 @@
         Additional questions? Contact <a href="mailto:events@eternagame.org">events@eternagame.org</a>.
       </p>
     </section>
-    <section>
-      <h3>Schedule</h3>
-      <p>
-        Sessions are expected to be running from 9AM through 4PM PT Saturday and Sunday.
-        A full schedule will be available soon.
-      </p>
-      <p>
-        Presentations will include:
-      </p>
-      <ul>
-        <li>Seth Cooper (Northeastern) and Scott Horowitz (Denver), Foldit education modes</li>
-        <li>Mark Vaughn (Capilano University), Using Eterna in a biochemistry course</li>
-        <li>Katie Eichhorn (Nebraska), Using an Eterna puzzle in a laboratory course</li>
-        <li>Quentin Vicens (Colorado), Pattern spotting in RNA structure</li>
-        <li>Breakout rooms (EPA, scripts, labs)</li>
-        <li>Astromon, Eterna puzzle race</li>
-        <li>Victor Tse (UCSC), Designing ASO drugs for rare disease</li>
-        <li>Blanton Tolbert (Case Western Reserve), Small molecule drug targets</li>
-        <li>Momodou Camara (Nebraska), Structural dynamics in 7SK RNA central domain</li>
-        <li>Ronald Lorenzo (PVAMU) and Karmen Williams (CUNY), Player survey results</li>
-        <li>Christian Choe (Stanford), OpenTB update</li>
-        <li>Arnuv, Eterna art show</li>
-      </ul>
-    </section>
+    <ScheduleSection :sessions="sessions" />
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"
@@ -66,7 +43,7 @@
   import ConferenceAreasSection from './components/ConferenceAreasSection.vue';
   import ScheduleSection from './components/ScheduleSection.vue';
   import { options } from './AboutEternacon.vue';
-  import sessions from './speakers-2022.json';
+  import sessions from './speakers-2023.json';
 
   @Component({
     components: { EternaPage, HeroSection, ConferenceAreasSection, ScheduleSection, DropdownSidebarPanel },

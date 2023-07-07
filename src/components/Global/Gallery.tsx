@@ -1,6 +1,6 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { CreateElement } from 'vue';
-import { debounce, throttle } from 'lodash';
+import { throttle } from 'lodash';
 import GalleryColumn from './GalleryColumn.vue';
 
 @Component({

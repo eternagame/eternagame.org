@@ -76,7 +76,7 @@
             "affiliation": "Lead Developer, Eterna",
             "time": "July 22, 2023, 14:30:00 PDT",
             "topic": "A new intuition: Eterna gameplay beyond thermodynamics",
-            "abstract": "Puzzle solving on Eterna has historically revolved around thermodynamic models, predicting structures through minimum free energy calculation and exposing calculated nearest neighbor free energy values. However, newer modeling methods with higher accuracy have come into the picture which change fundamental assumptions and information players use when solving puzzles. What exactly is this change, how does it impact players, and how can it change the way we think about and visualize puzzles as we solve them?"
+            "abstract": "Puzzle solving on Eterna has historically revolved around thermodynamic models, predicting structures through minimum free energy calculation and exposing calculated nearest neighbor free energy values. However, newer modeling methods with higher accuracy have come into the picture which change fundamental assumptions and information players use when solving puzzles. What's behind this change, how does it impact players, and how can it change the way we think about and visualize puzzles as we solve them?"
         },
         {
             "time": "July 22, 2023, 15:00:00 PDT",
@@ -97,7 +97,7 @@
             "affiliation": "UC Santa Cruz, Center for Molecular Biology of RNA",
             "time": "July 23, 2023, 9:00:00 PDT",
             "topic": "Designing RNA drugs for rare diseases",
-            "abstract": "The Sanford Lab has discovered antisense oligonucleotides (ASOs) that rescue RNA splicing of multiple hemophilia A-linked variants of coagulation factor VIII (F8) exon 16 by targeting an inhibitory RNA structure. These ASOs:structure interactions increases the accessibility of the polypyrimidine tract and inhibits hnRNPA1-dependent splicing silencers. Together, this structure-function mechanism and its effect on RNA splicing provides a potential target for precision therapies for a subset of HA patients harboring specific F8 mutations."
+            "abstract": "The Sanford Lab has discovered antisense oligonucleotides (ASOs) that rescue RNA splicing of multiple hemophilia A-linked variants of coagulation factor VIII (F8) exon 16 by targeting an inhibitory RNA structure. These ASOs:structure interactions increase the accessibility of the polypyrimidine tract and inhibit hnRNPA1-dependent splicing silencers. Together, this structure-function mechanism and its effect on RNA splicing provides a potential target for precision therapies for a subset of HA patients harboring specific F8 mutations."
         },
         {
             "speaker": "Blanton S. Tolbert, PhD",

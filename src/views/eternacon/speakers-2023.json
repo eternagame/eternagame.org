@@ -81,7 +81,7 @@
         {
             "time": "July 22, 2023, 15:00:00 PDT",
             "topic": "Breakout rooms",
-            "abstract": "Join the Eterna community for casual discussions in smaller breakout rooms. Please bring your ideas and questions! Eterna Players Alliance (EPA); Labs past, present, and future; Scripts and Eterna technology"
+            "abstract": "Join the Eterna community for casual discussions in smaller breakout rooms. Please bring your ideas and questions! <ul><li>Eterna Players Alliance (EPA)</li><li>Labs past, present, and future</li><li>Scripts and Eterna technology</li>"
         },
         {
             "speaker": "William Dunlap (Astromon)",
@@ -97,7 +97,7 @@
             "affiliation": "UC Santa Cruz, Center for Molecular Biology of RNA",
             "time": "July 23, 2023, 9:00:00 PDT",
             "topic": "Designing RNA drugs for rare diseases",
-            "abstract": "The Sanford Lab has discovered antisense oligonucleotides (ASOs) that rescue RNA splicing of multiple HA-linked variants of coagulation factor VIII (F8) exon 16 by targeting an inhibitory RNA structure. These ASOs:structure interactions increases the accessibility of the polypyrimidine tract and inhibits hnRNPA1-dependent splicing silencers. Together, this structure-function mechanism and its effect on RNA splicing provides a potential target for precision therapies for a subset of HA patients harboring specific F8 mutations."
+            "abstract": "The Sanford Lab has discovered antisense oligonucleotides (ASOs) that rescue RNA splicing of multiple hemophilia A-linked variants of coagulation factor VIII (F8) exon 16 by targeting an inhibitory RNA structure. These ASOs:structure interactions increases the accessibility of the polypyrimidine tract and inhibits hnRNPA1-dependent splicing silencers. Together, this structure-function mechanism and its effect on RNA splicing provides a potential target for precision therapies for a subset of HA patients harboring specific F8 mutations."
         },
         {
             "speaker": "Blanton S. Tolbert, PhD",

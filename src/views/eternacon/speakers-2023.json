@@ -129,7 +129,7 @@
             "affiliation": "Eterna Player",
             "time": "July 23, 2023, 12:00:00 PDT",
             "topic": "Serena FoldChange prediction algorithm and analysis walkthrough",
-            "abstract": "An introduction to the Serena RNA Switch FoldChange prediction algorithm that performs a detailed automated analysis of the ensemble and the gives a numerical value for the prediction fold change +/- 6 (based on training data) A walkthrough on how to use it to perform analysis of a switch as well will be given, and this will be a detailed analysis of a selection of the PNAS SSNG1 lab. Serena will answer questions around why the Eterna 30 and 60 score groups exists, where we have designs that on the surface look perfect but fail to perform. It is revealed that this is actually a factor of variation in the ensemble."
+            "abstract": "An introduction to the Serena RNA Switch FoldChange prediction algorithm that performs a detailed automated analysis of the ensemble and then gives a numerical value for the prediction fold change +/- 6 (based on training data). A walkthrough on how to use it to perform analysis of a switch as well will be given, and this will be a detailed analysis of a selection of the PNAS SSNG1 lab. Serena will answer questions around why the Eterna 30 and 60 score groups exists, where we have designs that on the surface look perfect but fail to perform. It is revealed that this is actually a factor of variation in the ensemble."
         },
         {
             "speaker": "William Dunlap (Astromon)",

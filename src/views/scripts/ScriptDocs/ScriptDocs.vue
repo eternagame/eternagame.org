@@ -297,6 +297,11 @@
           <p>Returns: a number, the currently loaded puzzle ID</p>
         </li>
         <li>
+          <code>get_solution_id()</code>
+          <p>Parameters: none</p>
+          <p>Returns: a number, the currently loaded solution ID, or undefined if no existing solution loaded</p>
+        </li>
+        <li>
           <code>get_custom_numbering_to_index()</code>
           <p>Parameters: none</p>
           <p>Returns: for puzzles that have custom base numbering, an array mapping the custom base number to the original base index</p>

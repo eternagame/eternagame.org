@@ -36,7 +36,7 @@
           <a href="https://twitter.com/eternagame">
             <img src="@/assets/front-page/img/icon_twt.png" class="icon" alt="Twitter" />
           </a>
-          <a href="https://www.facoebok.com/eternathegame/">
+          <a href="https://www.facebook.com/eternathegame/">
             <img src="@/assets/front-page/img/icon_fb.png" class="icon" alt="Facebook" />
           </a>
           <a href="https://www.instagram.com/eternagame/">

@@ -19,21 +19,24 @@
             "affiliation": "Northeastern University; University of Denver",
             "time": "July 22, 2023, 9:30:00 PDT",
             "topic": "Education in Foldit: Modes and dojos",
-            "abstract": "Foldit is a citizen science video game, but has been used extensively in education ranging from middle school to graduate school. Two recent additions to the game have made education with Foldit considerably easier than in the past, Foldit Education Mode, and the Dojo. In this presentation, we will provide an overview of these features and their use, and lessons that could be useful for other citizen science games."
+            "abstract": "Foldit is a citizen science video game, but has been used extensively in education ranging from middle school to graduate school. Two recent additions to the game have made education with Foldit considerably easier than in the past, Foldit Education Mode, and the Dojo. In this presentation, we will provide an overview of these features and their use, and lessons that could be useful for other citizen science games.",
+            "publicLink": "https://player.vimeo.com/video/855539699??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
             "speaker": "Mark Vaughan, PhD",
             "affiliation": "Capilano University",
             "time": "July 22, 2023, 10:00:00 PDT",
             "topic": "Using Eterna in a second-year biochemistry course to support work-integrated learning",
-            "abstract": "Work-integrated learning (WIL) is a form of experiential learning in which a student's academic studies are enhanced through work experiences in partnership with external organizations. Incorporating WIL into the chemistry and biochemistry curriculum can be challenging in lower-level courses due to the limited technical skills that students have at that stage of their education. This presentation focuses on an accessible WIL project in a second-year biochemistry course based on Eterna, and explores opportunities for expanding the scope in future offerings."
+            "abstract": "Work-integrated learning (WIL) is a form of experiential learning in which a student's academic studies are enhanced through work experiences in partnership with external organizations. Incorporating WIL into the chemistry and biochemistry curriculum can be challenging in lower-level courses due to the limited technical skills that students have at that stage of their education. This presentation focuses on an accessible WIL project in a second-year biochemistry course based on Eterna, and explores opportunities for expanding the scope in future offerings.",
+            "publicLink": "https://player.vimeo.com/video/856477396??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
             "speaker": "Catherine Eichhorn, PhD",
             "affiliation": "University of Nebraska-Lincoln",
             "time": "July 22, 2023, 10:30:00 PDT",
             "topic": "Eterna in the classroom: Enhancing student understanding of RNA folding",
-            "abstract": "This talk will present a college level laboratory course focused on the fluorogenic Pepper RNA aptamer as a model system. To explore RNA design and ligand recognition, this discovery-based course integrates organic synthesis, molecular modeling, RNA synthesis, and high-throughput binding assays. Course design, implementation, and student outcomes will be discussed. This course meets an increasing need to train students in hypothesis generation, data interpretation, and cross-disciplinary approaches to tackle the biggest problems facing society."
+            "abstract": "This talk will present a college level laboratory course focused on the fluorogenic Pepper RNA aptamer as a model system. To explore RNA design and ligand recognition, this discovery-based course integrates organic synthesis, molecular modeling, RNA synthesis, and high-throughput binding assays. Course design, implementation, and student outcomes will be discussed. This course meets an increasing need to train students in hypothesis generation, data interpretation, and cross-disciplinary approaches to tackle the biggest problems facing society.",
+            "publicLink": "https://player.vimeo.com/video/855540170??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
             "time": "July 22, 2023, 11:00:00 PDT",
@@ -44,21 +47,24 @@
             "affiliation": "University of Colorado",
             "time": "July 22, 2023, 12:00:00 PDT",
             "topic": "Pattern spotting in RNA structure",
-            "abstract": "RNA is often portrayed as a wavy line or limp spaghetti. Yet, RNA folds up in space. RNA shapes may be quite elaborate, with many G-C and A-U base pairs. In this presentation, we will explore how the regions in between base pairs also interact with one another, enriching the pool of base pairs RNA can form. These regions often adopt specific three dimensional patterns that support RNA architectures."
+            "abstract": "RNA is often portrayed as a wavy line or limp spaghetti. Yet, RNA folds up in space. RNA shapes may be quite elaborate, with many G-C and A-U base pairs. In this presentation, we will explore how the regions in between base pairs also interact with one another, enriching the pool of base pairs RNA can form. These regions often adopt specific three dimensional patterns that support RNA architectures.",
+            "publicLink": "https://player.vimeo.com/video/856473153??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
-            "speaker": "Bret Lange, Riccardo Gil, Joseph D. Yesselman",
+            "speaker": "Joseph D. Yesselman",
             "affiliation": "University of Nebraska-Lincoln",
             "time": "July 22, 2023, 12:30:00 PDT",
             "topic": "Quantitative DMS measurements determine tertiary contact thermodynamics at nucleotide resolution",
-            "abstract": "For biological RNAs to fold into complex 3D structures they must fold long-range tertiary contacts. These contacts lock the 3D shape of an RNA into its functional form. Measuring the thermodynamic properties of these contacts has been challenging. Here we present a novel method that can measure the strength of the tetraloop/tetraloop receptor (TL/TLR) tertiary contact in a high-throughput manner using DMS chemical mapping. "
+            "abstract": "For biological RNAs to fold into complex 3D structures they must fold long-range tertiary contacts. These contacts lock the 3D shape of an RNA into its functional form. Measuring the thermodynamic properties of these contacts has been challenging. Here we present a novel method that can measure the strength of the tetraloop/tetraloop receptor (TL/TLR) tertiary contact in a high-throughput manner using DMS chemical mapping. ",
+            "privateLink": "https://player.vimeo.com/video/856473260??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
             "speaker": "Jeff Anderson-Lee (jandersonlee)",
             "affiliation": "Eterna Player",
             "time": "July 22, 2023, 13:00:00 PDT",
             "topic": "ArcKnot and ArcPlot",
-            "abstract": "Overview of ArcKnot/ArcPlot for puzzles, pseudoknots, and switches with demo if time permits."
+            "abstract": "Overview of ArcKnot/ArcPlot for puzzles, pseudoknots, and switches with demo if time permits.",
+            "publicLink": "https://player.vimeo.com/video/855539114??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
             "time": "July 22, 2023, 13:45:00 PDT",
@@ -69,14 +75,16 @@
             "affiliation": "Principal Investigator, Eterna; Das Lab, Stanford University",
             "time": "July 22, 2023, 14:00:00 PDT",
             "topic": "Early results from OpenKnot challenge",
-            "abstract": "The OpenKnot challenge seeks to discover new complex RNA folds both within Nature and from the imagination of Eterna players. Early rounds have completed, and I'll describe some initial solutions, how they were scored, and the potential impact in biology and medicine of the project."
+            "abstract": "The OpenKnot challenge seeks to discover new complex RNA folds both within Nature and from the imagination of Eterna players. Early rounds have completed, and I'll describe some initial solutions, how they were scored, and the potential impact in biology and medicine of the project.",
+            "publicLink": "https://player.vimeo.com/video/855539510??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
             "speaker": "Jonathan Romano (LFP6)",
             "affiliation": "Lead Developer, Eterna",
             "time": "July 22, 2023, 14:30:00 PDT",
             "topic": "A new intuition: Eterna gameplay beyond thermodynamics",
-            "abstract": "Puzzle solving on Eterna has historically revolved around thermodynamic models, predicting structures through minimum free energy calculation and exposing calculated nearest neighbor free energy values. However, newer modeling methods with higher accuracy have come into the picture which change fundamental assumptions and information players use when solving puzzles. What's behind this change, how does it impact players, and how can it change the way we think about and visualize puzzles as we solve them?"
+            "abstract": "Puzzle solving on Eterna has historically revolved around thermodynamic models, predicting structures through minimum free energy calculation and exposing calculated nearest neighbor free energy values. However, newer modeling methods with higher accuracy have come into the picture which change fundamental assumptions and information players use when solving puzzles. What's behind this change, how does it impact players, and how can it change the way we think about and visualize puzzles as we solve them?",
+            "publicLink": "https://player.vimeo.com/video/855540170??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
             "time": "July 22, 2023, 15:00:00 PDT",
@@ -104,21 +112,24 @@
             "affiliation": "Howard Hughes Medical Institute",
             "time": "July 23, 2023, 9:30:00 PDT",
             "topic": "Viral RNA structures: An opportunity for broad public engagement",
-            "abstract": "RNA Viruses persists to pose serious threats to human health and global economies. Disease progression mediated by viral pathogenesis requires numerous interactions between house proteins and viral RNA (vRNA) structures. Host-vRNA complexes drive essential processes in the replication cycle of viruses; as such, they represent untapped targets for therapeutic intervention.  In this talk, I will discuss research underway in my group that offers insights into fundamental viral RNA processes and that can be used to engage broader audiences."
+            "abstract": "RNA Viruses persists to pose serious threats to human health and global economies. Disease progression mediated by viral pathogenesis requires numerous interactions between house proteins and viral RNA (vRNA) structures. Host-vRNA complexes drive essential processes in the replication cycle of viruses; as such, they represent untapped targets for therapeutic intervention.  In this talk, I will discuss research underway in my group that offers insights into fundamental viral RNA processes and that can be used to engage broader audiences.",
+            "publicLink": "https://player.vimeo.com/video/856477554??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
             "speaker": "Momodou B. Camara",
             "affiliation": "University of Nebraska-Lincoln",
             "time": "July 23, 2023, 10:00:00 PDT",
             "topic": "Exploring the dance of RNA: Structural dynamics in 7SK RNA central domain",
-            "abstract": "The 7SK RNA is noncoding RNA found in cells that help to control gene expression. It does this by interacting with proteins to form a complex called 7SK ribonucleoprotein (RNP). This complex regulates transcription, essential for making proteins in our cells. This talk will focus on the structural dynamics we discovered in the central domain of the 7SK that has the potential to regulate its function."
+            "abstract": "The 7SK RNA is noncoding RNA found in cells that help to control gene expression. It does this by interacting with proteins to form a complex called 7SK ribonucleoprotein (RNP). This complex regulates transcription, essential for making proteins in our cells. This talk will focus on the structural dynamics we discovered in the central domain of the 7SK that has the potential to regulate its function.",
+            "publicLink": "https://player.vimeo.com/video/856473071??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
-            "speaker": "Dina Buitrago; Karmen Williams; Ronald Lorenzo",
+            "speaker": "Karmen Williams; Ronald Lorenzo",
             "affiliation": "City University of New York; Prairie View A&M University",
             "time": "July 22, 2023, 10:30:00 PDT",
             "topic": "Eterna player profile survey 2023 results",
-            "abstract": "Earlier this year we conducted an Eterna player survey to learn about the Eterna community.  We want to know who you are and what motivates you to be active on Eterna.  Eterna last conducted a survey of this kind in 2015.  How has the player community changed in that time?  We will present your results and get your feedback!  "
+            "abstract": "Earlier this year we conducted an Eterna player survey to learn about the Eterna community.  We want to know who you are and what motivates you to be active on Eterna.  Eterna last conducted a survey of this kind in 2015.  How has the player community changed in that time?  We will present your results and get your feedback!  ",
+            "publicLink": "https://player.vimeo.com/video/855540324??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
             "time": "July 23, 2023, 11:00:00 PDT",
@@ -129,21 +140,24 @@
             "affiliation": "Eterna Player",
             "time": "July 23, 2023, 12:00:00 PDT",
             "topic": "Serena FoldChange prediction algorithm and analysis walkthrough",
-            "abstract": "An introduction to the Serena RNA Switch FoldChange prediction algorithm that performs a detailed automated analysis of the ensemble and then gives a numerical value for the prediction fold change +/- 6 (based on training data). A walkthrough on how to use it to perform analysis of a switch as well will be given, and this will be a detailed analysis of a selection of the PNAS SSNG1 lab. Serena will answer questions around why the Eterna 30 and 60 score groups exists, where we have designs that on the surface look perfect but fail to perform. It is revealed that this is actually a factor of variation in the ensemble."
+            "abstract": "An introduction to the Serena RNA Switch FoldChange prediction algorithm that performs a detailed automated analysis of the ensemble and then gives a numerical value for the prediction fold change +/- 6 (based on training data). A walkthrough on how to use it to perform analysis of a switch as well will be given, and this will be a detailed analysis of a selection of the PNAS SSNG1 lab. Serena will answer questions around why the Eterna 30 and 60 score groups exists, where we have designs that on the surface look perfect but fail to perform. It is revealed that this is actually a factor of variation in the ensemble.",
+            "publicLink": "https://player.vimeo.com/video/856477234??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
             "speaker": "William Dunlap (Astromon)",
             "affiliation": "Eterna Player",
             "time": "July 23, 2023, 13:00:00 PDT",
             "topic": "ASO Designing",
-            "abstract": "Eterna player ASO designing methods and spreadsheets/tools to help in the process."
+            "abstract": "Eterna player ASO designing methods and spreadsheets/tools to help in the process.",
+            "publicLink": "https://player.vimeo.com/video/855539346??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
             "speaker": "Christian Choe, PhD Candidate",
             "affiliation": "Stanford University, Bioengineering Department",
             "time": "July 23, 2023, 13:30:00 PDT",
             "topic": "Rationally designed RNA sensors that compute functions of multiple inputs (OpenTB paper)",
-            "abstract": "Designing small single molecules that compute digital functions on the concentrations of input molecular partners represents a major unsolved challenge in molecular design. Using the crowdsourced RNA design platform Eterna, we demonstrate that high-throughput, iterative experimental testing of diverse RNA designs can solve increasingly complex conditional molecular sensing problems."
+            "abstract": "Designing small single molecules that compute digital functions on the concentrations of input molecular partners represents a major unsolved challenge in molecular design. Using the crowdsourced RNA design platform Eterna, we demonstrate that high-throughput, iterative experimental testing of diverse RNA designs can solve increasingly complex conditional molecular sensing problems.",
+            "privateLink": "https://player.vimeo.com/video/856477132??h=92bcb1b884&title=0&byline=0&portrait=0"
         },
         {
             "speaker": "Arnuv Modh",

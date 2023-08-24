@@ -9,10 +9,9 @@ export default {
     return !(link.startsWith('/') || link.startsWith('https://eternagame.org/'));
   },
   getPuzzleMiddleThumbnail(nid: string | null) {
-    // return `https://s3.amazonaws.com/eterna/puzzle_mid_thumbnails/thumbnail${nid}.png`;
     return (
       nid &&
-      `https://renderv2-prod-renderv2bucket86ab868d-1aq5x6e32xf92.s3.amazonaws.com/puzzle_mid_thumbnails/thumbnail${nid}.svg`
+      `${process.env.VUE_APP_PUZZLE_THUMBNAIL_URL}/puzzle_mid_thumbnails/thumbnail${nid}.svg`
     );
   },
   getPuzzleCloudThumbnail(nid: string) {

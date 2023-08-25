@@ -197,6 +197,7 @@
       { value: '', text: '' },
       { value: 'ContraFold', text: 'ContraFold' },
       { value: 'EternaFold', text: 'EternaFold' },
+      { value: 'EternaFoldThreshknot', text: 'EternaFoldThreshknot' },
       { value: 'LinearFoldE', text: 'LinearFoldEternaFold' },
       { value: 'LinearFoldV', text: 'LinearFoldVienna' },
       { value: 'LinearFoldC', text: 'LinearFoldContraFold' },

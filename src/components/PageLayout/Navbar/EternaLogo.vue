@@ -1,6 +1,6 @@
 <template>
   <b-navbar-brand to="/">
-    <img src="@/assets/logo_eterna.svg" class="d-inline-block align-top" alt="etenra" />
+    <img src="@/assets/logo_eterna.svg" class="d-inline-block align-top" alt="Eterna" />
   </b-navbar-brand>
 </template>
 <script lang="ts">

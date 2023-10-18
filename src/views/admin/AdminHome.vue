@@ -35,9 +35,11 @@
           </b-card>
         </router-link>
       </div>
-      <div class="grafana-dashboard">
-        <h2>Grafana Dashboard</h2>
-      </div>
+      <iframe
+          title="Grafana Dashboard"
+          src="https://monitor.eternagame.org/public-dashboards/b0f57bb61d47466abe6a60cbb5ee3ce9"
+          class="grafana-dashboard"
+        />
     </main>
   </div>
 </template>
@@ -47,7 +49,7 @@
   // import { BSidebar } from 'bootstrap-vue';
   import { BIconArrowRightCircle, BIconChevronRight } from 'bootstrap-vue';
   import Sidebar from './components/Sidebar.vue';
-  
+
 
   @Component({
     components: {
@@ -86,7 +88,7 @@
     // grid-gap: 20px;
     // margin: 10%;
   }
-  
+
   main h1 {
     margin-top: 32px;
     text-align: center;
@@ -113,7 +115,7 @@
     }
   }
 
-  
+
 
   .card {
     height:100%;
@@ -124,25 +126,24 @@
     &:hover {
       background-color: #569bf4 !important;
     }
-    
-    .card-body { display: flex; flex-direction: column; } 
+
+    .card-body { display: flex; flex-direction: column; }
     .card-text { flex-grow: 2; }
   }
 
-    .footer {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-      font-size: 1.3rem;
-      align-self: flex-end;
-    }
-
+  .footer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    font-size: 1.3rem;
+    align-self: flex-end;
+  }
 
   .grafana-dashboard {
     width: 100%;
-    height: 50%;
-    background-color: #666666;
+    height: 525px;
+    border: none;
   }
 
   // .card {

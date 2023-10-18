@@ -36,13 +36,14 @@
   import Sidebar from './components/Sidebar.vue';
   import StringInput from './components/inputs/StringInput.vue';
   import IntInput from './components/inputs/IntInput.vue';
-
+  import BooleanInput from './components/inputs/BooleanInput.vue';
 
   @Component({
     components: {
       Sidebar,
       StringInput,
       IntInput,
+      BooleanInput,
       BIconArrowRightCircle,
       BIconChevronRight
       // PlayerHome,
@@ -77,7 +78,10 @@
         },
         body: JSON.stringify(this.form),
       }).then(res => res.json())
-        .then(json => console.log("Success:", json))
+        .then(json => {
+          console.log("Success:", json);
+          this.$router.push(`/admin/${this.$route.params.type}`);
+        })
         .catch(err => console.log(err));
     }
 

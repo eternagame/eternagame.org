@@ -24,7 +24,7 @@
     type="number"
     placeholder=""
     :required="field.required"
-    :readonly="field.readonly"
+    :plaintext="field.readonly"
   ></b-form-input>
 </template>
 
@@ -36,9 +36,9 @@
     },
   })
   export default class IntInput extends Vue {
-    @Prop({ required: true }) fieldKey: string;
+    @Prop({ required: true }) fieldKey: string = '';
 
-    @Prop({ required: true }) field: Record<string,any>;
+    @Prop({ required: true }) field: Record<string,any> = {};
 
     value = '';
   }

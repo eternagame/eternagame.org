@@ -15,7 +15,17 @@
           <b-form-input v-model="searchText" placeholder="Search"></b-form-input>
         </header>
         <div class="table">
-          <b-table sticky-header="600px" hover :items="flatList" :fields="flatFields" tbody-tr-class="tableRow"></b-table>
+          <b-table 
+            sticky-header="600px" 
+            hover 
+            :items="flatList" 
+            :fields="flatFields" 
+            @row-clicked="navigateToEditPage"
+            tbody-tr-class="tableRow">
+            <template #cell()="data">
+              <div class="table-cell">{{ data.value }}</div>
+            </template>
+          </b-table>
         </div>
       </div>
     </main>
@@ -66,6 +76,11 @@
         .catch(err => {console.log(err);});
     }
 
+    navigateToEditPage(item: any) {
+      console.log(item);
+      // this.$router.push(`/admin-api/content/${this.$route.params.type}/${item.id}`);
+    }
+
     get loggedIn() {
       return this.$vxm.user.loggedIn;
     }
@@ -82,6 +97,7 @@
     get flatFields() {
       return this.meta.fields;
     }
+    
   }
 </script>
 
@@ -122,8 +138,11 @@
     overflow-x: scroll;
   }
 
-  .tableRow {
+  .table-cell {
+    display: flex;
+    align-items: center;
     max-height: 3rem;
+    overflow: scroll;
   }
 
   // td, th {

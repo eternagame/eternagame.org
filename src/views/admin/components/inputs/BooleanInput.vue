@@ -24,9 +24,9 @@
     },
   })
   export default class BooleanInput extends Vue {
-    @Prop({ required: true }) fieldKey: string;
+    @Prop({ required: true }) fieldKey: string = '';
 
-    @Prop({ required: true }) field: Record<string,any>;
+    @Prop({ required: true }) field: Record<string,any> = {};
 
     value = '';
   }

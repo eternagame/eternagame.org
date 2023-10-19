@@ -304,6 +304,41 @@ export default function createRouter() {
         path: '/partner/nova-labs',
         component: () => import('./views/nova/NovaTransfer.vue'),
       },
+      {
+        path: '/admin',
+        name: 'admin-home',
+        component: () => import('./views/admin/AdminHome.vue'),
+        meta: {
+          hideNav: true
+        }
+      },
+      {
+        path: '/admin/content',
+        name: 'admin-content',
+        component: () => import('./views/admin/AdminContent.vue'),
+        props: { type: true },
+        meta: {
+          hideNav: true
+        }
+      },
+      {
+        path: '/admin/:type',
+        name: 'admin-list',
+        component: () => import('./views/admin/AdminList.vue'),
+        props: { type: true },
+        meta: {
+          hideNav: true
+        }
+      },
+      {
+        path: '/admin/:type/create',
+        name: 'admin-create',
+        component: () => import('./views/admin/AdminCreate.vue'),
+        props: { type: true },
+        meta: {
+          hideNav: true
+        }
+      },
       // Maintaining these old routes in case they're actively linked from anywhere
       // important - at some point we should audit if we can remove these, or we may need a
       // dedicated section of legacy routes anyways

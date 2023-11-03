@@ -21,7 +21,7 @@
           <h3>NOVA RNA VirtuaLab</h3>
           <p>
             Learn about RNA vaccines and viruses in a crash course on RNA biology designed for
-            middle and high school students
+            middle and high school students.
           </p>
           <b-btn variant="primary" href="https://www.pbs.org/wgbh/nova/labs/lab/rna/" target="_blank">Experience the VirtuaLab</b-btn>
         </b-card>
@@ -35,7 +35,7 @@
           <h3>RNA Biology with Eterna</h3>
           <p>
             A college-level in-depth introduction to RNA biology, its role in cell growth and development,
-            and its uses in medicine and bioengineering
+            and its uses in medicine and bioengineering.
           </p>
           <!--b-btn variant="primary" href="https://coursera.org/learn/rna-biology" target="_blank">Visit the course</!--b-btn-->
           <b-btn variant="primary" class="disabled" href="#">Coming Soon</b-btn>
@@ -50,7 +50,7 @@
           <h3>Citizen Science with Eterna in the Classroom</h3>
           <p>
             Instructions for educators who want to engage their students in the Eterna citizen science
-            platform directly without curriculum
+            platform directly without curriculum.
           </p>
           <b-btn variant="primary" href="https://docs.google.com/document/d/1qWW0SU42KNcRBv6xiklODl_5w1VYIovioS6KeWpFGH0/edit?usp=sharing" target="_blank">View guide</b-btn>
         </b-card>
@@ -58,11 +58,11 @@
     </b-row>
 
     <div class="outreach-kit">
-      <div>
-        <p>Also check out the materials that are part of our outreach kit!</p>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSey1YsthmQvH31HvhhIcbb2j7skJFF17KRv7g-S8bIeGy6dpg/viewform
-  " target="_blank" style="text-decoration: underline;">Request Access</a>
-      </div>
+      <p style="margin-right: 10px;">Also check out the materials that are part of our outreach kit!</p>
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSey1YsthmQvH31HvhhIcbb2j7skJFF17KRv7g-S8bIeGy6dpg/viewform" target="_blank"
+        style="text-decoration: underline;"
+      >Request Access</a>
     </div>
   </EternaPage>
 </template>
@@ -127,20 +127,15 @@
   .outreach-kit {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+
     margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
 
-    div {
-      max-width: 700px;
-
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-
-      p {
-        margin: 0;
-        margin-right: 10px;
-      }
+    p {
+      text-align: center;
+      margin-bottom: 0;
     }
   }
 </style>

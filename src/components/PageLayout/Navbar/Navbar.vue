@@ -91,6 +91,7 @@
         overview: '/about',
         publications: '/publications',
         software: '/software',
+        forEducators: '/edu',
         merch: `https://www.redbubble.com/people/eternagame/explore`,
         donate: '/donate',
       },

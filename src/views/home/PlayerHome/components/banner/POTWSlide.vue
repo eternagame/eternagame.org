@@ -20,11 +20,6 @@
           <i class="arrow_right"></i>{{ $t('puzzle-slide:past-potw') }}
         </p>
       </router-link>
-      <router-link to="/puzzles/?search=:COVID19" class="link d-none d-sm-block">
-        <p style="margin-right: 20px;color:white;font-weight:bold;font-size:14px">
-          <i class="arrow_right"></i>{{ $t('puzzle-slide:past-training') }}
-        </p>
-      </router-link>
     </div>
   </b-carousel-slide>
 </template>

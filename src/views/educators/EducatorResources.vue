@@ -37,8 +37,7 @@
             A college-level in-depth introduction to RNA biology, its role in cell growth and development,
             and its uses in medicine and bioengineering.
           </p>
-          <!--b-btn variant="primary" href="https://coursera.org/learn/rna-biology" target="_blank">Visit the course</!--b-btn-->
-          <b-btn variant="primary" class="disabled" href="#">Coming Soon</b-btn>
+          <b-btn variant="primary" href="https://coursera.org/learn/rna-biology" target="_blank">Visit the course</b-btn>
         </b-card>
       </b-col>
       <b-col md="4" class="resource-card">

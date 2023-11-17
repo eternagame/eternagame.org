@@ -40,7 +40,9 @@
         </template>
         <ul style="padding: 0; list-style-type:none" v-if="script">
           <li>
-            <img :src="avatar" alt="author" class="icon" />{{ script.author.name }}<span v-b-tooltip.hover title="Trusted author" v-if="script.is_trusted === '1'">&nbsp;✔</span>
+            <router-link :to="`/players/${script.uid}`">
+              <img :src="avatar" alt="author" class="icon" />{{ script.author.name }}<span v-b-tooltip.hover title="Trusted author" v-if="script.is_trusted === '1'">&nbsp;✔</span>
+            </router-link>
           </li>
           <li>{{ script.type }}</li>
           <li v-if="isAuthor">{{ script.is_private === '1' ? 'Private' : 'Public' }}</li>

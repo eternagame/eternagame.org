@@ -5,8 +5,8 @@
       <router-link :to="`/players/${uid}`">
         <p class="commenter-name mb-0">
           {{ name }}
-        </p></router-link
-      >
+        </p>
+      </router-link>
       <p style="font-size: 0.6rem">{{ created }}</p>
       <p v-dompurify-html="comment" style="overflow-wrap: break-word;">{{ comment }}</p>
       <button @click="deleteComment()" v-if="canDelete" style="cursor:pointer" class="btn btn-danger btn-sm" :disabled="deleting">

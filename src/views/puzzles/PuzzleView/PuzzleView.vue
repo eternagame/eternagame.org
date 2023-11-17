@@ -44,7 +44,9 @@
         </template>
         <ul style="padding: 0; list-style-type:none" v-if="puzzle">
           <li v-if="madeByPlayer">
-            <img :src="avatar" alt="author" class="icon" />{{ puzzle.username }}
+            <router-link :to="`/players/${puzzle.uid}`">
+              <img :src="avatar" alt="author" class="icon" />{{ puzzle.username }}
+            </router-link>
           </li>
           <li v-if="puzzle.folder">
             <img src="@/assets/chemical_bond.svg" alt="folding engine" class="icon" />{{ puzzle.folder }}

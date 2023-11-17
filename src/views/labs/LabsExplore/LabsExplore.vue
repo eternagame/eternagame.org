@@ -2,7 +2,10 @@
   <EternaPage :title="$t('nav-bar:labs')">
     <Paginator :loading="fetchState.pending" :total="total" :defaultIncrement="increment" @load="$fetch">
       <section class="phase-section" v-for="phase in Object.keys(segmentedLabs)" :key="phase">
-        <h3 class="phase-title" v-b-toggle="`collapse-${phase}`">{{ getPhaseTitle(phase) }}</h3>
+        <div class="phase-title" v-b-toggle="`collapse-${phase}`">
+          <h3>{{ getPhaseTitle(phase) }}</h3>
+          <BIconChevronRight></BIconChevronRight>
+        </div>
         <b-collapse :id="`collapse-${phase}`" :visible="phase == '1'" class="mt-2">
           <Gallery setCur>
             <LabCard v-for="lab in segmentedLabs[phase]" :key="lab.nid" :lab="lab" />
@@ -37,6 +40,7 @@
   import FetchMixin from '@/mixins/FetchMixin';
   import PaginationPanel from '@/components/Sidebar/PaginationPanel.vue';
   import Paginator, { PaginatorEvent } from '@/components/PageLayout/Paginator.vue';
+  import { BIconChevronRight } from 'bootstrap-vue';
   import LabsExploreData, { LabCardData } from './types';
   import LabCard from './components/LabCard.vue';
 
@@ -50,6 +54,7 @@
       Preloader,
       PaginationPanel,
       Paginator,
+      BIconChevronRight
     },
   })
   export default class LabsExplore extends Mixins(FetchMixin) {
@@ -131,11 +136,30 @@
   }
 </script>
 
-<style>
+<style lang="scss">
   .phase-section {
     margin-top: 1rem;
+
   }
   .phase-title {
-    font-size: 1.5rem;
+    background-color: #043468;
+    border-radius: 4px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h3 {
+      font-size: 1.5rem;
+    }
+    .bi-chevron-right {
+      transition: transform 300ms ease-in-out;
+    }
+  }
+
+  .phase-title.not-collapsed {
+    .bi-chevron-right {
+      transform: rotate(90deg);
+    }
   }
 </style>

@@ -61,7 +61,7 @@
   })
   export default class QuickHelp extends Vue {
     data = {
-      'help:toolbar': 'help:toolbar',
+      'help:toolbar': 'help:toolbar-text',
       'help:tips-and-tricks': 'help:tips-and-tricks-text',
       'help:four-bases': 'help:four-bases-text',
       'help:moving-and-magnifying-RNA': 'help:moving-and-magnifying-RNA-text',

@@ -399,7 +399,7 @@
       patching, configuration, access controls, credential management, and encryption where appropriate.
     </p>
 
-    <h4>Data Rights and Retention</h4>
+    <h4 id="data-rights-and-retention">Data Rights and Retention</h4>
     <p>
       Should you need any additional assistance to employ your rights, such as under the General
       Data Protection Regulation (GDPR), and such tools are not readily available to you,

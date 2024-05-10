@@ -20,7 +20,7 @@
         :isInSidebar="isInSidebar"
       /> -->
       <!-- <CalendarPanel :isInSidebar="isInSidebar" /> -->
-      <FollowPanel :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="isInSidebar" />
+      <FollowPanel :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="isInSidebar && $vxm.user.loggedIn" />
       <!-- <TagsPanel :tags="['#Ribosome', '#Eternacon', '#Chat']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>

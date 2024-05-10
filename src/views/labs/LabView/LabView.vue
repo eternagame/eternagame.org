@@ -23,7 +23,7 @@
     <Comments :comments="comments" :nid="lab.nid" v-if="comments.length || $vxm.user.loggedIn" />
     <template #sidebar="{ isInSidebar }">
       <LabInfoPanel :lab="lab" :challenge="challenge" :isInSidebar="isInSidebar" />
-      <FollowPanel :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="isInSidebar" />
+      <FollowPanel :nid="$route.params.id" :isInSidebar="isInSidebar" v-if="isInSidebar && $vxm.user.loggedIn" />
       <!-- <TagsPanel :tags="['#Switch', '#Ribosome']" :isInSidebar="isInSidebar" /> -->
     </template>
   </EternaPage>

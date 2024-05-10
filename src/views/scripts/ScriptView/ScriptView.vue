@@ -48,7 +48,7 @@
           <li v-if="isAuthor">{{ script.is_private === '1' ? 'Private' : 'Public' }}</li>
         </ul>
       </SidebarPanel>
-      <div>
+      <div v-if="$vxm.user.loggedIn">
         <div v-if="isInSidebar" class="mb-2">
           <b-btn variant="primary" @click="toggleFavorite" :disabled="processingFavorite">
             {{ script.is_favorite === '1' ? 'Unfavorite' : 'Favorite' }}

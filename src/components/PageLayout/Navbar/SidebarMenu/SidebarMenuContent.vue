@@ -5,6 +5,7 @@
         <NavbarIcons class="d-inline d-md-none" :isInSideBar="true" />
       </div>
     </b-navbar-nav>
+    <LoginRow :isInSideBar="true" v-else />
     <hr class="d-lg-none sidebar-separator" />
     <b-navbar-nav>
       <SidebarMenuItem
@@ -22,11 +23,13 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import NavbarIcons from '../Icons/NavbarIcons.vue';
   import SidebarMenuItem from './SidebarMenuItem.vue';
+  import LoginRow from '../NavbarMenu/Login/LoginRow.vue';
 
   @Component({
     components: {
       SidebarMenuItem,
       NavbarIcons,
+      LoginRow,
     },
   })
   export default class SidebarMenuContent extends Vue {

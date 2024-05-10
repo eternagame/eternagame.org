@@ -56,6 +56,7 @@
         variant="primary"
         class="submit-button"
         to="/collections/create"
+        v-if="$vxm.user.loggedIn"
       >
         {{ $t('collections-view:create') }}
       </b-button>

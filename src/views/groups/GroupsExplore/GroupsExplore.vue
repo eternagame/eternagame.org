@@ -35,6 +35,7 @@
         variant="primary"
         class="submit-button"
         to="/groups/create"
+        v-if="$vxm.user.loggedIn"
       >
       {{ $t('group-explore:create-group') }}
       </b-button>

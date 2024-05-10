@@ -5,19 +5,18 @@
       <p id="chat-popover-anchor" class="anchor">.</p>
 
       <div class="d-flex justify-content-end">
-        <LoginRow v-if="!loggedIn" />
         <div class="d-none d-lg-block">
           <NavbarCollapseContent :menu="menu" />
         </div>
         <div class="d-flex">
-          <NavbarIcons v-if="loggedIn" class="d-none d-md-inline-block d-lg-none" />
+          <NavbarIcons class="d-none d-md-inline-block d-lg-none" v-if="loggedIn" />
+          <LoginRow class="d-none d-md-inline-block d-lg-none mr-2" v-else />
           <img
-            v-if="loggedIn"
             src="@/assets/navbar/Toggler.svg"
             @click.stop="showSidebar = true"
             @keypress.enter="showSidebar = true"
             @keypress.space="showSidebar = true"
-            class="toggler d-inline-block d-lg-none "
+            class="toggler d-inline-block d-lg-none"
             alt="Open menu"
           />
         </div>

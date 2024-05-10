@@ -14,6 +14,7 @@
       style="margin-left:10px; padding: 5px 30px;"
       variant="primary"
       @click="messageUser"
+      v-if="$vxm.user.loggedIn"
       >{{ $t('player-view:message') }}</b-button
     >
   </div>

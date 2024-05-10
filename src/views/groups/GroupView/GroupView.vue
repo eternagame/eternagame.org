@@ -140,7 +140,7 @@
               </b-button>
             </li>
           </div>
-          <div>
+          <div v-if="$vxm.user.loggedIn">
             <li>
               <b-button
                 v-if="!following"

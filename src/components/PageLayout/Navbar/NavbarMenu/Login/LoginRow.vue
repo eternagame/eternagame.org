@@ -1,6 +1,6 @@
 <template>
   <div class="login-row">
-    <b-form inline class="my-2 my-lg-0" name="loginform" id="loginform" onsubmit="return false">
+    <b-form inline :style="{'justify-content': isInSideBar ? 'center' : 'end'}" name="loginform" id="loginform" onsubmit="return false">
       <b-form-group class="d-flex flex-wrap">
         <b-btn
           type="submit"
@@ -20,22 +20,23 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
 
   @Component({
     components: {},
   })
-  export default class LoginRow extends Vue {}
+  export default class LoginRow extends Vue {
+    @Prop({ default: false }) readonly isInSideBar!: boolean;
+  }
 </script>
 
 <style lang="scss" scoped>
   @import '@/styles/global.scss';
   .button + .button {
-    margin-left: 0.25rem;
+    margin-left: 0.5rem;
   }
   .button {
     font-size: 18px;
-    margin-top: 0.3rem;
     padding: 0.3rem 1rem 0.3rem 1rem;
     @include media-breakpoint-up(xs) {
       font-size: 12px;

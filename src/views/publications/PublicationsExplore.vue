@@ -2,7 +2,9 @@
   <EternaPage :title="$t('publications:title')">
     <div v-if="fetchState.firstFetchComplete">
       <p class="overview-text">
-        {{ $t('publications:overview') }} {{totalPapers}} {{ $t('publications:overview:tag') }}
+        Over 60,000 Eterna players have contributed to scientific publications, including several players as lead
+        authors. Have a new paper idea? Want to help us edit upcoming player papers? Please contact <router-link to="/players/246020">DigitalEmbrace</router-link>.
+        The Eterna project has lead to the publication of {{totalPapers}} papers.
       </p>
 
       <a name="player-publications" aria-label="player publications" class="anchor-link"></a>

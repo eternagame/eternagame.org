@@ -6,7 +6,7 @@
   >
     <span id="lab-admin" class="gray-header">{{ $t('lab-info:admin') }}</span><br />
     <img src="@/assets/navbar/DefaultIcon.svg" :alt="$t('lab-info:admin')" style="margin-right:5px" />
-    <span style="font-weight: bold; color: var(--yellow);">{{ lab.username }}</span>
+    <router-link :to="`/players/${lab.uid}`" style="font-weight: bold; color: var(--yellow);">{{ lab.username }}</router-link>
     <br />
     <br />
     <div v-if="challenge">

@@ -190,12 +190,12 @@
         <li>Open the javascript console of your browser, and play around</li>
       </ul>
       <h5>Synchronous vs Asynchronous</h5>
-      <p>The <a href="https://eternagame.org/scripts/7070114">Tsumego</a> script is an example of a synchronous booster. Synchronous boosters have following properties:</p>
+      <p>The <router-link to="/scripts/7070114">Tsumego</router-link> script is an example of a synchronous booster. Synchronous boosters have following properties:</p>
       <ul>
         <li>they do not use setTimeout() or setInterval()</li>
         <li>they return a simple value</li>
       </ul>
-      <p>The <a href="https://eternagame.org/scripts/6713763">Naive Solver</a> script is an example of an asynchronous booster. The features that make it asynchronous are:</p>
+      <p>The <router-link to="/scripts/6713763">Naive Solver</router-link> script is an example of an asynchronous booster. The features that make it asynchronous are:</p>
       <ul>
         <li>it uses setTimeout()</li>
         <li>

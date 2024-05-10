@@ -12,20 +12,20 @@
       </td>
       <td>
         <div class="player-name">
-          <a v-bind:href="'/players/' + rankedSolution.uid">
+          <router-link :to="'/players/' + rankedSolution.uid">
             {{ rankedSolution.name }}
-          </a>
+          </router-link>
         </div>
        </td>
       <td>
-        <a v-bind:href="puzzleLink">
+        <router-link :to="puzzleLink">
           {{ rankedSolution.puztitle }}
-        </a>
+        </router-link>
       </td>
       <td>
-        <a v-bind:href="solutionLink">
+        <router-link :to="solutionLink">
           {{ rankedSolution.title }}
-        </a>
+        </router-link>
       </td>
       <td>
         <div class="score">

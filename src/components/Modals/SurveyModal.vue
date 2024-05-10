@@ -10,7 +10,7 @@
     </template>
     <div>
       Did you know the last time we surveyed player demographics was in
-      <a href="https://eternagame.org/news/6163840">2015</a>?
+      <router-link to="/news/6163840">2015</router-link>?
       Help us understand who we are by participating in our newly revised survey!
       Results of the Eterna Player Profile Survey will be shared with the Eterna
       community.

@@ -15,8 +15,8 @@
             You received {{ reward.field_reward_amount_value }}
             <img src="@/assets/dollar.svg" alt="coins" class="icon coin-icon" />
             for {{ isVote ? 'voting on' : 'your design'}},
-            <a :href="link">{{ reward.field_reward_solution_title_value }}</a>,
-            in <a :href="puzzleLink">{{ reward.field_reward_puzzle_title_value}}</a>
+            <router-link :to="link">{{ reward.field_reward_solution_title_value }}</router-link>,
+            in <router-link :to="puzzleLink">{{ reward.field_reward_puzzle_title_value}}</router-link>
           </p>
       </div>
     </div>

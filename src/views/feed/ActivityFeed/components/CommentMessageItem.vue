@@ -11,9 +11,9 @@
             {{ notification.target2_name }}
           </router-link>
           {{ ' ' + $t('activity-feed:commented-on') + ' ' }}
-          <a :href="link">
+          <router-link :to="link">
               {{ message.content.node.title }}
-          </a>
+          </router-link>
       </template>
     </MessageItem>
   </div>
@@ -48,10 +48,10 @@
         return `/news/${id}`;
       case 'group':
       case 'eterna_group':
-        return `${process.env.VUE_APP_API_BASE_URL}/groups/${id}/`;
+        return `/groups/${id}/`;
       case 'solution': {
         const pid = (this.message.content.node as any).puzzle_id;
-        return `puzzles/${pid}/browse?filter1=Id&filter1_arg1=${id}&filter1_arg2=${id}`;
+        return `/puzzles/${pid}/browse?filter1=Id&filter1_arg1=${id}&filter1_arg2=${id}`;
       }
       default:
         return '#';

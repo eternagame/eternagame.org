@@ -15,7 +15,7 @@
     <p>
       This Agreement is between Eterna, as operated by the Board of Trustees of the Leland Stanford
       Jr. University ("Stanford") and you, the user. This Agreement sets forth the legally binding
-      terms and conditions for your use of Eterna ("Websites", <a href="https://eternagame.org">https://eternagame.org</a>
+      terms and conditions for your use of Eterna ("Websites", <router-link to="/">https://eternagame.org</router-link>
       and associated websites), in consideration a grant of access rights. This agreement applies to
       all users of the Websites, including users who are also contributors of content, information,
       and other materials or services on the Websites. You may view the most recent Terms of Use

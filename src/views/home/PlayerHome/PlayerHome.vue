@@ -35,7 +35,7 @@
           </div>
           <div class="col-md-4">
             <NewsCard :key="newsItems[2].nid" v-bind="newsItems[2]"></NewsCard>
-            <p class="text-right"><a href="/news">View All ></a></p>
+            <p class="text-right"><router-link to="/news">View All ></router-link></p>
           </div>
         </div>
       <!-- <div class="row">
@@ -49,13 +49,13 @@
               />
             </Gallery>
             <Pagination :key="newsItems.length" />
-            <p class="text-right"><a href="/news">View All ></a></p>
+            <p class="text-right"><router-link to="/news">View All ></router-link></p>
           </div>
 
           <div class="col-md-6">
             <h3>Upcoming Events</h3>
             <FullCalendar :options="calendarOptions" />
-            <p class="text-right"><a href="/calendar">View All ></a></p>
+            <p class="text-right"><router-link to="/calendar">View All ></router-link></p>
           </div>
         </div> -->
       </div>

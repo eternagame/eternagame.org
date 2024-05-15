@@ -144,9 +144,9 @@ export default function createRouter() {
         component: () => import('./views/challenges/ChallengeExplore/ChallengeExplore.vue'),
       },
       {
-        path: '/software',
-        name: 'software',
-        component: () => import('./views/software/SoftwareExplore.vue'),
+        path: '/tech',
+        name: 'tech',
+        component: () => import('./views/tech/TechExplore.vue'),
       },
       {
         path: '/groups',
@@ -314,6 +314,10 @@ export default function createRouter() {
       {
         path: '/about/software',
         redirect: '/software'
+      },
+      {
+        path: '/software',
+        redirect: '/tech'
       },
       {
         path: '/about/terms',

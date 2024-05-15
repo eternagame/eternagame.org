@@ -25,11 +25,11 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { SoftwareVersion } from './SoftwareLicenseModal.vue';
+  import { TechVersion } from './TechLicenseModal.vue';
 
   @Component({})
   export default class VersionCard extends Vue {
-    @Prop({ required: true }) readonly version!: SoftwareVersion;
+    @Prop({ required: true }) readonly version!: TechVersion;
 
     @Prop({ required: true }) readonly token!: string;
 

@@ -47,7 +47,7 @@
       EternaPage,
     },
   })
-  export default class SoftwareExplore extends Vue {
+  export default class Donate extends Vue {
   }
 </script>
 

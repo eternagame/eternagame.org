@@ -27,12 +27,12 @@
             class="btn btn-primary mt-3 mr-3 mb-3"
             @click="$bvModal.show(id)"
             v-b-tooltip.hover.bottom
-            title="Request software license"
+            title="Request license"
           >
             <b-icon-download />
             REQUEST LICENSE
           </b-btn>
-          <SoftwareLicenseModal
+          <TechLicenseModal
             :id="id"
             :packageid="packageid"
             :license-terms="project.license_terms"
@@ -89,17 +89,17 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { BIconDownload, BIconBook, BIconHddStack } from 'bootstrap-vue';
-  import SoftwareLicenseModal from './SoftwareLicenseModal.vue';
-  import { SoftwareProject } from '../SoftwareExplore.vue';
+  import TechLicenseModal from './TechLicenseModal.vue';
+  import { TechProject } from '../TechExplore.vue';
 
   @Component({
-    components: { BIconBook, BIconDownload, BIconHddStack, SoftwareLicenseModal },
+    components: { BIconBook, BIconDownload, BIconHddStack, TechLicenseModal },
   })
-  export default class SoftwareCard extends Vue {
-    @Prop({ required: true }) readonly project!: SoftwareProject;
+  export default class TechCard extends Vue {
+    @Prop({ required: true }) readonly project!: TechProject;
 
     get id() {
-      return `software-license-modal-${this.project.nid}`;
+      return `tech-license-modal-${this.project.nid}`;
     }
 
     get packageid() {
@@ -129,7 +129,6 @@
 
   .card {
     padding: 2rem 1rem;
-    margin-bottom: 1.5rem;
   }
 
   .logo {

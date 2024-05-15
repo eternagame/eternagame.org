@@ -2,19 +2,17 @@
   <EternaPage>
     <div class="overview">
       <h2 class="overview-title">
-        Eterna is a citizen science game that recruits players to design RNA molecules for
-        biomedical research.
+        Eterna is an open science platform leading to fundamental advances in RNA biomedical research.
       </h2>
       <h3 class="overview-subtitle text-muted">
-        Players and researchers have created original software programs to aid in complex RNA
-        design, which are now available for licensing.
+        Eterna has created current state-of-the-art technologies to aid in complex RNA design, which are now available for licensing
       </h3>
       Questions? Contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a>.
     </div>
 
-    <Gallery :sm="12" :md="6">
-      <SoftwareCard v-for="project in projects" :key="project.nid" :project="project" />
-    </Gallery>
+    <div class="masonry">
+      <TechCard v-for="project in projects" :key="project.nid" :project="project" />
+    </div>
   </EternaPage>
 </template>
 
@@ -22,9 +20,9 @@
   import { Component, Vue } from 'vue-property-decorator';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
 
-  import SoftwareCard from './components/SoftwareCard.vue';
+  import TechCard from './components/TechCard.vue';
 
-  export interface SoftwareProject {
+  export interface TechProject {
     name: string;
     nid: string;
     logo: string;
@@ -51,11 +49,11 @@
   @Component({
     components: {
       EternaPage,
-      SoftwareCard,
+      TechCard,
     },
   })
-  export default class SoftwareExplore extends Vue {
-    projects: SoftwareProject[] = [];
+  export default class TechExplore extends Vue {
+    projects: TechProject[] = [];
 
     async mounted() {
       const response = await this.$http.get(ROUTE);
@@ -65,6 +63,8 @@
 </script>
 
 <style scoped lang="scss">
+  @import '@/styles/global.scss';
+
   .overview {
     max-width: 820px;
     margin: 2rem;
@@ -86,5 +86,12 @@
     line-height: 4rem;
     font-size: 2rem;
     font-weight: bold;
+  }
+
+  .masonry {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-rows: masonry;
   }
 </style>

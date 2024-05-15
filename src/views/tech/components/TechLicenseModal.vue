@@ -27,7 +27,7 @@
         <b-card class="mb-3">
           <div class="d-flex align-items-center">
             <p class="mb-0 mr-4">
-              For noncommercial internal research purposes, you can immediately download our software
+              For noncommercial internal research purposes, you can immediately download our technology
               after agreeing to the noncommercial license
             </p>
             <b-btn
@@ -46,8 +46,7 @@
               contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a>.
             </p>
             <p class="mb-0 mr-4" v-else>
-              For commercial purposes, you can request a license, including royalty-free licenses
-              that comply with the <a href="https://opencovidpledge.org/" target="_blank">Open COVID Pledge</a>
+              For commercial purposes, you can request a License
             </p>
             <b-btn
               variant="primary" class="d-flex align-items-center text-left"
@@ -72,7 +71,7 @@
       </template>
       <template v-if="page === 'download'">
         <VersionCard
-          v-for="version in softwareVersions"
+          v-for="version in techVersions"
           :token="token"
           :packageid="packageid"
           :version="version"
@@ -141,7 +140,7 @@
         <div class="text-right">
           <h3>Thanks, {{ licenseRequest.name }}.</h3>
           <p>
-            Your request for a software license has been granted. <br />
+            Your request for a license has been granted. <br />
             Select the version you would like to download. <br />
           </p>
         </div>
@@ -159,7 +158,7 @@
   const POST_ROUTE = '/post/';
   const LIST_RELEASES_ROUTE = '/get/?type=software_package_releases';
 
-  export interface SoftwareVersion {
+  export interface TechVersion {
     name: string;
     version_id: string;
     description: string;
@@ -176,13 +175,13 @@
       BIconChevronRight,
     }
   })
-  export default class SoftwareLicenseModal extends Vue {
+  export default class TechLicenseModal extends Vue {
     @Prop({ required: true }) readonly licenseTerms!: string;
 
     // Unique string used to refer to this popup.
     @Prop({ required: true }) readonly id!: string;
 
-    // The id used by the server to refer to this software package.
+    // The id used by the server to refer to this tech package.
     @Prop({ required: true }) readonly packageid!: string;
 
     @Prop({ required: true }) readonly commercialDisabled?: "0" | "1";
@@ -206,7 +205,7 @@
       position: '',
     };
 
-    softwareVersions: SoftwareVersion[] = [];
+    techVersions: TechVersion[] = [];
 
     async acceptTerms() {
       this.showSpinner = true;
@@ -238,7 +237,7 @@
             packageid: this.packageid,
           },
         });
-        this.softwareVersions = versionsResponse.data.data;
+        this.techVersions = versionsResponse.data.data;
 
         this.page = 'download';
       }

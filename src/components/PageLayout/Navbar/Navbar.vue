@@ -89,7 +89,7 @@
       about: {
         overview: '/about',
         publications: '/publications',
-        software: '/software',
+        tech: '/tech',
         forEducators: '/edu',
         merch: `https://www.redbubble.com/people/eternagame/explore`,
         donate: '/donate',

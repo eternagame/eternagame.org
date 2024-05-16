@@ -21,7 +21,7 @@
           <b-icon-hdd-stack />
           SERVER
         </b-btn>
-        <template v-if="project.license_terms">
+        <template v-if="project.license_terms || project.commercial_license_disabled === '3'">
           <b-btn
             type="button"
             class="btn btn-primary mt-3 mr-3 mb-3"
@@ -36,7 +36,7 @@
             :id="id"
             :packageid="packageid"
             :license-terms="project.license_terms"
-            :commercialDisabled="project.commercial_license_disabled"
+            :licenseStatus="project.commercial_license_disabled"
           />
         </template>
         <b-btn

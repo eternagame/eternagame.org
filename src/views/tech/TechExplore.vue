@@ -41,7 +41,12 @@
     download_url?: string;
     help_tooltip?: string;
     help_url?: string;
-    commercial_license_disabled?: "0" | "1";
+    // This field is now misnamed. It actually refers to licensing status:
+    // 0: Normal (license available if license text is provided)
+    // 1: Commercial License Unavailable
+    // 2: Commercial License Sponsored Research Only
+    // 3: Future Technology
+    commercial_license_disabled?: "0" | "1" | "2" | "3";
   }
 
   const ROUTE = '/get/?type=software_packages';

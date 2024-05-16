@@ -44,16 +44,16 @@
 
       <h4 class="h3 my-3" style="text-align: center;">Explore Resources</h4>
       <div class="card-deck resources">
-        <router-link to="/about" class="card">
-          <img class="card-img-top" src="@/assets/front-page/img/thumb-about-rna.jpg" alt="">
-          <div class="card-body">
-            <h5>What is RNA?</h5>
-          </div>
-        </router-link>
         <router-link to="/edu" class="card">
           <img class="card-img-top" src="@/assets/front-page/img/thumb-teaching.jpg" alt="">
           <div class="card-body">
             <h5>Teaching with Eterna</h5>
+          </div>
+        </router-link>
+        <router-link to="/about" class="card">
+          <img class="card-img-top" src="@/assets/front-page/img/thumb-about-rna.jpg" alt="">
+          <div class="card-body">
+            <h5>What is RNA?</h5>
           </div>
         </router-link>
         <!--div class="card">

@@ -47,9 +47,6 @@
               <h2 class="content-heading">
                 {{ $t('hero-section:heading') }}
               </h2>
-              <h4 class="content-subheading">
-                {{ $t('hero-section:sub-heading') }}
-              </h4>
               <b-button
                 variant="primary"
                 size="lg"
@@ -61,7 +58,6 @@
                 {{ $t('hero-section:secondary-action') }}
               </b-button>
               <br /><br />
-              <p><strong>Now Available on iOS and Android!</strong></p>
               <a href="https://apps.apple.com/us/app/id1513216417" target="_blank"><img src="@/assets/front-page/img/btn_download_ios.svg" alt="Download on the app store" style="width:128px; padding-right:0.5rem;" /></a>
               <a href="https://play.google.com/store/apps/details?id=org.eternagame.mob" target="_blank"><img src="@/assets/front-page/img/btn_download_play.png" alt="Get it on google play" style="width:135px" /></a>
             </div>

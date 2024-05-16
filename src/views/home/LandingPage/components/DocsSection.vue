@@ -4,9 +4,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div style="text-align:center;">
-            <p>
-              <small>AS FEATURED IN</small>
-            </p>
+            <h4 style="text-transform: uppercase; font-size: 14px; font-weight: 100;">As Featured In</h4>
             <b-row>
               <b-col lg="3">
                 <a href="http://www.nytimes.com/2011/01/11/science/11rna.html?_r=0">

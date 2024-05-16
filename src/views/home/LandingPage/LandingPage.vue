@@ -3,50 +3,67 @@
 
     <HeroSection />
 
-    <!-- Lab Promo (TODO: localize?)-->
-    <div class="container bs-docs-section mt-5">
-      <div class="media row">
-        <img
-          src="https://eternagame.org/puzzle-progression/badges/badge-openknot-100.png"
-          class="align-self-center mr-3 mb-3 col-sm-12 col-lg-4"
-          alt="Design RNA Pseudoknots"
-        />
-        <div class="media-body p-4">
-          <h3 class="mt-0" style="font-weight: bold;">OpenKnot: Building a Library of RNA Pseudoknots</h3>
-          <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
-          <p style="font-size: 1.2rem;">
-            RNAs that form structures called pseudoknots are involved in many important biological processes, from regulating gene expression to catalyzing biochemical reactions. But scientists don't know much about how they form. Visit the
-            <router-link to="/challenges/11843006">challenge page</router-link> to learn more and
-            participate.
-          </p>
-          <p class="mb-0"></p>
+    <b-container>
+      <h4 class="h3 my-3" style="text-align: center;">Our Impact</h4>
+      <div class="card-deck impact">
+        <div class="card">
+          <img class="card-img-top" src="@/assets/front-page/img/thumb-tech.jpg" alt="">
+          <div class="card-body">
+            <h5>Technology</h5>
+            <p>Players and researchers have created design tools, predictive AI models, large data sets, and DNA template libraries. All technologies are freely available for non-commercial use, and commercial licenses support Eterna's ongoing research.</p>
+            <router-link to="/tech">Learn more</router-link>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img-top" src="@/assets/front-page/img/thumb-pubs.jpg" alt="">
+          <div class="card-body">
+            <h5>Publications</h5>
+            <p>Eterna players have contributed to over 30 scientific publications, including as lead authors, in journals such as <cite>Nature Communications</cite>, <cite>PLOS Computational Biology</cite>, and <cite>Proceedings of the National Academy of Sciences</cite>.</p>
+            <router-link to="/publications">Learn more</router-link>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img-top" src="@/assets/front-page/img/thumb-openvaccine.jpg" alt="">
+          <div class="card-body">
+            <h5>OpenVaccine</h5>
+            <p>During the pandemic, the Eterna community created and published designs for a more stable mRNA vaccine for COVID-19 optimized for new variants. Eterna's open challenges address several important areas of RNA medicine.</p>
+            <router-link to="/challenges/10845741">Learn more</router-link>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- End Promo -->
 
-    <!-- NOVA Promo (TODO: localize?)-->
-    <div class="container bs-docs-section mt-5">
-      <div class="media row">
-        <div class="media-body p-4">
-          <h3 class="mt-0" style="font-weight: bold;">Learn more about RNA</h3>
-          <hr style="border-top: 1px solid rgba(255, 255, 255, 0.4)" />
-          <p style="font-size: 1.2rem;">
-            Eterna is proud to partner with NOVA Labs to help advance understanding of RNA biology. Learn about RNA vaccines and viruses from
-            <a href="https://www.pbs.org/wgbh/nova/video/decoding-covid-19/" target="_blank">NOVA</a>.
-            Check out the <a href="https://www.pbs.org/wgbh/nova/labs/lab/rna/" target="_blank">RNA VirtuaLab</a>
-            to get a crash course on what you can do to help. Then, unlock lab access to join our lab challenges!
-          </p>
-          <p class="mb-0"></p>
+      <div class="card featured-lab">
+        <div class="card-body">
+          <h4 class="h6 text-uppercase">Featured Lab Challenge</h4>
+          <h5 class="h4 mt-3">Self-reproducing RNA</h5>
+          <p>The group I intron (GII) of the Azoarcus bacterium is an RNA that has been shown to self-reproduce experimentally, by catalyzing the ligration (inducting the joining) of RNA fragments into a copy of itself. Researchers aim to show that many such molecules exist, which would considerably enhance the plausibility of an RNA origin of life.</p>
+          <b-btn to="/labs/13468245" variant="primary" class="mt-2">Enter lab</b-btn>
         </div>
-        <img
-          src="/puzzle-progression/badges/badge_nova_large.png"
-          class="align-self-center mr-3 mb-3 col-sm-12 col-lg-3"
-          alt="Learn about RNA with NOVA" border="0"
-        />
+        <img src="@/assets/front-page/img/thumb-openlife.png" alt="">
       </div>
-    </div>
-    <!-- End Promo -->
+
+      <h4 class="h3 my-3" style="text-align: center;">Explore Resources</h4>
+      <div class="card-deck resources">
+        <router-link to="/about" class="card">
+          <img class="card-img-top" src="@/assets/front-page/img/thumb-about-rna.jpg" alt="">
+          <div class="card-body">
+            <h5>What is RNA?</h5>
+          </div>
+        </router-link>
+        <router-link to="/edu" class="card">
+          <img class="card-img-top" src="@/assets/front-page/img/thumb-teaching.jpg" alt="">
+          <div class="card-body">
+            <h5>Teaching with Eterna</h5>
+          </div>
+        </router-link>
+        <!--div class="card">
+          <img class="card-img-top" src="@/assets/front-page/img/thumb-researchers.jpg" alt="">
+          <div class="card-body">
+            <h5>Info for Researchers</h5>
+          </div>
+        </div-->
+      </div>
+    </b-container>
 
     <DocsSection />
   </div>
@@ -80,5 +97,86 @@
   .eternacon-banner {
     width: 100%;
     max-width: 1200px;
+  }
+
+  .card {
+    border: 0;
+    border-radius: 8px;
+    background-color: #21508c;
+    margin: 20px 10px;
+
+    .btn {
+      border-radius: 6px;
+      padding: 6px 35px;
+      width: fit-content;
+    }
+
+    p {
+      line-height: 1.25;
+    }
+
+    p, a {
+      font-size: 16px;
+    }
+  }
+
+  .card-deck {
+    margin: 0 -10px;
+    @include media-breakpoint-down(md) {
+      display: block;
+    }
+  }
+
+  .card-img-top {
+    border-radius: 8px 8px 0 0;
+  }
+
+  .card-deck.impact {
+    .card-img-top {
+      height: 150px;
+      object-fit: cover;
+    }
+
+    a {
+      font-weight: bold;
+    }
+  }
+
+  .card-deck.resources {
+    .card-body {
+      padding: .75rem
+    }
+
+    h5 {
+      text-align: center;
+    }
+  }
+
+  .card.featured-lab {
+    margin: 40px 0;
+
+    @include media-breakpoint-down(sm) {
+      img {
+        border-radius: 0 0 8px 8px;
+      }
+    }
+
+    @include media-breakpoint-up(md) {
+      flex-direction: row;
+
+      img {
+        flex-shrink: 1;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .card-body {
+        flex-shrink: 2.5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
   }
 </style>

@@ -308,6 +308,10 @@ export default function createRouter() {
         path: '/edu',
         component: () => import('./views/educators/EducatorResources.vue'),
       },
+      {
+        path: '/researchers',
+        component: () => import('./views/researchers/ResearcherResources.vue'),
+      },
       // Maintaining these old routes in case they're actively linked from anywhere
       // important - at some point we should audit if we can remove these, or we may need a
       // dedicated section of legacy routes anyways

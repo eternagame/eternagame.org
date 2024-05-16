@@ -63,6 +63,16 @@
     async mounted() {
       const response = await this.$http.get(ROUTE);
       this.projects = response.data.data;
+
+      const ribotreeIdx = this.projects.findIndex(p => p.name === 'RiboTree-mRNA');
+      if (ribotreeIdx !== -1) this.projects.unshift(...this.projects.splice(ribotreeIdx, 1));
+      const ribonanzaIdx = this.projects.findIndex(p => p.name === 'Ribonanza+');
+      if (ribonanzaIdx !== -1) this.projects.unshift(...this.projects.splice(ribonanzaIdx, 1));
+      // const pinned = [
+      //   ...this.projects.splice(this.projects.findIndex(p => p.name === 'Ribonanza+'), 1),
+      //   ...this.projects.splice(this.projects.findIndex(p => p.name === 'RiboTree-mRNA'), 1),
+      // ];
+      // this.projects.unshift(...pinned);
     }
   }
 </script>

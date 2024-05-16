@@ -65,30 +65,33 @@
     padding: $page-margin-top $page-margin-side;
     padding-bottom: 0px;
   }
-  .page-container:before {
-    background: linear-gradient(to left, #07111e, #05224b);
-    -webkit-appearance: none helped;
-    content: ' ';
-    height: 100%;
-    left: -25px;
-    position: absolute;
-    top: 0;
-    width: 25px;
+  @include media-breakpoint-up(xl) {
+    .page-container:before {
+      background: linear-gradient(to left, #07111e, #05224b);
+      -webkit-appearance: none helped;
+      content: ' ';
+      height: 100%;
+      left: -25px;
+      position: absolute;
+      top: 0;
+      width: 25px;
+    }
+    .page-container:after {
+      background: linear-gradient(to right, #07111e, #05224b);
+      -webkit-appearance: none;
+      content: ' ';
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: -25px;
+      width: 25px;
+    }
+    .page-container:before,
+    .page-container:after {
+      display: flex;
+    }
   }
-  .page-container:after {
-    background: linear-gradient(to right, #07111e, #05224b);
-    -webkit-appearance: none;
-    content: ' ';
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: -25px;
-    width: 25px;
-  }
-  .page-container:before,
-  .page-container:after {
-    display: flex;
-  }
+
   .page-title {
     display: flex;
     justify-content: space-between;

@@ -27,10 +27,28 @@
     <!-- <span class="gray-header">{{ $t('lab-info:currently-active') }}</span -->
     <!-- ><br /> -->
     <!-- <b>{{ $t('lab-info:round-number') }} 4</b> -->
-    <div class="banner-progress d-none d-lg-inline-flex" style="justify-content: space-between; flex-wrap: wrap;">
-      <Progress v-bind="totalProgressCircle" color="#2f94d1" style="flex-basis: 50%;" />
-      <Progress v-if="$vxm.user.loggedIn" v-bind="userProgressCircle" color="#fac244" style="flex-basis: 50%;" />
-      <Stat name="Players Contributed" style="flex-basis: 50%; font-size: 24px;">{{ lab.submitter_count }}</Stat>
+
+    <div style="display: flex; flex-direction: column; align-items: baseline">
+      <div style="font-size: 14px;" v-if="lab.project_closes">
+        <p v-if="lab.designs_to_be_synthesized" style="text-align: left; margin-bottom: 8px;">
+          <b> {{ lab.designs_to_be_synthesized }}</b>
+          <b>{{ $t('count-down:select-synthesis-bold') }}</b>
+          <span> {{ $t('count-down:select-synthesis') }}</span>
+        </p>
+        <flip-countdown
+          :deadline="closesDateFormat"
+          :labels="countdownLabels"
+          style="padding:0px"
+        />
+        <br />
+      </div>
+      <div class="d-none d-lg-flex">
+        <Progress style="margin-right: 20px;" v-bind="totalProgressCircle" color="#2f94d1" />
+        <Progress v-if="$vxm.user.loggedIn" v-bind="userProgressCircle" color="#fac244" />
+      </div>
+      <div style="display: flex;">
+        <Stat name="Players Submitted" style="font-size: 24px;">{{ lab.submitter_count }}</Stat>
+      </div>
     </div>
   </SidebarPanel>
 </template>
@@ -38,6 +56,7 @@
 <script lang="ts">
   import { Component, Prop } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
+  import FlipCountdown from 'vue2-flip-countdown';
   import SidebarPanel from '@/components/Sidebar/SidebarPanel.vue';
   import SidebarPanelMixin from '@/mixins/SidebarPanel';
   import Progress from '@/components/Common/Progress.vue';
@@ -49,7 +68,8 @@
     components: {
       SidebarPanel,
       Progress,
-      Stat
+      Stat,
+      FlipCountdown,
     },
   })
   export default class LabInfoPanel extends mixins(SidebarPanelMixin) {
@@ -72,12 +92,56 @@
         total: this.lab.max_designs,
       };
     }
+
+    get closesDateFormat(): string | null {
+      if (!this.lab.project_closes) return null;
+      const d = new Date(+this.lab.project_closes * 1000);
+      return `${[d.getMonth() + 1, d.getDate(), d.getFullYear()].join('/')} ${[
+        d.getHours(),
+        d.getMinutes(),
+        d.getSeconds(),
+      ].join(':')}`;
+    }
+
+    get countdownLabels() {
+      return {
+        days: "DAYS",
+        hours: "HOURS",
+        minutes: "MIN",
+        seconds: "SEC"
+      };
+    }
   }
 </script>
 
 <style scoped lang="scss">
-  .banner-progress {
-    display: flex;
-    justify-content: center;
+  :deep(.flip-card) {
+    font-size: 2rem !important;
+  }
+
+  :deep(.container.flip-clock) {
+    text-align: left;
+  }
+
+  :deep(.flip-card__top),
+  :deep(.flip-card__bottom),
+  :deep(.flip-card__back-bottom),
+  :deep(.flip-card__back::before),
+  :deep(.flip-card__back::after) {
+    color: white !important;
+    width: 2.7rem !important;
+  }
+
+  :deep(.flip-card__bottom),
+  :deep(.flip-card__back-bottom),
+  :deep(.flip-card__bottom-4digits),
+  :deep(.flip-card__back-bottom-4digits) {
+    border: none !important;
+  }
+
+  :deep(.flip-clock__slot) {
+    font-size: .6rem !important;
+    font-weight: bold;
+    text-align: center;
   }
 </style>

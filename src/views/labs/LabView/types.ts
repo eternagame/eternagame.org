@@ -63,6 +63,8 @@ export interface LabData {
   max_designs: number;
   challenge: string;
   submitter_count: number;
+  project_closes: string;
+  designs_to_be_synthesized: number;
 }
 
 export default interface LabViewData {

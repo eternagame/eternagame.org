@@ -18,9 +18,6 @@ export default function createUserStore($http: AxiosInstance) {
 
     public showSidebar = false;
 
-    // TODO https://github.com/eternagame/eternagame.org/issues/17 improve typing
-    public FB: any = null;
-
     public hasLabAccess: boolean = false;
 
     public isAdmin: boolean = false;
@@ -47,20 +44,6 @@ export default function createUserStore($http: AxiosInstance) {
       // Technically we may want to actually clear the loaded user details... need to think
       // of a cleaner way to handle this
       this.userDetailsLoaded = false;
-      await this.FB?.logout();
-    }
-
-    @action() async fbLogin(FB: any) {
-      this.FB = FB;
-      const { data } = (
-        await $http.post('/login/', new URLSearchParams({ type: 'login', method: 'facebook' }))
-      ).data;
-      if (data.success) {
-        this.loggedIn = true;
-        window.localStorage.setItem('loggedIn', 'true');
-      }
-      await this.authenticate();
-      return data;
     }
 
     @action() async login({ username, password }: { username: string; password: string }) {

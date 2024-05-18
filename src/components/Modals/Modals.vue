@@ -1,7 +1,6 @@
 <template>
   <div>
     <RegisterModal />
-    <RegisterFBModal />
     <ResetCompleteModal />
     <ResetPasswordModal />
     <AcceptTermsModal />
@@ -15,7 +14,6 @@
   import { Component, Vue } from 'vue-property-decorator';
   import AcceptTermsModal from './AcceptTermsModal.vue';
   import RegisterModal from './RegisterModal.vue';
-  import RegisterFBModal from './RegisterFBModal.vue';
   import ResetCompleteModal from './ResetCompleteModal.vue';
   import ResetPasswordModal from './ResetPasswordModal.vue';
   import LoginModal from './LoginModal.vue';
@@ -25,7 +23,6 @@
   @Component({
     components: {
       RegisterModal,
-      RegisterFBModal,
       ResetCompleteModal,
       ResetPasswordModal,
       LoginModal,

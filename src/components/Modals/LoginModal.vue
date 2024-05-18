@@ -69,7 +69,6 @@
           {{ $t('login-modal:register-action') }}
         </span>
       </p>
-      <FacebookAuthentication @fb-verify="registerWithFacebook" class="btn"></FacebookAuthentication>
     </b-form>
   </b-modal>
 </template>
@@ -78,12 +77,10 @@
   import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
   import VueRecaptcha from 'vue-recaptcha';
-  import FacebookAuthentication from './components/FacebookAuthentication.vue';
 
   @Component({
     components: {
       VueRecaptcha,
-      FacebookAuthentication,
     },
   })
   export default class LoginModal extends Vue {
@@ -98,23 +95,7 @@
 
     errorMessage = '';
 
-    FB = null;
-
     loading = false;
-
-    private fbID = process.env.VUE_APP_FACEBOOK_API_ID;
-
-    registerWithFacebook(data: { success: boolean; error: string }) {
-      this.form.password = '';
-      if (data.success) {
-        this.modal.hide();
-      } else if (data.error === 'NEEDS_REGISTRATION') {
-        this.modal.hide();
-        this.$bvModal.show('modal-register-fb');
-      } else {
-        this.errorMessage = data.error;
-      }
-    }
 
     async login() {
       if (this.form.username && this.form.password) {

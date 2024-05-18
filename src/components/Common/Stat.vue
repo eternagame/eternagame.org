@@ -18,4 +18,8 @@
 .smaller-text {
   font-size: 12px;
 }
+
+p {
+  margin-bottom: 0;
+}
 </style>

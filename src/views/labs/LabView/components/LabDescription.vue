@@ -2,7 +2,7 @@
   <div>
     <div class="card" style="width:100; border: none;">
       <div
-        class="lab-header p-2"
+        class="lab-header"
         :style="{
           'background-image': `linear-gradient(
           to bottom,
@@ -12,13 +12,31 @@
         ), url(${heroImage})`,
         }"
       >
-        <div class="header-content">
-          <h3 class="banner-title">
-            {{ lab.title }}
-          </h3>
-          <div class="banner-progress d-lg-none">
-            <Progress v-bind="totalProgressCircle" color="#2f94d1" />
-            <Progress v-if="$vxm.user.loggedIn" v-bind="userProgressCircle" color="#fac244" />
+        <div class="lab-header-inner">
+          <div class="header-content">
+            <div class="banner-title">
+              <h3>
+                {{ lab.title }}
+              </h3>
+            </div>
+            <div class="banner-progress d-lg-none" style="display: flex;">
+              <div style="font-size: 14px; align-content: center; margin: 5px; min-width: 190px;" v-if="lab.project_closes">
+                <p v-if="lab.designs_to_be_synthesized" style="text-align: left; margin-bottom: 8px;">
+                  <b> {{ lab.designs_to_be_synthesized }}</b>
+                  <b>{{ $t('count-down:select-synthesis-bold') }}</b>
+                  <span> {{ $t('count-down:select-synthesis') }}</span>
+                </p>
+                <flip-countdown
+                  :deadline="closesDateFormat"
+                  :labels="countdownLabels"
+                  style="padding: 0px"
+                />
+              </div>
+              <div>
+                <Progress style="margin: 5px;" v-bind="totalProgressCircle" color="#2f94d1" />
+                <Progress style="margin: 5px;" v-if="$vxm.user.loggedIn" v-bind="userProgressCircle" color="#fac244" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -35,12 +53,13 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import DefaultHero from '@/assets/home/hero-lab-default.png';
   import Progress from '@/components/Common/Progress.vue';
+  import FlipCountdown from 'vue2-flip-countdown';
   import { LabData } from '../types';
 
   const MAX_CHARS = 1000;
 
   @Component({
-    components: { Progress },
+    components: { Progress, FlipCountdown },
   })
   export default class LabDescription extends Vue {
     @Prop({ required: true }) readonly lab!: LabData;
@@ -74,6 +93,25 @@
     get heroImage() {
       return this.lab.banner_image || DefaultHero;
     }
+
+    get closesDateFormat(): string | null {
+      if (!this.lab.project_closes) return null;
+      const d = new Date(+this.lab.project_closes * 1000);
+      return `${[d.getMonth() + 1, d.getDate(), d.getFullYear()].join('/')} ${[
+        d.getHours(),
+        d.getMinutes(),
+        d.getSeconds(),
+      ].join(':')}`;
+    }
+
+    get countdownLabels() {
+      return {
+        days: "DAYS",
+        hours: "HOURS",
+        minutes: "MIN",
+        seconds: "SEC"
+      };
+    }
   }
 </script>
 
@@ -84,34 +122,37 @@
     font-weight: bold;
     font-size: 42px;
     text-align: left;
+
     @include media-breakpoint-down(md) {
       font-size: 30px;
+      margin-bottom: 0;
+      flex-basis: 30%;
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
     }
     @include media-breakpoint-down(xs) {
       font-size: 20px;
-      text-align: center;
-      margin: 0 auto;
     }
   }
 
   .banner-progress {
     display: flex;
     justify-content: center;
-    margin: 20px;
-    margin-bottom: 0px;
-
-    @include media-breakpoint-up(md) {
-      position: absolute;
-      right: 0px;
-      bottom: 0px;
-    }
+    align-content: center;
+    flex-wrap: wrap;
   }
 
   .header-content {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
+    display: flex;
+    @include media-breakpoint-down(md) {
+      justify-content: space-around;
+    }
+    align-items: center;
     width: 100%;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    gap: 30px;
   }
 
   .body {
@@ -121,6 +162,39 @@
   .lab-header {
     position: relative;
     background-position: center;
-    height: 250px;
+    min-height: 250px;
+    padding: 10px 20px;
+  }
+
+  .lab-header-inner {
+    min-height: 250px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  :deep(.flip-card) {
+    font-size: 1.7rem !important;
+  }
+
+  :deep(.flip-card__top),
+  :deep(.flip-card__bottom),
+  :deep(.flip-card__back-bottom),
+  :deep(.flip-card__back::before),
+  :deep(.flip-card__back::after) {
+    color: white !important;
+    width: 2.7rem !important;
+  }
+
+  :deep(.flip-card__bottom),
+  :deep(.flip-card__back-bottom),
+  :deep(.flip-card__bottom-4digits),
+  :deep(.flip-card__back-bottom-4digits) {
+    border: none !important;
+  }
+
+  :deep(.flip-clock__slot) {
+    font-size: .6rem !important;
+    font-weight: bold;
+    text-align: center;
   }
 </style>

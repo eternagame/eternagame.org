@@ -29,7 +29,7 @@
     <!-- <b>{{ $t('lab-info:round-number') }} 4</b> -->
 
     <div style="display: flex; flex-direction: column; align-items: baseline">
-      <div style="font-size: 14px;" v-if="lab.project_closes">
+      <div class="d-none d-lg-block" style="font-size: 14px;" v-if="lab.project_closes">
         <p v-if="lab.designs_to_be_synthesized" style="text-align: left; margin-bottom: 8px;">
           <b> {{ lab.designs_to_be_synthesized }}</b>
           <b>{{ $t('count-down:select-synthesis-bold') }}</b>

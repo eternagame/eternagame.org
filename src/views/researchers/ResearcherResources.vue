@@ -21,10 +21,9 @@
               <b-card-text>
                 Eterna players have outperformed traditional experts and algorithmic 
                 approaches in many RNA design challenges across a wide range of 
-                research areas, from ribosomal design to RNA-based therapeutics and vaccines. 
-                Collaborating with Eterna on an RNA folding puzzle allows the general 
-                public to participate in your RNA research and may be viewed favorably 
-                by funders and by proposal reviewers. 
+                research areas. Collaborating with Eterna on an RNA folding puzzle 
+                allows the general public to participate in your RNA research and may 
+                be viewed favorably by funders, like the National Science Foundation. 
               </b-card-text>
               <b-btn variant="primary" href="mailto:communications@eternagame.org" target="_blank">Contact Us</b-btn>
             </b-card-body>

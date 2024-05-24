@@ -56,12 +56,12 @@
             <h5>What is RNA?</h5>
           </div>
         </router-link>
-        <!--div class="card">
+        <router-link to="/researchers" class="card">
           <img class="card-img-top" src="@/assets/front-page/img/thumb-researchers.jpg" alt="">
           <div class="card-body">
             <h5>Info for Researchers</h5>
           </div>
-        </div-->
+        </router-link>
       </div>
     </b-container>
 

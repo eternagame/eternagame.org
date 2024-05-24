@@ -91,6 +91,7 @@
         publications: '/publications',
         tech: '/tech',
         forEducators: '/edu',
+        forResearchers: '/researchers',
         merch: `https://www.redbubble.com/people/eternagame/explore`,
         donate: '/donate',
       },

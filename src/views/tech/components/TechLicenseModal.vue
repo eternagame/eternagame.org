@@ -27,11 +27,11 @@
         <b-card class="mb-3">
           <div class="d-flex align-items-center">
             <p class="mb-0 mr-4" v-if="licenseStatus === '3'">
-              For noncommercial internal research purposes, you can sign up to be notified when this
+              For noncommercial purposes, including sponsored research and collaborations, you can sign up to be notified when this
               technology is available for download
             </p>
             <p class="mb-0 mr-4" v-else>
-              For noncommercial internal research purposes, you can immediately download our technology
+              For noncommercial purposes, including sponsored research and collaborations, you can immediately download our technology
               after agreeing to the noncommercial license
             </p>
             <b-btn

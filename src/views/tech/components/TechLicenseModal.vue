@@ -105,8 +105,9 @@
         Please contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a> with any concerns.
       </template>
       <template v-if="page === 'noncommercial-future-thanks'">
-        Thank you for your request! We'll reach out once this technology is available.
-        Please contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a> with any concerns.
+        Thank you for your request! We've sent you a confirmation email and we'll reach out once this
+        technology is available. Please contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a>
+        with any concerns.
       </template>
     </div>
 

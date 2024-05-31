@@ -102,12 +102,12 @@
       </template>
       <template v-if="page === 'thanks'">
         Thank you for your request! You should receive an automated introductory email from us within a few minutes.
-        Please contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a> with any concerns.
+        Please contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a> with any questions or concerns.
       </template>
       <template v-if="page === 'noncommercial-future-thanks'">
         Thank you for your request! We've sent you a confirmation email and we'll reach out once this
         technology is available. Please contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a>
-        with any concerns.
+        with any questions or concerns.
       </template>
     </div>
 

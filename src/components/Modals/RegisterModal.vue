@@ -143,6 +143,10 @@
         this.errorMessage = 'register-modal:error-password-match';
         return;
       }
+      if (this.form.username.includes('@')) {
+        this.errorMessage = 'register-modal:error-at';
+        return;
+      }
 
       this.loading = true;
       await this.register();

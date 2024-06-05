@@ -20,9 +20,8 @@
       <div class="banner-status">
         <div class="countdown" v-if="project_closes">
           <p v-if="designs_to_be_synthesized" style="text-align:center; margin-bottom: 8px;">
-            <b> {{ designs_to_be_synthesized }}</b
-            ><b>{{ $t('count-down:select-synthesis-bold') }}</b
-            ><span> {{ $t('count-down:select-synthesis') }}</span>
+            <span style="font-weight: bold;">{{ designs_to_be_synthesized }} {{ $t('count-down:select-synthesis-bold') }}</span>
+            <span> {{ $t('count-down:select-synthesis') }}</span>
           </p>
           <flip-countdown
             :deadline="closesDateFormat"

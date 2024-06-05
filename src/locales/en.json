@@ -524,6 +524,7 @@
   "filters": "filters",
   "count-down:select-synthesis-bold": " designs",
   "count-down:select-synthesis": " will be selected for synthesis in:",
+  "count-down:select-synthesis-past": " have been selected for synthesis",
   "puzzle-slide::puzzle-of-week": "Puzzle of the Week",
   "group-explore:create-group": "Create Group",
   "edit-group-title:description": "Edit Group",

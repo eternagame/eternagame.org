@@ -42,7 +42,8 @@
   "login-sub:main-action": "Forgot your password?",
   "page-footer:main-action": "Help Eterna invent medicine.",
   "page-footer:main-action-stress": "Make a donation today.",
-  "hero-section:heading": "Learn to design RNA molecules for research by solving puzzles.",
+  "hero-section:heading": "Solve puzzles to advance research using RNAs",
+  "hero-section:sub-heading": "Eterna invites everyone to design the tiny molecules found in the heart of every cell.",
   "hero-section:main-action": "Play Now",
   "hero-section:secondary-action": "About Eterna",
   "side-bar:tips": "Tips & Resources",
@@ -478,7 +479,6 @@
   "challenge-support:button": "Donate",
   "collection-info-sidebar:title": "Collection Info",
   "collection-info-sidebar:created": "Created By:",
-
   "chat:title": "Chat",
   "filters:challenge": "Challenge",
   "filters:player": "Player",

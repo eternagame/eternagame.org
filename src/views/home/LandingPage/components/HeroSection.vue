@@ -44,9 +44,12 @@
           <b-col lg="3" md="2" sm="1" />
           <b-col lg="6" md="8" sm="10" >
             <div style="text-align: center;">
-              <h2 class="content-heading">
+              <h2 class="content-heading mb-3">
                 {{ $t('hero-section:heading') }}
               </h2>
+              <h4 class="content-subheading">
+                {{ $t('hero-section:sub-heading') }}
+              </h4>
               <b-button
                 variant="primary"
                 size="lg"

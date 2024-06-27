@@ -5,11 +5,11 @@
   >
     <div>
       <p class="video-title">
-        <strong>Register</strong> for Eternacon 2023
+        <strong>Register</strong> for Eternacon 2024
       </p>
 
       <p class="explain">
-        Tune in on July 22-23 to exciting talks and activities from Eterna researchers, developers,
+        Tune in on July 20-21 to exciting talks and activities from Eterna researchers, developers,
         players, and other world-class experts.
       </p>
       <b-button
@@ -17,7 +17,7 @@
         variant="primary"
         size="lg"
         style="margin-right:10px"
-        href="https://stanford.zoom.us/meeting/register/tJAkfu-vrDgoEtDThU1H5SpJoxDjRFEV5EOX"
+        href="https://stanford.zoom.us/meeting/register/tJcucOmgrDkpEtwdio0PDbkvpFdb9w3gl5r9#/registration"
       >
         Register
       </b-button>
@@ -35,7 +35,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import bgimage from '@/assets/home/hero-eternacon-2023-alt.png';
+  import bgimage from '@/assets/home/hero-eternacon-2024-alt.jpg';
 
   @Component({
     components: {},

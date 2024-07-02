@@ -158,9 +158,9 @@
       data.set('profile_news_mail_notification', this.newsNotify ? 'on' : 'off');
       data.set('profile_blog_mail_notification', this.newsNotify ? 'on' : 'off');
       data.set('profile_certificate_public', this.publicCertificate ? 'on' : 'off');
-      data.set('profile_personal_name', this.personalName);
+      if (this.personalName !== undefined) data.set('profile_personal_name', this.personalName);
       if (this.newAboutMe !== null) data.set('profile_profile', this.newAboutMe);
-      data.set('mail', this.email);
+      if (this.email) data.set('mail', this.email);
       if (this.newPicture) data.append(`files[picture_upload]`, this.newPicture);
       data.set('type', 'edit');
 

@@ -11,8 +11,8 @@
         img-height="480"
         style="text-shadow: 1px 1px 2px #333"
       >
-        <EternaconSlide />
         <template v-if="hasLabAccess">
+          <EternaconSlide />
           <LabSlide
             v-for="lab in labCarouselLabs"
             v-bind="lab"
@@ -22,6 +22,7 @@
         </template>
         <template v-else>
           <TutorialTeaserSlide :nextPuzzleID="nextPuzzleID" />
+          <EternaconSlide />
         </template>
       </b-carousel>
       <br />

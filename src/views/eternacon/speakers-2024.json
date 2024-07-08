@@ -1,0 +1,167 @@
+{
+    "Saturday, July 20": [
+        {
+            "speaker": "Jonathan Romano (LFP6)",
+            "affiliation": "Lead Developer, Eterna",
+            "time": "July 20, 2024, 9:00:00 PDT",
+            "topic": "Opening Remarks",
+            "abstract": "Welcome to Eternacon 10 and logistics."
+        },
+        {
+            "speaker": "Rhiju Das",
+            "affiliation": "Principal Investigator, Eterna; Das Lab, Stanford University",
+            "time": "July 20, 2024, 9:05:00 PDT",
+            "topic": "Welcome",
+            "abstract": "Introductory remarks from Eterna's principal investigator."
+        },
+        {
+            "speaker": "Shujun He",
+            "affiliation": "Texas A&M University",
+            "time": "July 20, 2024, 9:30:00 PDT",
+            "topic": "Ribonanza: deep learning of RNA structure through dual crowdsourcing",
+            "abstract": "Prediction of RNA structure from sequence remains an unsolved problem, and progress has been slowed by a paucity of experimental data. Here, we present Ribonanza, a dataset of chemical mapping measurements on two million diverse RNA sequences collected through Eterna and other crowdsourced initiatives. The Ribonanza measurements enabled solicitation, training, and prospective evaluation of diverse deep neural networks through a Kaggle challenge, followed by distillation into a single, self-contained model called RibonanzaNet. When fine-tuned on previous datasets, RibonanzaNet achieves state-of-the-art performance in modeling RNA chemical stability and RNA secondary structure. The latter enables three-dimensional structure modeling of RNA-only targets from the recent CASP trials with accuracy approaching human expert groups."
+        },
+        {
+            "speaker": "Kate Shulgina, PhD",
+            "affiliation": "University of California, Berkeley",
+            "time": "July 20, 2024, 10:30:00 PDT",
+            "topic": "Using deep learning to predict mutations that stabilize the ribosome",
+            "abstract": "Recent advances in deep learning have led to breakthroughs such as ChatGPT and AlphaFold2. Can similar approaches help us predict the structure and function of RNA? In this talk, I will present our work on identifying changes to the ribosomal RNA that will improve thermostability using different types of deep learning models."
+        },
+        {
+            "speaker": "Tianshuo Zhou; Liang Huang",
+            "affiliation": "Oregon State University",
+            "time": "July 20, 2024, 11:00:00 PDT",
+            "topic": "RNA Design: from discrete to continuous optimization",
+            "abstract": "This talk features two papers on RNA design, showcasing their results on the Eterna100 dataset. The first one (ISMB 2023) is based on local search and random walk which achieved the best published result on conditional probability on the Eterna100 benchmark, while the second one (arXiv preprint) casts RNA design as a continuous optimization problem and uses sampling to approximate the objective function and gradience calculation which achieved better results than the first paper in terms of conditional probability and ensemble defect, especially on long and hard-to-design puzzles."
+        },
+        {
+            "time": "July 20, 2024, 11:30:00 PDT",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Hamish Blair",
+            "affiliation": "Stanford University, Department of Mathematics",
+            "time": "July 20, 2024, 12:00:00 PDT",
+            "topic": "Predicting sequence dropout in chemical mapping experiments",
+            "abstract": "Sequence dropout, a critical yet poorly understood phenomenon, can drastically reduce data quality in chemical mapping experiments in a sequence-dependent manner. This talk introduces RibonazaNet-Drop, a copy of RibonanzaNet fine-tuned for the pre-experimental prediction of data quality of individual sequences. Preliminary experimental results demonstrate that stratifying the initial sequence library based on the predictions of RibonazaNet-Drop enhances the quality of chemical mapping data obtained."
+        },
+        {
+            "speaker": "John Nicol",
+            "affiliation": "Eterna Player/Dev",
+            "time": "July 20, 2024, 12:30:00 PDT",
+            "topic": "Padding considerations in RNA designs",
+            "abstract": "In the Pseudoknot Detective lab, 642 sequences from the PDB and PKB databases were identified as possible candidates that contain pseudoknot structures. These candidate sequences ranged in length from 21 to 229 nucleotides. The Pseudoknot Detective lab allowed 240 nucleotides per sequence, so a method was needed to 'pad' the candidates. This presentation describes a padding method optimized for least interaction with the pseudoknot structures."
+        },
+        {
+            "speaker": "Jill Townley; Eli Fisker",
+            "affiliation": "Eterna Players",
+            "time": "July 20, 2024, 13:00:00 PDT",
+            "topic": "Base pair strength in long barcode hairpins",
+            "abstract": "Data from OpenKnot round 1 revealed a link between base pair composition in the barcode hairpin and experimental robustness. Learn how an optimal pair ratio may lead to improved experimental success in future chemical mapping experiments."
+        },
+        {
+            "speaker": "David Qiu",
+            "affiliation": "UNC - Chapel Hill",
+            "time": "July 20, 2024, 13:30:00 PDT",
+            "topic": "Discovery of RNA tertiary structure using chemical probing",
+            "abstract": "The close structure-function relationship of RNA highlights the importance of tools for studying RNA tertiary structure. This talk introduces a high-throughput chemical probing technology, highly selective for identifying RNA tertiary structure, called T-site probing. T-site probing in human cells identifies hundreds of novel tertiary structures across the human transcriptome and is poised to redefine and expand how we discover and understand the biological regulatory roles of RNA tertiary structures."
+        },
+        {
+            "time": "July 20, 2024, 14:00:00 PDT",
+            "topic": "Break"
+        }, 
+        {
+            "speaker": "mjt",
+            "affiliation": "Eterna Player",
+            "time": "July 20, 2024, 14:30:00 PDT",
+            "topic": "Genome quiz",
+            "abstract": "Test your knowledge of the genome and DNA research."
+        },
+        {
+            "time": "July 20, 2024, 15:00:00 PDT",
+            "topic": "Breakout rooms",
+            "abstract": "Join the Eterna community for casual discussions in smaller breakout rooms. Please bring your ideas and questions! <ul><li>Labs past, present, and future</li><li>Scripts and Eterna technology</li>"
+        },
+        {
+            "speaker": "TheInverted",
+            "affiliation": "Eterna Player",
+            "time": "July 20, 2024, 15:30:00 PDT",
+            "topic": "Eternacon puzzle race",
+            "abstract": "Join the annual challenge to solve a puzzle specifically designed for Eternacon 10."
+        }
+    ],
+    "Sunday, July 21": [
+        {
+            "speaker": "Chaitanya Joshi",
+            "affiliation": "University of Cambridge",
+            "time": "July 21, 2024, 9:00:00 PDT",
+            "topic": "3D RNA design with deep learning",
+            "abstract": "The presentation will introduce recent advances in deep learning for designing RNA structures from the 3D perspective. I will cover some basics about RNA 3D structure and how we can link that to sequence and function. I will then talk about how deep learning methods can learn from large datasets of 3D RNA structure in order to (potentially) learn useful RNA design rules. "
+        },
+        {
+            "speaker": "Riley Petersen",
+            "affiliation": "University of Wisconsin-Madison",
+            "time": "July 21, 2024, 9:30:00 PDT",
+            "topic": "An unusual RNA quadruplex directs gene silencing in vivo",
+            "abstract": "Poly(UG), or pUG, RNAs are uridine-guanosine dinucleotide repeat sequences that are highly abundant in eukaryotes. pUG sequences can fold into an unusual Z-form quadruplex, the pUG fold. The pUG fold drives gene silencing in vivo and cannot be predicted by current machine learning approaches such as AlphaFold 3. In this talk, I will discuss the pUG fold’s unique structure and function. "
+        },
+        {
+            "speaker": "Laura Hertz",
+            "affiliation": "Northwestern University",
+            "time": "July 21, 2024, 10:00:00 PDT",
+            "topic": "The effect of pseudoknot base pairing on cotranscriptional structural switching of the fluoride riboswitch",
+            "abstract": "Genetic information is not only communicated through nucleotide sequence, but also through molecular structure. RNA molecules form various structures that impact their cellular function and not all these structures are made to last. During transcription, transient RNA structures inform the progression of RNA synthesis and resulting gene expression. This talk will reveal how a single nucleotide variant in a transient RNA structure can control structural rearrangements and disrupt gene expression."
+        },
+        {
+            "speaker": "Stephen Vincent",
+            "affiliation": "Eterna Player",
+            "time": "July 21, 2024, 10:30:00 PDT",
+            "topic": "Creating pseudoknots in EternaFoldThreshknot",
+            "abstract": "Fewer than 1000 pseudoknots have been discovered in Nature and their characteristics are not well known. This talk will share lessons learned from creating synthetic pseudoknots in EternaFoldThreshknot for the early OpenKnot rounds."
+        },
+        {
+            "time": "July 21, 2024, 11:00:00 PDT",
+            "topic": "Break"
+        },
+        {
+            "speaker": "Tianshuo Zhoul",
+            "affiliation": "Oregon State University",
+            "time": "July 21, 2024, 11:30:00 PDT",
+            "topic": "Interpretable identification of undesignable RNA secondary structures",
+            "abstract": "Many algorithms have been proposed to tackle RNA design under the ViennaRNA folding model. However, the identification of undesignable structures has received little attention. Our algorithms efficiently prove the undesignability of certain structures or motifs by finding corresponding rival structures or motifs. By applying our algorithms to both Eterna puzzles and natural RNA structures, our undesignability results offer new insights into RNA folding and RNA design."
+        },
+        {
+            "speaker": "Jill Townley; Eli Fisker",
+            "affiliation": "Eterna Players",
+            "time": "July 21, 2024, 12:15:00 PDT",
+            "topic": "RNA switches with spiral arc plot",
+            "abstract": "Switches with a spiral arc plot show potential for raising the fold change and quickly devising switches from new aptamers. The approach does not depend on the aptamers having complementary sections or sharing sequences, which allows ON and OFF switches to be solved in the same manner unlike earlier Eterna player designs. "
+        },
+        {
+            "speaker": "Victor Tse",
+            "affiliation": "UC Santa Cruz, Center for Molecular Biology of RNA",
+            "time": "July 21, 2024, 12:45:00 PDT",
+            "topic": "OpenASO: RNA Rescue — designing splice-modulating antisense oligonucleotides through community science",
+            "abstract": "This talk will provide the Eterna community with a small update to Round 1 of the OpenASO: RNA Rescue challenge. I will recap the results from Round 1 and introduce new data showing that a distinct combination of player-designed ASOs can additively enhance splicing of a splicing-deficient pathogenic variant."
+        },
+        {
+            "time": "July 21, 2024, 13:15:00 PDT",
+            "topic": "Break"
+        }, 
+        {
+            "speaker": "Jill Townley",
+            "affiliation": "Eterna Player/Dev",
+            "time": "July 21, 2024, 13:30:00 PDT",
+            "topic": "The Eterna Outreach Kit for community engagement",
+            "abstract": "EternaDemo is a standalone version of the game that can be loaded onto an iPad and played without internet access. The app has been used for community outreach at science festivals and summer camps to publicize Eterna with grade 7-12 students as well as the general public, and has the potential for broader outreach in the future."
+        },
+        {
+            "speaker": "Arnuv Modh",
+            "affiliation": "Eterna Player",
+            "time": "July 21, 2024, 14:00:00 PDT",
+            "topic": "Eterna art show",
+            "abstract": "Eterna community art"
+        }
+    ]
+}  

@@ -335,6 +335,19 @@
       <h4>Setters</h4>
       <ul>
         <li>
+          <code>set_sequence_string_async</code>/<code>set_target_structure_async</code>/<code>select_folder_async</code>
+          <p>
+            These methods behave identically to their non-<code>_async</code> counterparts, however they run asyncronously,
+            returning a promise that resolves with their result once they complete. These methods should be preferred
+            over the syncronous versions because they will work for engines that are only available asyncronously
+            and in the future may have the ability to run without causing the page to "freeze" during long computations.
+
+            Be aware that if you do not wait for the promises to be resolved before using other APIs, it will likely
+            cause an error to be thrown in order to prevent incorrect behavior due to attempting to get or change
+            data while folding/modifications are still in progress.
+          </p>
+        </li>
+        <li>
           <code>select_folder(folder_name)</code>
           <p>selects a folding engine by its name. only available in lab puzzles.</p>
           <p class="mb-0">Parameters:</p>
@@ -388,6 +401,17 @@
 
       <h4>Folding</h4>
       <ul>
+        <li>
+          <code>fold_async</code>/<code>fold_with_binding_site_async</code>/<code>energy_of_structure_async</code>/<code>energy_of_structure_async</code>
+          /<code>pairing_probabilities_async</code>/<code>subopt_single_sequence_async</code>/<code>subopt_oligos_async</code>
+          /<code>cofold_async</code>/<code>get_defect_async</code>
+          <p>
+            These methods behave identically to their non-<code>_async</code> counterparts, however they run asyncronously,
+            returning a promise that resolves with their result once they complete. These methods should be preferred
+            over the syncronous versions because they will work for engines that are only available asyncronously
+            and in the future may have the ability to run without causing the page to "freeze" during long computations.
+          </p>
+        </li>
         <li>
           <code>fold(seq, constraint = null)</code>
           <p>folds a sequence, eventually considering limitations defined in constraint</p>

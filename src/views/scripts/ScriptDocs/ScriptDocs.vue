@@ -186,8 +186,12 @@
       <p>Every modern browser has some sort of console that lets users input javascript commands.</p>
       <ul>
         <li>Open the puzzle</li>
-        <li>Use the stamper option in the booster menu, but cancel the operation. This activates the scripting interface</li>
-        <li>Open the javascript console of your browser, and play around</li>
+        <li>Open the javascript console of your browser</li>
+        <li>
+          Because the game is loaded in an iframe, you will need to change the console to run commands within the
+          iframe instead of the top-level website page. Somewhere in the console window, there should be a dropdown,
+          likely with "Top" currently selected which will need to be changed to something like "game" or "EternaJS".
+        </li>
       </ul>
       <h5>Synchronous vs Asynchronous</h5>
       <p>The <router-link to="/scripts/7070114">Tsumego</router-link> script is an example of a synchronous booster. Synchronous boosters have following properties:</p>

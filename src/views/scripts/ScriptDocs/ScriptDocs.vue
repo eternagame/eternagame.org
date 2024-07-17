@@ -194,29 +194,31 @@
         </li>
       </ul>
       <h5>Synchronous vs Asynchronous</h5>
-      <p>The <router-link to="/scripts/7070114">Tsumego</router-link> script is an example of a synchronous booster. Synchronous boosters have following properties:</p>
-      <ul>
-        <li>they do not use setTimeout() or setInterval()</li>
-        <li>they return a simple value</li>
-      </ul>
-      <p>The <router-link to="/scripts/6713763">Naive Solver</router-link> script is an example of an asynchronous booster. The features that make it asynchronous are:</p>
-      <ul>
-        <li>it uses setTimeout()</li>
-        <li>
-          the script signals asynchronicity to the applet by using the statement:
-          <pre>return {async: "true"};</pre>
-        </li>
-        <li>
-          the actual end of the execution is signalled by calling:
-          <pre>applet['end_'+sid](r);</pre>
-          where sid is the ID of the script (here,  6713763)
-        </li>
-        <li>
-          EternaScripts have timeout-checking statements automatically inserted in loops. A special statement is used
-          in lengthy computations to prevent this global timeout (10 seconds by default) from unwanted triggering:
-          <pre>global_timer = new Date();</pre>
-        </li>
-      </ul>
+      <p>
+        In order to ensure that multiple boosters and user interaction do not interfere with each other,
+        boosters are run one at a time and the UI is locked preventing user input while a booster
+        is running. For "synchronous" scripts (which do all their work immediately and without stopping),
+        this "just works". However, if a script performs any actions asyncronously (eg using setTimeout/setInterval,
+        promises/async/await, asyncronous network requests, etc), the game will think your code has already ended,
+        when it will actually be running some code after it initially finishes executing and returns a result
+        (either via an explicit <code>return</code> or running to the end of the script).
+      </p>
+      <p>
+        Because of this, in order for asyncronous scripts to be properly handled, it needs to indicate that it is
+        asyncronous and let the game know once it has completed. This is done by the script ending with the
+        statement <code>return {async: "true"};</code> and then once it is actually complete, calling
+        <code>applet['end_'+sid](r);</code> where sid is the ID of the script.
+      </p>
+      <p>
+        EternaScripts also have timeout-checking statements automatically inserted in loops. This causes the
+        code to stop if the script has been running for more than (by default) 10 seconds. In asyncronous scripts,
+        you are likely going to be running code after that timeout happens. To prevent this behavior, you can use
+        the statement <code>global_timer = new Date();</code>.
+      </p>
+      <p>
+        For an example of a syncronous booster, see the <router-link to="/scripts/7070114">Tsumego</router-link> script.
+        For an example of a asyncronous booster, see the <router-link to="/scripts/6713763">Naive Solver</router-link> script.
+      </p>
 
       <h4>Getters</h4>
       <ul>

@@ -53,7 +53,7 @@
         mode = 'solution_copy_and_view';
         break;
       case 'puzzle-show-solution-result':
-        mode = 'solution_solution_see_result';
+        mode = 'solution_see_result';
         break;
       default:
         // Should never happen, because no route should load this component with an unhandled name

@@ -96,6 +96,22 @@ export default function createRouter() {
         }
       },
       {
+        path: '/puzzles/:id/copyandview/:solid',
+        name: 'puzzle-show-solution-copy',
+        component: () => import('./views/puzzles/PuzzleShowSolution/PuzzleShowSolution.vue'),
+        meta: {
+          hideNav: true
+        }
+      },
+      {
+        path: '/puzzles/:id/seeresult/:solid',
+        name: 'puzzle-show-solution-result',
+        component: () => import('./views/puzzles/PuzzleShowSolution/PuzzleShowSolution.vue'),
+        meta: {
+          hideNav: true
+        }
+      },
+      {
         path: '/puzzles/:id/edit',
         name: 'puzzle-edit',
         component: () => import('./views/puzzles/PuzzleEdit/PuzzleEdit.vue'),

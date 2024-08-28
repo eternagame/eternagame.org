@@ -35,11 +35,14 @@
       <div class="card featured-lab">
         <div class="card-body">
           <h4 class="h6 text-uppercase">Featured Lab Challenge</h4>
-          <h5 class="h4 mt-3">Self-reproducing RNA</h5>
-          <p>The group I intron (GII) of the Azoarcus bacterium is an RNA that has been shown to self-reproduce experimentally, by catalyzing the ligration (inducting the joining) of RNA fragments into a copy of itself. Researchers aim to show that many such molecules exist, which would considerably enhance the plausibility of an RNA origin of life.</p>
-          <b-btn to="/labs/13468245" variant="primary" class="mt-2">Enter lab</b-btn>
+          <h5 class="h4 mt-3">Broadly protective COVID mRNA vaccines for clinical tests</h5>
+          <p>
+            Help optimize a next generation COVID-19 vaccine for longer shelf life and broader distribution.
+            Eight designs will be voted to advance to lab testing and, if successful, clinical tests.
+          </p>
+          <b-btn to="/labs/13571451" variant="primary" class="mt-2">Enter lab</b-btn>
         </div>
-        <img src="@/assets/front-page/img/thumb-openlife.png" alt="">
+        <img src="@/assets/front-page/img/thumb-ov-clinical.png" alt="">
       </div>
 
       <h4 class="h3 my-3" style="text-align: center;">Explore Resources</h4>

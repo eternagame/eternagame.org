@@ -2,8 +2,48 @@
   <div class="page">
 
     <HeroSection />
-
     <b-container>
+      <h4 class="h2" id="workflow-h" style="text-align: center;">How It Works</h4>
+      <Swiper id="workflow" :options="swiperOptions">
+        <SwiperSlide class="workflow-stage">
+          <div class="stage-content">
+            <img
+              src="@/assets/front-page/img/design-scene-notitle.svg"
+              alt="An illustration of a player playing Eterna in the design interface"
+            />
+            <div class="stage-details">
+              <h5>Solve Puzzles</h5>
+              <p>Players create designs to solve research problems by solving puzzles.</p>
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide class="workflow-stage">
+          <div class="stage-content">
+            <img
+              src="@/assets/front-page/img/test-scene-notitle.svg"
+              alt="An illustration of a player playing Eterna in the design interface"
+            />
+            <div class="stage-details">
+              <h5>Test</h5>
+              <p>Scientists test player solutions in real wet-lab experiments.</p>
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide class="workflow-stage">
+          <div class="stage-content">
+            <img
+              src="@/assets/front-page/img/analyze-scene-notitle.svg"
+              alt="An illustration of a player playing Eterna in the design interface"
+            />
+            <div class="stage-details">
+              <h5>Analyze</h5>
+              <p>Both players and experts use data from experiments to improve their designs and build new tools.</p>
+            </div>
+          </div>
+        </SwiperSlide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      </Swiper>
+
       <h4 class="h3 my-3" style="text-align: center;">Our Impact</h4>
       <div class="card-deck impact">
         <div class="card">
@@ -74,6 +114,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
+  import {Swiper, SwiperSlide} from 'vue-awesome-swiper';
   import DocsSection from './components/DocsSection.vue';
   import HeroSection from './components/HeroSection.vue';
 
@@ -81,9 +122,22 @@
     components: {
       DocsSection,
       HeroSection,
+      Swiper,
+      SwiperSlide
     },
   })
   export default class LandingPage extends Vue {
+    swiperOptions = {
+      slidesPerView: 'auto',
+      centeredSlides: true,
+      loop: true,
+      slideToClickedSlide: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    };
+
     get loggedIn() {
       return this.$vxm.user.loggedIn;
     }
@@ -97,9 +151,92 @@
     margin-top: $navbar-height;
   }
 
-  .eternacon-banner {
-    width: 100%;
-    max-width: 1200px;
+  $workflow-margin: 80px;
+  #workflow-h {
+    margin-top: $workflow-margin;
+  }
+
+  #workflow {
+    $arrow-margin: 40px;
+
+    margin-bottom: $workflow-margin;
+
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 1) 30%,
+      rgba(0, 0, 0, 1) 70%,
+      transparent 100%,
+    );
+
+    :deep(.swiper-pagination) {
+      bottom: 0
+    }
+
+    :deep(.swiper-pagination-bullet) {
+      border-radius: 2px;
+      width: 55px;
+      height: 8px;
+    }
+
+    .workflow-stage {
+      width: 75%;
+      height: auto;
+      margin: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .stage-content {
+        gap: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 50px $arrow-margin;
+      }
+
+      img {
+        max-width: 50%;
+        height: 275px;
+      }
+
+      h5 {
+        font-size: 30px;
+        background-color: $med-dark-blue;
+        padding: 6px 12px;
+        width: fit-content;
+        border-radius: 6px;
+      }
+
+      p {
+        font-size: 22px;
+      }
+
+      &::after {
+        position: absolute;
+        left: calc(100% - $arrow-margin * .85);
+        content: '→';
+        font-size: 60px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        .stage-content {
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        img {
+          max-width: 100%;
+          height: 250px;
+        }
+      }
+    }
+
+    .arrow {
+      display: flex;
+      font-size: 50px;
+    }
   }
 
   .card {

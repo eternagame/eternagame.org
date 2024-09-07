@@ -13,7 +13,7 @@
             />
             <div class="stage-details">
               <h5>Solve Puzzles</h5>
-              <p>Players create designs to solve research problems by solving puzzles.</p>
+              <p>Players solve RNA design puzzles which address research problems.</p>
             </div>
           </div>
         </SwiperSlide>
@@ -218,17 +218,35 @@
         left: calc(100% - $arrow-margin * .85);
         content: '→';
         font-size: 60px;
+
+        @include media-breakpoint-down(sm) {
+          left: calc(100% - $arrow-margin * .7);
+          top: 50%;
+        }
+
+        @include media-breakpoint-down(sm) {
+          left: calc(100% - $arrow-margin * .7);
+          top: 40%;
+        }
+
+        @media(max-width: 435px) {
+          top: 30%;
+        }
       }
 
       @include media-breakpoint-down(sm) {
+        align-items: baseline;
+
         .stage-content {
           flex-direction: column;
           gap: 30px;
+          padding-top: 0;
+          padding-bottom: 20px;
         }
 
         img {
-          max-width: 100%;
           height: 250px;
+          max-width: 120%;
         }
       }
     }

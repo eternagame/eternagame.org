@@ -325,6 +325,7 @@
       img {
         flex-shrink: 1;
         width: 100%;
+        min-width: 0;
         object-fit: cover;
         border-radius: 0 8px 8px 0;
       }

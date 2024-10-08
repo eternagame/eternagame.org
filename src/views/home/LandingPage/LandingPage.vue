@@ -75,12 +75,13 @@
       <div class="card featured-lab">
         <div class="card-body">
           <h4 class="h6 text-uppercase">Featured Lab Challenge</h4>
-          <h5 class="h4 mt-3">Broadly protective COVID mRNA vaccines for clinical tests</h5>
+          <h5 class="h4 mt-3">OpenKnot</h5>
           <p>
-            Help optimize a next generation COVID-19 vaccine for longer shelf life and broader distribution.
-            Eight designs will be voted to advance to lab testing and, if successful, clinical tests.
+            Many important biological processes depend on RNAs that form pseudoknots, and they are
+            among the most conserved structures in evolutionary history. However, scientists still
+            have much to learn about their properties, structure, and functions.
           </p>
-          <b-btn to="/labs/13571451" variant="primary" class="mt-2">Enter lab</b-btn>
+          <b-btn to="challenges/11843006" variant="primary" class="mt-2">Enter lab</b-btn>
         </div>
         <img src="@/assets/front-page/img/thumb-ov-clinical.png" alt="">
       </div>

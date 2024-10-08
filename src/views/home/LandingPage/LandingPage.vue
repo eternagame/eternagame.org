@@ -83,7 +83,7 @@
           </p>
           <b-btn to="challenges/11843006" variant="primary" class="mt-2">Enter lab</b-btn>
         </div>
-        <img src="@/assets/front-page/img/thumb-ov-clinical.png" alt="">
+        <img src="@/assets/front-page/img/thumb-openknot.png" alt="">
       </div>
 
       <h4 class="h3 my-3" style="text-align: center;">Explore Resources</h4>

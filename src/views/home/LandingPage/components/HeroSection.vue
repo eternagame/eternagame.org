@@ -91,6 +91,7 @@
     min-width: 100%;
     min-height: 100%;
     background: #21508C;
+    overflow: hidden;
   }
 
   .hero-background {

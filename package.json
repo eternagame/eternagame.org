@@ -114,6 +114,11 @@
     "webpack-dev-middleware": "^5.3.3",
     "webpack-node-externals": "^3.0.0"
   },
+  "overrides": {
+    "vue-awesome-swiper": {
+      "swiper": "$swiper"
+    }
+  },
   "gitHooks": {
     "pre-commit": "lint-staged"
   },

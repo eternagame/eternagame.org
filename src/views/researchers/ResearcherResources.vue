@@ -88,7 +88,7 @@
           <div class="card-body">
             <h5>Education</h5>
             <p>
-              Thousands of students have used he RNA Biology with Eterna course 
+              Thousands of students have used the RNA Biology with Eterna course 
               available on Coursera.org to learn the fundamentals of RNA science. Animations and 
               interactive Eterna puzzles illustrate key concepts, and students can earn a 
               certificate upon completion. 

@@ -54,7 +54,7 @@
   @import '@/styles/global.scss';
 
   .video {
-    background: url(~@/assets/front-page/video/bg_video.jpg) no-repeat center center fixed;
+    background: url(~@/assets/front-page/video/bg_video.jpg) no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

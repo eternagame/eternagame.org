@@ -166,6 +166,7 @@
   .lab-header {
     position: relative;
     background-position: center;
+    background-size: cover;
     min-height: 250px;
     padding: 10px 20px;
   }

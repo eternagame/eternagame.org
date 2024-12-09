@@ -333,6 +333,10 @@ export default function createRouter() {
         path: '/researchers',
         component: () => import('./views/researchers/ResearcherResources.vue'),
       },
+      {
+        path: '/security-hall-of-fame',
+        component: () => import('./views/sec-hof/SecHOF.vue'),
+      },
       // Maintaining these old routes in case they're actively linked from anywhere
       // important - at some point we should audit if we can remove these, or we may need a
       // dedicated section of legacy routes anyways

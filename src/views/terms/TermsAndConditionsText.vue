@@ -68,6 +68,8 @@
       You agree not to interact with the Websites in any way that would harm its users or its ability
       to effectively provide its services. For our responsible disclosure policy, please see our
       <a href="https://www.openbugbounty.org/bugbounty/eternagame/">Open Bug Bounty page</a>.
+      Recognition for security researchers who have disclosed vulnerabilities to us can be
+      found on our <router-link to="/security-hall-of-fame">Security Hall of Fame</router-link>
     </p>
 
     <h4>User Generated Content</h4>

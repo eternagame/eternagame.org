@@ -45,7 +45,7 @@
         members: [
           {name: 'Parth Narula', url: 'https://linkedin.com/in/parth-narula-86283821a'}
         ],
-        others: 1,
+        others: 2,
       },
       {
         year: 2023,

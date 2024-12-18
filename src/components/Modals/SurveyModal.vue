@@ -33,7 +33,6 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import axios from 'axios';
 
   const ROUTE = '/post/';
 
@@ -57,7 +56,7 @@
       // Note: $vxm.user.surveyRecord won't update until the next page RELOAD, since that's the
       // only time it gets set. This should be fine though, as we only open this modal on mounted
       // and that happens at page load
-      await axios.post(
+      await this.$http.post(
         ROUTE,
         new URLSearchParams({
           type: 'survey',
@@ -75,7 +74,7 @@
       // Note: $vxm.user.surveyRecord won't update until the next page RELOAD, since that's the
       // only time it gets set. This should be fine though, as we only open this modal on mounted
       // and that happens at page load
-      await axios.post(
+      await this.$http.post(
         ROUTE,
         new URLSearchParams({
           type: 'survey',
@@ -92,7 +91,7 @@
       // Note: $vxm.user.surveyRecord won't update until the next page RELOAD, since that's the
       // only time it gets set. This should be fine though, as we only open this modal on mounted
       // and that happens at page load
-      await axios.post(
+      await this.$http.post(
         ROUTE,
         new URLSearchParams({
           type: 'survey',

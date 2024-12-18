@@ -39,7 +39,6 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import axios from 'axios';
   import AspectRatioCard from '@/components/Cards/AspectRatioCard.vue';
   import { UserData } from '@/types/common-types';
 
@@ -64,7 +63,7 @@
     private rank: string = '';
 
     created() {
-      axios.get(`/get/?type=user&uid=${this.player.uid}`).then(response => {
+      this.$http.get(`/get/?type=user&uid=${this.player.uid}`).then(response => {
         this.rank = response.data.data.user.rank;
       });
     }

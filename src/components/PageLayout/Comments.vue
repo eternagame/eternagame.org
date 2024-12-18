@@ -34,7 +34,6 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import axios from 'axios';
   import { CommentItem } from '@/types/common-types';
   import Comment from './Comment.vue';
 
@@ -70,7 +69,7 @@
 
     submit() {
       this.submitting = true;
-      axios
+      this.$http
         .post(
           ADD_COMMENT_ROUTE,
           new URLSearchParams({

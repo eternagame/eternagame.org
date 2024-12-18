@@ -35,7 +35,6 @@
 <script lang="ts">
   import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
-  import axios from 'axios';
   import TermsAndConditionsText from '@/views/terms/TermsAndConditionsText.vue';
 
   const ROUTE = '/post/';
@@ -61,7 +60,7 @@
         // Note: $vxm.user.surveyRecord won't update until the next page RELOAD, since that's the
         // only time it gets set. This should be fine though, as we only open this modal on mounted
         // and that happens at page load
-        await axios.post(
+        await this.$http.post(
           ROUTE,
           new URLSearchParams({
             type: 'survey',

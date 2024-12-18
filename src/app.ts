@@ -81,14 +81,21 @@ InitGlobalComponents();
 Vue.config.productionTip = false;
 Vue.config.devtools = true;
 
-export default function createApp() {
+export default async function createApp() {
   const router = createRouter();
 
   const http = axios.create({
-    withCredentials: true,
+    withCredentials: true
   });
-
   const { store, vxm } = createStore(http, router);
+  http.interceptors.request.use((config) => {
+    if (config.url && new URL(config.url, window.location.toString()).hostname === vxm.user.csrfHostname) {
+      config.headers = config.headers || {};
+      config.headers['x-csrf-token'] = vxm.user.csrfToken;
+    }
+    return config;
+  });
+  await vxm.user.fetchCsrfToken();
 
   sync(store, router);
 

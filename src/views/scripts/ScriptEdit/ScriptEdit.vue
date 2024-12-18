@@ -77,6 +77,7 @@
   import FollowPanel from '@/components/Sidebar/FollowPanel.vue';
   import Utils from '@/utils/utils';
   import CodeMirror from '../components/CodeMirror.vue';
+  import ScriptExecutionMixin from '../ScriptExecutionMixin';
 
   interface ScriptInput { name: string; value: string; }
 
@@ -90,7 +91,7 @@
       CodeMirror
     },
   })
-  export default class ScriptEdit extends Mixins(FetchMixin) {
+  export default class ScriptEdit extends Mixins(FetchMixin, ScriptExecutionMixin) {
     processing = false;
 
     errString = '';
@@ -196,57 +197,17 @@
       this.$router.replace('/scripts');
     }
 
-    evaluate() {
+    async evaluate() {
       // Ensure the iframe is destroyed and recreated
       this.executionNonce = Date.now();
 
-      this.srcdoc = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta http-equiv="X-UA-Compatible" content="IE=edge">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/jquery/jquery-1.7.2.min.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/jquery/jquery-unselectable.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/jquery-ui/jquery-ui-1.8.7.custom.min.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/json/json2.js"></${'script'}>
-
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/application.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/utils.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/ajaxmanager.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/datamanager.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/usermanager.js"></${'script'}>
-
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/eterna/eterna-application.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/eterna/eterna-utils.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/eterna/script-library.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/eterna/script-interface.js"></${'script'}>
-          <${'script'} src="${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/frontend/jscripts/eterna/presenter.js"></${'script'}>
-      </head>
-      <body>
-          <div id="result"></div>
-          <${'script'}>
-            DataManager.stash_data({user: {
-              uid: ${this.$vxm.user.uid},
-              name: ${JSON.stringify(this.$vxm.user.username)},
-              rank: ${this.$vxm.user.rank},
-              points: ${this.$vxm.user.points}
-            }});
-            window.Page = {
-              is_there_new_notification: function() { return false; },
-              count_new_notifications: function() { return '0'; }
-            };
-            Application.on_initialize();
-            const inputs = ScriptInterface.codify_input(${JSON.stringify(this.inputs.map((input) => ({value: input.name, val: input.value.replaceAll('\\', '\\\\').replaceAll('\n', '\\n')})))});
-            const code = ScriptInterface.insert_timeout(${JSON.stringify(this.source)}, ${this.timeout})
-            const result = ScriptInterface.evaluate(inputs+code);
-            Pervasives.outln("<br>Return : " + result['cause'])
-            Pervasives.outln("Evaluation time : " + result['eval_time']/1000 + " sec")
-          </${'script'}>
-      </body>
-      </html>
-      `;
+      this.srcdoc = await this.makeScriptExecutionFrame(`
+        const inputs = ScriptInterface.codify_input(${JSON.stringify(this.inputs.map((input) => ({value: input.name, val: input.value.replaceAll('\\', '\\\\').replaceAll('\n', '\\n')})))});
+        const code = ScriptInterface.insert_timeout(${JSON.stringify(this.source)}, ${this.timeout})
+        const result = ScriptInterface.evaluate(inputs+code);
+        Pervasives.outln("<br>Return : " + result['cause'])
+        Pervasives.outln("Evaluation time : " + result['eval_time']/1000 + " sec")
+      `);
     }
   }
 </script>

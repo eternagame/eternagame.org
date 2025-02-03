@@ -56,9 +56,10 @@
         year: 2022,
         members: [
           {name: 'haidv35', url: 'https://vn.linkedin.com/in/haidv99'},
-          {name: 'Gaurang maheta', url: 'https://linkedin.com/in/gaurang883'}
+          {name: 'Gaurang maheta', url: 'https://linkedin.com/in/gaurang883'},
+          {name: 'Nagashree K'}
         ],
-        others: 1,
+        others: 0,
       },
       {
         year: 2021,

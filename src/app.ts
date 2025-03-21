@@ -3,7 +3,7 @@ import { sync } from 'vuex-router-sync';
 import BootstrapVue from 'bootstrap-vue';
 // @ts-ignore
 import VueScrollReveal from 'vue-scroll-reveal'; // Module has no declaration file
-import VueDOMPurifyHTML, { MinimalDOMPurifyConfig } from 'vue-dompurify-html';
+import VueDOMPurifyHTML, { DirectiveConfig, MinimalDOMPurifyConfig } from 'vue-dompurify-html';
 import DOMPurify from 'dompurify';
 import {Swiper as SwiperClass, Pagination, Navigation} from 'swiper';
 import axios from 'axios';
@@ -21,21 +21,26 @@ const domPurifyOpts: DOMPurify.Config | MinimalDOMPurifyConfig = {
 };
 
 Vue.use(BootstrapVue);
-Vue.use(VueDOMPurifyHTML, {
-  default: domPurifyOpts
-});
+const domPurifyHtmlConfig: DirectiveConfig = {
+  default: domPurifyOpts,
+  hooks: {
+    uponSanitizeElement: (node, data) => {
+      console.log('sanitize');
+      if (data.tagName === 'iframe') {
+        console.log('sanitize-iframe');
+        const validSrc = (node as HTMLIFrameElement).src.match(/^(https:)?\/\/(www.)?(youtube.com)\/.*$/);
+        console.log('validSrc', validSrc);
+        if (!validSrc) (node as HTMLIFrameElement).remove();
+      }
+    }
+  }
+};
+Vue.use(VueDOMPurifyHTML,  domPurifyHtmlConfig);
 Vue.use(VueScrollReveal, {
   distance: '10px',
   viewFactor: 1.0,
   duration: 800,
   reset: true
-});
-
-DOMPurify.addHook('uponSanitizeElement', (node, data) => {
-  if (data.tagName === 'iframe') {
-    const validSrc = (node as HTMLIFrameElement).src.match(/^(https:)?\/\/(www.)?(youtube.com)\/.*$/);
-    if (!validSrc) node.remove();
-  }
 });
 
 SwiperClass.use([Pagination, Navigation]);

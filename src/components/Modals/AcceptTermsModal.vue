@@ -66,7 +66,7 @@
           new URLSearchParams({
             type: 'survey',
             action: 'update',
-            value: 'EULA_AGREE_2023-06-28',
+            value: 'EULA_AGREE_2025-05-12',
             uid: String(this.$vxm.user.uid),
           }),
         );

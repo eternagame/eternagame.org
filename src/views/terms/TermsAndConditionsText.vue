@@ -43,6 +43,12 @@
     </p>
 
     <h4>Acceptable Use</h4>
+    <h5>Non-commercial Purposes</h5>
+    You agree to use the Websites soley for non-commercial academic and research purposes.
+    You represent and warrant that your use of this software is not directed towards commercial
+    advantage or for-profit activities. Usage for commercial or for-profit activities must be approved
+    in writing by Eterna. Interested parties should contact <a href="mailto:licensing@eternagame.org">licensing@eternagame.org</a>.
+
     <h5>Lawful Use</h5>
     <p>
       You agree to use the Websites in accordance with all applicable laws and regulations. You are
@@ -421,6 +427,9 @@
 
     <h3>Changelog</h3>
     <ul>
+      <li>
+        May 12, 2025: Explicitly specify usage is only for non-commercial purposes
+      </li>
       <li>
         June 28, 2023: Removed information about data collection by Google Analytics as it is no longer used,
         clarify security practices, add information on information shared with SciStarter

@@ -49,7 +49,7 @@
     accepted: boolean = false;
 
     get shown() {
-      return this.$vxm.user.userDetailsLoaded && !this.$vxm.user.surveyRecord.match(/EULA_AGREE_2023-06-28/i);
+      return this.$vxm.user.userDetailsLoaded && !this.$vxm.user.surveyRecord.match(/EULA_AGREE_2025-05-12/i);
     }
 
     handleHide(e: Event) {

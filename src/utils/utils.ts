@@ -185,5 +185,18 @@ export default {
       const oldVal = oldQuery[key];
       return Array.isArray(val) && Array.isArray(oldVal) ? !shallowEqual(val, oldVal) : val !== oldVal;
     });
+  },
+  /**
+   * Given an item that may or may not be in a const array, determine whether it
+   * is indeed one of the items in that array, changing the type accordingly
+   *
+   * @param x The value to check arr for
+   * @param arr The array to check for x in
+   */
+  isArrayMember<T, U extends T>(
+    x: T,
+    arr: readonly U[],
+  ): x is typeof arr[number] {
+    return arr.includes(x as U);
   }
 };

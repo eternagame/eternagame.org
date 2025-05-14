@@ -49,7 +49,8 @@
     get gameUrl() {
       const states = Math.min(+this.$route.query.states || 1, 3);
       const targets = this.$route.query.states ? `&puzzleEditNumTargets=${states}` : '';
-      return `${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/index.html?mode=puzzlemaker${targets}`;
+      const experimentalFeatures = this.$vxm.user.featureFlags.includes('rnet-publishing') ? '&experimentalFeatures=rnet-publishing' : '';
+      return `${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/index.html?mode=puzzlemaker${targets}${experimentalFeatures}`;
     }
   }
 </script>

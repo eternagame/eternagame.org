@@ -2,6 +2,7 @@
 import { createModule, mutation, action } from 'vuex-class-component';
 import axios, { AxiosInstance } from 'axios';
 import { RefreshAchievement, UserData } from '@/types/common-types';
+import Utils from '@/utils/utils';
 
 const VuexModule = createModule({
   strict: false,
@@ -108,6 +109,14 @@ export default function createUserStore($http: AxiosInstance) {
 
     @mutation private pushAchievements(achievements?: Record<string, RefreshAchievement>) {
       if (achievements) this.newAchievements.push(...Object.entries(achievements).map(([, val]) => val));
+    }
+
+    private readonly availableFeatureFlags = ['rnet-publishing'] as const;
+
+    get featureFlags() {
+      return (process.env.VUE_APP_FEATURE_FLAGS as string | undefined)?.split(',').filter(
+        flag => Utils.isArrayMember(flag, this.availableFeatureFlags)
+      ) ?? [];
     }
   }
 

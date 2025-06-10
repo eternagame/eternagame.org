@@ -53,6 +53,7 @@
 
   export const options: Option[] = [
     { value: 'about', text: 'side-panel-options:about-eternacon', link: '/eternacon/about' },
+    { value: '2025', text: 'side-panel-options:eternacon-2024', link: '/eternacon/2025' },
     { value: '2024', text: 'side-panel-options:eternacon-2024', link: '/eternacon/2024' },
     { value: '2023', text: 'side-panel-options:eternacon-2023', link: '/eternacon/2023' },
     { value: '2022', text: 'side-panel-options:eternacon-2022', link: '/eternacon/2022' },

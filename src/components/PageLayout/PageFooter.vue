@@ -33,7 +33,7 @@
       </b-col>
       <b-col lg="4" sm="12">
         <div style="text-align:center;">
-          <a href="https://twitter.com/eternagame">
+          <a href="https://bsky.app/profile/eternagame.org">
             <img src="@/assets/front-page/img/icon_bsky.svg" class="icon" alt="Bluesky" />
           </a>
           <a href="https://www.youtube.com/eternagame">

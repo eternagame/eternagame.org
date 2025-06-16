@@ -34,19 +34,10 @@
       <b-col lg="4" sm="12">
         <div style="text-align:center;">
           <a href="https://twitter.com/eternagame">
-            <img src="@/assets/front-page/img/icon_twt.png" class="icon" alt="Twitter" />
-          </a>
-          <a href="https://www.facebook.com/eternathegame/">
-            <img src="@/assets/front-page/img/icon_fb.png" class="icon" alt="Facebook" />
-          </a>
-          <a href="https://www.instagram.com/eternagame/">
-            <img src="@/assets/front-page/img/icon_instagram.svg" class="icon" alt="Instagram" />
+            <img src="@/assets/front-page/img/icon_bsky.svg" class="icon" alt="Bluesky" />
           </a>
           <a href="https://www.youtube.com/eternagame">
             <img src="@/assets/front-page/img/icon_yt.png" class="icon" alt="YouTube" />
-          </a>
-          <a href="https://www.twitch.tv/eternagame">
-            <img src="@/assets/front-page/img/icon_twitch.svg" class="icon" alt="Twitch" />
           </a>
           <a href="https://github.com/eternagame">
             <img src="@/assets/front-page/img/icon_gh.png" class="icon" alt="GitHub" />
@@ -140,8 +131,8 @@
   }
 
   .icon {
-    width: 15%;
-    padding: 6px;
+    width: 17%;
+    padding: 8px;
     transition: ease 0.5s;
 
     @include media-breakpoint-down(md) {

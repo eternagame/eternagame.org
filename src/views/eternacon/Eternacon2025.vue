@@ -1,6 +1,8 @@
 <template>
   <EternaPage title="">
-    <HeroSection>
+    <HeroSection
+      backgroundImage="@/assets/home/hero-eternacon-2025.png"
+    >
       Tune in on July 26-27 to exciting talks and activities from Eterna researchers, developers,
       players, and other world-class experts.
     </HeroSection>

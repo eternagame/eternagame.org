@@ -17,8 +17,7 @@
         Additional questions? Contact <a href="mailto:events@eternagame.org">events@eternagame.org</a>.
       </p>
     </section>
-    <h3>Schedule</h3>
-    <p>TBA. Interested in presenting? Contact <a href="mailto:jill@eternagame.org">jill@eternagame.org</a>.</p>
+    <ScheduleSection :sessions="sessions" />
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
         :options="options"
@@ -39,6 +38,7 @@
   import ConferenceAreasSection from './components/ConferenceAreasSection.vue';
   import ScheduleSection from './components/ScheduleSection.vue';
   import { options } from './AboutEternacon.vue';
+  import sessions from './speakers-2025.json';
 
   @Component({
     components: { EternaPage, HeroSection, ConferenceAreasSection, ScheduleSection, DropdownSidebarPanel },
@@ -47,5 +47,9 @@
     get options() {
       return options;
     };
+
+    get sessions() {
+      return sessions;
+    }
   }
 </script>

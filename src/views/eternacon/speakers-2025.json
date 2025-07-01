@@ -1,0 +1,153 @@
+{
+    "Saturday, July 26": [
+        {
+            "time": "July 26, 2025 08:15:00 PDT",
+            "topic": "Opening remarks",
+            "speaker": "Jonathan Romano (LFP6)",
+            "affiliation": "Lead Developer, Eterna",
+            "abstract": "Welcome to Eternacon 11 and logistics"
+        },
+        {
+            "time": "July 26, 2025 08:30:00 PDT",
+            "topic": "Broadly protective COVID mRNA vaccines",
+            "speaker": "Akshay Chenna; Anirudh Bhasyam",
+            "affiliation": "PopVax, Hyderabad, India",
+            "abstract": "The RNA sequence of the COVID-19 vaccine encodes a special immunogen protein that is a first-of-its-kind design, intended to provide protection against both current dominant COVID-19 variants of the BA.2.86/JN.1 lineage as well as potentially new variants that may emerge in the near future. Designed by the Indian vaccine developer PopVax, this vaccine candidate will be moving into the clinic shortly – the Phase I trial is expected to begin in the United States in early 2026. The five Eterna designs with the highest votes were experimentally investigated in vitro for protein expression, and the three designs with the highest protein expression levels were evaluated in vivo for immunogenicity."
+        },
+        {
+            "time": "July 26, 2025 09:00:00 PDT",
+            "topic": "Designing RNA self-reproducers",
+            "speaker": "vaitea opuu",
+            "affiliation": "Paris Sciences & Lettres University",
+            "abstract": "RNA self-reproduction is key to origin-of-life studies but rarely observed. Using covariation models and structure prediction, we explored vast ribozyme sequence space. Active sequences appeared up to 65 mutations from a natural reference. Estimated ∼10³⁹ ribozymes may exist. Random variants showed self-reproduction. Our modeling and screening refine statistical estimates for life’s emergence."
+        },
+        {
+            "time": "July 26, 2025 09:45:00 PDT",
+            "topic": "Break"
+        },
+        {
+            "time": "July 26, 2025 10:00:00 PDT",
+            "topic": "Introducing: Frameshifter, Eterna's new nonprofit home",
+            "speaker": "Jonathan Romano (LFP6)",
+            "affiliation": "Lead Developer, Eterna; Director, Frameshifter",
+            "abstract": "To guide Eterna's next stage of growth, the core team has founded a new nonprofit organization called Frameshifter, dedicated to stewarding, sustaining, and growing Eterna, and positioning Eterna as a blueprint for broadening inclusion in science through public engagement in research. Hear from Frameshifter’s director on Frameshifter’s mission and vision, the 501c3 hosting Frameshifter Superbloom Design, our plans for sustaining and growing Eterna, and updates since our initial town hall sharing our plans in March."
+        },
+        {
+            "time": "July 26, 2025 10:30:00 PDT",
+            "topic": "A guide for all",
+            "speaker": "Henry Dennis (TheInverted)",
+            "affiliation": "Eterna player",
+            "abstract": "I will be presenting a new player guide, starting by discussing one of the game's most important engines: eternafold. I will discuss the challenges presented by complex folding engines, strategies to solve difficult player puzzles, and the ways players can use creativity to solve challenging puzzles."
+        },
+        {
+            "time": "July 26, 2025 11:00:00 PDT",
+            "topic": "Break"
+        },
+        {
+            "time": "July 26, 2025 11:30:00 PDT",
+            "topic": "Synonymous but not the same: codon optimization with deep learning",
+            "speaker": "Liana Lareau",
+            "affiliation": "University of California, Berkeley",
+            "abstract": "Most amino acids can be encoded by several different synonymous codons, creating a vast space of possibilities for sequence design: 4^100 different ways to encode even a small protein. Synonymous codons are interchangeable in many cases, but the choice between these options can have real consequences on an mRNA and its protein output. We use machine learning and experimental measurements to create sophisticated models for codon choice."
+        },
+        {
+            "time": "July 26, 2025 12:00:00 PDT",
+            "topic": "Chemical mapping energetics",
+            "speaker": "Edric Choi",
+            "affiliation": "Northwestern University",
+            "abstract": "TBA"
+        },
+        {
+            "time": "July 26, 2025 12:30:00 PDT",
+            "topic": "Fluoride sensor",
+            "speaker": "Julius Lucks",
+            "affiliation": "Northwestern University",
+            "abstract": "TBA"
+        },
+        {
+            "time": "July 26, 2025 13:00:00 PDT",
+            "topic": "Breakout rooms",
+            "abstract": "Join the Eterna community for casual discussions in smaller breakout rooms. Please bring your ideas and questions! <ul><li>Science and social</li><li>Scripts and Eterna technology</li>"
+        },
+        {
+            "time": "July 26, 2025 13:30:00 PDT",
+            "topic": "Puzzle race",
+            "abstract": "Join the annual challenge to solve a puzzle specifically designed for Eternacon 11."
+        }
+    ],
+    "Sunday, July 27": [
+        {
+                "time": "July 27, 2025 09:00:00 PDT",
+                "topic": "Scalable RNA design via motif-level divide-and-conquer-and-combine",
+                "speaker": "Tianshuo Zhou",
+                "affiliation": "Oregon State University",
+                "abstract": "RNA design aims to identify sequences that fold into a given target secondary structure. This problem is considered NP-hard and designing long RNA structures (over 1000 nt) remains a major challenge. Motivated by recent findings on the undesignability of RNA structures, we propose a novel divide-and-conquer-and-combine approach that performs well on the Eterna100 benchmark and significantly improves the design of long structures. Compared to the SOTA method SAMFEO, our method increases folding probability from 0.18 to 0.39 while reducing computation time by orders of magnitude."
+            },
+            {
+                "time": "July 27, 2025 09:30:00 PDT",
+                "topic": "Designing RNA with language models",
+                "speaker": "Ning Dai",
+                "affiliation": "Oregon State University",
+                "abstract": "Recent progress in large language models has unlocked new opportunities for tackling sequence design challenges in biology, particularly RNA design. This talk will explore the use of language models (LMs) to generate RNA sequences that fold into target secondary structures. We develop methods to synthesize high-quality training data, train specialized LMs, and investigate the impact of scaling test-time computation on design quality. Our preliminary results highlight the promise of LM-based RNA design approaches."
+            },
+            {
+                "time": "July 27, 2025 10:00:00 PDT",
+                "topic": "Naturally ornate RNA-only complexes",
+                "speaker": "Rachael Kretsch",
+                "affiliation": "Stanford University",
+                "abstract": "Without precedent among previously characterized natural RNA molecules GOLLD, ROOL, and OLE RNAs form homo-oligomeric complexes that can assemble without any involvement of proteins. OLE RNA forms a dimeric complex with long co-axial pipes spanning two monomers. Both GOLLD and ROOL form distinct RNA-only multimeric nanocages with diameters larger than the ribosome. The natural assembly of these RNAs could be rich sources of inspiration for the design of RNA structures."
+            },
+            {
+                "time": "July 27, 2025 10:30:00 PDT",
+                "topic": "Utilizing sequence homology to identify functional RNAs",
+                "speaker": "Lauren McKinley; Philiip Bevilacqua",
+                "affiliation": "Penn State University",
+                "abstract": "Sequence homology is a technique for identifying functional RNAs. Searches employing a complete conservation sequence favor sequences similar to known examples. However, RNAs with less conserved regions may not be detected utilizing this method. Self-cleaving twister ribozymes, for instance, have regions that vary greatly in length and sequence. Instead, we searched using a partial conservation sequence of 16 conserved nucleotides and discovered 1,000 diverse twister ribozymes, greatly expanding the class. "
+            },
+            {
+                "time": "July 27, 2025 11:00:00 PDT",
+                "topic": "Break"
+            },
+            {
+                "time": "July 27, 2025 12:00:00 PDT",
+                "topic": "Zooniverse: Accelerating discovery through people-powered research",
+                "speaker": "Laura Trouille",
+                "affiliation": "Adler Planetarium in Chicago; Northwestern University",
+                "abstract": "Zooniverse is the world’s largest platform for people-powered research, enabling over 2.8 million volunteers to contribute to discoveries across disciplines. This talk will showcase Zooniverse’s dual mission: advancing research and fostering meaningful public engagement in research. Highlights include volunteer impacts, research breakthroughs, AI-human collaboration, and early outcomes from our AI ethics initiative focused on building responsible, transparent participatory science workflows."
+            },
+            {
+                "time": "July 27, 2025 12:30:00 PDT",
+                "topic": "Combining machine learning and citizen science to chart the sun’s cosmic neighborhood",
+                "speaker": "Aaron Meisner",
+                "affiliation": "NSF NOIRLab",
+                "abstract": "We describe the design and implementation of the Backyard Worlds: Cool Neighbors citizen science project, which combines image-level deep learning with Zooniverse-hosted online crowdsourcing to mine large astronomical sky maps for rare celestial objects called “brown dwarfs.” We also present a survey of advanced Backyard Worlds participants, which indicates that these citizen scientists are by and large not dissuaded from participating in Cool Neighbors because of its usage of artificial intelligence."
+            },
+            {
+                "time": "July 27, 2025 13:00:00 PDT",
+                "topic": "Using machine learning for OpenKnot round 8 sequence selection",
+                "speaker": "Jeff Anderson-Lee (jandersonlee)",
+                "affiliation": "Eterna player",
+                "abstract": "This talk motivates and describes the use of machine learning (ML) to select sequences for submission to OpenKnot Round 8. A brief introduction to the concept of regression analysis is included. It should be accessible to those who are new to ML and informative for those who have had exposure."
+            },
+            {
+                "time": "July 27, 2025 13:30:00 PDT",
+                "topic": "Platform and ML discussion",
+                "speaker": "Jill Townley",
+                "affiliation": "Research coordinator, Eterna; Organizer",
+                "abstract": "Open forum for discussing participatory science platforms and machine learning as a tool for players."
+            },
+            {
+                "time": "July 27, 2025 14:0:00 PDT",
+                "topic": "Kahoot! quiz",
+                "speaker": "Astromon",
+                "affiliation": "Eterna player; Organizer",
+                "abstract": "A fun quiz competition for the Eterna players."
+            },
+            {
+                "time": "July 27, 2025 14:30:00 PDT",
+                "topic": "Eterna art show",
+                "speaker": "Arnuv Modh",
+                "affiliation": "Eterna player"
+            }
+    ]
+}

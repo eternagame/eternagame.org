@@ -77,77 +77,77 @@
     ],
     "Sunday, July 27": [
         {
-                "time": "July 27, 2025 09:00:00 PDT",
-                "topic": "Scalable RNA design via motif-level divide-and-conquer-and-combine",
-                "speaker": "Tianshuo Zhou",
-                "affiliation": "Oregon State University",
-                "abstract": "RNA design aims to identify sequences that fold into a given target secondary structure. This problem is considered NP-hard and designing long RNA structures (over 1000 nt) remains a major challenge. Motivated by recent findings on the undesignability of RNA structures, we propose a novel divide-and-conquer-and-combine approach that performs well on the Eterna100 benchmark and significantly improves the design of long structures. Compared to the SOTA method SAMFEO, our method increases folding probability from 0.18 to 0.39 while reducing computation time by orders of magnitude."
-            },
-            {
-                "time": "July 27, 2025 09:30:00 PDT",
-                "topic": "Designing RNA with language models",
-                "speaker": "Ning Dai",
-                "affiliation": "Oregon State University",
-                "abstract": "Recent progress in large language models has unlocked new opportunities for tackling sequence design challenges in biology, particularly RNA design. This talk will explore the use of language models (LMs) to generate RNA sequences that fold into target secondary structures. We develop methods to synthesize high-quality training data, train specialized LMs, and investigate the impact of scaling test-time computation on design quality. Our preliminary results highlight the promise of LM-based RNA design approaches."
-            },
-            {
-                "time": "July 27, 2025 10:00:00 PDT",
-                "topic": "Naturally ornate RNA-only complexes",
-                "speaker": "Rachael Kretsch",
-                "affiliation": "Stanford University",
-                "abstract": "Without precedent among previously characterized natural RNA molecules GOLLD, ROOL, and OLE RNAs form homo-oligomeric complexes that can assemble without any involvement of proteins. OLE RNA forms a dimeric complex with long co-axial pipes spanning two monomers. Both GOLLD and ROOL form distinct RNA-only multimeric nanocages with diameters larger than the ribosome. The natural assembly of these RNAs could be rich sources of inspiration for the design of RNA structures."
-            },
-            {
-                "time": "July 27, 2025 10:30:00 PDT",
-                "topic": "Utilizing sequence homology to identify functional RNAs",
-                "speaker": "Lauren McKinley; Philip Bevilacqua",
-                "affiliation": "Penn State University",
-                "abstract": "Sequence homology is a technique for identifying functional RNAs. Searches employing a complete conservation sequence favor sequences similar to known examples. However, RNAs with less conserved regions may not be detected utilizing this method. Self-cleaving twister ribozymes, for instance, have regions that vary greatly in length and sequence. Instead, we searched using a partial conservation sequence of 16 conserved nucleotides and discovered 1,000 diverse twister ribozymes, greatly expanding the class. "
-            },
-            {
-                "time": "July 27, 2025 11:00:00 PDT",
-                "topic": "Break"
-            },
-            {
-                "time": "July 27, 2025 12:00:00 PDT",
-                "topic": "Zooniverse: Accelerating discovery through people-powered research",
-                "speaker": "Laura Trouille",
-                "affiliation": "Adler Planetarium in Chicago; Northwestern University",
-                "abstract": "Zooniverse is the world’s largest platform for people-powered research, enabling over 2.8 million volunteers to contribute to discoveries across disciplines. This talk will showcase Zooniverse’s dual mission: advancing research and fostering meaningful public engagement in research. Highlights include volunteer impacts, research breakthroughs, AI-human collaboration, and early outcomes from our AI ethics initiative focused on building responsible, transparent participatory science workflows."
-            },
-            {
-                "time": "July 27, 2025 12:30:00 PDT",
-                "topic": "Combining machine learning and citizen science to chart the sun’s cosmic neighborhood",
-                "speaker": "Aaron Meisner",
-                "affiliation": "NSF NOIRLab",
-                "abstract": "We describe the design and implementation of the Backyard Worlds: Cool Neighbors citizen science project, which combines image-level deep learning with Zooniverse-hosted online crowdsourcing to mine large astronomical sky maps for rare celestial objects called “brown dwarfs.” We also present a survey of advanced Backyard Worlds participants, which indicates that these citizen scientists are by and large not dissuaded from participating in Cool Neighbors because of its usage of artificial intelligence."
-            },
-            {
-                "time": "July 27, 2025 13:00:00 PDT",
-                "topic": "Using machine learning for OpenKnot round 8 sequence selection",
-                "speaker": "Jeff Anderson-Lee (jandersonlee)",
-                "affiliation": "Eterna player",
-                "abstract": "This talk motivates and describes the use of machine learning (ML) to select sequences for submission to OpenKnot Round 8. A brief introduction to the concept of regression analysis is included. It should be accessible to those who are new to ML and informative for those who have had exposure."
-            },
-            {
-                "time": "July 27, 2025 13:30:00 PDT",
-                "topic": "Platform and ML discussion",
-                "speaker": "Jill Townley",
-                "affiliation": "Research coordinator, Eterna; Organizer",
-                "abstract": "Open forum for discussing participatory science platforms and machine learning as a tool for players."
-            },
-            {
-                "time": "July 27, 2025 14:0:00 PDT",
-                "topic": "Kahoot! quiz",
-                "speaker": "Astromon",
-                "affiliation": "Eterna player; Organizer",
-                "abstract": "A fun quiz competition for the Eterna players."
-            },
-            {
-                "time": "July 27, 2025 14:30:00 PDT",
-                "topic": "Eterna art show",
-                "speaker": "Arnuv Modh",
-                "affiliation": "Eterna player"
-            }
+            "time": "July 27, 2025 09:00:00 PDT",
+            "topic": "Scalable RNA design via motif-level divide-and-conquer-and-combine",
+            "speaker": "Tianshuo Zhou",
+            "affiliation": "Oregon State University",
+            "abstract": "RNA design aims to identify sequences that fold into a given target secondary structure. This problem is considered NP-hard and designing long RNA structures (over 1000 nt) remains a major challenge. Motivated by recent findings on the undesignability of RNA structures, we propose a novel divide-and-conquer-and-combine approach that performs well on the Eterna100 benchmark and significantly improves the design of long structures. Compared to the SOTA method SAMFEO, our method increases folding probability from 0.18 to 0.39 while reducing computation time by orders of magnitude."
+        },
+        {
+            "time": "July 27, 2025 09:30:00 PDT",
+            "topic": "Designing RNA with language models",
+            "speaker": "Ning Dai",
+            "affiliation": "Oregon State University",
+            "abstract": "Recent progress in large language models has unlocked new opportunities for tackling sequence design challenges in biology, particularly RNA design. This talk will explore the use of language models (LMs) to generate RNA sequences that fold into target secondary structures. We develop methods to synthesize high-quality training data, train specialized LMs, and investigate the impact of scaling test-time computation on design quality. Our preliminary results highlight the promise of LM-based RNA design approaches."
+        },
+        {
+            "time": "July 27, 2025 10:00:00 PDT",
+            "topic": "Naturally ornate RNA-only complexes",
+            "speaker": "Rachael Kretsch",
+            "affiliation": "Stanford University",
+            "abstract": "Without precedent among previously characterized natural RNA molecules GOLLD, ROOL, and OLE RNAs form homo-oligomeric complexes that can assemble without any involvement of proteins. OLE RNA forms a dimeric complex with long co-axial pipes spanning two monomers. Both GOLLD and ROOL form distinct RNA-only multimeric nanocages with diameters larger than the ribosome. The natural assembly of these RNAs could be rich sources of inspiration for the design of RNA structures."
+        },
+        {
+            "time": "July 27, 2025 10:30:00 PDT",
+            "topic": "Utilizing sequence homology to identify functional RNAs",
+            "speaker": "Lauren McKinley; Philip Bevilacqua",
+            "affiliation": "Penn State University",
+            "abstract": "Sequence homology is a technique for identifying functional RNAs. Searches employing a complete conservation sequence favor sequences similar to known examples. However, RNAs with less conserved regions may not be detected utilizing this method. Self-cleaving twister ribozymes, for instance, have regions that vary greatly in length and sequence. Instead, we searched using a partial conservation sequence of 16 conserved nucleotides and discovered 1,000 diverse twister ribozymes, greatly expanding the class. "
+        },
+        {
+            "time": "July 27, 2025 11:00:00 PDT",
+            "topic": "Break"
+        },
+        {
+            "time": "July 27, 2025 12:00:00 PDT",
+            "topic": "Zooniverse: Accelerating discovery through people-powered research",
+            "speaker": "Laura Trouille",
+            "affiliation": "Adler Planetarium in Chicago; Northwestern University",
+            "abstract": "Zooniverse is the world’s largest platform for people-powered research, enabling over 2.8 million volunteers to contribute to discoveries across disciplines. This talk will showcase Zooniverse’s dual mission: advancing research and fostering meaningful public engagement in research. Highlights include volunteer impacts, research breakthroughs, AI-human collaboration, and early outcomes from our AI ethics initiative focused on building responsible, transparent participatory science workflows."
+        },
+        {
+            "time": "July 27, 2025 12:30:00 PDT",
+            "topic": "Combining machine learning and citizen science to chart the sun’s cosmic neighborhood",
+            "speaker": "Aaron Meisner",
+            "affiliation": "NSF NOIRLab",
+            "abstract": "We describe the design and implementation of the Backyard Worlds: Cool Neighbors citizen science project, which combines image-level deep learning with Zooniverse-hosted online crowdsourcing to mine large astronomical sky maps for rare celestial objects called “brown dwarfs.” We also present a survey of advanced Backyard Worlds participants, which indicates that these citizen scientists are by and large not dissuaded from participating in Cool Neighbors because of its usage of artificial intelligence."
+        },
+        {
+            "time": "July 27, 2025 13:00:00 PDT",
+            "topic": "Using machine learning for OpenKnot round 8 sequence selection",
+            "speaker": "Jeff Anderson-Lee (jandersonlee)",
+            "affiliation": "Eterna player",
+            "abstract": "This talk motivates and describes the use of machine learning (ML) to select sequences for submission to OpenKnot Round 8. A brief introduction to the concept of regression analysis is included. It should be accessible to those who are new to ML and informative for those who have had exposure."
+        },
+        {
+            "time": "July 27, 2025 13:30:00 PDT",
+            "topic": "Platform and ML discussion",
+            "speaker": "Jill Townley",
+            "affiliation": "Research coordinator, Eterna; Organizer",
+            "abstract": "Open forum for discussing participatory science platforms and machine learning as a tool for players."
+        },
+        {
+            "time": "July 27, 2025 14:0:00 PDT",
+            "topic": "Kahoot! quiz",
+            "speaker": "Astromon",
+            "affiliation": "Eterna player; Organizer",
+            "abstract": "A fun quiz competition for the Eterna players."
+        },
+        {
+            "time": "July 27, 2025 14:30:00 PDT",
+            "topic": "Eterna art show",
+            "speaker": "Arnuv Modh",
+            "affiliation": "Eterna player"
+        }
     ]
 }

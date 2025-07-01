@@ -100,7 +100,7 @@
             {
                 "time": "July 27, 2025 10:30:00 PDT",
                 "topic": "Utilizing sequence homology to identify functional RNAs",
-                "speaker": "Lauren McKinley; Philiip Bevilacqua",
+                "speaker": "Lauren McKinley; Philip Bevilacqua",
                 "affiliation": "Penn State University",
                 "abstract": "Sequence homology is a technique for identifying functional RNAs. Searches employing a complete conservation sequence favor sequences similar to known examples. However, RNAs with less conserved regions may not be detected utilizing this method. Self-cleaving twister ribozymes, for instance, have regions that vary greatly in length and sequence. Instead, we searched using a partial conservation sequence of 16 conserved nucleotides and discovered 1,000 diverse twister ribozymes, greatly expanding the class. "
             },

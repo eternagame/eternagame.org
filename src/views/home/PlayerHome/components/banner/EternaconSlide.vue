@@ -5,7 +5,7 @@
   >
     <div>
       <p class="video-title">
-        <strong>Register</strong> for Eternacon 2024
+        <strong>Register</strong> for Eternacon 2025
       </p>
 
       <p class="explain">

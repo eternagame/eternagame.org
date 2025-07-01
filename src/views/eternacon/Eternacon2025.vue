@@ -2,6 +2,7 @@
   <EternaPage title="">
     <HeroSection
       backgroundImage="@/assets/home/hero-eternacon-2025.png"
+      registerLink="https://stanford.zoom.us/meeting/register/K_oWVyeSQ1KsgCFsbnEy8Q#/registration"
     >
       Tune in on July 26-27 to exciting talks and activities from Eterna researchers, developers,
       players, and other world-class experts.
@@ -11,7 +12,11 @@
       <h3 class="mt-2">Attendance</h3>
       <p>
         Attending Eternacon 2025 is <strong>free</strong>, <strong>open to everyone</strong>, and
-        <strong>online</strong>. Registration will be announced soon.
+        <strong>online</strong>. To attend,
+        <a href="https://stanford.zoom.us/meeting/register/K_oWVyeSQ1KsgCFsbnEy8Q#/registration">preregister via Zoom</a>.
+        You will receive a link by email unique to you that can be used to join the conference
+        once it starts. Zoom comments will be available to interact with presenters, as well as
+        opportunities to join with your voice and video.
       </p>
       <p>
         Additional questions? Contact <a href="mailto:events@eternagame.org">events@eternagame.org</a>.

@@ -17,10 +17,12 @@
             v-bind="lab"
             :key="lab.nid"
           />
+          <EternaconSlide />
           <POTWSlide v-bind="potwSlideData" v-if="potwSlideData" />
         </template>
         <template v-else>
           <TutorialTeaserSlide :nextPuzzleID="nextPuzzleID" />
+          <EternaconSlide />
         </template>
       </b-carousel>
       <br />

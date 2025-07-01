@@ -9,7 +9,7 @@
       </p>
 
       <p class="explain">
-        Tune in on July 20-21 to exciting talks and activities from Eterna researchers, developers,
+        Tune in on July 26-27 to exciting talks and activities from Eterna researchers, developers,
         players, and other world-class experts.
       </p>
       <b-button
@@ -17,7 +17,7 @@
         variant="primary"
         size="lg"
         style="margin-right:10px"
-        href="https://stanford.zoom.us/meeting/register/tJcucOmgrDkpEtwdio0PDbkvpFdb9w3gl5r9#/registration"
+        href="https://stanford.zoom.us/meeting/register/K_oWVyeSQ1KsgCFsbnEy8Q#/registration"
       >
         Register
       </b-button>

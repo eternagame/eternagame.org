@@ -35,7 +35,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import bgimage from '@/assets/home/hero-eternacon-2024-alt.jpg';
+  import bgimage from '@/assets/home/hero-eternacon-2025.png';
 
   @Component({
     components: {},
@@ -90,8 +90,10 @@
     background-image: linear-gradient(
       to bottom,
       transparent 0%,
-      rgba(0, 0, 0, 0.5) 75%,
-      rgba(0, 0, 0, 0.8) 100%
+      rgba(0, 0, 0, 0.2) 10%,
+      rgba(0, 0, 0, 0.45) 20%,
+      rgba(0, 0, 0, 0.6) 50%,
+      rgba(0, 0, 0, 0.9) 100%
     );
     margin-top: -400px;
     height: 400px;

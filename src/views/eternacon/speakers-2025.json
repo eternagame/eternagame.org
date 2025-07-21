@@ -52,10 +52,10 @@
         },
         {
             "time": "July 26, 2025 12:00:00 PDT",
-            "topic": "Chemical mapping energetics",
+            "topic": "Direct measurement of nucleotide energetics from RNA chemical probing reactivities",
             "speaker": "Edric Choi",
             "affiliation": "Northwestern University",
-            "abstract": "TBA"
+            "abstract": "Chemical probing has transformed RNA structure analysis, yet quantitative interpretation of reactivities remains limited. We present a mechanistic framework to extract nucleotide-level free energies (∆G_DMS) from probing data, validated against NMR and nearest-neighbor based energies. Applied to fourU thermometer, HIV-1 TAR and Tetrahymena P4–P6, this approach reveals energetic signatures of RNA dynamics and tertiary structure, unifying diverse interactions on a single energetic scale."
         },
         {
             "time": "July 26, 2025 12:30:00 PDT",

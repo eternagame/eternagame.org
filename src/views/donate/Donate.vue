@@ -18,10 +18,10 @@
         <li class="col-md-6 px-md-2 my-md-0 my-2">
           <div class="card p-4 h-100 justify-content-center">
             <p>
-              Make a personal, tax-deductible donation to the Eterna research fund, administered by Stanford University.
-              Please include your player name.
+              Make a personal, tax-deductible donation to F<a href="https://frameshifter.org">Frameshifter</a> (a program of the 501c3 <a href="https://superbloom.design">Superbloom Design</a>),
+              the organization that maintains Eterna.
             </p>
-            <a class="btn btn-primary" href="https://give.stanford.edu/med/fund/?kwoDCFilter=KDC-3G8MQ45&kwoDCPreselect=KDC-3G8MQ45&olc=14209" target="_blank">Visit Stanford Make a Gift</a>
+            <a class="btn btn-primary" href="https://www.every.org/frameshifter?theme_color=f16413&utm_campaign=frameshifter-nav#/donate" target="_blank">Visit Every.org</a>
           </div>
         </li>
         <li class="col-md-6 px-md-2 my-md-0 my-2">

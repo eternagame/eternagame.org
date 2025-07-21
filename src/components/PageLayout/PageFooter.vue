@@ -15,19 +15,30 @@
     <b-row class="mt-3">
       <b-col lg="8" sm="12">
         <div style="text-align:center; padding:10px;">
+          <div class="d-none d-sm-flex sponsor-logo-row mb-3">
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_stanford.png" alt="Stanford" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_NIH.png" alt="National Institutes of Health" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_hhmi.png" alt="Howard Hughes Medical Institute" />
+          </div>
           <div class="d-none d-sm-flex sponsor-logo-row">
-            <img class="sponsor-logo" src="@/assets/front-page/img/logo_stanford.png" alt="" />
-            <img class="sponsor-logo" src="@/assets/front-page/img/logo_NIH.png" alt="" />
-            <img class="sponsor-logo" src="@/assets/front-page/img/logo_hhmi.png" alt="" />
-            <img class="sponsor-logo" src="@/assets/front-page/img/logo_nsf.png" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_nsf.png" alt="National Science Foundation" />
+            <a href="https://frameshifter.org">
+              <img class="sponsor-logo" src="@/assets/front-page/img/logo_frameshifter.png" alt="Frameshifter" />
+            </a>
+          </div>
+
+          <div class="d-flex d-sm-none sponsor-logo-row mb-3">
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_stanford.png" alt="Stanford" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_NIH.png" alt="National Institutes of Health" />
           </div>
           <div class="d-flex d-sm-none sponsor-logo-row mb-3">
-            <img class="sponsor-logo" src="@/assets/front-page/img/logo_stanford.png" alt="" />
-            <img class="sponsor-logo" src="@/assets/front-page/img/logo_NIH.png" alt="" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_hhmi.png" alt="Howard Hughes Medical Institute" />
+            <img class="sponsor-logo" src="@/assets/front-page/img/logo_nsf.png" alt="National Science Foundation" />
           </div>
           <div class="d-flex d-sm-none sponsor-logo-row">
-            <img class="sponsor-logo" src="@/assets/front-page/img/logo_hhmi.png" alt="" />
-            <img class="sponsor-logo" src="@/assets/front-page/img/logo_nsf.png" alt="" />
+            <a href="https://frameshifter.org">
+              <img class="sponsor-logo" src="@/assets/front-page/img/logo_frameshifter.png" alt="Frameshifter" />
+            </a>
           </div>
         </div>
       </b-col>

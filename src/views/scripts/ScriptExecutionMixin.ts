@@ -3,18 +3,6 @@ import {Vue, Component} from "vue-property-decorator";
 @Component
 export default class ScriptExecutionMixin extends Vue {
   async makeScriptExecutionFrame(executeCode: string) {
-    // We always request a prod token because if we're using a dev environment where there is data from
-    // prod, there's a reasonable chance someone has hardcoded eternagame.org in some request,
-    // and we want that to still work. If we happen to be running in an environment where we can't
-    // make the request (ie, due to CORS restrictions), we'll let the token be empty string instead of
-    // erroring so if we're running something that doesn't require a prod request, at least that will still work.
-    let prodCsrfToken = '';
-    try {
-      prodCsrfToken = (await this.$http.get('https://eternagame.org/get/csrf-token')).data.token;
-    } catch {
-      // Do nothing
-    }
-
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -31,8 +19,6 @@ export default class ScriptExecutionMixin extends Vue {
             this.origOpen.apply(this, arguments);
             if (new URL(arguments[1], window.parent.location.toString()).hostname === '${this.$vxm.user.csrfHostname}') {
               this.setRequestHeader('x-csrf-token', '${this.$vxm.user.csrfToken}');
-            } else if (new URL(arguments[1], window.parent.location.toString()).hostname === 'eternagame.org') {
-              this.setRequestHeader('x-csrf-token', '${prodCsrfToken}');
             }
           };
 
@@ -52,14 +38,6 @@ export default class ScriptExecutionMixin extends Vue {
                 init.headers.push(['x-csrf-token', '${this.$vxm.user.csrfToken}']);
               } else {
                 init.headers['x-csrf-token'] = '${this.$vxm.user.csrfToken}';
-              }
-            } else if (new URL(input instanceof Request ? input.url : input, window.parent.location.toString()).hostname === 'eternagame.org') {
-              if (init.headers instanceof Headers) {
-                init.headers.append('x-csrf-token', '${prodCsrfToken}');
-              } else if (init.headers instanceof Array) {
-                init.headers.push(['x-csrf-token', '${prodCsrfToken}']);
-              } else {
-                init.headers['x-csrf-token'] = '${prodCsrfToken}';
               }
             }
 

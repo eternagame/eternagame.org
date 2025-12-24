@@ -17,15 +17,11 @@
     </transition>
     <b-form @submit.prevent="resetPassword" class="pb-3">
       <b-input placeholder="username or email" v-model="usernameOrEmail" required />
-      <vue-recaptcha
+      <Captcha
         :key="attemptNumber"
-        ref="recaptcha"
-        sitekey="6LcFwUsUAAAAAOQ9szhauSNv2bJuBOUtw_pGrRnd"
-        recaptchaHost="www.recaptcha.net"
-        :loadRecaptchaScript="true"
-        @verify="captchaResponse = $event"
+        @response="captchaResponse = $event"
       />
-      <b-button type="submit" variant="primary" class="submit-button" :disabled="loading">
+      <b-button type="submit" variant="primary" class="submit-button" :disabled="loading || captchaResponse === undefined">
         {{ $t('reset-password:main-action') }}
         <b-spinner v-if="loading" small />
       </b-button>
@@ -36,17 +32,17 @@
 <script lang="ts">
   import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal } from 'bootstrap-vue';
-  import VueRecaptcha from 'vue-recaptcha';
+  import Captcha from '../Common/Captcha.vue';
 
   @Component({
     components: {
-      VueRecaptcha,
+      Captcha,
     },
   })
   export default class ResetPasswordModal extends Vue {
     usernameOrEmail = '';
 
-    captchaResponse = '';
+    captchaResponse = undefined;
 
     loading = false;
 
@@ -65,7 +61,7 @@
         new URLSearchParams({
           type: 'sendreset',
           resetID: this.usernameOrEmail,
-          captchaResponse: this.captchaResponse,
+          captchaResponse: this.captchaResponse ? JSON.stringify(this.captchaResponse) : '',
         }),
         {
           headers: { 'Content-type': 'application/x-www-form-urlencoded' },
@@ -79,6 +75,8 @@
         this.$vxm.user.showResetCompleteModal();
       } else {
         this.errorMessage = data.data.error;
+        this.attemptNumber += 1;
+        this.captchaResponse = undefined;
       }
     }
   }

@@ -27,6 +27,7 @@
     "@fullcalendar/list": "^5.10.1",
     "@fullcalendar/timegrid": "^5.10.1",
     "@fullcalendar/vue": "^5.10.1",
+    "altcha-lib": "^1.4.1",
     "axios": "^0.21.2",
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.2",

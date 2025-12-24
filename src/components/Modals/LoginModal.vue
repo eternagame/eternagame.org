@@ -76,13 +76,8 @@
 <script lang="ts">
   import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
-  import VueRecaptcha from 'vue-recaptcha';
 
-  @Component({
-    components: {
-      VueRecaptcha,
-    },
-  })
+  @Component({})
   export default class LoginModal extends Vue {
     @Ref() readonly modal!: BModal;
 

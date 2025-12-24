@@ -70,13 +70,9 @@
         </span>
       </div>
 
-      <vue-recaptcha
+      <Captcha
         :key="attemptNumber"
-        ref="recaptcha"
-        sitekey="6LcFwUsUAAAAAOQ9szhauSNv2bJuBOUtw_pGrRnd"
-        recaptchaHost="www.recaptcha.net"
-        :loadRecaptchaScript="true"
-        @verify="captchaResponse = $event"
+        @response="captchaResponse = $event"
       />
       <div class="d-flex mt-2">
         <b-checkbox class="mr-1" v-model="accepted">
@@ -90,7 +86,7 @@
         type="submit"
         variant="primary"
         class="submit-button mt-2 mb-5"
-        :disabled="loading"
+        :disabled="loading || captchaResponse === undefined"
       >
         {{ $t('register-modal:main-action') }}
         <b-spinner v-if="loading" small />
@@ -102,7 +98,7 @@
 <script lang="ts">
   import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
-  import VueRecaptcha from 'vue-recaptcha';
+  import Captcha from '../Common/Captcha.vue';
 
   const INITIAL_FORM = {
     username: '',
@@ -113,7 +109,7 @@
 
   @Component({
     components: {
-      VueRecaptcha,
+      Captcha,
     },
   })
   export default class RegisterModal extends Vue {
@@ -123,7 +119,7 @@
 
     accepted: boolean = false;
 
-    captchaResponse = '';
+    captchaResponse = undefined;
 
     errorMessage = '';
 
@@ -161,7 +157,7 @@
           pass: this.form.password,
           mail: this.form.email,
           type: 'create',
-          captcha_response: this.captchaResponse,
+          captcha_response: this.captchaResponse ? JSON.stringify(this.captchaResponse) : '',
         }),
         {
           headers: { 'Content-type': 'application/x-www-form-urlencoded' },
@@ -174,6 +170,7 @@
       } else {
         this.errorMessage = data.data.error;
         this.attemptNumber += 1;
+        this.captchaResponse = undefined;
         this.loading = false;
       }
     }

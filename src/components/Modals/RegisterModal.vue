@@ -86,7 +86,7 @@
         type="submit"
         variant="primary"
         class="submit-button mt-2 mb-5"
-        :disabled="loading || captchaResponse === undefined"
+        :disabled="loading || !captchaResponse"
       >
         {{ $t('register-modal:main-action') }}
         <b-spinner v-if="loading" small />
@@ -119,7 +119,7 @@
 
     accepted: boolean = false;
 
-    captchaResponse = undefined;
+    captchaResponse = null;
 
     errorMessage = '';
 
@@ -170,7 +170,7 @@
       } else {
         this.errorMessage = data.data.error;
         this.attemptNumber += 1;
-        this.captchaResponse = undefined;
+        this.captchaResponse = null;
         this.loading = false;
       }
     }

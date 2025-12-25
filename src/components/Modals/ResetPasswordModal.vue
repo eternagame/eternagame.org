@@ -21,7 +21,7 @@
         :key="attemptNumber"
         @response="captchaResponse = $event"
       />
-      <b-button type="submit" variant="primary" class="submit-button" :disabled="loading || captchaResponse === undefined">
+      <b-button type="submit" variant="primary" class="submit-button" :disabled="loading || !captchaResponse">
         {{ $t('reset-password:main-action') }}
         <b-spinner v-if="loading" small />
       </b-button>
@@ -42,7 +42,7 @@
   export default class ResetPasswordModal extends Vue {
     usernameOrEmail = '';
 
-    captchaResponse = undefined;
+    captchaResponse = null;
 
     loading = false;
 
@@ -76,7 +76,7 @@
       } else {
         this.errorMessage = data.data.error;
         this.attemptNumber += 1;
-        this.captchaResponse = undefined;
+        this.captchaResponse = null;
       }
     }
   }

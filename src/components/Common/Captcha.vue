@@ -1,14 +1,10 @@
 <template>
   <div>
-    <vue-recaptcha
-        ref="recaptcha"
-        sitekey="6LcFwUsUAAAAAOQ9szhauSNv2bJuBOUtw_pGrRnd"
-        recaptchaHost="www.recaptcha.net"
-        :loadRecaptchaScript="true"
-        @verify="recaptchaResponse = $event"
-      />
       <div v-if="!altchaResponse">
-        Completing secondary verification... <b-spinner small />
+        Verifying you are human... <b-spinner small />
+      </div>
+      <div v-else>
+        Verified you are human <img src="@/assets/noun_check.svg" alt="cleared" />
       </div>
   </div>
 </template>
@@ -16,26 +12,17 @@
   import { solveChallenge } from 'altcha-lib';
   import { Challenge, Payload } from 'altcha-lib/dist/types';
   import { Component, Vue, Watch } from 'vue-property-decorator';
-  import VueRecaptcha from 'vue-recaptcha';
 
-  @Component({
-    components: {
-      VueRecaptcha,
-    },
-  })
+  @Component({})
   export default class Captcha extends Vue {
-    recaptchaResponse = '';
-
     altchaResponse: Payload[] | '' = '';
 
     aborts: AbortController[] = [];
 
-    @Watch('recaptchaResponse')
     @Watch('altchaResponse')
     maybeEmit() {
       if (this.altchaResponse) {
         this.$emit('response', {
-          recaptcha: this.recaptchaResponse,
           altcha: this.altchaResponse
         });
       }

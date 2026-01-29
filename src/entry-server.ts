@@ -4,7 +4,7 @@ import createApp from './app';
 export default async function run(context: any) {
   context.BASE_URL = process.env.BASE_URL;
 
-  const { app, router, store } = createApp();
+  const { app, router, store } = await createApp();
   app.$http.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
   if (context.cookies) {
     app.$http.defaults.headers.common.Cookie = context.cookies;

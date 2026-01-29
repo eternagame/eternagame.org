@@ -197,7 +197,6 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { BIconChevronLeft, BIconChevronRight } from 'bootstrap-vue';
-  import axios from 'axios';
   import VersionCard from './VersionCard.vue';
 
   const POST_ROUTE = '/post/';
@@ -254,17 +253,16 @@
 
     async submitRequest() {
       this.showSpinner = true;
-      const licenseResponse = await axios({
-        method: 'post',
-        url: POST_ROUTE,
-        data: new URLSearchParams({
+      const licenseResponse = await this.$http.post(
+        POST_ROUTE,
+        new URLSearchParams({
           type: this.page === 'commercial' ?
             'request_software_license_commercial' :
             'request_software_license',
           ...this.licenseRequest,
           packageid: this.packageid,
         }),
-      });
+      );
 
       const err = licenseResponse.data.data?.error;
       if (err) {
@@ -278,9 +276,7 @@
       else {
         this.token = licenseResponse.data.data.token;
 
-        const versionsResponse = await axios({
-          method: 'get',
-          url: LIST_RELEASES_ROUTE,
+        const versionsResponse = await this.$http.get(LIST_RELEASES_ROUTE, {
           params: {
             packageid: this.packageid,
           },

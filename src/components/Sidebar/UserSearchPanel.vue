@@ -26,7 +26,6 @@
   // @ts-ignore
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import debounce from 'lodash.debounce';
-  import axios from 'axios';
   import { UserData } from '@/types/common-types';
 
   @Component({
@@ -48,7 +47,7 @@
     updateUserSearch: () => Promise<void> | undefined = async () => {};
 
     async doUpdateUserSearcj() {
-      const res = await axios.get(
+      const res = await this.$http.get(
         `/get/?type=usernames&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );
       this.usernames = res.data.data.usernames;
@@ -76,7 +75,7 @@
     async mounted() {
       const {uid} = this.$route.query;
       if (uid) {
-        const user = (await axios.get(`/get/?type=user&uid=${uid}`)).data.data?.user as UserData | undefined;
+        const user = (await this.$http.get(`/get/?type=user&uid=${uid}`)).data.data?.user as UserData | undefined;
         if (user) {
           this.targetName = user.name;
           this.typeahead.inputValue = user.name;
@@ -112,7 +111,7 @@
       }
 
       const { usernames } = (
-        await axios.get('/get/?type=usernames&filter=exact', {
+        await this.$http.get('/get/?type=usernames&filter=exact', {
           params: {
             size: 1,
             search: username,

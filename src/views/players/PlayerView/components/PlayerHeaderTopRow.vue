@@ -43,7 +43,7 @@
 
     // toggleFollow() {
     //   const route = this.follows ? UNFOLLOW_ROUTE : FOLLOW_ROUTE;
-    //   axios.post(route + this.user.uid);
+    //   this.$http.post(route + this.user.uid);
     // }
 
     messageUser() {

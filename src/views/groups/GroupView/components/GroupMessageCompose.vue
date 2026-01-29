@@ -15,7 +15,6 @@
   </div>
 </template>
 <script lang="ts">
-  import axios from 'axios';
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import EditField from '@/components/Common/EditField.vue';
 
@@ -52,7 +51,7 @@
         body: message,
       };
 
-      await axios.post('/post/?type=message', new URLSearchParams(params));
+      await this.$http.post('/post/?type=message', new URLSearchParams(params));
     }
 
     async sendMessage() {

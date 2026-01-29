@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { createModule, mutation, action } from 'vuex-class-component';
-import axios, { AxiosInstance } from 'axios';
+import { AxiosInstance } from 'axios';
 import { RefreshAchievement, UserData } from '@/types/common-types';
 import Utils from '@/utils/utils';
 
@@ -35,11 +35,20 @@ export default function createUserStore($http: AxiosInstance) {
 
     public points: number = 0;
 
+    public csrfToken: string = '';
+
+    public  csrfHostname: string = new URL(process.env.VUE_APP_API_BASE_URL, window.location.toString()).hostname;
+
+    @action() async fetchCsrfToken() {
+      this.csrfToken = (await $http.get('/get/csrf-token')).data.token;
+    }
+
     @mutation showResetCompleteModal() {}
 
     @action() async logout() {
       this.loggedIn = false;
       await $http.get('/eterna_logout.php');
+      await this.fetchCsrfToken();
       window.localStorage.setItem('loggedIn', 'false');
       this.triedAuthenticating = false;
       // Technically we may want to actually clear the loaded user details... need to think
@@ -57,6 +66,7 @@ export default function createUserStore($http: AxiosInstance) {
 
       const { data, new_achievements } = (await $http.post('/login/', new URLSearchParams(loginParams))).data;
       if (data.success) {
+        await this.fetchCsrfToken();
         this.loggedIn = true;
         window.localStorage.setItem('loggedIn', 'true');
       }
@@ -87,7 +97,7 @@ export default function createUserStore($http: AxiosInstance) {
         // or another browser page) that invalidates something in my_user, it won't be reflected
         // until a page RELOAD. That is: If you actually want up-to-date information, don't rely
         // on this call. I'm not even sure if we want some of these to be here!
-        const userDataResponse = (await axios.get(`/get/?type=my_user&uid=${uid}`)).data.data;
+        const userDataResponse = (await $http.get(`/get/?type=my_user&uid=${uid}`)).data.data;
         const userDetails: UserData = userDataResponse.user;
         this.hasLabAccess = Boolean(Number(userDetails.is_lab_member));
         this.isAdmin = userDetails.is_admin;

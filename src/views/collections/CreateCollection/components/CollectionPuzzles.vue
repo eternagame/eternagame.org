@@ -107,7 +107,6 @@
   import draggable from 'vuedraggable';
   import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
   import { PuzzleItem } from '@/types/common-types';
-  import axios from 'axios';
   import { debounce } from 'lodash';
   import Utils from '@/utils/utils';
 
@@ -131,7 +130,7 @@
     fetchData: () => Promise<void> | undefined = async () => {};
 
     async dofetchData() {
-      const res = await axios.get(
+      const res = await this.$http.get(
         `/get/?type=puzzles&puzzle_type=AllChallengesPuzzle&sort=date&size=10${
           this.targetName ? `&search=${this.targetName}` : ''
         }`,
@@ -159,7 +158,7 @@
 
     async addPuzzle(nid: String) {
       console.log('adding', nid);
-      const puzzle = (await axios.get(`/get/?type=puzzle&nid=${nid}`)).data.data.puzzle as PuzzleItem;
+      const puzzle = (await this.$http.get(`/get/?type=puzzle&nid=${nid}`)).data.data.puzzle as PuzzleItem;
       this.$emit('update:puzzles', [
         ...this.puzzlelist,
         puzzle,

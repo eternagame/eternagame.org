@@ -29,7 +29,6 @@
 
 <script lang="ts">
   import { Component, Mixins, Watch } from 'vue-property-decorator';
-  import axios from 'axios';
   import SearchPanel from '@/components/Sidebar/SearchPanel.vue';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import FiltersPanel from '@/components/Sidebar/FiltersPanel.vue';
@@ -77,7 +76,7 @@
     ) {
       const { filter, search, uid } = this.$route.query;
       const res = (
-        await axios.get(ROUTE, {
+        await this.$http.get(ROUTE, {
           params: {
             search,
             filter: filter || 'all',

@@ -80,7 +80,6 @@
   </div>
 </template>
 <script lang="ts">
-  import axios from 'axios';
   // @ts-ignore
   import debounce from 'lodash.debounce';
   import { Component, Vue, Prop, Watch, Ref } from 'vue-property-decorator';
@@ -107,7 +106,7 @@
     fetchData: () => Promise<void> | undefined = async () => {};
 
     async doFetchData() {
-      const res = await axios.get(
+      const res = await this.$http.get(
         `/get/?type=usernames&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );
       this.usernames = res.data.data.usernames;
@@ -140,7 +139,7 @@
         body: `I'd like to invite you to our group.<br></br>Please come to <a transition='page' style='font-weight:bolder;font-size:13px;' href='/groups/${  (this.parentNID? this.parentNID : 'null').toString()  }/'>visit us.</a>`
       };
 
-      await axios.post('/post/', new URLSearchParams(params));
+      await this.$http.post('/post/', new URLSearchParams(params));
     }
 
     async postAdminInvite() {
@@ -152,7 +151,7 @@
         body: `You are now an administrator of <a transition='page' style='font-weight:bolder;font-size:13px;' href='/groups/${  (this.parentNID? this.parentNID : 'null').toString()  }/'>this group.</a>`
       };
 
-      await axios.post('/post/', new URLSearchParams(params));
+      await this.$http.post('/post/', new URLSearchParams(params));
     }
 
     async inviteMember() {
@@ -189,7 +188,7 @@
       }
 
       const { usernames } = (
-        await axios.get('/get/?type=usernames&filter=exact', {
+        await this.$http.get('/get/?type=usernames&filter=exact', {
           params: {
             size: 1,
             search: username,

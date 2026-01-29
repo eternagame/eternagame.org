@@ -80,7 +80,6 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
-  import axios from 'axios';
   import Notifications from 'vue-notification';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel from '@/components/Sidebar/DropdownSidebarPanel.vue';
@@ -126,7 +125,7 @@
     loading: Boolean = false;
 
     async fetch() {
-      const group = (await axios.get(`/get/?type=group&nid=${this.$route.params.id}`)).data.data.group as Group;
+      const group = (await this.$http.get(`/get/?type=group&nid=${this.$route.params.id}`)).data.data.group as Group;
       this.nid = group.nid;
       this.body = group.body;
       this.name = group.name;

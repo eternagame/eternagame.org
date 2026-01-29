@@ -19,7 +19,6 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import axios from 'axios';
   import Utils from '@/utils/utils';
   import { CommentItem } from '@/types/common-types';
 
@@ -51,7 +50,7 @@
 
     deleteComment() {
       this.deleting = true;
-      axios
+      this.$http
         .post(
           ADD_COMMENT_ROUTE,
           new URLSearchParams({ type: 'delete_comment', cid: this.$vnode.key as string }),

@@ -54,7 +54,6 @@
 
 <script lang="ts">
   import { Component, Vue, Mixins, Watch } from 'vue-property-decorator';
-  import axios from 'axios';
   import Notifications from 'vue-notification';
   import EternaPage from '@/components/PageLayout/EternaPage.vue';
   import DropdownSidebarPanel from '@/components/Sidebar/DropdownSidebarPanel.vue';
@@ -110,7 +109,7 @@
     loading = false;
 
     async fetch() {
-      const user = (await axios.get(`/get/?type=my_user&uid=${this.$vxm.user.uid}`)).data.data.user as UserData;
+      const user = (await this.$http.get(`/get/?type=my_user&uid=${this.$vxm.user.uid}`)).data.data.user as UserData;
       this.username = user.name;
       this.personalName = user['Personal Name'];
       this.oldAboutMe = user.Profile;
@@ -172,6 +171,7 @@
         });
         this.loading = false;
         const error = res?.data?.data?.error;
+        await this.$vxm.user.fetchCsrfToken();
         if (error) throw new Error(error);
         this.$router.push(`/players/${this.$vxm.user.uid}`);
       } catch (e: any) {

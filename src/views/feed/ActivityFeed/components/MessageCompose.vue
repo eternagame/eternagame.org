@@ -63,7 +63,6 @@
   </div>
 </template>
 <script lang="ts">
-  import axios from 'axios';
   // @ts-ignore
   import debounce from 'lodash.debounce';
   import { Component, Vue, Prop, Watch, Ref } from 'vue-property-decorator';
@@ -88,7 +87,7 @@
     messagesSent = 0;
 
     fetchData = debounce(async () => {
-      const res = await axios.get(
+      const res = await this.$http.get(
         `/get/?type=usernames&size=10${this.targetName ? `&search=${this.targetName}` : ''}`,
       );
       this.usernames = res.data.data.usernames;
@@ -124,7 +123,7 @@
       // @ts-ignore
       if (this.parentNID) params.parent_nid = this.parentNID;
 
-      await axios.post('/post/?type=message', new URLSearchParams(params));
+      await this.$http.post('/post/?type=message', new URLSearchParams(params));
     }
 
     async sendMessage() {
@@ -152,7 +151,7 @@
       }
 
       const { usernames } = (
-        await axios.get('/get/?type=usernames&filter=exact', {
+        await this.$http.get('/get/?type=usernames&filter=exact', {
           params: {
             size: 1,
             search: username,

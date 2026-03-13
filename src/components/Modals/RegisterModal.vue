@@ -48,6 +48,7 @@
           autocomplete="new-password"
           data-form-type="password"
         />
+        <password v-model="form.password" :strength-meter-only="true" @score=setScore @feedback=setFeedback />
         <span class="input-group-append">
           <img src="@/assets/front-page/img/lock.svg" alt="lock" />
         </span>
@@ -98,6 +99,7 @@
 <script lang="ts">
   import { Component, Vue, Ref } from 'vue-property-decorator';
   import { BModal, BFormInput } from 'bootstrap-vue';
+  import Password from 'vue-password-strength-meter';
   import Captcha from '../Common/Captcha.vue';
 
   const INITIAL_FORM = {
@@ -110,8 +112,10 @@
   @Component({
     components: {
       Captcha,
+      Password,
     },
   })
+
   export default class RegisterModal extends Vue {
     form = INITIAL_FORM;
 
@@ -125,9 +129,24 @@
 
     attemptNumber: number = 0;
 
+    score: number = 0;
+
+    suggestions: string = '';
+
+    warning: string = '';
+
     @Ref() readonly modal!: BModal;
 
     @Ref() readonly rePassword!: BFormInput;
+
+    async setScore(score: number) {
+      this.score = score;
+    }
+
+    async setFeedback({suggestions, warning}: {suggestions: string, warning: string}) {
+      this.suggestions = suggestions;
+      this.warning = warning;
+    }
 
     async tryRegister() {
       this.errorMessage = '';
@@ -136,11 +155,15 @@
         return;
       }
       if (this.form.password !== this.form.rePassword) {
-        this.errorMessage = 'register-modal:error-password-match';
+        this.errorMessage = this.suggestions ? this.suggestions : 'register-modal:error-password-match';
         return;
       }
       if (this.form.username.includes('@')) {
         this.errorMessage = 'register-modal:error-at';
+        return;
+      }
+      if (this.score < 3.0) {
+        this.errorMessage = 'register-modal:error-password-strength';
         return;
       }
 

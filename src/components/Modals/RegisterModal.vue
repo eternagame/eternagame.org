@@ -9,90 +9,100 @@
     <template #modal-title>
       <b class="text-uppercase">{{ $t('register-modal:title') }}</b>
     </template>
-    {{ $t('register-modal:register-explanation') }}
-    <transition name="fade">
-      <b-alert class="mt-3" show variant="danger" v-if="errorMessage">
-        {{ $t(errorMessage) }}
-      </b-alert>
-    </transition>
-    <b-form @submit.prevent="tryRegister" class="pb-3" data-form-type="register">
-      <div class="custom-input-group">
+    <div v-if="!registered">
+      {{ $t('register-modal:register-explanation') }}
+      <transition name="fade">
+        <b-alert class="mt-3" show variant="danger" v-if="errorMessage">
+          {{ $t(errorMessage) }}
+        </b-alert>
+      </transition>
+      <b-form @submit.prevent="tryRegister" class="pb-3" data-form-type="register">
+        <div class="custom-input-group">
+          <b-input
+            :placeholder="$t('register-modal:username')"
+            v-model="form.username"
+            required
+            name="username"
+            autocomplete="username"
+            data-form-type="username"
+          />
+          <span class="input-group-append">
+            <img src="@/assets/front-page/img/user.svg" alt="user" />
+          </span>
+        </div>
         <b-input
-          :placeholder="$t('register-modal:username')"
-          v-model="form.username"
+          type="email"
+          :placeholder="$t('register-modal:email')"
+          v-model="form.email"
           required
-          name="username"
-          autocomplete="username"
-          data-form-type="username"
+          name="email"
+          autocomplete="email"
+          data-form-type="email"
         />
-        <span class="input-group-append">
-          <img src="@/assets/front-page/img/user.svg" alt="user" />
-        </span>
-      </div>
-      <b-input
-        type="email"
-        :placeholder="$t('register-modal:email')"
-        v-model="form.email"
-        required
-        name="email"
-        autocomplete="email"
-        data-form-type="email"
-      />
-      <div class="custom-input-group">
-        <b-input
-          type="password"
-          :placeholder="$t('register-modal:password')"
-          v-model="form.password"
-          required
-          name="password"
-          autocomplete="new-password"
-          data-form-type="password"
-        />
-        <password v-model="form.password" :strength-meter-only="true" @score=setScore @feedback=setFeedback />
-        <span class="input-group-append">
-          <img src="@/assets/front-page/img/lock.svg" alt="lock" />
-        </span>
-      </div>
+        <div class="custom-input-group">
+          <b-input
+            type="password"
+            :placeholder="$t('register-modal:password')"
+            v-model="form.password"
+            required
+            name="password"
+            autocomplete="new-password"
+            data-form-type="password"
+          />
+          <password v-model="form.password" :strength-meter-only="true" @score=setScore @feedback=setFeedback />
+          <span class="input-group-append">
+            <img src="@/assets/front-page/img/lock.svg" alt="lock" />
+          </span>
+        </div>
 
-      <div class="custom-input-group">
-        <b-input
-          type="password"
-          :placeholder="$t('register-modal:re-enter-password')"
-          v-model="form.rePassword"
-          required
-          ref="rePassword"
-          :state="form.password === form.rePassword"
-          name="rePassword"
-          autocomplete="new-password"
-          data-form-type="password,confirmation"
-        />
-        <span class="input-group-append">
-          <img src="@/assets/front-page/img/lock.svg" alt="lock" />
-        </span>
-      </div>
+        <div class="custom-input-group">
+          <b-input
+            type="password"
+            :placeholder="$t('register-modal:re-enter-password')"
+            v-model="form.rePassword"
+            required
+            ref="rePassword"
+            :state="form.password === form.rePassword"
+            name="rePassword"
+            autocomplete="new-password"
+            data-form-type="password,confirmation"
+          />
+          <span class="input-group-append">
+            <img src="@/assets/front-page/img/lock.svg" alt="lock" />
+          </span>
+        </div>
 
-      <Captcha
-        :key="attemptNumber"
-        @response="captchaResponse = $event"
-      />
-      <div class="d-flex mt-2">
-        <b-checkbox class="mr-1" v-model="accepted">
-          {{ $t('register-modal:disclaimer-accept') }}
-        </b-checkbox>
-        <b-link size="sm" to="/terms" @click="modal.hide()">{{
-          $t('register-modal:disclaimer')
-        }}</b-link>
-      </div>
-      <b-button
-        type="submit"
-        variant="primary"
-        class="submit-button mt-2 mb-5"
-        :disabled="loading || !captchaResponse"
-      >
-        {{ $t('register-modal:main-action') }}
-        <b-spinner v-if="loading" small />
-      </b-button>
-    </b-form>
+        <Captcha
+          :key="attemptNumber"
+          @response="captchaResponse = $event"
+        />
+        <div class="d-flex mt-2">
+          <b-checkbox class="mr-1" v-model="accepted">
+            {{ $t('register-modal:disclaimer-accept') }}
+          </b-checkbox>
+          <b-link size="sm" to="/terms" @click="modal.hide()">{{
+            $t('register-modal:disclaimer')
+          }}</b-link>
+        </div>
+        <b-button
+          type="submit"
+          variant="primary"
+          class="submit-button mt-2 mb-5"
+          :disabled="loading || !captchaResponse"
+        >
+          {{ $t('register-modal:main-action') }}
+          <b-spinner v-if="loading" small />
+        </b-button>
+      </b-form>
+    </div>
+    <div v-if="registered">
+      {{ $t('register-modal:validate-explanation') }}
+        <div class="custom-input-group mt-2 mb-5">
+          <b-link size="sm" @click="resend">{{
+            $t('register-modal:validate-expiration')
+          }}</b-link>
+        </div>
+    </div>
   </b-modal>
 </template>
 
@@ -107,6 +117,7 @@
     email: '',
     password: '',
     rePassword: '',
+    validation: '',
   };
 
   @Component({
@@ -131,9 +142,13 @@
 
     score: number = 0;
 
-    suggestions: string = '';
+    suggestions: string[] = [];
 
     warning: string = '';
+
+    registered: boolean = false;
+
+    uid: string = '';
 
     @Ref() readonly modal!: BModal;
 
@@ -143,7 +158,7 @@
       this.score = score;
     }
 
-    async setFeedback({suggestions, warning}: {suggestions: string, warning: string}) {
+    async setFeedback({suggestions, warning}: {suggestions: string[], warning: string}) {
       this.suggestions = suggestions;
       this.warning = warning;
     }
@@ -155,7 +170,7 @@
         return;
       }
       if (this.form.password !== this.form.rePassword) {
-        this.errorMessage = this.suggestions ? this.suggestions : 'register-modal:error-password-match';
+        this.errorMessage = this.suggestions.length ? this.suggestions.join(" ") : 'register-modal:error-password-match';
         return;
       }
       if (this.form.username.includes('@')) {
@@ -188,8 +203,8 @@
       );
       const { data } = response;
       if (data.data.success) {
-        this.form = INITIAL_FORM;
-        await this.login();
+        this.registered = true;
+        this.uid = data.data.uid;
       } else {
         this.errorMessage = data.data.error;
         this.attemptNumber += 1;
@@ -198,18 +213,25 @@
       }
     }
 
-    async login() {
-      if (this.form.username && this.form.password) {
-        const data = await this.$vxm.user.login({
-          username: this.form.username,
-          password: this.form.password,
-        });
-        if (data.success) {
-          this.loading = false;
-          this.modal.hide();
-        } else {
-          this.errorMessage = data.data.error;
-        }
+    async resend() {
+      const response = await this.$http.post(
+        '/login/',
+        new URLSearchParams({
+          name: this.form.username,
+          uid: this.uid,
+          mail: this.form.email,
+          type: 'sendvalidation',
+        }),
+        {
+          headers: { 'Content-type': 'application/x-www-form-urlencoded' },
+        },
+      );
+      const { data } = response;
+      if (!data.data.success) {
+        this.errorMessage = data.data.error;
+        this.attemptNumber += 1;
+        this.captchaResponse = null;
+        this.loading = false;
       }
     }
   }

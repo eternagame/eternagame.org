@@ -37,7 +37,7 @@ export default function createUserStore($http: AxiosInstance) {
 
     public csrfToken: string = '';
 
-    public  csrfHostname: string = new URL(process.env.VUE_APP_API_BASE_URL, window.location.toString()).hostname;
+    public  csrfHostname: string = window.location.hostname;
 
     @action() async fetchCsrfToken() {
       this.csrfToken = (await $http.get('/get/csrf-token')).data.token;

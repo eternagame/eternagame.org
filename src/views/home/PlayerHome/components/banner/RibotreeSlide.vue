@@ -6,19 +6,18 @@
   >
     <div>
       <p class="video-title">
-        EPA IdeaJam
+        Ribotree Assistant
       </p>
 
       <p class="explain">
-        The Eterna Players Alliance wants to hear what changes and improvements you want to see on Eterna.
-        Get your feedback in by April 19th!
+        Request for Participation: Demo and survey for Ribotree assistance in Eterna
       </p>
       <b-button
         class="button"
         variant="primary"
         size="lg"
         style="margin-right:10px"
-        to="/news/10733322"
+        to="/news/14293327"
       >
         Read More
       </b-button>
@@ -28,12 +27,12 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import bgimage from '@/assets/home/hero-sunburst.png';
+  import bgimage from '@/assets/home/hero-evergreen.jpg';
 
   @Component({
     components: {},
   })
-  export default class IdeaJamSlide extends Vue {
+  export default class RibotreeSlide extends Vue {
     get imageURL() {
       return bgimage;
     }

@@ -12,6 +12,7 @@
         style="text-shadow: 1px 1px 2px #333"
       >
         <template v-if="hasLabAccess">
+          <RibotreeSlide />
           <LabSlide
             v-for="lab in labCarouselLabs"
             v-bind="lab"
@@ -126,7 +127,7 @@
   import LabSlide from './components/banner/LabSlide.vue';
   import CarouselSlide from './components/banner/CarouselSlide.vue';
   import EternaconSlide from './components/banner/EternaconSlide.vue';
-  import IdeaJamSlide from './components/banner/IdeaJamSlide.vue';
+  import RibotreeSlide from './components/banner/RibotreeSlide.vue';
   import QuestActivity from './components/activities/QuestActivity.vue';
   import TutorialActivity from './components/activities/TutorialActivity.vue';
   import '@fullcalendar/core/vdom'; // solves problem with Vite
@@ -145,7 +146,7 @@
       Preloader,
       QuestActivity,
       TutorialActivity,
-      IdeaJamSlide,
+      RibotreeSlide,
       FullCalendar,
       NewsActivity,
       NewsCard,

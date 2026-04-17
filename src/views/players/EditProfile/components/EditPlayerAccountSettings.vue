@@ -10,6 +10,7 @@
       v-model="password"
       @input="sendPassword"
     />
+    <password v-model="password" :strength-meter-only="true" @score=setScore @feedback=setFeedback />
     <input
       style="color:#fff"
       type="password"
@@ -19,6 +20,7 @@
       @input="sendPassword"
     />
     <p v-show="!passwordsMatch">Please make sure your password and confirmation match!</p>
+    <p v-show="!passwordStrong">Please choose a stronger password!</p>
 
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-address') }}</p>
     <input type="email" aria-label="email" style="color:#fff" :value="email" @input="sendEmail" required />
@@ -49,6 +51,12 @@
 
     passwordConfirm: string = '';
 
+    score: number = 0;
+
+    suggestions: string = '';
+
+    warning: string = '';
+
     @Prop({ required: true }) email!: string;
 
     @Prop({ required: true }) messagesNotify!: boolean;
@@ -57,12 +65,25 @@
 
     @Prop({ required: true }) publicCertificate!: boolean;
 
+    async setScore(score: number) {
+      this.score = score;
+    }
+
+    async setFeedback({suggestions, warning}: {suggestions: string, warning: string}) {
+      this.suggestions = suggestions;
+      this.warning = warning;
+    }
+
+    get passwordStrong() {
+      return this.score >= 3.0;
+    }
+
     get passwordsMatch() {
       return this.passwordConfirm === this.password;
     }
 
     sendPassword() {
-      if (this.passwordsMatch) this.$emit('update:password', this.password);
+      if (this.passwordsMatch && this.passwordStrong) this.$emit('update:password', this.password);
     }
 
     sendEmail(e: InputEvent) {

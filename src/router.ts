@@ -314,6 +314,11 @@ export default function createRouter() {
         component: () => import('./views/password-reset/PasswordReset.vue'),
       },
       {
+        path: '/validate-email',
+        name: 'validate-email',
+        component: () => import('./views/validate-email/ValidateEmail.vue'),
+      },
+      {
         path: '/unsubscribe',
         name: 'unsubscribe',
         component: () => import('./views/unsubscribe/Unsubscribe.vue'),

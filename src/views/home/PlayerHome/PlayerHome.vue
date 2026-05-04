@@ -144,7 +144,6 @@
       Preloader,
       QuestActivity,
       TutorialActivity,
-      RibotreeSlide,
       FullCalendar,
       NewsActivity,
       NewsCard,

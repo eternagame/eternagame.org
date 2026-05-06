@@ -20,7 +20,7 @@
       @input="sendPassword"
     />
     <p v-show="!passwordsMatch">Please make sure your password and confirmation match!</p>
-    <p v-show="!passwordStrong">Please choose a stronger password!</p>
+    <p v-show="warning">{{ warning }}</p>
 
     <p style="font-weight:bold;margin-top:10px">{{ $t('edit-profile:email-address') }}</p>
     <input type="email" aria-label="email" style="color:#fff" :value="email" @input="sendEmail" required />
@@ -69,13 +69,8 @@
       this.score = score;
     }
 
-    async setFeedback({suggestions, warning}: {suggestions: string, warning: string}) {
-      this.suggestions = suggestions;
+    async setFeedback({warning}: {suggestions: string, warning: string}) {
       this.warning = warning;
-    }
-
-    get passwordStrong() {
-      return this.score >= 3.0;
     }
 
     get passwordsMatch() {
@@ -83,7 +78,7 @@
     }
 
     sendPassword() {
-      if (this.passwordsMatch && this.passwordStrong) this.$emit('update:password', this.password);
+      if (this.passwordsMatch) this.$emit('update:password', this.password);
     }
 
     sendEmail(e: InputEvent) {

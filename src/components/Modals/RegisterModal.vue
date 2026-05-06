@@ -16,6 +16,11 @@
           {{ $t(errorMessage) }}
         </b-alert>
       </transition>
+      <transition name="fade">
+        <b-alert class="mt-3" show variant="warning" v-if="warning">
+          {{ $t(warning) }}
+        </b-alert>
+      </transition>
       <b-form @submit.prevent="tryRegister" class="pb-3" data-form-type="register">
         <div class="custom-input-group">
           <b-input
@@ -97,11 +102,16 @@
     </div>
     <div v-if="registered">
       {{ $t('register-modal:validate-explanation') }}
-        <div class="custom-input-group mt-2 mb-5">
-          <b-link size="sm" @click="resend">{{
-            $t('register-modal:validate-expiration')
-          }}</b-link>
-        </div>
+      <div class="custom-input-group mt-2 mb-5">
+        <b-link size="sm" @click="resend">{{
+          $t('register-modal:validate-expiration')
+        }}</b-link>
+      </div>
+      <transition name="fade">
+        <b-alert class="mt-3" show variant="danger" v-if="errorMessage">
+          {{ $t(errorMessage) }}
+        </b-alert>
+      </transition>
     </div>
   </b-modal>
 </template>
@@ -142,8 +152,6 @@
 
     score: number = 0;
 
-    suggestions: string[] = [];
-
     warning: string = '';
 
     registered: boolean = false;
@@ -158,8 +166,7 @@
       this.score = score;
     }
 
-    async setFeedback({suggestions, warning}: {suggestions: string[], warning: string}) {
-      this.suggestions = suggestions;
+    async setFeedback({warning}: {suggestions: string[], warning: string}) {
       this.warning = warning;
     }
 
@@ -170,15 +177,11 @@
         return;
       }
       if (this.form.password !== this.form.rePassword) {
-        this.errorMessage = this.suggestions.length ? this.suggestions.join(" ") : 'register-modal:error-password-match';
+        this.errorMessage = 'register-modal:error-password-match';
         return;
       }
       if (this.form.username.includes('@')) {
         this.errorMessage = 'register-modal:error-at';
-        return;
-      }
-      if (this.score < 3.0) {
-        this.errorMessage = 'register-modal:error-password-strength';
         return;
       }
 
@@ -214,6 +217,7 @@
     }
 
     async resend() {
+      this.errorMessage = '';
       const response = await this.$http.post(
         '/login/',
         new URLSearchParams({

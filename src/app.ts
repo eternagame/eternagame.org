@@ -16,7 +16,7 @@ import App from './App.vue';
 import createRouter from './router';
 import createStore from './store/store';
 
-const domPurifyOpts: DOMPurify.Config | MinimalDOMPurifyConfig = {
+const domPurifyOpts: MinimalDOMPurifyConfig = {
   ADD_TAGS: ['iframe']
 };
 

@@ -5,7 +5,8 @@ import BootstrapVue from 'bootstrap-vue';
 import VueScrollReveal from 'vue-scroll-reveal'; // Module has no declaration file
 import VueDOMPurifyHTML, { DirectiveConfig, MinimalDOMPurifyConfig } from 'vue-dompurify-html';
 import DOMPurify from 'dompurify';
-import {Swiper as SwiperClass, Pagination, Navigation} from 'swiper';
+import { Swiper as SwiperClass } from 'swiper';
+import { Pagination, Navigation } from 'swiper/modules';
 import axios from 'axios';
 // If we get around to re-enabling SSR:
 // import Notifications from 'vue-notification/dist/ssr.js'

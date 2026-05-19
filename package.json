@@ -45,7 +45,7 @@
     "lodash.throttle": "^4.1.1",
     "memfs": "^3.5.3",
     "sass-resources-loader": "^2.2.5",
-    "swiper": "^6.8.4",
+    "swiper": "^12.1.4",
     "tiptap": "^1.32.2",
     "tiptap-extensions": "^1.35.2",
     "v-calendar": "^2.4.2",

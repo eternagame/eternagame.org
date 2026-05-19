@@ -14,7 +14,7 @@
 </template>
 <script lang="ts">
 
-  import 'swiper/swiper-bundle.min.css';
+  import 'swiper/swiper-bundle.css';
   import {Swiper as SwiperClass} from 'swiper';
   import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter';
   import { Component, Prop, Vue, Ref } from 'vue-property-decorator';

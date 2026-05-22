@@ -167,6 +167,7 @@
     $arrow-margin: 40px;
 
     margin-bottom: $workflow-margin;
+    overflow: hidden;
 
     mask-image: linear-gradient(
       to right,

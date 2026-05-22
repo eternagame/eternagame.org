@@ -1,0 +1,13 @@
+diff --git a/node_modules/swiper/shared/swiper-core.mjs b/node_modules/swiper/shared/swiper-core.mjs
+index 936172f..2a44368 100644
+--- a/node_modules/swiper/shared/swiper-core.mjs
++++ b/node_modules/swiper/shared/swiper-core.mjs
+@@ -1938,7 +1938,7 @@ function loopFix({
+   let slidesPrepended = 0;
+   let slidesAppended = 0;
+   const activeColIndex = gridEnabled ? slides[activeSlideIndex].column : activeSlideIndex;
+-  const activeColIndexWithShift = activeColIndex + (bothDirections && typeof setTranslate === 'undefined' ? -slidesPerView / 2 + 0.5 : 0);
++  const activeColIndexWithShift = activeColIndex + (bothDirections && typeof setTranslate === 'undefined' ? -slidesPerView / 2 : 0);
+   // prepend last slides before start
+   if (activeColIndexWithShift < loopedSlides) {
+     slidesPrepended = Math.max(loopedSlides - activeColIndexWithShift, slidesPerGroup);

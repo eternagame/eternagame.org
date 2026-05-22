@@ -8,7 +8,8 @@
     "ssr": "node ./server",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "prepare": "patch-package"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.2",
@@ -104,6 +105,7 @@
     "http-proxy-middleware": "^2.0.9",
     "jest": "^27.5.1",
     "lint-staged": "^17.0.5",
+    "patch-package": "^8.0.1",
     "prettier-eslint": "^15.0.1",
     "sass": "^1.99.0",
     "sass-loader": "^13.3.3",

@@ -138,11 +138,6 @@
         el: '.swiper-pagination',
         clickable: true,
       },
-      // https://github.com/nolimits4web/swiper/issues/7478
-      // https://github.com/nolimits4web/swiper/issues/7312
-      // https://github.com/nolimits4web/swiper/issues/7270
-      loopAdditionalSlides: 1,
-      initialSlide: 1,
     };
 
     get loggedIn() {

@@ -39,6 +39,7 @@ export default class FetchMixin<ManualLoadParams> extends Vue {
       await this.fetch(params);
     } catch (err) {
       if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
         console.error('Error in fetch():', err);
       }
       this.fetchState.error = err as Error;

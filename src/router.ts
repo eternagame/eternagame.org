@@ -410,6 +410,7 @@ export default function createRouter() {
   });
 
   router.onError((err) => {
+    // eslint-disable-next-line no-console
     console.log('onError', lastIntendedRoute, err);
 
     // If the route attempts to import a chunk that doesn't exist, almost certainly this is due to

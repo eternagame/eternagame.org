@@ -31,7 +31,6 @@ const domPurifyHtmlConfig: DirectiveConfig = {
   default: domPurifyOpts,
   hooks: {
     uponSanitizeElement: (node, data) => {
-      console.log('sanitize');
       if (data.tagName === 'iframe') {
         const validSrc = (node as HTMLIFrameElement).src.match(/^(https:)?\/\/(www.)?(youtube.com)\/.*$/);
         if (!validSrc) (node as HTMLIFrameElement).remove();

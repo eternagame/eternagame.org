@@ -24,11 +24,6 @@ module.exports = {
     },
   },
   chainWebpack: (config) => {
-    // @vue/cli-loader by default takes control of resolving the vue module, but that means when we
-    // import a different version of vue in @eternagame/chat, it points to the wrong place
-    config.resolve.alias.delete('vue$')
-    config.resolve.alias.set("stream", require.resolve("stream-browserify"))
-
     // Treat urls passed to headerIcon as imports
     config
       .module

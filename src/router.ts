@@ -260,11 +260,6 @@ export default function createRouter() {
         component: () => import('./views/lost/NotFound.vue'),
       },
       {
-        path: '/chat',
-        name: 'chat',
-        component: () => import('./views/chat/FullPageChat.vue'),
-      },
-      {
         path: '/eternacon',
         redirect: { name: 'eternacon-2025' }
       },

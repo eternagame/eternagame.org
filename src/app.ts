@@ -10,12 +10,17 @@ import { Pagination, Navigation } from 'swiper/modules';
 import axios from 'axios';
 // If we get around to re-enabling SSR:
 // import Notifications from 'vue-notification/dist/ssr.js'
-import Notifications, {NotificationOptions} from 'vue-notification';
+import Notifications, { NotificationOptions } from 'vue-notification';
+
+import { register as registerEternaChatElement } from '@eternagame/chat';
+
 import i18n from '@/plugins/i18n';
 import InitGlobalComponents from '@/components/global';
 import App from './App.vue';
 import createRouter from './router';
 import createStore from './store/store';
+
+registerEternaChatElement();
 
 const domPurifyOpts: MinimalDOMPurifyConfig = {
   ADD_TAGS: ['iframe']

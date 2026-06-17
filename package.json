@@ -20,6 +20,7 @@
     "@codemirror/search": "^6.7.0",
     "@codemirror/state": "^6.6.0",
     "@codemirror/view": "^6.43.0",
+    "@eternagame/chat": "^0.2.5",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@fullcalendar/core": "^5.11.5",
     "@fullcalendar/daygrid": "^5.11.5",

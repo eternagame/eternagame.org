@@ -13,21 +13,16 @@
       </span>
     </div>
 
-    <b-popover
-      :show.sync="show"
-      id="chat-container"
-      target="chat-popover-anchor"
-      triggers="click"
-      placement="topleft"
-      @shown="addChat"
-    >
-      <div ref="chatContainer"></div>
-    </b-popover>
+    <eterna-chat
+      :username.prop="$vxm.user.username ?? ''" :uid.prop="`${$vxm.user.uid ?? 0}`" :appContext.prop="'web'"
+      :defaultX.prop="windowSize.width - 400 - 30" :defaultY.prop="windowSize.height - 350 - 30"
+      :defaultWidth.prop="400" :defaultHeight.prop="350"
+      v-if="show"
+    />
   </li>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
-  import { Chat } from 'eterna-chat-wrapper';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
 
   import NavbarIcon from './NavbarIcon.vue';
 
@@ -41,26 +36,15 @@
 
     show: boolean = false;
 
-    @Ref() readonly chatContainer!: HTMLElement;
-
-    chat!: Chat;
-
     goToChat() {
-      if (this.isInSideBar) {
-        this.$router.push('/chat');
-      } else {
-        this.show = !this.show;
-      }
+      this.show = !this.show;
     }
 
-    addChat() {
-      this.chat = new Chat({
-        container: this.chatContainer,
-        username: this.$vxm.user.username ? this.$vxm.user.username : '',
-        uid: this.$vxm.user.uid ? this.$vxm.user.uid.toString() : '0',
-        onHidden: () => this.$root.$emit('bv::hide::popover', 'chat-container'),
-        backgroundColor: 'rgb(0, 22, 55)',
-      });
+    get windowSize() {
+      return {
+        width: window.innerWidth,
+        height: window.innerHeight
+      };
     }
   }
 </script>
@@ -78,22 +62,8 @@
     margin: 0 10px;
   }
 
-  #chat-container {
-    border-radius: 5px;
-    border: 2px solid rgba(47, 148, 209, 0.4);
-    width: 400px;
-    height: 500px;
-    background-color: rgb(0, 22, 55);
-  }
-
-  @media only screen and (max-height: 600px) {
-    #chat-container {
-      left: unset !important;
-      transform: unset !important;
-      right: 0 !important;
-      height: 100%;
-      margin: 0;
-    }
+  eterna-chat::part(chat-window) {
+    box-shadow: rgba(0, 0, 0, 0.6) 1px 1px 4px;
   }
 </style>
 

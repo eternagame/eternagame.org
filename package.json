@@ -37,7 +37,6 @@
     "dompurify": "^3.4.10",
     "dotenv": "^8.6.0",
     "eslint-config-prettier": "^8.10.2",
-    "eterna-chat-wrapper": "https://github.com/eternagame/eterna-chat-wrapper/archive/b7c15ba65073d99a2514009e1b4657c8dca3517d.tar.gz",
     "in-browser-language": "^1.0.3",
     "jquery": "^3.7.1",
     "jsdom": "^16.7.0",

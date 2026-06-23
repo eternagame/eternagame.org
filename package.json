@@ -102,7 +102,7 @@
     "eslint": "^8.20.0",
     "eslint-plugin-vue": "^9.33.0",
     "eslint-plugin-vuejs-accessibility": "^1.2.0",
-    "http-proxy-middleware": "^2.0.9",
+    "http-proxy-middleware": "^2.0.10",
     "jest": "^27.5.1",
     "lint-staged": "^17.0.5",
     "patch-package": "^8.0.1",

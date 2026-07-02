@@ -1,0 +1,82 @@
+{
+    "Sunday, July 26": [
+        {
+            "time": "July 26, 2026 09:00:00 PDT",
+            "topic": "Opening remarks",
+            "speaker": "Jill Townley",
+            "affiliation": "Eternacon 12 organizer",
+            "abstract": "Welcome to Eternacon 12 and logistics"
+        },
+        {
+            "time": "July 26, 2026 09:15:00 PDT",
+            "topic": "The Montparnasse algorithm for RNA design",
+            "speaker": "Prof. Tristan Cazenave",
+            "affiliation": "LAMSADE, Université Paris Dauphine - PSL",
+            "abstract": "RNA design consists of discovering a nucleotide sequence that optimizes predefined criteria, such as secondary structure. It is useful for synthetic biology, medicine, and nanotechnology. We propose Montparnasse, a Monte Carlo search framework based on Generalized Nested Rollout Policy Adaptation, augmented with a problem-specific prior, slow and long adaptation at level 1, and a lexicographic multicriteria evaluation. Montparnasse solves all 100 puzzles of the Eterna100 V1 benchmark consistently faster than DesiRNA, the previous state of the art, across all time limits, reaching full coverage more than three times faster overall. On messenger RNA secondary structure optimization for hemoglobin alpha, it identifies sequences with more paired bases than the MFE-optimal solution of LinearDesign."
+        },
+        {
+            "time": "July 26, 2026 09:45:00 PDT",
+            "topic": "From 2D puzzle to 3D realization",
+            "speaker": "Jill Townley",
+            "affiliation": "Eterna research coordinator",
+            "abstract": "The puzzles and outcomes reported in \"De novo design of RNA pseudoknots with deep learning\" will be reviewed with an eye to the roles played by Eterna players and key findings relevant to pseudoknotted structures."
+        },
+        {
+            "time": "July 26, 2026 10:15:00 PDT",
+            "topic": "Replicase pilot results",
+            "speaker": "Prof. Rhiju Das",
+            "affiliation": "Stanford University",
+            "abstract": "Hot off the press! Experimental data on the ribozyme activity and copyability of sequences submitted to the Replicase pilot puzzle will be presented along with a discussion of next steps."
+        },
+        {
+            "time": "July 26, 2026 10:45:00 PDT",
+            "topic": "Break"
+        },
+        {
+            "time": "July 26, 2026 11:00:00 PDT",
+            "topic": "Artificial pseudoknots potpourri",
+            "speaker": "Stephen Vincent (spvincent)",
+            "affiliation": "Eterna player",
+            "abstract": "Some techniques for working with artificial pseudoknots."
+        },
+        {
+            "time": "July 26, 2026 11:30:00 PDT",
+            "topic": "How to harvest a PotatoKnot",
+            "speaker": "Jieux",
+            "affiliation": "Eterna player",
+            "abstract": "There was some interest about how players went about their pseudoknot detective activites; this was my approach."
+        },
+        {
+            "time": "July 26, 2026 12:00:00 PDT",
+            "topic": "High resolution Cryo-EM enabled through use of an RNA scaffold",
+            "speaker": "Daniel Haack",
+            "affiliation": "A-Form Solutions and The University of California, San Diego",
+            "abstract": "Through the use of an RNA scaffolding method, we can now routinely solve RNA structures to high resolution."
+        },
+        {
+            "time": "July 26, 2026 12:30:00 PDT",
+            "topic": "Break"
+        },
+        {
+            "time": "July 26, 2026 12:45:00 PDT",
+            "topic": "Composite fine-tuning of pre-trained RNA language models for secondary structure prediction",
+            "speaker": "Arnuv Modh",
+            "affiliation": "University of Houston",
+            "abstract": "This presentation describes an AI pipeline for RNA secondary structure prediction using attention maps from pretrained RNA language models. By extracting where the model “focuses” across nucleotide pairs, the project converts attention patterns into features for machine learning models such as Random Forest, MLP, and XGBoost. Optimized decoding, class weighting, and validation improved prediction accuracy and helped identify biologically meaningful RNA pairing relationships."
+        },
+        {
+            "time": "July 26, 2026 13:15:00 PDT",
+            "topic": "Algorithmic RNA design and Eterna",
+            "speaker": "Thomas Karagianes",
+            "affiliation": "Eterna developer",
+            "abstract": "This talk explores the landscape of RNA design and optimization machine learning algorithms, and examines how Eterna can best integrate these new tools to support our players and make them better RNA designers. We'll focus on the recently integrated Ribotree algorithm for DegScore optimization and what we learned from players about adding these tools to Eterna."
+        },
+        {
+            "time": "July 26, 2026 13:45:00 PDT",
+            "topic": "Puzzle race",
+            "speaker": "William Dunlap (Astromon)",
+            "affiliation": "Eterna player",
+            "abstract": "Join the annual challenge to solve a puzzle specifically designed for Eternacon 2026."
+        }
+    ]
+}

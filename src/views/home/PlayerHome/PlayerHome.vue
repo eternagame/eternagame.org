@@ -11,6 +11,7 @@
         img-height="480"
         style="text-shadow: 1px 1px 2px #333"
       >
+        <EternaconSlide></EternaconSlide>
         <template v-if="hasLabAccess">
           <LabSlide
             v-for="lab in labCarouselLabs"

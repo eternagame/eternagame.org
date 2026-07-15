@@ -63,7 +63,8 @@
   }
 
   eterna-chat::part(chat-window) {
-    box-shadow: rgba(0, 0, 0, 0.6) 1px 1px 4px;
+    box-shadow: 1px 1px 4px #000;
+    border: 2px solid rgba(47,148,209,.6);
   }
 
   eterna-chat {

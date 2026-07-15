@@ -65,32 +65,11 @@
   eterna-chat::part(chat-window) {
     box-shadow: rgba(0, 0, 0, 0.6) 1px 1px 4px;
   }
-</style>
 
-<style>
-  #chat-container > .popover-body {
-    height: 100%;
-  }
-
-  #chat-container > .popover-body > .chat-container {
-    height: 100%;
-  }
-
-  #chat-container .chat-selectors {
-    height: unset;
-  }
-
-  #chat-container .chat-frame {
-    width: 100%;
-    height: 100%;
-  }
-
-  #chat-container .chat-close {
-    right: -15px;
-    top: 5px;
-  }
-
-  #chat-container .arrow {
-    display: none;
+  eterna-chat {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3000;
   }
 </style>

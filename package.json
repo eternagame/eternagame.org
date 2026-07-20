@@ -30,7 +30,7 @@
     "@fullcalendar/timegrid": "^5.11.5",
     "@fullcalendar/vue": "^5.11.5",
     "altcha-lib": "^1.4.1",
-    "axios": "^1.16.1",
+    "axios": "^1.18.1",
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.49.0",

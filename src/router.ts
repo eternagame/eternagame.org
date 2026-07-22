@@ -260,11 +260,6 @@ export default function createRouter() {
         component: () => import('./views/lost/NotFound.vue'),
       },
       {
-        path: '/chat',
-        name: 'chat',
-        component: () => import('./views/chat/FullPageChat.vue'),
-      },
-      {
         path: '/eternacon',
         redirect: { name: 'eternacon-2026' }
       },
@@ -420,6 +415,7 @@ export default function createRouter() {
   });
 
   router.onError((err) => {
+    // eslint-disable-next-line no-console
     console.log('onError', lastIntendedRoute, err);
 
     // If the route attempts to import a chunk that doesn't exist, almost certainly this is due to

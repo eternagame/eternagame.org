@@ -157,7 +157,6 @@
     }
 
     async addPuzzle(nid: String) {
-      console.log('adding', nid);
       const puzzle = (await this.$http.get(`/get/?type=puzzle&nid=${nid}`)).data.data.puzzle as PuzzleItem;
       this.$emit('update:puzzles', [
         ...this.puzzlelist,

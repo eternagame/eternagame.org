@@ -28,7 +28,20 @@
     <!-- ><br /> -->
     <!-- <b>{{ $t('lab-info:round-number') }} 4</b> -->
 
+    <template v-if="openedDate">
+      <span class="gray-header">Lab Opened:</span><br />
+      <span style="font-weight: bold;">{{ openedDate }}</span><br />
+      <br />
+    </template>
+
+    <template v-if="closedDate">
+      <span class="gray-header">Lab Closed:</span><br />
+      <span style="font-weight: bold;">{{ closedDate }}</span><br />
+      <br />
+    </template>
+
     <div style="display: flex; flex-direction: column; align-items: baseline">
+      <span class="gray-header">Submissions:</span><br />
       <div class="d-none d-lg-block" style="font-size: 14px;" v-if="lab.project_closes">
         <p v-if="lab.designs_to_be_synthesized" style="text-align: left; margin-bottom: 8px;">
           <span style="font-weight: bold;">{{ lab.designs_to_be_synthesized }} {{ $t('count-down:select-synthesis-bold') }}</span>
@@ -91,6 +104,30 @@
         progress: this.lab.total_submitted_solutions_of_user,
         total: this.lab.max_designs,
       };
+    }
+
+    get openedDate() {
+      if (this.lab.opened_date) {
+        return Intl.DateTimeFormat([], {
+          dateStyle: 'long',
+          // month: 'long',
+          // year: 'numeric'
+        }).format(new Date(+this.lab.opened_date * 1000));
+      }
+
+      return null;
+    }
+
+    get closedDate() {
+      if (this.closed && this.lab.project_closes) {
+        return Intl.DateTimeFormat([], {
+          dateStyle: 'long',
+          // month: 'long',
+          // year: 'numeric'
+        }).format(new Date(+this.lab.project_closes * 1000));
+      }
+
+      return null;
     }
 
     get closed() {

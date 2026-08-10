@@ -35,9 +35,9 @@
     </template>
 
     <template v-if="closeDate">
-      <span class="gray-header" v-if="!closed">Lab Closes:</span><br />
-      <span class="gray-header" v-if="closed">Lab Closed:</span><br />
-      <span style="font-weight: bold;">{{ closeDate }}</span><br />
+      <span class="gray-header" v-if="!closed">Lab Closes:</span>
+      <span class="gray-header" v-if="closed">Lab Closed:</span>
+      <br /><span style="font-weight: bold;">{{ closeDate }}</span><br />
       <br />
     </template>
 

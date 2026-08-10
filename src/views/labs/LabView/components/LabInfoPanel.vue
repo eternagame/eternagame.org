@@ -42,7 +42,7 @@
     </template>
 
     <div style="display: flex; flex-direction: column; align-items: baseline">
-      <span class="gray-header">Submissions:</span><br />
+      <span class="gray-header">Submission Details:</span><br />
       <div class="d-none d-lg-block" style="font-size: 14px;" v-if="lab.project_closes">
         <p v-if="lab.designs_to_be_synthesized" style="text-align: left; margin-bottom: 8px;">
           <span style="font-weight: bold;">{{ lab.designs_to_be_synthesized }} {{ $t('count-down:select-synthesis-bold') }}</span>

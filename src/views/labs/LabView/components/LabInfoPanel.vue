@@ -34,9 +34,10 @@
       <br />
     </template>
 
-    <template v-if="closedDate">
-      <span class="gray-header">Lab Closed:</span><br />
-      <span style="font-weight: bold;">{{ closedDate }}</span><br />
+    <template v-if="closeDate">
+      <span class="gray-header" v-if="!closed">Lab Closes:</span><br />
+      <span class="gray-header" v-if="closed">Lab Closed:</span><br />
+      <span style="font-weight: bold;">{{ closeDate }}</span><br />
       <br />
     </template>
 
@@ -118,8 +119,8 @@
       return null;
     }
 
-    get closedDate() {
-      if (this.closed && this.lab.project_closes) {
+    get closeDate() {
+      if (this.lab.project_closes) {
         return Intl.DateTimeFormat([], {
           dateStyle: 'long',
           // month: 'long',

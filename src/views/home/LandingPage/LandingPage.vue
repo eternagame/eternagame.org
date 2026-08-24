@@ -75,15 +75,13 @@
       <div class="card featured-lab">
         <div class="card-body">
           <h4 class="h6 text-uppercase">Featured Lab Challenge</h4>
-          <h5 class="h4 mt-3">OpenKnot</h5>
+          <h5 class="h4 mt-3">OpenReplicase</h5>
           <p>
-            Many important biological processes depend on RNAs that form pseudoknots, and they are
-            among the most conserved structures in evolutionary history. However, scientists still
-            have much to learn about their properties, structure, and functions.
+             Could a catalytic RNA sequence have been the origins of life on our planet?
           </p>
-          <b-btn to="challenges/11843006" variant="primary" class="mt-2">Enter lab</b-btn>
+          <b-btn to="challenges/15808754" variant="primary" class="mt-2">Enter lab</b-btn>
         </div>
-        <img src="@/assets/front-page/img/thumb-openknot.png" alt="">
+        <img src="@/assets/front-page/img/thumb-openreplicase.png" alt="">
       </div>
 
       <h4 class="h3 my-3" style="text-align: center;">Explore Resources</h4>
@@ -338,7 +336,7 @@
       }
 
       .card-body {
-        flex-shrink: 2.5;
+        flex-shrink: 1;
         display: flex;
         flex-direction: column;
         justify-content: center;

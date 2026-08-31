@@ -6,6 +6,7 @@ export interface PuzzleData {
   secstruct: string;
   sequence: string;
   rna_type: string;
+  type: string;
   object: string;
   constraint: string;
   cover_image: null;

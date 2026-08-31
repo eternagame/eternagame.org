@@ -3,25 +3,35 @@
     :title="puzzle.title"
     :nid="puzzle.nid"
     :aspectRatio="1.18"
-    :numSlots="puzzle.num_slots"
-    :numSynths="puzzle.num_synthesized"
-    :mySolutions="puzzle.num_solutions"
-    :maxSubmissions="puzzle.player_max_submissions"
+    :numSlots="puzzle.type === 'Experimental' ? puzzle.num_slots : undefined"
+    :numSynths="puzzle.type === 'Experimental' ? puzzle.num_synthesized : undefined"
+    :mySolutions="puzzle.type === 'Experimental' ? puzzle.num_solutions : undefined"
+    :maxSubmissions="puzzle.type === 'Experimental' ? puzzle.player_max_submissions : undefined"
     :states="states"
-    :numSubmitted="puzzle.submitted"
+    :numSubmitted="puzzle.type === 'Experimental' ? puzzle.submitted : undefined"
+    :numSolutions="puzzle.type !== 'Experimental' ? puzzle.submitted : undefined"
     :backgroundLink="false"
     :is3d="puzzle['has3d'] === '1'"
+    :cleared="puzzle.num_solutions > 0"
+    :madeByPlayer="puzzle.madeByPlayer !== 0"
+    :username="puzzle.username"
+    :userpicture="puzzle.userpicture"
   >
     <div class="text-center image-container">
       <img :src="imageURL" alt="" class="image" />
     </div>
     <template #buttons>
-      <b-button :to="`/puzzles/${puzzle.nid}/play`" variant="primary" size="sm">{{
-        closed ? $t('lab-puzzle-card:closed-main') : $t('lab-puzzle-card:main')
-      }}</b-button>
-      <b-button :to="`/puzzles/${puzzle.nid}/browse`" variant="secondary" size="sm">{{
-        closed ? $t('lab-puzzle-card:closed-secondary') : $t('lab-puzzle-card:secondary')
-      }}</b-button>
+      <template v-if="puzzle.type === 'Challenge'">
+        <b-button :to="`/puzzles/${puzzle.nid}/play`" variant="primary" size="sm" class="btn-full">Solve</b-button>
+      </template>
+      <template v-else>
+        <b-button :to="`/puzzles/${puzzle.nid}/play`" variant="primary" size="sm" class="btn-split">{{
+          closed ? $t('lab-puzzle-card:closed-main') : $t('lab-puzzle-card:main')
+        }}</b-button>
+        <b-button :to="`/puzzles/${puzzle.nid}/browse`" variant="secondary" size="sm" class="btn-split">{{
+          closed ? $t('lab-puzzle-card:closed-secondary') : $t('lab-puzzle-card:secondary')
+        }}</b-button>
+      </template>
     </template>
   </PuzzleCard>
 </template>
@@ -54,7 +64,12 @@
 </script>
 
 <style lang="scss" scoped>
-  :deep(.btn) {
+  .btn-full {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 0px;
+  }
+  .btn-split {
     display: inline-block;
     width: 48%;
     margin-bottom: 0px;

@@ -3,9 +3,9 @@
     <AspectRatioCard :aspectRatio="aspectRatio" :id="`popover-target-${nid}`" class="card">
       <template #header>
         <div class="puzzle-card-title" v-if="title">
-          <img src="@/assets/noun_check.svg" alt="cleared" v-if="cleared" style="float:right" />
+          <SmartLink :link="`/puzzles/${nid}`"><img src="@/assets/info.svg" alt="info" v-if="!backgroundLink" style="float:right; margin-left: 4px;" /></SmartLink>
 
-          <SmartLink :link="`/puzzles/${nid}`"><img src="@/assets/info.svg" alt="info" v-if="!backgroundLink" style="float:right" /></SmartLink>
+          <img src="@/assets/noun_check.svg" alt="cleared" v-if="cleared" style="float:right" />
 
           <b>{{ title }}</b>
         </div>

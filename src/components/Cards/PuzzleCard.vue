@@ -56,7 +56,7 @@
             <img src="@/assets/dollar.svg" alt="Reward">
             {{ reward }}
           </div>
-          <div v-b-tooltip.hover title="Players cleared">
+          <div v-if="numSubmitted === undefined" v-b-tooltip.hover title="Players cleared">
             <img src="@/assets/people.svg" alt="Players cleared" />
             {{ numCleared || 0 }}
           </div>

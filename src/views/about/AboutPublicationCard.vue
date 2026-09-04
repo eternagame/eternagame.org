@@ -1,16 +1,18 @@
 <template>
   <b-col cols="12" class="col-md-4 col-sm-6 list-item-container card">
     <a :href="pub.link" target="_blank">
-      <img
-        v-if="pub.image"
-        :src="`/sites/default/files/${pub.image}`"
-        :alt="`${pub.title} image`"
-        class="graphic"
-      />
-      <div v-else class="no-graphic">
+      <div class="graphic-bg">
         <img
+          v-if="pub.image"
+          :src="`/sites/default/files/${pub.image}`"
+          :alt="`${pub.title} image`"
+          class="graphic"
+        />
+        <img
+          v-else
           src="@/assets/logomark_eterna.svg"
           alt="eterna logomark"
+          class="no-graphic"
         />
       </div>
       <p class="year">
@@ -70,26 +72,23 @@
     }
   }
   .graphic {
+    height: 100%;
     width: 100%;
-    height: 167px;
-    border-radius: 2.5px;
-    margin-bottom: 0.69rem;
+    object-fit: contain;
   }
 
   .no-graphic {
-    position: relative;
+    height: 50%;
+  }
+
+  .graphic-bg {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 167px;
     background: #071225;
     border-radius: 2.5px;
-    padding: 10px;
     margin-bottom: 0.69rem;
-
-    & > img {
-      height: 50%;
-    }
   }
   .year {
     font-size: 0.875rem;

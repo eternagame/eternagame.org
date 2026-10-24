@@ -102,8 +102,13 @@
     }
 
     get gameUrl() {
-      const sequenceParam = this.iframeSequence ? `&sequence=${this.iframeSequence}` : '';
-      return `${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/index.html?puzzle=${this.iframePuzzleId}${sequenceParam}`;
+      const url = `${process.env.VUE_APP_API_BASE_URL}/eternajs/dist/prod/index.html?puzzle=${this.iframePuzzleId}`;
+      if (!this.iframeSequence) return url;
+
+      const sequenceUrl = `${url}&sequence=${encodeURIComponent(this.iframeSequence)}`;
+      // Use a conservative full-URL budget, including the origin for relative API URLs.
+      // Omit oversized solutions entirely so the puzzle can still load without HTTP 414.
+      return new URL(sequenceUrl, window.location.href).href.length <= 2000 ? sequenceUrl : url;
     }
 
     async updateLatestPuzzle() {
